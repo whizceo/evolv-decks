@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Real Estate — 109 Problems → AI Solutions | Evolv AI</title>
+<style>
+  :root {
+    --bg:#0b0d12; --panel:#12151c; --panel2:#171b24; --line:#222836;
+    --text:#e8ecf4; --muted:#8a93a6; --accent:#7c5cff;
+    --easy:#11b3a3; --mid:#e0851b; --hard:#5a6275;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    line-height:1.45;
+  }
+  .wrap { max-width:1180px; margin:0 auto; padding:32px 20px 80px; }
+  header.hero { padding:14px 0 8px; }
+  .eyebrow { color:var(--accent); font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; font-size:12px; }
+  h1 { font-size:34px; line-height:1.12; margin:8px 0 6px; font-weight:800; letter-spacing:-.02em; }
+  h1 span { color:var(--accent); }
+  .sub { color:var(--muted); max-width:760px; font-size:15px; }
+  .stats { display:flex; gap:14px; flex-wrap:wrap; margin:22px 0 8px; }
+  .stat { background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:14px 18px; min-width:120px; }
+  .stat b { display:block; font-size:26px; font-weight:800; }
+  .stat small { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
+  .legend { display:flex; gap:18px; flex-wrap:wrap; margin:10px 0 0; font-size:13px; color:var(--muted); }
+  .dot { display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:middle; }
+  .controls { position:sticky; top:0; z-index:5; background:linear-gradient(var(--bg),var(--bg) 78%,transparent);
+    padding:16px 0 12px; margin-top:18px; }
+  .filtrow { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:8px; }
+  .filtrow .lbl { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; width:56px; }
+  .filt { background:var(--panel2); color:var(--text); border:1px solid var(--line);
+    padding:6px 12px; border-radius:999px; font-size:13px; cursor:pointer; transition:.15s; }
+  .filt:hover { border-color:var(--accent); }
+  .filt.active { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+  .grid { display:grid; grid-template-columns:1fr; gap:12px; }
+  .card { display:flex; gap:0; background:var(--panel); border:1px solid var(--line);
+    border-radius:14px; overflow:hidden; }
+  .card .rank { width:54px; flex:0 0 54px; display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:18px; color:var(--muted); background:var(--panel2);
+    border-right:1px solid var(--line); }
+  .card.easy { border-left:3px solid var(--easy); }
+  .card.mid { border-left:3px solid var(--mid); }
+  .card.hard { border-left:3px solid var(--hard); }
+  .card .body { padding:14px 16px; flex:1; min-width:0; }
+  .toprow { display:flex; align-items:center; gap:10px; margin-bottom:4px; }
+  .cat { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); font-weight:700; }
+  .pid { font-size:11px; color:var(--muted); }
+  .score { margin-left:auto; font-weight:800; font-size:15px; background:var(--panel2);
+    border:1px solid var(--line); border-radius:8px; padding:2px 10px; }
+  .problem { font-size:17px; font-weight:700; margin-bottom:8px; }
+  .solrow { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
+  .typetag { font-size:11px; font-weight:700; color:#fff; padding:3px 9px; border-radius:6px;
+    text-transform:uppercase; letter-spacing:.05em; }
+  .sol { font-weight:700; color:var(--accent); font-size:15px; }
+  .desc { color:#c4cad6; font-size:14px; margin-bottom:10px; }
+  .chips { display:flex; gap:6px; flex-wrap:wrap; }
+  .chip { font-size:11px; color:var(--muted); background:var(--panel2); border:1px solid var(--line);
+    padding:2px 8px; border-radius:6px; }
+  .chip b { color:#aeb6c6; font-weight:600; }
+  footer { margin-top:40px; color:var(--muted); font-size:13px; text-align:center; }
+  @media(min-width:760px){ .grid { grid-template-columns:1fr 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Evolv AI · Real Estate Intelligence</div>
+    <h1>109 Real Estate Problems → <span>AI Solutions</span></h1>
+    <p class="sub">Every catalogued problem a real estate business owner faces, each paired with a specific AI agent, automation, system or infrastructure play — and ranked by how <b>easy it is to sell</b> (weighted toward tech-fixability, owner awareness, pain, frequency and delegatability).</p>
+    <div class="stats">
+      <div class="stat"><b>109</b><small>Problems</small></div>
+      <div class="stat"><b>109</b><small>AI Solutions</small></div>
+      <div class="stat"><b>43</b><small>Easy-Win Pitches</small></div>
+      <div class="stat"><b>4</b><small>Solution Types</small></div>
+    </div>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--easy)"></span>Easy to sell (62+)</span>
+      <span><span class="dot" style="background:var(--mid)"></span>Mid (50–61)</span>
+      <span><span class="dot" style="background:var(--hard)"></span>Harder / advisory (&lt;50)</span>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="filtrow"><span class="lbl">Type</span><button class="filt" data-f="type" data-v="All">All</button><button class="filt" data-f="type" data-v="Agent">Agent</button><button class="filt" data-f="type" data-v="Automation">Automation</button><button class="filt" data-f="type" data-v="Infrastructure">Infrastructure</button><button class="filt" data-f="type" data-v="System">System</button></div>
+    <div class="filtrow"><span class="lbl">Category</span><button class="filt" data-f="cat" data-v="All">All</button><button class="filt" data-f="cat" data-v="Clients">Clients</button><button class="filt" data-f="cat" data-v="Finance">Finance</button><button class="filt" data-f="cat" data-v="Legal">Legal</button><button class="filt" data-f="cat" data-v="Marketing">Marketing</button><button class="filt" data-f="cat" data-v="Ops">Ops</button><button class="filt" data-f="cat" data-v="People">People</button><button class="filt" data-f="cat" data-v="Strategy">Strategy</button><button class="filt" data-f="cat" data-v="Tech">Tech</button></div>
+  </div>
+
+  <div class="grid" id="grid">
+    
+    <div class="card easy" data-type="System" data-cat="Marketing" data-sell="83.1">
+      <div class="rank">1</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#1</span>
+          <span class="score" title="Sellability score">83.1</span>
+        </div>
+        <div class="problem">Lead generation is inconsistent</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">AI Lead-Gen Engine</span>
+        </div>
+        <div class="desc">Multi-channel capture + enrichment + scoring feeds a steady, predictable pipeline. THE core pitch.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 9</span><span class="chip"><b>TechFix</b> 9</span><span class="chip"><b>Aware</b> 8</span><span class="chip"><b>Freq</b> 10</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 10</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Finance" data-sell="78.8">
+      <div class="rank">2</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#3</span>
+          <span class="score" title="Sellability score">78.8</span>
+        </div>
+        <div class="problem">Cash flow management</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Cash-Flow Forecasting Agent</span>
+        </div>
+        <div class="desc">Pulls pipeline + commissions + expenses, projects 90-day cash position, flags shortfalls before they hit.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 9</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 8</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 10</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Automation" data-cat="Marketing" data-sell="76.6">
+      <div class="rank">3</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#24</span>
+          <span class="score" title="Sellability score">76.6</span>
+        </div>
+        <div class="problem">Poor follow-up processes</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Automated Follow-Up Sequences</span>
+        </div>
+        <div class="desc">Never-drop nurture across email/SMS/voicemail with smart timing. The hidden-leak fix.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 7</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Agent" data-cat="Marketing" data-sell="75.7">
+      <div class="rank">4</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#5</span>
+          <span class="score" title="Sellability score">75.7</span>
+        </div>
+        <div class="problem">Low conversion rate on leads</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Speed-to-Lead + Nurture Agent</span>
+        </div>
+        <div class="desc">Responds to every lead in seconds, qualifies, and nurtures until they&#x27;re sales-ready.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Agent" data-cat="Ops" data-sell="75.1">
+      <div class="rank">5</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#19</span>
+          <span class="score" title="Sellability score">75.1</span>
+        </div>
+        <div class="problem">Transaction coordination bottlenecks</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">AI Transaction Coordinator</span>
+        </div>
+        <div class="desc">Runs the file end-to-end: checklists, doc collection, deadline chasing, status updates.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 7</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Finance" data-sell="71.2">
+      <div class="rank">6</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#88</span>
+          <span class="score" title="Sellability score">71.2</span>
+        </div>
+        <div class="problem">Profit margin erosion</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Profit-Leak Detection System</span>
+        </div>
+        <div class="desc">Continuously reconciles revenue vs. true cost-per-deal and ranks the biggest margin leaks to plug.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 9</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 10</span><span class="chip"><b>Cost</b> 10</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Infrastructure" data-cat="Ops" data-sell="70.9">
+      <div class="rank">7</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#41</span>
+          <span class="score" title="Sellability score">70.9</span>
+        </div>
+        <div class="problem">Lack of systems &amp; SOPs</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">SOP &amp; Workflow Automation Layer</span>
+        </div>
+        <div class="desc">Turns tribal knowledge into documented, automated workflows the whole office runs on.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Marketing" data-sell="70.9">
+      <div class="rank">8</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#25</span>
+          <span class="score" title="Sellability score">70.9</span>
+        </div>
+        <div class="problem">Social media presence management</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Social Content Engine</span>
+        </div>
+        <div class="desc">Generates, schedules and posts on-brand content across channels — hands-off.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 9</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 7</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Marketing" data-sell="70.8">
+      <div class="rank">9</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#8</span>
+          <span class="score" title="Sellability score">70.8</span>
+        </div>
+        <div class="problem">Negative online reviews</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Reputation-Management System</span>
+        </div>
+        <div class="desc">Auto-requests reviews from happy clients and alerts + drafts responses to negatives fast.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 6</span><span class="chip"><b>Aware</b> 9</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Marketing" data-sell="70.8">
+      <div class="rank">10</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#14</span>
+          <span class="score" title="Sellability score">70.8</span>
+        </div>
+        <div class="problem">Rising marketing costs</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Ad-Spend Optimization System</span>
+        </div>
+        <div class="desc">Reallocates budget to the channels actually producing closings, cutting wasted spend.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Ops" data-sell="70.6">
+      <div class="rank">11</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#12</span>
+          <span class="score" title="Sellability score">70.6</span>
+        </div>
+        <div class="problem">Slow deal closing cycles</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Transaction-Acceleration System</span>
+        </div>
+        <div class="desc">Orchestrates every closing task/deadline and auto-chases the blocker holding up the deal.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 6</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Automation" data-cat="Ops" data-sell="70.1">
+      <div class="rank">12</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#7</span>
+          <span class="score" title="Sellability score">70.1</span>
+        </div>
+        <div class="problem">Managing multiple listing platforms</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Listing Syndication Automation</span>
+        </div>
+        <div class="desc">Write once, auto-publish + update listings across every portal and channel from one place.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 9</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 7</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Agent" data-cat="Marketing" data-sell="69.7">
+      <div class="rank">13</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#43</span>
+          <span class="score" title="Sellability score">69.7</span>
+        </div>
+        <div class="problem">Website lead quality</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Website Conversion Agent</span>
+        </div>
+        <div class="desc">On-site chat that qualifies visitors, books showings and routes only good leads to agents.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Finance" data-sell="69.5">
+      <div class="rank">14</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#33</span>
+          <span class="score" title="Sellability score">69.5</span>
+        </div>
+        <div class="problem">Commission compression</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Margin &amp; Pricing Optimizer</span>
+        </div>
+        <div class="desc">Models commission scenarios and identifies where automation cuts cost-to-serve to protect margin.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 9</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 8</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 2</span><span class="chip"><b>Growth</b> 10</span><span class="chip"><b>Cost</b> 10</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Infrastructure" data-cat="Ops" data-sell="68.8">
+      <div class="rank">15</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#21</span>
+          <span class="score" title="Sellability score">68.8</span>
+        </div>
+        <div class="problem">Difficulty tracking agent KPIs</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">KPI Tracking Dashboard</span>
+        </div>
+        <div class="desc">Live agent scorecards pulled straight from CRM/MLS — no manual reporting.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 9</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Infrastructure" data-cat="Tech" data-sell="68.8">
+      <div class="rank">16</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Tech</span>
+          <span class="pid">#10</span>
+          <span class="score" title="Sellability score">68.8</span>
+        </div>
+        <div class="problem">Poor CRM adoption by agents</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">CRM Auto-Enrichment Layer</span>
+        </div>
+        <div class="desc">Auto-logs activity and updates records so agents get value without manual data entry.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 9</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Infrastructure" data-cat="Legal" data-sell="68.7">
+      <div class="rank">17</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#48</span>
+          <span class="score" title="Sellability score">68.7</span>
+        </div>
+        <div class="problem">Wire fraud &amp; cybersecurity</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Wire-Fraud Guard System</span>
+        </div>
+        <div class="desc">Verified-payment-instruction workflow + anomaly detection + client warnings to stop wire fraud.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 9</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 10</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Marketing" data-sell="68.3">
+      <div class="rank">18</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#76</span>
+          <span class="score" title="Sellability score">68.3</span>
+        </div>
+        <div class="problem">SEO for local market</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Local-SEO Content System</span>
+        </div>
+        <div class="desc">Generates geo-targeted pages/posts and tracks rankings to own the local search market.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 9</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Infrastructure" data-cat="Strategy" data-sell="68.1">
+      <div class="rank">19</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#40</span>
+          <span class="score" title="Sellability score">68.1</span>
+        </div>
+        <div class="problem">Difficulty scaling operations</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Scalable Ops Infrastructure</span>
+        </div>
+        <div class="desc">Automation backbone that lets you add agents/volume without adding headcount.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 6</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 10</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Agent" data-cat="People" data-sell="68.0">
+      <div class="rank">20</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#15</span>
+          <span class="score" title="Sellability score">68.0</span>
+        </div>
+        <div class="problem">Difficulty recruiting qualified agents</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Recruiting Outreach Agent</span>
+        </div>
+        <div class="desc">Sources candidates, personalizes outreach and books recruiting calls on autopilot.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Infrastructure" data-cat="Ops" data-sell="68.0">
+      <div class="rank">21</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#13</span>
+          <span class="score" title="Sellability score">68.0</span>
+        </div>
+        <div class="problem">Inconsistent agent performance</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Performance Analytics System</span>
+        </div>
+        <div class="desc">Standardizes KPIs per agent and surfaces who needs coaching on what, weekly.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Agent" data-cat="Ops" data-sell="67.7">
+      <div class="rank">22</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#16</span>
+          <span class="score" title="Sellability score">67.7</span>
+        </div>
+        <div class="problem">Property management headaches</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Tenant/Owner Comms Agent</span>
+        </div>
+        <div class="desc">Handles maintenance intake, scheduling and owner/tenant updates 24/7.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Marketing" data-sell="67.7">
+      <div class="rank">23</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#77</span>
+          <span class="score" title="Sellability score">67.7</span>
+        </div>
+        <div class="problem">Paid ad spend management</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Paid-Ads Autopilot</span>
+        </div>
+        <div class="desc">Manages campaigns, bids and creative testing toward cost-per-closing targets.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Infrastructure" data-cat="Tech" data-sell="67.6">
+      <div class="rank">24</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Tech</span>
+          <span class="pid">#47</span>
+          <span class="score" title="Sellability score">67.6</span>
+        </div>
+        <div class="problem">Data security &amp; client info breaches</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Security &amp; Access Infrastructure</span>
+        </div>
+        <div class="desc">Access controls, encryption and monitoring to protect client data and meet obligations.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 9</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Infrastructure" data-cat="People" data-sell="67.5">
+      <div class="rank">25</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#6</span>
+          <span class="score" title="Sellability score">67.5</span>
+        </div>
+        <div class="problem">Difficulty retaining top agents</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Top-Producer Health Dashboard</span>
+        </div>
+        <div class="desc">Tracks production, satisfaction and comp signals for top agents so issues surface early.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 9</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 10</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Agent" data-cat="People" data-sell="67.4">
+      <div class="rank">26</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#18</span>
+          <span class="score" title="Sellability score">67.4</span>
+        </div>
+        <div class="problem">Agent training gaps</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">AI Training &amp; Roleplay Coach</span>
+        </div>
+        <div class="desc">On-demand scripts, objection drills and roleplay so every agent ramps to a standard.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 6</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 7</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Automation" data-cat="Marketing" data-sell="66.8">
+      <div class="rank">27</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#17</span>
+          <span class="score" title="Sellability score">66.8</span>
+        </div>
+        <div class="problem">Lack of referral system</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Referral Engine Automation</span>
+        </div>
+        <div class="desc">Triggers timed referral asks post-close and tracks every referral to reward.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Agent" data-cat="Finance" data-sell="66.7">
+      <div class="rank">28</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#29</span>
+          <span class="score" title="Sellability score">66.7</span>
+        </div>
+        <div class="problem">Interest rate volatility impact</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Rate-Scenario Briefing Agent</span>
+        </div>
+        <div class="desc">Monitors rate moves, models impact on buyer pool, drafts client comms — advisory, not a fix for the market itself.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 9</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 8</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 2</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 9</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Strategy" data-sell="66.6">
+      <div class="rank">29</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#31</span>
+          <span class="score" title="Sellability score">66.6</span>
+        </div>
+        <div class="problem">Competition from discount brokerages</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Value-Differentiation System</span>
+        </div>
+        <div class="desc">Quantifies and packages your service edge so price isn&#x27;t the only conversation.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 8</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Agent" data-cat="Ops" data-sell="66.5">
+      <div class="rank">30</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#71</span>
+          <span class="score" title="Sellability score">66.5</span>
+        </div>
+        <div class="problem">Showings scheduling conflicts</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Showing Scheduler Agent</span>
+        </div>
+        <div class="desc">Self-serve booking that syncs calendars and resolves conflicts without phone tag.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 7</span><span class="chip"><b>Growth</b> 4</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Automation" data-cat="Finance" data-sell="65.9">
+      <div class="rank">31</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#61</span>
+          <span class="score" title="Sellability score">65.9</span>
+        </div>
+        <div class="problem">Payroll management for staff</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Payroll &amp; Commission Automation</span>
+        </div>
+        <div class="desc">Automates split calculations, payroll runs and agent statements from closed-deal data.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 4</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="People" data-sell="65.4">
+      <div class="rank">32</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#2</span>
+          <span class="score" title="Sellability score">65.4</span>
+        </div>
+        <div class="problem">High agent turnover</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Agent-Churn Early-Warning System</span>
+        </div>
+        <div class="desc">Scores engagement/production signals to flag at-risk agents before they walk.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Automation" data-cat="Tech" data-sell="65.1">
+      <div class="rank">33</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Tech</span>
+          <span class="pid">#80</span>
+          <span class="score" title="Sellability score">65.1</span>
+        </div>
+        <div class="problem">CRM data hygiene</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Data-Hygiene Automation</span>
+        </div>
+        <div class="desc">Continuously dedupes, validates and enriches CRM records automatically.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 9</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Infrastructure" data-cat="Tech" data-sell="64.8">
+      <div class="rank">34</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Tech</span>
+          <span class="pid">#81</span>
+          <span class="score" title="Sellability score">64.8</span>
+        </div>
+        <div class="problem">Tech stack integration chaos</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Integration Middleware Layer</span>
+        </div>
+        <div class="desc">Connects MLS/CRM/marketing/finance tools so data flows without copy-paste.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Automation" data-cat="Tech" data-sell="64.5">
+      <div class="rank">35</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Tech</span>
+          <span class="pid">#85</span>
+          <span class="score" title="Sellability score">64.5</span>
+        </div>
+        <div class="problem">Electronic signature compliance</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">E-Sign Workflow Automation</span>
+        </div>
+        <div class="desc">Compliant e-sign routing with audit trail baked into every transaction.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 5</span><span class="chip"><b>TechFix</b> 9</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 7</span><span class="chip"><b>Growth</b> 3</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Ops" data-sell="64.3">
+      <div class="rank">36</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#11</span>
+          <span class="score" title="Sellability score">64.3</span>
+        </div>
+        <div class="problem">Inaccurate property valuations</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">AI Valuation (AVM) Engine</span>
+        </div>
+        <div class="desc">Comps + market signals produce defensible price ranges and a one-click CMA.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 6</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Infrastructure" data-cat="Marketing" data-sell="63.4">
+      <div class="rank">37</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#79</span>
+          <span class="score" title="Sellability score">63.4</span>
+        </div>
+        <div class="problem">Referral tracking &amp; attribution</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Referral Attribution System</span>
+        </div>
+        <div class="desc">Tracks every referral source to deal so you know who and what to double down on.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Automation" data-cat="Marketing" data-sell="62.7">
+      <div class="rank">38</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#74</span>
+          <span class="score" title="Sellability score">62.7</span>
+        </div>
+        <div class="problem">Email list decay</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">List-Reengagement Automation</span>
+        </div>
+        <div class="desc">Cleans the list and runs win-back sequences to revive cold contacts.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="People" data-sell="62.4">
+      <div class="rank">39</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#105</span>
+          <span class="score" title="Sellability score">62.4</span>
+        </div>
+        <div class="problem">Onboarding new agents poorly</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Automated Onboarding System</span>
+        </div>
+        <div class="desc">Guided onboarding flow with tasks, training and CRM setup so day-1 agents are productive fast.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 6</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="System" data-cat="Ops" data-sell="62.4">
+      <div class="rank">40</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#67</span>
+          <span class="score" title="Sellability score">62.4</span>
+        </div>
+        <div class="problem">Agent productivity plateaus</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Productivity Insights System</span>
+        </div>
+        <div class="desc">Spots where each agent leaks time/deals and recommends the next-best action.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 6</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Agent" data-cat="Legal" data-sell="62.3">
+      <div class="rank">41</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#9</span>
+          <span class="score" title="Sellability score">62.3</span>
+        </div>
+        <div class="problem">Compliance with changing regulations</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Regulatory-Change Monitor Agent</span>
+        </div>
+        <div class="desc">Watches reg sources, flags what changed, and updates checklists/templates so nothing slips.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 9</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Agent" data-cat="Legal" data-sell="62.3">
+      <div class="rank">42</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#58</span>
+          <span class="score" title="Sellability score">62.3</span>
+        </div>
+        <div class="problem">Fair housing compliance</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Fair-Housing Copy Reviewer</span>
+        </div>
+        <div class="desc">Scans listings/ads/messages for fair-housing-risk language before they go public.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 9</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 6</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 9</span></div>
+      </div>
+    </div>
+    <div class="card easy" data-type="Automation" data-cat="Ops" data-sell="62.3">
+      <div class="rank">43</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#51</span>
+          <span class="score" title="Sellability score">62.3</span>
+        </div>
+        <div class="problem">Buyer financing falling through</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Pre-Approval Verification Flow</span>
+        </div>
+        <div class="desc">Standardizes pre-approval checks and monitors financing milestones to catch fallout early.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Finance" data-sell="61.9">
+      <div class="rank">44</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#107</span>
+          <span class="score" title="Sellability score">61.9</span>
+        </div>
+        <div class="problem">Seasonal revenue swings</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Seasonality Forecast Model</span>
+        </div>
+        <div class="desc">Models seasonal revenue curves and recommends when to build pipeline/reserves ahead of dips.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Tech" data-sell="61.8">
+      <div class="rank">45</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Tech</span>
+          <span class="pid">#82</span>
+          <span class="score" title="Sellability score">61.8</span>
+        </div>
+        <div class="problem">AI tools adoption gap</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">AI-Enablement &amp; Training Program</span>
+        </div>
+        <div class="desc">Rolls out the right AI tools with training and guardrails so the team actually uses them.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Infrastructure" data-cat="Ops" data-sell="61.7">
+      <div class="rank">46</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#42</span>
+          <span class="score" title="Sellability score">61.7</span>
+        </div>
+        <div class="problem">Managing remote agents</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Remote-Ops Command Center</span>
+        </div>
+        <div class="desc">Central hub for tasks, comms and visibility so remote agents stay aligned.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Automation" data-cat="Legal" data-sell="61.3">
+      <div class="rank">47</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#22</span>
+          <span class="score" title="Sellability score">61.3</span>
+        </div>
+        <div class="problem">Managing earnest money / escrow risk</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Escrow Deadline Watchdog</span>
+        </div>
+        <div class="desc">Tracks every escrow milestone and auto-alerts before any deposit/contingency deadline is missed.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Tech" data-sell="61.2">
+      <div class="rank">48</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Tech</span>
+          <span class="pid">#34</span>
+          <span class="score" title="Sellability score">61.2</span>
+        </div>
+        <div class="problem">Rising technology costs</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Tech-Stack Consolidation System</span>
+        </div>
+        <div class="desc">Replaces a sprawl of point tools with one AI-driven layer to cut SaaS spend.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Automation" data-cat="Ops" data-sell="61.1">
+      <div class="rank">49</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#72</span>
+          <span class="score" title="Sellability score">61.1</span>
+        </div>
+        <div class="problem">Lockbox &amp; access management</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Smart-Access Coordination</span>
+        </div>
+        <div class="desc">Issues time-boxed access codes tied to bookings and logs every entry automatically.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 5</span><span class="chip"><b>TechFix</b> 8</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 3</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Automation" data-cat="Marketing" data-sell="61.0">
+      <div class="rank">50</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#75</span>
+          <span class="score" title="Sellability score">61.0</span>
+        </div>
+        <div class="problem">Video content production costs</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">AI Video Production Pipeline</span>
+        </div>
+        <div class="desc">Turns listings/scripts into edited social + listing videos without a crew.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Automation" data-cat="Ops" data-sell="60.8">
+      <div class="rank">51</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#44</span>
+          <span class="score" title="Sellability score">60.8</span>
+        </div>
+        <div class="problem">Photography &amp; staging costs</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">AI Photo Enhance &amp; Virtual Staging</span>
+        </div>
+        <div class="desc">Auto-enhances photos and virtually stages empty rooms at a fraction of shoot cost.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 5</span><span class="chip"><b>TechFix</b> 6</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 4</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Tech" data-sell="60.6">
+      <div class="rank">52</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Tech</span>
+          <span class="pid">#103</span>
+          <span class="score" title="Sellability score">60.6</span>
+        </div>
+        <div class="problem">Slow adoption of new tech by agents</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Adoption-Nudge System</span>
+        </div>
+        <div class="desc">Tracks usage and delivers in-context nudges/training to drive tool adoption.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Strategy" data-sell="60.1">
+      <div class="rank">53</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#32</span>
+          <span class="score" title="Sellability score">60.1</span>
+        </div>
+        <div class="problem">iBuyer disruption (Opendoor etc.)</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Instant-Offer Counter Tool</span>
+        </div>
+        <div class="desc">Gives sellers an AI instant-value + net-sheet comparison to win against iBuyer offers.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 2</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Clients" data-sell="60.0">
+      <div class="rank">54</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Clients</span>
+          <span class="pid">#100</span>
+          <span class="score" title="Sellability score">60.0</span>
+        </div>
+        <div class="problem">Post-sale client complaints</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Post-Close Care System</span>
+        </div>
+        <div class="desc">Structured post-sale check-ins catch issues early and turn them into reviews + referrals.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 6</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Agent" data-cat="Tech" data-sell="60.0">
+      <div class="rank">55</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Tech</span>
+          <span class="pid">#84</span>
+          <span class="score" title="Sellability score">60.0</span>
+        </div>
+        <div class="problem">MLS data accuracy issues</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">MLS Data-Validation Agent</span>
+        </div>
+        <div class="desc">Cross-checks listings against sources and flags errors before they cost a deal.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 6</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Ops" data-sell="59.8">
+      <div class="rank">56</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#23</span>
+          <span class="score" title="Sellability score">59.8</span>
+        </div>
+        <div class="problem">Vendor / contractor reliability</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Vendor Scorecard System</span>
+        </div>
+        <div class="desc">Tracks vendor response/quality/cost and routes work to the best-performing ones.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Infrastructure" data-cat="Tech" data-sell="59.7">
+      <div class="rank">57</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Tech</span>
+          <span class="pid">#86</span>
+          <span class="score" title="Sellability score">59.7</span>
+        </div>
+        <div class="problem">Property management software gaps</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">PM Automation Layer</span>
+        </div>
+        <div class="desc">Fills software gaps with automations for rent, maintenance and owner reporting.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Finance" data-sell="59.2">
+      <div class="rank">58</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#52</span>
+          <span class="score" title="Sellability score">59.2</span>
+        </div>
+        <div class="problem">Appraisal gaps</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Appraisal-Gap Predictor</span>
+        </div>
+        <div class="desc">Comps analysis flags likely appraisal gaps pre-offer so deals are structured to survive them.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Agent" data-cat="Clients" data-sell="59.2">
+      <div class="rank">59</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Clients</span>
+          <span class="pid">#97</span>
+          <span class="score" title="Sellability score">59.2</span>
+        </div>
+        <div class="problem">Client ghosting after investment</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Re-Engagement Nurture Agent</span>
+        </div>
+        <div class="desc">Detects gone-quiet clients and runs personalized re-engagement until they respond.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Agent" data-cat="Marketing" data-sell="59.1">
+      <div class="rank">60</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#20</span>
+          <span class="score" title="Sellability score">59.1</span>
+        </div>
+        <div class="problem">Unclear brand differentiation</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Brand-Positioning Agent</span>
+        </div>
+        <div class="desc">Analyzes competitors and drafts a sharp positioning + messaging system to stand out.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Automation" data-cat="Finance" data-sell="58.8">
+      <div class="rank">61</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#37</span>
+          <span class="score" title="Sellability score">58.8</span>
+        </div>
+        <div class="problem">Tax planning complexity</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Tax-Doc Organizer Automation</span>
+        </div>
+        <div class="desc">Auto-categorizes transactions and assembles a clean year-round tax pack for the accountant.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Infrastructure" data-cat="Marketing" data-sell="58.6">
+      <div class="rank">62</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#73</span>
+          <span class="score" title="Sellability score">58.6</span>
+        </div>
+        <div class="problem">Print advertising ROI declining</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Channel-ROI Attribution System</span>
+        </div>
+        <div class="desc">Tracks ROI per channel so dead print spend gets shifted to what converts.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Agent" data-cat="Marketing" data-sell="58.4">
+      <div class="rank">63</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#96</span>
+          <span class="score" title="Sellability score">58.4</span>
+        </div>
+        <div class="problem">Handling bad press / PR crisis</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">PR-Crisis Monitor &amp; Response Agent</span>
+        </div>
+        <div class="desc">Monitors mentions, alerts on spikes and drafts holding statements — support, not a guarantee.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 4</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Infrastructure" data-cat="Legal" data-sell="58.2">
+      <div class="rank">64</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#60</span>
+          <span class="score" title="Sellability score">58.2</span>
+        </div>
+        <div class="problem">GDPR / privacy law compliance</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Privacy-Consent Management</span>
+        </div>
+        <div class="desc">Automates consent capture, data-retention rules and deletion requests across the CRM.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Automation" data-cat="Tech" data-sell="58.2">
+      <div class="rank">65</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Tech</span>
+          <span class="pid">#83</span>
+          <span class="score" title="Sellability score">58.2</span>
+        </div>
+        <div class="problem">Virtual tour quality &amp; costs</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">AI Virtual-Tour Generator</span>
+        </div>
+        <div class="desc">Turns photos/video into polished 3D-style tours without specialist gear.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 5</span><span class="chip"><b>TechFix</b> 7</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 4</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Automation" data-cat="Ops" data-sell="58.1">
+      <div class="rank">66</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#70</span>
+          <span class="score" title="Sellability score">58.1</span>
+        </div>
+        <div class="problem">Managing open house logistics</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Open-House Automation</span>
+        </div>
+        <div class="desc">Digital sign-in, instant lead capture, auto follow-up and post-event reporting.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 5</span><span class="chip"><b>TechFix</b> 6</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 7</span><span class="chip"><b>Growth</b> 3</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="People" data-sell="58.0">
+      <div class="rank">67</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#68</span>
+          <span class="score" title="Sellability score">58.0</span>
+        </div>
+        <div class="problem">Lack of coaching infrastructure</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">AI Coaching Layer</span>
+        </div>
+        <div class="desc">Per-agent goals, call reviews and weekly nudges deliver coaching at scale without more managers.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="People" data-sell="57.5">
+      <div class="rank">68</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#65</span>
+          <span class="score" title="Sellability score">57.5</span>
+        </div>
+        <div class="problem">Work-life balance for owner</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Owner Delegation Autopilot</span>
+        </div>
+        <div class="desc">Automates the owner&#x27;s repetitive ops/comms so hours come back — the meta-pitch for the whole stack.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Infrastructure" data-cat="Finance" data-sell="57.3">
+      <div class="rank">69</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#87</span>
+          <span class="score" title="Sellability score">57.3</span>
+        </div>
+        <div class="problem">Office lease / overhead costs</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Overhead Analytics Dashboard</span>
+        </div>
+        <div class="desc">Tracks fixed vs. variable cost per agent/desk and surfaces overhead to renegotiate or cut.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Strategy" data-sell="57.2">
+      <div class="rank">70</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#101</span>
+          <span class="score" title="Sellability score">57.2</span>
+        </div>
+        <div class="problem">Referral dependency risk</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Lead-Source Diversification System</span>
+        </div>
+        <div class="desc">Builds and tracks non-referral channels to de-risk the pipeline.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Ops" data-sell="57.0">
+      <div class="rank">71</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#109</span>
+          <span class="score" title="Sellability score">57.0</span>
+        </div>
+        <div class="problem">Handling dual role (agent + owner)</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Owner-Ops Offload System</span>
+        </div>
+        <div class="desc">Automates the owner-hat admin so they can stay in the high-value agent/leadership seat.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Automation" data-cat="Finance" data-sell="56.9">
+      <div class="rank">72</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#89</span>
+          <span class="score" title="Sellability score">56.9</span>
+        </div>
+        <div class="problem">Receivables from agents</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Receivables Chaser Automation</span>
+        </div>
+        <div class="desc">Tracks what agents owe and auto-sends reminders + statements until balances clear.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Infrastructure" data-cat="Strategy" data-sell="56.9">
+      <div class="rank">73</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#36</span>
+          <span class="score" title="Sellability score">56.9</span>
+        </div>
+        <div class="problem">Over-reliance on one agent</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Pipeline-Concentration Monitor</span>
+        </div>
+        <div class="desc">Surfaces revenue concentration risk and routes leads to diversify production.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Automation" data-cat="Finance" data-sell="56.5">
+      <div class="rank">74</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#90</span>
+          <span class="score" title="Sellability score">56.5</span>
+        </div>
+        <div class="problem">Business credit / financing access</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Financials-Pack Generator</span>
+        </div>
+        <div class="desc">Assembles lender-ready financials and projections on demand to speed credit applications.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="People" data-sell="56.5">
+      <div class="rank">75</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#64</span>
+          <span class="score" title="Sellability score">56.5</span>
+        </div>
+        <div class="problem">Burnout among top performers</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Workload &amp; Burnout Monitor</span>
+        </div>
+        <div class="desc">Flags overload patterns (hours, response times) so you intervene before a top agent breaks.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Infrastructure" data-cat="People" data-sell="56.0">
+      <div class="rank">76</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#104</span>
+          <span class="score" title="Sellability score">56.0</span>
+        </div>
+        <div class="problem">Lack of accountability culture</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Activity &amp; Accountability Dashboard</span>
+        </div>
+        <div class="desc">Makes every agent&#x27;s commitments and outputs visible daily — accountability without nagging.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Strategy" data-sell="54.8">
+      <div class="rank">77</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#45</span>
+          <span class="score" title="Sellability score">54.8</span>
+        </div>
+        <div class="problem">Slow market feedback loop</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Market-Feedback Analytics</span>
+        </div>
+        <div class="desc">Aggregates showing/feedback/market data into fast read-outs to adjust strategy.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Automation" data-cat="People" data-sell="54.1">
+      <div class="rank">78</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#49</span>
+          <span class="score" title="Sellability score">54.1</span>
+        </div>
+        <div class="problem">Agent expense reimbursement disputes</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Expense-Reimbursement Automation</span>
+        </div>
+        <div class="desc">Receipt capture + policy rules + approval routing removes reimbursement friction.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Agent" data-cat="Strategy" data-sell="53.4">
+      <div class="rank">79</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#102</span>
+          <span class="score" title="Sellability score">53.4</span>
+        </div>
+        <div class="problem">No documented business plan</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">AI Business-Plan Builder</span>
+        </div>
+        <div class="desc">Interviews the owner and assembles a living, metric-tracked business plan.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 4</span><span class="chip"><b>Delegate</b> 7</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 5</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Agent" data-cat="Legal" data-sell="51.6">
+      <div class="rank">80</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#55</span>
+          <span class="score" title="Sellability score">51.6</span>
+        </div>
+        <div class="problem">Zoning &amp; land use confusion</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Zoning Research Agent</span>
+        </div>
+        <div class="desc">Pulls zoning/land-use rules for a parcel and summarizes constraints in plain English.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Strategy" data-sell="51.4">
+      <div class="rank">81</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#91</span>
+          <span class="score" title="Sellability score">51.4</span>
+        </div>
+        <div class="problem">Investment in team vs. independence</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Scenario Modeling Tool</span>
+        </div>
+        <div class="desc">Models team vs. solo economics so the growth decision is run on numbers, not gut.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="Automation" data-cat="Marketing" data-sell="51.3">
+      <div class="rank">82</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Marketing</span>
+          <span class="pid">#78</span>
+          <span class="score" title="Sellability score">51.3</span>
+        </div>
+        <div class="problem">Event / seminar marketing ROI</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Event Funnel Automation</span>
+        </div>
+        <div class="desc">Handles invites, reminders, follow-up and attribution so events actually convert.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 5</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 6</span><span class="chip"><b>Growth</b> 4</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Strategy" data-sell="50.9">
+      <div class="rank">83</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#94</span>
+          <span class="score" title="Sellability score">50.9</span>
+        </div>
+        <div class="problem">Geographic market expansion timing</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Market-Expansion Analytics</span>
+        </div>
+        <div class="desc">Scores candidate markets on demand/competition/margin to time expansion right.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 4</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="Strategy" data-sell="50.9">
+      <div class="rank">84</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#108</span>
+          <span class="score" title="Sellability score">50.9</span>
+        </div>
+        <div class="problem">No passive income streams</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Recurring-Revenue Opportunity Finder</span>
+        </div>
+        <div class="desc">Identifies PM/referral/ancillary income plays and models the build-out.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 3</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card mid" data-type="System" data-cat="People" data-sell="50.2">
+      <div class="rank">85</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#69</span>
+          <span class="score" title="Sellability score">50.2</span>
+        </div>
+        <div class="problem">Unclear career paths for agents</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Career-Path Tracking System</span>
+        </div>
+        <div class="desc">Defines tiers/milestones and auto-tracks each agent&#x27;s progress toward the next level.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Automation" data-cat="People" data-sell="49.7">
+      <div class="rank">86</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#66</span>
+          <span class="score" title="Sellability score">49.7</span>
+        </div>
+        <div class="problem">Mental health in the office</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Pulse-Survey &amp; Sentiment Bot</span>
+        </div>
+        <div class="desc">Lightweight recurring check-ins surface morale issues early and privately.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 6</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="System" data-cat="Legal" data-sell="49.6">
+      <div class="rank">87</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#59</span>
+          <span class="score" title="Sellability score">49.6</span>
+        </div>
+        <div class="problem">ADA compliance at office/showings</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">ADA Audit Checklist System</span>
+        </div>
+        <div class="desc">Runs office/website/showing accessibility checklists and tracks remediation.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 4</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="System" data-cat="Strategy" data-sell="48.9">
+      <div class="rank">88</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#106</span>
+          <span class="score" title="Sellability score">48.9</span>
+        </div>
+        <div class="problem">Agent brand vs. brokerage brand</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Co-Brand Content System</span>
+        </div>
+        <div class="desc">Templated co-branded assets keep agents on-brand while building their personal profile.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Agent" data-cat="Strategy" data-sell="48.4">
+      <div class="rank">89</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#93</span>
+          <span class="score" title="Sellability score">48.4</span>
+        </div>
+        <div class="problem">Brand vs. personal brand tension</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Brand-Architecture Planner</span>
+        </div>
+        <div class="desc">Maps how brokerage and personal brands coexist with a clear content/positioning plan.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 6</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Agent" data-cat="People" data-sell="47.5">
+      <div class="rank">90</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#62</span>
+          <span class="score" title="Sellability score">47.5</span>
+        </div>
+        <div class="problem">Recruiting from non-traditional backgrounds</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Skills-Based Screening Agent</span>
+        </div>
+        <div class="desc">Screens non-traditional candidates on aptitude signals rather than resume keywords.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 5</span><span class="chip"><b>TechFix</b> 5</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="System" data-cat="Strategy" data-sell="47.1">
+      <div class="rank">91</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#95</span>
+          <span class="score" title="Sellability score">47.1</span>
+        </div>
+        <div class="problem">Niche vs. generalist strategy</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Niche-Opportunity Analyzer</span>
+        </div>
+        <div class="desc">Finds underserved, profitable niches in your market data to specialize into.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 4</span><span class="chip"><b>Delegate</b> 5</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Infrastructure" data-cat="People" data-sell="46.9">
+      <div class="rank">92</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#63</span>
+          <span class="score" title="Sellability score">46.9</span>
+        </div>
+        <div class="problem">Lack of diversity &amp; inclusion</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#e0851b">Infrastructure</span>
+          <span class="sol">Inclusive-Sourcing Analytics</span>
+        </div>
+        <div class="desc">Tracks pipeline diversity and de-biases job-ad language to widen the funnel.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 4</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 4</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Agent" data-cat="Strategy" data-sell="45.3">
+      <div class="rank">93</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#30</span>
+          <span class="score" title="Sellability score">45.3</span>
+        </div>
+        <div class="problem">Market slowdowns</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Market-Intel Briefing Agent</span>
+        </div>
+        <div class="desc">Tracks leading indicators and scenario-plans — informs strategy; can&#x27;t fix the macro market.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 9</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 9</span><span class="chip"><b>Freq</b> 6</span><span class="chip"><b>Delegate</b> 2</span><span class="chip"><b>Growth</b> 10</span><span class="chip"><b>Cost</b> 10</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Agent" data-cat="Strategy" data-sell="44.3">
+      <div class="rank">94</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#50</span>
+          <span class="score" title="Sellability score">44.3</span>
+        </div>
+        <div class="problem">Low inventory in market</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Off-Market Listing Finder Agent</span>
+        </div>
+        <div class="desc">Mines expired/FSBO/likely-to-sell signals to source inventory others can&#x27;t see.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 9</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 9</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 1</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 9</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="System" data-cat="Clients" data-sell="42.0">
+      <div class="rank">95</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Clients</span>
+          <span class="pid">#98</span>
+          <span class="score" title="Sellability score">42.0</span>
+        </div>
+        <div class="problem">Unrealistic seller expectations</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Data-Backed Pricing Presenter</span>
+        </div>
+        <div class="desc">Generates evidence-heavy CMAs that make the realistic price the client&#x27;s own conclusion.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Agent" data-cat="Clients" data-sell="39.5">
+      <div class="rank">96</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Clients</span>
+          <span class="pid">#26</span>
+          <span class="score" title="Sellability score">39.5</span>
+        </div>
+        <div class="problem">Dealing with difficult buyers</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Buyer-Expectation Briefing Agent</span>
+        </div>
+        <div class="desc">Auto-educates buyers with market data and timelines to defuse friction before it starts.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Automation" data-cat="Clients" data-sell="39.5">
+      <div class="rank">97</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Clients</span>
+          <span class="pid">#27</span>
+          <span class="score" title="Sellability score">39.5</span>
+        </div>
+        <div class="problem">Dealing with difficult sellers</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Seller-Education Automation</span>
+        </div>
+        <div class="desc">Sends data-driven pricing/market expectation content to align sellers early.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 8</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="System" data-cat="People" data-sell="39.1">
+      <div class="rank">98</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">People</span>
+          <span class="pid">#39</span>
+          <span class="score" title="Sellability score">39.1</span>
+        </div>
+        <div class="problem">Agent poaching by competitors</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Retention-Signal Monitor</span>
+        </div>
+        <div class="desc">Watches engagement drop-offs that precede poaching and prompts a retention play.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="System" data-cat="Legal" data-sell="38.5">
+      <div class="rank">99</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#28</span>
+          <span class="score" title="Sellability score">38.5</span>
+        </div>
+        <div class="problem">Title issues and delays</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Title-Status Tracking System</span>
+        </div>
+        <div class="desc">Centralizes title progress across files and chases title cos automatically when one stalls.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 7</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Agent" data-cat="Clients" data-sell="38.5">
+      <div class="rank">100</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Clients</span>
+          <span class="pid">#99</span>
+          <span class="score" title="Sellability score">38.5</span>
+        </div>
+        <div class="problem">Unrealistic buyer expectations</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Buyer Market-Reality Agent</span>
+        </div>
+        <div class="desc">Shows buyers real-time comps/affordability so expectations meet the market.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 9</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="System" data-cat="Legal" data-sell="37.0">
+      <div class="rank">101</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#4</span>
+          <span class="score" title="Sellability score">37.0</span>
+        </div>
+        <div class="problem">Commission disputes with agents</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Split-Agreement Tracker</span>
+        </div>
+        <div class="desc">Single source of truth for split terms with full audit trail — kills he-said/she-said disputes.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 2</span><span class="chip"><b>Aware</b> 7</span><span class="chip"><b>Freq</b> 6</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="System" data-cat="Legal" data-sell="35.5">
+      <div class="rank">102</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#46</span>
+          <span class="score" title="Sellability score">35.5</span>
+        </div>
+        <div class="problem">Handling multiple offers fairly</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Offer-Comparison &amp; Audit System</span>
+        </div>
+        <div class="desc">Logs all offers with timestamps and a documented fair-handling trail to reduce legal exposure.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Agent" data-cat="Ops" data-sell="35.5">
+      <div class="rank">103</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Ops</span>
+          <span class="pid">#53</span>
+          <span class="score" title="Sellability score">35.5</span>
+        </div>
+        <div class="problem">Inspection negotiation failures</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Inspection-Repair Negotiator Assist</span>
+        </div>
+        <div class="desc">Summarizes inspection reports and drafts data-backed repair-credit counters.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 6</span><span class="chip"><b>Freq</b> 7</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 5</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="System" data-cat="Legal" data-sell="34.7">
+      <div class="rank">104</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#56</span>
+          <span class="score" title="Sellability score">34.7</span>
+        </div>
+        <div class="problem">Property disclosure liability</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Disclosure-Completeness Checker</span>
+        </div>
+        <div class="desc">Reviews disclosure packages for gaps against jurisdiction requirements before signing.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 6</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Automation" data-cat="Legal" data-sell="34.2">
+      <div class="rank">105</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#57</span>
+          <span class="score" title="Sellability score">34.2</span>
+        </div>
+        <div class="problem">Dual agency conflicts</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Dual-Agency Consent Tracker</span>
+        </div>
+        <div class="desc">Enforces disclosure + signed-consent workflow whenever dual agency is detected.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 8</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 6</span><span class="chip"><b>Delegate</b> 3</span><span class="chip"><b>Growth</b> 6</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="System" data-cat="Strategy" data-sell="30.3">
+      <div class="rank">106</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#35</span>
+          <span class="score" title="Sellability score">30.3</span>
+        </div>
+        <div class="problem">No succession / exit plan</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#d9456a">System</span>
+          <span class="sol">Business-Value Documentation System</span>
+        </div>
+        <div class="desc">Documents systems/processes/financials so the business is sellable and transferable.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 4</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 9</span><span class="chip"><b>Cost</b> 8</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Automation" data-cat="Legal" data-sell="28.9">
+      <div class="rank">107</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Legal</span>
+          <span class="pid">#54</span>
+          <span class="score" title="Sellability score">28.9</span>
+        </div>
+        <div class="problem">Home warranty claim disputes</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Warranty-Claim Tracker</span>
+        </div>
+        <div class="desc">Documents claims, timelines and comms so disputes resolve faster with a clear record.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 6</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 4</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Automation" data-cat="Finance" data-sell="27.8">
+      <div class="rank">108</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Finance</span>
+          <span class="pid">#38</span>
+          <span class="score" title="Sellability score">27.8</span>
+        </div>
+        <div class="problem">E&amp;O insurance costs</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#11b3a3">Automation</span>
+          <span class="sol">Compliance-Evidence Logger</span>
+        </div>
+        <div class="desc">Auto-logs disclosures and compliance steps to lower risk profile and support better E&amp;O rates.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 6</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 5</span><span class="chip"><b>Freq</b> 5</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 4</span><span class="chip"><b>Cost</b> 7</span></div>
+      </div>
+    </div>
+    <div class="card hard" data-type="Agent" data-cat="Strategy" data-sell="26.8">
+      <div class="rank">109</div>
+      <div class="body">
+        <div class="toprow">
+          <span class="cat">Strategy</span>
+          <span class="pid">#92</span>
+          <span class="score" title="Sellability score">26.8</span>
+        </div>
+        <div class="problem">Franchise vs. independent decision</div>
+        <div class="solrow">
+          <span class="typetag" style="background:#7c5cff">Agent</span>
+          <span class="sol">Decision-Analysis Assistant</span>
+        </div>
+        <div class="desc">Structures the franchise/independent tradeoff with cost/brand/control modeling.</div>
+        <div class="chips"><span class="chip"><b>Pain</b> 7</span><span class="chip"><b>TechFix</b> 3</span><span class="chip"><b>Aware</b> 4</span><span class="chip"><b>Freq</b> 3</span><span class="chip"><b>Delegate</b> 4</span><span class="chip"><b>Growth</b> 8</span><span class="chip"><b>Cost</b> 6</span></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Sellability = TechFix×2 · Awareness×1.6 · Pain×1.4 · Frequency×1.2 · Delegatability×1.2 · Growth×0.7 · Cost×0.7 · Urgency×0.5,
+    normalized to 100. Problems AI can't credibly fix are penalized.<br>
+    Built by Evolv AI · Source: RE Problems Database (109 problems × 15 dimensions).
+  </footer>
+</div>
+
+<script>
+  const state = { type:"All", cat:"All" };
+  function apply() {
+    document.querySelectorAll(".card").forEach(c => {
+      const okT = state.type==="All" || c.dataset.type===state.type;
+      const okC = state.cat==="All"  || c.dataset.cat===state.cat;
+      c.style.display = (okT && okC) ? "flex" : "none";
+    });
+  }
+  document.querySelectorAll(".filt").forEach(b => {
+    b.addEventListener("click", () => {
+      const f=b.dataset.f, v=b.dataset.v;
+      state[f]=v;
+      document.querySelectorAll(`.filt[data-f="${f}"]`).forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      apply();
+    });
+  });
+  document.querySelectorAll('.filt[data-v="All"]').forEach(b=>b.classList.add("active"));
+</script>
+</body>
+</html>
