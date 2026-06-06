@@ -102,279 +102,301 @@
 
 <div class="wrap">
 
-<!-- ================= HERO ================= -->
-<section class="min-h-screen flex flex-col justify-center px-6 md:px-16 max-w-6xl mx-auto">
+<!-- ============================== HERO ============================== -->
+<section class="min-h-screen flex flex-col justify-center px-6 md:px-16 max-w-6xl mx-auto py-20">
   <div class="flex items-center gap-3 mb-12 reveal in">
     <img src="data:image/png;base64,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" alt="TimeCells" class="w-11 h-11">
-    <span class="grotesk text-2xl font-600" style="font-weight:600">timecells</span>
+    <span class="grotesk text-2xl" style="font-weight:600">timecells</span>
   </div>
 
-  <div class="pill mb-7 reveal in d1"><span class="dot"></span> Marketing Strategy · Foundation Block</div>
+  <div class="pill mb-7 reveal in d1"><span class="dot"></span> Marketing Strategy · Section 1 — Foundation Research</div>
 
-  <h1 class="grotesk text-5xl md:text-7xl font-700 leading-[1.04] mb-8 reveal in d2" style="font-weight:700">
-    The trustworthy,<br>ownership-bearing<br><span class="gradtext">behavioral-training network.</span>
+  <h1 class="grotesk text-5xl md:text-7xl leading-[1.04] mb-8 reveal in d2" style="font-weight:700">
+    What the research found —<br>and exactly <span class="gradtext">what to build from it.</span>
   </h1>
 
   <p class="text-lg md:text-2xl text-emerald-100/70 max-w-3xl leading-relaxed reveal in d3">
-    A market split between commoditized <span class="text-white font-500">$40 apps</span>
-    and reputationally-toxic <span class="text-white font-500">MLM hype</span>.
-    TimeCells wins the empty middle — and this is the evidence.
+    Three pillars: <span class="text-white" style="font-weight:500">Market Research</span>,
+    the <span class="text-white" style="font-weight:500">ICP</span>, and
+    <span class="text-white" style="font-weight:500">Competitor Analysis</span>.
+    For each, the findings that actually matter — and the direct instruction they hand the
+    <span class="text-white" style="font-weight:500">content system</span> and the
+    <span class="text-white" style="font-weight:500">funnels</span>. No recap of what we both already know.
   </p>
 
-  <div class="flex items-center gap-4 mt-14 text-sm text-emerald-100/50 reveal in d4">
+  <div class="mt-14 grid sm:grid-cols-3 gap-3 max-w-3xl reveal in d4">
+    <div class="glass glass-tight p-4 flex items-center gap-3"><span class="num gradtext text-lg">01</span><span class="text-emerald-100/85 text-sm">Market Research</span></div>
+    <div class="glass glass-tight p-4 flex items-center gap-3"><span class="num gradtext text-lg">02</span><span class="text-emerald-100/85 text-sm">The ICP</span></div>
+    <div class="glass glass-tight p-4 flex items-center gap-3"><span class="num gradtext text-lg">03</span><span class="text-emerald-100/85 text-sm">Competitor Analysis</span></div>
+  </div>
+
+  <div class="flex items-center gap-4 mt-12 text-sm text-emerald-100/50 reveal in d4">
     <span>Built by</span>
-    <span class="grotesk text-emerald-100 font-600" style="font-weight:600">Evolv&nbsp;AI</span>
+    <span class="grotesk text-emerald-100" style="font-weight:600">Evolv&nbsp;AI</span>
     <span class="w-px h-4 bg-emerald-100/20"></span>
-    <span>§1 Market · §2 ICP · §3 Competitors</span>
+    <span>Grounded in real web research · Jun 2026</span>
   </div>
 </section>
 
-<!-- ================= SECTION 1 — THE OPPORTUNITY ================= -->
-<section class="px-6 md:px-16 max-w-6xl mx-auto py-28">
-  <div class="reveal"><div class="pill mb-6">01 · The Opportunity</div></div>
-  <h2 class="grotesk text-4xl md:text-5xl font-700 mb-6 reveal" style="font-weight:700">Three markets intersect.<br><span class="gradtext">Only one is the anchor.</span></h2>
-  <p class="text-emerald-100/65 max-w-2xl mb-14 text-lg reveal">TimeCells sits where crypto education, financial literacy, and AI-personal-finance overlap. We don't weight them equally — and that decision shapes every funnel.</p>
+<!-- ====================== PILLAR 01 — MARKET RESEARCH ====================== -->
+<section class="px-6 md:px-16 max-w-6xl mx-auto py-24">
+  <div class="reveal"><div class="pill mb-6">Pillar 01 · Market Research</div></div>
+  <h2 class="grotesk text-4xl md:text-5xl mb-6 reveal" style="font-weight:700">It isn't "crypto education."<br><span class="gradtext">It's behavioral money skill.</span></h2>
+  <p class="text-emerald-100/65 max-w-2xl mb-14 text-lg reveal">The single biggest decision in the whole strategy is which market we say we're in. The research settled it — and that one choice writes the rule for every post and every funnel.</p>
 
+  <!-- finding 1: the anchor -->
   <div class="grid md:grid-cols-3 gap-5">
     <div class="glass p-7 reveal d1">
-      <div class="pill mb-5">Context, not core</div>
+      <div class="pill mb-5">Context · not the headline</div>
       <div class="num text-4xl mb-1">$3.2B</div>
-      <div class="text-emerald-100/50 text-sm mb-5">Crypto education · 15–17% CAGR</div>
-      <p class="text-emerald-100/75 text-[15px] leading-relaxed">Big and fast — but volatile and hype-tainted. We use it as <span class="text-white">context</span>, never the headline. Leading with crypto invites the wrong audience and the wrong regulators.</p>
+      <div class="text-emerald-100/50 text-sm mb-4">Crypto education · 15–17% CAGR · volatile</div>
+      <p class="text-emerald-100/75 text-[15px] leading-relaxed">Big and fast, but hype-tainted and cycle-dependent. Lead here and we draw the wrong audience and the wrong regulators.</p>
     </div>
-    <div class="glass p-7 reveal d2" style="border-color:rgba(35,225,152,.4)">
+    <div class="glass p-7 reveal d2" style="border-color:rgba(35,225,152,.45)">
       <div class="pill mb-5"><span class="dot"></span> The anchor</div>
       <div class="num text-4xl mb-1 gradtext">$12.8B</div>
-      <div class="text-emerald-100/50 text-sm mb-5">Financial literacy · steady 9–10%</div>
-      <p class="text-emerald-100/85 text-[15px] leading-relaxed">The durable, defensible base. Steady demand, regulator-friendly framing, universal need. <span class="text-white">Every funnel anchors here</span> — behavioral money skills, not market calls.</p>
+      <div class="text-emerald-100/50 text-sm mb-4">Financial literacy · steady 9–10% · →$28.6B by 2034</div>
+      <p class="text-emerald-100/85 text-[15px] leading-relaxed">4× the crypto market, durable and regulator-friendly. <span class="text-white">This is the category we claim.</span> Behavioral money skill — not market calls.</p>
     </div>
     <div class="glass p-7 reveal d3">
       <div class="pill gold mb-5">The edge</div>
       <div class="num text-4xl mb-1 goldtext">$1.3B</div>
-      <div class="text-emerald-100/50 text-sm mb-5">AI personal finance · 22% CAGR</div>
-      <p class="text-emerald-100/75 text-[15px] leading-relaxed">The fastest-growing slice and TimeCells' technical edge via <span class="text-white">PAILOT</span>. Not the anchor — the differentiator that makes the behavioral training actually stick.</p>
+      <div class="text-emerald-100/50 text-sm mb-4">AI personal finance · 22% CAGR · fastest</div>
+      <p class="text-emerald-100/75 text-[15px] leading-relaxed">The fastest-growing slice and PAILOT's home turf — the differentiator that makes the training actually stick.</p>
     </div>
   </div>
 
-  <div class="glass glass-tight mt-8 p-6 md:p-8 reveal flex flex-col md:flex-row md:items-center gap-4">
-    <div class="pill shrink-0">The read</div>
-    <p class="text-lg text-emerald-100/90 leading-relaxed">Anchor to <span class="text-white font-600">financial literacy + behavioral training</span>. Frame crypto as context. Deploy AI as the edge. This keeps TimeCells durable, compliant, and broadly addressable — instead of riding a hype cycle.</p>
-  </div>
-</section>
-
-<div class="glow-line max-w-4xl mx-auto"></div>
-
-<!-- ================= SECTION 2 — TWO HONEST FLAGS ================= -->
-<section class="px-6 md:px-16 max-w-6xl mx-auto py-28">
-  <div class="reveal"><div class="pill gold mb-6">02 · Two Honest Flags</div></div>
-  <h2 class="grotesk text-4xl md:text-5xl font-700 mb-6 reveal" style="font-weight:700">What the competitor map<br>forces us to confront.</h2>
-  <p class="text-emerald-100/65 max-w-2xl mb-14 text-lg reveal">Strategy that ignores the hard truths fails on contact. Two competitors define the boundaries of where TimeCells can win.</p>
-
-  <div class="grid md:grid-cols-2 gap-5">
-    <div class="glass p-8 reveal d1">
-      <div class="flex items-center justify-between mb-5">
-        <span class="grotesk text-xl font-600" style="font-weight:600">Flag 1 — The app twin</span>
-        <span class="text-emerald-100/40 text-sm">Finelo</span>
-      </div>
-      <p class="text-emerald-100/80 text-[15px] leading-relaxed mb-5">A near-identical app already exists: <span class="text-white">Finelo</span> — 1M+ users, $20–40/mo, the same behavioral-finance learning loop. <span class="text-white">The product is not novel.</span></p>
-      <div class="ring rounded-xl p-4 text-[15px] text-emerald-100/85">
-        <span class="goldtext font-600">So:</span> differentiation can't be app features. It has to be <span class="text-white">token / co-ownership + the DACH agent network</span> — things Finelo structurally cannot copy.
-      </div>
-    </div>
-    <div class="glass p-8 reveal d2">
-      <div class="flex items-center justify-between mb-5">
-        <span class="grotesk text-xl font-600" style="font-weight:600">Flag 2 — The reputational twin</span>
-        <span class="text-emerald-100/40 text-sm">IM Academy</span>
-      </div>
-      <p class="text-emerald-100/80 text-[15px] leading-relaxed mb-5"><span class="text-white">IM Academy</span> — same shape (education + MLM + token, $175–325/mo) — is banned in Spain, Belgium & Italy, rated 1.5★, branded a pyramid. The path is <span class="text-white">a minefield</span>.</p>
-      <div class="ring rounded-xl p-4 text-[15px] text-emerald-100/85">
-        <span class="goldtext font-600">So:</span> a <span class="text-white">compliance + transparency spine</span> isn't optional polish — it's the one thing that keeps TimeCells off IM Academy's road.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= SECTION 3 — THE OPEN QUADRANT ================= -->
-<section class="px-6 md:px-16 max-w-6xl mx-auto py-28">
-  <div class="reveal"><div class="pill mb-6">03 · The Open Quadrant</div></div>
-  <h2 class="grotesk text-4xl md:text-5xl font-700 mb-6 reveal" style="font-weight:700">Nobody credibly owns<br><span class="gradtext">all three at once.</span></h2>
-  <p class="text-emerald-100/65 max-w-2xl mb-14 text-lg reveal">Map the field on what actually matters and a gap opens that no competitor occupies.</p>
-
-  <div class="grid md:grid-cols-3 gap-5 mb-8">
-    <div class="glass glass-tight p-6 reveal d1">
-      <div class="num text-3xl gradtext mb-2">01</div>
-      <div class="grotesk text-lg mb-2 font-600" style="font-weight:600">Real co-ownership</div>
-      <p class="text-emerald-100/70 text-sm leading-relaxed">Token + DCPU — members own the refinery, not just rent access. Finelo can't. IM Academy fakes it.</p>
-    </div>
-    <div class="glass glass-tight p-6 reveal d2">
-      <div class="num text-3xl gradtext mb-2">02</div>
-      <div class="grotesk text-lg mb-2 font-600" style="font-weight:600">Behavioral training</div>
-      <p class="text-emerald-100/70 text-sm leading-relaxed">Skill-building & habit change as the product — not tips, signals, or market calls.</p>
-    </div>
-    <div class="glass glass-tight p-6 reveal d3">
-      <div class="num text-3xl gradtext mb-2">03</div>
-      <div class="grotesk text-lg mb-2 font-600" style="font-weight:600">High-trust network</div>
-      <p class="text-emerald-100/70 text-sm leading-relaxed">Community-led DACH agent network — done <span class="text-white">compliantly</span>, the anti-IM-Academy.</p>
+  <div class="glass glass-tight mt-5 p-6 md:p-7 reveal">
+    <div class="grid md:grid-cols-2 gap-5">
+      <div class="flex gap-3"><span class="pill shrink-0 self-start">→ Content</span><p class="text-[15px] text-emerald-100/85 leading-relaxed">Every piece leads with <span class="text-white">money behaviour & literacy</span>. Crypto is the backdrop, never the headline. AI is the proof of edge.</p></div>
+      <div class="flex gap-3"><span class="pill gold shrink-0 self-start">→ Funnels</span><p class="text-[15px] text-emerald-100/85 leading-relaxed">Every funnel <span class="text-white">anchors on literacy</span>; the token / crypto layer only surfaces at the deepest stage (F3), once trust is earned.</p></div>
     </div>
   </div>
 
-  <div class="glass p-8 md:p-10 reveal text-center">
-    <p class="text-emerald-100/60 text-sm uppercase tracking-widest mb-4">The uncontested position</p>
-    <p class="grotesk text-2xl md:text-3xl leading-snug font-600" style="font-weight:600">Behavioral training <span class="gradtext">+</span> real ownership <span class="gradtext">+</span> a trustworthy network —<br>held together, done compliantly. <span class="text-emerald-100/50">No one is there yet.</span></p>
+  <!-- findings 2-4: the engine -->
+  <h3 class="grotesk text-2xl md:text-3xl mt-20 mb-10 reveal" style="font-weight:600">Three more findings that <span class="gradtext">build the engine.</span></h3>
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="glass p-7 reveal d1">
+      <div class="grotesk text-lg mb-2" style="font-weight:600">AI-assisted investing is the 2026 story</div>
+      <p class="text-emerald-100/70 text-sm leading-relaxed mb-5"><span class="num gradtext">68%</span> of finance apps now ship an AI feature. The wave is already here — and PAILOT is the on-brand way to ride it.</p>
+      <div class="space-y-2 text-sm">
+        <div class="flex gap-2"><span class="goldtext shrink-0" style="font-weight:600">→ Content</span><span class="text-emerald-100/80">"AI trains your decision" — PAILOT as the recurring hook.</span></div>
+        <div class="flex gap-2"><span class="goldtext shrink-0" style="font-weight:600">→ Funnels</span><span class="text-emerald-100/80">F2 leads with the AI / app angle.</span></div>
+      </div>
+    </div>
+    <div class="glass p-7 reveal d2">
+      <div class="grotesk text-lg mb-2" style="font-weight:600">Behavioral beats informational</div>
+      <p class="text-emerald-100/70 text-sm leading-relaxed mb-5"><span class="num gradtext">+75%</span> engagement, <span class="num gradtext">+58%</span> trust when content teaches behaviour vs sells tips. This is the direct fix for "zero conversion."</p>
+      <div class="space-y-2 text-sm">
+        <div class="flex gap-2"><span class="goldtext shrink-0" style="font-weight:600">→ Content</span><span class="text-emerald-100/80">Show habit change & scenarios — never signals or calls.</span></div>
+        <div class="flex gap-2"><span class="goldtext shrink-0" style="font-weight:600">→ Funnels</span><span class="text-emerald-100/80">Lead magnets = a behaviour, not a "hot tip."</span></div>
+      </div>
+    </div>
+    <div class="glass p-7 reveal d3">
+      <div class="grotesk text-lg mb-2" style="font-weight:600">Short-form video is the channel</div>
+      <p class="text-emerald-100/70 text-sm leading-relaxed mb-5">15–45s explainers. The FYP rewards <span class="text-white">usefulness over follower count</span> — which is why a zero-audience start still works.</p>
+      <div class="space-y-2 text-sm">
+        <div class="flex gap-2"><span class="goldtext shrink-0" style="font-weight:600">→ Content</span><span class="text-emerald-100/80">Core format: TikTok / Reels TOF → YouTube depth.</span></div>
+        <div class="flex gap-2"><span class="goldtext shrink-0" style="font-weight:600">→ Funnels</span><span class="text-emerald-100/80">TOF reach → MOF / BOF on YouTube + app.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass glass-tight mt-5 p-6 reveal flex flex-col md:flex-row md:items-center gap-4">
+    <div class="pill gold shrink-0">Timing + guardrail</div>
+    <p class="text-[15px] md:text-[17px] text-emerald-100/90 leading-relaxed">A <span class="text-white">Sep–Oct 2026 launch</span> rides the crypto cycle up, but the engine must be <span class="text-white">evergreen</span> — and MiCA (CASP deadline 1 Jul 2026) + the UK FCA mean a banned/safe language table is baked into every script from day one.</p>
   </div>
 </section>
 
 <div class="glow-line max-w-4xl mx-auto"></div>
 
-<!-- ================= SECTION 4 — WHO WE SERVE ================= -->
-<section class="px-6 md:px-16 max-w-6xl mx-auto py-28">
-  <div class="reveal"><div class="pill mb-6">04 · Who We Serve</div></div>
-  <h2 class="grotesk text-4xl md:text-5xl font-700 mb-6 reveal" style="font-weight:700">Two customers.<br><span class="gradtext">A 90/10 reality.</span></h2>
-  <p class="text-emerald-100/65 max-w-2xl mb-14 text-lg reveal">Revenue today flows almost entirely through agents. We arm and recruit them — we don't try to replace them.</p>
+<!-- ========================= PILLAR 02 — ICP ========================= -->
+<section class="px-6 md:px-16 max-w-6xl mx-auto py-24">
+  <div class="reveal"><div class="pill mb-6">Pillar 02 · The ICP</div></div>
+  <h2 class="grotesk text-4xl md:text-5xl mb-6 reveal" style="font-weight:700">Who we're for —<br><span class="gradtext">and the machine we're fixing.</span></h2>
+  <p class="text-emerald-100/65 max-w-2xl mb-12 text-lg reveal">The research opens with the brutal truth the whole content system exists to solve.</p>
 
-  <div class="grid md:grid-cols-2 gap-5">
+  <!-- the broken machine quote -->
+  <div class="glass p-8 md:p-10 reveal mb-14" style="border-color:rgba(242,194,78,.3)">
+    <div class="pill gold mb-5">The broken machine</div>
+    <p class="grotesk text-2xl md:text-3xl leading-snug mb-4" style="font-weight:600">"We have never converted a follower into a customer. <span class="goldtext">Zero conversion.</span>"</p>
+    <p class="text-emerald-100/70 text-[15px] leading-relaxed max-w-3xl"><span class="text-white">99.5% of revenue</span> flows through an agent hand-selling in a room. There is no working cold path today. The content system and funnels exist to build one — <span class="text-white">without bypassing the agents</span> who sell.</p>
+  </div>
+
+  <!-- two ICPs -->
+  <div class="grid md:grid-cols-2 gap-5 mb-5">
     <div class="glass p-8 reveal d1">
-      <div class="flex items-baseline justify-between mb-5">
-        <span class="grotesk text-xl font-600" style="font-weight:600">ICP&nbsp;1 — The end user</span>
-        <span class="num text-2xl text-emerald-100/40">~10%</span>
+      <div class="flex items-baseline justify-between mb-4">
+        <span class="grotesk text-xl" style="font-weight:600">ICP&nbsp;1 — The end user</span>
+        <span class="num text-2xl gradtext">~90%</span>
       </div>
-      <p class="text-emerald-100/80 text-[15px] leading-relaxed mb-5">DACH, 25–40, male-skew, self-employed. One persona, <span class="text-white">three awareness stages</span> — each its own funnel.</p>
-      <div class="space-y-2.5">
-        <div class="ring rounded-lg px-4 py-2.5 text-sm flex items-center gap-3"><span class="dot"></span><span class="text-white">Newcomer</span><span class="text-emerald-100/55">— fear/FOMO hook → Funnel 1</span></div>
-        <div class="ring rounded-lg px-4 py-2.5 text-sm flex items-center gap-3"><span class="dot"></span><span class="text-white">Semi-pro</span><span class="text-emerald-100/55">— app & behavioral training → Funnel 2</span></div>
-        <div class="ring rounded-lg px-4 py-2.5 text-sm flex items-center gap-3"><span class="dot"></span><span class="text-white">Pro-curious</span><span class="text-emerald-100/55">— token / co-ownership → Funnel 3</span></div>
-      </div>
+      <p class="text-emerald-100/55 text-sm mb-4">of our marketing build</p>
+      <p class="text-emerald-100/80 text-[15px] leading-relaxed">The <span class="text-white">"Operator"</span> — 25–40, male-skew, self-employed / side-hustler. Sees himself as an operator, not an investor. <span class="text-white">English-first, global</span>; DACH is evidence (22% of German millennials own crypto), not a wall.</p>
     </div>
     <div class="glass p-8 reveal d2" style="border-color:rgba(242,194,78,.3)">
-      <div class="flex items-baseline justify-between mb-5">
-        <span class="grotesk text-xl font-600" style="font-weight:600">ICP&nbsp;2 — The agent</span>
-        <span class="num text-2xl goldtext">~90%</span>
+      <div class="flex items-baseline justify-between mb-4">
+        <span class="grotesk text-xl" style="font-weight:600">ICP&nbsp;2 — The agent</span>
+        <span class="num text-xl goldtext">Luco's lane</span>
       </div>
-      <p class="text-emerald-100/80 text-[15px] leading-relaxed mb-5">The distributor / agent network drives <span class="text-white">99.5% of revenue today</span>. The strategic job isn't to disintermediate them.</p>
-      <div class="ring rounded-xl p-5 text-[15px] text-emerald-100/90 leading-relaxed">
-        <span class="goldtext font-600">The mandate:</span> <span class="text-white">arm and recruit</span> agents — give them content, tools and a credible compliant story to sell. The end-user funnels feed the network; they don't bypass it.
-      </div>
+      <p class="text-emerald-100/55 text-sm mb-4">drives 99.5% of revenue today</p>
+      <p class="text-emerald-100/80 text-[15px] leading-relaxed">The distributor network. We don't disintermediate them — the end-user funnels <span class="text-white">feed and arm</span> the agents. Our ~10% here = giving agents content and a credible, compliant story to sell with.</p>
     </div>
   </div>
-</section>
 
-<!-- ================= SECTION 5 — THREE FUNNELS ================= -->
-<section class="px-6 md:px-16 max-w-6xl mx-auto py-28">
-  <div class="reveal"><div class="pill mb-6">05 · The Funnel Architecture</div></div>
-  <h2 class="grotesk text-4xl md:text-5xl font-700 mb-6 reveal" style="font-weight:700">One persona.<br><span class="gradtext">Three doors in.</span></h2>
-  <p class="text-emerald-100/65 max-w-2xl mb-16 text-lg reveal">Awareness stage decides the message. Each funnel meets the user where they are and walks them one step deeper.</p>
+  <!-- 5 pains + the wedge -->
+  <h3 class="grotesk text-2xl md:text-3xl mt-20 mb-4 reveal" style="font-weight:600">Five pains. <span class="gradtext">One wedge.</span></h3>
+  <p class="text-emerald-100/65 max-w-2xl mb-10 text-lg reveal">The fourth pain is the opening — the one nobody else is selling against.</p>
+  <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+    <div class="glass glass-tight p-5 reveal d1"><div class="num text-emerald-100/40 mb-2">01</div><p class="text-emerald-100/80 text-sm leading-relaxed">Mistiming — buys the top, sells the bottom</p></div>
+    <div class="glass glass-tight p-5 reveal d1"><div class="num text-emerald-100/40 mb-2">02</div><p class="text-emerald-100/80 text-sm leading-relaxed">Information overload — too much noise</p></div>
+    <div class="glass glass-tight p-5 reveal d2"><div class="num text-emerald-100/40 mb-2">03</div><p class="text-emerald-100/80 text-sm leading-relaxed">Fear of being too late <span class="text-emerald-100/50">+</span> fear of being scammed</p></div>
+    <div class="glass glass-tight p-5 reveal d3" style="border-color:rgba(35,225,152,.5)"><div class="num gradtext mb-2">04</div><p class="text-white text-sm leading-relaxed" style="font-weight:500">No system — acts on emotion <span class="gradtext">← the wedge</span></p></div>
+    <div class="glass glass-tight p-5 reveal d4"><div class="num text-emerald-100/40 mb-2">05</div><p class="text-emerald-100/80 text-sm leading-relaxed">AI / job anxiety (the Newcomer)</p></div>
+  </div>
+  <div class="glass glass-tight mt-5 p-6 reveal flex flex-col md:flex-row md:items-center gap-4">
+    <div class="pill shrink-0">→ Content + Funnels</div>
+    <p class="text-[15px] md:text-[17px] text-emerald-100/90 leading-relaxed">Hook the fear, then sell <span class="text-white">the system</span>. <span class="text-white">"You don't lack information — you lack a method."</span> That line is the spine of the funnels and the most repeatable content angle we have.</p>
+  </div>
 
-  <div class="grid md:grid-cols-3 gap-12 md:gap-8">
+  <!-- 3 awareness stages = 3 funnels -->
+  <h3 class="grotesk text-2xl md:text-3xl mt-20 mb-4 reveal" style="font-weight:600">One persona, <span class="gradtext">three doors in.</span></h3>
+  <p class="text-emerald-100/65 max-w-2xl mb-12 text-lg reveal">ICP1 isn't three people — it's three <span class="text-white">awareness stages</span>. Each becomes its own funnel.</p>
+  <div class="grid md:grid-cols-3 gap-12 md:gap-8 mb-14">
     <div class="glass p-7 reveal d1 farrow">
       <div class="pill mb-5">Funnel 1</div>
-      <div class="grotesk text-2xl mb-1 font-600" style="font-weight:600">Newcomer</div>
-      <p class="text-emerald-100/50 text-sm mb-5">Unaware → curious</p>
-      <p class="text-emerald-100/80 text-[15px] leading-relaxed mb-5">Hook the <span class="text-white">fear of being left behind</span> — inflation, falling behind, money anxiety. Pure financial-literacy framing.</p>
-      <div class="ring rounded-lg px-4 py-2.5 text-sm text-emerald-100/85">Goal: <span class="text-white">capture + educate</span></div>
+      <div class="grotesk text-2xl mb-1" style="font-weight:600">Newcomer</div>
+      <p class="text-emerald-100/50 text-sm mb-4">Unaware → curious</p>
+      <p class="text-emerald-100/80 text-[15px] leading-relaxed">Hook the <span class="text-white">fear of being left behind</span>. Pure literacy framing. Goal: capture + educate.</p>
     </div>
     <div class="glass p-7 reveal d2 farrow">
       <div class="pill mb-5">Funnel 2</div>
-      <div class="grotesk text-2xl mb-1 font-600" style="font-weight:600">Semi-pro</div>
-      <p class="text-emerald-100/50 text-sm mb-5">Curious → committed</p>
-      <p class="text-emerald-100/80 text-[15px] leading-relaxed mb-5">The app & behavioral training — <span class="text-white">"AI trains the decision"</span>. PAILOT coaches the habit, not the trade.</p>
-      <div class="ring rounded-lg px-4 py-2.5 text-sm text-emerald-100/85">Goal: <span class="text-white">subscribe + retain</span></div>
+      <div class="grotesk text-2xl mb-1" style="font-weight:600">Semi-pro</div>
+      <p class="text-emerald-100/50 text-sm mb-4">Curious → committed</p>
+      <p class="text-emerald-100/80 text-[15px] leading-relaxed">The app & behavioral training — <span class="text-white">"AI trains the decision."</span> Goal: subscribe + retain.</p>
     </div>
     <div class="glass p-7 reveal d3" style="border-color:rgba(35,225,152,.4)">
       <div class="pill mb-5"><span class="dot"></span> Funnel 3</div>
-      <div class="grotesk text-2xl mb-1 font-600" style="font-weight:600">Pro-curious</div>
-      <p class="text-emerald-100/50 text-sm mb-5">Committed → owner</p>
-      <p class="text-emerald-100/80 text-[15px] leading-relaxed mb-5">Token & DCPU — <span class="text-white">"co-own the refinery."</span> The moat Finelo can't touch and IM Academy can't do cleanly.</p>
-      <div class="ring rounded-lg px-4 py-2.5 text-sm text-emerald-100/85">Goal: <span class="text-white">own + advocate</span></div>
+      <div class="grotesk text-2xl mb-1" style="font-weight:600">Pro-curious</div>
+      <p class="text-emerald-100/50 text-sm mb-4">Committed → owner</p>
+      <p class="text-emerald-100/80 text-[15px] leading-relaxed">Token & co-ownership — <span class="text-white">"co-own the system."</span> Goal: own + advocate.</p>
+    </div>
+  </div>
+
+  <!-- where they live -->
+  <div class="glass glass-tight p-6 md:p-7 reveal">
+    <div class="flex flex-col md:flex-row md:items-center gap-4">
+      <div class="pill shrink-0">→ Distribution</div>
+      <p class="text-[15px] md:text-[17px] text-emerald-100/90 leading-relaxed">ICP1 lives on <span class="text-white">YouTube, TikTok / IG Reels, Telegram, X, Reddit</span> — <span class="text-white">not LinkedIn</span> (that's ICP2). The content system ships there, in that order of priority.</p>
     </div>
   </div>
 </section>
 
 <div class="glow-line max-w-4xl mx-auto"></div>
 
-<!-- ================= SECTION 6 — COMPLIANCE SPINE ================= -->
-<section class="px-6 md:px-16 max-w-6xl mx-auto py-28">
-  <div class="reveal"><div class="pill gold mb-6">06 · The Compliance Spine</div></div>
-  <h2 class="grotesk text-4xl md:text-5xl font-700 mb-6 reveal" style="font-weight:700">Behavioral training.<br><span class="gradtext">Never financial advice.</span></h2>
-  <p class="text-emerald-100/65 max-w-2xl mb-14 text-lg reveal">One line runs through every funnel, every market, every piece of content: we teach skills and simulate scenarios. We never advise, promise returns, or say "buy."</p>
+<!-- =================== PILLAR 03 — COMPETITOR ANALYSIS =================== -->
+<section class="px-6 md:px-16 max-w-6xl mx-auto py-24">
+  <div class="reveal"><div class="pill mb-6">Pillar 03 · Competitor Analysis</div></div>
+  <h2 class="grotesk text-4xl md:text-5xl mb-6 reveal" style="font-weight:700">Two competitors draw the map:<br><span class="gradtext">one to copy, one to avoid.</span></h2>
+  <p class="text-emerald-100/65 max-w-2xl mb-14 text-lg reveal">We don't have to invent the funnel or guess the risks. The field already shows us exactly what to steal and exactly what to never become.</p>
 
-  <div class="grid md:grid-cols-4 gap-4 mb-8">
+  <div class="grid md:grid-cols-2 gap-5 mb-5">
+    <!-- Finelo = template -->
+    <div class="glass p-8 reveal d1">
+      <div class="flex items-center justify-between mb-4">
+        <span class="flex items-center gap-2.5"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACjElEQVRoge2Yz2sTQRiG3+/bNLSH2hbRpsWLSJEePPjP+Ad4EC/exJNo8eLBiyBKGz14EQSLHv0BQsBTDyoItcGmkGLBYmpjI9U02ZnXkxBS29lNM+kU8lz3nW/mYWd2Zgfo0+dAiCtw9mJlGGpPR9ms9mJA/zBsWFOrlUtPpmr75TLOSorLgNyyzdid7SbUOBo6dgPAnf1izkGJyjQtBsmuDS0pGdFo2hVyTwta5zTzRoK+ezqvfRC0ABnFrkzQAhCz6oqELNAkzGtXKFgBAV5NLuc+unIhChCCFSK6XijI0VsDQiypyNWJU2Ofk+R7u7vuiVCEPwB5Gmvm7vnqSPlZXkySlr4EKqq4DcqGK2hgEBHrzA59KN4f3gSEpRQd+REQblMHXhRnx8pe6rcQ3BpIS1/gsDnyAp6+QjKgNGfOXdoYTNqiqVE9lxtdK8y4N69W/AgQE8Zw3gpswjxo48q3teoFAJ/SdOVrH1AAoyn/4kYlwwmkFAhnDQigdF8ytBOOQIeEI0CAJk50/mklkMMcIIJ6DKmkbReMAMkvRMN5+GsnFAED0TcY/JP6DQSyBrhoicele1M7aVsetoAVwYJGuLL86HixkwKHN4UEW4B9SPJBcW68DEhHl5deBASoikgeQLX9GcEmYFebEd+tzOa+H7QvLwIUbiHKzPb/yBLgUaDur3QLngTEZGOT6lzfKV4EhKgNqG76qN2OFwEK3r7PT/72UbsdHwJrqsx7qPtfui2wLcC1pbkTaS7XDoRbQDTJDkmA6wJ7Mx76+bzTXbUT3BuZ5SIENSGj3Q+lQfCriCxAOK+TJwulmfGGh3HuiVNAs5yDiV5SZNfbimNrCP01IjubvVq0ffp0mb9Fnt8hbl5rJwAAAABJRU5ErkJggg==" alt="Finelo" class="w-7 h-7 rounded-md ring"><span class="grotesk text-xl" style="font-weight:600">Finelo — the template</span></span>
+        <span class="text-emerald-100/40 text-sm">app twin · 1M+ users</span>
+      </div>
+      <p class="text-emerald-100/80 text-[15px] leading-relaxed mb-5">A near-identical behavioral-finance app already exists and works — $6.99/wk · $19.99/4wk · $39.99/12wk. <span class="text-white">The product isn't novel; the funnel is proven.</span> So we copy the funnel and differentiate on what they can't build.</p>
+      <div class="ring rounded-xl p-4 text-sm text-emerald-100/85 leading-relaxed">
+        <span class="gradtext" style="font-weight:600">Steal the funnel:</span> Landing → 1-min quiz (segment) → account → pick 1 of 3 challenges → risk-free simulator → 3-tier paywall → habit layer (XP / streaks / badges / 28-day challenge).
+      </div>
+      <a href="https://finelo.com" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 mt-4 text-sm transition hover:text-white" style="color:var(--mint)">finelo.com ↗</a>
+    </div>
+    <!-- IM Academy = landmine -->
+    <div class="glass p-8 reveal d2" style="border-color:rgba(242,194,78,.3)">
+      <div class="flex items-center justify-between mb-4">
+        <span class="flex items-center gap-2.5"><img src="data:image/png;base64,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" alt="IYOVIA / IM Academy" class="w-7 h-7 rounded-md ring"><span class="grotesk text-xl" style="font-weight:600">IM Academy — the landmine</span></span>
+        <span class="text-emerald-100/40 text-sm">$1.2B · FTC + AG</span>
+      </div>
+      <p class="text-emerald-100/80 text-[15px] leading-relaxed mb-5">Same shape — education + MLM + token. An FTC + Nevada AG complaint (May 2025) alleges <span class="text-white">$1.2B defrauded</span>; banned in markets, 1.5★, branded a pyramid. Six sins we invert one-for-one.</p>
+      <div class="ring rounded-xl p-4 text-sm text-emerald-100/85 leading-relaxed">
+        <span class="goldtext" style="font-weight:600">The moat:</span> the compliance + transparency spine. Not polish — it's the single thing that keeps TimeCells off IM Academy's road. Transparency shipped as a <span class="text-white">feature</span>.
+      </div>
+      <a href="https://iyovia.com" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 mt-4 text-sm transition hover:text-white" style="color:var(--gold)">iyovia.com (ex-IM Academy) ↗</a>
+    </div>
+  </div>
+
+  <!-- white space + plays -->
+  <div class="grid md:grid-cols-3 gap-5 mt-5">
     <div class="glass glass-tight p-6 reveal d1">
-      <div class="grotesk text-lg mb-2 font-600" style="font-weight:600">🇬🇧 UK</div>
-      <p class="text-emerald-100/70 text-sm leading-relaxed">Tightest. Mandatory risk language, <span class="text-white">zero hype</span>.</p>
+      <div class="pill mb-4">White space</div>
+      <div class="grotesk text-lg mb-2" style="font-weight:600">"Token learn-&-earn"</div>
+      <p class="text-emerald-100/70 text-sm leading-relaxed">A real category no one credibly owns — co-ownership + behavioral training + a trustworthy network, held together. We name it and plant the flag.</p>
     </div>
     <div class="glass glass-tight p-6 reveal d2">
-      <div class="grotesk text-lg mb-2 font-600" style="font-weight:600">🇪🇺 EU</div>
-      <p class="text-emerald-100/70 text-sm leading-relaxed">Transparency-first. <span class="text-white">MiCA</span>-aware token framing.</p>
+      <div class="flex items-center justify-between mb-4"><div class="pill">Steal the persona</div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAM1BMVEVHcExHIBwvAAA/DwlHIBxIIBz///xHIBxTNzVHIBzv7OrMxcODc3GkmZi4srBrWVaTh4bk8B95AAAACnRSTlMA////Zij/kf/IhcGzsQAAA/hJREFUeJztnIuWoyAMQAu0iviA///a5aUQXmOthZ1dcuactmLMJQkBbZnHI5DXU8r4FVFXfoX2oO0JVZDpmTFfxbplSDhirGdeyRh2v655Ja3tI/RqbN8naGPfRaFi+kOZjP1nK/sIPZsGQEljBxgXNMsAJVPjCKgYNKoBu7zapoBKgsqTUChj2xxUWdgBGgPQxmVAFoIO0AE6QAfoAB2gA3SA3wFACL4ihNwBIG1zsc1XZBVUUnwGgLGYhw+EbbyMUAbAaPvEumUQJYQiAF4/N68ROL4CQCi7x76UOUuQB8DLbealMJQJQxYAizvtS6FpghzA7faH4S0PEH67/YEl8yDngcKFNlXkruRnMhPTALhUfDYZzEsAg0ikQRKAFAfAdYDhLEB0eeYfiABYmobFx7c4CCkAAkYAW7me2ZY9LBBgC1qtGCXMg1J+DgB0b9sLOcG2MvoAM7LNBHNPa3VKCJCtURBSANTTWHxmk5sewOq1EnIQgNIPKko8FBMAZA3syxWB/Dt84wBm04qobiU0o+RPafQEgDcGtQWs47upYq7rkwMwrertrAqttaQzDfN5PwxCGo3EFADkPTpAVbeYByAIbLXlC/SaE1hWo3GQygHgAFcTGMYrCAG4tjpX+w4qmT44F0RJEAN4vAKOeBuaHUCbdK3cZs8SKKmz3GA8A7D41wRDAgKoV7Qewq0qCqYy6JCoEhQBULIq7wA6n4gTezIOKpmKgQf0NkC8LNwBlqioKFXlY6Ak05B4bnwbIF6YAAB4J5IEgHF8CyDwXgCgymqcIQMJ4kY+yAGd0FmAYBT4PSbuY+CR90bBBocQ0kXvAAguvdgTlWM8Jd0JV1vfAzC1du+kvMHRU95RiLg/4uVCjeg6xYCSrnxeoKJlWRlA6Glldu+x5wE7U8zOkDGrk9Mq6enS80c8H5cBTIXHVKyLvtXW1txkZMaBbBXIN0QOJX0YlCUemvsBgJlbfGJezNTurQdo3OribA/7ReDUegDWPkYPFbJPt17oedQaKAV3ePGi8CcAqUOxrrTHmksu0siRZHPYGirBtWK0HjkBoB4yyLlmPgzM8pNgudbi4cStyRmA+yR2QF2AxG1BVYDk3WlNgEQAqgLw5BOKegBLKgAVAXIPygoA9z0jKzyj+oIHUtxrpvt3A2R8tqG8/e/nAFtL5jMA7CaZN0EvPC2/9t3A1S8Mfsk3Jh2gA3SADtABOkAH6AD/NEDzn/X+7z9s/gsAmv+8vzlA8x0WzfeYNN9l0zYJxnZ7/Yy8mm62O7bbtQN4NN7vd+z/bZSH3s7bJmkwNdx1rCTYeVw9D+L931XDkNr7XXHzedK8YXiO01cxpmkM/gPAHwhslImLch7MAAAAAElFTkSuQmCC" alt="Cleo" class="w-7 h-7 rounded-md ring"></div>
+      <div class="grotesk text-lg mb-2" style="font-weight:600">Cleo → PAILOT</div>
+      <p class="text-emerald-100/70 text-sm leading-relaxed mb-3">Cleo won by making finance a <span class="text-white">character</span>, not a feature. PAILOT becomes a personality the content speaks as — memorable, ownable.</p>
+      <a href="https://meetcleo.com" target="_blank" rel="noopener" class="text-sm transition hover:text-white" style="color:var(--mint)">meetcleo.com ↗</a>
     </div>
     <div class="glass glass-tight p-6 reveal d3">
-      <div class="grotesk text-lg mb-2 font-600" style="font-weight:600">🇺🇸 US</div>
-      <p class="text-emerald-100/70 text-sm leading-relaxed">Advice trip-wire. <span class="text-white">Extreme caution</span> on anything actionable.</p>
-    </div>
-    <div class="glass glass-tight p-6 reveal d4">
-      <div class="grotesk text-lg mb-2 font-600" style="font-weight:600">🌍 Emerging</div>
-      <p class="text-emerald-100/70 text-sm leading-relaxed">More latitude — but <span class="text-white">localize</span> to savings & dollarization.</p>
+      <div class="flex items-center justify-between mb-4"><div class="pill">Mine for format</div>
+        <div class="flex items-center gap-1.5">
+          <a href="https://binance.com" target="_blank" rel="noopener" title="Binance"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAG1BMVEVHcEzwuQrxuAnwuQrxuQrwuQrwuQrwuQrwuQsQX4mNAAAACHRSTlMAeTrzcGZ+hBhuzVAAAALtSURBVHicxZtRgsIgDESt0ur9T7yr62opmSEFwvDdMq8pkADJ5dLXtq2zg862PB6LWF9K8NIXErz1ZQQffRHBTl9CkOkLCA760wkK/ckEhv5UAlN/IgHQn0YA9ScREP0pBFR/AkFFP5ygqh9M4NAPJXDpBxI49cMI3PpBBCf0QwhO6QcQnNQfTnBafzBBg/5Qgib9gQSN+sMIuP+N985UIV0uKZiA9n9/PnGvEAbqJ/8zrY3a/3M2sbGnuv6Cd4RFjUR/vzEEtNd7/mzEX6jNv7ytwwnOfP+z0dnYQsD6W60XqA0aAK432Bs4G8Tj4HZtAMAEcG1BK1KbPiQg/9MeN636gICOJ4ugXd8kqKzt5Ujs0TcIjPmXt+NI7NMvCMz5l7d1qP6BwHU2vw3Vzwgc3/9sa4e+9cKHwBp/V+uNxPQpUzIn2ZvA1L89MIGpn9g8SsDMLwKgb8usSH9lMzmxD8WmMYUW9P1kLfn/c6YNoGHgp6LvhwRfT+Ic7N/p4R3s3+lhEOw9mSt82C8QPoK9oygIck/qsMFhiXQQ5EvkgeDoyas2ODqJug2OTiIjKL1oxQalm6wRlG5yR2B5cWoDK1DgBFTCjmPIgmWHSozADtYWpk8IULCICVCw+CLAsSz4CzhcRgR4i7HwPZVpAxKuAwK2xVkogGmCsQBbxT4TfoF+EOqnoX4hsgDnLsV6Z9Ttjj0BAXXH+oBEH5JVglIUlEN9MyhNTF8flus3JmjfxLZm7EOBaegQU29OTaap23OqLzmgUB/RFE6naoOxh1TqYzr1QaX6qFZ9WC0/roe9PSZdWMivbDhBYYPxl1bea9O/FnN56r+4U1+dxiURqC+v9df3+gQGfQqHPolFn8ajT2TSp3JVRprdBoz/LoLhCYUnCQJSKk8RqJNK1Wm16sRidWq1OrlcnV6vLjBQl1ioi0zUZTbqQiN1qZW62ExdbqcuOFSXXKqLTtVlt+rCY2Hp9V2s/yKQ6v8S9Jb//wBuiZh/IiQqKgAAAABJRU5ErkJggg==" alt="Binance" class="w-6 h-6 rounded-md ring"></a>
+          <a href="https://robinhood.com/snacks" target="_blank" rel="noopener" title="Robinhood Snacks"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAMFBMVEVHcEzI+gDM/wDO/wDM/wDM/wDM/wAAAAAhKQCs1wCNsQCdxAA/TwC86wBwjABccwDn5b4MAAAABnRSTlMA9Y4eRsYhaBjIAAAEKklEQVR4nMWb2XKrMAyG44SwmO3937YBuWCwsCVv0pyb087k/9BuGr9eh32a91e1xU19383n5VrzriB+QLybm/ynpjwgXLzQfOvKb/a1CD6VHx9MfWT1fwQmET4C/gczUXhL6bfte09AoQBstgdB0AG7C6QyEOxXCY2kfts2shHYYiBWg2Dfl2gK/JLgJavfthkB1Dzoder+rZ/0MNcDUIM+tU9bx0oAw9Ij8pvpKgAj9vQ0giwA+unxN5v8iZADQHvkgy5IB5gXv363el2QDDCvAf2uH0oCqKB+13lLMREg/PyhJEgDGDzld9rqmzdJADR9fyGmABD1u74QAFW/FABZv+uKADD0iwD86q9HrZ4HRtxWF6FUEj6YOxqKlSFug+MCcYDsnXAe9aidf/8qLsDi+7AIAHz/OIauC5B5GuINYDpUHIDM+8CM6vfnUzoA3gjwAfAGaHn5DtD7jwZcAHwBNCuHHhGAvGs5rm+crHexG8Aa+EQewIi2+kMfAZhCH8kCwAvA9BndIQD+CuACKLwAQWPXdQBCJ0MeALoBm1EHzrkD+CuQC4AnIOib7nADCCUgD2BE9cHHaukQgCmYABwAbwH8O+cKQNEnAzwUAATgGE8XgHACMgDwI6DZNE7n2ACEBGQA4AUAXd7KOgsg8F6CCYCvAOBj+3x6ApASkAyAF4ApMrs6D4DACGQCuDuO5eOLcw4AYgIQAdAOZLr87ARlA6B0IDoA3gFMB5pQALo+BQB1gPHxrToAIDwCWQDoEmiS/F4dO8BE60BkADQFTQe4s23SaiR2ADLAYwDc/YD17AkAPfzGTY5aAPPTLyoBmBaM5EYdADODseqsAmDaPNqeqgBABaALCn0EJQBMcArwtceyACYAmD55B0gBgIfEKiAqA9gA/XMFhI+BOQC0+6PDYgLABYAtCD8jRgWACWAGPR4A1gyMBMjcAtgA4ACFOsD7MjIXADgA7cFRLYANAP9HMzCmB7IBIM3RQ1JcC2ACwK6vMP3IFkAE0BeRbEOIDjDZaY5nYGQLoAH8+xzqHDumR7cAGsBiexn7pkJ8BdIAeuspnT9V99MaOQLIAMPFATf1RadEnwYAEYAmfFlDVs07gkUCmMkLPeB0wDpSvqOUA8CUHeSZ8fw65Pz+WQBgtRyw7GFPy3kuAIx+s4f8Mj6p4mMAtFUCba6oMwDM7lHguYkA8HIketlJBxjTW30SALyhZrzzyw2wv4TsU5t9AsAegYRtKxng+DuUFMBeg4X1fQC6hgN8AHsEyrQ/EoDivffPD6DPOSwDsHUh/9dBywLsb+mLp6AHYNuFkk4cqQBLlRR8BtgGUeE56AfYlrHSY8ALUM3kr3iIX3IRv+YjftFJ/KqX+GU3+et+4hce5a98igVB+tqtsi8eS1x8vtz+lr76LX/5Xe76/x+DEY2ndXiXxAAAAABJRU5ErkJggg==" alt="Robinhood" class="w-6 h-6 rounded-md ring"></a>
+          <a href="https://etoro.com" target="_blank" rel="noopener" title="eToro"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAYFBMVEVHt0z///9Etkk+tESZ1pz6/fpzx3fp9ulCtkfw+fB5yXxQu1U7tEFlwmlUvFnz+vON0ZDB5sKw37LJ6cra8Nvj9OS647xuxnLT7dRcv2CCzYWJ0Iyn3Kqg2KKU1JbO7NCje7rCAAAEpUlEQVR4nO1a2ZKrIBCVBiJK1GjcNeb///ICxsSFTInL3JoqTtU8TLS7D01vkDiOhYWFhYWFhYWFhYWFxd8BnPLqep3cD9a+G/j8cArAExTzlS/HKAmPZsAfFCVrX04QfRzsA1y7yL2s1AkX8XKNDyUgVKJk7Q44YrsE3QPNs+CJUOSvdir4EULPgB1lH/gdIXQ3EHCUwFFhALwV6qLOYFNxJ1yA2qMY3DyhLQ1MClGQChHvdoh5aKR9+jCTElkrGNQHuKBfzPocfEnJtBFuK3YzAJkAArHZfkJ4V2L3vakAoqxK0M5QEe5oT3xvYyK9nqwwJMCKrGdOVpcvLVQ6mRWBAf0eiPTdYX5YhsgBY0fCo/edufNGOqqy14G89WX4Lex7L+Gy2hgGEOZo0GFShV7SwcAe5RuHA/YKQBnL5iogjAfpiGzaBLi87a8fRcZI3uLUrIq97FfPtwLUbiHQfuSfW8IgR8cRQLmxNKsp2rWCiQcRrQ3DAHg6EhfVhGkZAAATf7onrPPGGlLD2QAeaAK3cfDcEMNOGBRFEYQOnq4PADuNO9VgVsqgStGMQd5UDnOGwg7s6vht/iyzLE3veVdgPBjg4rWqyWf2UWq0i/iGFqCe62ak18K4n7vR+FlKgtcudZnrenQpfzOZ03G+VCCRVP3yL3dv/ohmJFQbUX2RzU0IXOc78LKvCiLjydy/PYXyIhlAmOieovRqQkDjQpGMyj4UT91DCVdNoRBqX6BGBLTqVUvEhd47LwbSCvhaD+32AFHLC36w/+7bZLcHsqWCTLZk4F9CbIBq3BDo5E0I4HipIJFRzLpo8iEVmH7QykDEmjiMTbKANQt5r8HSAeXoI5rmXe3Xj/t4vZksOLhZpClqTLoBVAsfqqMZq0cOePrhFTPGMKvajxuoLDiaSMnMhirWLTwoqzB8XBvdru8GBdfwY1B1Xr7YQ9ODxTBVvxfW8s95R4JMYopd3pmnWjdvZ3lkPNdDWE4UUJmEI88+Z+3145t+DCdTAqn5UMmCST2jHYzOCWJGmnkU3tHhyoIM3YTApiOimMpHSugNxo6mZLYiuAxx7/mSwG0su2GoVjpxXdLVBIpvBGhZ4032BVhFym8E2AzfCJSk2nFCB8brPIs0BGIyRZfQJYEoy2tHP00aeOFaNW2cZo0zSbbvUAScJkvjtqmue833bmC8EpOnEYEwqDg7wvqLQz8RGxBw9NP6TpgQOAV/g4C7/UbkEAJ0/aX6HgKLOvBGffy3NVoC5Ir1OM//zo+94HdgCYwImN9cHkLgMxHlcwKwuekb4HN1uig3UD2CU76xnWI0bcd8zIBVOS1JeFz7+wI2OnXmwdBugTlBLAYQem/4yRRYMarFGSm4OBZhJyySV2xE8eXMQigxPvHQLCdNfXvE2WcEzpKtd+PrwBbXE/ObhDOboUKnvb358Nl0q2sAcJKfGNDjfziwYBC20Vf7UXJ2DCoGj28MPHL6+hUDFuQ6Cl4enDEJaynwJp7fwbjxCb9c+YlCQWJPXVDJeyo3boLfNO+o8isqYPNok5bUAVf//zrkjvd//2U4sLCwsLCwsLCwsLCwsDgI/wClqjcyTqP4ZQAAAABJRU5ErkJggg==" alt="eToro" class="w-6 h-6 rounded-md ring"></a>
+        </div>
+      </div>
+      <div class="grotesk text-lg mb-2" style="font-weight:600">Giants' playbooks</div>
+      <p class="text-emerald-100/70 text-sm leading-relaxed">Binance's creator army, Robinhood Snacks' 36M-reader newsletter, eToro's social proof — proven formats we adapt, not invent.</p>
     </div>
   </div>
 
-  <div class="glass glass-tight p-6 md:p-7 reveal flex flex-col md:flex-row md:items-center gap-4">
-    <div class="pill gold shrink-0">The guardrail</div>
-    <p class="text-[15px] md:text-lg text-emerald-100/90 leading-relaxed">Behavioral training · scenario simulation · skill-building. <span class="goldtext font-600">Never</span> advice, returns, or "buy." This is what makes TimeCells investable, scalable, and impossible to confuse with the toxic twin.</p>
+  <!-- positioning line -->
+  <div class="glass p-8 md:p-10 reveal text-center mt-8">
+    <p class="text-emerald-100/55 text-sm tracking-widest uppercase mb-5">The positioning the map hands us</p>
+    <p class="grotesk text-xl md:text-2xl leading-snug" style="font-weight:600">Finelo teaches you to trade. The academies pay you pennies to watch their ads. IM Academy sold a dream and <span class="goldtext">got charged.</span><br>TimeCells trains your behaviour and lets you <span class="gradtext">co-own the system — transparently.</span></p>
   </div>
 </section>
 
-<!-- ================= SECTION 7 — DIFFERENTIATORS ================= -->
-<section class="px-6 md:px-16 max-w-6xl mx-auto py-28">
-  <div class="reveal"><div class="pill mb-6">07 · Why TimeCells Wins</div></div>
-  <h2 class="grotesk text-4xl md:text-5xl font-700 mb-14 reveal" style="font-weight:700">Five things the twins<br><span class="gradtext">structurally cannot copy.</span></h2>
+<div class="glow-line max-w-4xl mx-auto"></div>
 
-  <div class="space-y-3">
-    <div class="glass glass-tight p-6 reveal d1 flex gap-5 items-start">
-      <span class="num text-2xl gradtext shrink-0 w-8">01</span>
-      <div><span class="text-white font-600 grotesk">Co-ownership, not just access.</span> <span class="text-emerald-100/75">SELE token + DCPU — members own the refinery. Finelo sells a subscription; TimeCells sells a stake.</span></div>
+<!-- ===================== SYNTHESIS / WHERE THIS GOES ===================== -->
+<section class="px-6 md:px-16 max-w-6xl mx-auto py-24">
+  <div class="reveal"><div class="pill mb-6"><span class="dot"></span> Where this goes next</div></div>
+  <h2 class="grotesk text-4xl md:text-5xl mb-6 reveal" style="font-weight:700">Three pillars in.<br><span class="gradtext">Two deliverables out.</span></h2>
+  <p class="text-emerald-100/65 max-w-2xl mb-14 text-lg reveal">Every finding above is raw material. It converts directly into the two things this strategy ships.</p>
+
+  <div class="grid md:grid-cols-2 gap-5">
+    <div class="glass p-8 reveal d1">
+      <div class="pill mb-5">Deliverable 1</div>
+      <div class="grotesk text-2xl mb-3" style="font-weight:600">The content system</div>
+      <p class="text-emerald-100/80 text-[15px] leading-relaxed">Short-form, behaviour-first, literacy-anchored, PAILOT-voiced, compliance-checked — shipped to YouTube / TikTok / Reels / Telegram / X in priority order. The fix for "zero conversion."</p>
     </div>
-    <div class="glass glass-tight p-6 reveal d1 flex gap-5 items-start">
-      <span class="num text-2xl gradtext shrink-0 w-8">02</span>
-      <div><span class="text-white font-600 grotesk">Behavioral training as the product.</span> <span class="text-emerald-100/75">We change money habits — not sell tips, signals or market calls.</span></div>
-    </div>
-    <div class="glass glass-tight p-6 reveal d2 flex gap-5 items-start">
-      <span class="num text-2xl gradtext shrink-0 w-8">03</span>
-      <div><span class="text-white font-600 grotesk">PAILOT coaches behavior over time.</span> <span class="text-emerald-100/75">AI that trains the decision, longitudinally — the edge that makes the habit actually stick.</span></div>
-    </div>
-    <div class="glass glass-tight p-6 reveal d2 flex gap-5 items-start">
-      <span class="num text-2xl gradtext shrink-0 w-8">04</span>
-      <div><span class="text-white font-600 grotesk">A high-trust DACH community + agent network.</span> <span class="text-emerald-100/75">A relationship moat that a $40 app can't manufacture.</span></div>
-    </div>
-    <div class="glass glass-tight p-6 reveal d3 flex gap-5 items-start">
-      <span class="num text-2xl goldtext shrink-0 w-8">05</span>
-      <div><span class="text-white font-600 grotesk">Compliant by design.</span> <span class="text-emerald-100/75">The deliberate anti-IM-Academy — transparency as a feature, not an afterthought.</span></div>
+    <div class="glass p-8 reveal d2" style="border-color:rgba(35,225,152,.4)">
+      <div class="pill mb-5"><span class="dot"></span> Deliverable 2</div>
+      <div class="grotesk text-2xl mb-3" style="font-weight:600">The funnels, built</div>
+      <p class="text-emerald-100/80 text-[15px] leading-relaxed">Three funnels on the proven Finelo skeleton — Newcomer, Semi-pro, Pro-curious — anchored on literacy, feeding the agent network, with the token layer last.</p>
     </div>
   </div>
 </section>
 
-<!-- ================= TIE-LINE ================= -->
-<section class="px-6 md:px-16 max-w-5xl mx-auto py-32 text-center">
-  <div class="reveal"><div class="pill mb-8 mx-auto"><span class="dot"></span> The one-line position</div></div>
-  <p class="grotesk text-3xl md:text-5xl leading-[1.18] font-600 reveal" style="font-weight:600">
-    TimeCells wins by being the <span class="gradtext">trustworthy, ownership-bearing behavioral-training network</span> in a market split between commoditized <span class="text-white">$40 apps</span> and reputationally-toxic <span class="text-white">MLM hype.</span>
-  </p>
-</section>
-
-<!-- ================= CLOSE ================= -->
+<!-- ============================== CLOSE ============================== -->
 <section class="px-6 md:px-16 max-w-6xl mx-auto pb-32">
   <div class="glass p-10 md:p-14 reveal text-center">
     <div class="flex items-center justify-center gap-3 mb-8">
       <img src="data:image/png;base64,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" alt="TimeCells" class="w-9 h-9">
-      <span class="grotesk text-xl font-600" style="font-weight:600">timecells</span>
+      <span class="grotesk text-xl" style="font-weight:600">timecells</span>
     </div>
-    <p class="grotesk text-2xl md:text-3xl font-600 mb-4" style="font-weight:600">Foundation complete.</p>
-    <p class="text-emerald-100/65 max-w-xl mx-auto text-lg leading-relaxed mb-8">§1 Market · §2 ICP · §3 Competitors — grounded in real research, not assumption. Next: the funnel build and the content system.</p>
-    <div class="inline-flex flex-wrap justify-center gap-2 text-sm">
-      <span class="pill">§4 Funnel Architecture</span>
-      <span class="pill">Content System</span>
-      <span class="pill">Funnels Built</span>
+    <p class="grotesk text-2xl md:text-3xl mb-4" style="font-weight:600">Section 1 — Foundation Research, complete.</p>
+    <p class="text-emerald-100/65 max-w-xl mx-auto text-lg leading-relaxed mb-8">Market Research · ICP · Competitor Analysis — grounded in real web research. Next: §4 Funnel Architecture, then the build.</p>
+    <div class="inline-flex flex-wrap justify-center gap-2 text-sm mb-12">
+      <span class="pill">Market Research</span>
+      <span class="pill">ICP</span>
+      <span class="pill">Competitor Analysis</span>
     </div>
-    <div class="flex items-center justify-center gap-3 mt-12 text-sm text-emerald-100/45">
-      <span>Built by</span><span class="grotesk text-emerald-100 font-600" style="font-weight:600">Evolv&nbsp;AI</span>
+    <div class="flex items-center justify-center gap-3 text-sm text-emerald-100/45">
+      <span>Built by</span><span class="grotesk text-emerald-100" style="font-weight:600">Evolv&nbsp;AI</span>
     </div>
   </div>
 </section>
