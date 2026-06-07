@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Sales Team — Internal Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080c; --bg2:#0c0c14;
+  --p:#a855f7; --b:#3b82f6; --pk:#ec4899;
+  --glass:rgba(255,255,255,.035);
+  --glass-brd:rgba(255,255,255,.08);
+  --txt:#f4f4f8; --mut:#a0a0b0; --dim:#6b6b7d;
+  --gd:linear-gradient(120deg,#a855f7,#3b82f6,#ec4899);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+/* mobile gate — open on desktop */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--bg);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;font-family:'Inter',sans-serif}
+.mobile-block .mb-emoji{font-size:48px;margin-bottom:22px}
+.mobile-block .mb-title{font-family:'Space Grotesk';font-weight:700;font-size:1.8rem;margin-bottom:14px}
+.mobile-block .mb-sub{font-size:.95rem;color:var(--mut);max-width:340px;line-height:1.6}
+.mobile-block .g{background:var(--gd);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+body{
+  background:var(--bg); color:var(--txt);
+  font-family:'Inter',sans-serif; line-height:1.6;
+  overflow-x:hidden;
+}
+/* animated gradient mesh */
+.mesh{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.mesh::before,.mesh::after{
+  content:'';position:absolute;width:60vw;height:60vw;border-radius:50%;
+  filter:blur(120px);opacity:.28;
+}
+.mesh::before{background:radial-gradient(circle,var(--p),transparent 60%);top:-10%;left:-10%;animation:float1 22s ease-in-out infinite}
+.mesh::after{background:radial-gradient(circle,var(--pk),transparent 60%);bottom:-15%;right:-10%;animation:float2 26s ease-in-out infinite}
+.mesh-b{position:fixed;width:50vw;height:50vw;border-radius:50%;filter:blur(140px);opacity:.20;background:radial-gradient(circle,var(--b),transparent 60%);top:35%;left:30%;z-index:0;animation:float3 30s ease-in-out infinite;pointer-events:none}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(8vw,6vh) scale(1.15)}}
+@keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-7vw,-5vh) scale(1.1)}}
+@keyframes float3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6vw,7vh) scale(1.2)}}
+.wrap{position:relative;z-index:1}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rgba(8,8,12,.72);border-bottom:1px solid var(--glass-brd)}
+.nav-in{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.brand{font-family:'Space Grotesk';font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.brand .dot{background:var(--gd);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:flex;gap:20px;margin-left:auto;flex-wrap:wrap}
+.nav-links a{color:var(--mut);text-decoration:none;font-size:.86rem;font-weight:500;transition:.2s}
+.nav-links a:hover{color:var(--txt)}
+.tag-int{font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1px solid rgba(236,72,153,.4);color:#f9a8d4;background:rgba(236,72,153,.08)}
+
+/* hero */
+header{max-width:1180px;margin:0 auto;padding:90px 28px 60px;text-align:center}
+.pill{display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;border-radius:30px;border:1px solid var(--glass-brd);background:var(--glass);color:var(--mut);margin-bottom:26px;box-shadow:0 0 30px rgba(168,85,247,.15)}
+h1{font-family:'Space Grotesk';font-weight:700;font-size:clamp(2.4rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.03em;margin-bottom:22px}
+h1 .g{background:var(--gd);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.sub{font-size:1.12rem;color:var(--mut);max-width:680px;margin:0 auto 12px}
+.note{font-size:.9rem;color:var(--dim);max-width:640px;margin:0 auto}
+
+/* stat strip */
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin:46px auto 0;max-width:920px}
+.stat{flex:1;min-width:150px;background:var(--glass);border:1px solid var(--glass-brd);border-radius:16px;padding:22px 18px}
+.stat .n{font-family:'Space Grotesk';font-weight:700;font-size:1.9rem;background:var(--gd);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .l{font-size:.8rem;color:var(--mut);margin-top:4px}
+
+/* sections */
+section{max-width:1180px;margin:0 auto;padding:64px 28px}
+.sec-head{margin-bottom:38px}
+.sec-kick{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--p);margin-bottom:10px}
+.sec-title{font-family:'Space Grotesk';font-weight:700;font-size:clamp(1.7rem,4vw,2.5rem);letter-spacing:-.02em;line-height:1.1}
+.sec-desc{color:var(--mut);margin-top:12px;max-width:720px}
+
+/* flow diagram */
+.flow{background:var(--bg2);border:1px solid var(--glass-brd);border-radius:20px;padding:30px;overflow-x:auto}
+.flow pre{font-family:'Space Grotesk',monospace;font-size:.84rem;color:var(--mut);line-height:1.7;white-space:pre;letter-spacing:.02em}
+.flow pre b{color:var(--txt)}
+
+/* scorecard table */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--glass-brd);border-radius:18px;background:var(--glass)}
+table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:760px}
+th{text-align:left;padding:14px 16px;font-family:'Space Grotesk';font-weight:600;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);border-bottom:1px solid var(--glass-brd)}
+td{padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--txt);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td .emp{font-family:'Space Grotesk';font-weight:600}
+.chip{display:inline-block;font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:12px;background:rgba(255,255,255,.06);color:var(--mut)}
+.chip.core{background:rgba(168,85,247,.14);color:#d8b4fe}
+.chip.nurt{background:rgba(59,130,246,.14);color:#93c5fd}
+.chip.hunt{background:rgba(236,72,153,.14);color:#f9a8d4}
+.chip.ops{background:rgba(34,197,94,.12);color:#86efac}
+
+/* tier band */
+.tier-band{display:flex;align-items:center;gap:14px;margin:18px 0 30px}
+.tier-band .ico{font-size:1.6rem}
+.tier-band h3{font-family:'Space Grotesk';font-weight:700;font-size:1.5rem;letter-spacing:-.01em}
+.tier-band .meta{font-size:.85rem;color:var(--dim);margin-left:auto}
+
+/* employee card */
+.emp-card{background:var(--glass);border:1px solid var(--glass-brd);border-radius:22px;padding:0;margin-bottom:28px;overflow:hidden;transition:border-color .3s}
+.emp-card:hover{border-color:rgba(168,85,247,.3)}
+.emp-top{display:flex;align-items:flex-start;gap:18px;padding:26px 30px;border-bottom:1px solid var(--glass-brd);background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
+.emp-emoji{font-size:2.4rem;line-height:1;flex-shrink:0}
+.emp-id{font-family:'Space Grotesk';font-size:.72rem;font-weight:600;color:var(--dim);letter-spacing:.1em}
+.emp-name{font-family:'Space Grotesk';font-weight:700;font-size:1.55rem;letter-spacing:-.01em;margin:2px 0 4px}
+.emp-name .g{background:var(--gd);-webkit-background-clip:text;background-clip:text;color:transparent}
+.emp-role{color:var(--mut);font-size:.95rem;font-weight:500}
+.emp-tagline{font-size:.85rem;color:var(--dim);font-style:italic;margin-top:6px}
+.emp-badges{margin-left:auto;display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0}
+
+.emp-body{padding:8px 30px 30px}
+.block{padding:20px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.block:last-child{border-bottom:none}
+.block-h{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.block-num{font-family:'Space Grotesk';font-weight:700;font-size:.72rem;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:var(--gd);color:#fff;flex-shrink:0}
+.block-t{font-family:'Space Grotesk';font-weight:600;font-size:1.02rem;letter-spacing:-.01em}
+.kv{margin:7px 0;font-size:.9rem;color:var(--txt)}
+.kv b{color:#fff;font-weight:600}
+.kv .lbl{color:var(--p);font-weight:600}
+ul.pts{list-style:none;margin:6px 0}
+ul.pts li{position:relative;padding-left:18px;margin:6px 0;font-size:.9rem;color:var(--mut)}
+ul.pts li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--gd)}
+ul.pts li b{color:var(--txt);font-weight:600}
+
+.offer{background:rgba(168,85,247,.07);border:1px solid rgba(168,85,247,.22);border-radius:14px;padding:16px 18px;margin:10px 0}
+.offer .lbl{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--p);display:block;margin-bottom:6px}
+.offer p{font-size:.95rem;color:var(--txt);font-style:italic}
+.grand{font-size:.9rem;color:var(--mut);margin-top:10px}
+.grand b{color:#f9a8d4}
+
+.obj{background:rgba(236,72,153,.06);border-left:3px solid var(--pk);border-radius:0 10px 10px 0;padding:12px 16px;margin-top:10px;font-size:.88rem}
+.obj .q{color:#f9a8d4;font-weight:600}
+.obj .a{color:var(--mut)}
+
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:8px}
+.meta-cell{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:11px 14px}
+.meta-cell .mc-l{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.meta-cell .mc-v{font-size:.85rem;color:var(--txt)}
+.badge{font-size:.66rem;font-weight:600;letter-spacing:.04em;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.b-build{background:rgba(59,130,246,.14);color:#93c5fd;border:1px solid rgba(59,130,246,.3)}
+.b-comp{background:rgba(236,72,153,.12);color:#f9a8d4;border:1px solid rgba(236,72,153,.3)}
+.b-margin{background:rgba(168,85,247,.14);color:#d8b4fe;border:1px solid rgba(168,85,247,.3)}
+
+/* phase cards */
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.phase{background:var(--glass);border:1px solid var(--glass-brd);border-radius:18px;padding:24px}
+.phase .pn{font-family:'Space Grotesk';font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--p);margin-bottom:8px}
+.phase h4{font-family:'Space Grotesk';font-weight:600;font-size:1.15rem;margin-bottom:10px}
+.phase p{font-size:.88rem;color:var(--mut)}
+
+/* guardrails */
+.guards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.guard{background:rgba(236,72,153,.06);border:1px solid rgba(236,72,153,.2);border-radius:16px;padding:22px}
+.guard .gn{font-family:'Space Grotesk';font-weight:700;font-size:1.5rem;color:var(--pk)}
+.guard h4{font-family:'Space Grotesk';margin:6px 0 8px;font-size:1.05rem}
+.guard p{font-size:.88rem;color:var(--mut)}
+
+/* closer */
+.closer{text-align:center;padding:80px 28px 100px;max-width:780px;margin:0 auto}
+.closer h2{font-family:'Space Grotesk';font-weight:700;font-size:clamp(1.8rem,4.5vw,2.8rem);letter-spacing:-.02em;margin-bottom:18px}
+.closer h2 .g{background:var(--gd);-webkit-background-clip:text;background-clip:text;color:transparent}
+.closer p{color:var(--mut);font-size:1.05rem}
+
+footer{border-top:1px solid var(--glass-brd);padding:30px 28px;text-align:center;color:var(--dim);font-size:.82rem}
+
+/* reveal */
+.rev{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.rev.in{opacity:1;transform:none}
+
+@media(max-width:680px){
+  .emp-top{flex-wrap:wrap}
+  .emp-badges{margin-left:0;flex-direction:row;align-items:flex-start}
+  .guards{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title"><span class="g">Open on desktop</span></div>
+  <div class="mb-sub">This internal deck is built for a big screen — open it on your laptop to walk through all 14 AI employees.</div>
+</div>
+<div class="mesh"></div><div class="mesh-b"></div>
+<div class="wrap">
+
+<nav>
+  <div class="nav-in">
+    <span class="brand">Evolv<span class="dot">AI</span></span>
+    <span class="tag-int">Internal — Team Brainstorm</span>
+    <div class="nav-links">
+      <a href="#flow">Flow</a>
+      <a href="#scorecard">Scorecard</a>
+      <a href="#core">Core</a>
+      <a href="#nurture">Nurture</a>
+      <a href="#hunters">Hunters</a>
+      <a href="#ops">Ops</a>
+      <a href="#motion">Sell Motion</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <span class="pill">14 AI Employees · 4 Tiers · Real Estate</span>
+  <h1>The AI Sales Team,<br><span class="g">explained in full.</span></h1>
+  <p class="sub">Every AI employee we sell to real-estate agents — what it does, how it's built, the economics, the pitch, the compliance, and how they connect. The complete internal reference for the team.</p>
+  <p class="note">Not a client deck. This is the depth: all 8 spec dimensions for all 14 employees, so anyone on the team can explain any agent cold.</p>
+  <div class="stats">
+    <div class="stat"><div class="n">14</div><div class="l">AI employees</div></div>
+    <div class="stat"><div class="n">4</div><div class="l">tiers</div></div>
+    <div class="stat"><div class="n">&lt;60s</div><div class="l">speed-to-lead (FLASH)</div></div>
+    <div class="stat"><div class="n">REVA</div><div class="l">the wedge — found money</div></div>
+  </div>
+</header>
+
+<!-- FLOW -->
+<section id="flow">
+  <div class="sec-head rev">
+    <div class="sec-kick">The System</div>
+    <div class="sec-title">How the team connects</div>
+    <p class="sec-desc">Everything funnels into the Conversion Core. Hunters and REVA feed leads in, FLASH catches them in &lt;60s, BOOKER books them, the agent closes — then the post-sale flywheel (VERA → JADA → REMI) compounds. OWEN reports across all; IRIS manages the inbox across all.</p>
+  </div>
+  <div class="flow rev">
+<pre><b>HUNTERS</b> (SCOTT · MILA · DANTE · ARIA · LIAM) ─┐
+<b>REVA</b>  (dead CRM database) ──────────────────────┤
+<b>INBOUND</b> (portals · web · ads) ──────────────────┴──▶ <b>FLASH</b> ──▶ <b>BOOKER</b> ──▶ <b>AGENT</b> (live appt)
+                                                       │            │
+                              not-ready ──▶ <b>NADIA</b> ──────┘            ▼
+                                                                <b>VERA</b> (contract → close)
+                                                                     │
+                                          <b>JADA</b> (reviews) ◀────────────┤
+                                          <b>REMI</b> (referrals) ◀───────────┘
+
+<b>OWEN</b> reports across the whole team   ·   <b>IRIS</b> manages the inbox across the whole team</pre>
+  </div>
+</section>
+
+<!-- SCORECARD -->
+<section id="scorecard">
+  <div class="sec-head rev">
+    <div class="sec-kick">Internal Only</div>
+    <div class="sec-title">The 3-number scorecard</div>
+    <p class="sec-desc">Every employee ranked on <b>margin</b> (revenue impact vs cost), <b>build effort</b> (Evolv slots to stand up), and <b>compliance risk</b> (regulatory / account-ban exposure). This drives the sell order: lead with money found, gate the high-compliance Hunters.</p>
+  </div>
+  <div class="tbl-wrap rev">
+    <table>
+      <thead><tr><th>#</th><th>Employee</th><th>Tier</th><th>Margin</th><th>Build</th><th>Compliance</th><th>Sell position</th></tr></thead>
+      <tbody id="scoreBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- TIER SECTIONS render here -->
+<section id="core"><div id="tier-core"></div></section>
+<section id="nurture"><div id="tier-nurture"></div></section>
+<section id="hunters"><div id="tier-hunters"></div></section>
+<section id="ops"><div id="tier-ops"></div></section>
+
+<!-- SELL MOTION -->
+<section id="motion">
+  <div class="sec-head rev">
+    <div class="sec-kick">The Play</div>
+    <div class="sec-title">Recommended sell motion</div>
+    <p class="sec-desc">Rule of the stack: <b>lead with money found, not money spent.</b> REVA pays for the Core, the Core proves ROI, ROI earns the right to sell Hunters.</p>
+  </div>
+  <div class="phases rev">
+    <div class="phase"><div class="pn">Phase 1 · Land</div><h4>REVA → Conversion Core</h4><p>Open on REVA — "let's get paid from leads you already have." Attach FLASH + BOOKER as the Core. Every lead now answered in &lt;60s and booked. Non-negotiable foundation.</p></div>
+    <div class="phase"><div class="pn">Phase 2 · Prove</div><h4>OWEN + first Nurture</h4><p>Bundle OWEN early — makes ROI visible weekly, stops churn. Add NADIA / REMI / JADA: cheap, low-risk, captures the 95% the Core can't close today.</p></div>
+    <div class="phase"><div class="pn">Phase 3 · Expand</div><h4>Hunters, lowest-risk first</h4><p>Start with LIAM (proven Amy model). Then DANTE / MILA as the market fits. SCOTT last and only behind compliance sign-off. ARIA for durable-brand clients.</p></div>
+    <div class="phase"><div class="pn">Phase 4 · Operate</div><h4>Ops as deals scale</h4><p>VERA once deal volume justifies it (replaces $300–500/deal TC cost). IRIS anytime as an easy time-recovery add-on.</p></div>
+  </div>
+  <div class="guards rev">
+    <div class="guard"><div class="gn">01</div><h4>Never open on a Hunter</h4><p>Cold lead-gen with no Core = leads leaking out the bottom of the bucket. Core first, always.</p></div>
+    <div class="guard"><div class="gn">02</div><h4>Gate the high-compliance Hunters</h4><p>SCOTT / MILA require explicit client sign-off on DNC/TCPA and Meta Housing policy before a single message or ad goes out. Protect the client and Evolv.</p></div>
+  </div>
+</section>
+
+<div class="closer rev">
+  <h2>One team. <span class="g">Sold in the right order.</span></h2>
+  <p>Found money first. Conversion Core as the spine. Proof to retain. Hunters to scale. Ops to protect margin. Now everyone can explain it.</p>
+</div>
+
+<footer>Evolv AI · Internal AI Sales Team Playbook · for team brainstorming, not client distribution</footer>
+</div>
+
+<script>
+/* ---------- DATA: all 14 employees, full 8-section spec ---------- */
+const EMP = [
+/* ===== CORE ===== */
+{
+ id:'01',name:'FLASH',emoji:'⚡',tier:'core',role:'Speed-to-Lead AI · Inbound Response Rep (first-touch)',
+ tag:'Responds to every inbound lead in under 60 seconds',
+ margin:'💰💰💰',build:'Low–Med',comp:'⚠️ Low–Med',
+ identity:'Funnel: TOF / speed-to-lead — first human-feeling touch. The instant a lead arrives on any channel, FLASH replies in &lt;60s, opens a real conversation, keeps the lead warm, then hands the engaged lead to BOOKER. <b>FLASH does not qualify or book</b> — its one job is to be first, be fast, and start the conversation so no lead is ever lost to silence.',
+ trigger:'New lead hits CRM / web form / portal (Zillow, Realtor.com, Idealista, Immobiliare.it, Rightmove), Meta/Google lead ad, or missed-call text-back.',
+ inputs:'Name, contact, source, property enquired on, time, language.',
+ process:'Lead detected → fires instant SMS + email + AI voice call in &lt;60s referencing their property → holds a live conversation, answers first questions, keeps them engaged → once they respond, hands off to BOOKER.',
+ outputs:'Instant multi-channel reply · live conversation started · engaged lead handed to BOOKER · CRM updated + agent notified.',
+ handoff:'Engaged lead → BOOKER. "Talk to a person now" → instant agent alert with context.',
+ stack:['CRM + workflows: <b>GHL</b>','AI voice: <b>Retell</b>','Orchestration: <b>Relevance</b>','Booking bridge: <b>Appointwise</b>','Channels: SMS, email, voice + portal/form/lead-ad webhooks'],
+ buildInt:'GHL workflow + lead-source webhooks, Retell voice agent + script, Relevance orchestration, SMS/email templates, handoff rules into Appointwise/BOOKER, escalation logic.',
+ buildTime:'Medium · ~1 slot / 1–2 wks',
+ buildClient:'CRM access, phone number + A2P/10DLC registration, lead-source connections (portals, ad accounts), property/FAQ content, tone approval.',
+ maint:'Prompt + voice-script tuning, deliverability monitoring, KB updates. Low–moderate.',
+ problem:'Speed-to-lead is broken. Avg business takes ~47h to respond; &gt;50% of leads never get any response. In RE, the lead goes to whoever answers first.',
+ costp:'Contact within 5 min = up to 100× more likely to connect, 21× more likely to qualify vs 30 min. 78% of buyers go with the first responder. Slow/no response = ad spend set on fire.',
+ inaction:'Competitors harvest your enquiries. On a €30k/mo ad budget, 20% leakage ≈ €6k/mo of paid leads worked by someone else. Compounds monthly.',
+ roi:'Recovering 15–25% of lost-to-slow leads returns 5–10× the fee. Payback usually month 1.',
+ ttv:'Day one — first lead after go-live gets a sub-60s reply.',
+ benefit:'Every lead gets a real reply in under 60 seconds — so you never lose a deal to whoever answered first.',
+ offer:'No lead you pay for ever goes unanswered again — instant SMS, email and AI call in under 60 seconds, 24/7, the moment they raise their hand. Live in 14 days or you don\'t pay.',
+ grand:'They already pay for these leads. FLASH plugs a hole in existing spend — not a new cost.',
+ kpis:'Median speed-to-lead (&lt;60s) · response coverage % (target 100%) · lead→engagement rate · % handed to BOOKER · after-hours leads captured.',
+ thresh:'100% coverage + &lt;60s median + measurable lift in engaged leads vs baseline. Weekly dashboard.',
+ guard:'KB-only answers (no invented prices/facts), escalate uncertainty, rate-limited (no double-texting), opt-out handling.',
+ compliance:'A2P/10DLC + TCPA SMS consent, AI-voice disclosure where required, GDPR, fair-housing-safe language.',
+ deps:'The front door. Feeds BOOKER (engaged) and NADIA (not-ready). Every Hunter + REVA routes replies through FLASH.',
+ pricing:'Anchor / gateway — most provable ROI, easiest yes. Lands first, then expands the team.',
+ diff:'vs chatbot — omni-channel (SMS+email+voice), listing-aware, instant. vs DIY — no human staffs sub-60s 24/7.',
+ objQ:'"Leads want a real person."',objA:'FLASH gets them to that person faster and briefed — vs 47h later when they\'ve toured elsewhere.',
+ scale:'Linear leverage — more lead volume = more value, zero marginal cost per lead.'
+},
+{
+ id:'02',name:'BOOKER',emoji:'📅',tier:'core',role:'Appointment Setter AI / SDR',
+ tag:'Qualifies the engaged lead and books it onto the agent\'s calendar',
+ margin:'💰💰💰',build:'Low–Med',comp:'⚠️ Low',
+ identity:'Funnel: MOF — turns a conversation into a calendar event. Takes the engaged lead from FLASH, qualifies it (budget, timeline, motivation, buy/sell, financing), and books a confirmed appointment straight onto the agent\'s calendar — then protects it with reminders so it actually shows.',
+ trigger:'FLASH hands off an engaged lead.',
+ inputs:'Conversation context from FLASH, qualification criteria, agent availability + booking rules.',
+ process:'Picks up the live conversation → asks qualification questions → confirms fit → offers real-time open slots → books → sends confirmation + reminder sequence → writes qualified notes to CRM → alerts the agent with a full brief.',
+ outputs:'Confirmed appointment on the calendar + reminder sequence + qualified lead record + agent brief.',
+ handoff:'Booked + qualified → human agent (with brief). Not-ready/unqualified → NADIA.',
+ stack:['Booking + qualification flow: <b>Appointwise</b>','Scheduling: <b>Bookedin, iClosed, Cal.com</b>','CRM: <b>GHL</b> (record + reminders)'],
+ buildInt:'Qualification script + scoring logic, calendar integration + availability rules, reminder/confirmation sequences, CRM notes mapping, agent-brief format, no-show recovery flow.',
+ buildTime:'Medium · ~1 slot / 1 wk (builds on FLASH)',
+ buildClient:'Calendar access, qualification criteria (what\'s a good lead for them), booking rules/availability, appointment types/locations.',
+ maint:'Tune qualification thresholds, reminder timing, no-show recovery. Low.',
+ problem:'Agents waste hours chasing and qualifying leads, calendars sit half-empty, booked appointments no-show. Manual setting doesn\'t scale and humans drop the ball after hours.',
+ costp:'Agent time is the scarcest asset — every hour qualifying tire-kickers is an hour not closing. No-shows run 20–40% of self-booked appointments; each lost = a commission ($5k–$15k+) gone.',
+ inaction:'Empty calendar = stalled pipeline. Even with great lead flow, unbooked = unsold. Bottleneck moves from "getting leads" to "leads never make it to a meeting."',
+ roi:'One extra closed deal/month from better booking + show-rate pays for the whole team many times over. Reminder sequences alone cut no-shows ~30%.',
+ ttv:'Days — first booked appointment as soon as FLASH is live.',
+ benefit:'Your calendar fills itself with qualified, confirmed appointments — and they actually show up.',
+ offer:'We turn your inbound conversations into qualified, confirmed appointments on your calendar — 24/7, with reminders that kill no-shows — so you only ever spend time in front of people ready to transact.',
+ grand:'The agent does zero chasing or scheduling — they just show up to pre-qualified meetings. Pure time back + more closings.',
+ kpis:'Engaged→booked rate · appointments/week · qualified-appointment % · show rate · no-show recovery · booked-to-closed.',
+ thresh:'Measurable rise in booked qualified appointments + show rate ≥70%. Weekly reporting.',
+ guard:'Won\'t double-book, respects availability, won\'t book unqualified leads (routes to NADIA), confirms before locking a slot.',
+ compliance:'Fair-housing-safe qualifying (no discriminatory criteria), consent on reminders, data privacy.',
+ deps:'Receives from FLASH. Sends booked leads to the agent + VERA (once under contract); not-ready → NADIA.',
+ pricing:'Sold as a pair with FLASH — together they\'re the "Conversion Core." FLASH starts the conversation, BOOKER monetizes it.',
+ diff:'vs a Calendly link — BOOKER qualifies, handles objections to scheduling, recovers no-shows, briefs the agent. A link can\'t sell the meeting.',
+ objQ:'"AI can\'t qualify like I do."',objA:'It uses your exact criteria, never gets tired, never forgets to follow up, and flags anything borderline. Your standard, applied 24/7.',
+ scale:'Books unlimited concurrent leads — no setter headcount needed as volume grows.'
+},
+{
+ id:'03',name:'REVA',emoji:'🔄',tier:'core',role:'Database Reactivation AI',
+ tag:'Wakes the dead CRM — the wedge, first revenue',
+ margin:'💰💰💰',build:'Low',comp:'⚠️ Med',
+ identity:'Funnel: re-engagement / first-revenue wedge. Takes the agent\'s existing dead/cold CRM — hundreds or thousands of old leads they already paid for — and systematically wakes it up via email + SMS + ringless voicemail + AI call, reviving conversations and routing the live ones into the Core. <b>Mines value the client already owns.</b>',
+ trigger:'Campaign launch on an imported database (one-time + recurring sweeps).',
+ inputs:'Database export, segmentation (old buyers/sellers/leads), reactivation scripts/offers.',
+ process:'Import + clean DB → segment → multi-channel sequence (email + SMS + ringless VM + AI call) with a reason to re-engage → live responses routed to FLASH/BOOKER → dead/wrong contacts suppressed.',
+ outputs:'Revived conversations → qualified leads → handed to FLASH/BOOKER → appointments.',
+ handoff:'Any response → FLASH (conversation) → BOOKER (book).',
+ stack:['CRM + sequences: <b>GHL</b>','Ringless voicemail: <b>Slybroadcast</b>','Email: <b>Instantly</b>','AI call: <b>Retell</b>'],
+ buildInt:'DB import + cleaning, segmentation logic, multi-channel reactivation sequences, ringless VM + AI-call scripts, routing into FLASH/BOOKER, suppression/compliance rules.',
+ buildTime:'Medium · ~1 slot / 1 wk',
+ buildClient:'Database export/import (the asset), sender domain + phone for deliverability warmup, reactivation offer/angle approval.',
+ maint:'Periodic re-sweeps, script refresh, list hygiene. Low.',
+ problem:'Every agent sits on a graveyard of old leads they paid for and never followed up — "I\'ll get to it" leads that went cold. That database is buried money.',
+ costp:'They already spent the acquisition cost; doing nothing = 100% waste. ~70% of people use the first agent they have a real conversation with — but agents lose touch, so those leads transact with someone else.',
+ inaction:'The list ages and dies further every month. Competitors re-market to the same people. The cheapest leads they\'ll ever get rot to zero.',
+ roi:'<b>Highest-ROI play in the stack</b> — near-zero acquisition cost. A campaign on a few thousand old contacts routinely surfaces appointments and deals from data the client already owns. Often pays for the entire engagement in month 1.',
+ ttv:'Days — appointments inside the first campaign.',
+ benefit:'We turn the dead leads you already paid for into booked appointments — at near-zero cost.',
+ offer:'Hand us your old database and we\'ll wake it up across email, text, voicemail and AI calls — turning leads you already paid for into appointments on your calendar within 30 days, at zero new ad spend.',
+ grand:'No new lead cost, no new ad budget — pure found money. This is why REVA goes first: it self-funds the rest of the team.',
+ kpis:'Contacts reactivated · reply/re-engagement rate · qualified leads surfaced · appointments booked · revenue from dead DB · cost-per-appointment (near zero).',
+ thresh:'Positive ROI inside campaign 1; appointments from previously-dead contacts. Campaign report.',
+ guard:'Suppression of opt-outs/DNC, deliverability protection (warmup, throttling), no spammy blasting — paced sends.',
+ compliance:'TCPA/A2P consent + reconsent on cold DB, CAN-SPAM/GDPR, ringless-VM legal limits, AI-call disclosure.',
+ deps:'Feeds FLASH → BOOKER. Not-ready revived leads → NADIA.',
+ pricing:'The wedge / loss-leader entry — fastest provable ROI, often the first thing sold to fund everything else.',
+ diff:'vs a one-off email blast — multi-channel, paced, AI-conversational, routed live. It revives, not just reminds.',
+ objQ:'"Those leads are dead."',objA:'They\'re not dead, they\'re un-contacted. They had intent once; most just never got a real follow-up. We test it at near-zero cost — the data proves itself.',
+ scale:'Bigger DB = bigger payday. Repeatable as a quarterly sweep.'
+},
+/* ===== NURTURE ===== */
+{
+ id:'04',name:'NADIA',emoji:'🌱',tier:'nurture',role:'Long-term Nurture AI / Lead Nurture Manager',
+ tag:'Drips the 95% who aren\'t ready yet until they raise a hand',
+ margin:'💰💰',build:'Low',comp:'⚠️ Low',
+ identity:'Funnel: MOF long-game — the patience engine. Catches every lead who isn\'t ready to transact now and keeps them warm for months — automated, personalized, multi-channel drips — until they signal intent, then pushes them back into FLASH/BOOKER.',
+ trigger:'Lead marked not-ready by BOOKER/FLASH, or no engagement after first touch.',
+ inputs:'Segment (buyer/seller, timeline, area), content library, intent signals.',
+ process:'Segment → enroll in a multi-month sequence (market updates, value content, soft check-ins across email + SMS) → detect a raised hand (reply, click, "I\'m ready now") → route hot lead back to FLASH/BOOKER.',
+ outputs:'Sustained engagement → reactivated intent → qualified lead handed to Conversion Core.',
+ handoff:'Intent detected → FLASH → BOOKER.',
+ stack:['Sequences + CRM: <b>GHL</b>','Newsletter/content: <b>beehiiv</b>','Email delivery: <b>Instantly</b>'],
+ buildInt:'Segmentation logic, multi-month content sequences (drip calendars), intent-detection rules, re-entry routing into the Core.',
+ buildTime:'Medium · ~1 slot / 1–2 wks (content-heavy)',
+ buildClient:'Segmentation rules, brand voice, market/content inputs (or approval of ours), email/SMS sender setup.',
+ maint:'Refresh content monthly, tune intent triggers. Moderate (content cadence).',
+ problem:'Only ~3% of a market is ready to act now; agents chase that 3% and let the other 97% evaporate. Most give up after 1–2 follow-ups.',
+ costp:'~80% of sales need 5+ follow-ups, but ~44% of salespeople quit after one. Every dropped lead is a future commission handed to a more patient competitor — losing a handful of "not now" leads/year is five figures gone.',
+ inaction:'The pipeline leaks at the back. They keep buying new leads while last month\'s leads — ready in 6 months — go cold and buy from whoever stayed in touch.',
+ roi:'Nurtured leads produce ~50% more sales-ready leads at ~33% lower cost and make ~47% larger purchases (Forrester/Annuitas). NADIA converts "wasted" leads into deferred revenue.',
+ ttv:'Compounds over months; first re-activations within weeks.',
+ benefit:'The 95% of leads you\'d normally lose stay warm until they\'re ready to buy — and they come to you.',
+ offer:'We make sure not a single lead ever falls through the cracks — every "not yet" is nurtured automatically for as long as it takes, then handed back to you the moment they\'re ready to transact.',
+ grand:'They\'re already paying for these leads. NADIA captures the 97% the industry throws away — future deals at zero extra acquisition cost.',
+ kpis:'Leads in active nurture · engagement/open/reply rate · reactivation rate (not-ready → hand-raise) · appointments from nurture · avg time-to-reactivation.',
+ thresh:'Steady stream of reactivated leads back into BOOKER each month. Monthly reporting.',
+ guard:'Frequency capping (no over-messaging), opt-out honored, intent-detection avoids false positives.',
+ compliance:'CAN-SPAM/GDPR, SMS consent, fair-housing-safe content.',
+ deps:'Receives from FLASH/BOOKER/REVA/Hunters. Returns hot leads to FLASH/BOOKER.',
+ pricing:'Layer 2 retention — sold once the Core proves leads are flowing; protects the investment in lead gen.',
+ diff:'vs a static drip — multi-month, segmented, intent-aware, two-way. It listens for the hand-raise, not just sends.',
+ objQ:'"I follow up myself."',objA:'Be honest — nobody manually follows up for 6–18 months across hundreds of leads. NADIA never forgets and never quits.',
+ scale:'Holds unlimited leads in nurture at flat cost; bigger pipeline = more deferred revenue.'
+},
+{
+ id:'05',name:'JADA',emoji:'⭐',tier:'nurture',role:'Reviews & Reputation AI / Reputation Manager',
+ tag:'Mines happy clients for 5-star reviews',
+ margin:'💰',build:'Low',comp:'⚠️ Low',
+ identity:'Funnel: post-sale → top-of-funnel flywheel (reviews drive new inbound trust). After every successful close (or happy touchpoint), JADA asks the client for a review at the perfect moment, routes them to the right platform, and turns satisfaction into public 5-star social proof — automatically.',
+ trigger:'Post-close milestone (deal closed, keys handed over) or a positive interaction flag.',
+ inputs:'Client contact, transaction outcome, review platform links.',
+ process:'Detect close → time a personalized review request (SMS + email) → sentiment check (happy → public review link; unhappy → private feedback + agent alert, never public) → follow up gently if no response → log results.',
+ outputs:'Published Google/Zillow/Facebook reviews + captured private feedback for service recovery.',
+ handoff:'Negative sentiment → private alert to agent (protects reputation).',
+ stack:['CRM + sequences: <b>GHL</b>','Review platform links: <b>Google, Zillow, Facebook</b>'],
+ buildInt:'Post-close trigger, review-request sequences, sentiment gate, platform routing, follow-up logic.',
+ buildTime:'Low · ~0.5 slot / few days',
+ buildClient:'Post-close trigger access, Google/Zillow review links, list of past happy clients to seed.',
+ maint:'Minimal — set and monitor.',
+ problem:'Agents do great work but never ask — or ask awkwardly and inconsistently. Reviews are the #1 trust signal in a referral-driven business, and they\'re leaving them on the table.',
+ costp:'~88–93% of consumers read reviews before choosing a local pro; agents with few/old reviews lose leads to better-reviewed competitors before a conversation ever starts. Invisible, ongoing leakage at the top of funnel.',
+ inaction:'Reputation stagnates while competitors stack reviews. Lower trust = lower inbound conversion on every other channel the team runs.',
+ roi:'More 5-star reviews lift conversion on all lead sources simultaneously — a multiplier on the whole stack. Cheap to run, compounding asset.',
+ ttv:'First reviews within days of go-live (seed past clients).',
+ benefit:'Turn every happy client into a 5-star review that wins you the next one — on autopilot.',
+ offer:'Every happy client becomes a public 5-star review at exactly the right moment, while unhappy ones get routed privately to you first — so your reputation only ever goes up.',
+ grand:'Reputation insurance + lead multiplier in one. The sentiment gate means it can only help your public image, never hurt it.',
+ kpis:'Review requests sent · review conversion rate · new 5-star reviews/month · avg rating trend · private negative feedback intercepted.',
+ thresh:'Steady monthly review growth + rising/maintained avg rating. Monthly reporting.',
+ guard:'Sentiment gate — never sends unhappy clients to public review pages; private recovery instead. Avoids review-gating policy violations by genuinely routing, not suppressing.',
+ compliance:'Platform review-policy compliance (no incentivized reviews), GDPR/consent.',
+ deps:'Triggered after VERA (close). Feeds the trust layer that lifts MILA/ARIA/LIAM conversion. Pairs with REMI.',
+ pricing:'Layer 2 retention add-on; cheap, high-trust, easy upsell.',
+ diff:'vs manual asks — perfectly timed, sentiment-aware, relentless-but-polite. vs a generic tool — integrated with the close trigger.',
+ objQ:'"I don\'t want to annoy clients."',objA:'One well-timed, warm ask at peak happiness isn\'t annoying — and the sentiment gate protects you. Most clients are glad to help; they just need to be asked.',
+ scale:'Every close feeds it forever; the review asset compounds.'
+},
+{
+ id:'06',name:'REMI',emoji:'🤝',tier:'nurture',role:'Referral Engine AI / Referral & Sphere Manager',
+ tag:'Works past clients + sphere for warm referrals',
+ margin:'💰💰',build:'Low',comp:'⚠️ Low',
+ identity:'Funnel: post-sale → highest-quality TOF (warm referrals convert best). Systematically stays in touch with past clients and the agent\'s sphere, asks for referrals at the right moments, and keeps the agent top-of-mind — turning a one-time client into a lifelong referral source.',
+ trigger:'Post-close + ongoing cadence (anniversaries, holidays, market milestones, life events).',
+ inputs:'Past-client list, sphere contacts, referral incentive/script, key dates.',
+ process:'Maintain a relationship cadence (check-ins, home-anniversary, market value updates) → seed referral asks at natural moments → capture referral intros → route referred lead into FLASH/BOOKER → track and thank the referrer.',
+ outputs:'Warm referral leads → Conversion Core, plus sustained sphere relationships.',
+ handoff:'Referral lead → FLASH → BOOKER. Referrer → JADA (review) where relevant.',
+ stack:['CRM + sequences: <b>GHL</b>'],
+ buildInt:'Relationship-cadence sequences, referral-ask scripts, intro capture flow, routing + thank-you automation.',
+ buildTime:'Low · ~0.5 slot / few days',
+ buildClient:'Past-client list + sphere, referral incentive/script, key dates (close anniversaries).',
+ maint:'Light — refresh seasonal touches.',
+ problem:'Referrals + repeat business are the most profitable leads in real estate, yet agents lose touch the moment a deal closes. The relationship dies on the table.',
+ costp:'~89% of buyers would use their agent again — but only ~12% actually do, because the agent never stayed in touch (NAR). That gap is the single biggest waste in the industry. Each lost repeat/referral = a full commission with zero acquisition cost.',
+ inaction:'Past clients forget the agent\'s name within a year and use whoever\'s in front of them next. A book of business that should compound instead resets to zero every cycle.',
+ roi:'Referrals convert dramatically higher and close faster than cold leads. REMI converts a dormant past-client list into the cheapest, highest-converting pipeline the agent has.',
+ ttv:'Weeks — first referral asks land on an existing past-client list immediately.',
+ benefit:'Turn every past client into a lifelong referral source — instead of a one-time deal you never hear from again.',
+ offer:'We keep you top-of-mind with every past client and your whole sphere, automatically asking for referrals at the perfect moments — so your best, cheapest, highest-converting leads come from people who already trust you.',
+ grand:'Zero acquisition cost, highest conversion. Closes the 89%-vs-12% gap that quietly costs agents the most money in the business.',
+ kpis:'Past clients in active cadence · referral asks sent · referrals generated · referral → appointment → close rate · repeat-business deals.',
+ thresh:'Consistent referral flow + measurable repeat/referral deals. Monthly reporting.',
+ guard:'Tasteful cadence (relationship-first, not spammy), frequency caps, personalization to avoid generic blasts.',
+ compliance:'Consent, GDPR, RESPA-safe (no improper referral kickbacks — incentives must be compliant).',
+ deps:'Triggered after VERA. Feeds FLASH/BOOKER. Pairs with JADA (reviews + referrals = the trust flywheel).',
+ pricing:'Layer 2 retention; high-margin, relationship-leverage upsell.',
+ diff:'vs a holiday-card list — proactive, timed, asks directly, tracks intros. It runs the relationship, not just remembers it.',
+ objQ:'"My past clients already know to refer me."',objA:'89% say they\'d use you again; 12% do. Knowing isn\'t acting — REMI makes the ask, at the right time, every time.',
+ scale:'Every closed deal grows the referral base; compounds into a self-sustaining pipeline.'
+},
+/* ===== HUNTERS ===== */
+{
+ id:'07',name:'SCOTT',emoji:'🎯',tier:'hunters',role:'Expired & FSBO Hunter AI / Seller-Lead Hunter (outbound)',
+ tag:'Sources + cold-outreaches the highest-intent sellers — highest-value Hunter',
+ margin:'💰💰💰',build:'High',comp:'⚠️⚠️⚠️ High',
+ identity:'Funnel: TOF outbound — manufactures listing inventory. Finds the highest-intent sellers in a market — expired listings and FSBO — scrapes and enriches them, then runs multi-channel cold outreach to book listing appointments. <b>The only Hunter that sources net-new sellers</b>, the scarcest, most valuable asset in real estate.',
+ trigger:'Scheduled scrape sweeps (daily/weekly) of expired + FSBO sources.',
+ inputs:'MLS expired data, FSBO listings, enrichment (phone/email), outreach scripts.',
+ process:'Scrape expired/FSBO → enrich with contact data → multi-channel cold outreach (AI call + voicemail + email + SMS) with a seller-specific angle → live responses → route to FLASH/BOOKER for the listing appointment.',
+ outputs:'Net-new seller leads → listing appointments via FLASH/BOOKER.',
+ handoff:'Interested seller → FLASH → BOOKER (listing appt).',
+ stack:['Scrape: <b>Apify</b>','Enrich: <b>Clay / Wiza / Seamless</b>','Voice/VM: <b>Terrakotta / Slybroadcast</b>','Email: <b>Smartlead / Instantly</b>','CRM + AI call: <b>GHL, Retell</b>'],
+ buildInt:'Scraping pipelines for expired/FSBO, enrichment workflow, multi-channel outbound sequences + scripts, deliverability infra (domains, warmup), routing into Core.',
+ buildTime:'High · ~1.5–2 slots / 2–3 wks (most infra-heavy Hunter)',
+ buildClient:'Scraping sources for expired/FSBO data (MLS access/region), enrichment budget, cold-outreach infra (domains, numbers, warmup), compliance sign-off, outreach angle approval.',
+ maint:'Ongoing list sourcing, deliverability management, script iteration. Moderate–high.',
+ problem:'Listings are the scarce, high-leverage asset — a seller lead is worth multiples of a buyer lead — but sourcing expired/FSBO is a grind agents hate and do inconsistently. Most never work it systematically.',
+ costp:'Expired + FSBO are the highest-intent sellers alive (they\'ve already proven they want to sell). Ignoring them = leaving the most valuable, most reachable inventory to the handful of agents who grind the phones.',
+ inaction:'Competitors who systematize expired/FSBO own the listing inventory — and listings beget buyer leads, signage, dominance. Falling behind here compounds market-share loss.',
+ roi:'A single listing = a full commission ($8k–$20k+) plus the buyer leads it generates. Even a low hit-rate on systematic outreach is high absolute ROI because the asset value per win is so large.',
+ ttv:'Weeks — first listing appointments inside the first sweeps.',
+ benefit:'A tireless prospector that calls every expired and FSBO seller in your market — and books you listing appointments.',
+ offer:'We hunt the highest-intent sellers in your market — every expired listing and FSBO — and put listing appointments on your calendar, so you own the inventory while your competitors fight over buyers.',
+ grand:'The hardest, highest-value prospecting in real estate — done at scale, every day, without the agent ever picking up the phone.',
+ kpis:'Sellers sourced/week · contact + connect rate · conversation rate · listing appointments booked · listings won · cost-per-listing-appointment.',
+ thresh:'Consistent net-new listing appointments from outbound. Weekly reporting.',
+ guard:'DNC scrubbing, suppression lists, deliverability throttling, KB-accurate claims only.',
+ compliance:'<b>DNC/TCPA critical</b> (cold calling sellers), A2P, AI-call disclosure, scraping ToS/legality per source, GDPR. <b>Highest compliance burden of the team.</b>',
+ deps:'Feeds FLASH/BOOKER. Not-ready sellers → NADIA.',
+ pricing:'Premium Hunter — sold after Core proves ROI; highest price/value because it manufactures inventory.',
+ diff:'vs an ISA/cold-call team — runs 24/7, scrapes + enriches + outreaches end-to-end, never burns out on rejection.',
+ objQ:'"Expired/FSBO are sick of being called."',objA:'That\'s why most agents quit — which is exactly why systematic, well-scripted, persistent-but-respectful outreach wins. The agents who work them consistently get the listings.',
+ scale:'Sweep size scales with sourcing; more markets = more inventory, flat marginal cost.'
+},
+{
+ id:'08',name:'MILA',emoji:'📢',tier:'hunters',role:'Paid Ads Manager AI / Paid Acquisition Manager',
+ tag:'FB/IG lead ads + retargeting',
+ margin:'💰💰',build:'Med',comp:'⚠️⚠️ High',
+ identity:'Funnel: TOF paid acquisition. Runs Facebook/Instagram lead-gen ads end-to-end — generates creative, targets the right audiences (homeowners → seller leads, life-transitions → buyer leads), captures leads straight into the CRM, and retargets warm traffic — feeding fresh inbound into the Conversion Core.',
+ trigger:'Campaign launch + always-on optimization cycles.',
+ inputs:'Ad budget, audience definitions, offers/lead magnets, brand assets.',
+ process:'Generate ad creative (video + image + copy) → launch targeted lead-ad campaigns → capture lead-form submissions → push instantly to CRM → trigger FLASH → run retargeting on engagers → optimize spend toward booked appointments.',
+ outputs:'Net-new buyer/seller leads → FLASH → BOOKER, plus a retargeting flywheel.',
+ handoff:'Lead form → FLASH → BOOKER.',
+ stack:['Creative gen: <b>Arcads, AdCreative, Creatify, Pencil</b>','Ads management/optimization: <b>Koast</b>','CRM + lead capture: <b>GHL</b>'],
+ buildInt:'Creative generation pipeline, campaign structure + audiences, lead-form → CRM connection, retargeting setup, optimization rules.',
+ buildTime:'Medium–high · ~1–1.5 slots / 1–2 wks',
+ buildClient:'Ad account access (Meta Business Manager), ad budget, brand assets/offer, lead-form → CRM connection approval, compliance sign-off.',
+ maint:'Ongoing creative refresh, budget/optimization management. Moderate (active spend).',
+ problem:'Agents boost posts, burn budget on bad creative, leads never reach the CRM (or reach it hours late), and nobody retargets. Paid ads "don\'t work for them" because the system around the ad is broken.',
+ costp:'Wasted ad spend is the visible bleed — but the bigger loss is good leads that arrive and rot because there\'s no instant follow-up or retargeting. Money in, nothing out.',
+ inaction:'Competitors with a real paid system own the feed in the market. Without retargeting, every euro of awareness is paid for once and lost.',
+ roi:'Paid ads only work when creative + speed-to-lead + retargeting are connected — exactly what MILA + FLASH provide. A working funnel turns ad spend into a predictable, scalable appointment machine.',
+ ttv:'Days to first leads; weeks to optimized cost-per-appointment.',
+ benefit:'Predictable buyer and seller leads from Facebook and Instagram — with the follow-up and retargeting that actually makes ads pay.',
+ offer:'We run your Facebook and Instagram ads end-to-end — fresh creative, the right audiences, leads in your CRM and called within 60 seconds, plus retargeting — so your ad spend turns into booked appointments, not boosted posts.',
+ grand:'Ads + FLASH together fix the real reason agent ads fail: it\'s never the ad, it\'s the broken follow-up. MILA closes the loop.',
+ kpis:'Cost-per-lead · lead volume · cost-per-appointment · lead→appointment rate · ROAS / pipeline per €spent · retargeting conversion.',
+ thresh:'Stable, improving cost-per-appointment + positive pipeline ROI. Weekly reporting.',
+ guard:'Budget caps, creative compliance checks, spend-pacing, kill rules for underperformers.',
+ compliance:'<b>Meta Special Ad Category (Housing)</b> — mandatory, restricts targeting; fair-housing-safe creative + audiences; ad-policy compliance.',
+ deps:'Feeds FLASH → BOOKER. Not-ready → NADIA. Reputation from JADA lifts ad conversion.',
+ pricing:'Layer 3 Hunter — sold after Core proves it can convert leads (don\'t pour paid traffic into a leaky funnel). Often retainer + ad spend.',
+ diff:'vs a media buyer — AI creative at volume + native FLASH integration; vs DIY boosting — real structure, Housing-category compliant, retargeting built in.',
+ objQ:'"I tried FB ads, they don\'t work."',objA:'They didn\'t work because leads weren\'t called in 60 seconds and nobody retargeted. Fix the funnel, not just the ad — that\'s what MILA does.',
+ scale:'Spend scales appointment volume; once cost-per-appointment is profitable, it\'s a dial you turn up.'
+},
+{
+ id:'09',name:'DANTE',emoji:'🏘️',tier:'hunters',role:'Geo Farmer AI / Geographic Farming Specialist',
+ tag:'Owns a neighborhood — just-listed/just-sold circle prospecting + direct mail',
+ margin:'💰💰',build:'Med',comp:'⚠️ Med',
+ identity:'Funnel: TOF long-game / market-share play (hyper-local brand dominance). Picks a target neighborhood ("farm") and systematically dominates it — circle-prospecting around every just-listed/just-sold event, plus consistent direct mail — so when anyone on those streets thinks "sell," the agent is the obvious choice.',
+ trigger:'Just-listed/just-sold events in the farm + recurring mail cadence.',
+ inputs:'Target neighborhood/farm boundaries, property + owner data, mail templates.',
+ process:'Monitor farm for listing/sale events → circle-prospect surrounding homeowners (multi-channel: voicemail, mail, calls) with the social-proof angle ("just sold near you") → recurring market-update direct mail → route responses to FLASH/BOOKER → build over time toward farm dominance.',
+ outputs:'Net-new seller leads + farm brand equity → FLASH/BOOKER.',
+ handoff:'Interested owner → FLASH → BOOKER.',
+ stack:['Property/parcel data: <b>Landglide</b>','Ringless voicemail: <b>Slybroadcast</b>','Direct mail: <b>print/ship service</b>','CRM: <b>GHL</b>'],
+ buildInt:'Farm-event monitoring, circle-prospecting sequences, direct-mail template + trigger automation, owner-data pipeline, routing into Core.',
+ buildTime:'Medium · ~1 slot / 1–2 wks',
+ buildClient:'Target neighborhood/farm selection, property data source/MLS access, mail templates (or approve ours), mail budget.',
+ maint:'Mail cadence management, farm data refresh. Moderate.',
+ problem:'Geographic farming is the proven long-game to own a market — but it requires relentless, consistent multi-touch effort most agents can\'t sustain manually. They start, get no instant result, and quit.',
+ costp:'Farming pays off on consistency over 6–18 months; inconsistency = the spend is wasted and the market never associates the agent with the area. Half-doing it is worse than not — money spent, no compounding.',
+ inaction:'Another agent plants the flag and becomes "the neighborhood expert." Once a farm is owned, it\'s extremely hard to dislodge — so inaction cedes a durable, compounding asset permanently.',
+ roi:'A dominated farm produces predictable listings year after year at declining cost-per-listing — one of the highest lifetime-ROI plays in real estate. DANTE makes the consistency automatic.',
+ ttv:'Long-game — meaningful listings over 6–18 months; early responses sooner.',
+ benefit:'Become the undisputed go-to agent in your target neighborhood — without manually working it every week.',
+ offer:'We make you the name everyone in your farm thinks of when they sell — circle-prospecting every sale and mailing consistently for you, every month, until you own the neighborhood.',
+ grand:'Consistency is the whole game and the whole problem — DANTE removes the only reason farming fails. A compounding, defensible market-share asset.',
+ kpis:'Farm touches/month · just-listed/just-sold circles run · response rate · listing appointments from farm · farm market share / listing %.',
+ thresh:'Consistent multi-touch coverage + rising farm-sourced listings over time. Monthly reporting.',
+ guard:'DNC scrubbing on calls/VM, mail suppression, accurate "just sold" claims only.',
+ compliance:'DNC/TCPA on calls/VM, direct-mail regulations, fair-housing-safe messaging.',
+ deps:'Feeds FLASH/BOOKER. Past clients in the farm → REMI.',
+ pricing:'Layer 3 Hunter — long-game; retainer + mail spend. Best for agents committed to a market.',
+ diff:'vs DIY farming — guaranteed consistency, event-triggered timing, multi-channel; vs pure mail — adds circle-prospecting calls/VM around real sale events.',
+ objQ:'"Farming takes forever / I tried it."',objA:'It fails on inconsistency, not concept. DANTE guarantees the consistency — the one thing humans can\'t sustain — so the compounding actually happens.',
+ scale:'Add farms as the agent grows; each becomes a self-sustaining listing source.'
+},
+{
+ id:'10',name:'ARIA',emoji:'🎬',tier:'hunters',role:'Content Engine AI / Inbound Brand Engine',
+ tag:'YouTube / blog / social inbound content',
+ margin:'💰 (compounds)',build:'High (ongoing)',comp:'⚠️ Low–Med',
+ identity:'Funnel: TOF inbound / brand authority (slowest-burn, highest-trust lead source). Produces and publishes consistent content — YouTube, blog, social — in the agent\'s voice/avatar, building authority and an inbound audience that generates leads who arrive already trusting the agent.',
+ trigger:'Content calendar cadence (weekly/daily) + trending-topic detection.',
+ inputs:'Client voice/avatar, niche/market, content calendar, publishing access.',
+ process:'Ideate topics (market updates, buyer/seller guides, local content) → generate scripts + copy → produce video (AI avatar) + images → publish across YouTube/blog/social → capture inbound interest → route to FLASH/BOOKER or NADIA.',
+ outputs:'Published content library + inbound leads + a compounding brand asset.',
+ handoff:'Hand-raiser → FLASH/BOOKER; audience → NADIA nurture.',
+ stack:['AI video/avatar: <b>HeyGen</b>','Copywriting: <b>Jasper</b>','Content/automation: <b>Leap</b>','Memes/visuals: <b>Supermeme</b>','Newsletter: <b>beehiiv</b>','Social scheduling: <b>Taplio</b>'],
+ buildInt:'Content pipeline (ideation → script → video → publish), avatar setup, brand voice tuning, multi-platform scheduling, lead-capture + routing.',
+ buildTime:'Medium–high · ~1–1.5 slots / 2 wks',
+ buildClient:'Voice/avatar (recording for HeyGen clone), content calendar/niche input, publishing access to channels, approval workflow.',
+ maint:'Ongoing content cadence, trend adaptation, performance tuning. Moderate–high (content is continuous).',
+ problem:'Content is the best long-term trust + inbound channel, but it\'s time-consuming and agents can\'t stay consistent. They post sporadically, get no traction, and quit.',
+ costp:'Invisible opportunity cost — every month without content is audience and authority not built, and inbound leads (the cheapest, warmest kind) never materialize. Competitors who show up consistently capture the attention.',
+ inaction:'Brand stays invisible; the agent stays dependent on paid/cold leads forever instead of building an owned audience that compounds.',
+ roi:'Compounding — a content library + audience keeps generating warm inbound for years at near-zero marginal cost. Slowest to start, best long-run cost-per-lead. Lifts conversion across every other channel via authority.',
+ ttv:'Months to compound; consistency from week 1.',
+ benefit:'Show up everywhere as the local expert — and get leads who already trust you before they call.',
+ offer:'We turn you into the most visible agent in your market — consistent videos, posts and content in your voice, published for you every week — so warm leads come to you instead of you chasing cold ones.',
+ grand:'Builds an owned, compounding asset (audience + authority) that lowers cost-per-lead across the entire stack over time — without the agent filming or writing.',
+ kpis:'Content pieces published/week · reach/views/followers growth · engagement rate · inbound leads from content · inbound → appointment rate.',
+ thresh:'Consistent publishing + growing reach + inbound leads trending up. Monthly reporting.',
+ guard:'Brand-voice + accuracy review gate, fair-housing-safe content, avatar-quality checks before publish.',
+ compliance:'AI-disclosure norms, fair-housing, platform content policies, copyright-safe assets.',
+ deps:'Feeds FLASH/BOOKER + NADIA. Authority lifts MILA/LIAM conversion. Pairs with JADA social proof.',
+ pricing:'Layer 3 Hunter — long-game brand play; retainer. Best for agents investing in a durable brand.',
+ diff:'vs hiring a content team — fraction of the cost, consistent output, agent\'s avatar at scale; vs DIY — removes the time burden that kills consistency.',
+ objQ:'"I don\'t have time / hate being on camera."',objA:'That\'s the point — your avatar and voice do it for you, weekly, without you filming. Consistency without the time cost.',
+ scale:'Content compounds and is repurposable across platforms; output scales without proportional cost.'
+},
+{
+ id:'11',name:'LIAM',emoji:'💼',tier:'hunters',role:'LinkedIn Prospector AI / Outreach Prospector',
+ tag:'Outreach under the client\'s name — the Amy model, proven',
+ margin:'💰💰',build:'Low',comp:'⚠️ Low',
+ identity:'Funnel: TOF outbound (relationship-led social selling). Runs targeted LinkedIn outreach under the agent\'s own name — connecting with an ICP, opening conversations, and booking interested prospects into the Conversion Core. <b>This is the proven Amy/Isaac model</b> Evolv already runs — battle-tested, just pointed at real estate.',
+ trigger:'Campaign launch on an ICP-defined audience + ongoing daily activity.',
+ inputs:'Client LinkedIn access, ICP targeting, message sequences.',
+ process:'Build ICP list → send personalized connection requests under the client\'s name → multi-step message sequence → handle replies → book interested prospects → route to FLASH/BOOKER. Mirrors the existing Amy/SalesRobot workflow.',
+ outputs:'Booked conversations / qualified leads → FLASH/BOOKER.',
+ handoff:'Interested reply → FLASH/BOOKER; not-ready → NADIA.',
+ stack:['Outreach automation: <b>HeyReach, SalesRobot</b>','Content/authority: <b>Taplio, Kleo</b>'],
+ buildInt:'ICP list build, connection + message sequences, reply handling + routing, profile-warming content.',
+ buildTime:'Low–medium · ~0.5–1 slot / 1 wk — playbook already proven (fastest Hunter to deploy)',
+ buildClient:'LinkedIn access (their profile), ICP definition, approval of message sequences, ideally an optimized profile.',
+ maint:'Sequence iteration, reply monitoring, account-safety pacing. Low–moderate.',
+ problem:'LinkedIn is an underused, high-trust relationship channel for agents (investors, referral partners, relocating professionals, developers) — but manual outreach doesn\'t scale and most agents ignore it entirely.',
+ costp:'Untapped relationship pipeline — high-value connections (investors, referral sources, sphere) that never get made. Pure opportunity cost in a channel competitors aren\'t working.',
+ inaction:'The agent stays invisible to a warm professional network that converts well; relationships that would compound into referrals and deals never start.',
+ roi:'Proven model — Evolv already runs it profitably (Amy/Isaac). Low cost to operate, high relationship value per connection, fast to stand up because the playbook exists.',
+ ttv:'Days to first conversations — proven workflow, minimal build.',
+ benefit:'A steady stream of warm LinkedIn conversations with your ideal clients and partners — all under your name, hands-off.',
+ offer:'We turn your LinkedIn into a quiet appointment machine — personalized outreach to your exact ideal clients and referral partners under your own name, booking conversations for you daily, using the exact system we already run profitably for other clients.',
+ grand:'Lowest-risk Hunter — it\'s not a theory, it\'s a proven Evolv system (the Amy model) simply pointed at real estate. Fast, cheap, battle-tested.',
+ kpis:'Connections sent/accepted · reply rate · conversations booked · conversation → appointment rate · pipeline sourced.',
+ thresh:'Steady accepted connections + booked conversations weekly. Weekly reporting.',
+ guard:'LinkedIn-safe send limits (avoid bans), human-like pacing, personalization to avoid spam flags, reply-quality review.',
+ compliance:'LinkedIn ToS / automation-safety, GDPR on outreach data, honest representation.',
+ deps:'Feeds FLASH/BOOKER; not-ready → NADIA; authority content via ARIA overlap (Taplio/Kleo).',
+ pricing:'Layer 3 Hunter — easy add because it\'s proven; low build, quick win. Good "second Hunter" after the Core.',
+ diff:'vs generic LinkedIn tools — Evolv\'s proven sequences + account-safety + full routing into the Core; not just blasting connects.',
+ objQ:'"LinkedIn isn\'t where my clients are."',objA:'For investors, referral partners, relocating pros and developers, it absolutely is — and it\'s the one channel your local competitors aren\'t working. Low risk to test with a proven system.',
+ scale:'Add accounts/ICPs to scale; proven playbook replicates fast.'
+},
+/* ===== OPS ===== */
+{
+ id:'12',name:'VERA',emoji:'📋',tier:'ops',role:'Transaction Coordinator AI (TC)',
+ tag:'Contract-to-close — paperwork, deadlines, docs',
+ margin:'💰💰',build:'Med',comp:'⚠️ Med',
+ identity:'Funnel: post-sale / fulfillment (protects revenue already won). Manages every deal from contract to close — tracks deadlines, chases documents, routes signatures, and keeps all parties on schedule — so deals don\'t fall apart in escrow and the agent stays selling instead of doing admin.',
+ trigger:'Deal goes under contract.',
+ inputs:'Contract, transaction milestone workflow, document templates, party contacts.',
+ process:'Open transaction file → build a deadline timeline (inspection, financing, appraisal, contingencies, closing) → auto-request + collect docs → route e-signatures → send reminders to all parties → flag at-risk deadlines to the agent → drive to close.',
+ outputs:'On-time, organized closings + complete document files + at-risk alerts.',
+ handoff:'Closed deal → JADA (review) + REMI (referral). Exceptions → agent.',
+ stack:['Documents/e-sign: <b>PandaDoc, Docusign</b>','Workflow + CRM: <b>GHL</b>'],
+ buildInt:'Transaction milestone workflow, document-request automation, e-sign routing, deadline tracking + alerts, party-reminder sequences.',
+ buildTime:'Medium · ~1 slot / 1–2 wks',
+ buildClient:'Document templates, transaction milestone workflow (their process/state requirements), e-sign accounts, party contact info.',
+ maint:'Template + workflow updates as regulations/process change. Low–moderate.',
+ problem:'Transaction coordination is heavy, deadline-driven admin. A missed contingency or late doc can kill a deal at the finish line — and human TCs are expensive and error-prone under load.',
+ costp:'A dedicated human TC costs ~$300–$500+ per transaction (or a salaried hire). Worse: a blown deadline can void a deal worth a full commission ($8k–$20k+) and the agent\'s reputation with it.',
+ inaction:'Agents either drown in admin (less time selling) or pay TC fees on every deal. Either way it\'s margin and time lost on every transaction, forever.',
+ roi:'Eliminates per-deal TC cost and protects against deal-killing errors. At scale, replaces a recurring cost center and de-risks every closing — direct margin + saved deals.',
+ ttv:'Immediate on the next deal under contract.',
+ benefit:'Every deal closes on time with zero dropped paperwork — and you never pay a transaction coordinator again.',
+ offer:'We run every deal from contract to close for you — tracking every deadline, chasing every document, flagging any risk before it kills the deal — so nothing falls through and you stay selling instead of pushing paper.',
+ grand:'Replaces a $300–$500/deal cost center while protecting full commissions from deadline disasters. Pays for itself on the first transaction.',
+ kpis:'Deadlines hit on time % · docs collected on time · on-time close rate · deals lost to coordination errors (target: 0) · TC cost saved per deal.',
+ thresh:'~100% deadline compliance + zero coordination-caused fall-throughs. Per-deal status + monthly summary.',
+ guard:'Human-in-the-loop on legal/contract judgment (VERA tracks + chases, doesn\'t give legal advice), deadline double-checks, audit trail.',
+ compliance:'State RE transaction requirements, e-sign legality (ESIGN/eIDAS), document-retention + data privacy.',
+ deps:'Triggered by BOOKER → agent → close. Hands closed deals to JADA + REMI.',
+ pricing:'Operations layer — sold once deals are flowing; ops-efficiency + margin play.',
+ diff:'vs a human TC — no per-deal fee, never misses a deadline, available 24/7; vs DIY — removes the admin that steals selling time.',
+ objQ:'"Transactions are too complex/legal for AI."',objA:'VERA handles the coordination — deadlines, docs, reminders, signatures — and escalates judgment calls to you. It\'s the tireless assistant, not the lawyer.',
+ scale:'Handles unlimited concurrent transactions at flat cost — TC capacity stops being a growth ceiling.'
+},
+{
+ id:'13',name:'OWEN',emoji:'📊',tier:'ops',role:'Analyst AI / Reporting & Intelligence',
+ tag:'Weekly "what your team produced" report + market intel — the retention engine',
+ margin:'💰💰 (indirect)',build:'Med',comp:'⚠️ Low',
+ identity:'Funnel: cross-functional ops / proof layer. Pulls data across every other AI employee into one weekly report — what the team produced, what\'s working, what\'s not — plus market intel, so the agent always knows their ROI and where the pipeline stands. <b>This is the retention engine: OWEN makes Evolv\'s value undeniable every single week.</b>',
+ trigger:'Weekly schedule + on-demand.',
+ inputs:'Data from all employees (leads, conversations, appointments, closes, spend), market data, news feeds.',
+ process:'Aggregate metrics across the team → calculate ROI + funnel performance → surface wins, bottlenecks, and recommendations → blend in local market intel → deliver a clear report.',
+ outputs:'Weekly performance + ROI report + market-intel briefing + optimization recommendations.',
+ handoff:'Insights → agent + Evolv (drives tuning of the other employees).',
+ stack:['Product/behavior analytics: <b>Mixpanel, Hotjar</b>','Market/data intel: <b>deeplookup, news feeds</b>'],
+ buildInt:'Data access + aggregation across all employees, KPI/ROI calc logic, report template, market-intel feeds, delivery automation.',
+ buildTime:'Medium · ~1 slot / 1–2 wks (depends on other employees existing)',
+ buildClient:'Approval of report format + cadence; data access is internal (Evolv-side).',
+ maint:'Report refinement, metric tuning. Low.',
+ problem:'Agents (and agencies) run lead-gen blind — no clear view of what\'s working, what each channel costs, or what the ROI actually is. Decisions get made on gut, and value goes unproven.',
+ costp:'Without visibility, budget gets wasted on losing channels and winners get under-funded. And for Evolv: unproven value = churn. An agent who can\'t see the ROI cancels, even when results are real.',
+ inaction:'Money keeps flowing to underperformers; the client never internalizes the value Evolv delivers and leaves at the first slow month.',
+ roi:'OWEN protects the entire engagement — clear weekly proof of ROI is the single biggest driver of retention. It also improves every other employee by surfacing what to optimize. Indirect but massive: it keeps the client (and the MRR).',
+ ttv:'First weekly report.',
+ benefit:'Every week you see exactly what your AI team produced and what it earned you — no guessing.',
+ offer:'Every Monday you get a clear report of exactly what your AI team did, what it cost, and what it made you — plus the market intel to stay ahead — so you always know your ROI and never have to wonder if it\'s working.',
+ grand:'OWEN is the retention weapon. It turns delivered results into visible, undeniable results — which is what keeps clients paying. Build it to protect MRR.',
+ kpis:'Reports delivered on time · metric accuracy/coverage · recommendations actioned · client-reported clarity/confidence · (proxy: retention / churn reduction).',
+ thresh:'On-time, accurate weekly reporting the client actually reads and trusts. It is the reporting layer — weekly.',
+ guard:'Data-accuracy validation, no vanity-metric inflation (honest numbers build trust), source-of-truth reconciliation.',
+ compliance:'Data privacy on aggregated client data, secure handling.',
+ deps:'Reads from all employees; outputs drive optimization across the whole team. The team\'s nervous system.',
+ pricing:'Operations layer — bundled as the proof/retention layer; often included to protect the account rather than sold standalone.',
+ diff:'vs a dashboard — synthesized, narrative, with recommendations + market intel; vs nothing — turns invisible work into visible ROI.',
+ objQ:'"I don\'t have time to read reports."',objA:'That\'s why it\'s one clear page: what happened, what it earned, what to do next. 60 seconds to know your ROI.',
+ scale:'Reports across any number of employees/clients at flat cost; more data = better intel.'
+},
+{
+ id:'14',name:'IRIS',emoji:'📧',tier:'ops',role:'Inbox Manager AI / Email Manager',
+ tag:'Triages + answers routine email',
+ margin:'💰',build:'Low',comp:'⚠️ Low',
+ identity:'Funnel: back-office ops / time-recovery (and catches leads hiding in the inbox). Triages the agent\'s email — sorts what matters from noise, drafts or sends replies to routine messages, and surfaces only what truly needs the agent — reclaiming hours and making sure nothing important gets buried.',
+ trigger:'Incoming email (real-time) + scheduled triage sweeps.',
+ inputs:'Email access, triage rules, response templates, escalation criteria.',
+ process:'Read incoming mail → classify (lead / client / vendor / routine / spam) → auto-answer routine with templates → draft replies for review on important ones → flag + escalate urgent/lead emails (route leads to FLASH) → keep inbox at zero.',
+ outputs:'Triaged inbox + sent/drafted routine replies + escalations + captured leads.',
+ handoff:'Lead email → FLASH/BOOKER; important → agent (drafted); urgent → flagged.',
+ stack:['Email AI: <b>Inboxpilot</b>','Mailbox: <b>Gmail</b>'],
+ buildInt:'Triage classification rules, response templates, escalation criteria, lead-detection → routing into Core.',
+ buildTime:'Low–medium · ~0.5–1 slot / few days–1 wk',
+ buildClient:'Email access, triage rules (what\'s important to them), response templates/tone, escalation preferences.',
+ maint:'Refine rules + templates from misclassifications. Low.',
+ problem:'Agents drown in email — important client/lead messages get buried under noise, response times slip, and leads literally sitting in the inbox go cold. Email is a daily time sink with real revenue leakage.',
+ costp:'Knowledge workers spend ~28% of the workday (~2.5+ hrs) on email. For a commission earner, that\'s hours not selling — and a lead email missed for a day is a lost deal. Pure time + opportunity bleed, daily.',
+ inaction:'Slow/missed replies erode client trust and leak leads. The agent stays trapped in admin instead of in front of clients.',
+ roi:'Reclaims 1–2+ hours/day of selling time and ensures lead emails get instant action. Time recovered → more selling → more deals; captured inbox-leads are found revenue.',
+ ttv:'Day one — inbox triaged immediately.',
+ benefit:'Get hours back every day and never let a lead rot in your inbox again.',
+ offer:'We take your inbox off your plate — routine emails answered, leads caught and acted on instantly, and only the things that truly need you surfaced — so you get your day back and nothing important ever slips.',
+ grand:'Hours back daily + a safety net that catches the leads hiding in your email. Time and revenue, with near-zero effort to adopt.',
+ kpis:'Emails triaged · % auto-handled · avg response time · leads caught in inbox · hours saved/week · important-email miss rate (target: 0).',
+ thresh:'Inbox consistently managed, faster responses, hours saved, zero missed leads. Weekly reporting.',
+ guard:'Human-review on anything sensitive/non-routine (draft-don\'t-send by default for important mail), confidence thresholds, no auto-reply to ambiguous messages.',
+ compliance:'Email privacy, GDPR, secure mailbox access, no auto-sending of regulated/contractual content.',
+ deps:'Routes lead emails to FLASH/BOOKER; surfaces signals to OWEN.',
+ pricing:'Operations layer — easy productivity add-on; low build, fast win, broad appeal.',
+ diff:'vs Gmail filters — understands context, drafts real replies, detects leads; vs a VA — instant, 24/7, no training overhead.',
+ objQ:'"I don\'t trust AI to send my emails."',objA:'By default it drafts important replies for your one-click approval and only auto-sends true routine. You stay in control; you just stop drowning.',
+ scale:'Handles any inbox volume at flat cost; scales with the agent\'s growth.'
+}
+];
+
+const TIERS = {
+ core:{ico:'⚡',name:'Conversion Core',meta:'Build first · the required foundation'},
+ nurture:{ico:'🔁',name:'Nurture & Retention',meta:'Layer 2 · captures + protects'},
+ hunters:{ico:'🎯',name:'The Hunters · Lead Gen',meta:'Layer 3 · after the Core proves ROI'},
+ ops:{ico:'🗂️',name:'Operations · Back Office',meta:'Efficiency + retention layer'}
+};
+
+/* ---------- render employee card ---------- */
+function block(num,title,inner){
+  return `<div class="block"><div class="block-h"><span class="block-num">${num}</span><span class="block-t">${title}</span></div>${inner}</div>`;
+}
+function kv(label,val){return `<p class="kv"><span class="lbl">${label}:</span> ${val}</p>`;}
+function metaCell(l,v){return `<div class="meta-cell"><div class="mc-l">${l}</div><div class="mc-v">${v}</div></div>`;}
+
+function card(e){
+  const stackList = '<ul class="pts">'+e.stack.map(s=>`<li>${s}</li>`).join('')+'</ul>';
+  return `<div class="emp-card rev">
+   <div class="emp-top">
+     <div class="emp-emoji">${e.emoji}</div>
+     <div>
+       <div class="emp-id">EMPLOYEE ${e.id}</div>
+       <div class="emp-name"><span class="g">${e.name}</span></div>
+       <div class="emp-role">${e.role}</div>
+       <div class="emp-tagline">"${e.tag}"</div>
+     </div>
+     <div class="emp-badges">
+       <span class="badge b-margin">Margin ${e.margin}</span>
+       <span class="badge b-build">Build · ${e.build}</span>
+       <span class="badge b-comp">Compliance ${e.comp}</span>
+     </div>
+   </div>
+   <div class="emp-body">
+     ${block(1,'Identity & Core Function',`<p class="kv">${e.identity}</p>`)}
+     ${block(2,'Mechanics',kv('Trigger',e.trigger)+kv('Inputs',e.inputs)+kv('Process',e.process)+kv('Outputs',e.outputs)+kv('Handoff',e.handoff))}
+     ${block(3,'Tech Stack',stackList)}
+     ${block(4,'Build Requirements',
+        `<div class="meta-grid">${metaCell('Complexity / Time',e.buildTime)}</div>`+
+        kv('Internal (Evolv)',e.buildInt)+kv('Client side',e.buildClient)+kv('Maintenance',e.maint))}
+     ${block(5,'Problem & Economics',kv('Problem',e.problem)+kv('Cost of problem',e.costp)+kv('Cost of inaction',e.inaction)+kv('ROI',e.roi)+kv('Time-to-value',e.ttv))}
+     ${block(6,'The Pitch',
+        kv('One-line benefit',e.benefit)+
+        `<div class="offer"><span class="lbl">One-line offer · Value Equation</span><p>"${e.offer}"</p></div>`+
+        `<p class="grand"><b>Grand-slam:</b> ${e.grand}</p>`)}
+     ${block(7,'Proof & Accountability',kv('KPIs',e.kpis)+kv('Threshold',e.thresh))}
+     ${block(8,'Added — Guardrails, Compliance, Position',
+        kv('Guardrails',e.guard)+kv('Compliance',e.compliance)+kv('Team deps',e.deps)+kv('Pricing position',e.pricing)+kv('Differentiation',e.diff)+kv('Scalability',e.scale)+
+        `<div class="obj"><span class="q">#1 objection — ${e.objQ}</span> <span class="a">→ ${e.objA}</span></div>`)}
+   </div>
+  </div>`;
+}
+
+/* render tiers */
+Object.keys(TIERS).forEach(t=>{
+  const T=TIERS[t];
+  const emps=EMP.filter(e=>e.tier===t);
+  const html=`<div class="sec-head rev"><div class="sec-kick">${emps.length} employees</div><div class="tier-band"><span class="ico">${T.ico}</span><h3>${T.name}</h3><span class="meta">${T.meta}</span></div></div>`+emps.map(card).join('');
+  document.getElementById('tier-'+t).innerHTML=html;
+});
+
+/* scorecard (ordered by sell sequence) */
+const SCORE=[
+ ['03','REVA','core','💰💰💰','🔨 low','⚠️ med','Open here — found money, near-zero cost'],
+ ['01','FLASH','core','💰💰💰','🔨 low–med','⚠️ low–med','Anchor — sold as a pair with BOOKER'],
+ ['02','BOOKER','core','💰💰💰','🔨 low–med','⚠️ low','Pair with FLASH = "Conversion Core"'],
+ ['11','LIAM','hunt','💰💰','🔨 low','⚠️ low','First Hunter — proven Amy model, fast, safe'],
+ ['13','OWEN','ops','💰💰 (indirect)','🔨 med','⚠️ low','Bundle to protect MRR — retention weapon'],
+ ['04','NADIA','nurt','💰💰','🔨 low','⚠️ low','Layer 2 — captures the 95% not-ready'],
+ ['06','REMI','nurt','💰💰','🔨 low','⚠️ low','Layer 2 — referral compounding'],
+ ['05','JADA','nurt','💰','🔨 low','⚠️ low','Layer 2 — reputation flywheel'],
+ ['14','IRIS','ops','💰','🔨 low','⚠️ low','Easy productivity add-on'],
+ ['12','VERA','ops','💰💰','🔨 med','⚠️ med','Sell once deals are flowing'],
+ ['07','SCOTT','hunt','💰💰💰','🔨 high','⚠️⚠️⚠️ high','Gate behind compliance sign-off'],
+ ['08','MILA','hunt','💰💰','🔨 med','⚠️⚠️ high','Gate — needs ad-policy setup'],
+ ['09','DANTE','hunt','💰💰','🔨 med','⚠️ med','Layer 3 — geographic play'],
+ ['10','ARIA','hunt','💰 (compounds)','🔨 high','⚠️ low–med','Long-game retainer, slowest payback']
+];
+const tierChip={core:'core',nurt:'nurt',hunt:'hunt',ops:'ops'};
+const tierName={core:'Core',nurt:'Nurture',hunt:'Hunter',ops:'Ops'};
+document.getElementById('scoreBody').innerHTML=SCORE.map(r=>
+ `<tr><td>${r[0]}</td><td class="emp">${r[1]}</td><td><span class="chip ${tierChip[r[2]]}">${tierName[r[2]]}</span></td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td>${r[6]}</td></tr>`
+).join('');
+
+/* reveal on scroll */
+const io=new IntersectionObserver((es)=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}})},{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
