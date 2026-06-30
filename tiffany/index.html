@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evolv AI — for Tiffany Ingram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#0066cc;
+    --blue-dark:#2997ff;
+    --ink:#1d1d1f;
+    --muted:#7a7a7a;
+    --muted-dark:#cccccc;
+    --white:#ffffff;
+    --parchment:#f5f5f7;
+    --tile:#1d1d1f;
+    --hairline:#e0e0e0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  .mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--white);
+    flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;font-family:'Inter',-apple-system,sans-serif;}
+  .mobile-block .mb-emoji{font-size:46px;margin-bottom:24px;}
+  .mobile-block .mb-title{font-weight:600;font-size:28px;letter-spacing:-0.02em;color:var(--ink);margin-bottom:14px;}
+  .mobile-block .mb-title .g{color:var(--blue);}
+  .mobile-block .mb-sub{font-size:16px;font-weight:400;color:var(--muted);max-width:330px;line-height:1.6;}
+  @media screen and (max-width:900px){
+    .mobile-block{display:flex!important;}
+    body>*:not(.mobile-block){display:none!important;}
+  }
+  html{scroll-behavior:smooth;scroll-snap-type:y proximity;}
+  .tile{scroll-snap-align:start;}
+  body{
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Inter",sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.47;
+    letter-spacing:-0.01em;
+  }
+  .tile{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:96px 24px;
+  }
+  .tile.dark{background:var(--tile);color:var(--white);}
+  .tile.parchment{background:var(--parchment);}
+  .wrap{max-width:980px;width:100%;}
+
+  /* type */
+  .eyebrow{
+    font-size:15px;font-weight:600;letter-spacing:0.02em;
+    color:var(--blue);margin-bottom:18px;text-transform:none;
+  }
+  .dark .eyebrow{color:var(--blue-dark);}
+  h1{
+    font-size:clamp(40px,7vw,76px);font-weight:600;line-height:1.05;
+    letter-spacing:-0.03em;
+  }
+  h2{
+    font-size:clamp(34px,5.5vw,56px);font-weight:600;line-height:1.07;
+    letter-spacing:-0.03em;
+  }
+  .lead{
+    font-size:clamp(20px,2.6vw,28px);font-weight:300;line-height:1.4;
+    color:var(--muted);margin-top:24px;letter-spacing:0;
+  }
+  .dark .lead{color:var(--muted-dark);}
+  .sub{font-size:17px;color:var(--muted);margin-top:14px;}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+  .reveal.in{opacity:1;transform:none;}
+  .d1{transition-delay:.08s;} .d2{transition-delay:.16s;} .d3{transition-delay:.24s;} .d4{transition-delay:.32s;}
+
+  /* keyword stacks */
+  .keys{display:flex;flex-direction:column;gap:10px;margin-top:40px;}
+  .key{
+    font-size:clamp(26px,3.6vw,40px);font-weight:600;letter-spacing:-0.02em;line-height:1.12;
+  }
+  .key .accent{color:var(--blue);}
+  .dark .key .accent{color:var(--blue-dark);}
+
+  /* two-up gap */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:880px;margin:48px auto 0;}
+  .split>div{padding:0 32px;}
+  .split .big{font-size:clamp(40px,6vw,64px);font-weight:600;letter-spacing:-0.03em;line-height:1;}
+  .split .lbl{font-size:16px;color:var(--muted);margin-top:14px;}
+  .dark .split .lbl{color:var(--muted-dark);}
+  .split>div:first-child{border-right:1px solid var(--hairline);}
+  .dark .split>div:first-child{border-right:1px solid rgba(255,255,255,.14);}
+
+  /* service tag row */
+  .pill{
+    display:inline-block;font-size:14px;font-weight:600;letter-spacing:0.01em;
+    padding:8px 18px;border-radius:9999px;border:1px solid var(--hairline);
+    color:var(--muted);margin-bottom:26px;
+  }
+  .dark .pill{border-color:rgba(255,255,255,.2);color:var(--muted-dark);}
+
+  /* proof */
+  .proof-num{font-size:clamp(80px,16vw,180px);font-weight:600;letter-spacing:-0.04em;line-height:.9;}
+  .proof-accent{color:var(--blue-dark);}
+
+  /* calculator */
+  .calc{
+    max-width:760px;margin:44px auto 0;text-align:left;
+    background:var(--white);border:1px solid var(--hairline);border-radius:24px;
+    padding:44px;
+  }
+  .calc .row{margin-bottom:34px;}
+  .calc .row:last-child{margin-bottom:0;}
+  .calc label{display:flex;justify-content:space-between;align-items:baseline;font-size:17px;font-weight:600;margin-bottom:16px;}
+  .calc label .val{font-size:22px;font-weight:600;color:var(--blue);letter-spacing:-0.01em;}
+  input[type=range]{
+    -webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:9999px;
+    background:var(--hairline);outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:28px;height:28px;border-radius:50%;
+    background:var(--white);border:1px solid rgba(0,0,0,.12);
+    box-shadow:0 1px 4px rgba(0,0,0,.18);cursor:pointer;
+  }
+  input[type=range]::-moz-range-thumb{
+    width:28px;height:28px;border-radius:50%;background:var(--white);
+    border:1px solid rgba(0,0,0,.12);box-shadow:0 1px 4px rgba(0,0,0,.18);cursor:pointer;
+  }
+  .result{
+    margin-top:8px;background:var(--ink);color:var(--white);border-radius:20px;
+    padding:40px;text-align:center;
+  }
+  .result .rnum{font-size:clamp(48px,9vw,80px);font-weight:600;letter-spacing:-0.03em;line-height:1;color:#fff;}
+  .result .rlbl{font-size:15px;color:var(--muted-dark);margin-top:14px;letter-spacing:0.01em;}
+  .result .roi{font-size:20px;color:var(--blue-dark);font-weight:600;margin-top:22px;}
+  .calc-foot{font-size:13px;color:var(--muted);margin-top:18px;text-align:center;}
+
+  /* pricing */
+  .cards{display:grid;grid-template-columns:1fr 1fr 0.74fr;gap:24px;max-width:1180px;margin:48px auto 0;text-align:left;align-items:center;}
+  .card{position:relative;background:var(--white);border:1px solid var(--hairline);border-radius:22px;padding:40px;align-self:stretch;}
+  .card.featured{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .card.featured .cname{color:#fff;}
+  .card.featured .price small,.card.featured .then small{color:rgba(255,255,255,.7);}
+  .card.featured .incl{border-top-color:rgba(255,255,255,.25);}
+  .card.featured .incl svg{stroke:#fff;}
+  .card .rec{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#fff;color:var(--blue);font-size:12px;font-weight:600;letter-spacing:0.02em;padding:6px 16px;border-radius:9999px;border:1px solid var(--blue);white-space:nowrap;}
+  .card.bonus{position:relative;background:var(--parchment);border-color:var(--hairline);border-radius:18px;padding:28px 26px;align-self:center;}
+  .card.bonus::before{content:'+';position:absolute;left:-24px;top:50%;transform:translateY(-50%);font-size:32px;font-weight:300;color:var(--muted);line-height:1;}
+  .card.bonus .cname{font-size:13px;margin-bottom:14px;}
+  .card.bonus .price{color:var(--blue);font-size:30px;}
+  .card.bonus .price small{font-size:15px;}
+  .card.bonus .then{font-size:16px;margin-top:10px;}
+  .card.bonus .then small{font-size:14px;}
+  .card.bonus .incl{margin-top:20px;padding-top:18px;}
+  .card.bonus .incl li{font-size:14px;margin-bottom:12px;gap:10px;}
+  .card.bonus .incl svg{width:15px;height:15px;}
+  .card .cname{font-size:14px;font-weight:600;color:var(--blue);letter-spacing:0.02em;margin-bottom:18px;}
+  .card .price{font-size:clamp(38px,5vw,52px);font-weight:600;letter-spacing:-0.03em;line-height:1;}
+  .card .price small{font-size:18px;font-weight:400;color:var(--muted);letter-spacing:-0.01em;}
+  .card .then{font-size:20px;font-weight:600;margin-top:14px;}
+  .card .then small{font-size:16px;font-weight:400;color:var(--muted);}
+  .card .desc{font-size:15px;color:var(--muted);margin-top:20px;line-height:1.5;}
+  .card .incl{list-style:none;margin-top:26px;padding-top:24px;border-top:1px solid var(--hairline);}
+  .card .incl li{display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.4;margin-bottom:14px;}
+  .card .incl li:last-child{margin-bottom:0;}
+  .card .incl svg{flex:0 0 auto;width:17px;height:17px;margin-top:2px;stroke:var(--blue);stroke-width:2.4;fill:none;}
+
+  /* CTA */
+  .btn{
+    display:inline-block;background:var(--blue);color:#fff;font-size:18px;font-weight:400;
+    padding:15px 34px;border-radius:9999px;text-decoration:none;margin-top:40px;
+    transition:transform .15s ease;letter-spacing:-0.01em;
+  }
+  .btn:active{transform:scale(.96);}
+
+  .foot{font-size:13px;color:var(--muted);margin-top:30px;}
+  .dark .foot{color:var(--muted-dark);}
+
+  @media(max-width:960px){
+    .cards{grid-template-columns:1fr;max-width:480px;}
+    .card.bonus::before{display:none;}
+  }
+  @media(max-width:680px){
+    .split{grid-template-columns:1fr;gap:40px;}
+    .split>div{padding:0;}
+    .split>div:first-child{border-right:none;border-bottom:1px solid var(--hairline);padding-bottom:40px;}
+    .dark .split>div:first-child{border-bottom:1px solid rgba(255,255,255,.14);}
+    .cards{grid-template-columns:1fr;}
+    .card.bonus::before{display:none;}
+    .calc{padding:30px 22px;}
+    .result{padding:30px 20px;}
+  }
+
+  /* section nav arrows */
+  .nav{
+    position:fixed;right:28px;bottom:28px;z-index:50;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .nav button{
+    width:46px;height:46px;border-radius:9999px;border:none;cursor:pointer;
+    background:rgba(0,0,0,.06);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .15s ease,background .2s ease,opacity .3s ease;
+  }
+  .nav button:hover{background:rgba(0,0,0,.12);}
+  .nav button:active{transform:scale(.9);}
+  .nav button svg{width:18px;height:18px;stroke:var(--ink);stroke-width:2.2;fill:none;}
+  .nav button:disabled{opacity:.25;cursor:default;}
+  /* invert arrows when current section is dark */
+  body.on-dark .nav button{background:rgba(255,255,255,.12);}
+  body.on-dark .nav button:hover{background:rgba(255,255,255,.22);}
+  body.on-dark .nav button svg{stroke:#fff;}
+  @media(max-width:680px){
+    .nav{right:16px;bottom:16px;}
+    .nav button{width:42px;height:42px;}
+  }
+</style>
+</head>
+<body>
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title"><span class="g">Open on desktop</span></div>
+  <div class="mb-sub">This is built for a big screen. Open it on your laptop for the full experience.</div>
+</div>
+
+<!-- 1. COVER -->
+<section class="tile dark">
+  <div class="wrap">
+    <div class="eyebrow reveal">Evolv AI &nbsp;·&nbsp; for Tiffany Ingram</div>
+    <h1 class="reveal d1">More deals.<br>Less hustle.</h1>
+    <p class="lead reveal d2">A pipeline that fills itself — while you close.</p>
+  </div>
+</section>
+
+<!-- 2. THE GAP -->
+<section class="tile">
+  <div class="wrap">
+    <div class="eyebrow reveal">Where you are now</div>
+    <h2 class="reveal d1">You have the offer.<br>Not the pipeline.</h2>
+    <div class="split">
+      <div class="reveal d2">
+        <div class="big">Thousands</div>
+        <div class="lbl">ideal borrowers outside your network</div>
+      </div>
+      <div class="reveal d3">
+        <div class="big">Manual</div>
+        <div class="lbl">100% by hand · solo · no flow</div>
+      </div>
+    </div>
+    <p class="lead reveal d4" style="margin-top:48px;">Two systems fix that.</p>
+  </div>
+</section>
+
+<!-- 3. SERVICE 1 — LINKEDIN -->
+<section class="tile dark">
+  <div class="wrap">
+    <div class="pill reveal">System 01</div>
+    <h2 class="reveal d1">LinkedIn Outreach</h2>
+    <p class="lead reveal d2">Daily conversations with the right people. Under your name.</p>
+    <div class="keys">
+      <div class="key reveal d2">Your ideal <span class="accent">borrowers</span></div>
+      <div class="key reveal d3">Reached <span class="accent">automatically</span></div>
+      <div class="key reveal d4">Conversations <span class="accent">started</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. SERVICE 2 — COLD EMAIL -->
+<section class="tile parchment">
+  <div class="wrap">
+    <div class="pill reveal">System 02</div>
+    <h2 class="reveal d1">Cold Email</h2>
+    <p class="lead reveal d2">Thousands of the right inboxes. Every month.</p>
+    <div class="keys">
+      <div class="key reveal d2">Targeted <span class="accent">at scale</span></div>
+      <div class="key reveal d3">Personalized <span class="accent">by AI</span></div>
+      <div class="key reveal d4">Replies <span class="accent">straight to you</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. PROOF -->
+<section class="tile dark">
+  <div class="wrap">
+    <div class="eyebrow reveal">Proof · live client</div>
+    <div class="proof-num reveal d1"><span class="proof-accent">51</span></div>
+    <h2 class="reveal d2" style="margin-top:12px;">leads in 2 months.</h2>
+    <p class="lead reveal d3">Same system. Real client. Amy.</p>
+  </div>
+</section>
+
+<!-- 6. ROI CALCULATOR -->
+<section class="tile parchment">
+  <div class="wrap">
+    <div class="eyebrow reveal">Your math</div>
+    <h2 class="reveal d1">Run your own numbers.</h2>
+    <p class="sub reveal d2">Move the sliders. Your business, real figures.</p>
+
+    <div class="calc reveal d2">
+      <div class="row">
+        <label>New leads / month <span class="val" id="leadsV">30</span></label>
+        <input type="range" id="leads" min="10" max="80" value="30" step="5">
+      </div>
+      <div class="row">
+        <label>You close <span class="val" id="closeV">5%</span></label>
+        <input type="range" id="close" min="2" max="20" value="5" step="1">
+      </div>
+      <div class="row">
+        <label>Avg deal value <span class="val" id="dealV">$8,000</span></label>
+        <input type="range" id="deal" min="4000" max="45000" value="8000" step="1000">
+      </div>
+
+      <div class="result">
+        <div class="rnum" id="annual">$144,000</div>
+        <div class="rlbl">new revenue / year</div>
+        <div class="roi" id="roi">≈ 4× return on your investment</div>
+      </div>
+      <div class="calc-foot" id="footline">≈ 2 closed deals / month · investment $47,800 / year</div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. PRICING -->
+<section class="tile">
+  <div class="wrap">
+    <div class="eyebrow reveal">Investment</div>
+    <h2 class="reveal d1">Two systems.<br>Pick one or both.</h2>
+    <div class="cards">
+      <div class="card featured reveal d2">
+        <div class="rec">Recommended</div>
+        <div class="cname">LINKEDIN OUTREACH</div>
+        <div class="price">$2,000<small> setup</small></div>
+        <div class="then">$900<small> / month</small></div>
+        <ul class="incl">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Profile optimization</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Ideal-borrower target list</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Daily outreach under your name</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Personalized message sequences</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Conversations booked to your calendar</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Weekly performance report</li>
+        </ul>
+      </div>
+      <div class="card reveal d3">
+        <div class="cname">COLD EMAIL</div>
+        <div class="price">$5,000<small> setup</small></div>
+        <div class="then">$2,500<small> / month</small></div>
+        <ul class="incl">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Domains & inboxes set up</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Inbox warm-up & deliverability</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Targeted lead lists</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>AI-personalized copy</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Multi-step email sequences</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Replies routed to your CRM</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Weekly performance report</li>
+        </ul>
+      </div>
+      <div class="card bonus reveal d4">
+        <div class="cname">FREE WITH COLD EMAIL</div>
+        <div class="price">Free<small> bonus</small></div>
+        <div class="then">3 AI employees<small> included</small></div>
+        <ul class="incl">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg><span><b>FLASH</b> — replies to every lead in under 60s</span></li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg><span><b>BOOKER</b> — books appointments for you</span></li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg><span><b>NADIA</b> — keeps every lead warm</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. CLOSE -->
+<section class="tile dark">
+  <div class="wrap">
+    <h2 class="reveal">Let's fill the pipeline.</h2>
+    <p class="lead reveal d1">Built before your contract ends.</p>
+    <a class="btn reveal d2" href="#">Start with Evolv AI</a>
+    <div class="foot reveal d3">Evolv AI · evolvai</div>
+  </div>
+</section>
+
+<!-- SECTION NAV -->
+<div class="nav">
+  <button id="navUp" aria-label="Previous section"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg></button>
+  <button id="navDown" aria-label="Next section"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+</div>
+
+<script>
+  // scroll reveal
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+  },{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // calculator
+  const leads=document.getElementById('leads');
+  const close=document.getElementById('close');
+  const deal=document.getElementById('deal');
+  const leadsV=document.getElementById('leadsV');
+  const closeV=document.getElementById('closeV');
+  const dealV=document.getElementById('dealV');
+  const annual=document.getElementById('annual');
+  const roi=document.getElementById('roi');
+  const footline=document.getElementById('footline');
+
+  const INVEST_YEAR=7000+3400*12; // 47,800 both systems year one
+  const fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+
+  function calc(){
+    const L=+leads.value, C=+close.value/100, D=+deal.value;
+    const dealsMo=L*C;
+    const revMo=dealsMo*D;
+    const revYr=revMo*12;
+    leadsV.textContent=L;
+    closeV.textContent=close.value+'%';
+    dealV.textContent=fmt(D);
+    annual.textContent=fmt(revYr);
+    const mult=revYr/INVEST_YEAR;
+    roi.textContent='≈ '+mult.toFixed(1)+'× return on your investment';
+    footline.textContent='≈ '+dealsMo.toFixed(1)+' closed deals / month · investment '+fmt(INVEST_YEAR)+' / year';
+  }
+  [leads,close,deal].forEach(s=>s.addEventListener('input',calc));
+  calc();
+
+  // ---- section navigation (arrow buttons + keyboard) ----
+  const sections=[...document.querySelectorAll('.tile')];
+  const navUp=document.getElementById('navUp');
+  const navDown=document.getElementById('navDown');
+  let current=0;
+
+  function currentIndex(){
+    const mid=window.scrollY+window.innerHeight/2;
+    let idx=0;
+    sections.forEach((s,i)=>{ if(s.offsetTop<=mid) idx=i; });
+    return idx;
+  }
+  function goTo(i){
+    i=Math.max(0,Math.min(sections.length-1,i));
+    current=i;
+    sections[i].scrollIntoView({behavior:'smooth'});
+  }
+  function syncUI(){
+    current=currentIndex();
+    navUp.disabled=current<=0;
+    navDown.disabled=current>=sections.length-1;
+    // invert arrows on dark tiles
+    document.body.classList.toggle('on-dark',sections[current].classList.contains('dark'));
+  }
+
+  navUp.addEventListener('click',()=>goTo(currentIndex()-1));
+  navDown.addEventListener('click',()=>goTo(currentIndex()+1));
+
+  document.addEventListener('keydown',(e)=>{
+    // let sliders use arrows when focused
+    if(document.activeElement && document.activeElement.type==='range') return;
+    if(e.key==='ArrowDown'||e.key==='PageDown'){ e.preventDefault(); goTo(currentIndex()+1); }
+    else if(e.key==='ArrowUp'||e.key==='PageUp'){ e.preventDefault(); goTo(currentIndex()-1); }
+  });
+
+  window.addEventListener('scroll',()=>{ window.requestAnimationFrame(syncUI); },{passive:true});
+  syncUI();
+</script>
+</body>
+</html>
