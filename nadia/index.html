@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NADIA — Long-term Nurture AI · Evolv AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#ffffff;
+  --parchment:#f5f5f7;
+  --dark:#1d1d1f;
+  --dark2:#000000;
+  --ink:#1d1d1f;
+  --ink-sec:#6e6e73;
+  --on-dark:#f5f5f7;
+  --sec-on-dark:#a1a1a6;
+  --blue:#0066cc;
+  --blue-msg:#0b93f6;
+  --green:#34c759;
+  --red:#ff3b30;
+  --line:#d2d2d7;
+  --line-dark:rgba(255,255,255,.13);
+  --r:18px;
+  --pill:9999px;
+  --shadow-img:rgba(0,0,0,.18) 0 30px 60px -14px;
+  --muted:#6e6e73; --faint:#86868b; --amber:#ff9f0a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ===== mobile gate ===== */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--canvas);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif}
+.mobile-block .mb-emoji{font-size:46px;margin-bottom:22px}
+.mobile-block .mb-title{font-weight:600;font-size:1.7rem;letter-spacing:-.02em;margin-bottom:14px;color:var(--ink)}
+.mobile-block .mb-sub{font-size:1rem;color:var(--ink-sec);max-width:340px;line-height:1.5}
+.mobile-block .g{color:var(--blue)}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+  line-height:1.47;
+  font-size:17px;
+  letter-spacing:-.012em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;
+  font-weight:600;letter-spacing:-.02em;line-height:1.06}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+section{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:64px 0;scroll-margin-top:0}
+
+/* full-bleed tiles — the colour change IS the divider */
+.tile-light{background:var(--canvas)}
+.tile-parch{background:var(--parchment)}
+.tile-dark{background:var(--dark);color:var(--on-dark)}
+.tile-dark h1,.tile-dark h2,.tile-dark h3,.tile-dark h4{color:var(--on-dark)}
+
+/* eyebrow (Apple category line) */
+.eyebrow{font-size:19px;font-weight:600;letter-spacing:-.01em;color:var(--blue);margin-bottom:6px}
+.tile-dark .eyebrow{color:#2997ff}
+
+/* ===== nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(180%) blur(20px);
+  background:rgba(255,255,255,.72);border-bottom:1px solid rgba(0,0,0,.08)}
+.navin{display:flex;align-items:center;justify-content:space-between;height:52px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:19px;letter-spacing:-.02em}
+.brand .spark{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--blue);color:#fff;font-size:14px}
+.navtag{font-size:13px;color:var(--ink-sec);font-weight:400}
+
+/* ===== buttons ===== */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 23px;border-radius:var(--pill);
+  font-weight:500;font-size:17px;cursor:pointer;border:none;font-family:inherit;
+  transition:background .2s,transform .12s,box-shadow .2s,color .2s,border-color .2s;text-decoration:none;letter-spacing:-.01em}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#0a74e0}
+.btn:active{transform:scale(.96)}
+.btn-ghost{background:transparent;color:var(--blue);border:1px solid var(--line)}
+.btn-ghost:hover{background:rgba(0,0,0,.035)}
+.tile-dark .btn-ghost,.btn-ghost.on-dark{color:#2997ff;border-color:var(--line-dark)}
+.tile-dark .btn-ghost:hover{background:rgba(255,255,255,.06)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+
+/* ===== hero ===== */
+.hero{text-align:center}
+.hero h1{font-size:clamp(40px,6.4vw,64px);line-height:1.04;font-weight:600;margin:6px 0 22px}
+.hero h1 .accent{color:var(--blue)}
+.hero h1 .ln{display:block}
+.hero p.sub{font-size:clamp(19px,2.3vw,23px);font-weight:400;color:var(--ink-sec);max-width:760px;margin:0 auto;line-height:1.4;text-wrap:balance}
+.hero .stats{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-top:64px;border-top:1px solid var(--line)}
+.statchip{padding:30px 38px;min-width:190px;border-right:1px solid var(--line)}
+.statchip:last-child{border-right:none}
+.statchip b{font-size:42px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.statchip span{font-size:15px;color:var(--ink-sec);font-weight:400}
+
+/* ===== section heads ===== */
+.shead{text-align:center;max-width:760px;margin:0 auto 56px}
+.shead h2{font-size:clamp(32px,4.6vw,50px);font-weight:600;margin:0 0 16px;text-wrap:balance}
+.shead p{color:var(--ink-sec);font-size:21px;font-weight:400;line-height:1.4;text-wrap:balance}
+.tile-dark .shead p{color:var(--sec-on-dark)}
+
+/* ===== DEMO ===== */
+.demo-shell{border-radius:24px;background:var(--canvas);border:1px solid var(--line);
+  box-shadow:rgba(0,0,0,.06) 0 18px 40px -20px;overflow:hidden}
+.demo-inner{padding:28px}
+.demo-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;margin-bottom:18px}
+.demo-head h3{font-size:23px;font-weight:600}
+.demo-head .dh-sub{font-size:15px;color:var(--ink-sec);margin-top:4px;font-weight:400}
+.modetabs{display:inline-flex;background:var(--parchment);border-radius:var(--pill);padding:3px}
+.modetabs button{padding:9px 18px;border-radius:var(--pill);border:none;background:transparent;
+  color:var(--ink-sec);font-weight:500;font-size:14px;cursor:pointer;font-family:inherit;transition:.2s;letter-spacing:-.01em}
+.modetabs button.active{background:var(--canvas);color:var(--ink);box-shadow:rgba(0,0,0,.08) 0 1px 3px}
+
+.demo-grid{display:grid;grid-template-columns:330px 1fr;gap:28px;align-items:start}
+@media(max-width:920px){.demo-grid{grid-template-columns:1fr}}
+
+/* try controls */
+.tryctl{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px;padding:16px 18px;
+  border-radius:16px;background:var(--parchment)}
+.tryctl .tl{font-size:13px;color:var(--ink-sec);font-weight:600}
+.tryctl input[type=range]{width:200px;accent-color:var(--blue)}
+.tryctl .mval{font-weight:700;font-size:18px;color:var(--blue);min-width:96px}
+.helper{font-size:13.5px;color:var(--ink-sec)}
+
+/* PHONE — solid screen (no filter inside the clip) */
+.phone{border-radius:30px;border:1px solid var(--line);background:#f8f8fa;overflow:hidden;box-shadow:var(--shadow-img)}
+.phone-top{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--canvas)}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--blue);display:grid;place-items:center;font-size:15px}
+.phone-top .nm{font-weight:600;font-size:14px;color:var(--ink)}
+.phone-top .st{font-size:11px;color:var(--blue)}
+.thread{padding:14px;height:400px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;background:#f8f8fa}
+.thread::-webkit-scrollbar{width:0}
+.msg{max-width:86%;padding:9px 12px;border-radius:16px;font-size:13px;line-height:1.4;opacity:0;transform:translateY(8px);animation:pop .4s forwards}
+@keyframes pop{to{opacity:1;transform:none}}
+.msg .mo{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:3px;display:flex;gap:6px;align-items:center}
+.msg.out{align-self:flex-start;background:var(--canvas);border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:5px}
+.msg.in{align-self:flex-end;background:var(--blue-msg);color:#fff;border-bottom-right-radius:5px}
+.msg.in .mo{color:rgba(255,255,255,.82)}
+.msg.sys{align-self:center;background:var(--parchment);border:1px solid var(--line);color:var(--ink-sec);font-size:11px;text-align:center;max-width:94%}
+
+/* RIGHT col */
+.rightcol{display:flex;flex-direction:column;gap:14px}
+.panel{border-radius:16px;border:1px solid var(--line);background:var(--canvas);padding:16px}
+.panel .ph{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-sec);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+
+.chartwrap{position:relative}
+.chart{width:100%;height:auto;display:block}
+.clabels{display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:var(--faint)}
+.clegend{display:flex;gap:16px;margin-top:10px;font-size:11px;color:var(--ink-sec)}
+.clegend span{display:flex;align-items:center;gap:6px}
+.clegend i{width:14px;height:3px;border-radius:2px;display:inline-block}
+.lg-nadia{background:var(--blue)}.lg-ind{background:var(--red)}
+
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.metric{border-radius:14px;border:1px solid var(--line);background:var(--canvas);padding:13px;text-align:center}
+.metric b{font-size:22px;font-weight:600;display:block;line-height:1.1;color:var(--ink)}
+.metric span{font-size:10.5px;color:var(--ink-sec)}
+.metric.warm b{color:var(--blue)}
+
+.warmmeter{height:8px;border-radius:999px;background:rgba(0,0,0,.08);overflow:hidden;margin-top:6px}
+.warmmeter i{display:block;height:100%;width:8%;background:linear-gradient(90deg,var(--red),var(--amber),var(--green));transition:width .5s}
+
+.handraise{border-radius:14px;padding:16px;border:1px solid rgba(52,199,89,.32);background:rgba(52,199,89,.07);display:none}
+.handraise.show{display:block;animation:pop .5s}
+.handraise .hr1{font-weight:600;font-size:16px;color:#248a3d}
+.handraise .hr2{font-size:12.5px;color:var(--ink-sec);margin-top:5px;line-height:1.4}
+.route-pills{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.rpill{font-size:11px;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid rgba(52,199,89,.4);background:rgba(52,199,89,.1);color:#248a3d}
+
+.demo-controls{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+
+/* ===== contrast (dark tile) ===== */
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.contrast{grid-template-columns:1fr}}
+.cside{border-radius:22px;padding:34px;background:#2a2a2c;border:1px solid var(--line-dark)}
+.cside.good{background:rgba(52,199,89,.1);border-color:rgba(52,199,89,.32)}
+.cside .ck{font-size:13px;font-weight:600;margin-bottom:14px;color:var(--sec-on-dark)}
+.cside.bad .ck{color:#ff6b6b}.cside.good .ck{color:#4dd17a}
+.cside .cbig{font-size:52px;font-weight:600;line-height:1;letter-spacing:-.03em;color:var(--on-dark)}
+.cside .cbig small{font-size:19px;color:var(--sec-on-dark);font-weight:400}
+.cside ul{list-style:none;margin-top:18px}
+.cside li{font-size:15px;color:var(--sec-on-dark);padding:8px 0 8px 26px;position:relative;line-height:1.4}
+.cside.bad li::before{content:"✕";position:absolute;left:0;color:#ff6b6b;font-weight:600}
+.cside.good li::before{content:"✓";position:absolute;left:0;color:#4dd17a;font-weight:600}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:0}}
+.step{padding:0 26px;border-right:1px solid var(--line)}
+.step:first-child{padding-left:0}
+.step:last-child{padding-right:0;border-right:none}
+@media(max-width:860px){.step{padding:24px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .step:nth-child(2n){border-right:none}.step:first-child{padding-left:22px}}
+.step .num{font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0}
+.step h4{font-size:19px;font-weight:600;margin:10px 0 8px}
+.step p{font-size:15px;color:var(--ink-sec);font-weight:400;line-height:1.45}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+@media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{text-align:center;padding:38px 16px;border-right:1px solid var(--line)}
+.kpi:last-child{border-right:none}
+@media(max-width:760px){.kpi:nth-child(2n){border-right:none}.kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.kpi b{font-size:44px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.kpi span{font-size:14px;color:var(--ink-sec);font-weight:400}
+
+/* ===== CTA (dark tile) ===== */
+.cta{text-align:center;max-width:760px;margin:0 auto}
+.cta h2{font-size:clamp(32px,4.6vw,50px);font-weight:600;margin-bottom:16px}
+.cta p{color:var(--sec-on-dark);font-size:19px;max-width:580px;margin:0 auto 30px;line-height:1.4;text-wrap:balance}
+
+footer{text-align:center;padding:54px 0;color:var(--ink-sec);font-size:14px;border-top:1px solid var(--line)}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title"><span class="g">Open on desktop</span></div>
+  <div class="mb-sub">This deck is built for a big screen — open it on your laptop for the full experience.</div>
+</div>
+
+<nav>
+  <div class="wrap navin">
+    <div class="brand"><span class="spark">🌱</span> NADIA</div>
+    <div class="navtag">Evolv AI · Long-term Nurture</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero tile-light wrap">
+  <div class="eyebrow">AI Long-term Nurture</div>
+  <h1><span class="ln">Only 3% are ready now.</span><span class="ln accent">NADIA keeps the other 97% warm.</span></h1>
+  <p class="sub">Most agents quit after two follow-ups. NADIA nurtures every not-ready lead for months, listens for the hand-raise, and routes them back to FLASH and BOOKER.</p>
+  <div class="stats">
+    <div class="statchip"><b>80%</b><span>of sales need 5+ follow-ups</span></div>
+    <div class="statchip"><b>44%</b><span>of agents quit after just one</span></div>
+    <div class="statchip"><b>+50%</b><span>more sales-ready leads, nurtured</span></div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="demo-shell reveal">
+      <div class="demo-inner">
+        <div class="demo-head">
+          <div>
+            <h3>Watch a "not yet" become a "ready now"</h3>
+            <div class="dh-sub">Fast-forward the months — NADIA drips, the lead stays warm, then raises a hand and routes back to the core.</div>
+          </div>
+          <div class="modetabs">
+            <button id="tabWatch" class="active" onclick="setMode('watch')">Watch it happen</button>
+            <button id="tabTry" onclick="setMode('try')">Try it yourself</button>
+          </div>
+        </div>
+
+        <!-- try controls -->
+        <div class="tryctl" id="tryCtl" style="display:none">
+          <span class="tl">This lead is ready in…</span>
+          <input id="moRange" type="range" min="3" max="18" step="1" value="8" oninput="moInput()">
+          <span class="mval" id="moVal">8 months</span>
+          <span class="helper" style="margin:0">For as long as it takes — NADIA never forgets, never quits.</span>
+        </div>
+
+        <div class="demo-grid">
+          <!-- LEFT phone -->
+          <div class="phone">
+            <div class="phone-top">
+              <div class="avatar">🌱</div>
+              <div><div class="nm">NADIA → Jenna Brooks</div><div class="st" id="phStatus">First-time buyer · Westside</div></div>
+            </div>
+            <div class="thread" id="thread"></div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="rightcol">
+            <div class="panel">
+              <div class="ph">📈 Engagement over time — NADIA vs the industry</div>
+              <div class="chartwrap">
+                <svg class="chart" id="chart" viewBox="0 0 600 200" preserveAspectRatio="none">
+                  <line x1="40" y1="170" x2="588" y2="170" stroke="rgba(0,0,0,.12)" stroke-width="1"/>
+                  <line x1="40" y1="20" x2="40" y2="170" stroke="rgba(0,0,0,.12)" stroke-width="1"/>
+                  <polyline id="lineInd" fill="none" stroke="#ff3b30" stroke-width="2.5" stroke-dasharray="4 4" points=""/>
+                  <polyline id="lineNadia" fill="none" stroke="#0066cc" stroke-width="3" points=""/>
+                  <g id="dots"></g>
+                  <g id="handStar"></g>
+                </svg>
+                <div class="clabels"><span>Month 0</span><span id="clabEnd">Month 8</span></div>
+                <div class="clegend">
+                  <span><i class="lg-nadia"></i> NADIA — stays warm</span>
+                  <span><i class="lg-ind"></i> Industry — gave up after 2 touches</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="metrics">
+              <div class="metric"><b id="m-month">0</b><span>Months nurtured</span></div>
+              <div class="metric"><b id="m-touch">0</b><span>Touches sent</span></div>
+              <div class="metric warm"><b id="m-warm">—</b><span>Warmth</span>
+                <div class="warmmeter"><i id="warmBar"></i></div>
+              </div>
+            </div>
+
+            <div class="handraise" id="handraise">
+              <div class="hr1">🙋 Hand raised — Month <span id="hrMonth">8</span></div>
+              <div class="hr2" id="hrText">"Actually — we're ready to start looking now. Can we talk?" Intent detected → handed back to the Conversion Core.</div>
+              <div class="route-pills">
+                <span class="rpill">⚡ FLASH re-engages</span>
+                <span class="rpill">📅 BOOKER books it</span>
+                <span class="rpill">✅ Deal a competitor would've won</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-controls">
+          <button id="runBtn" class="btn btn-primary" onclick="runDemo()">Fast-forward the nurture</button>
+          <button id="resetBtn" class="btn btn-ghost" onclick="resetDemo()" style="display:none">Reset</button>
+          <span class="helper" id="helper" style="margin-left:auto">Auto-play mode</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRAST -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">Why the pipeline leaks at the back</div>
+      <h2>"I follow up myself." Nobody does — not for 18 months, across hundreds of leads.</h2>
+      <p>The manual follow-up dies after touch two. NADIA never forgets and never quits.</p>
+    </div>
+    <div class="contrast">
+      <div class="cside bad reveal">
+        <div class="ck">Manual follow-up</div>
+        <div class="cbig">2<small> touches, then silence</small></div>
+        <ul>
+          <li>Agent gives up after 1–2 follow-ups (44% quit after one)</li>
+          <li>"Not now" leads go cold and forgotten</li>
+          <li>They buy in 6 months — from someone who stayed in touch</li>
+          <li>You keep buying new leads to replace the ones you dropped</li>
+        </ul>
+      </div>
+      <div class="cside good reveal">
+        <div class="ck">NADIA nurture</div>
+        <div class="cbig">∞<small> touches, for months</small></div>
+        <ul>
+          <li>Segmented, multi-month drips across email + SMS</li>
+          <li>Stays warm, frequency-capped, opt-out honored</li>
+          <li>Listens for the hand-raise — two-way, not a blast</li>
+          <li>Routes the moment they're ready → FLASH → BOOKER</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="tile-light">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">How NADIA works</div>
+      <h2>It listens for the hand-raise — it doesn't just send.</h2>
+      <p>Segmented, intent-aware, patient — every "not yet" becomes deferred revenue at zero extra cost.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01 — CATCH</div><h4>Enroll the not-ready</h4><p>FLASH, BOOKER and REVA hand off every "not now." NADIA segments by buyer/seller, timeline and area.</p></div>
+      <div class="step reveal"><div class="num">02 — DRIP</div><h4>Months of value</h4><p>Market updates, soft check-ins, listings — paced and personalized across email + SMS. Never spammy.</p></div>
+      <div class="step reveal"><div class="num">03 — LISTEN</div><h4>Detect the hand-raise</h4><p>A reply, a click, an "I'm ready" — intent rules catch the signal without false positives.</p></div>
+      <div class="step reveal"><div class="num">04 — ROUTE</div><h4>Back to the core</h4><p>Hot again → straight to FLASH → BOOKER. The deal you'd have lost lands on your calendar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- KPIs -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">What NADIA proves</div>
+      <h2>The deals that close six months from now, captured today.</h2>
+    </div>
+    <div class="kpis">
+      <div class="kpi reveal"><b>97%</b><span>of leads kept, not lost</span></div>
+      <div class="kpi reveal"><b>$0</b><span>extra acquisition cost</span></div>
+      <div class="kpi reveal"><b>2-way</b><span>listens for intent, not just sends</span></div>
+      <div class="kpi reveal"><b>∞</b><span>leads held warm at flat cost</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div class="eyebrow">NADIA protects everything the team feeds her</div>
+      <h2>Stop letting next quarter's commission go cold.</h2>
+      <p>Every "not yet" nurtured automatically for as long as it takes — then handed back the moment they're ready.</p>
+      <a href="https://cal.com/evolv.one/introductory-call-60" target="_blank" rel="noopener" class="btn btn-primary">Never lose a lead again →</a>
+    </div>
+  </div>
+</section>
+
+<footer>🌱 NADIA · part of the Evolv AI sales team · FLASH · BOOKER · REVA → NADIA → back to FLASH → BOOKER</footer>
+
+<script>
+/* ===================== NADIA DEMO ENGINE ===================== */
+let mode='watch', running=false, timers=[], months=8;
+
+// drip templates cycled across months (out = NADIA → lead)
+const DRIPS=[
+  {ic:'📧', t:'Hi Jenna — here\'s what homes in Westside actually sold for this month. No pressure, just keeping you informed.'},
+  {ic:'💬', t:'No rush at all — just checking in. I\'ll keep an eye on the market for you. 🙂'},
+  {ic:'📰', t:'New guide: 3 things first-time buyers should know before Westside heats up this spring.'},
+  {ic:'📧', t:'Rates moved this week — here\'s what it actually means for your budget when you\'re ready.'},
+  {ic:'🏡', t:'A couple of Westside listings popped up that match what you described. Want me to send them?'},
+  {ic:'💬', t:'Still thinking around next spring? I\'ll set an alert so you\'re the first to know.'},
+  {ic:'📧', t:'Quarterly Westside market snapshot — prices, inventory, and where it\'s heading.'},
+];
+
+const PHASE={status:document.getElementById('phStatus')};
+
+function setMode(m){
+  if(running) return; mode=m;
+  document.getElementById('tabWatch').classList.toggle('active',m==='watch');
+  document.getElementById('tabTry').classList.toggle('active',m==='try');
+  document.getElementById('tryCtl').style.display = m==='try'?'flex':'none';
+  document.getElementById('helper').textContent = m==='watch'?'Auto-play mode':'Set the timeline, then Play';
+  resetDemo();
+}
+function moInput(){
+  months=parseInt(document.getElementById('moRange').value);
+  document.getElementById('moVal').textContent=months+' months';
+  document.getElementById('clabEnd').textContent='Month '+months;
+  document.getElementById('hrMonth').textContent=months;
+}
+
+// chart geometry
+const X0=40,X1=588,Y0=170,YT=20;
+function cx(m){ return X0 + (m/months)*(X1-X0); }
+function cy(v){ return Y0 - (v/100)*(Y0-YT); }
+
+// warmth values
+let nadiaV=[], indV=[];
+function buildSeries(){
+  nadiaV=[]; indV=[];
+  for(let m=0;m<=months;m++){
+    // NADIA: starts ~60, climbs & stays warm with sawtooth bumps, spike at end
+    let base=62 + Math.min(m,3)*4;                 // warms up early
+    let bump=(m%2===0)?6:-2;                        // touch sawtooth
+    let v=Math.min(88, base+bump+ (m/months)*6);
+    if(m===months) v=97;                            // hand-raise spike
+    nadiaV.push(Math.round(v));
+    // Industry: 60 → drops hard after month 2 → flat ~6
+    let iv = m===0?60 : m===1?44 : m===2?26 : Math.max(5,16-(m-2)*3);
+    indV.push(Math.round(iv));
+  }
+}
+function pts(arr,upto){
+  let s=''; for(let m=0;m<=upto;m++){ s+=cx(m)+','+cy(arr[m])+' '; } return s.trim();
+}
+
+function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+function addMsg(cls,inner){
+  const th=document.getElementById('thread');
+  const d=document.createElement('div'); d.className='msg '+cls; d.innerHTML=inner;
+  th.appendChild(d); th.scrollTop=th.scrollHeight;
+}
+
+function runDemo(){
+  if(running) return; running=true;
+  buildSeries();
+  document.getElementById('clabEnd').textContent='Month '+months;
+  document.getElementById('runBtn').disabled=true;
+  document.getElementById('resetBtn').style.display='inline-flex';
+
+  // enroll
+  addMsg('sys','📥 Marked "not ready — buying in ~'+months+' months" by BOOKER. Enrolled in nurture.');
+
+  const monthDur=Math.max(620, Math.min(1300, 9000/months)); // keep total ~9s
+  let touches=0;
+
+  for(let m=1;m<=months;m++){
+    at(m*monthDur,()=>{
+      // advance chart
+      document.getElementById('lineNadia').setAttribute('points',pts(nadiaV,m));
+      document.getElementById('lineInd').setAttribute('points',pts(indV,m));
+      // counters
+      document.getElementById('m-month').textContent=m;
+      const w=nadiaV[m];
+      document.getElementById('m-warm').textContent=w+'%';
+      document.getElementById('warmBar').style.width=w+'%';
+
+      if(m<months){
+        // a drip touch this month
+        touches++; document.getElementById('m-touch').textContent=touches;
+        const d=DRIPS[(m-1)%DRIPS.length];
+        addMsg('out','<div class="mo">'+d.ic+' Month '+m+' · '+(m%2?'Email':'SMS')+'</div>'+d.t);
+        // dot on NADIA line
+        const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+        dot.setAttribute('cx',cx(m)); dot.setAttribute('cy',cy(nadiaV[m]));
+        dot.setAttribute('r','3.2'); dot.setAttribute('fill','#0066cc');
+        document.getElementById('dots').appendChild(dot);
+      } else {
+        // FINAL month — hand raise
+        addMsg('in','<div class="mo">🙋 Month '+m+' · inbound reply</div>Actually — we\'re ready to start looking now. Can we talk this week?');
+        const star=document.getElementById('handStar');
+        star.innerHTML='<circle cx="'+cx(m)+'" cy="'+cy(97)+'" r="6" fill="#34c759"/><circle cx="'+cx(m)+'" cy="'+cy(97)+'" r="11" fill="none" stroke="#34c759" stroke-width="1.5" opacity=".5"/>';
+        PHASE.status.textContent='🔥 Ready now — routing to Conversion Core';
+        PHASE.status.style.color='var(--green)';
+        at(700,()=>{
+          document.getElementById('handraise').classList.add('show');
+          addMsg('sys','✅ Intent detected → handed to FLASH → BOOKER · '+touches+' touches over '+months+' months · the deal stayed yours.');
+          running=false; document.getElementById('resetBtn').disabled=false;
+        });
+      }
+    });
+  }
+}
+
+function resetDemo(){
+  timers.forEach(clearTimeout); timers=[]; running=false;
+  document.getElementById('thread').innerHTML='';
+  document.getElementById('lineNadia').setAttribute('points','');
+  document.getElementById('lineInd').setAttribute('points','');
+  document.getElementById('dots').innerHTML='';
+  document.getElementById('handStar').innerHTML='';
+  document.getElementById('m-month').textContent='0';
+  document.getElementById('m-touch').textContent='0';
+  document.getElementById('m-warm').textContent='—';
+  document.getElementById('warmBar').style.width='8%';
+  document.getElementById('handraise').classList.remove('show');
+  PHASE.status.textContent='First-time buyer · Westside';
+  PHASE.status.style.color='var(--blue)';
+  document.getElementById('runBtn').disabled=false;
+  document.getElementById('resetBtn').style.display='none';
+}
+
+resetDemo();
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===================== section-by-section arrow navigation ===================== */
+const SECS=[...document.querySelectorAll('section')]; const NAVOFF=0;
+function nearestSection(){ const y=scrollY+NAVOFF+4; let b=0,bd=Infinity;
+  SECS.forEach((s,i)=>{const d=Math.abs(s.offsetTop-y); if(d<bd){bd=d;b=i;}}); return b; }
+function goSection(i){ i=Math.max(0,Math.min(SECS.length-1,i));
+  scrollTo({top:SECS[i].offsetTop-NAVOFF,behavior:'smooth'}); }
+addEventListener('keydown',e=>{ if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;
+  const t=(e.target.tagName||'').toUpperCase(); if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;
+  e.preventDefault(); goSection(nearestSection()+(e.key==='ArrowDown'?1:-1)); });
+</script>
+</body>
+</html>
