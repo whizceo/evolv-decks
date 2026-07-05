@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOOKER — Appointment Setter AI · Evolv AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#ffffff;
+  --parchment:#f5f5f7;
+  --dark:#1d1d1f;
+  --dark2:#000000;
+  --ink:#1d1d1f;
+  --ink-sec:#6e6e73;
+  --on-dark:#f5f5f7;
+  --sec-on-dark:#a1a1a6;
+  --blue:#0066cc;
+  --blue-msg:#0b93f6;
+  --green:#34c759;
+  --red:#ff3b30;
+  --line:#d2d2d7;
+  --line-dark:rgba(255,255,255,.13);
+  --r:18px;
+  --pill:9999px;
+  --shadow-img:rgba(0,0,0,.18) 0 30px 60px -14px;
+  /* compatibility aliases for the BOOKER demo engine */
+  --muted:#6e6e73; --faint:#86868b; --card-line:rgba(0,0,0,.08); --bg2:#f5f5f7;
+  --glass-line:rgba(0,0,0,.09); --amber:#ff9f0a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ===== mobile gate ===== */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--canvas);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif}
+.mobile-block .mb-emoji{font-size:46px;margin-bottom:22px}
+.mobile-block .mb-title{font-weight:600;font-size:1.7rem;letter-spacing:-.02em;margin-bottom:14px;color:var(--ink)}
+.mobile-block .mb-sub{font-size:1rem;color:var(--ink-sec);max-width:340px;line-height:1.5}
+.mobile-block .g{color:var(--blue)}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+  line-height:1.47;
+  font-size:17px;
+  letter-spacing:-.012em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;
+  font-weight:600;letter-spacing:-.02em;line-height:1.06}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+section{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:64px 0;scroll-margin-top:0}
+
+/* full-bleed tiles — the colour change IS the divider */
+.tile-light{background:var(--canvas)}
+.tile-parch{background:var(--parchment)}
+.tile-dark{background:var(--dark);color:var(--on-dark)}
+.tile-dark h1,.tile-dark h2,.tile-dark h3,.tile-dark h4{color:var(--on-dark)}
+
+/* eyebrow (Apple category line) */
+.eyebrow{font-size:19px;font-weight:600;letter-spacing:-.01em;color:var(--blue);margin-bottom:6px}
+.tile-dark .eyebrow{color:#2997ff}
+
+/* ===== nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(180%) blur(20px);
+  background:rgba(255,255,255,.72);border-bottom:1px solid rgba(0,0,0,.08)}
+.navin{display:flex;align-items:center;justify-content:space-between;height:52px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:19px;letter-spacing:-.02em}
+.brand .spark{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--blue);color:#fff;font-size:14px}
+.navtag{font-size:13px;color:var(--ink-sec);font-weight:400}
+
+/* ===== buttons ===== */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 23px;border-radius:var(--pill);
+  font-weight:500;font-size:17px;cursor:pointer;border:none;font-family:inherit;
+  transition:background .2s,transform .12s,box-shadow .2s,color .2s,border-color .2s;text-decoration:none;letter-spacing:-.01em}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#0a74e0}
+.btn:active{transform:scale(.96)}
+.btn-ghost{background:transparent;color:var(--blue);border:1px solid var(--line)}
+.btn-ghost:hover{background:rgba(0,0,0,.035)}
+.tile-dark .btn-ghost,.btn-ghost.on-dark{color:#2997ff;border-color:var(--line-dark)}
+.tile-dark .btn-ghost:hover{background:rgba(255,255,255,.06)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+
+/* ===== hero ===== */
+.hero{text-align:center}
+.hero h1{font-size:clamp(40px,6.4vw,64px);line-height:1.04;font-weight:600;margin:6px 0 22px}
+.hero h1 .accent{color:var(--blue)}
+.hero h1 .ln{display:block}
+.hero p.sub{font-size:clamp(19px,2.3vw,23px);font-weight:400;color:var(--ink-sec);max-width:760px;margin:0 auto;line-height:1.4;text-wrap:balance}
+.hero .stats{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-top:64px;border-top:1px solid var(--line)}
+.statchip{padding:30px 38px;min-width:190px;border-right:1px solid var(--line)}
+.statchip:last-child{border-right:none}
+.statchip b{font-size:42px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.statchip span{font-size:15px;color:var(--ink-sec);font-weight:400}
+
+/* ===== section heads ===== */
+.shead{text-align:center;max-width:760px;margin:0 auto 56px}
+.shead h2{font-size:clamp(32px,4.6vw,50px);font-weight:600;margin:0 0 16px;text-wrap:balance}
+.shead p{color:var(--ink-sec);font-size:21px;font-weight:400;line-height:1.4;text-wrap:balance}
+.tile-dark .shead p{color:var(--sec-on-dark)}
+
+/* ===== DEMO ===== */
+.demo-shell{border-radius:24px;background:var(--canvas);border:1px solid var(--line);
+  box-shadow:rgba(0,0,0,.06) 0 18px 40px -20px;overflow:hidden}
+.demo-inner{padding:28px}
+.demo-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;margin-bottom:18px}
+.demo-head h3{font-size:23px;font-weight:600}
+.demo-head .dh-sub{font-size:15px;color:var(--ink-sec);margin-top:4px;font-weight:400}
+.modetabs{display:inline-flex;background:var(--parchment);border-radius:var(--pill);padding:3px}
+.modetabs button{padding:9px 18px;border-radius:var(--pill);border:none;background:transparent;
+  color:var(--ink-sec);font-weight:500;font-size:14px;cursor:pointer;font-family:inherit;transition:.2s;letter-spacing:-.01em}
+.modetabs button.active{background:var(--canvas);color:var(--ink);box-shadow:rgba(0,0,0,.08) 0 1px 3px}
+
+.demo-grid{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:start}
+@media(max-width:900px){.demo-grid{grid-template-columns:1fr}}
+
+/* try controls */
+.tryctl{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:24px;padding:16px 18px;
+  border-radius:16px;background:var(--parchment)}
+.tryctl .tl{font-size:13px;color:var(--ink-sec);font-weight:600}
+.toggle{display:inline-flex;background:var(--canvas);border:1px solid var(--line);border-radius:var(--pill);padding:3px}
+.toggle button{padding:8px 15px;border-radius:var(--pill);border:none;background:transparent;color:var(--ink-sec);
+  font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:.2s;letter-spacing:-.01em}
+.toggle button.on{background:var(--blue);color:#fff}
+.tryctl input{padding:10px 13px;border-radius:12px;background:var(--canvas);border:1px solid var(--line);
+  color:var(--ink);font-family:inherit;font-size:15px;width:160px;letter-spacing:-.01em}
+.tryctl input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,102,204,.14)}
+
+/* phone / chat — iMessage light */
+.phone-stage{display:flex;flex-direction:column;align-items:center;gap:14px}
+.phone{width:286px;height:552px;border-radius:46px;background:#0a0a0a;
+  box-shadow:var(--shadow-img);padding:11px;position:relative;overflow:hidden;border:1px solid #222}
+.phone::before{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:104px;height:26px;background:#0a0a0a;border-radius:0 0 16px 16px;z-index:5}
+.screen{width:100%;height:100%;border-radius:36px;background:#fff;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.scr-top{padding:38px 16px 11px;display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid rgba(0,0,0,.08);background:#f8f8fa}
+.scr-top .av{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:600;font-size:15px}
+.scr-top .who{font-size:14px;font-weight:600;line-height:1.2;color:var(--ink)}
+.scr-top .who small{display:block;color:var(--green);font-size:11px;font-weight:500}
+.feed{flex:1;overflow-y:auto;padding:15px 13px;display:flex;flex-direction:column;gap:10px;scrollbar-width:none;background:#fff}
+.feed::-webkit-scrollbar{display:none}
+.feed .placeholder{margin:auto;text-align:center;color:var(--ink-sec);font-size:14px;padding:0 24px;line-height:1.45}
+.feed .placeholder .big{font-size:34px;margin-bottom:12px;opacity:.5}
+
+.evt{opacity:0;transform:translateY(12px);animation:rise .45s forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.bubble{max-width:86%;padding:9px 13px;border-radius:19px;font-size:13.5px;line-height:1.4;letter-spacing:-.01em}
+.bubble.out{align-self:flex-end;background:var(--blue-msg);color:#fff;border-bottom-right-radius:5px}  /* BOOKER — blue, right */
+.bubble.in{align-self:flex-start;background:#e9e9eb;color:var(--ink);border-bottom-left-radius:5px}   /* the LEAD — grey, left */
+.qtag{align-self:flex-start;display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:600;
+  color:var(--ink-sec);margin:4px 0 -2px}
+.sysline{align-self:center;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-sec);
+  background:var(--parchment);padding:6px 13px;border-radius:var(--pill);text-align:center;max-width:92%;font-weight:500}
+.sysline.ok{color:#1a8c3a;background:#eafaef}
+.sysline.pp{color:var(--blue);background:rgba(0,102,204,.08)}
+.typing{align-self:flex-start;display:flex;gap:4px;padding:11px 14px;background:#e9e9eb;border-radius:19px;border-bottom-left-radius:5px}
+.typing i{width:6px;height:6px;border-radius:50%;background:#9a9aa0;animation:tp 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes tp{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+
+.slotpick{align-self:stretch;display:flex;flex-direction:column;gap:7px;background:var(--parchment);
+  border-radius:15px;padding:11px}
+.slotpick .sp-t{font-size:11.5px;color:var(--ink-sec);margin-bottom:2px;font-weight:500}
+.slotbtn{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;border-radius:11px;
+  background:#fff;border:1px solid rgba(0,102,204,.35);color:var(--blue);font-size:13px;font-weight:600;
+  cursor:pointer;font-family:inherit;transition:.18s}
+.slotbtn:hover{background:rgba(0,102,204,.06)}
+.slotbtn.chosen{background:var(--green);border-color:transparent;color:#fff}
+.slotbtn small{font-weight:500;opacity:.85}
+
+/* RIGHT column panels — 2-col grid so the demo fits one viewport
+   (scorecard + brief stacked left, calendar spans right) */
+.rightcol{display:grid;grid-template-columns:1fr 1fr;gap:11px;align-content:start}
+.rightcol>.panel:nth-child(1){grid-column:1;grid-row:1}
+.rightcol>.panel:nth-child(2){grid-column:2;grid-row:1/span 2}
+.rightcol>.brief{grid-column:1;grid-row:2}
+@media(max-width:900px){.rightcol{grid-template-columns:1fr}
+  .rightcol>.panel:nth-child(1),.rightcol>.panel:nth-child(2),.rightcol>.brief{grid-column:1;grid-row:auto}}
+.panel{border-radius:18px;border:1px solid var(--line);background:var(--canvas);padding:15px 18px}
+.panel-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.panel-h .pt{font-size:13px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:8px}
+.panel-tag{padding:3px 10px;border-radius:var(--pill);font-size:10.5px;font-weight:600;
+  border:1px solid var(--line);background:var(--parchment);color:var(--ink-sec)}
+
+/* scorecard */
+.score-row{display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+.score-row:last-child{border-bottom:none}
+.score-row .ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;
+  background:var(--parchment);flex-shrink:0;transition:.3s}
+.score-row.done .ico{background:rgba(52,199,89,.16)}
+.score-row .lbl{font-size:13.5px;color:var(--ink-sec);flex:1}
+.score-row .val{font-size:13.5px;font-weight:600;color:var(--faint);transition:.3s}
+.score-row.done .val{color:var(--ink)}
+.score-row.done .lbl{color:var(--ink)}
+.check{opacity:0;color:var(--green);font-weight:700;transition:.3s}
+.score-row.done .check{opacity:1}
+.qualbar{margin-top:14px;display:flex;align-items:center;gap:12px}
+.qualmeter{flex:1;height:8px;border-radius:var(--pill);background:rgba(0,0,0,.08);overflow:hidden}
+.qualmeter i{display:block;height:100%;width:0;border-radius:var(--pill);
+  background:linear-gradient(90deg,var(--amber),var(--green));transition:width .8s ease}
+.qualverdict{font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:var(--pill);opacity:0;transition:.4s;white-space:nowrap}
+.qualverdict.hot{background:rgba(52,199,89,.14);color:#248a3d;opacity:1}
+.qualverdict.nurture{background:rgba(255,159,10,.16);color:#a05a00;opacity:1}
+
+/* calendar */
+.cal{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.cal .day{text-align:center}
+.cal .dname{font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.cal .dnum{font-size:13px;font-weight:600;margin-bottom:8px}
+.cslot{height:26px;border-radius:8px;margin-bottom:5px;font-size:10px;display:grid;place-items:center;
+  background:var(--parchment);color:var(--faint);border:1px solid transparent;transition:.3s}
+.cslot.busy{background:#fafafa;color:rgba(0,0,0,.2);text-decoration:line-through}
+.cslot.open{background:rgba(0,102,204,.1);color:var(--blue);border-color:rgba(0,102,204,.25)}
+.cslot.booked{background:var(--green);color:#fff;font-weight:700;border-color:transparent;
+  box-shadow:0 4px 14px rgba(52,199,89,.4);animation:pop .5s}
+@keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+
+.confirmed{margin-top:14px;border-radius:14px;border:1px solid rgba(52,199,89,.3);
+  background:rgba(52,199,89,.07);padding:13px;opacity:0;transform:translateY(8px);transition:.5s}
+.confirmed.show{opacity:1;transform:none}
+.confirmed .ct{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;color:var(--ink)}
+.confirmed .cd{font-size:12.5px;color:var(--ink-sec);margin:6px 0 10px}
+.reminders{display:flex;gap:6px;flex-wrap:wrap}
+.rem{font-size:10.5px;padding:4px 9px;border-radius:var(--pill);background:#fff;border:1px solid var(--line);
+  color:var(--faint);opacity:.5;transition:.3s}
+.rem.on{opacity:1;color:#248a3d;border-color:rgba(52,199,89,.35);background:rgba(52,199,89,.08)}
+
+.brief{opacity:0;transform:translateY(8px);transition:.5s}
+.brief.show{opacity:1;transform:none}
+.brief .bline{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+.brief .bline:last-child{border-bottom:none}
+.brief .bline span:first-child{color:var(--faint)}
+.brief .bline span:last-child{font-weight:600;color:var(--ink)}
+
+.demo-controls{margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.helper{font-size:13.5px;color:var(--ink-sec);margin-left:auto}
+
+/* ===== contrast (dark tile) ===== */
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.contrast{grid-template-columns:1fr}}
+.cside{border-radius:22px;padding:34px;background:#2a2a2c;border:1px solid var(--line-dark)}
+.cside.good{background:rgba(52,199,89,.1);border-color:rgba(52,199,89,.32)}
+.cside .ck{font-size:13px;font-weight:600;margin-bottom:14px;color:var(--sec-on-dark)}
+.cside.bad .ck{color:#ff6b6b}.cside.good .ck{color:#4dd17a}
+.cside .cbig{font-size:58px;font-weight:600;line-height:1;letter-spacing:-.03em;color:var(--on-dark)}
+.cside .cbig small{font-size:20px;color:var(--sec-on-dark);font-weight:400}
+.cside ul{list-style:none;margin-top:18px}
+.cside li{font-size:15px;color:var(--sec-on-dark);padding:8px 0 8px 26px;position:relative;line-height:1.4}
+.cside.bad li::before{content:"✕";position:absolute;left:0;color:#ff6b6b;font-weight:600}
+.cside.good li::before{content:"✓";position:absolute;left:0;color:#4dd17a;font-weight:600}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:0}}
+.step{padding:0 26px;border-right:1px solid var(--line)}
+.step:first-child{padding-left:0}
+.step:last-child{padding-right:0;border-right:none}
+@media(max-width:860px){.step{padding:24px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .step:nth-child(2n){border-right:none}.step:first-child{padding-left:22px}}
+.step .num{font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0}
+.step h4{font-size:19px;font-weight:600;margin:10px 0 8px}
+.step p{font-size:15px;color:var(--ink-sec);font-weight:400;line-height:1.45}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+@media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{text-align:center;padding:38px 16px;border-right:1px solid var(--line)}
+.kpi:last-child{border-right:none}
+@media(max-width:760px){.kpi:nth-child(2n){border-right:none}.kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.kpi b{font-size:44px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.kpi span{font-size:14px;color:var(--ink-sec);font-weight:400}
+
+/* ===== ROI CALCULATOR (dark tile) ===== */
+.calc{display:grid;grid-template-columns:1fr 1fr;border-radius:24px;overflow:hidden;border:1px solid var(--line-dark)}
+@media(max-width:820px){.calc{grid-template-columns:1fr}}
+.calc-in{padding:42px 38px;background:#2a2a2c}
+.calc-out{padding:42px 38px;background:#252527;position:relative;display:flex;flex-direction:column;border-left:1px solid var(--line-dark)}
+@media(max-width:820px){.calc-out{border-left:none;border-top:1px solid var(--line-dark)}}
+.calc-in h3,.calc-out h3{font-size:20px;font-weight:600;margin-bottom:6px;color:var(--on-dark)}
+.calc-sub{font-size:14px;color:var(--sec-on-dark);margin-bottom:32px}
+.crow2{margin-bottom:26px}
+.crow2 label{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--sec-on-dark);margin-bottom:12px;font-weight:400}
+.crow2 label b{color:var(--on-dark);font-weight:600;font-size:16px}
+.crow2 input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:5px;border-radius:var(--pill);background:rgba(255,255,255,.16);outline:none;cursor:pointer}
+.crow2 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;cursor:pointer;box-shadow:rgba(0,0,0,.35) 0 1px 4px}
+.crow2 input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;cursor:pointer;border:none}
+.numfield{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid var(--line-dark);border-radius:12px;padding:0 14px;transition:.18s}
+.numfield:focus-within{border-color:#2997ff;box-shadow:0 0 0 4px rgba(0,102,204,.25)}
+.numfield span{color:var(--sec-on-dark);font-size:16px}
+.numfield input{flex:1;background:none;border:none;color:var(--on-dark);font-family:inherit;font-size:16px;padding:12px 0;outline:none;letter-spacing:-.01em}
+.bignum{font-weight:600;font-size:clamp(46px,6.4vw,66px);line-height:1;letter-spacing:-.03em;color:#4dd17a;margin:10px 0 6px}
+.outlbl{font-size:13px;font-weight:600;color:var(--sec-on-dark)}
+.outsub{font-size:15px;color:var(--sec-on-dark)}
+.outsub b{color:var(--on-dark);font-weight:600}
+.calc-stats{display:flex;gap:14px;margin:30px 0 6px}
+.cstat2{flex:1;padding:16px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--line-dark)}
+.cstat2 b{font-size:27px;font-weight:600;display:block;color:var(--on-dark);letter-spacing:-.02em}
+.cstat2 span{font-size:12px;color:var(--sec-on-dark)}
+.barwrap{margin-top:26px}
+.barrow{margin-bottom:16px}
+.barrow .bl{display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px;color:var(--sec-on-dark)}
+.barrow .bl b{font-weight:600;color:var(--on-dark)}
+.bartrack{height:12px;border-radius:var(--pill);background:rgba(255,255,255,.08);overflow:hidden}
+.barfill{height:100%;border-radius:var(--pill);transition:width .7s cubic-bezier(.4,0,.2,1)}
+.barfill.today{background:#8a8a8e}
+.barfill.flash{background:var(--green)}
+.calc-foot{font-size:12px;color:var(--sec-on-dark);margin-top:auto;padding-top:24px;line-height:1.5}
+.calc-in .calc-foot{margin-top:8px}
+
+footer{text-align:center;padding:54px 0;color:var(--ink-sec);font-size:14px;border-top:1px solid var(--line)}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title"><span class="g">Open on desktop</span></div>
+  <div class="mb-sub">This deck is built for a big screen — open it on your laptop for the full experience.</div>
+</div>
+
+<nav>
+  <div class="wrap navin">
+    <div class="brand"><span class="spark">📅</span> BOOKER</div>
+    <div class="navtag">Evolv AI · Appointment Setter</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero tile-light wrap">
+  <div class="eyebrow">AI Appointment Setter</div>
+  <h1><span class="ln">Your calendar fills itself.</span><span class="ln accent">Every appointment shows up.</span></h1>
+  <p class="sub">BOOKER qualifies every lead, books the meeting, and makes sure they actually show up.</p>
+  <div class="stats">
+    <div class="statchip"><b>20–40%</b><span>of self-booked appts no-show</span></div>
+    <div class="statchip"><b>$5k–15k</b><span>commission lost per missed appt</span></div>
+    <div class="statchip"><b>&ge;70%</b><span>BOOKER show-rate target</span></div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="demo-shell reveal">
+      <div class="demo-inner">
+        <div class="demo-head">
+          <div>
+            <h3>Watch a lead get qualified &amp; booked</h3>
+            <div class="dh-sub"><b style="color:var(--ink)">FLASH</b> hands over the engaged lead. BOOKER does the rest — live.</div>
+          </div>
+          <div class="modetabs">
+            <button id="tabWatch" class="active" onclick="setMode('watch')">Watch it happen</button>
+            <button id="tabTry" onclick="setMode('try')">Try it yourself</button>
+          </div>
+        </div>
+
+        <!-- try controls -->
+        <div class="tryctl" id="tryCtl" style="display:none">
+          <span class="tl">Lead</span>
+          <input id="fName" value="Sarah Mitchell">
+          <span class="tl">Lead quality</span>
+          <div class="toggle" id="qToggle">
+            <button class="on" data-q="hot" onclick="pickQ(this)">🔥 Hot &amp; ready</button>
+            <button data-q="cold" onclick="pickQ(this)">🧊 Not ready yet</button>
+          </div>
+          <span class="helper" style="margin:0">In the chat you'll pick the viewing slot.</span>
+        </div>
+
+        <div class="demo-grid">
+          <!-- LEFT: chat -->
+          <div class="phone-stage">
+            <div class="phone">
+              <div class="screen">
+                <div class="scr-top">
+                  <div class="av">📅</div>
+                  <div class="who">BOOKER · Mike's team<small id="presence">● engaged lead received</small></div>
+                </div>
+                <div class="feed" id="feed">
+                  <div class="placeholder" id="ph"><div class="big">💬</div>Start the demo to watch BOOKER qualify the lead and book the appointment live.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: scorecard + calendar + brief -->
+          <div class="rightcol">
+            <!-- scorecard -->
+            <div class="panel">
+              <div class="panel-h"><div class="pt">🎯 Qualification scorecard</div></div>
+              <div class="score-row" data-k="budget"><div class="ico">💰</div><div class="lbl">Budget</div><div class="val" id="v-budget">—</div><div class="check">✓</div></div>
+              <div class="score-row" data-k="timeline"><div class="ico">📆</div><div class="lbl">Timeline</div><div class="val" id="v-timeline">—</div><div class="check">✓</div></div>
+              <div class="score-row" data-k="financing"><div class="ico">🏦</div><div class="lbl">Financing</div><div class="val" id="v-financing">—</div><div class="check">✓</div></div>
+              <div class="score-row" data-k="motivation"><div class="ico">🎯</div><div class="lbl">Motivation</div><div class="val" id="v-motivation">—</div><div class="check">✓</div></div>
+              <div class="qualbar">
+                <div class="qualmeter"><i id="qmeter"></i></div>
+                <div class="qualverdict" id="qverdict"></div>
+              </div>
+            </div>
+
+            <!-- calendar -->
+            <div class="panel">
+              <div class="panel-h"><div class="pt">🗓️ Mike's calendar · this week</div><div style="font-size:11px;color:var(--faint)" id="calhint"></div></div>
+              <div class="cal" id="cal"></div>
+              <div class="confirmed" id="confirmed">
+                <div class="ct">✅ <span id="confTxt">Appointment confirmed</span></div>
+                <div class="cd" id="confDetail">Viewing · 14 Oak Avenue with Mike Reyes</div>
+                <div class="reminders">
+                  <span class="rem" id="rem1">📧 Confirmation sent</span>
+                  <span class="rem" id="rem2">⏰ 24h reminder</span>
+                  <span class="rem" id="rem3">⏰ 1h reminder</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- agent brief -->
+            <div class="panel brief" id="brief">
+              <div class="panel-h"><div class="pt">📋 Agent brief → Mike</div><span class="panel-tag">sent</span></div>
+              <div class="bline"><span>Lead</span><span id="b-name">Sarah Mitchell</span></div>
+              <div class="bline"><span>Interested in</span><span>14 Oak Avenue · $625k</span></div>
+              <div class="bline"><span>Qualified</span><span id="b-qual" style="color:#248a3d">Hot — pre-approved</span></div>
+              <div class="bline"><span>Booked</span><span id="b-slot" style="color:#248a3d">Sat 10:00 AM</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-controls">
+          <button id="runBtn" class="btn btn-primary" onclick="runDemo()">Play — qualify &amp; book</button>
+          <button id="resetBtn" class="btn btn-ghost" onclick="resetDemo()" style="display:none">Reset</button>
+          <span class="helper" id="helper">Auto-play mode</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRAST -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">The gap BOOKER closes</div>
+      <h2>A booking link can't sell the meeting.</h2>
+      <p>Getting a reply isn't the win — a confirmed appointment that shows is.</p>
+    </div>
+    <div class="contrast">
+      <div class="cside bad reveal">
+        <div class="ck">Calendly link / manual setting</div>
+        <div class="cbig">20–40%<small> no-show</small></div>
+        <ul>
+          <li>Leads must book themselves — most don't</li>
+          <li>No qualifying — you meet tire-kickers</li>
+          <li>No reminders, no confirmation sequence</li>
+          <li>You walk in cold, zero context</li>
+        </ul>
+      </div>
+      <div class="cside good reveal">
+        <div class="ck">With BOOKER</div>
+        <div class="cbig">&ge;70%<small> show rate</small></div>
+        <ul>
+          <li>Qualifies on your exact criteria, every time</li>
+          <li>Books ready leads, routes the rest to NADIA</li>
+          <li>Reminder sequence cuts no-shows ~30%</li>
+          <li>You show up briefed — budget, timeline, financing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="tile-light">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">How BOOKER works</div>
+      <h2>Conversation in. Confirmed appointment out.</h2>
+      <p>Where FLASH leaves off — the warm lead becomes a booked, kept appointment.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01 — Receive</div><h4>Warm handoff</h4><p>Takes the engaged lead + full conversation context from FLASH. No cold start.</p></div>
+      <div class="step reveal"><div class="num">02 — Qualify</div><h4>Your criteria</h4><p>Budget, timeline, financing, motivation — your exact standard, applied every time.</p></div>
+      <div class="step reveal"><div class="num">03 — Book</div><h4>Lock the slot</h4><p>Offers real open times, handles objections, books straight onto the calendar.</p></div>
+      <div class="step reveal"><div class="num">04 — Protect</div><h4>Kill no-shows</h4><p>Confirmation + reminder sequence, agent briefed, CRM updated. They show up.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- KPIs -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">What we hold ourselves to</div>
+      <h2>Measured on shows, not sends.</h2>
+    </div>
+    <div class="kpis">
+      <div class="kpi reveal"><b>&ge;70%</b><span>appointment show rate</span></div>
+      <div class="kpi reveal"><b>~30%</b><span>fewer no-shows via reminders</span></div>
+      <div class="kpi reveal"><b>24/7</b><span>booking, incl. after hours</span></div>
+      <div class="kpi reveal"><b>0</b><span>agent hours spent chasing</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI CALCULATOR -->
+<section class="tile-dark" id="calc">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">Your numbers, not ours</div>
+      <h2>What your no-shows really cost.</h2>
+      <p>Move the sliders — the deals hiding inside your no-show rate.</p>
+    </div>
+
+    <div class="calc reveal">
+      <!-- INPUTS -->
+      <div class="calc-in">
+        <h3>Your calendar today</h3>
+        <div class="calc-sub">Drag the sliders to match your numbers.</div>
+
+        <div class="crow2">
+          <label>Appointments booked / month <b id="vAppts">40</b></label>
+          <input type="range" id="iAppts" min="5" max="150" step="1" value="40">
+        </div>
+
+        <div class="crow2">
+          <label>Current show rate <b id="vShow">60%</b></label>
+          <input type="range" id="iShow" min="30" max="90" step="1" value="60">
+        </div>
+
+        <div class="crow2">
+          <label>Appointment → closed deal <b id="vClose">20%</b></label>
+          <input type="range" id="iClose" min="5" max="50" step="1" value="20">
+        </div>
+
+        <div class="crow2">
+          <label>Average commission per deal</label>
+          <div class="numfield"><span>$</span><input type="number" id="iComm" value="9000" min="2000" step="500"></div>
+        </div>
+
+        <div class="calc-foot">
+          How it's calculated: BOOKER's confirmation + reminder sequence cuts no-shows by ~30% (measured target: &ge;70% show rate). More kept appointments close at your own rate — extra deals you'd otherwise never sit in front of.
+        </div>
+      </div>
+
+      <!-- OUTPUTS -->
+      <div class="calc-out">
+        <div class="outlbl">Extra commission BOOKER recovers</div>
+        <div class="bignum" id="oYear">$0</div>
+        <div class="outsub">per year · <b id="oMonth">$0</b> / month</div>
+
+        <div class="calc-stats">
+          <div class="cstat2"><b id="oDeals">0</b><span>extra closed deals / yr</span></div>
+          <div class="cstat2"><b id="oAppts">0</b><span>more kept appts / yr</span></div>
+        </div>
+
+        <div class="barwrap">
+          <div class="barrow">
+            <div class="bl"><span>Show rate today</span><b id="oBarToday">60%</b></div>
+            <div class="bartrack"><div class="barfill today" id="barToday" style="width:0%"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bl"><span>Show rate with BOOKER</span><b id="oBarBkr">72%</b></div>
+            <div class="bartrack"><div class="barfill flash" id="barBkr" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <div class="calc-foot" id="oTakeaway">That's the gap BOOKER closes — from appointments you already booked but never kept.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  📅 BOOKER · part of the Evolv AI sales team · FLASH → BOOKER → your agents → VERA
+</footer>
+
+<script>
+/* ===================== BOOKER DEMO ENGINE ===================== */
+let mode='watch', running=false, timers=[], quality='hot', chosenSlot=null, awaitingSlot=false;
+
+function setMode(m){
+  if(running) return; mode=m;
+  document.getElementById('tabWatch').classList.toggle('active',m==='watch');
+  document.getElementById('tabTry').classList.toggle('active',m==='try');
+  document.getElementById('tryCtl').style.display = m==='try'?'flex':'none';
+  document.getElementById('helper').textContent = m==='watch'?'Auto-play mode':'You set the lead & pick the slot';
+  document.getElementById('runBtn').textContent = m==='watch'?'Play — qualify & book':'Start the conversation';
+  resetDemo();
+}
+function pickQ(el){ if(running) return; document.querySelectorAll('#qToggle button').forEach(b=>b.classList.remove('on')); el.classList.add('on'); quality=el.dataset.q; }
+function firstName(){ return (document.getElementById('fName').value.trim().split(' ')[0])||'there'; }
+
+function feedEl(){ return document.getElementById('feed'); }
+function add(html){ const f=feedEl(); f.insertAdjacentHTML('beforeend',html); f.scrollTop=f.scrollHeight; }
+function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+function fillScore(k,val){
+  const row=document.querySelector('.score-row[data-k="'+k+'"]');
+  document.getElementById('v-'+k).textContent=val;
+  row.classList.add('done');
+}
+function meter(pct){ document.getElementById('qmeter').style.width=pct+'%'; }
+
+/* build calendar */
+function buildCal(){
+  const days=[
+    {d:'Mon',n:'12',slots:[{t:'busy'},{t:'busy'},{t:'busy'}]},
+    {d:'Tue',n:'13',slots:[{t:'busy'},{t:'open',label:'2pm',idx:1}]},
+    {d:'Wed',n:'14',slots:[{t:'busy'},{t:'busy'}]},
+    {d:'Sat',n:'17',slots:[{t:'open',label:'10am',idx:2},{t:'open',label:'1pm'}]},
+    {d:'Sun',n:'18',slots:[{t:'open',label:'2pm',idx:3},{t:'busy'}]}
+  ];
+  const cal=document.getElementById('cal'); cal.innerHTML='';
+  days.forEach(day=>{
+    let s=`<div class="day"><div class="dname">${day.d}</div><div class="dnum">${day.n}</div>`;
+    day.slots.forEach(sl=>{
+      const id = sl.idx!=null?`id="cslot-${sl.idx}"`:'';
+      s+=`<div class="cslot ${sl.t}" ${id}>${sl.t==='busy'?'×':sl.label}</div>`;
+    });
+    s+='</div>';
+    cal.insertAdjacentHTML('beforeend',s);
+  });
+}
+
+function runDemo(){
+  if(running) return; running=true;
+  const fn=firstName();
+  document.getElementById('runBtn').disabled=true;
+  document.getElementById('resetBtn').style.display='inline-flex';
+  document.getElementById('ph')?.remove();
+  feedEl().innerHTML='';
+  document.getElementById('presence').textContent='● qualifying';
+  document.getElementById('b-name').textContent=document.getElementById('fName').value;
+
+  // handoff
+  add(`<div class="evt sysline pp">🤝 Engaged lead received from FLASH — ${fn}, interested in 14 Oak Avenue</div>`);
+  at(700,()=>add(`<div class="evt bubble out">Hi ${fn}! This is Mike's booking assistant 👋 Loved that you're interested in 14 Oak Avenue. Two quick questions so I get you in front of the right home — what budget range are you working with?</div>`));
+  at(2000,()=>add(`<div class="evt typing" id="ty1"><i></i><i></i><i></i></div>`));
+  at(3200,()=>{document.getElementById('ty1')?.remove(); add(`<div class="evt bubble in">Up to about $650k</div>`); fillScore('budget','≤ $650k'); meter(25);});
+
+  // timeline
+  at(4200,()=>add(`<div class="evt qtag">⟶ qualifying: timeline</div>`));
+  at(4400,()=>add(`<div class="evt bubble out">Perfect, that fits 14 Oak nicely. How soon are you looking to move?</div>`));
+  at(5600,()=>add(`<div class="evt typing" id="ty2"><i></i><i></i><i></i></div>`));
+  at(6800,()=>{document.getElementById('ty2')?.remove(); add(`<div class="evt bubble in">Hoping within the next month or two</div>`); fillScore('timeline','1–2 months'); meter(50);});
+
+  // financing — branches on quality
+  at(7800,()=>add(`<div class="evt bubble out">Great timing. And are you pre-approved with a lender yet, or still exploring financing?</div>`));
+  at(9000,()=>add(`<div class="evt typing" id="ty3"><i></i><i></i><i></i></div>`));
+  at(10200,()=>{
+    document.getElementById('ty3')?.remove();
+    if(quality==='hot'){
+      add(`<div class="evt bubble in">Yep, pre-approved with my bank ✅</div>`);
+      fillScore('financing','Pre-approved'); meter(75);
+    }else{
+      add(`<div class="evt bubble in">Not yet — just starting to look around honestly</div>`);
+      fillScore('financing','Not yet'); meter(45);
+    }
+  });
+
+  // motivation
+  at(11200,()=>add(`<div class="evt bubble out">Got it. Last one — is this your first home, or are you also selling a current place?</div>`));
+  at(12300,()=>add(`<div class="evt typing" id="ty4"><i></i><i></i><i></i></div>`));
+  at(13500,()=>{
+    document.getElementById('ty4')?.remove();
+    add(`<div class="evt bubble in">First home, super excited 🙌</div>`);
+    fillScore('motivation','First-home buyer');
+    meter(quality==='hot'?100:60);
+  });
+
+  // verdict
+  at(14600,()=> branch(fn));
+}
+
+function branch(fn){
+  const v=document.getElementById('qverdict');
+  if(quality==='cold'){
+    v.className='qualverdict nurture'; v.textContent='Not ready — nurture';
+    document.getElementById('presence').textContent='● routed to NADIA';
+    add(`<div class="evt bubble out">You're in a great spot, ${fn} — let me get you a few homes in range and a quick intro to a lender, no pressure. I'll check back as you get closer. 😊</div>`);
+    at(1400,()=>add(`<div class="evt sysline">↪ Not booking yet — routed to NADIA for nurture (won't waste the agent's time)</div>`));
+    at(2400,()=>{ finishCold(); });
+    return;
+  }
+  // HOT → book
+  v.className='qualverdict hot'; v.textContent='🔥 Qualified — hot';
+  add(`<div class="evt bubble out">You're exactly who Mike loves working with, ${fn}. Let's lock a private viewing of 14 Oak. Here's what's open this week:</div>`);
+  at(1200,()=> offerSlots(fn));
+}
+
+function offerSlots(fn){
+  // highlight calendar open slots subtly
+  document.getElementById('calhint').textContent='2 slots open';
+  if(mode==='try'){
+    awaitingSlot=true;
+    add(`<div class="evt slotpick" id="slotPick">
+      <div class="sp-t">👆 Pick a slot to book it on Mike's calendar:</div>
+      <button class="slotbtn" onclick="chooseSlot(2,'Saturday 10:00 AM')">Saturday <small>10:00 AM</small></button>
+      <button class="slotbtn" onclick="chooseSlot(3,'Sunday 2:00 PM')">Sunday <small>2:00 PM</small></button>
+    </div>`);
+  }else{
+    add(`<div class="evt slotpick" id="slotPick">
+      <div class="sp-t">Offering open times…</div>
+      <button class="slotbtn">Saturday <small>10:00 AM</small></button>
+      <button class="slotbtn">Sunday <small>2:00 PM</small></button>
+    </div>`);
+    at(1500,()=>{ add(`<div class="evt bubble in">Saturday 10am works great!</div>`); chooseSlot(2,'Saturday 10:00 AM'); });
+  }
+}
+
+function chooseSlot(idx,labelFull){
+  if(!awaitingSlot && mode==='try') return;
+  awaitingSlot=false;
+  const fn=firstName();
+  // mark chosen in chat
+  const pick=document.getElementById('slotPick');
+  if(pick){ pick.querySelectorAll('.slotbtn').forEach(b=>b.style.pointerEvents='none'); }
+  // book on calendar
+  const slot=document.getElementById('cslot-'+idx);
+  if(slot){ slot.className='cslot booked'; slot.textContent='✓'; }
+  document.getElementById('presence').textContent='● booked';
+  if(mode==='try') add(`<div class="evt bubble in">${labelFull.split(' ')[0]} ${labelFull.match(/\d.*/)[0]} works great!</div>`);
+  at(700,()=>add(`<div class="evt bubble out">Done — you're locked in for ${labelFull} at 14 Oak Avenue. I'll text you the address &amp; a reminder. See you there, ${fn}! 🎉</div>`));
+  at(1500,()=> confirmBooking(labelFull));
+}
+
+function confirmBooking(labelFull){
+  document.getElementById('confTxt').textContent='Appointment confirmed · '+labelFull;
+  document.getElementById('confirmed').classList.add('show');
+  document.getElementById('b-slot').textContent=labelFull;
+  at(500,()=>document.getElementById('rem1').classList.add('on'));
+  at(1100,()=>document.getElementById('rem2').classList.add('on'));
+  at(1700,()=>document.getElementById('rem3').classList.add('on'));
+  at(2100,()=>{
+    document.getElementById('brief').classList.add('show');
+    add(`<div class="evt sysline ok">✅ Booked · reminders set · CRM updated · Mike briefed</div>`);
+    finish();
+  });
+}
+
+function finishCold(){
+  document.getElementById('brief').classList.add('show');
+  document.getElementById('b-qual').textContent='Not ready — nurturing';
+  document.getElementById('b-qual').style.color='var(--amber)';
+  document.getElementById('b-slot').textContent='Routed to NADIA';
+  document.getElementById('b-slot').style.color='var(--amber)';
+  add(`<div class="evt sysline ok">✅ Lead preserved · NADIA nurturing · CRM updated · no agent time wasted</div>`);
+  finish();
+}
+
+function finish(){
+  running=false;
+  document.getElementById('resetBtn').disabled=false;
+}
+
+function resetDemo(){
+  timers.forEach(clearTimeout); timers=[]; running=false; awaitingSlot=false; chosenSlot=null;
+  buildCal();
+  document.querySelectorAll('.score-row').forEach(r=>r.classList.remove('done'));
+  ['budget','timeline','financing','motivation'].forEach(k=>document.getElementById('v-'+k).textContent='—');
+  meter(0);
+  document.getElementById('qverdict').className='qualverdict'; document.getElementById('qverdict').textContent='';
+  document.getElementById('calhint').textContent='';
+  document.getElementById('confirmed').classList.remove('show');
+  document.getElementById('brief').classList.remove('show');
+  ['rem1','rem2','rem3'].forEach(r=>document.getElementById(r).classList.remove('on'));
+  document.getElementById('b-qual').textContent='Hot — pre-approved'; document.getElementById('b-qual').style.color='#248a3d';
+  document.getElementById('b-slot').textContent='Sat 10:00 AM'; document.getElementById('b-slot').style.color='#248a3d';
+  document.getElementById('presence').textContent='● engaged lead received';
+  document.getElementById('runBtn').disabled=false;
+  document.getElementById('resetBtn').style.display='none';
+  feedEl().innerHTML=`<div class="placeholder" id="ph"><div class="big">💬</div>Start the demo to watch BOOKER qualify the lead and book the appointment live.</div>`;
+}
+
+buildCal();
+
+/* ===================== ROI CALCULATOR ===================== */
+const $ = id => document.getElementById(id);
+const money = n => '$' + Math.round(n).toLocaleString('en-US');
+const moneyK = n => n>=1000 ? '$'+(n/1000).toFixed(n>=10000?0:1)+'k' : '$'+Math.round(n);
+
+let _animers = {};
+function animateNum(el, to, fmt){
+  cancelAnimationFrame(_animers[el.id]);
+  const from = parseFloat(el.dataset.v||0); const t0 = performance.now(); const dur=550;
+  function step(t){
+    const k = Math.min((t-t0)/dur,1); const e = 1-Math.pow(1-k,3);
+    const val = from + (to-from)*e;
+    el.textContent = fmt(val);
+    if(k<1) _animers[el.id]=requestAnimationFrame(step);
+    else el.dataset.v = to;
+  }
+  el.dataset.v = el.dataset.v||0;
+  _animers[el.id]=requestAnimationFrame(step);
+}
+
+function calcROI(){
+  const appts   = +$('iAppts').value;          // booked / month
+  const showNow = +$('iShow').value;           // %
+  const close   = +$('iClose').value;          // %
+  const comm    = Math.max(0, +$('iComm').value || 0);   // $
+
+  // BOOKER: reminder sequences cut no-shows ~30% (grounded in spec)
+  const noShowNow = 1 - showNow/100;
+  let showBkr = 1 - noShowNow*0.7;             // 30% fewer no-shows
+  if(showBkr > 0.92) showBkr = 0.92;           // realistic ceiling
+  const showBkrPct = Math.round(showBkr*100);
+
+  const dealsNow    = appts * (showNow/100) * (close/100);
+  const dealsBkr    = appts * showBkr * (close/100);
+  const extraDealsMo= dealsBkr - dealsNow;
+  const extraApptsMo= appts * (showBkr - showNow/100);   // more kept appointments
+  const extraRevMo  = extraDealsMo * comm;
+  const extraRevYr  = extraRevMo * 12;
+
+  // input labels
+  $('vAppts').textContent = appts;
+  $('vShow').textContent  = showNow+'%';
+  $('vClose').textContent = close+'%';
+
+  // animated results
+  animateNum($('oYear'),  extraRevYr, money);
+  animateNum($('oMonth'), extraRevMo, money);
+  animateNum($('oDeals'), extraDealsMo*12, v=>v.toFixed(v<10?1:0));
+  animateNum($('oAppts'), extraApptsMo*12, v=>Math.round(v).toString());
+
+  // show-rate bars (today grey vs BOOKER green)
+  $('oBarToday').textContent = showNow+'%';
+  $('oBarBkr').textContent   = showBkrPct+'%';
+  $('barToday').style.width  = showNow+'%';
+  $('barBkr').style.width    = showBkrPct+'%';
+
+  $('oTakeaway').textContent = extraRevYr>0
+    ? `≈ ${money(extraRevYr)} a year you're currently leaving on the table — from appointments you already booked but never kept. That's the gap BOOKER closes.`
+    : `Lower your current show rate or raise your volume to see the gap BOOKER closes.`;
+}
+['iAppts','iShow','iClose','iComm'].forEach(id=>{
+  const el=$(id); if(el){ el.addEventListener('input', calcROI); }
+});
+calcROI();
+
+/* reveal on scroll */
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===================== section-by-section arrow navigation ===================== */
+const SECS=[...document.querySelectorAll('section')]; const NAVOFF=0;
+function nearestSection(){ const y=scrollY+NAVOFF+4; let b=0,bd=Infinity;
+  SECS.forEach((s,i)=>{const d=Math.abs(s.offsetTop-y); if(d<bd){bd=d;b=i;}}); return b; }
+function goSection(i){ i=Math.max(0,Math.min(SECS.length-1,i));
+  scrollTo({top:SECS[i].offsetTop-NAVOFF,behavior:'smooth'}); }
+addEventListener('keydown',e=>{ if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;
+  const t=(e.target.tagName||'').toUpperCase(); if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;
+  e.preventDefault(); goSection(nearestSection()+(e.key==='ArrowDown'?1:-1)); });
+</script>
+</body>
+</html>
