@@ -58,7 +58,7 @@ h1,h2,h3,h4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter
   font-weight:600;letter-spacing:-.02em;line-height:1.06}
 
 .wrap{max-width:1040px;margin:0 auto;padding:0 28px}
-section{position:relative;padding:120px 0}
+section{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:64px 0;scroll-margin-top:0}
 
 /* full-bleed tiles — the colour change IS the divider */
 .tile-light{background:var(--canvas)}
@@ -71,7 +71,7 @@ section{position:relative;padding:120px 0}
 .tile-dark .eyebrow{color:#2997ff}
 
 /* ===== nav ===== */
-nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(20px);
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(180%) blur(20px);
   background:rgba(255,255,255,.72);border-bottom:1px solid rgba(0,0,0,.08)}
 .navin{display:flex;align-items:center;justify-content:space-between;height:52px}
 .brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:19px;letter-spacing:-.02em}
@@ -92,10 +92,10 @@ nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(20px);
 .btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
 
 /* ===== hero ===== */
-.hero{padding-top:96px;padding-bottom:80px;text-align:center}
+.hero{text-align:center}
 .hero h1{font-size:clamp(40px,6.4vw,64px);line-height:1.04;font-weight:600;margin:6px 0 22px}
 .hero h1 .accent{color:var(--blue)}
-.hero p.sub{font-size:clamp(19px,2.3vw,23px);font-weight:400;color:var(--ink-sec);max-width:660px;margin:0 auto;line-height:1.4}
+.hero p.sub{font-size:clamp(19px,2.3vw,23px);font-weight:400;color:var(--ink-sec);max-width:760px;margin:0 auto;line-height:1.4;text-wrap:balance}
 .hero .stats{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-top:64px;border-top:1px solid var(--line)}
 .statchip{padding:30px 38px;min-width:190px;border-right:1px solid var(--line)}
 .statchip:last-child{border-right:none}
@@ -103,9 +103,9 @@ nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(20px);
 .statchip span{font-size:15px;color:var(--ink-sec);font-weight:400}
 
 /* ===== section heads ===== */
-.shead{text-align:center;max-width:680px;margin:0 auto 64px}
-.shead h2{font-size:clamp(32px,4.6vw,50px);font-weight:600;margin:0 0 16px}
-.shead p{color:var(--ink-sec);font-size:21px;font-weight:400;line-height:1.4}
+.shead{text-align:center;max-width:760px;margin:0 auto 56px}
+.shead h2{font-size:clamp(32px,4.6vw,50px);font-weight:600;margin:0 0 16px;text-wrap:balance}
+.shead p{color:var(--ink-sec);font-size:21px;font-weight:400;line-height:1.4;text-wrap:balance}
 .tile-dark .shead p{color:var(--sec-on-dark)}
 
 /* ===== DEMO ===== */
@@ -313,7 +313,7 @@ footer{text-align:center;padding:54px 0;color:var(--ink-sec);font-size:14px;bord
 <section class="hero tile-light wrap">
   <div class="eyebrow">AI Inbound Rep</div>
   <h1>Every lead gets a real reply<br><span class="accent">in under 3 minutes.</span></h1>
-  <p class="sub">The instant a lead raises their hand — any source, any hour — FLASH fires back across SMS, email and an AI voice call, holds the conversation, and hands the warm lead to your team. So you never lose a deal to whoever answered first.</p>
+  <p class="sub">The moment a lead raises their hand, FLASH replies first — every time.</p>
   <div class="stats">
     <div class="statchip"><b>47 hrs</b><span>avg business response time</span></div>
     <div class="statchip"><b>78%</b><span>of buyers pick the 1st responder</span></div>
@@ -419,7 +419,7 @@ footer{text-align:center;padding:54px 0;color:var(--ink-sec);font-size:14px;bord
     <div class="shead reveal">
       <div class="eyebrow">The gap FLASH closes</div>
       <h2>Same lead. Two outcomes.</h2>
-      <p>The lead doesn't wait. They fill three forms and go with whoever replies first.</p>
+      <p>The lead doesn't wait — they go with whoever replies first.</p>
     </div>
     <div class="contrast">
       <div class="cside bad reveal">
@@ -452,7 +452,7 @@ footer{text-align:center;padding:54px 0;color:var(--ink-sec);font-size:14px;bord
     <div class="shead reveal">
       <div class="eyebrow">Under the hood</div>
       <h2>Four moving parts. One reflex.</h2>
-      <p>The same engine runs for any source and any niche — only the config changes.</p>
+      <p>One engine for every source and niche — only the config changes.</p>
     </div>
     <div class="steps">
       <div class="step reveal"><div class="num">01 — Sources</div><h4>Lead lands</h4><p>Zillow, Meta ad, web form, missed call — any source, captured the instant it arrives.</p></div>
@@ -485,7 +485,7 @@ footer{text-align:center;padding:54px 0;color:var(--ink-sec);font-size:14px;bord
     <div class="shead reveal">
       <div class="eyebrow">Your numbers, not ours</div>
       <h2>What slow replies cost you.</h2>
-      <p>Plug in your real numbers. See the revenue leaking out of leads you already pay for.</p>
+      <p>Your real numbers — the revenue leaking from leads you already pay for.</p>
     </div>
 
     <div class="calc reveal">
@@ -764,6 +764,16 @@ const io = new IntersectionObserver((es)=>{
   es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
 },{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===================== section-by-section arrow navigation ===================== */
+const SECS=[...document.querySelectorAll('section')]; const NAVOFF=0;
+function nearestSection(){ const y=scrollY+NAVOFF+4; let b=0,bd=Infinity;
+  SECS.forEach((s,i)=>{const d=Math.abs(s.offsetTop-y); if(d<bd){bd=d;b=i;}}); return b; }
+function goSection(i){ i=Math.max(0,Math.min(SECS.length-1,i));
+  scrollTo({top:SECS[i].offsetTop-NAVOFF,behavior:'smooth'}); }
+addEventListener('keydown',e=>{ if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;
+  const t=(e.target.tagName||'').toUpperCase(); if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;
+  e.preventDefault(); goSection(nearestSection()+(e.key==='ArrowDown'?1:-1)); });
 </script>
 </body>
 </html>
