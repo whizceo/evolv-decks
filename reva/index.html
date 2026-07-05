@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REVA — Database Reactivation AI · Evolv AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#ffffff;
+  --parchment:#f5f5f7;
+  --dark:#1d1d1f;
+  --dark2:#000000;
+  --ink:#1d1d1f;
+  --ink-sec:#6e6e73;
+  --on-dark:#f5f5f7;
+  --sec-on-dark:#a1a1a6;
+  --blue:#0066cc;
+  --green:#34c759;
+  --red:#ff3b30;
+  --line:#d2d2d7;
+  --line-dark:rgba(255,255,255,.13);
+  --r:18px;
+  --pill:9999px;
+  --shadow-img:rgba(0,0,0,.18) 0 30px 60px -14px;
+  --muted:#6e6e73; --faint:#86868b; --amber:#ff9f0a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ===== mobile gate ===== */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--canvas);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif}
+.mobile-block .mb-emoji{font-size:46px;margin-bottom:22px}
+.mobile-block .mb-title{font-weight:600;font-size:1.7rem;letter-spacing:-.02em;margin-bottom:14px;color:var(--ink)}
+.mobile-block .mb-sub{font-size:1rem;color:var(--ink-sec);max-width:340px;line-height:1.5}
+.mobile-block .g{color:var(--blue)}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+  line-height:1.47;
+  font-size:17px;
+  letter-spacing:-.012em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;
+  font-weight:600;letter-spacing:-.02em;line-height:1.06}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+section{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:64px 0;scroll-margin-top:0}
+
+/* full-bleed tiles — the colour change IS the divider */
+.tile-light{background:var(--canvas)}
+.tile-parch{background:var(--parchment)}
+.tile-dark{background:var(--dark);color:var(--on-dark)}
+.tile-dark h1,.tile-dark h2,.tile-dark h3,.tile-dark h4{color:var(--on-dark)}
+
+/* eyebrow (Apple category line) */
+.eyebrow{font-size:19px;font-weight:600;letter-spacing:-.01em;color:var(--blue);margin-bottom:6px}
+.tile-dark .eyebrow{color:#2997ff}
+
+/* ===== nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(180%) blur(20px);
+  background:rgba(255,255,255,.72);border-bottom:1px solid rgba(0,0,0,.08)}
+.navin{display:flex;align-items:center;justify-content:space-between;height:52px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:19px;letter-spacing:-.02em}
+.brand .spark{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--blue);color:#fff;font-size:14px}
+.navtag{font-size:13px;color:var(--ink-sec);font-weight:400}
+
+/* ===== buttons ===== */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 23px;border-radius:var(--pill);
+  font-weight:500;font-size:17px;cursor:pointer;border:none;font-family:inherit;
+  transition:background .2s,transform .12s,box-shadow .2s,color .2s,border-color .2s;text-decoration:none;letter-spacing:-.01em}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#0a74e0}
+.btn:active{transform:scale(.96)}
+.btn-ghost{background:transparent;color:var(--blue);border:1px solid var(--line)}
+.btn-ghost:hover{background:rgba(0,0,0,.035)}
+.tile-dark .btn-ghost,.btn-ghost.on-dark{color:#2997ff;border-color:var(--line-dark)}
+.tile-dark .btn-ghost:hover{background:rgba(255,255,255,.06)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+
+/* ===== hero ===== */
+.hero{text-align:center}
+.hero h1{font-size:clamp(40px,6.4vw,64px);line-height:1.04;font-weight:600;margin:6px 0 22px}
+.hero h1 .accent{color:var(--blue)}
+.hero h1 .ln{display:block}
+.hero p.sub{font-size:clamp(19px,2.3vw,23px);font-weight:400;color:var(--ink-sec);max-width:760px;margin:0 auto;line-height:1.4;text-wrap:balance}
+.hero .stats{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-top:64px;border-top:1px solid var(--line)}
+.statchip{padding:30px 38px;min-width:190px;border-right:1px solid var(--line)}
+.statchip:last-child{border-right:none}
+.statchip b{font-size:42px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.statchip span{font-size:15px;color:var(--ink-sec);font-weight:400}
+
+/* ===== section heads ===== */
+.shead{text-align:center;max-width:760px;margin:0 auto 56px}
+.shead h2{font-size:clamp(32px,4.6vw,50px);font-weight:600;margin:0 0 16px;text-wrap:balance}
+.shead p{color:var(--ink-sec);font-size:21px;font-weight:400;line-height:1.4;text-wrap:balance}
+.tile-dark .shead p{color:var(--sec-on-dark)}
+
+/* ===== DEMO ===== */
+.demo-shell{border-radius:24px;background:var(--canvas);border:1px solid var(--line);
+  box-shadow:rgba(0,0,0,.06) 0 18px 40px -20px;overflow:hidden}
+.demo-inner{padding:28px}
+.demo-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;margin-bottom:18px}
+.demo-head h3{font-size:23px;font-weight:600}
+.demo-head .dh-sub{font-size:15px;color:var(--ink-sec);margin-top:4px;font-weight:400}
+.modetabs{display:inline-flex;background:var(--parchment);border-radius:var(--pill);padding:3px}
+.modetabs button{padding:9px 18px;border-radius:var(--pill);border:none;background:transparent;
+  color:var(--ink-sec);font-weight:500;font-size:14px;cursor:pointer;font-family:inherit;transition:.2s;letter-spacing:-.01em}
+.modetabs button.active{background:var(--canvas);color:var(--ink);box-shadow:rgba(0,0,0,.08) 0 1px 3px}
+
+.demo-grid{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start}
+@media(max-width:900px){.demo-grid{grid-template-columns:1fr}}
+
+/* try controls */
+.tryctl{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:22px;padding:16px 18px;
+  border-radius:16px;background:var(--parchment)}
+.tryctl .tl{font-size:13px;color:var(--ink-sec);font-weight:600}
+.tryctl input[type=range]{width:200px;accent-color:var(--blue)}
+.tryctl .dbval{font-weight:700;font-size:18px;color:var(--blue);min-width:80px}
+.helper{font-size:13.5px;color:var(--ink-sec)}
+
+/* LEFT — database console */
+.console{border-radius:18px;border:1px solid var(--line);background:var(--parchment);padding:20px}
+.console-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:6px}
+.console-h .ct{font-size:14px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:8px}
+.console-h .dbtag{font-size:12px;color:var(--ink-sec)}
+.dbtag b{color:var(--blue);font-weight:600}
+
+.grid{display:grid;grid-template-columns:repeat(26,1fr);gap:3px;margin-bottom:16px}
+.cell{aspect-ratio:1;border-radius:2px;background:rgba(0,0,0,.06);transition:background .35s,box-shadow .35s,transform .35s}
+.cell.contacted{background:rgba(0,102,204,.45)}
+.cell.replied{background:var(--green);box-shadow:0 0 6px rgba(52,199,89,.6)}
+.cell.qualified{background:#30d158;box-shadow:0 0 9px rgba(52,199,89,.7);transform:scale(1.15)}
+
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-sec);margin-bottom:16px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.lg-dead{background:rgba(0,0,0,.12)}.lg-con{background:rgba(0,102,204,.55)}.lg-rep{background:var(--green)}.lg-qual{background:#30d158}
+
+.channels{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.chan{padding:10px;border-radius:12px;background:var(--canvas);border:1px solid var(--line);text-align:center;opacity:.5;transition:.4s}
+.chan.on{opacity:1;border-color:rgba(0,102,204,.4);background:rgba(0,102,204,.06)}
+.chan .ci{font-size:18px}
+.chan .cn{font-size:11px;color:var(--ink-sec);margin-top:3px}
+.chan.on .cn{color:var(--blue)}
+
+.sweepbar{margin-top:16px;height:6px;border-radius:var(--pill);background:rgba(0,0,0,.08);overflow:hidden}
+.sweepbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--green));transition:width .2s linear}
+
+/* RIGHT — results */
+.rightcol{display:flex;flex-direction:column;gap:12px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric{border-radius:14px;border:1px solid var(--line);background:var(--canvas);padding:14px}
+.metric b{font-size:26px;font-weight:600;display:block;line-height:1.1;letter-spacing:-.02em;color:var(--ink)}
+.metric span{font-size:12px;color:var(--ink-sec)}
+.metric.rep b{color:var(--green)}.metric.qual b{color:#248a3d}
+
+.pipeline{border-radius:16px;padding:18px;text-align:center;border:1px solid rgba(52,199,89,.3);background:rgba(52,199,89,.07)}
+.pipeline .pl{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-sec)}
+.pipeline .pbig{font-weight:600;font-size:40px;line-height:1.05;margin:4px 0;letter-spacing:-.03em;color:#248a3d}
+.pipeline .psub{font-size:12px;color:var(--green);font-weight:600}
+
+.feedbox{border-radius:16px;border:1px solid var(--line);background:var(--canvas);padding:14px}
+.feedbox .fh{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-sec);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.surf{display:flex;flex-direction:column;gap:8px;max-height:180px;overflow-y:auto;scrollbar-width:none}
+.surf::-webkit-scrollbar{display:none}
+.surf .empty{color:var(--ink-sec);font-size:12.5px;text-align:center;padding:20px 8px;line-height:1.4}
+.lead{opacity:0;transform:translateX(12px);animation:slidein .45s forwards;border-radius:10px;background:var(--parchment);border:1px solid var(--line);padding:9px 11px}
+@keyframes slidein{to{opacity:1;transform:none}}
+.lead .lq{font-size:12.5px;color:var(--ink);line-height:1.35}
+.lead .lr{display:flex;align-items:center;gap:6px;margin-top:5px;font-size:10.5px}
+.lead .ch{color:var(--ink-sec)}
+.lead .route{color:#248a3d;font-weight:600;margin-left:auto;display:flex;align-items:center;gap:4px}
+
+.demo-controls{margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+
+/* ===== contrast (dark tile) ===== */
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.contrast{grid-template-columns:1fr}}
+.cside{border-radius:22px;padding:34px;background:#2a2a2c;border:1px solid var(--line-dark)}
+.cside.good{background:rgba(52,199,89,.1);border-color:rgba(52,199,89,.32)}
+.cside .ck{font-size:13px;font-weight:600;margin-bottom:14px;color:var(--sec-on-dark)}
+.cside.bad .ck{color:#ff6b6b}.cside.good .ck{color:#4dd17a}
+.cside .cbig{font-size:58px;font-weight:600;line-height:1;letter-spacing:-.03em;color:var(--on-dark)}
+.cside .cbig small{font-size:20px;color:var(--sec-on-dark);font-weight:400}
+.cside ul{list-style:none;margin-top:18px}
+.cside li{font-size:15px;color:var(--sec-on-dark);padding:8px 0 8px 26px;position:relative;line-height:1.4}
+.cside.bad li::before{content:"✕";position:absolute;left:0;color:#ff6b6b;font-weight:600}
+.cside.good li::before{content:"✓";position:absolute;left:0;color:#4dd17a;font-weight:600}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:0}}
+.step{padding:0 26px;border-right:1px solid var(--line)}
+.step:first-child{padding-left:0}
+.step:last-child{padding-right:0;border-right:none}
+@media(max-width:860px){.step{padding:24px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .step:nth-child(2n){border-right:none}.step:first-child{padding-left:22px}}
+.step .num{font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0}
+.step h4{font-size:19px;font-weight:600;margin:10px 0 8px}
+.step p{font-size:15px;color:var(--ink-sec);font-weight:400;line-height:1.45}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+@media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{text-align:center;padding:38px 16px;border-right:1px solid var(--line)}
+.kpi:last-child{border-right:none}
+@media(max-width:760px){.kpi:nth-child(2n){border-right:none}.kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.kpi b{font-size:44px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.kpi span{font-size:14px;color:var(--ink-sec);font-weight:400}
+
+/* ===== CTA (dark tile) ===== */
+.cta{text-align:center;max-width:760px;margin:0 auto}
+.cta h2{font-size:clamp(32px,4.6vw,50px);font-weight:600;margin-bottom:16px}
+.cta p{color:var(--sec-on-dark);font-size:19px;max-width:580px;margin:0 auto 30px;line-height:1.4;text-wrap:balance}
+
+footer{text-align:center;padding:54px 0;color:var(--ink-sec);font-size:14px;border-top:1px solid var(--line)}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title"><span class="g">Open on desktop</span></div>
+  <div class="mb-sub">This deck is built for a big screen — open it on your laptop for the full experience.</div>
+</div>
+
+<nav>
+  <div class="wrap navin">
+    <div class="brand"><span class="spark">🔄</span> REVA</div>
+    <div class="navtag">Evolv AI · Database Reactivation</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero tile-light wrap">
+  <div class="eyebrow">AI Database Reactivation</div>
+  <h1><span class="ln">The dead leads you paid for</span><span class="ln accent">are booked appointments in disguise.</span></h1>
+  <p class="sub">REVA wakes your dead CRM across every channel and routes the live replies to your team — zero new ad spend.</p>
+  <div class="stats">
+    <div class="statchip"><b>~70%</b><span>go with the first agent they really talk to</span></div>
+    <div class="statchip"><b>$0</b><span>new ad spend — you already own the data</span></div>
+    <div class="statchip"><b>Days</b><span>to the first booked appointment</span></div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="demo-shell reveal">
+      <div class="demo-inner">
+        <div class="demo-head">
+          <div>
+            <h3>Watch a dead database wake up</h3>
+            <div class="dh-sub">A real-size cold CRM, swept across every channel — live replies surface and route straight to your team.</div>
+          </div>
+          <div class="modetabs">
+            <button id="tabWatch" class="active" onclick="setMode('watch')">Watch it happen</button>
+            <button id="tabTry" onclick="setMode('try')">Try it yourself</button>
+          </div>
+        </div>
+
+        <!-- try controls -->
+        <div class="tryctl" id="tryCtl" style="display:none">
+          <span class="tl">Your dead database size</span>
+          <input id="dbRange" type="range" min="500" max="8000" step="100" value="2437" oninput="dbInput()">
+          <span class="dbval" id="dbVal">2,437</span>
+          <span class="helper" style="margin:0">Bigger list = bigger payday. Drag, then press Play.</span>
+        </div>
+
+        <div class="demo-grid">
+          <!-- LEFT: console -->
+          <div class="console">
+            <div class="console-h">
+              <div class="ct">🗄️ Cold CRM · "I'll get to it" leads</div>
+              <div class="dbtag"><b id="dbCount">2,437</b> contacts · last touched 6–18 mo ago</div>
+            </div>
+            <div class="grid" id="grid"></div>
+            <div class="legend">
+              <span><i class="lg-dead"></i> Dormant</span>
+              <span><i class="lg-con"></i> Contacted</span>
+              <span><i class="lg-rep"></i> Replied</span>
+              <span><i class="lg-qual"></i> Qualified → routed</span>
+            </div>
+            <div class="channels">
+              <div class="chan" id="ch-email"><div class="ci">📧</div><div class="cn">Email</div></div>
+              <div class="chan" id="ch-sms"><div class="ci">💬</div><div class="cn">SMS</div></div>
+              <div class="chan" id="ch-rvm"><div class="ci">📨</div><div class="cn">Ringless VM</div></div>
+              <div class="chan" id="ch-call"><div class="ci">📞</div><div class="cn">AI Call</div></div>
+            </div>
+            <div class="sweepbar"><i id="sweep"></i></div>
+          </div>
+
+          <!-- RIGHT: results -->
+          <div class="rightcol">
+            <div class="metrics">
+              <div class="metric"><b id="m-contacted">0</b><span>Contacted</span></div>
+              <div class="metric rep"><b id="m-replied">0</b><span>Replied</span></div>
+              <div class="metric qual"><b id="m-qualified">0</b><span>Qualified</span></div>
+              <div class="metric"><b id="m-booked">0</b><span>Appointments</span></div>
+            </div>
+            <div class="pipeline">
+              <div class="pl">Pipeline surfaced</div>
+              <div class="pbig" id="m-pipeline">$0</div>
+              <div class="psub">from data you already own · $0 new ad spend</div>
+            </div>
+            <div class="feedbox">
+              <div class="fh">⚡ Live replies surfacing</div>
+              <div class="surf" id="surf"><div class="empty" id="surfEmpty">Press Play — watch dead contacts reply and get routed to FLASH → BOOKER.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-controls">
+          <button id="runBtn" class="btn btn-primary" onclick="runDemo()">Play — reactivate the database</button>
+          <button id="resetBtn" class="btn btn-ghost" onclick="resetDemo()" style="display:none">Reset</button>
+          <span class="helper" id="helper" style="margin-left:auto">Auto-play mode</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRAST -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">Why REVA goes first</div>
+      <h2>They're not dead leads. They're un-contacted ones.</h2>
+      <p>They raised their hand once — nobody followed up, so they bought from someone else.</p>
+    </div>
+    <div class="contrast">
+      <div class="cside bad reveal">
+        <div class="ck">The database today</div>
+        <div class="cbig">$0<small> / month</small></div>
+        <ul>
+          <li>Thousands of paid-for leads sitting dormant in the CRM</li>
+          <li>Ages and dies a little more every month</li>
+          <li>Competitors re-market to the same people</li>
+          <li>"I'll get to it" — but nobody ever does, manually</li>
+        </ul>
+      </div>
+      <div class="cside good reveal">
+        <div class="ck">The database with REVA</div>
+        <div class="cbig">Found<small> money</small></div>
+        <ul>
+          <li>Multi-channel revival: email + SMS + ringless VM + AI call</li>
+          <li>Paced &amp; deliverability-safe — not a spammy blast</li>
+          <li>Live replies routed straight to FLASH → BOOKER</li>
+          <li>Near-zero cost — often pays for the engagement in month 1</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="tile-light">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">How REVA works</div>
+      <h2>Old export in. Booked appointments out.</h2>
+      <p>It revives, not reminds — conversational, paced, routed live to your team.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01 — IMPORT</div><h4>Clean &amp; segment</h4><p>Import the export, scrub dead contacts, suppress opt-outs, segment old buyers, sellers and leads.</p></div>
+      <div class="step reveal"><div class="num">02 — REVIVE</div><h4>Multi-channel sweep</h4><p>Paced email + SMS + ringless voicemail + AI call, each with a real reason to re-engage.</p></div>
+      <div class="step reveal"><div class="num">03 — ROUTE</div><h4>Live ones to the core</h4><p>Any reply hands off to FLASH for the conversation, then BOOKER to book. Not-ready → NADIA.</p></div>
+      <div class="step reveal"><div class="num">04 — REPEAT</div><h4>Quarterly sweeps</h4><p>Re-run on a cadence. The bigger the database, the bigger the recurring payday.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- KPIs -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">What REVA proves</div>
+      <h2>The cheapest pipeline you'll ever build.</h2>
+    </div>
+    <div class="kpis">
+      <div class="kpi reveal"><b>$0</b><span>new acquisition cost</span></div>
+      <div class="kpi reveal"><b>Month 1</b><span>positive ROI target</span></div>
+      <div class="kpi reveal"><b>4-ch</b><span>email · SMS · RVM · AI call</span></div>
+      <div class="kpi reveal"><b>Days</b><span>to first appointment</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div class="eyebrow">REVA self-funds the rest of the team</div>
+      <h2>Hand us your old database. We'll find the money in it.</h2>
+      <p>Near-zero cost, fastest provable ROI — the wedge that pays for FLASH, BOOKER and everyone after.</p>
+      <a href="#" class="btn btn-primary">Reactivate my database →</a>
+    </div>
+  </div>
+</section>
+
+<footer>🔄 REVA · part of the Evolv AI sales team · REVA → FLASH → BOOKER → your agents</footer>
+
+<script>
+/* ===================== REVA DEMO ENGINE ===================== */
+let mode='watch', running=false, timers=[], dbSize=2437;
+const COLS=26, ROWS=8, TOTAL=COLS*ROWS;        // 208 cells visualizing the DB
+
+// ratios applied to dbSize for the headline numbers
+const R={contacted:.86, replied:.085, qualified:.030, booked:.0078};
+const DEAL=12000; // avg commission value per booked appointment (pipeline)
+
+const SURFACED=[
+  {q:'"Is that condo on Maple still available?"', ch:'📧 Email reply', route:'→ FLASH'},
+  {q:'"Honestly we\'re ready to sell now."', ch:'📞 AI call → live', route:'→ BOOKER'},
+  {q:'"Forgot I even signed up — yes, still looking."', ch:'💬 SMS reply', route:'→ FLASH'},
+  {q:'"Can someone call me this week?"', ch:'📨 Ringless VM → callback', route:'→ BOOKER'},
+  {q:'"We bought already, but my sister is looking."', ch:'💬 SMS reply', route:'→ FLASH'},
+  {q:'"What\'s my home worth now?"', ch:'📧 Email reply', route:'→ BOOKER'},
+];
+
+function fmt(n){ return n.toLocaleString('en-US'); }
+function setMode(m){
+  if(running) return; mode=m;
+  document.getElementById('tabWatch').classList.toggle('active',m==='watch');
+  document.getElementById('tabTry').classList.toggle('active',m==='try');
+  document.getElementById('tryCtl').style.display = m==='try'?'flex':'none';
+  document.getElementById('helper').textContent = m==='watch'?'Auto-play mode':'Set your DB size, then Play';
+  resetDemo();
+}
+function dbInput(){
+  dbSize=parseInt(document.getElementById('dbRange').value);
+  document.getElementById('dbVal').textContent=fmt(dbSize);
+  document.getElementById('dbCount').textContent=fmt(dbSize);
+}
+
+function buildGrid(){
+  const g=document.getElementById('grid'); g.innerHTML='';
+  for(let i=0;i<TOTAL;i++){ const d=document.createElement('div'); d.className='cell'; d.id='c'+i; g.appendChild(d); }
+}
+
+function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+function animateCount(id,to,dur,prefix){
+  const el=document.getElementById(id); const start=performance.now();
+  function step(t){
+    const p=Math.min((t-start)/dur,1); const e=1-Math.pow(1-p,3);
+    const v=Math.round(to*e);
+    el.textContent=(prefix||'')+fmt(v);
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function runDemo(){
+  if(running) return; running=true;
+  buildGrid();
+  document.getElementById('runBtn').disabled=true;
+  document.getElementById('resetBtn').style.display='inline-flex';
+  document.getElementById('surfEmpty')?.remove();
+  document.getElementById('surf').innerHTML='';
+
+  const SWEEP=8200; // ms for the grid wave
+  // channel chips light progressively
+  at(200,()=>document.getElementById('ch-email').classList.add('on'));
+  at(1700,()=>document.getElementById('ch-sms').classList.add('on'));
+  at(3600,()=>document.getElementById('ch-rvm').classList.add('on'));
+  at(5400,()=>document.getElementById('ch-call').classList.add('on'));
+
+  // grid wave: each cell flips contacted; a fraction reply; fewer qualify
+  const step=SWEEP/TOTAL;
+  for(let i=0;i<TOTAL;i++){
+    at(i*step,()=>{
+      const c=document.getElementById('c'+i);
+      c.classList.add('contacted');
+      document.getElementById('sweep').style.width=((i+1)/TOTAL*100)+'%';
+      if((i*7+3)%12===0) c.classList.add('replied');
+      if((i*5+1)%41===0){ c.classList.remove('replied'); c.classList.add('qualified'); }
+    });
+  }
+
+  // counters climb over the sweep
+  const contacted=Math.round(dbSize*R.contacted);
+  const replied=Math.round(dbSize*R.replied);
+  const qualified=Math.round(dbSize*R.qualified);
+  const booked=Math.max(1,Math.round(dbSize*R.booked));
+  const pipeline=booked*DEAL;
+  at(300,()=>animateCount('m-contacted',contacted,SWEEP));
+  at(1500,()=>animateCount('m-replied',replied,SWEEP-1000));
+  at(2600,()=>animateCount('m-qualified',qualified,SWEEP-1600));
+  at(3800,()=>animateCount('m-booked',booked,SWEEP-2000));
+  at(4200,()=>animateCount('m-pipeline',pipeline,SWEEP-1500,'$'));
+
+  // surfaced live replies feed
+  const surf=document.getElementById('surf');
+  SURFACED.forEach((s,idx)=>{
+    at(1400+idx*1150,()=>{
+      surf.insertAdjacentHTML('afterbegin',
+        `<div class="lead"><div class="lq">${s.q}</div><div class="lr"><span class="ch">${s.ch}</span><span class="route">${s.route} →</span></div></div>`);
+    });
+  });
+
+  // finish
+  at(SWEEP+700,()=>{
+    document.getElementById('m-pipeline').textContent='$'+fmt(pipeline);
+    surf.insertAdjacentHTML('afterbegin',
+      `<div class="lead" style="border-color:rgba(52,199,89,.4);background:rgba(52,199,89,.08)"><div class="lq">✅ Campaign complete — <b>${booked} appointments</b> booked from a database that was earning <b>$0</b>.</div><div class="lr"><span class="ch">$0 new ad spend</span><span class="route">pure found money</span></div></div>`);
+    running=false;
+    document.getElementById('resetBtn').disabled=false;
+  });
+}
+
+function resetDemo(){
+  timers.forEach(clearTimeout); timers=[]; running=false;
+  buildGrid();
+  document.getElementById('sweep').style.width='0';
+  ['ch-email','ch-sms','ch-rvm','ch-call'].forEach(id=>document.getElementById(id).classList.remove('on'));
+  ['m-contacted','m-replied','m-qualified','m-booked'].forEach(id=>document.getElementById(id).textContent='0');
+  document.getElementById('m-pipeline').textContent='$0';
+  document.getElementById('runBtn').disabled=false;
+  document.getElementById('resetBtn').style.display='none';
+  document.getElementById('surf').innerHTML='<div class="empty" id="surfEmpty">Press Play — watch dead contacts reply and get routed to FLASH → BOOKER.</div>';
+}
+
+buildGrid();
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===================== section-by-section arrow navigation ===================== */
+const SECS=[...document.querySelectorAll('section')]; const NAVOFF=0;
+function nearestSection(){ const y=scrollY+NAVOFF+4; let b=0,bd=Infinity;
+  SECS.forEach((s,i)=>{const d=Math.abs(s.offsetTop-y); if(d<bd){bd=d;b=i;}}); return b; }
+function goSection(i){ i=Math.max(0,Math.min(SECS.length-1,i));
+  scrollTo({top:SECS[i].offsetTop-NAVOFF,behavior:'smooth'}); }
+addEventListener('keydown',e=>{ if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;
+  const t=(e.target.tagName||'').toUpperCase(); if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;
+  e.preventDefault(); goSection(nearestSection()+(e.key==='ArrowDown'?1:-1)); });
+</script>
+</body>
+</html>
