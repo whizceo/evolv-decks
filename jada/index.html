@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JADA — Reviews & Reputation AI · Evolv AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#ffffff;
+  --parchment:#f5f5f7;
+  --dark:#1d1d1f;
+  --dark2:#000000;
+  --ink:#1d1d1f;
+  --ink-sec:#6e6e73;
+  --on-dark:#f5f5f7;
+  --sec-on-dark:#a1a1a6;
+  --blue:#0066cc;
+  --blue-msg:#0b93f6;
+  --green:#34c759;
+  --green-ink:#248a3d;
+  --red:#ff3b30;
+  --red-ink:#c0392b;
+  --line:#d2d2d7;
+  --line-dark:rgba(255,255,255,.13);
+  --r:18px;
+  --pill:9999px;
+  --shadow-img:rgba(0,0,0,.18) 0 30px 60px -14px;
+  --muted:#6e6e73; --faint:#86868b; --amber:#ff9f0a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ===== mobile gate ===== */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--canvas);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif}
+.mobile-block .mb-emoji{font-size:46px;margin-bottom:22px}
+.mobile-block .mb-title{font-weight:600;font-size:1.7rem;letter-spacing:-.02em;margin-bottom:14px;color:var(--ink)}
+.mobile-block .mb-sub{font-size:1rem;color:var(--ink-sec);max-width:340px;line-height:1.5}
+.mobile-block .g{color:var(--blue)}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+  line-height:1.47;
+  font-size:17px;
+  letter-spacing:-.012em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;
+  font-weight:600;letter-spacing:-.02em;line-height:1.06}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+section{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:64px 0;scroll-margin-top:0}
+
+/* full-bleed tiles — the colour change IS the divider */
+.tile-light{background:var(--canvas)}
+.tile-parch{background:var(--parchment)}
+.tile-dark{background:var(--dark);color:var(--on-dark)}
+.tile-dark h1,.tile-dark h2,.tile-dark h3,.tile-dark h4{color:var(--on-dark)}
+
+/* eyebrow (Apple category line) */
+.eyebrow{font-size:19px;font-weight:600;letter-spacing:-.01em;color:var(--blue);margin-bottom:6px}
+.tile-dark .eyebrow{color:#2997ff}
+
+/* ===== nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(180%) blur(20px);
+  background:rgba(255,255,255,.72);border-bottom:1px solid rgba(0,0,0,.08)}
+.navin{display:flex;align-items:center;justify-content:space-between;height:52px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:19px;letter-spacing:-.02em}
+.brand .spark{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--blue);color:#fff;font-size:14px}
+.navtag{font-size:13px;color:var(--ink-sec);font-weight:400}
+
+/* ===== buttons ===== */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 23px;border-radius:var(--pill);
+  font-weight:500;font-size:17px;cursor:pointer;border:none;font-family:inherit;
+  transition:background .2s,transform .12s,box-shadow .2s,color .2s,border-color .2s;text-decoration:none;letter-spacing:-.01em}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#0a74e0}
+.btn:active{transform:scale(.96)}
+.btn-ghost{background:transparent;color:var(--blue);border:1px solid var(--line)}
+.btn-ghost:hover{background:rgba(0,0,0,.035)}
+.tile-dark .btn-ghost,.btn-ghost.on-dark{color:#2997ff;border-color:var(--line-dark)}
+.tile-dark .btn-ghost:hover{background:rgba(255,255,255,.06)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+
+/* ===== hero ===== */
+.hero{text-align:center}
+.hero h1{font-size:clamp(40px,6.4vw,64px);line-height:1.04;font-weight:600;margin:6px 0 22px}
+.hero h1 .accent{color:var(--blue)}
+.hero h1 .ln{display:block;white-space:nowrap}
+.hero p.sub{font-size:clamp(19px,2.3vw,23px);font-weight:400;color:var(--ink-sec);max-width:760px;margin:0 auto;line-height:1.4;text-wrap:balance}
+.hero .stats{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-top:64px;border-top:1px solid var(--line)}
+.statchip{padding:30px 38px;min-width:190px;border-right:1px solid var(--line)}
+.statchip:last-child{border-right:none}
+.statchip b{font-size:42px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.statchip span{font-size:15px;color:var(--ink-sec);font-weight:400}
+
+/* ===== section heads ===== */
+.shead{text-align:center;max-width:760px;margin:0 auto 56px}
+.shead h2{font-size:clamp(32px,4.6vw,50px);font-weight:600;margin:0 0 16px;text-wrap:balance}
+.shead p{color:var(--ink-sec);font-size:21px;font-weight:400;line-height:1.4;text-wrap:balance}
+.tile-dark .shead p{color:var(--sec-on-dark)}
+
+/* ===== DEMO ===== */
+.demo-shell{border-radius:24px;background:var(--canvas);border:1px solid var(--line);
+  box-shadow:rgba(0,0,0,.06) 0 18px 40px -20px;overflow:hidden}
+.demo-inner{padding:28px}
+.demo-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;margin-bottom:18px}
+.demo-head h3{font-size:23px;font-weight:600}
+.demo-head .dh-sub{font-size:15px;color:var(--ink-sec);margin-top:4px;font-weight:400}
+.modetabs{display:inline-flex;background:var(--parchment);border-radius:var(--pill);padding:3px}
+.modetabs button{padding:9px 18px;border-radius:var(--pill);border:none;background:transparent;
+  color:var(--ink-sec);font-weight:500;font-size:14px;cursor:pointer;font-family:inherit;transition:.2s;letter-spacing:-.01em}
+.modetabs button.active{background:var(--canvas);color:var(--ink);box-shadow:rgba(0,0,0,.08) 0 1px 3px}
+
+.demo-grid{display:grid;grid-template-columns:330px 1fr;gap:28px;align-items:start}
+@media(max-width:920px){.demo-grid{grid-template-columns:1fr}}
+
+/* try controls */
+.tryctl{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px;padding:16px 18px;
+  border-radius:16px;background:var(--parchment)}
+.tryctl .tl{font-size:13px;color:var(--ink-sec);font-weight:600}
+.tryctl input[type=range]{width:200px;accent-color:var(--blue)}
+.tryctl .mval{font-weight:700;font-size:18px;color:var(--blue);min-width:120px}
+.helper{font-size:13.5px;color:var(--ink-sec)}
+
+/* PHONE — solid screen (no filter inside the clip) */
+.phone{border-radius:30px;border:1px solid var(--line);background:#f8f8fa;overflow:hidden;box-shadow:var(--shadow-img)}
+.phone-top{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--canvas)}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--amber);display:grid;place-items:center;font-size:15px}
+.phone-top .nm{font-weight:600;font-size:14px;color:var(--ink)}
+.phone-top .st{font-size:11px;color:var(--amber)}
+.thread{padding:14px;height:400px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;background:#f8f8fa}
+.thread::-webkit-scrollbar{width:0}
+.msg{max-width:88%;padding:9px 12px;border-radius:16px;font-size:13px;line-height:1.4;opacity:0;transform:translateY(8px);animation:pop .4s forwards}
+@keyframes pop{to{opacity:1;transform:none}}
+.msg .mo{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:3px}
+.msg.out{align-self:flex-start;background:var(--canvas);border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:5px}
+.msg.in{align-self:flex-end;background:var(--blue-msg);color:#fff;border-bottom-right-radius:5px}
+.msg.in .mo{color:rgba(255,255,255,.82)}
+.msg.sys{align-self:center;background:var(--parchment);border:1px solid var(--line);color:var(--ink-sec);font-size:11px;text-align:center;max-width:94%}
+.msg.sys.bad{border-color:rgba(255,59,48,.35);color:var(--red-ink);background:rgba(255,59,48,.06)}
+.msg.sys.good{border-color:rgba(52,199,89,.35);color:var(--green-ink);background:rgba(52,199,89,.06)}
+
+/* RIGHT */
+.rightcol{display:flex;flex-direction:column;gap:14px}
+.panel{border-radius:16px;border:1px solid var(--line);background:var(--canvas);padding:16px}
+.panel .ph{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-sec);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+
+.toprow{display:grid;grid-template-columns:1fr 1.15fr;gap:14px}
+@media(max-width:520px){.toprow{grid-template-columns:1fr}}
+
+/* rating dial */
+.rating{text-align:center}
+.rating .rnum{font-weight:600;font-size:50px;line-height:1;color:var(--ink);letter-spacing:-.03em}
+.stars{font-size:18px;letter-spacing:2px;color:var(--amber);margin:6px 0 4px}
+.rating .rsub{font-size:11.5px;color:var(--ink-sec)}
+.rating .rtrend{font-size:11px;color:var(--green-ink);margin-top:6px;font-weight:600}
+
+/* sentiment gate */
+.gate .gnode{text-align:center;font-size:12px;color:var(--ink-sec);padding:7px;border:1px solid var(--line);border-radius:10px;background:var(--parchment)}
+.gate .split{display:flex;justify-content:center;font-size:18px;color:var(--faint);margin:4px 0}
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lane{border-radius:12px;padding:11px 10px;text-align:center;border:1px solid var(--line);transition:.3s;background:var(--canvas)}
+.lane.pub{background:rgba(52,199,89,.08);border-color:rgba(52,199,89,.3)}
+.lane.prv{background:rgba(255,59,48,.06);border-color:rgba(255,59,48,.26)}
+.lane .lct{font-weight:600;font-size:24px;line-height:1}
+.lane.pub .lct{color:var(--green-ink)}.lane.prv .lct{color:var(--red-ink)}
+.lane .lk{font-size:10px;text-transform:uppercase;letter-spacing:.09em;margin-top:4px}
+.lane.pub .lk{color:var(--green-ink)}.lane.prv .lk{color:var(--red-ink)}
+.lane .lsub{font-size:10px;color:var(--ink-sec);margin-top:3px}
+.lane.flash{animation:laneflash .5s}
+@keyframes laneflash{0%{transform:scale(1)}40%{transform:scale(1.05)}100%{transform:scale(1)}}
+.gnote{text-align:center;font-size:11px;color:var(--green-ink);margin-top:10px;font-weight:600}
+
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.metric{border-radius:14px;border:1px solid var(--line);background:var(--canvas);padding:13px;text-align:center}
+.metric b{font-size:22px;font-weight:600;display:block;line-height:1.1;color:var(--ink)}
+.metric span{font-size:10.5px;color:var(--ink-sec)}
+.metric.gold b{color:var(--amber)}
+
+/* review wall feed */
+.wall{display:flex;flex-direction:column;gap:9px;max-height:200px;overflow:hidden}
+.rev{display:flex;gap:11px;padding:11px;border-radius:13px;border:1px solid var(--line);background:var(--canvas);opacity:0;transform:translateY(10px);animation:pop .45s forwards}
+.rev .rav{width:34px;height:34px;border-radius:50%;flex:0 0 34px;display:grid;place-items:center;font-weight:700;font-size:13px;color:#3a2500;background:var(--amber)}
+.rev .rbody{flex:1;min-width:0}
+.rev .rtop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.rev .rname{font-weight:600;font-size:13px;color:var(--ink)}
+.rev .rplat{font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
+.rev .rstars{color:var(--amber);font-size:12px;letter-spacing:1px}
+.rev .rtext{font-size:12px;color:var(--ink-sec);margin-top:2px;line-height:1.35}
+
+.demo-controls{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+
+/* ===== contrast (dark tile) ===== */
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.contrast{grid-template-columns:1fr}}
+.cside{border-radius:22px;padding:34px;background:#2a2a2c;border:1px solid var(--line-dark)}
+.cside.good{background:rgba(52,199,89,.1);border-color:rgba(52,199,89,.32)}
+.cside .ck{font-size:13px;font-weight:600;margin-bottom:14px;color:var(--sec-on-dark)}
+.cside.bad .ck{color:#ff6b6b}.cside.good .ck{color:#4dd17a}
+.cside .cbig{font-size:44px;font-weight:600;line-height:1.05;letter-spacing:-.02em;color:var(--on-dark)}
+.cside .cbig small{font-size:18px;color:var(--sec-on-dark);font-weight:400}
+.cside ul{list-style:none;margin-top:18px}
+.cside li{font-size:15px;color:var(--sec-on-dark);padding:8px 0 8px 26px;position:relative;line-height:1.4}
+.cside.bad li::before{content:"✕";position:absolute;left:0;color:#ff6b6b;font-weight:600}
+.cside.good li::before{content:"✓";position:absolute;left:0;color:#4dd17a;font-weight:600}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:0}}
+.step{padding:0 26px;border-right:1px solid var(--line)}
+.step:first-child{padding-left:0}
+.step:last-child{padding-right:0;border-right:none}
+@media(max-width:860px){.step{padding:24px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .step:nth-child(2n){border-right:none}.step:first-child{padding-left:22px}}
+.step .num{font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0}
+.step h4{font-size:19px;font-weight:600;margin:10px 0 8px}
+.step p{font-size:15px;color:var(--ink-sec);font-weight:400;line-height:1.45}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+@media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{text-align:center;padding:38px 16px;border-right:1px solid var(--line)}
+.kpi:last-child{border-right:none}
+@media(max-width:760px){.kpi:nth-child(2n){border-right:none}.kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.kpi b{font-size:42px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.kpi span{font-size:14px;color:var(--ink-sec);font-weight:400}
+
+/* ===== CTA (dark tile) ===== */
+.cta{text-align:center;max-width:760px;margin:0 auto}
+.cta h2{font-size:clamp(32px,4.6vw,50px);font-weight:600;margin-bottom:16px}
+.cta p{color:var(--sec-on-dark);font-size:19px;max-width:580px;margin:0 auto 30px;line-height:1.4;text-wrap:balance}
+
+footer{text-align:center;padding:54px 0;color:var(--ink-sec);font-size:14px;border-top:1px solid var(--line)}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title"><span class="g">Open on desktop</span></div>
+  <div class="mb-sub">This deck is built for a big screen — open it on your laptop for the full experience.</div>
+</div>
+
+<nav>
+  <div class="wrap navin">
+    <div class="brand"><span class="spark">⭐</span> JADA</div>
+    <div class="navtag">Evolv AI · Reviews & Reputation</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero tile-light wrap">
+  <div class="eyebrow">AI Reviews & Reputation</div>
+  <h1><span class="ln">Every happy client</span><span class="ln">becomes a 5-star review</span><span class="ln accent">that wins you the next one.</span></h1>
+  <p class="sub">88% of buyers read reviews before they call. JADA asks every happy client at the perfect moment, and quietly routes the unhappy ones to you privately.</p>
+  <div class="stats">
+    <div class="statchip"><b>9 in 10</b><span>buyers read reviews first</span></div>
+    <div class="statchip"><b>0</b><span>negatives reach the public</span></div>
+    <div class="statchip"><b>↑ all</b><span>trust lifts every lead source</span></div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="demo-shell reveal">
+      <div class="demo-inner">
+        <div class="demo-head">
+          <div>
+            <h3>Watch the sentiment gate protect your reputation</h3>
+            <div class="dh-sub">Happy clients flow to public 5-star reviews. Unhappy ones get caught and routed to you privately — never published.</div>
+          </div>
+          <div class="modetabs">
+            <button id="tabWatch" class="active" onclick="setMode('watch')">Watch it happen</button>
+            <button id="tabTry" onclick="setMode('try')">Try it yourself</button>
+          </div>
+        </div>
+
+        <div class="tryctl" id="tryCtl" style="display:none">
+          <span class="tl">Past happy clients to seed:</span>
+          <input id="seedRange" type="range" min="25" max="400" step="5" value="120" oninput="seedInput()">
+          <span class="mval" id="seedVal">120 clients</span>
+          <span class="helper" style="margin:0">Every close feeds it forever — the review asset compounds.</span>
+        </div>
+
+        <div class="demo-grid">
+          <!-- LEFT phone -->
+          <div class="phone">
+            <div class="phone-top">
+              <div class="avatar">⭐</div>
+              <div><div class="nm" id="phName">JADA · review request</div><div class="st" id="phStatus">post-close · perfect-moment ask</div></div>
+            </div>
+            <div class="thread" id="thread"></div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="rightcol">
+            <div class="toprow">
+              <div class="panel rating">
+                <div class="ph" style="justify-content:center">★ Public rating</div>
+                <div class="rnum" id="rnum">4.2</div>
+                <div class="stars" id="rstars">★★★★☆</div>
+                <div class="rsub"><span id="revCount">38</span> reviews</div>
+                <div class="rtrend" id="rtrend">&nbsp;</div>
+              </div>
+              <div class="panel gate">
+                <div class="ph">🛡️ Sentiment gate</div>
+                <div class="gnode">⭐ Review request sent</div>
+                <div class="split">▾</div>
+                <div class="lanes">
+                  <div class="lane pub" id="lanePub"><div class="lct" id="gatePublic">0</div><div class="lk">😊 Public</div><div class="lsub">Google · Zillow · FB</div></div>
+                  <div class="lane prv" id="lanePrv"><div class="lct" id="gatePrivate">0</div><div class="lk">😞 Private</div><div class="lsub">→ agent, never public</div></div>
+                </div>
+                <div class="gnote" id="gnote">&nbsp;</div>
+              </div>
+            </div>
+
+            <div class="metrics">
+              <div class="metric"><b id="m-req">0</b><span>Requests sent</span></div>
+              <div class="metric gold"><b id="m-pub">0</b><span>New 5★ published</span></div>
+              <div class="metric"><b id="m-prv">0</b><span>Negatives intercepted</span></div>
+            </div>
+
+            <div class="panel">
+              <div class="ph">⭐ Live review wall</div>
+              <div class="wall" id="wall"><div style="font-size:12px;color:var(--faint);text-align:center;padding:14px 0">Press play — watch the 5-star reviews stack up.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-controls">
+          <button id="runBtn" class="btn btn-primary" onclick="runDemo()">Run the review engine</button>
+          <button id="resetBtn" class="btn btn-ghost" onclick="resetDemo()" style="display:none">Reset</button>
+          <span class="helper" id="helper" style="margin-left:auto">Auto-play mode</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRAST -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">The silent leak at the top of the funnel</div>
+      <h2>You do great work. You just never ask — or you ask once, awkwardly.</h2>
+      <p>The #1 trust signal in a referral business — and you're leaving it on the table.</p>
+    </div>
+    <div class="contrast">
+      <div class="cside bad reveal">
+        <div class="ck">Asking manually</div>
+        <div class="cbig">😬<small> "I don't want to annoy them"</small></div>
+        <ul>
+          <li>You forget to ask, or ask weeks too late</li>
+          <li>Old, thin review profile loses to better-reviewed rivals</li>
+          <li>One bad review lands public with no safety net</li>
+          <li>Lower trust drags down every other channel you run</li>
+        </ul>
+      </div>
+      <div class="cside good reveal">
+        <div class="ck">JADA on autopilot</div>
+        <div class="cbig">⭐<small> perfectly timed, sentiment-gated</small></div>
+        <ul>
+          <li>Warm ask at peak happiness — right after the keys</li>
+          <li>Happy → public 5★; unhappy → private alert to you</li>
+          <li>Polite, relentless follow-up until they respond</li>
+          <li>Rising rating lifts conversion on MILA, ARIA & LIAM too</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="tile-light">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">How JADA works</div>
+      <h2>It routes by sentiment — so it can only help, never hurt.</h2>
+      <p>The gate is the whole point: public praise goes public, private problems come to you first.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01 — DETECT</div><h4>Catch the close</h4><p>VERA closes the deal, keys handed over. JADA fires at the moment of peak happiness.</p></div>
+      <div class="step reveal"><div class="num">02 — ASK</div><h4>Perfect-moment request</h4><p>A warm, personal SMS + email ask. Polite, relentless follow-up if there's no response.</p></div>
+      <div class="step reveal"><div class="num">03 — GATE</div><h4>Sentiment check</h4><p>Happy → straight to Google/Zillow/Facebook. Unhappy → private feedback + instant agent alert.</p></div>
+      <div class="step reveal"><div class="num">04 — COMPOUND</div><h4>Trust flywheel</h4><p>Every published 5★ lifts conversion on all your lead sources at once. The asset only grows.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- KPIs -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">What JADA proves</div>
+      <h2>Reputation insurance and a lead multiplier in one.</h2>
+    </div>
+    <div class="kpis">
+      <div class="kpi reveal"><b>↑★</b><span>rating only goes up</span></div>
+      <div class="kpi reveal"><b>0</b><span>bad reviews reach the public</span></div>
+      <div class="kpi reveal"><b>×all</b><span>lifts every lead source at once</span></div>
+      <div class="kpi reveal"><b>days</b><span>first reviews from day one</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div class="eyebrow">JADA turns your best work into your best marketing</div>
+      <h2>Let your happy clients sell for you.</h2>
+      <p>Every close becomes a 5-star review at exactly the right moment — and your reputation can only ever go up.</p>
+      <a href="https://cal.com/evolv.one/introductory-call-60" target="_blank" rel="noopener" class="btn btn-primary">Build my review flywheel →</a>
+    </div>
+  </div>
+</section>
+
+<footer>⭐ JADA · part of the Evolv AI sales team · VERA closes → JADA reviews + REMI referrals → trust lifts MILA · ARIA · LIAM</footer>
+
+<script>
+/* ===================== JADA DEMO ENGINE ===================== */
+let mode='watch', running=false, timers=[], seed=120;
+const BASE_REVIEWS=38, BASE_RATING=4.2, MAX_RATING=4.9;
+
+const REVIEWS=[
+  {n:'Maria Morales',i:'MM',p:'Google',t:'Got us into our Westside dream home. Calm and responsive the whole way.'},
+  {n:'The Bennett Family',i:'BF',p:'Zillow',t:'Sold above asking in 9 days. Could not recommend more highly.'},
+  {n:'James Okafor',i:'JO',p:'Facebook',t:'First-time buyer — felt guided, never pressured. A real pro.'},
+  {n:'Priya & Sam',i:'PS',p:'Google',t:'Knew the market cold and negotiated us a fantastic price.'},
+  {n:'Dawson Reyes',i:'DR',p:'Google',t:'Smooth from first offer to keys in hand. Zero stress.'},
+  {n:'Lena Hartmann',i:'LH',p:'Zillow',t:'Answered every question at 9pm on a Sunday. Above and beyond.'},
+  {n:'Marcus Webb',i:'MW',p:'Google',t:'Relocated cross-country and they handled everything remotely.'},
+  {n:'The Alvarez Family',i:'AF',p:'Facebook',t:'Found us a home in our budget in a market we thought was impossible.'},
+  {n:'Grace Kim',i:'GK',p:'Google',t:'Honest, sharp, and genuinely on our side. Rare these days.'},
+];
+const INTERCEPTS=[
+  {n:'Carl T.', why:'felt the closing dragged'},
+  {n:'Nadia F.', why:'wanted more frequent updates'},
+  {n:'Owen B.', why:'expected a faster response one week'},
+];
+
+function setMode(m){
+  if(running) return; mode=m;
+  document.getElementById('tabWatch').classList.toggle('active',m==='watch');
+  document.getElementById('tabTry').classList.toggle('active',m==='try');
+  document.getElementById('tryCtl').style.display = m==='try'?'flex':'none';
+  document.getElementById('helper').textContent = m==='watch'?'Auto-play mode':'Set your database, then Play';
+  resetDemo();
+}
+function seedInput(){
+  seed=parseInt(document.getElementById('seedRange').value);
+  document.getElementById('seedVal').textContent=seed+' clients';
+}
+
+function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+function addMsg(cls,inner){
+  const th=document.getElementById('thread');
+  const d=document.createElement('div'); d.className='msg '+cls; d.innerHTML=inner;
+  th.appendChild(d); th.scrollTop=th.scrollHeight;
+}
+function starStr(r){ // 5-char star string from rating (rounds to nearest full star)
+  const full=Math.round(r);
+  let s=''; for(let i=0;i<5;i++) s+= i<full?'★':'☆'; return s;
+}
+function animateCount(id,to,dur){
+  const el=document.getElementById(id); const start=performance.now(); const from=0;
+  function f(t){ let p=Math.min(1,(t-start)/dur); p=1-Math.pow(1-p,3);
+    el.textContent=Math.round(from+(to-from)*p); if(p<1) requestAnimationFrame(f); }
+  requestAnimationFrame(f);
+}
+function animateRating(to,dur){
+  const el=document.getElementById('rnum'), se=document.getElementById('rstars'), start=performance.now();
+  function f(t){ let p=Math.min(1,(t-start)/dur); p=1-Math.pow(1-p,3);
+    const v=BASE_RATING+(to-BASE_RATING)*p; el.textContent=v.toFixed(1); se.textContent=starStr(v);
+    if(p<1) requestAnimationFrame(f); }
+  requestAnimationFrame(f);
+}
+
+function runDemo(){
+  if(running) return; running=true;
+  // economics from seed
+  const responded=Math.round(seed*0.45);
+  const published=Math.round(responded*0.85);
+  const intercepted=responded-published;
+  const finalReviews=BASE_REVIEWS+published;
+  const ratingLift=Math.min(MAX_RATING, BASE_RATING + Math.min(0.7, published/responded*0.6 + published/300));
+
+  document.getElementById('runBtn').disabled=true;
+  document.getElementById('resetBtn').style.display='inline-flex';
+  document.getElementById('wall').innerHTML='';
+
+  // PHONE: happy ask
+  addMsg('sys good','✅ Deal closed by VERA — keys handed to the Morales family');
+  at(700,()=>addMsg('out','<div class="mo">📲 SMS · perfect-moment ask</div>Hi Maria! 🎉 So thrilled we got you into the Westside home. Would you share a quick line about your experience? Takes 20 seconds 👇'));
+  at(1700,()=>addMsg('in','<div class="mo">client reply</div>Of course!! You were absolutely amazing — made the whole thing easy 🙌'));
+  at(2500,()=>addMsg('sys good','😊 Positive sentiment → routed to Google review'));
+  at(3100,()=>addMsg('out','<div class="mo">auto-routed</div>Thank you so much, Maria! Here\'s the link 👉 g.page/r/westside-realty ⭐'));
+
+  // PHONE: the gate catching an unhappy one
+  at(4300,()=>addMsg('sys','✅ Deal closed — the Dawson sale'));
+  at(4900,()=>addMsg('out','<div class="mo">📲 SMS · ask</div>Hi Carl — congrats on closing! Mind sharing how it went?'));
+  at(5800,()=>addMsg('in','<div class="mo">client reply</div>Honestly the closing felt slow and a bit stressful toward the end.'));
+  at(6600,()=>{
+    addMsg('sys bad','🛡️ Negative sentiment detected → NOT published. Private feedback + instant alert to the agent.');
+    document.getElementById('phStatus').textContent='gate working · reputation protected';
+  });
+
+  // RIGHT: counters + rating climb
+  at(2500,()=>{
+    animateCount('m-req',seed,5200);
+    animateCount('m-pub',published,5600);
+    animateCount('gatePublic',published,5600);
+    animateRating(ratingLift,5600);
+    const rc=document.getElementById('revCount'); const st=performance.now();
+    (function climb(t){let p=Math.min(1,(t-st)/5600);p=1-Math.pow(1-p,3);
+      rc.textContent=Math.round(BASE_REVIEWS+(finalReviews-BASE_REVIEWS)*p); if(p<1)requestAnimationFrame(climb);})(performance.now());
+    document.getElementById('rtrend').innerHTML='▲ +'+published+' this run';
+    document.getElementById('lanePub').classList.add('flash');
+  });
+  at(6700,()=>{
+    animateCount('m-prv',intercepted,900);
+    animateCount('gatePrivate',intercepted,900);
+    document.getElementById('lanePrv').classList.add('flash');
+    document.getElementById('gnote').textContent='0 negative reviews reached your public profile.';
+  });
+
+  // RIGHT: review wall pops in
+  const N=Math.min(REVIEWS.length, Math.max(5, Math.round(published/6)));
+  for(let i=0;i<N;i++){
+    at(2700+i*620,()=>{
+      const r=REVIEWS[i%REVIEWS.length]; const w=document.getElementById('wall');
+      const d=document.createElement('div'); d.className='rev';
+      d.innerHTML='<div class="rav">'+r.i+'</div><div class="rbody"><div class="rtop"><span class="rname">'+r.n+'</span><span class="rplat">'+r.p+'</span></div><div class="rstars">★★★★★</div><div class="rtext">'+r.t+'</div></div>';
+      w.insertBefore(d,w.firstChild);
+      while(w.children.length>6) w.removeChild(w.lastChild);
+    });
+  }
+
+  // finale
+  at(8200,()=>{
+    addMsg('sys good','⭐ '+seed+' clients seeded → +'+published+' new 5-star reviews · rating '+BASE_RATING+' → '+ratingLift.toFixed(1)+'★ · '+intercepted+' negatives intercepted before they ever went public.');
+    running=false;
+    document.getElementById('resetBtn').disabled=false;
+  });
+}
+
+function resetDemo(){
+  timers.forEach(clearTimeout); timers=[]; running=false;
+  document.getElementById('thread').innerHTML='';
+  document.getElementById('wall').innerHTML='<div style="font-size:12px;color:var(--faint);text-align:center;padding:14px 0">Press play — watch the 5-star reviews stack up.</div>';
+  ['m-req','m-pub','m-prv','gatePublic','gatePrivate'].forEach(id=>document.getElementById(id).textContent='0');
+  document.getElementById('rnum').textContent=BASE_RATING.toFixed(1);
+  document.getElementById('rstars').textContent=starStr(BASE_RATING);
+  document.getElementById('revCount').textContent=BASE_REVIEWS;
+  document.getElementById('rtrend').innerHTML='&nbsp;';
+  document.getElementById('gnote').innerHTML='&nbsp;';
+  document.getElementById('phStatus').textContent='post-close · perfect-moment ask';
+  document.getElementById('lanePub').classList.remove('flash');
+  document.getElementById('lanePrv').classList.remove('flash');
+  document.getElementById('runBtn').disabled=false;
+  document.getElementById('resetBtn').style.display='none';
+}
+
+resetDemo();
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===================== section-by-section arrow navigation ===================== */
+const SECS=[...document.querySelectorAll('section')]; const NAVOFF=0;
+function nearestSection(){ const y=scrollY+NAVOFF+4; let b=0,bd=Infinity;
+  SECS.forEach((s,i)=>{const d=Math.abs(s.offsetTop-y); if(d<bd){bd=d;b=i;}}); return b; }
+function goSection(i){ i=Math.max(0,Math.min(SECS.length-1,i));
+  scrollTo({top:SECS[i].offsetTop-NAVOFF,behavior:'smooth'}); }
+addEventListener('keydown',e=>{ if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;
+  const t=(e.target.tagName||'').toUpperCase(); if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;
+  e.preventDefault(); goSection(nearestSection()+(e.key==='ArrowDown'?1:-1)); });
+</script>
+</body>
+</html>
