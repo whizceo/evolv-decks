@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIAM — LinkedIn Prospector AI · Evolv AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#ffffff;
+  --parchment:#f5f5f7;
+  --dark:#1d1d1f;
+  --dark2:#000000;
+  --ink:#1d1d1f;
+  --ink-sec:#6e6e73;
+  --on-dark:#f5f5f7;
+  --sec-on-dark:#a1a1a6;
+  --blue:#0066cc;
+  --blue-msg:#0b93f6;
+  --green:#34c759;
+  --green-ink:#248a3d;
+  --red:#ff3b30;
+  --red-ink:#c0392b;
+  --line:#d2d2d7;
+  --line-dark:rgba(255,255,255,.13);
+  --r:18px;
+  --pill:9999px;
+  --shadow-img:rgba(0,0,0,.18) 0 30px 60px -14px;
+  --muted:#6e6e73; --faint:#86868b; --amber:#ff9f0a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ===== mobile gate ===== */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--canvas);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif}
+.mobile-block .mb-emoji{font-size:46px;margin-bottom:22px}
+.mobile-block .mb-title{font-weight:600;font-size:1.7rem;letter-spacing:-.02em;margin-bottom:14px;color:var(--ink)}
+.mobile-block .mb-sub{font-size:1rem;color:var(--ink-sec);max-width:340px;line-height:1.5}
+.mobile-block .g{color:var(--blue)}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+  line-height:1.47;
+  font-size:17px;
+  letter-spacing:-.012em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;
+  font-weight:600;letter-spacing:-.02em;line-height:1.06}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+section{position:relative;min-height:calc(100vh + 2px);display:flex;flex-direction:column;justify-content:center;padding:56px 0;scroll-margin-top:0}
+
+/* full-bleed tiles — the colour change IS the divider */
+.tile-light{background:var(--canvas)}
+.tile-parch{background:var(--parchment)}
+.tile-dark{background:var(--dark);color:var(--on-dark)}
+.tile-dark h1,.tile-dark h2,.tile-dark h3,.tile-dark h4{color:var(--on-dark)}
+
+/* eyebrow (Apple category line) */
+.eyebrow{font-size:19px;font-weight:600;letter-spacing:-.01em;color:var(--blue);margin-bottom:6px}
+.tile-dark .eyebrow{color:#2997ff}
+
+/* ===== nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(180%) blur(20px);
+  background:rgba(255,255,255,.72);border-bottom:1px solid rgba(0,0,0,.08)}
+.navin{display:flex;align-items:center;justify-content:space-between;height:52px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:19px;letter-spacing:-.02em}
+.brand .spark{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--blue);color:#fff;font-size:14px}
+.navtag{font-size:13px;color:var(--ink-sec);font-weight:400}
+
+/* ===== buttons ===== */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 23px;border-radius:var(--pill);
+  font-weight:500;font-size:17px;cursor:pointer;border:none;font-family:inherit;
+  transition:background .2s,transform .12s,box-shadow .2s,color .2s,border-color .2s;text-decoration:none;letter-spacing:-.01em}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#0a74e0}
+.btn:active{transform:scale(.96)}
+.btn-ghost{background:transparent;color:var(--blue);border:1px solid var(--line)}
+.btn-ghost:hover{background:rgba(0,0,0,.035)}
+.tile-dark .btn-ghost,.btn-ghost.on-dark{color:#2997ff;border-color:var(--line-dark)}
+.tile-dark .btn-ghost:hover{background:rgba(255,255,255,.06)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+
+/* ===== hero ===== */
+.hero{text-align:center}
+.hero h1{font-size:clamp(40px,6.4vw,64px);line-height:1.04;font-weight:600;margin:6px 0 22px}
+.hero h1 .accent{color:var(--blue)}
+.hero h1 .ln{display:block;white-space:nowrap}
+.hero p.sub{font-size:clamp(19px,2.3vw,23px);font-weight:400;color:var(--ink-sec);max-width:800px;margin:0 auto;line-height:1.4;text-wrap:balance}
+.hero .stats{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-top:64px;border-top:1px solid var(--line)}
+.statchip{padding:30px 38px;min-width:190px;border-right:1px solid var(--line)}
+.statchip:last-child{border-right:none}
+.statchip b{font-size:38px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.statchip span{font-size:15px;color:var(--ink-sec);font-weight:400}
+
+/* ===== section heads ===== */
+.shead{text-align:center;max-width:900px;margin:0 auto 56px}
+.shead h2{font-size:clamp(30px,4vw,42px);font-weight:600;margin:0 0 16px;line-height:1.12}
+.shead p{color:var(--ink-sec);font-size:21px;font-weight:400;line-height:1.4;text-wrap:balance}
+.tile-dark .shead p{color:var(--sec-on-dark)}
+
+/* ===== DEMO ===== */
+.demo-shell{border-radius:24px;background:var(--canvas);border:1px solid var(--line);
+  box-shadow:rgba(0,0,0,.06) 0 18px 40px -20px;overflow:hidden}
+.demo-inner{padding:22px}
+.demo-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;margin-bottom:18px}
+.demo-head h3{font-size:23px;font-weight:600}
+.demo-head .dh-sub{font-size:15px;color:var(--ink-sec);margin-top:4px;font-weight:400}
+.modetabs{display:inline-flex;background:var(--parchment);border-radius:var(--pill);padding:3px}
+.modetabs button{padding:9px 18px;border-radius:var(--pill);border:none;background:transparent;
+  color:var(--ink-sec);font-weight:500;font-size:14px;cursor:pointer;font-family:inherit;transition:.2s;letter-spacing:-.01em}
+.modetabs button.active{background:var(--canvas);color:var(--ink);box-shadow:rgba(0,0,0,.08) 0 1px 3px}
+
+.demo-grid{display:grid;grid-template-columns:330px 1fr;gap:28px;align-items:start}
+@media(max-width:920px){.demo-grid{grid-template-columns:1fr}}
+
+/* try controls */
+.tryctl{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px;padding:16px 18px;
+  border-radius:16px;background:var(--parchment)}
+.tryctl .tl{font-size:13px;color:var(--ink-sec);font-weight:600}
+.tryctl input[type=range]{width:200px;accent-color:var(--blue)}
+.tryctl .mval{font-weight:700;font-size:18px;color:var(--blue);min-width:100px}
+.helper{font-size:13.5px;color:var(--ink-sec)}
+
+/* PHONE — solid screen (no filter inside the clip) */
+.phone{border-radius:30px;border:1px solid var(--line);background:#f8f8fa;overflow:hidden;box-shadow:var(--shadow-img)}
+.phone-top{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--canvas)}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--blue);display:grid;place-items:center;font-size:15px;position:relative}
+.avatar .inb{position:absolute;bottom:-2px;right:-3px;background:#0a66c2;color:#fff;font-size:8px;font-weight:700;padding:1px 3px;border-radius:4px;border:1.5px solid var(--canvas)}
+.phone-top .nm{font-weight:600;font-size:14px;color:var(--ink)}
+.phone-top .st{font-size:11px;color:var(--blue)}
+.thread{padding:13px;height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;background:#f8f8fa}
+.thread::-webkit-scrollbar{width:0}
+.msg{max-width:88%;padding:9px 12px;border-radius:16px;font-size:13px;line-height:1.4;opacity:0;transform:translateY(8px);animation:pop .4s forwards}
+@keyframes pop{to{opacity:1;transform:none}}
+.msg .mo{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:3px}
+.msg.out{align-self:flex-start;background:var(--canvas);border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:5px}
+.msg.in{align-self:flex-end;background:var(--blue-msg);color:#fff;border-bottom-right-radius:5px}
+.msg.in .mo{color:rgba(255,255,255,.82)}
+.msg.sys{align-self:center;background:var(--parchment);border:1px solid var(--line);color:var(--ink-sec);font-size:11px;text-align:center;max-width:94%}
+.msg.sys.good{border-color:rgba(52,199,89,.35);color:var(--green-ink);background:rgba(52,199,89,.06)}
+
+/* connection card */
+.concard{align-self:stretch;border-radius:14px;border:1px solid var(--line);background:var(--canvas);padding:11px 13px;max-width:100%;opacity:0;transform:translateY(8px);animation:pop .4s forwards}
+.cc-top{display:flex;gap:10px;align-items:center}
+.cc-av{width:34px;height:34px;border-radius:50%;background:var(--parchment);display:grid;place-items:center;font-size:17px;flex-shrink:0}
+.cc-nm{font-weight:600;font-size:13px;color:var(--ink)}
+.cc-ti{font-size:10.5px;color:var(--ink-sec);line-height:1.3;margin-top:2px}
+.cc-st{margin-top:9px;font-size:11.5px;color:var(--ink-sec);display:flex;align-items:center;gap:7px;padding-top:9px;border-top:1px solid var(--line)}
+.cc-st i{width:8px;height:8px;border-radius:50%;background:var(--faint);flex-shrink:0}
+.concard.accepted .cc-st i{background:var(--green)}
+.concard.accepted .cc-st{color:var(--green-ink)}
+
+/* RIGHT */
+.rightcol{display:flex;flex-direction:column;gap:11px}
+.panel{border-radius:16px;border:1px solid var(--line);background:var(--canvas);padding:13px}
+.panel .ph{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-sec);margin-bottom:9px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.panel .ph .pc{font-size:9.5px;letter-spacing:.05em;color:var(--blue);background:rgba(0,102,204,.08);padding:2px 7px;border-radius:9999px;text-transform:none}
+
+/* ICP */
+.icp{display:flex;flex-wrap:wrap;gap:7px}
+.ichip{font-size:12px;padding:6px 11px;border-radius:9999px;background:var(--parchment);border:1px solid var(--line);color:var(--ink)}
+.icp-foot{margin-top:11px;font-size:12px;color:var(--ink-sec);text-align:center}
+.icp-foot b{font-size:22px;font-weight:600;color:var(--blue);display:inline-block;margin-right:4px;vertical-align:-2px}
+
+/* FUNNEL (stacked, progress bars) */
+.funnel{display:flex;flex-direction:column;gap:10px}
+.fstage .fhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.fstage .fl{font-size:12px;color:var(--ink-sec);font-weight:500}
+.fstage .fconv{font-size:9.5px;color:var(--faint);margin-left:5px}
+.fstage .fn{font-size:17px;font-weight:600;color:var(--ink)}
+.ftrack{height:7px;border-radius:6px;background:var(--parchment);overflow:hidden}
+.ffill{height:100%;width:0;border-radius:6px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.ffill.s1{background:#9aa7c4}.ffill.s2{background:#4a90e2}.ffill.s3{background:var(--blue)}.ffill.s4{background:var(--green)}
+.fstage.book .fn{color:var(--green-ink)}
+
+/* BOOKED */
+.bk{display:flex;gap:10px}
+.bc{flex:1;text-align:center;border-radius:12px;border:1px solid var(--line);background:var(--canvas);padding:13px 8px}
+.bc b{font-size:26px;font-weight:600;display:block;line-height:1;color:var(--ink)}
+.bc span{font-size:10.5px;color:var(--ink-sec);display:block;margin-top:5px;line-height:1.2}
+.bc.hero{background:rgba(0,102,204,.06);border-color:rgba(0,102,204,.3)}
+.bc.hero b{color:var(--blue)}
+.bk-note{margin-top:10px;font-size:11.5px;color:var(--ink-sec);text-align:center;line-height:1.35}
+.bk-note b{color:var(--blue);font-weight:600}
+
+.demo-controls{margin-top:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+
+/* ===== contrast (dark tile) ===== */
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.contrast{grid-template-columns:1fr}}
+.cside{border-radius:22px;padding:34px;background:#2a2a2c;border:1px solid var(--line-dark)}
+.cside.good{background:rgba(52,199,89,.1);border-color:rgba(52,199,89,.32)}
+.cside .ck{font-size:13px;font-weight:600;margin-bottom:14px;color:var(--sec-on-dark)}
+.cside.bad .ck{color:#ff6b6b}.cside.good .ck{color:#4dd17a}
+.cside .cbig{font-size:44px;font-weight:600;line-height:1.05;letter-spacing:-.02em;color:var(--on-dark)}
+.cside .cbig small{font-size:18px;color:var(--sec-on-dark);font-weight:400}
+.cside ul{list-style:none;margin-top:18px}
+.cside li{font-size:15px;color:var(--sec-on-dark);padding:8px 0 8px 26px;position:relative;line-height:1.4}
+.cside.bad li::before{content:"✕";position:absolute;left:0;color:#ff6b6b;font-weight:600}
+.cside.good li::before{content:"✓";position:absolute;left:0;color:#4dd17a;font-weight:600}
+
+/* ===== AMY case study (dark tile) ===== */
+.amy{max-width:780px;margin:0 auto;text-align:center}
+.amy-num{font-size:clamp(120px,20vw,220px);font-weight:600;line-height:.82;letter-spacing:-.045em;color:#2997ff}
+.amy-cap{font-size:clamp(21px,2.9vw,30px);font-weight:500;margin-top:10px;color:var(--on-dark);text-wrap:balance}
+.amy-cap b{color:#2997ff}
+.amy-stats{display:flex;justify-content:center;flex-wrap:wrap;gap:0;margin:40px auto;border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);width:fit-content}
+.amy-stat{padding:24px 40px;border-right:1px solid var(--line-dark)}
+.amy-stat:last-child{border-right:none}
+.amy-stat b{font-size:32px;font-weight:600;display:block;color:var(--on-dark);letter-spacing:-.02em;line-height:1}
+.amy-stat span{font-size:13px;color:var(--sec-on-dark);margin-top:6px;display:block}
+.amy-quote{font-size:17px;color:var(--sec-on-dark);line-height:1.55;max-width:620px;margin:0 auto;text-wrap:balance}
+.amy-quote b{color:var(--on-dark);font-weight:500}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:0}}
+.step{padding:0 26px;border-right:1px solid var(--line)}
+.step:first-child{padding-left:0}
+.step:last-child{padding-right:0;border-right:none}
+@media(max-width:860px){.step{padding:24px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .step:nth-child(2n){border-right:none}.step:first-child{padding-left:22px}}
+.step .num{font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0}
+.step h4{font-size:19px;font-weight:600;margin:10px 0 8px}
+.step p{font-size:15px;color:var(--ink-sec);font-weight:400;line-height:1.45}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+@media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{text-align:center;padding:38px 16px;border-right:1px solid var(--line)}
+.kpi:last-child{border-right:none}
+@media(max-width:760px){.kpi:nth-child(2n){border-right:none}.kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.kpi b{font-size:40px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.kpi span{font-size:14px;color:var(--ink-sec);font-weight:400}
+
+/* ===== CTA (dark tile) ===== */
+.cta{text-align:center;max-width:760px;margin:0 auto}
+.cta h2{font-size:clamp(32px,4.6vw,50px);font-weight:600;margin-bottom:16px}
+.cta p{color:var(--sec-on-dark);font-size:19px;max-width:580px;margin:0 auto 30px;line-height:1.4;text-wrap:balance}
+
+footer{text-align:center;padding:54px 0;color:var(--ink-sec);font-size:14px;border-top:1px solid var(--line)}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title"><span class="g">Open on desktop</span></div>
+  <div class="mb-sub">This deck is built for a big screen — open it on your laptop for the full experience.</div>
+</div>
+
+<nav>
+  <div class="wrap navin">
+    <div class="brand"><span class="spark">💼</span> LIAM</div>
+    <div class="navtag">Evolv AI · LinkedIn Prospector</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero tile-light wrap">
+  <div class="eyebrow">AI LinkedIn Prospector</div>
+  <h1><span class="ln">A quiet appointment machine</span><span class="ln accent">running under your own name.</span></h1>
+  <p class="sub">LinkedIn is the one channel your local competitors aren't working — full of investors, referral partners and relocating professionals. LIAM runs personalized outreach to your exact ideal clients under your own name, books conversations daily, and routes them straight into your Core — the exact system Evolv already runs profitably.</p>
+  <div class="stats">
+    <div class="statchip"><b>Days</b><span>to first conversations</span></div>
+    <div class="statchip"><b>Proven</b><span>system, not a theory</span></div>
+    <div class="statchip"><b>Hands-off</b><span>under your name</span></div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="demo-shell reveal">
+      <div class="demo-inner">
+        <div class="demo-head">
+          <div>
+            <h3>Watch LIAM work your LinkedIn</h3>
+            <div class="dh-sub">Targets your ideal clients, opens conversations under your name, and books them into the Core.</div>
+          </div>
+          <div class="modetabs">
+            <button id="tabWatch" class="active" onclick="setMode('watch')">Watch it happen</button>
+            <button id="tabTry" onclick="setMode('try')">Try it yourself</button>
+          </div>
+        </div>
+
+        <div class="tryctl" id="tryCtl" style="display:none">
+          <span class="tl">Connection requests / day:</span>
+          <input id="dRange" type="range" min="10" max="35" step="5" value="20" oninput="dInput()">
+          <span class="mval" id="dVal">20 / day</span>
+          <span class="helper" style="margin:0">Account-safe, human-like pacing — never blasting. More invites → bigger funnel.</span>
+        </div>
+
+        <div class="demo-grid">
+          <!-- LEFT: linkedin -->
+          <div class="phone">
+            <div class="phone-top">
+              <div class="avatar">🧑‍💼<span class="inb">in</span></div>
+              <div><div class="nm">LinkedIn · under your name</div><div class="st" id="phStatus">prospecting…</div></div>
+            </div>
+            <div class="thread" id="thread"></div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="rightcol">
+            <div class="panel">
+              <div class="ph">🎯 Your ideal audience <span class="pc">ICP targeting</span></div>
+              <div class="icp">
+                <span class="ichip">🏢 Investors</span>
+                <span class="ichip">🤝 Referral partners</span>
+                <span class="ichip">✈️ Relocating execs</span>
+                <span class="ichip">🏗️ Developers</span>
+              </div>
+              <div class="icp-foot"><b id="i-pool">0</b> ideal prospects identified &amp; queued</div>
+            </div>
+
+            <div class="panel">
+              <div class="ph">📊 Outreach funnel <span class="pc" id="f-period">this month</span></div>
+              <div class="funnel">
+                <div class="fstage">
+                  <div class="fhead"><span class="fl">📤 Invited <span class="fconv">under your name</span></span><span class="fn" id="f-inv">0</span></div>
+                  <div class="ftrack"><div class="ffill s1" id="bar-inv"></div></div>
+                </div>
+                <div class="fstage">
+                  <div class="fhead"><span class="fl">🤝 Accepted <span class="fconv" id="c-acc">—</span></span><span class="fn" id="f-acc">0</span></div>
+                  <div class="ftrack"><div class="ffill s2" id="bar-acc"></div></div>
+                </div>
+                <div class="fstage">
+                  <div class="fhead"><span class="fl">💬 In conversation <span class="fconv" id="c-rep">—</span></span><span class="fn" id="f-rep">0</span></div>
+                  <div class="ftrack"><div class="ffill s3" id="bar-rep"></div></div>
+                </div>
+                <div class="fstage book">
+                  <div class="fhead"><span class="fl">📅 Booked <span class="fconv" id="c-book">—</span></span><span class="fn" id="f-book">0</span></div>
+                  <div class="ftrack"><div class="ffill s4" id="bar-book"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="ph">✅ Booked &amp; routed into your Core</div>
+              <div class="bk">
+                <div class="bc hero"><b id="k-wk">0</b><span>booked conversations / week</span></div>
+                <div class="bc"><b id="k-reply">0%</b><span>reply rate</span></div>
+              </div>
+              <div class="bk-note">Every booked conversation routes to <b>FLASH → BOOKER</b> · not-ready → NADIA.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-controls">
+          <button id="runBtn" class="btn btn-primary" onclick="runDemo()">Run a campaign</button>
+          <button id="resetBtn" class="btn btn-ghost" onclick="resetDemo()" style="display:none">Reset</button>
+          <span class="helper" id="helper" style="margin-left:auto">Auto-play mode</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRAST -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">"LinkedIn isn't where my clients are"</div>
+      <h2>For investors, referral partners<br>and relocating pros — it absolutely is.</h2>
+      <p>And it's the one channel your local competitors aren't working. Lowest risk to test, because it's a system Evolv already runs profitably — just pointed at real estate.</p>
+    </div>
+    <div class="contrast">
+      <div class="cside bad reveal">
+        <div class="ck">The untapped channel today</div>
+        <div class="cbig">$0<small> sourced — channel ignored</small></div>
+        <ul>
+          <li>Manual outreach doesn't scale — so it never happens</li>
+          <li>Warm professional network never gets built</li>
+          <li>Investor &amp; referral relationships that compound never start</li>
+          <li>Competitors aren't there either — pure missed edge</li>
+        </ul>
+      </div>
+      <div class="cside good reveal">
+        <div class="ck">LIAM running the proven system</div>
+        <div class="cbig">Daily<small> booked conversations, hands-off</small></div>
+        <ul>
+          <li>Personalized invites to your exact ICP — under your name</li>
+          <li>Proven Evolv sequences + account-safe pacing</li>
+          <li>Replies handled, interested prospects booked for you</li>
+          <li>Routed straight into FLASH / BOOKER — full pipeline</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="tile-light">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">How LIAM works</div>
+      <h2>Target. Connect. Converse. Book.</h2>
+      <p>The exact workflow Evolv already runs for live clients — minimal build, days to first conversations.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01 — TARGET</div><h4>Build the ICP list</h4><p>Investors, referral partners, relocating execs and developers in your market — precisely targeted.</p></div>
+      <div class="step reveal"><div class="num">02 — CONNECT</div><h4>Invite under your name</h4><p>Personalized connection requests sent from your own profile, at human-like, account-safe pacing.</p></div>
+      <div class="step reveal"><div class="num">03 — CONVERSE</div><h4>Run the sequence</h4><p>Multi-step messages open the conversation and replies are handled — no spammy blasting.</p></div>
+      <div class="step reveal"><div class="num">04 — BOOK</div><h4>Route into the Core</h4><p>Interested prospects booked and handed to FLASH/BOOKER; not-ready go to NADIA nurture.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AMY CASE STUDY (only in LIAM) -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="shead reveal" style="margin-bottom:34px">
+      <div class="eyebrow">Proof · live client</div>
+      <h2>This isn't a theory.<br>It's already running.</h2>
+    </div>
+    <div class="amy reveal">
+      <div class="amy-num">51</div>
+      <div class="amy-cap">qualified leads in <b>2 months</b> — same system, one real client.</div>
+      <div class="amy-stats">
+        <div class="amy-stat"><b>86%</b><span>response rate</span></div>
+        <div class="amy-stat"><b>US</b><span>comparable deal size</span></div>
+        <div class="amy-stat"><b>0 hrs</b><span>of her time prospecting</span></div>
+      </div>
+      <div class="amy-quote"><b>Amy</b> — a leadership-performance consultant — gets booked conversations every week from LinkedIn outreach running quietly under her own name. LIAM is that exact system, productized and pointed at real estate.</div>
+    </div>
+  </div>
+</section>
+
+<!-- KPIs -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">What LIAM reports weekly</div>
+      <h2>Connects, replies,<br>and conversations booked.</h2>
+    </div>
+    <div class="kpis">
+      <div class="kpi reveal"><b>Connects</b><span>sent &amp; accepted</span></div>
+      <div class="kpi reveal"><b>Reply</b><span>conversation rate</span></div>
+      <div class="kpi reveal"><b>Booked</b><span>conversations / week</span></div>
+      <div class="kpi reveal"><b>Conv→Appt</b><span>pipeline sourced</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div class="eyebrow">The lowest-risk Hunter — proven, not theory</div>
+      <h2>Turn your LinkedIn into<br>a quiet appointment machine.</h2>
+      <p>It's not an experiment — it's the exact system Evolv already runs profitably, pointed at your market. Fast to stand up, cheap to operate, conversations in days.</p>
+      <a href="https://cal.com/evolv.one/introductory-call-60" target="_blank" rel="noopener" class="btn btn-primary">Launch my LinkedIn engine →</a>
+    </div>
+  </div>
+</section>
+
+<footer>💼 LIAM · part of the Evolv AI sales team · feeds FLASH → BOOKER · not-ready → NADIA · authority content via ARIA · LinkedIn-ToS-safe pacing + GDPR + honest-representation compliant</footer>
+
+<script>
+/* ===================== LIAM DEMO ENGINE ===================== */
+let mode='watch', running=false, timers=[], perDay=20;
+
+function setMode(m){
+  if(running) return; mode=m;
+  document.getElementById('tabWatch').classList.toggle('active',m==='watch');
+  document.getElementById('tabTry').classList.toggle('active',m==='try');
+  document.getElementById('tryCtl').style.display = m==='try'?'flex':'none';
+  document.getElementById('helper').textContent = m==='watch'?'Auto-play mode':'Set your daily pace, then run';
+  resetDemo();
+}
+function dInput(){
+  perDay=parseInt(document.getElementById('dRange').value);
+  document.getElementById('dVal').textContent=perDay+' / day';
+}
+
+/* economics — proven Amy-model funnel */
+function econ(D){
+  const invited=D*20;                                  // ~20 working days / month
+  const pool=D*62;                                     // ICP list size
+  const accepted=Math.round(invited*0.32);
+  const replied=Math.round(accepted*0.38);
+  const booked=Math.round(replied*0.45);
+  const bookedWk=Math.max(1,Math.round(booked/4));
+  return {invited,pool,accepted,replied,booked,bookedWk,replyRate:38};
+}
+
+function at(ms,fn){timers.push(setTimeout(fn,ms));}
+function addMsg(cls,inner){
+  const th=document.getElementById('thread');
+  const d=document.createElement('div'); d.className='msg '+cls; d.innerHTML=inner;
+  th.appendChild(d); th.scrollTop=th.scrollHeight;
+}
+function addConCard(){
+  const th=document.getElementById('thread');
+  const c=document.createElement('div'); c.className='concard'; c.id='conCard';
+  c.innerHTML=`
+    <div class="cc-top">
+      <div class="cc-av">🧑🏻‍💼</div>
+      <div><div class="cc-nm">Marcus Reed</div><div class="cc-ti">Real Estate Investor · 14-property portfolio · relocating to Austin</div></div>
+    </div>
+    <div class="cc-st"><i></i> <span id="ccText">Connection request sent — under your name</span></div>`;
+  th.appendChild(c); th.scrollTop=th.scrollHeight;
+}
+function animateCount(id,to,dur,prefix,suffix){
+  const el=document.getElementById(id); const s=performance.now(); prefix=prefix||'';suffix=suffix||'';
+  function f(t){let p=Math.min(1,(t-s)/dur);p=1-Math.pow(1-p,3);
+    el.textContent=prefix+Math.round(to*p).toLocaleString('en-US')+suffix;if(p<1)requestAnimationFrame(f);}
+  requestAnimationFrame(f);
+}
+
+function runDemo(){
+  if(running)return; running=true;
+  const E=econ(perDay);
+  document.getElementById('runBtn').disabled=true;
+  document.getElementById('resetBtn').style.display='inline-flex';
+  document.getElementById('phStatus').textContent='running campaign…';
+
+  // ICP list
+  at(300,()=>animateCount('i-pool',E.pool,1400));
+
+  // LinkedIn story
+  at(500,()=>addMsg('sys','🎯 ICP list built — '+E.pool.toLocaleString('en-US')+' ideal prospects queued'));
+  at(1200,()=>addConCard());
+  at(2400,()=>{ const c=document.getElementById('conCard'); if(c){c.classList.add('accepted'); document.getElementById('ccText').textContent='Marcus accepted your invite ✓';} });
+  at(3100,()=>addMsg('out','<div class="mo">you · day 1</div>Hey Marcus — saw you\'re building in Austin. I help investors source off-market deals here before they hit the MLS. Worth a quick chat?'));
+  at(4200,()=>addMsg('in','<div class="mo">Marcus</div>Actually yes — timing\'s good. We\'re looking to add 2–3 doors this quarter.'));
+  at(5200,()=>addMsg('out','<div class="mo">you</div>Perfect. I\'ll send a couple I think fit. Easiest to grab 15 min this week — Wed or Thu?'));
+  at(6200,()=>addMsg('in','<div class="mo">Marcus</div>Thursday works. Send the invite.'));
+  at(7000,()=>addMsg('sys good','📅 Conversation booked → routed to FLASH → BOOKER (qualified investor lead)'));
+
+  // funnel fills
+  at(1800,()=>{
+    const inv=E.invited, acc=E.accepted, rep=E.replied, bk=E.booked;
+    document.getElementById('bar-inv').style.width='100%';
+    document.getElementById('bar-acc').style.width=Math.max(10,Math.round(acc/inv*100))+'%';
+    document.getElementById('bar-rep').style.width=Math.max(8,Math.round(rep/inv*100))+'%';
+    document.getElementById('bar-book').style.width=Math.max(6,Math.round(bk/inv*100))+'%';
+    animateCount('f-inv',inv,1500); animateCount('f-acc',acc,1700);
+    animateCount('f-rep',rep,1900); animateCount('f-book',bk,2100);
+    document.getElementById('c-acc').textContent='32% accept';
+    document.getElementById('c-rep').textContent='of accepted reply';
+    document.getElementById('c-book').textContent='booked & routed';
+  });
+
+  // booked KPIs
+  at(7400,()=>{
+    animateCount('k-wk',E.bookedWk,1500);
+    animateCount('k-reply',E.replyRate,1500,'','%');
+  });
+  at(8200,()=>{
+    addMsg('sys good','💼 This month: '+E.invited+' invited → '+E.accepted+' connected → '+E.booked+' conversations booked, all into your Core.');
+    running=false; document.getElementById('resetBtn').disabled=false;
+    document.getElementById('phStatus').textContent='pipeline live ✓';
+  });
+}
+
+function resetDemo(){
+  timers.forEach(clearTimeout); timers=[]; running=false;
+  document.getElementById('thread').innerHTML='';
+  ['bar-inv','bar-acc','bar-rep','bar-book'].forEach(id=>document.getElementById(id).style.width='0');
+  ['f-inv','f-acc','f-rep','f-book','i-pool','k-wk'].forEach(id=>document.getElementById(id).textContent='0');
+  document.getElementById('k-reply').textContent='0%';
+  ['c-acc','c-rep','c-book'].forEach(id=>document.getElementById(id).textContent='—');
+  document.getElementById('phStatus').textContent='prospecting…';
+  document.getElementById('runBtn').disabled=false;
+  document.getElementById('resetBtn').style.display='none';
+}
+
+resetDemo();
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===================== section-by-section arrow navigation ===================== */
+const SECS=[...document.querySelectorAll('section')]; const NAVOFF=0;
+function nearestSection(){ const y=scrollY+NAVOFF+4; let b=0,bd=Infinity;
+  SECS.forEach((s,i)=>{const d=Math.abs(s.offsetTop-y); if(d<bd){bd=d;b=i;}}); return b; }
+function goSection(i){ i=Math.max(0,Math.min(SECS.length-1,i));
+  scrollTo({top:SECS[i].offsetTop-NAVOFF,behavior:'smooth'}); }
+addEventListener('keydown',e=>{ if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;
+  const t=(e.target.tagName||'').toUpperCase(); if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;
+  e.preventDefault(); goSection(nearestSection()+(e.key==='ArrowDown'?1:-1)); });
+</script>
+</body>
+</html>
