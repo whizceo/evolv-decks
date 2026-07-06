@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCOTT — Expired & FSBO Hunter AI · Evolv AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#ffffff;
+  --parchment:#f5f5f7;
+  --dark:#1d1d1f;
+  --dark2:#000000;
+  --ink:#1d1d1f;
+  --ink-sec:#6e6e73;
+  --on-dark:#f5f5f7;
+  --sec-on-dark:#a1a1a6;
+  --blue:#0066cc;
+  --blue-msg:#0b93f6;
+  --green:#34c759;
+  --green-ink:#248a3d;
+  --red:#ff3b30;
+  --red-ink:#c0392b;
+  --line:#d2d2d7;
+  --line-dark:rgba(255,255,255,.13);
+  --r:18px;
+  --pill:9999px;
+  --shadow-img:rgba(0,0,0,.18) 0 30px 60px -14px;
+  --muted:#6e6e73; --faint:#86868b; --amber:#ff9f0a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ===== mobile gate ===== */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--canvas);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif}
+.mobile-block .mb-emoji{font-size:46px;margin-bottom:22px}
+.mobile-block .mb-title{font-weight:600;font-size:1.7rem;letter-spacing:-.02em;margin-bottom:14px;color:var(--ink)}
+.mobile-block .mb-sub{font-size:1rem;color:var(--ink-sec);max-width:340px;line-height:1.5}
+.mobile-block .g{color:var(--blue)}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+  line-height:1.47;
+  font-size:17px;
+  letter-spacing:-.012em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;
+  font-weight:600;letter-spacing:-.02em;line-height:1.06}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+section{position:relative;min-height:calc(100vh + 2px);display:flex;flex-direction:column;justify-content:center;padding:56px 0;scroll-margin-top:0}
+
+/* full-bleed tiles — the colour change IS the divider */
+.tile-light{background:var(--canvas)}
+.tile-parch{background:var(--parchment)}
+.tile-dark{background:var(--dark);color:var(--on-dark)}
+.tile-dark h1,.tile-dark h2,.tile-dark h3,.tile-dark h4{color:var(--on-dark)}
+
+/* eyebrow (Apple category line) */
+.eyebrow{font-size:19px;font-weight:600;letter-spacing:-.01em;color:var(--blue);margin-bottom:6px}
+.tile-dark .eyebrow{color:#2997ff}
+
+/* ===== nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(180%) blur(20px);
+  background:rgba(255,255,255,.72);border-bottom:1px solid rgba(0,0,0,.08)}
+.navin{display:flex;align-items:center;justify-content:space-between;height:52px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:19px;letter-spacing:-.02em}
+.brand .spark{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--blue);color:#fff;font-size:14px}
+.navtag{font-size:13px;color:var(--ink-sec);font-weight:400}
+
+/* ===== buttons ===== */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 23px;border-radius:var(--pill);
+  font-weight:500;font-size:17px;cursor:pointer;border:none;font-family:inherit;
+  transition:background .2s,transform .12s,box-shadow .2s,color .2s,border-color .2s;text-decoration:none;letter-spacing:-.01em}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#0a74e0}
+.btn:active{transform:scale(.96)}
+.btn-ghost{background:transparent;color:var(--blue);border:1px solid var(--line)}
+.btn-ghost:hover{background:rgba(0,0,0,.035)}
+.tile-dark .btn-ghost,.btn-ghost.on-dark{color:#2997ff;border-color:var(--line-dark)}
+.tile-dark .btn-ghost:hover{background:rgba(255,255,255,.06)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+
+/* ===== hero ===== */
+.hero{text-align:center}
+.hero h1{font-size:clamp(40px,6.4vw,64px);line-height:1.04;font-weight:600;margin:6px 0 22px}
+.hero h1 .accent{color:var(--blue)}
+.hero h1 .ln{display:block;white-space:nowrap}
+.hero p.sub{font-size:clamp(19px,2.3vw,23px);font-weight:400;color:var(--ink-sec);max-width:760px;margin:0 auto;line-height:1.4;text-wrap:balance}
+.hero .stats{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-top:64px;border-top:1px solid var(--line)}
+.statchip{padding:30px 38px;min-width:190px;border-right:1px solid var(--line)}
+.statchip:last-child{border-right:none}
+.statchip b{font-size:38px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.statchip span{font-size:15px;color:var(--ink-sec);font-weight:400}
+
+/* ===== section heads ===== */
+.shead{text-align:center;max-width:900px;margin:0 auto 56px}
+.shead h2{font-size:clamp(30px,4vw,42px);font-weight:600;margin:0 0 16px;line-height:1.12}
+.shead p{color:var(--ink-sec);font-size:21px;font-weight:400;line-height:1.4;text-wrap:balance}
+.tile-dark .shead p{color:var(--sec-on-dark)}
+
+/* ===== DEMO ===== */
+.demo-shell{border-radius:24px;background:var(--canvas);border:1px solid var(--line);
+  box-shadow:rgba(0,0,0,.06) 0 18px 40px -20px;overflow:hidden}
+.demo-inner{padding:22px}
+.demo-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;margin-bottom:18px}
+.demo-head h3{font-size:23px;font-weight:600}
+.demo-head .dh-sub{font-size:15px;color:var(--ink-sec);margin-top:4px;font-weight:400}
+.modetabs{display:inline-flex;background:var(--parchment);border-radius:var(--pill);padding:3px}
+.modetabs button{padding:9px 18px;border-radius:var(--pill);border:none;background:transparent;
+  color:var(--ink-sec);font-weight:500;font-size:14px;cursor:pointer;font-family:inherit;transition:.2s;letter-spacing:-.01em}
+.modetabs button.active{background:var(--canvas);color:var(--ink);box-shadow:rgba(0,0,0,.08) 0 1px 3px}
+
+.demo-grid{display:grid;grid-template-columns:330px 1fr;gap:28px;align-items:start}
+@media(max-width:920px){.demo-grid{grid-template-columns:1fr}}
+
+/* try controls */
+.tryctl{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px;padding:16px 18px;
+  border-radius:16px;background:var(--parchment)}
+.tryctl .tl{font-size:13px;color:var(--ink-sec);font-weight:600}
+.tryctl input[type=range]{width:200px;accent-color:var(--blue)}
+.tryctl .mval{font-weight:700;font-size:18px;color:var(--blue);min-width:140px}
+.helper{font-size:13.5px;color:var(--ink-sec)}
+
+/* PHONE — solid screen (no filter inside the clip) */
+.phone{border-radius:30px;border:1px solid var(--line);background:#f8f8fa;overflow:hidden;box-shadow:var(--shadow-img)}
+.phone-top{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--canvas)}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--blue);display:grid;place-items:center;font-size:15px}
+.phone-top .nm{font-weight:600;font-size:14px;color:var(--ink)}
+.phone-top .st{font-size:11px;color:var(--blue)}
+.thread{padding:13px;height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;background:#f8f8fa}
+.thread::-webkit-scrollbar{width:0}
+.msg{max-width:88%;padding:9px 12px;border-radius:16px;font-size:13px;line-height:1.4;opacity:0;transform:translateY(8px);animation:pop .4s forwards}
+@keyframes pop{to{opacity:1;transform:none}}
+.msg .mo{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:3px}
+.msg.out{align-self:flex-start;background:var(--canvas);border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:5px}
+.msg.in{align-self:flex-end;background:var(--blue-msg);color:#fff;border-bottom-right-radius:5px}
+.msg.in .mo{color:rgba(255,255,255,.82)}
+.msg.sys{align-self:center;background:var(--parchment);border:1px solid var(--line);color:var(--ink-sec);font-size:11px;text-align:center;max-width:94%}
+.msg.sys.good{border-color:rgba(52,199,89,.35);color:var(--green-ink);background:rgba(52,199,89,.06)}
+
+/* RIGHT */
+.rightcol{display:flex;flex-direction:column;gap:11px}
+.panel{border-radius:16px;border:1px solid var(--line);background:var(--canvas);padding:13px}
+.panel .ph{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-sec);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+
+/* RADAR */
+.radarwrap{position:relative;text-align:center}
+.radar{display:block;margin:0 auto;max-width:150px;width:100%}
+#sweep{transform-origin:150px 150px;animation:radarspin 3.4s linear infinite}
+@keyframes radarspin{to{transform:rotate(360deg)}}
+.ping{animation:pingfade 1s ease-out forwards}
+@keyframes pingfade{0%{opacity:.6}100%{opacity:0}}
+.blip{animation:blippulse 1.8s ease-in-out infinite}
+@keyframes blippulse{0%,100%{opacity:1}50%{opacity:.5}}
+.radarhead{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:8px}
+.radarcount{text-align:right;flex-shrink:0}
+.radarcount b{font-size:26px;font-weight:600;display:block;color:var(--blue);line-height:1}
+.radarcount span{font-size:10px;color:var(--ink-sec)}
+.radarwrap .ph{margin-bottom:0}
+.radarleg{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:6px;font-size:11px;color:var(--ink-sec)}
+.radarleg span{display:inline-flex;align-items:center;gap:6px}
+.lg{width:9px;height:9px;border-radius:50%}
+
+/* FUNNEL */
+.funnel{display:flex;align-items:stretch;gap:6px}
+.fstage{flex:1;border-radius:12px;border:1px solid var(--line);background:var(--canvas);padding:10px 6px;text-align:center}
+.fstage b{font-size:22px;font-weight:600;display:block;line-height:1;color:var(--ink)}
+.fstage span{font-size:9.5px;color:var(--ink-sec);display:block;margin-top:4px;line-height:1.2}
+.fstage.win{border-color:rgba(0,102,204,.4);background:rgba(0,102,204,.07)}
+.fstage.win b{color:var(--blue)}
+.farrow{display:flex;align-items:center;color:var(--faint);font-size:14px}
+
+/* CHANNELS */
+.chans{display:flex;gap:8px;flex-wrap:wrap}
+.chan{flex:1;min-width:64px;border-radius:11px;border:1px solid var(--line);padding:10px 6px;text-align:center;color:var(--ink-sec);opacity:.5;transition:.35s;background:var(--canvas)}
+.chan .ci{font-size:18px;display:block;margin-bottom:3px}
+.chan small{font-size:10px}
+.chan.lit{opacity:1;border-color:rgba(0,102,204,.45);background:rgba(0,102,204,.08);color:var(--ink)}
+
+/* INVENTORY */
+.inv{text-align:center;background:rgba(52,199,89,.06);border-color:rgba(52,199,89,.3)}
+.inv .ibig{font-weight:600;font-size:34px;line-height:1;color:var(--green-ink);letter-spacing:-.03em}
+.inv .isub{font-size:12px;color:var(--ink-sec);margin-top:6px}
+
+.demo-controls{margin-top:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+
+/* ===== contrast (dark tile) ===== */
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.contrast{grid-template-columns:1fr}}
+.cside{border-radius:22px;padding:34px;background:#2a2a2c;border:1px solid var(--line-dark)}
+.cside.good{background:rgba(52,199,89,.1);border-color:rgba(52,199,89,.32)}
+.cside .ck{font-size:13px;font-weight:600;margin-bottom:14px;color:var(--sec-on-dark)}
+.cside.bad .ck{color:#ff6b6b}.cside.good .ck{color:#4dd17a}
+.cside .cbig{font-size:44px;font-weight:600;line-height:1.05;letter-spacing:-.02em;color:var(--on-dark)}
+.cside .cbig small{font-size:18px;color:var(--sec-on-dark);font-weight:400}
+.cside ul{list-style:none;margin-top:18px}
+.cside li{font-size:15px;color:var(--sec-on-dark);padding:8px 0 8px 26px;position:relative;line-height:1.4}
+.cside.bad li::before{content:"✕";position:absolute;left:0;color:#ff6b6b;font-weight:600}
+.cside.good li::before{content:"✓";position:absolute;left:0;color:#4dd17a;font-weight:600}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:0}}
+.step{padding:0 26px;border-right:1px solid var(--line)}
+.step:first-child{padding-left:0}
+.step:last-child{padding-right:0;border-right:none}
+@media(max-width:860px){.step{padding:24px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .step:nth-child(2n){border-right:none}.step:first-child{padding-left:22px}}
+.step .num{font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0}
+.step h4{font-size:19px;font-weight:600;margin:10px 0 8px}
+.step p{font-size:15px;color:var(--ink-sec);font-weight:400;line-height:1.45}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+@media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{text-align:center;padding:38px 16px;border-right:1px solid var(--line)}
+.kpi:last-child{border-right:none}
+@media(max-width:760px){.kpi:nth-child(2n){border-right:none}.kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.kpi b{font-size:40px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.kpi span{font-size:14px;color:var(--ink-sec);font-weight:400}
+
+/* ===== CTA (dark tile) ===== */
+.cta{text-align:center;max-width:760px;margin:0 auto}
+.cta h2{font-size:clamp(32px,4.6vw,50px);font-weight:600;margin-bottom:16px}
+.cta p{color:var(--sec-on-dark);font-size:19px;max-width:580px;margin:0 auto 30px;line-height:1.4;text-wrap:balance}
+
+footer{text-align:center;padding:54px 0;color:var(--ink-sec);font-size:14px;border-top:1px solid var(--line)}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title"><span class="g">Open on desktop</span></div>
+  <div class="mb-sub">This deck is built for a big screen — open it on your laptop for the full experience.</div>
+</div>
+
+<nav>
+  <div class="wrap navin">
+    <div class="brand"><span class="spark">🎯</span> SCOTT</div>
+    <div class="navtag">Evolv AI · Expired & FSBO Hunter</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero tile-light wrap">
+  <div class="eyebrow">AI Expired & FSBO Hunter</div>
+  <h1><span class="ln">Own the listings</span><span class="ln">while everyone else</span><span class="ln accent">fights over buyers.</span></h1>
+  <p class="sub">Expired listings and FSBOs are the highest-intent sellers alive. SCOTT hunts every one in your market and books listing appointments — without you ever touching the phone.</p>
+  <div class="stats">
+    <div class="statchip"><b>$8k–20k+</b><span>commission per listing won</span></div>
+    <div class="statchip"><b>24/7</b><span>never burns out on rejection</span></div>
+    <div class="statchip"><b>Net-new</b><span>inventory most agents skip</span></div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="demo-shell reveal">
+      <div class="demo-inner">
+        <div class="demo-head">
+          <div>
+            <h3>Watch SCOTT hunt a market for listings</h3>
+            <div class="dh-sub">Sweeps expired + FSBO → enriches → multi-channel outreach → books the listing appointment.</div>
+          </div>
+          <div class="modetabs">
+            <button id="tabWatch" class="active" onclick="setMode('watch')">Watch it happen</button>
+            <button id="tabTry" onclick="setMode('try')">Try it yourself</button>
+          </div>
+        </div>
+
+        <div class="tryctl" id="tryCtl" style="display:none">
+          <span class="tl">Sellers in your market sweep:</span>
+          <input id="mktRange" type="range" min="80" max="1200" step="20" value="340" oninput="mktInput()">
+          <span class="mval" id="mktVal">340 sellers</span>
+          <span class="helper" style="margin:0">More markets = more inventory, flat marginal cost.</span>
+        </div>
+
+        <div class="demo-grid">
+          <!-- LEFT phone -->
+          <div class="phone">
+            <div class="phone-top">
+              <div class="avatar">🎯</div>
+              <div><div class="nm" id="phName">SCOTT · outbound to expired seller</div><div class="st" id="phStatus">scanning the market…</div></div>
+            </div>
+            <div class="thread" id="thread"></div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="rightcol">
+            <div class="panel radarwrap">
+              <div class="radarhead">
+                <div class="ph">📡 Market sweep — high-intent sellers detected</div>
+                <div class="radarcount"><b id="m-src">0</b><span>sourced this sweep</span></div>
+              </div>
+              <svg id="radar" class="radar" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="150" cy="150" r="128" fill="none" stroke="rgba(0,0,0,.09)" stroke-width="1"/>
+                <circle cx="150" cy="150" r="88" fill="none" stroke="rgba(0,0,0,.08)" stroke-width="1"/>
+                <circle cx="150" cy="150" r="46" fill="none" stroke="rgba(0,0,0,.07)" stroke-width="1"/>
+                <line x1="150" y1="22" x2="150" y2="278" stroke="rgba(0,0,0,.06)" stroke-width="1"/>
+                <line x1="22" y1="150" x2="278" y2="150" stroke="rgba(0,0,0,.06)" stroke-width="1"/>
+                <g id="sweep">
+                  <path d="M150 150 L150 22 A128 128 0 0 1 240 60 Z" fill="url(#sweepgrad)" opacity="0.55"/>
+                  <line x1="150" y1="150" x2="150" y2="22" stroke="#0066cc" stroke-width="1.5"/>
+                </g>
+                <defs>
+                  <radialGradient id="sweepgrad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(150 150) scale(128)">
+                    <stop offset="0" stop-color="#0066cc" stop-opacity="0.28"/>
+                    <stop offset="1" stop-color="#0066cc" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <g id="blips"></g>
+                <circle cx="150" cy="150" r="3" fill="#0066cc"/>
+              </svg>
+              <div class="radarleg">
+                <span><i class="lg" style="background:#ff3b30"></i> Expired listing</span>
+                <span><i class="lg" style="background:#ff9f0a"></i> FSBO</span>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="ph">⚙️ The hunt pipeline</div>
+              <div class="funnel">
+                <div class="fstage"><b id="f-scr">0</b><span>Scraped</span></div>
+                <div class="farrow">→</div>
+                <div class="fstage"><b id="f-enr">0</b><span>Enriched</span></div>
+                <div class="farrow">→</div>
+                <div class="fstage"><b id="f-out">0</b><span>In outreach</span></div>
+                <div class="farrow">→</div>
+                <div class="fstage win"><b id="f-apt">0</b><span>Listing appts</span></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="ph">📨 Multi-channel cascade — persistent, never spammy</div>
+              <div class="chans">
+                <div class="chan" id="ch-call"><span class="ci">📞</span><small>AI call</small></div>
+                <div class="chan" id="ch-vm"><span class="ci">🎙️</span><small>Voicemail</small></div>
+                <div class="chan" id="ch-em"><span class="ci">✉️</span><small>Email</small></div>
+                <div class="chan" id="ch-sms"><span class="ci">💬</span><small>SMS</small></div>
+              </div>
+            </div>
+
+            <div class="panel inv">
+              <div class="ph" style="justify-content:center">🏆 Inventory manufactured this sweep</div>
+              <div class="ibig" id="invVal">$0</div>
+              <div class="isub" id="invSub">in commission value put on your calendar</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-controls">
+          <button id="runBtn" class="btn btn-primary" onclick="runDemo()">Run the hunt</button>
+          <button id="resetBtn" class="btn btn-ghost" onclick="resetDemo()" style="display:none">Reset</button>
+          <span class="helper" id="helper" style="margin-left:auto">Auto-play mode</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRAST -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">The prospecting most agents quit</div>
+      <h2>A seller lead beats a buyer lead —<br>and almost nobody works them.</h2>
+      <p>Expired and FSBO sellers already proved they want to move. The agents who grind them own the market.</p>
+    </div>
+    <div class="contrast">
+      <div class="cside bad reveal">
+        <div class="ck">The agent who "means to get to it"</div>
+        <div class="cbig">0<small> calls made today</small></div>
+        <ul>
+          <li>Cold-calling expireds is brutal — so it doesn't happen</li>
+          <li>Rejection burns out the agent in a week</li>
+          <li>No sourcing, no enrichment, no follow-up system</li>
+          <li>Competitors quietly take the listings instead</li>
+        </ul>
+      </div>
+      <div class="cside good reveal">
+        <div class="ck">SCOTT, every single day</div>
+        <div class="cbig">∞<small> outreach, zero burnout</small></div>
+        <ul>
+          <li>Scrapes + enriches every expired & FSBO automatically</li>
+          <li>Call → voicemail → email → SMS, persistent but respectful</li>
+          <li>Handles "sick of being called" with grace, not pressure</li>
+          <li>Books the listing appointment → straight to BOOKER</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="tile-light">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">How SCOTT works</div>
+      <h2>The hardest, highest-value prospecting<br>in real estate — at scale.</h2>
+      <p>End-to-end: sources, enriches and outreaches net-new sellers without the agent ever touching the phone.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01 — SWEEP</div><h4>Source the market</h4><p>Daily scrape sweeps of expired listings + FSBOs — the highest-intent sellers in your territory.</p></div>
+      <div class="step reveal"><div class="num">02 — ENRICH</div><h4>Find the contact</h4><p>Appends phone + email and validates against DNC and suppression lists before a single touch.</p></div>
+      <div class="step reveal"><div class="num">03 — HUNT</div><h4>Multi-channel outreach</h4><p>AI call, voicemail, email and SMS with a seller-specific angle — persistent, on-message, never burning out.</p></div>
+      <div class="step reveal"><div class="num">04 — BOOK</div><h4>Hand off the appointment</h4><p>Interested sellers route to FLASH → BOOKER for the listing appointment. Not-ready → NADIA.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- KPIs -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">What SCOTT proves</div>
+      <h2>Net-new listing appointments,<br>week after week.</h2>
+    </div>
+    <div class="kpis">
+      <div class="kpi reveal"><b>Sellers</b><span>sourced every sweep</span></div>
+      <div class="kpi reveal"><b>4-ch</b><span>outreach per seller</span></div>
+      <div class="kpi reveal"><b>Appts</b><span>listing appointments booked</span></div>
+      <div class="kpi reveal"><b>$/appt</b><span>cost per listing appointment</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div class="eyebrow">SCOTT manufactures the scarcest asset in real estate</div>
+      <h2>Stop fighting over buyers.<br>Own the listings.</h2>
+      <p>While your competitors chase the same buyer leads, SCOTT hunts the sellers nobody else has the stomach to work — and books them onto your calendar.</p>
+      <a href="https://cal.com/evolv.one/introductory-call-60" target="_blank" rel="noopener" class="btn btn-primary">Deploy my Hunter →</a>
+    </div>
+  </div>
+</section>
+
+<footer>🎯 SCOTT · part of the Evolv AI sales team · Hunters source → FLASH → BOOKER → agent · not-ready sellers → NADIA · highest compliance: DNC / TCPA scrubbed</footer>
+
+<script>
+/* ===================== SCOTT DEMO ENGINE ===================== */
+let mode='watch', running=false, timers=[], market=340;
+const SVGNS='http://www.w3.org/2000/svg';
+const CX=150, CY=150;
+
+function setMode(m){
+  if(running) return; mode=m;
+  document.getElementById('tabWatch').classList.toggle('active',m==='watch');
+  document.getElementById('tabTry').classList.toggle('active',m==='try');
+  document.getElementById('tryCtl').style.display = m==='try'?'flex':'none';
+  document.getElementById('helper').textContent = m==='watch'?'Auto-play mode':'Set your market size, then Run';
+  resetDemo();
+}
+function mktInput(){
+  market=parseInt(document.getElementById('mktRange').value);
+  document.getElementById('mktVal').textContent=market+' sellers';
+}
+
+function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+function addMsg(cls,inner){
+  const th=document.getElementById('thread');
+  const d=document.createElement('div'); d.className='msg '+cls; d.innerHTML=inner;
+  th.appendChild(d); th.scrollTop=th.scrollHeight;
+}
+function animateCount(id,to,dur){
+  const el=document.getElementById(id); const start=performance.now();
+  function f(t){ let p=Math.min(1,(t-start)/dur); p=1-Math.pow(1-p,3);
+    el.textContent=Math.round(to*p); if(p<1) requestAnimationFrame(f); }
+  requestAnimationFrame(f);
+}
+function fmt$(n){ return '$'+Math.round(n).toLocaleString('en-US'); }
+function animateMoney(id,to,dur){
+  const el=document.getElementById(id); const start=performance.now();
+  function f(t){ let p=Math.min(1,(t-start)/dur); p=1-Math.pow(1-p,3);
+    el.textContent=fmt$(to*p); if(p<1) requestAnimationFrame(f); }
+  requestAnimationFrame(f);
+}
+function svgEl(tag,attrs){ const e=document.createElementNS(SVGNS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); return e; }
+
+function dropBlip(i){
+  // golden-angle spread, radius within radar
+  const ang=i*2.39996; // golden angle in radians
+  const rad=42+((i*37)%80);
+  const x=CX+Math.cos(ang)*rad, y=CY+Math.sin(ang)*rad;
+  const expired = (i%5!==0); // ~80% expired, 20% FSBO
+  const color = expired ? '#ff3b30' : '#ff9f0a';
+  const g=document.getElementById('blips');
+  const ping=svgEl('circle',{cx:x,cy:y,r:11,fill:'none',stroke:color,'stroke-width':1.5});
+  ping.setAttribute('class','ping');
+  const b=svgEl('circle',{cx:x,cy:y,r:4,fill:color});
+  b.setAttribute('class','blip');
+  g.appendChild(ping); g.appendChild(b);
+}
+
+function litChan(id){ document.getElementById(id).classList.add('lit'); }
+
+function runDemo(){
+  if(running) return; running=true;
+  // economics
+  const sourced=market;
+  const enriched=Math.round(market*0.92);
+  const inOut=enriched;
+  const appts=Math.max(2,Math.round(market*0.027));
+  const invVal=appts*12000;
+
+  document.getElementById('runBtn').disabled=true;
+  document.getElementById('resetBtn').style.display='inline-flex';
+  document.getElementById('phStatus').textContent='hunting…';
+
+  // radar blips
+  const shown=Math.min(16, Math.max(7, Math.round(market/28)));
+  for(let i=0;i<shown;i++) at(300+i*230,()=>dropBlip(i));
+  at(400,()=>animateCount('m-src',sourced,3600));
+
+  // pipeline funnel cascade
+  at(900,()=>animateCount('f-scr',sourced,2600));
+  at(2000,()=>animateCount('f-enr',enriched,2600));
+  at(3100,()=>animateCount('f-out',inOut,2600));
+  at(6800,()=>animateCount('f-apt',appts,2200));
+
+  // PHONE: outbound to one expired seller + objection handling
+  at(900,()=>{ addMsg('sys','🎯 Expired listing detected — 412 Oakwood Dr, came off-market 3 days ago'); });
+  at(1700,()=>{ addMsg('sys','🔎 Enriched → owner Robert Hale · mobile + email found · DNC-clear'); });
+  at(2500,()=>{ addMsg('sys','📞 AI call placed → no answer'); litChan('ch-call'); });
+  at(3300,()=>{ addMsg('sys','🎙️ Voicemail dropped'); litChan('ch-vm'); });
+  at(4000,()=>{ addMsg('sys','✉️ Email sent'); litChan('ch-em'); });
+  at(4700,()=>{ litChan('ch-sms'); addMsg('out','<div class="mo">💬 sms · seller angle</div>Hi Robert — saw your home on Oakwood came off the market. Still open to selling? I\'ve got two buyers actively looking in your area right now.'); });
+  at(5700,()=>addMsg('in','<div class="mo">seller</div>Who is this?? I am SO done with agents calling me.'));
+  at(6400,()=>addMsg('out','<div class="mo">💬 respectful, not pushy</div>Totally fair — you\'ve probably been buried in calls. I won\'t pile on. I just genuinely have two buyers in your zip. If it\'s worth 10 minutes to hear what they\'d pay, I\'m around. If not, I\'ll leave you be 🙏'));
+  at(7400,()=>addMsg('in','<div class="mo">seller</div>…alright. What are they offering?'));
+  at(8100,()=>{ addMsg('sys good','🤝 Listing appointment booked → routing to BOOKER'); document.getElementById('phStatus').textContent='listing appt booked ✓'; });
+
+  // inventory value
+  at(6800,()=>{
+    animateMoney('invVal',invVal,2400);
+    document.getElementById('invSub').textContent=appts+' listing appts × ~$12k avg commission, on your calendar';
+  });
+
+  // finale
+  at(8700,()=>{
+    addMsg('sys good','🎯 Sweep complete: '+sourced+' sourced → '+enriched+' enriched → '+appts+' listing appts → '+fmt$(invVal)+' in inventory. Next sweep runs tomorrow.');
+    running=false;
+    document.getElementById('resetBtn').disabled=false;
+  });
+}
+
+function resetDemo(){
+  timers.forEach(clearTimeout); timers=[]; running=false;
+  document.getElementById('thread').innerHTML='';
+  document.getElementById('blips').innerHTML='';
+  ['ch-call','ch-vm','ch-em','ch-sms'].forEach(id=>document.getElementById(id).classList.remove('lit'));
+  ['m-src','f-scr','f-enr','f-out','f-apt'].forEach(id=>document.getElementById(id).textContent='0');
+  document.getElementById('invVal').textContent='$0';
+  document.getElementById('invSub').textContent='in commission value put on your calendar';
+  document.getElementById('phStatus').textContent='scanning the market…';
+  document.getElementById('runBtn').disabled=false;
+  document.getElementById('resetBtn').style.display='none';
+}
+
+resetDemo();
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===================== section-by-section arrow navigation ===================== */
+const SECS=[...document.querySelectorAll('section')]; const NAVOFF=0;
+function nearestSection(){ const y=scrollY+NAVOFF+4; let b=0,bd=Infinity;
+  SECS.forEach((s,i)=>{const d=Math.abs(s.offsetTop-y); if(d<bd){bd=d;b=i;}}); return b; }
+function goSection(i){ i=Math.max(0,Math.min(SECS.length-1,i));
+  scrollTo({top:SECS[i].offsetTop-NAVOFF,behavior:'smooth'}); }
+addEventListener('keydown',e=>{ if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;
+  const t=(e.target.tagName||'').toUpperCase(); if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;
+  e.preventDefault(); goSection(nearestSection()+(e.key==='ArrowDown'?1:-1)); });
+</script>
+</body>
+</html>
