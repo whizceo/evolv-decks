@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Predictable Pipeline Map™ — Evolv AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#ffffff;
+  --black:#000000;
+  --ink:#1d1d1f;
+  --ink-sec:#6e6e73;
+  --on-dark:#f5f5f7;
+  --on-dark-sec:#a1a1a6;
+  --green:#009A71;       /* accent on white */
+  --green-br:#1FB488;    /* accent on black */
+  --line:#d2d2d7;
+  --line-dark:rgba(255,255,255,.14);
+  --pill:9999px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto}
+body{
+  background:var(--black);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+  line-height:1.47;font-size:17px;letter-spacing:-.012em;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+h1,h2,h3{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;
+  font-weight:600;letter-spacing:-.025em;line-height:1.05}
+
+/* ===== full-viewport tiles — the colour change IS the divider ===== */
+section{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  align-items:center;text-align:center;padding:92px 26px;scroll-snap-align:start}
+.inner{max-width:820px;width:100%}
+.tile-black{background:var(--black);color:var(--on-dark)}
+.tile-white{background:var(--white);color:var(--ink)}
+.tile-black h1,.tile-black h2,.tile-black h3{color:var(--on-dark)}
+
+/* eyebrow */
+.eyebrow{font-size:clamp(14px,2.1vw,19px);font-weight:600;letter-spacing:-.01em;margin-bottom:20px;color:var(--green)}
+.tile-black .eyebrow{color:var(--green-br)}
+
+/* headline scales */
+.big{font-size:clamp(34px,6.4vw,68px);line-height:1.04;font-weight:600;text-wrap:balance}
+.big .accent{color:var(--green)}
+.tile-black .big .accent{color:var(--green-br)}
+.big .tm{font-size:.34em;vertical-align:super;font-weight:500;opacity:.85}
+.sub{font-size:clamp(18px,2.4vw,23px);font-weight:400;color:var(--ink-sec);max-width:640px;
+  margin:26px auto 0;line-height:1.42;text-wrap:balance}
+.tile-black .sub{color:var(--on-dark-sec)}
+
+/* scroll cue */
+.cue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:500;
+  color:var(--on-dark-sec);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.8}
+.cue .chev{width:22px;height:22px;animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ===== reveal ===== */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+
+/* ===== form ===== */
+.form{max-width:520px;margin:38px auto 0;text-align:left}
+.field{margin-bottom:22px}
+label{display:block;font-size:15px;font-weight:600;color:var(--ink);margin-bottom:10px}
+label span{color:var(--ink-sec);font-weight:400}
+input[type=text],input[type=number]{
+  width:100%;height:54px;padding:0 17px;font-family:inherit;font-size:17px;font-weight:400;
+  color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:14px;outline:none;transition:.18s;letter-spacing:-.01em}
+input::placeholder{color:#a8a8ad}
+input:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(0,154,113,.14)}
+.seg{display:flex;gap:9px}
+.seg button{flex:1;height:50px;font-family:inherit;font-size:15px;font-weight:500;color:var(--ink-sec);
+  background:var(--white);border:1px solid var(--line);border-radius:14px;cursor:pointer;transition:.16s;letter-spacing:-.01em}
+.seg button:hover{border-color:#b9b9bf;color:var(--ink)}
+.seg button.on{background:var(--green);border-color:var(--green);color:#fff;font-weight:600}
+.go{width:100%;height:56px;margin-top:8px;font-family:inherit;font-size:17px;font-weight:600;letter-spacing:-.01em;
+  color:#fff;background:var(--green);border:none;border-radius:var(--pill);cursor:pointer;transition:.16s}
+.go:hover{background:#00a97c}
+.go:active{transform:scale(.98)}
+
+/* ===== result — one place ===== */
+.place{font-size:clamp(26px,4.4vw,46px);line-height:1.16;font-weight:600;max-width:760px;margin:0 auto;text-wrap:balance}
+.place em{font-style:normal;color:var(--green-br)}
+
+/* ===== result — daily actions ===== */
+.acts{list-style:none;max-width:560px;margin:6px auto 0;text-align:left;display:flex;flex-direction:column;gap:16px}
+.acts li{display:flex;gap:16px;align-items:flex-start;font-size:clamp(17px,2.4vw,22px);line-height:1.34;font-weight:500;color:var(--ink)}
+.acts .ck{flex:none;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;margin-top:2px;
+  background:rgba(0,154,113,.12);color:var(--green);font-weight:700;font-size:16px}
+
+/* ===== result — math ===== */
+.num{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",sans-serif;
+  font-size:clamp(110px,24vw,220px);font-weight:600;line-height:.9;letter-spacing:-.05em;color:var(--green-br)}
+.unit{font-size:clamp(15px,2.2vw,19px);font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--on-dark-sec);margin-top:14px}
+.expl{font-size:clamp(17px,2.3vw,21px);color:var(--on-dark-sec);max-width:560px;margin:30px auto 0;line-height:1.45;text-wrap:balance}
+.expl b{color:var(--on-dark);font-weight:600}
+
+/* ===== CTA ===== */
+.book{display:inline-flex;align-items:center;gap:8px;height:56px;padding:0 34px;margin-top:34px;
+  font-size:17px;font-weight:600;letter-spacing:-.01em;color:#fff;text-decoration:none;
+  background:var(--green);border-radius:var(--pill);transition:.16s}
+.book:hover{background:#00a97c;transform:translateY(-1px)}
+
+footer{background:var(--black);color:var(--on-dark-sec);text-align:center;padding:40px 26px;font-size:13px}
+footer b{color:var(--on-dark)}
+
+/* ===== fixed nav controls ===== */
+.arrows{position:fixed;right:26px;bottom:26px;z-index:60;display:flex;flex-direction:column;gap:10px}
+.arrows button{width:46px;height:46px;border-radius:50%;border:1px solid;cursor:pointer;display:grid;place-items:center;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:.18s;background:transparent}
+.arrows svg{width:20px;height:20px}
+.arrows[data-on="dark"] button{border-color:rgba(255,255,255,.28);color:#f5f5f7;background:rgba(255,255,255,.06)}
+.arrows[data-on="light"] button{border-color:rgba(0,0,0,.16);color:#1d1d1f;background:rgba(0,0,0,.03)}
+.arrows button:hover{transform:scale(1.06)}
+.arrows button:disabled{opacity:.28;cursor:default;transform:none}
+
+/* progress dots */
+.dots{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:11px}
+.dots button{width:9px;height:9px;border-radius:50%;border:none;cursor:pointer;padding:0;transition:.22s;opacity:.4}
+.dots[data-on="dark"] button{background:#f5f5f7}
+.dots[data-on="light"] button{background:#1d1d1f}
+.dots button.on{opacity:1;transform:scale(1.5)}
+@media(max-width:640px){
+  .dots{display:none}
+  .arrows{right:16px;bottom:calc(16px + env(safe-area-inset-bottom))}
+  section{padding:76px 22px calc(76px + env(safe-area-inset-bottom))}
+  .cue{bottom:calc(28px + env(safe-area-inset-bottom))}
+  .form{margin-top:30px}
+  .sub{margin-top:20px}
+  .eyebrow{margin-bottom:16px}
+}
+/* prevent iOS tap-zoom: inputs must stay >=16px (they're 17px — locked) */
+@media(hover:none){.arrows button:hover{transform:none}.book:hover,.go:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<!-- 1 · HERO -->
+<section class="tile-black">
+  <div class="inner">
+    <div class="eyebrow rv">The Predictable Pipeline Map<span class="tm" style="font-size:.6em">™</span></div>
+    <h1 class="big rv d1">Leads shouldn't come<br>from <span class="accent">luck.</span></h1>
+    <p class="sub rv d2">Answer 3 quick questions. Get the exact daily plan that makes next month's clients predictable.</p>
+  </div>
+  <div class="cue">
+    <span>Scroll</span>
+    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+</section>
+
+<!-- 2 · THE PAIN -->
+<section class="tile-white">
+  <div class="inner">
+    <div class="eyebrow rv">The rollercoaster</div>
+    <h2 class="big rv d1">One month you're booked.<br>The next, you're refreshing<br>your DMs — <span class="accent">praying.</span></h2>
+    <p class="sub rv d2">Feast or famine isn't a you problem. It's a system problem.</p>
+  </div>
+</section>
+
+<!-- 3 · THE REFRAME -->
+<section class="tile-black">
+  <div class="inner">
+    <div class="eyebrow rv">The fix</div>
+    <h2 class="big rv d1">You don't need more hustle.<br>You need <span class="accent">one room</span><br>and 15 minutes a day.</h2>
+    <p class="sub rv d2">No ads. No funnels. No new app to learn. Just reps in the right place.</p>
+  </div>
+</section>
+
+<!-- 4 · THE FORM -->
+<section class="tile-white" id="formSec">
+  <div class="inner">
+    <div class="eyebrow rv">Build yours</div>
+    <h2 class="big rv d1" style="font-size:clamp(30px,5.2vw,52px)">Let's map your<br>next 30 days.</h2>
+    <div class="form rv d2">
+      <div class="field">
+        <label>Who's your ideal client? <span>(be specific)</span></label>
+        <input type="text" id="who" placeholder="e.g. burnt-out female founders" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Where do you already post the most?</label>
+        <div class="seg" id="platform">
+          <button data-p="LinkedIn">LinkedIn</button>
+          <button data-p="Instagram">Instagram</button>
+          <button data-p="Facebook">Facebook</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>How many new clients do you want a month?</label>
+        <input type="number" id="goal" placeholder="e.g. 4" min="1" max="100" autocomplete="off" onwheel="this.blur()">
+      </div>
+      <button class="go" id="go">Build my pipeline map →</button>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · RESULT — ONE PLACE -->
+<section class="tile-black rslide" id="r1" style="display:none">
+  <div class="inner">
+    <div class="eyebrow rv">01 — Your one place</div>
+    <p class="place rv d1" id="placeOut"></p>
+  </div>
+</section>
+
+<!-- 6 · RESULT — DAILY 15 -->
+<section class="tile-white rslide" id="r2" style="display:none">
+  <div class="inner">
+    <div class="eyebrow rv">02 — Your daily 15 minutes</div>
+    <h2 class="big rv d1" style="font-size:clamp(28px,4.6vw,46px);margin-bottom:36px">Same simple reps.<br>Every day.</h2>
+    <ul class="acts rv d2" id="actionsOut"></ul>
+  </div>
+</section>
+
+<!-- 7 · RESULT — THE MATH -->
+<section class="tile-black rslide" id="r3" style="display:none">
+  <div class="inner">
+    <div class="eyebrow rv">03 — The math</div>
+    <div class="num rv d1" id="numOut">0</div>
+    <div class="unit rv d1">real conversations a day</div>
+    <p class="expl rv d2" id="mathExpl"></p>
+  </div>
+</section>
+
+<!-- 8 · CTA -->
+<section class="tile-white rslide" id="cta" style="display:none">
+  <div class="inner">
+    <div class="eyebrow rv">When you're ready</div>
+    <h2 class="big rv d1" style="font-size:clamp(30px,5vw,54px)">Want this built <span class="accent">for</span> you<br>instead of by you?</h2>
+    <p class="sub rv d2">We install the whole pipeline so your calendar fills without you living in the DMs. 60-min call, no pitch — just the plan.</p>
+    <a class="book rv d3" href="https://cal.com/evolv.one/introductory-call-60" target="_blank" rel="noopener">Book your free call →</a>
+  </div>
+</section>
+
+<footer>Built by <b>Evolv AI</b> — AI systems for coaches</footer>
+
+<!-- nav controls -->
+<div class="dots" id="dots" data-on="dark"></div>
+<div class="arrows" id="arrows" data-on="dark">
+  <button id="upBtn" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 15l-6-6-6 6"/></svg></button>
+  <button id="downBtn" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+</div>
+
+<script>
+/* ===== platform + tool logic ===== */
+var platform='LinkedIn';
+document.querySelectorAll('#platform button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('#platform button').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on'); platform=b.dataset.p;
+  });
+});
+document.querySelector('#platform button').classList.add('on');
+
+var DATA={
+  LinkedIn:{
+    place:function(who){return 'The comment sections of <em>5 creators</em> that '+who+' already follow on LinkedIn. Not the whole platform — just those 5 rooms.';},
+    actions:['Leave a genuinely useful comment on 5 of their posts','Send 3 new connection notes — no pitch, just a real reason','Reply to everyone who engaged with you yesterday']
+  },
+  Instagram:{
+    place:function(who){return 'The comments and DMs under <em>5 accounts</em> that '+who+' already follow on Instagram. Live where they already scroll.';},
+    actions:['Reply to 5 stories or posts with something real (not an emoji)','Start 3 new DM conversations — lead with a question, never a pitch','Voice-note anyone who replied to you yesterday']
+  },
+  Facebook:{
+    place:function(who){return 'The <em>3–5 Facebook groups</em> where '+who+' actually hang out. Those groups are your whole map.';},
+    actions:['Answer 5 questions in those groups with real help (no link-drops)','DM 3 people who posted a problem you can solve','Follow up with yesterday\'s conversations']
+  }
+};
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+var generated=false;
+document.getElementById('go').addEventListener('click',function(){
+  var whoRaw=document.getElementById('who').value.trim();
+  var goal=parseInt(document.getElementById('goal').value,10);
+  var who=whoRaw?esc(whoRaw.toLowerCase()):'your ideal clients';
+  if(!goal||goal<1){goal=4;} if(goal>100)goal=100;
+
+  var monthly=goal*15, daily=Math.max(1,Math.ceil(monthly/22));
+  var d=DATA[platform];
+
+  document.getElementById('placeOut').innerHTML=d.place(who);
+  var ul=document.getElementById('actionsOut'); ul.innerHTML='';
+  d.actions.forEach(function(a){
+    var li=document.createElement('li');
+    li.innerHTML='<span class="ck">✓</span><span>'+a+'</span>';
+    ul.appendChild(li);
+  });
+  document.getElementById('mathExpl').innerHTML='To sign <b>'+goal+' client'+(goal>1?'s':'')+' a month</b> you need about <b>'+monthly+' real conversations</b>. Spread over the month, that\'s the number above. Not viral. Not luck. Just reps.';
+
+  // reveal result sections
+  document.querySelectorAll('.rslide').forEach(function(s){s.style.display='flex';});
+  generated=true;
+  buildDots();
+  observeAll();
+
+  // count-up
+  var target=daily,cur=0,el=document.getElementById('numOut');el.textContent='0';
+  setTimeout(function(){
+    var stepv=Math.max(1,Math.round(target/24));
+    var t=setInterval(function(){cur+=stepv;if(cur>=target){cur=target;clearInterval(t);}el.textContent=cur;},30);
+  },500);
+
+  setTimeout(function(){go(idxOf(document.getElementById('r1')));},120);
+});
+
+/* ===== reveal on scroll (add-only: once revealed, stays revealed) ===== */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.2});
+function observeAll(){document.querySelectorAll('.rv:not(.in)').forEach(function(el){io.observe(el);});}
+/* hero must be visible instantly, regardless of observer/tab-visibility timing */
+function revealInView(){var vh=window.innerHeight;document.querySelectorAll('.rv:not(.in)').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<vh*0.9&&r.bottom>0){el.classList.add('in');io.unobserve(el);}});}
+observeAll();revealInView();addEventListener('load',revealInView);
+
+/* ===== section navigation ===== */
+function slides(){return [].slice.call(document.querySelectorAll('section')).filter(function(s){return s.offsetParent!==null;});}
+function idxOf(sec){return slides().indexOf(sec);}
+function curIdx(){var y=scrollY+window.innerHeight*0.5;var S=slides(),b=0,bd=Infinity;
+  S.forEach(function(s,i){var mid=s.offsetTop+s.offsetHeight/2;var d=Math.abs(mid-y);if(d<bd){bd=d;b=i;}});return b;}
+var _raf;
+function go(i){
+  var S=slides();i=Math.max(0,Math.min(S.length-1,i));
+  var start=window.pageYOffset,end=S[i].offsetTop,dist=end-start;
+  if(Math.abs(dist)<2)return;
+  if(_raf)cancelAnimationFrame(_raf);
+  var dur=Math.min(650,Math.max(340,Math.abs(dist)*0.55)),t0=null;
+  function step(ts){
+    if(t0===null)t0=ts;
+    var p=Math.min(1,(ts-t0)/dur);
+    var e=p<0.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2; /* easeInOutCubic */
+    window.scrollTo(0,Math.round(start+dist*e));
+    if(p<1){_raf=requestAnimationFrame(step);}else{_raf=null;syncUI();}
+  }
+  _raf=requestAnimationFrame(step);
+}
+
+var arrows=document.getElementById('arrows'),dots=document.getElementById('dots');
+var upBtn=document.getElementById('upBtn'),downBtn=document.getElementById('downBtn');
+upBtn.addEventListener('click',function(){go(curIdx()-1);});
+downBtn.addEventListener('click',function(){go(curIdx()+1);});
+
+function buildDots(){
+  var S=slides();dots.innerHTML='';
+  S.forEach(function(s,i){var b=document.createElement('button');b.addEventListener('click',function(){go(i);});dots.appendChild(b);});
+}
+function syncUI(){
+  var S=slides(),i=curIdx();
+  var theme=S[i].classList.contains('tile-black')?'dark':'light';
+  arrows.dataset.on=theme;dots.dataset.on=theme;
+  upBtn.disabled=(i===0);downBtn.disabled=(i===S.length-1);
+  var db=dots.children;for(var k=0;k<db.length;k++){db[k].classList.toggle('on',k===i);}
+}
+buildDots();syncUI();
+addEventListener('scroll',function(){revealInView();syncUI();},{passive:true});
+addEventListener('resize',syncUI);
+
+/* keyboard arrows */
+addEventListener('keydown',function(e){
+  if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;
+  var t=(e.target.tagName||'').toUpperCase();if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;
+  e.preventDefault();go(curIdx()+(e.key==='ArrowDown'?1:-1));
+});
+</script>
+</body>
+</html>
