@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Hook Finder™ — Evolv AI</title>
+<style>
+  :root{
+    --green:#009A71; --green-br:#1FB488;
+    --ink:#1d1d1f; --ink-sec:#6e6e73;
+    --on-dark:#f5f5f7; --on-dark-sec:#a1a1a6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:auto;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Arial,sans-serif;
+    overflow-x:hidden; background:#000;
+  }
+  .deck{width:100%;}
+  section{
+    min-height:100vh; min-height:100svh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:clamp(28px,7vw,80px);
+    padding-bottom:calc(clamp(28px,7vw,80px) + env(safe-area-inset-bottom));
+    position:relative;
+  }
+  .black{background:#000; color:var(--on-dark);}
+  .white{background:#fff; color:var(--ink);}
+  .eyebrow{
+    font-size:clamp(11px,2.6vw,13px); font-weight:700; letter-spacing:.22em;
+    text-transform:uppercase; margin-bottom:22px;
+  }
+  .black .eyebrow{color:var(--green-br);}
+  .white .eyebrow{color:var(--green);}
+  h1{
+    font-size:clamp(38px,10vw,86px); font-weight:600; line-height:1.02;
+    letter-spacing:-.03em;
+  }
+  h2{
+    font-size:clamp(30px,7.4vw,62px); font-weight:600; line-height:1.06;
+    letter-spacing:-.025em;
+  }
+  .sub{
+    font-size:clamp(17px,4vw,24px); font-weight:400; line-height:1.4;
+    margin-top:24px; max-width:22ch;
+  }
+  .black .sub{color:var(--on-dark-sec);}
+  .white .sub{color:var(--ink-sec);}
+  .tm{font-size:.5em; vertical-align:super; font-weight:600;}
+  .grn{color:var(--green);}
+  .black .grn{color:var(--green-br);}
+
+  /* form */
+  .field{margin-top:34px; max-width:520px; width:100%;}
+  label{display:block; font-size:15px; font-weight:600; margin-bottom:12px; color:var(--ink-sec);}
+  input[type=text]{
+    width:100%; font-size:17px; font-family:inherit; color:var(--ink);
+    padding:18px 20px; border:2px solid #e3e3e6; border-radius:16px;
+    background:#fafafa; outline:none; transition:border-color .2s,background .2s;
+  }
+  input[type=text]:focus{border-color:var(--green); background:#fff;}
+  input[type=text]::placeholder{color:#b0b0b5;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; margin-top:26px;
+    font-size:18px; font-weight:600; font-family:inherit; cursor:pointer;
+    padding:18px 34px; border:none; border-radius:100px;
+    background:var(--green); color:#fff; transition:transform .18s ease,background .2s;
+  }
+  .btn:hover{background:#00845f;}
+  .btn:active{transform:scale(.97);}
+  .hint{margin-top:16px; font-size:14px; color:var(--ink-sec);}
+
+  /* results */
+  .hooks{margin-top:14px; display:flex; flex-direction:column; gap:16px; max-width:640px; width:100%;}
+  .hook{
+    padding:18px 20px; border-radius:16px; cursor:pointer;
+    transition:transform .18s ease, box-shadow .2s, background .2s;
+    position:relative;
+  }
+  .black .hook{background:#141414; border:1px solid #262626;}
+  .white .hook{background:#f5f5f7; border:1px solid #e8e8ec;}
+  .hook:active{transform:scale(.985);}
+  .hook .cat{
+    font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+    display:block; margin-bottom:8px;
+  }
+  .black .hook .cat{color:var(--green-br);}
+  .white .hook .cat{color:var(--green);}
+  .hook .txt{font-size:clamp(17px,4.2vw,21px); font-weight:500; line-height:1.3;}
+  .hook .copy{
+    position:absolute; top:16px; right:18px; font-size:12px; font-weight:600;
+    opacity:.5; transition:opacity .2s;
+  }
+  .hook.copied .copy{opacity:1; color:var(--green);}
+  .black .hook.copied .copy{color:var(--green-br);}
+
+  .bignum{font-size:clamp(120px,40vw,300px); font-weight:700; line-height:.9; letter-spacing:-.05em;}
+
+  /* CTA */
+  .cta-btn{
+    display:inline-flex; align-items:center; gap:10px; margin-top:30px;
+    font-size:19px; font-weight:600; text-decoration:none;
+    padding:20px 40px; border-radius:100px;
+    background:var(--green); color:#fff; transition:transform .18s ease,background .2s;
+  }
+  .cta-btn:hover{background:#00845f;}
+  .cta-btn:active{transform:scale(.97);}
+  .footer{margin-top:auto; padding-top:40px; font-size:13px; color:var(--ink-sec);}
+
+  /* reveal */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1; transform:none;}
+
+  /* hidden result sections until generate */
+  .locked{display:none;}
+
+  /* nav arrows */
+  .nav{position:fixed; right:20px; bottom:calc(20px + env(safe-area-inset-bottom)); z-index:50; display:flex; flex-direction:column; gap:10px;}
+  .nav button{
+    width:46px; height:46px; border-radius:50%; border:none; cursor:pointer;
+    background:rgba(0,154,113,.92); color:#fff; font-size:20px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 18px rgba(0,0,0,.25); transition:transform .15s, opacity .2s;
+  }
+  .nav button:active{transform:scale(.9);}
+  .nav button:disabled{opacity:.25; cursor:default;}
+
+  /* dots */
+  .dots{position:fixed; left:20px; top:50%; transform:translateY(-50%); z-index:50; display:flex; flex-direction:column; gap:11px;}
+  .dots span{width:9px; height:9px; border-radius:50%; background:rgba(140,140,140,.4); transition:background .3s, transform .3s; cursor:pointer;}
+  .dots span.on{background:var(--green); transform:scale(1.35);}
+
+  @media(hover:none){
+    .btn:active,.cta-btn:active,.hook:active,.nav button:active{transform:none;}
+  }
+  @media(max-width:640px){
+    .dots{display:none;}
+    .sub{max-width:100%;}
+  }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1 HERO -->
+  <section class="black" data-tile>
+    <div class="eyebrow reveal">Evolv AI · free tool</div>
+    <h1 class="reveal">The Hook<br>Finder<span class="tm">™</span></h1>
+    <p class="sub reveal">Stop the scroll in one line. Type your topic, get 10 hooks that make people read.</p>
+  </section>
+
+  <!-- 2 PAIN -->
+  <section class="white" data-tile>
+    <div class="eyebrow reveal">The problem</div>
+    <h2 class="reveal">You post.<br>Nobody stops.<br>It <span class="grn">disappears.</span></h2>
+    <p class="sub reveal">Your content isn't bad. Your first line just isn't pulling them in.</p>
+  </section>
+
+  <!-- 3 REFRAME -->
+  <section class="black" data-tile>
+    <div class="eyebrow reveal">The truth</div>
+    <h2 class="reveal">Great hooks aren't clever.<br>They trigger <span class="grn">5 patterns.</span></h2>
+    <p class="sub reveal">Curiosity. Contrarian. Authority. Urgency. Identity. Miss the pattern, lose the reader.</p>
+  </section>
+
+  <!-- 4 FORM -->
+  <section class="white" data-tile>
+    <div class="eyebrow reveal">Your turn</div>
+    <h2 class="reveal">What's your next<br>post about?</h2>
+    <div class="field reveal">
+      <label for="topic">Your topic — keep it short</label>
+      <input type="text" id="topic" placeholder="e.g. getting clients from LinkedIn" autocomplete="off" autocapitalize="off">
+      <button class="btn" id="go">Find my hooks →</button>
+      <p class="hint">Tip: a few words works best — "email marketing", "raising your prices", "content that converts".</p>
+    </div>
+  </section>
+
+  <!-- 5 RESULT A -->
+  <section class="black locked" data-tile data-result>
+    <div class="eyebrow reveal">Your hooks · 1 of 3</div>
+    <h2 class="reveal" style="margin-bottom:8px;">Curiosity &amp; Contrarian</h2>
+    <p class="sub reveal" style="margin-top:12px;margin-bottom:8px;">Tap any hook to copy it.</p>
+    <div class="hooks reveal" id="hooksA"></div>
+  </section>
+
+  <!-- 6 RESULT B -->
+  <section class="white locked" data-tile data-result>
+    <div class="eyebrow reveal">Your hooks · 2 of 3</div>
+    <h2 class="reveal" style="margin-bottom:8px;">Authority &amp; Urgency</h2>
+    <div class="hooks reveal" id="hooksB" style="margin-top:22px;"></div>
+  </section>
+
+  <!-- 7 RESULT C + NUMBER -->
+  <section class="black locked" data-tile data-result>
+    <div class="eyebrow reveal">Your hooks · 3 of 3</div>
+    <h2 class="reveal" style="margin-bottom:8px;">Identity</h2>
+    <div class="hooks reveal" id="hooksC" style="margin-top:22px;"></div>
+    <div class="reveal" style="margin-top:44px;">
+      <div class="bignum grn">10</div>
+      <p class="sub" style="margin-top:8px;">hooks ready. Steal the one that makes you slightly nervous — that's the one that works.</p>
+    </div>
+  </section>
+
+  <!-- 8 CTA -->
+  <section class="white locked" data-tile data-result>
+    <div class="eyebrow reveal">One more thing</div>
+    <h2 class="reveal">Want hooks like this<br>written for you <span class="grn">every day?</span></h2>
+    <p class="sub reveal">We build the AI content system that turns one idea into a week of posts — so you're never invisible again.</p>
+    <a class="cta-btn reveal" href="https://cal.com/evolv.one/introductory-call-60" target="_blank" rel="noopener">Book your free call →</a>
+    <div class="footer">Built by Evolv AI — AI systems for coaches</div>
+  </section>
+
+</div>
+
+<div class="dots" id="dots"></div>
+<div class="nav">
+  <button id="up" aria-label="Previous">▲</button>
+  <button id="down" aria-label="Next">▼</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- Hook engine: 5 triggers, natural templates ----
+  var TRIGGERS = {
+    Curiosity: [
+      "Nobody tells you the truth about {t}.",
+      "The real reason {t} isn't working for you.",
+      "Here's what no one tells you about {t}.",
+      "What most coaches get wrong about {t}.",
+      "The truth about {t} nobody wants to admit."
+    ],
+    Contrarian: [
+      "Unpopular opinion: {t} is overrated.",
+      "Hot take: everything you know about {t} is wrong.",
+      "Most advice about {t} is dead wrong.",
+      "Everyone's wrong about {t}. Here's the truth.",
+      "{t} isn't the answer. Do this instead."
+    ],
+    Authority: [
+      "I spent years failing at {t}. Here's what finally worked.",
+      "Steal my exact approach to {t}.",
+      "I was wrong about {t} — and it cost me.",
+      "After testing everything, this is what actually works for {t}.",
+      "Copy this if {t} keeps letting you down."
+    ],
+    Urgency: [
+      "Warning: you're probably doing {t} wrong.",
+      "Fix {t} now, before it costs you another client.",
+      "Stop scrolling if {t} matters to your business.",
+      "Don't post again until you read this about {t}.",
+      "Last call to fix {t} before everyone else does."
+    ],
+    Identity: [
+      "If you struggle with {t}, this is for you.",
+      "Most coaches are terrible at {t}. Be the exception.",
+      "If you're a coach avoiding {t}, read this.",
+      "This is for the coach who knows {t} is holding them back.",
+      "If {t} keeps you stuck, this post is for you."
+    ]
+  };
+
+  function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+  function pick2(arr){
+    var a=arr.slice(), out=[];
+    for(var i=0;i<2 && a.length;i++){
+      var idx=Math.floor(Math.random()*a.length);
+      out.push(a.splice(idx,1)[0]);
+    }
+    return out;
+  }
+  function fill(tpl,t){
+    var s=tpl.replace(/\{t\}/g,t);
+    return cap(s.replace(/\.\s*\./g,'.'));
+  }
+
+  function hookEl(cat,text){
+    var d=document.createElement('div');
+    d.className='hook';
+    d.innerHTML='<span class="cat">'+cat+'</span><span class="txt">'+text+'</span><span class="copy">Copy</span>';
+    d.addEventListener('click',function(){
+      var tmp=text;
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(tmp).catch(function(){});
+      }else{
+        var ta=document.createElement('textarea'); ta.value=tmp; document.body.appendChild(ta); ta.select();
+        try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta);
+      }
+      d.classList.add('copied');
+      d.querySelector('.copy').textContent='Copied ✓';
+      setTimeout(function(){ d.classList.remove('copied'); d.querySelector('.copy').textContent='Copy'; },1400);
+    });
+    return d;
+  }
+
+  function render(topic){
+    var groups={
+      A:[['Curiosity',pick2(TRIGGERS.Curiosity)],['Contrarian',pick2(TRIGGERS.Contrarian)]],
+      B:[['Authority',pick2(TRIGGERS.Authority)],['Urgency',pick2(TRIGGERS.Urgency)]],
+      C:[['Identity',pick2(TRIGGERS.Identity)]]
+    };
+    ['A','B','C'].forEach(function(key){
+      var box=document.getElementById('hooks'+key); box.innerHTML='';
+      groups[key].forEach(function(g){
+        g[1].forEach(function(tpl){ box.appendChild(hookEl(g[0],fill(tpl,topic))); });
+      });
+    });
+  }
+
+  // ---- Generate ----
+  var tiles=[], resultsUnlocked=false;
+  function refreshTiles(){ tiles=Array.prototype.slice.call(document.querySelectorAll('[data-tile]')).filter(function(s){return s.offsetParent!==null||!s.classList.contains('locked');}); }
+
+  document.getElementById('go').addEventListener('click',function(){
+    var raw=document.getElementById('topic').value.trim();
+    if(!raw){ document.getElementById('topic').focus(); return; }
+    var topic=raw.replace(/[.!?]+$/,'');
+    render(topic);
+    document.querySelectorAll('[data-result]').forEach(function(s){ s.classList.remove('locked'); });
+    resultsUnlocked=true;
+    refreshTiles(); buildDots();
+    var first=document.querySelector('[data-result]');
+    setTimeout(function(){ scrollToTile(indexOf(first)); },80);
+  });
+
+  // ---- Smooth scroll deck ----
+  function allTiles(){ return Array.prototype.slice.call(document.querySelectorAll('[data-tile]')).filter(function(s){return !s.classList.contains('locked');}); }
+  function indexOf(el){ return allTiles().indexOf(el); }
+  var current=0, scrolling=false;
+  function easeInOutCubic(t){ return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; }
+  function scrollToTile(i){
+    var list=allTiles();
+    i=Math.max(0,Math.min(list.length-1,i));
+    var target=list[i].offsetTop, start=window.pageYOffset, dist=target-start, dur=620, t0=null;
+    scrolling=true; current=i;
+    function step(ts){
+      if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/dur);
+      window.scrollTo(0,start+dist*easeInOutCubic(p));
+      if(p<1)requestAnimationFrame(step); else {scrolling=false; syncNav();}
+    }
+    requestAnimationFrame(step); updateDots(i); syncNav();
+  }
+  function syncNav(){
+    var list=allTiles();
+    document.getElementById('up').disabled=(current<=0);
+    document.getElementById('down').disabled=(current>=list.length-1);
+  }
+  document.getElementById('up').addEventListener('click',function(){ scrollToTile(current-1); });
+  document.getElementById('down').addEventListener('click',function(){ scrollToTile(current+1); });
+  window.addEventListener('keydown',function(e){
+    if(e.key==='ArrowDown'){e.preventDefault();scrollToTile(current+1);}
+    if(e.key==='ArrowUp'){e.preventDefault();scrollToTile(current-1);}
+  });
+
+  // ---- Dots ----
+  function buildDots(){
+    var d=document.getElementById('dots'); d.innerHTML='';
+    allTiles().forEach(function(_,i){
+      var s=document.createElement('span');
+      s.addEventListener('click',function(){ scrollToTile(i); });
+      d.appendChild(s);
+    });
+    updateDots(current);
+  }
+  function updateDots(i){
+    var kids=document.getElementById('dots').children;
+    for(var k=0;k<kids.length;k++){ kids[k].classList.toggle('on',k===i); }
+  }
+
+  // ---- Track current on manual scroll ----
+  var ticking=false;
+  window.addEventListener('scroll',function(){
+    if(scrolling||ticking)return; ticking=true;
+    requestAnimationFrame(function(){
+      var list=allTiles(), mid=window.pageYOffset+window.innerHeight/2, idx=0;
+      for(var i=0;i<list.length;i++){ if(list[i].offsetTop<=mid)idx=i; }
+      if(idx!==current){ current=idx; updateDots(idx); syncNav(); }
+      ticking=false;
+    });
+  },{passive:true});
+
+  // ---- Reveal on scroll ----
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting)e.target.classList.add('in'); });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  // re-observe results after unlock
+  var mo=new MutationObserver(function(){
+    document.querySelectorAll('[data-result] .reveal').forEach(function(el){ io.observe(el); });
+  });
+  mo.observe(document.getElementById('deck'),{attributes:true,subtree:true,attributeFilter:['class']});
+
+  // enter key on input
+  document.getElementById('topic').addEventListener('keydown',function(e){
+    if(e.key==='Enter'){ e.preventDefault(); document.getElementById('go').click(); }
+  });
+
+  buildDots(); syncNav();
+})();
+</script>
+</body>
+</html>
