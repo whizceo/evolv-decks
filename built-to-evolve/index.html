@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Built to Evolve — The Podcast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --serif: 'Instrument Serif', serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button, input { font-family: inherit; }
+a { text-decoration: none; color: inherit; }
+
+/* ---------- LIQUID GLASS ---------- */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+  opacity: 0;
+}
+
+/* Navbar */
+.nav-wrap { position: relative; z-index: 20; padding: 1.5rem; }
+.nav {
+  border-radius: 9999px;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-left { display: flex; align-items: center; }
+.nav-brand { display: flex; align-items: center; gap: 0.6rem; color: #fff; font-weight: 600; font-size: 1.125rem; }
+.nav-links { display: none; align-items: center; gap: 2rem; margin-left: 2rem; }
+.nav-links a { color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: #fff; }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.nav-text-btn { background: none; border: none; color: #fff; font-size: 0.875rem; font-weight: 500; cursor: pointer; }
+.nav-pill-btn {
+  border-radius: 9999px;
+  padding: 0.5rem 1.5rem;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Hero content */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  transform: translateY(-20%);
+}
+.hero-h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+  font-size: clamp(3.2rem, 13vw, 4.5rem);
+  line-height: 1;
+  margin-bottom: 2.5rem;
+}
+.hero-h1 em { font-style: italic; }
+
+.email-form {
+  max-width: 36rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+.email-pill {
+  border-radius: 9999px;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.email-pill input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
+  min-width: 0;
+}
+.email-pill input::placeholder { color: rgba(255,255,255,0.4); }
+.email-submit {
+  background: #fff;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.email-submit:hover { transform: scale(1.05); }
+.email-submit:active { transform: scale(0.95); }
+
+.hero-sub {
+  color: #fff;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+  max-width: 34rem;
+}
+.hero-cta {
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-block;
+}
+.hero-cta:hover { background-color: rgba(255,255,255,0.05); }
+
+.hero-socials {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding-bottom: 3rem;
+}
+.social-btn {
+  border-radius: 9999px;
+  padding: 1rem;
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.social-btn:hover { color: #fff; background-color: rgba(255,255,255,0.05); }
+
+/* ---------- ABOUT ---------- */
+.about {
+  background: #000;
+  padding: 8rem 1.5rem 2.5rem;
+  overflow: hidden;
+  position: relative;
+}
+.about-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top, rgba(255,255,255,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+.about-inner { max-width: 72rem; margin: 0 auto; position: relative; }
+.section-label {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+.about-h2 {
+  font-weight: 400;
+  font-size: 2.25rem;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+.about-h2 em, .serif-dim {
+  font-family: var(--serif);
+  font-style: italic;
+  color: rgba(255,255,255,0.6);
+}
+.about-br { display: none; }
+
+/* ---------- FEATURED VIDEO ---------- */
+.featured {
+  background: #000;
+  padding: 1.5rem 1.5rem 5rem;
+  overflow: hidden;
+}
+.featured-inner { max-width: 72rem; margin: 0 auto; }
+.featured-frame {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  position: relative;
+}
+.featured-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.featured-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent 50%, transparent);
+  pointer-events: none;
+}
+.featured-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+.featured-card {
+  border-radius: 1rem;
+  padding: 1.5rem;
+  max-width: 28rem;
+}
+.card-label {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+.featured-card p { color: #fff; font-size: 0.875rem; line-height: 1.625; }
+.explore-btn {
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+.explore-btn:hover { transform: scale(1.05); }
+.explore-btn:active { transform: scale(0.95); }
+
+/* ---------- PHILOSOPHY ---------- */
+.philosophy {
+  background: #000;
+  padding: 7rem 1.5rem;
+  overflow: hidden;
+}
+.philosophy-inner { max-width: 72rem; margin: 0 auto; }
+.philosophy-h2 {
+  font-weight: 400;
+  font-size: 3rem;
+  color: #fff;
+  letter-spacing: -0.025em;
+  margin-bottom: 4rem;
+}
+.philosophy-h2 .x {
+  font-family: var(--serif);
+  font-style: italic;
+  color: rgba(255,255,255,0.4);
+}
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+.philosophy-video {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+.philosophy-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.philosophy-text { display: flex; flex-direction: column; justify-content: center; }
+.phil-label {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 1rem;
+}
+.phil-body { color: rgba(255,255,255,0.7); font-size: 1rem; line-height: 1.625; }
+.phil-divider { width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin: 2.5rem 0; }
+
+/* ---------- SERVICES ---------- */
+.services {
+  background: #000;
+  padding: 7rem 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+.services-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.02) 0%, transparent 60%);
+  pointer-events: none;
+}
+.services-inner { max-width: 72rem; margin: 0 auto; position: relative; }
+.services-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+.services-h2 { font-weight: 400; font-size: 1.875rem; color: #fff; letter-spacing: -0.025em; }
+.services-label { color: rgba(255,255,255,0.4); font-size: 0.875rem; display: none; }
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.service-card {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+.card-video {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  position: relative;
+}
+.card-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s;
+}
+.service-card:hover .card-video video { transform: scale(1.05); }
+.card-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+  pointer-events: none;
+}
+.card-body { padding: 1.5rem; }
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.card-tag {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.card-arrow {
+  border-radius: 9999px;
+  padding: 0.5rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-title { color: #fff; font-size: 1.25rem; font-weight: 400; letter-spacing: -0.025em; margin-bottom: 0.75rem; }
+.card-desc { color: rgba(255,255,255,0.5); font-size: 0.875rem; line-height: 1.625; }
+
+/* ---------- REVEAL ANIMATIONS ---------- */
+.reveal {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.21, 0.47, 0.32, 0.98);
+}
+.r-y20 { transform: translateY(20px); transition-duration: 0.6s; }
+.r-y30 { transform: translateY(30px); transition-duration: 0.7s; }
+.r-y40 { transform: translateY(40px); transition-duration: 0.8s; }
+.r-y50 { transform: translateY(50px); transition-duration: 0.8s; }
+.r-y60 { transform: translateY(60px); transition-duration: 0.9s; }
+.r-xl { transform: translateX(-40px); transition-duration: 0.8s; }
+.r-xr { transform: translateX(40px); transition-duration: 0.8s; }
+.reveal.visible { opacity: 1; transform: translate(0, 0); }
+
+/* ---------- RESPONSIVE (md: 768px, lg: 1024px) ---------- */
+@media (min-width: 768px) {
+  .nav-links { display: flex; }
+  .hero-h1 { font-size: clamp(4.5rem, 11vw, 6rem); }
+  .about { padding: 11rem 1.5rem 3.5rem; }
+  .about-h2 { font-size: 3.75rem; }
+  .about-br { display: block; }
+  .featured { padding: 2.5rem 1.5rem 8rem; }
+  .featured-bottom {
+    padding: 2.5rem;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .featured-card { padding: 2rem; }
+  .featured-card p { font-size: 1rem; }
+  .philosophy { padding: 10rem 1.5rem; }
+  .philosophy-h2 { font-size: 4.5rem; margin-bottom: 6rem; }
+  .philosophy-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .phil-body { font-size: 1.125rem; }
+  .services { padding: 10rem 1.5rem; }
+  .services-h2 { font-size: 3rem; }
+  .services-label { display: block; }
+  .services-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .card-body { padding: 2rem; }
+  .card-title { font-size: 1.5rem; }
+}
+@media (min-width: 1024px) {
+  .hero-h1 { font-size: clamp(6rem, 10vw, 8rem); }
+  .about-h2 { font-size: 4.5rem; }
+  .philosophy-h2 { font-size: 6rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ SECTION 1 — HERO ============ -->
+<section class="hero">
+  <video id="heroVideo" class="hero-video" muted autoplay playsinline preload="auto"
+    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_074625_a81f018a-956b-43fb-9aee-4d1508e30e6a.mp4"></video>
+
+  <!-- Navbar -->
+  <div class="nav-wrap">
+    <nav class="nav liquid-glass">
+      <div class="nav-left">
+        <span class="nav-brand">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          Evolve
+        </span>
+        <div class="nav-links">
+          <a href="#show">The Show</a>
+          <a href="#guests">Guests</a>
+          <a href="#about">About</a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-text-btn" onclick="document.getElementById('email').focus()">Subscribe</button>
+        <a class="nav-pill-btn liquid-glass" href="https://cal.com/evolv.one/introductory-call-60" target="_blank" rel="noopener">Be a Guest</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Hero content -->
+  <div class="hero-content">
+    <h1 class="hero-h1">Built to <em>Evolve</em>.</h1>
+
+    <form class="email-form" id="emailForm">
+      <div class="email-pill liquid-glass">
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <button type="submit" class="email-submit" aria-label="Subscribe">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </form>
+
+    <p class="hero-sub">The podcast for coaches who refuse to plateau. Real conversations on growth, systems, and AI — one coach at a time. Subscribe and never miss an episode.</p>
+
+    <a class="hero-cta liquid-glass" href="https://cal.com/evolv.one/introductory-call-60" target="_blank" rel="noopener">Be a Guest</a>
+  </div>
+
+  <!-- Socials -->
+  <div class="hero-socials">
+    <button class="social-btn liquid-glass" aria-label="Instagram">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+    </button>
+    <button class="social-btn liquid-glass" aria-label="Twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+    </button>
+    <button class="social-btn liquid-glass" aria-label="Website">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 — ABOUT ============ -->
+<section class="about" id="about">
+  <div class="about-glow"></div>
+  <div class="about-inner">
+    <span class="section-label reveal r-y20">About The Show</span>
+    <h2 class="about-h2 reveal r-y40" style="transition-delay: 0.1s;">
+      Honest <em>conversations</em> for
+      <br class="about-br">
+      coaches who <em>build, grow, and evolve.</em>
+    </h2>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 — FEATURED VIDEO ============ -->
+<section class="featured" id="show">
+  <div class="featured-inner">
+    <div class="featured-frame reveal r-y60">
+      <video muted autoplay loop playsinline preload="auto"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260402_054547_9875cfc5-155a-4229-8ec8-b7ba7125cbf8.mp4"></video>
+      <div class="featured-overlay"></div>
+      <div class="featured-bottom">
+        <div class="featured-card liquid-glass">
+          <span class="card-label">The Show</span>
+          <p>Every episode features one coach and the real story behind their growth. No fluff, no pitch — just the decisions, systems, and lessons that actually moved the needle.</p>
+        </div>
+        <a class="explore-btn liquid-glass" href="https://cal.com/evolv.one/introductory-call-60" target="_blank" rel="noopener">Explore more</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 — PHILOSOPHY ============ -->
+<section class="philosophy">
+  <div class="philosophy-inner">
+    <h2 class="philosophy-h2 reveal r-y40">Coaching <span class="x">x</span> AI</h2>
+    <div class="philosophy-grid">
+      <div class="philosophy-video reveal r-xl">
+        <video muted autoplay loop playsinline preload="auto"
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260307_083826_e938b29f-a43a-41ec-a153-3d4730578ab8.mp4"></video>
+      </div>
+      <div class="philosophy-text reveal r-xr">
+        <div>
+          <span class="phil-label">One coach at a time</span>
+          <p class="phil-body">Every meaningful breakthrough starts with one honest conversation. We sit down with coaches at every stage and unpack what actually grew their business — the offers, the systems, and the mindset behind the results.</p>
+        </div>
+        <div class="phil-divider"></div>
+        <div>
+          <span class="phil-label">Built in the arena</span>
+          <p class="phil-body">The best lessons come from people still in the game. Our guests share the numbers, the failures, and the playbooks — so every episode leaves you with something you can use tomorrow.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5 — ON THE SHOW ============ -->
+<section class="services" id="guests">
+  <div class="services-glow"></div>
+  <div class="services-inner">
+    <div class="services-header reveal r-y30">
+      <h2 class="services-h2">On the show</h2>
+      <span class="services-label">Every episode</span>
+    </div>
+    <div class="services-grid">
+      <div class="service-card liquid-glass reveal r-y50">
+        <div class="card-video">
+          <video muted autoplay loop playsinline preload="auto"
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4"></video>
+          <div class="card-video-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-tag">Growth</span>
+            <span class="card-arrow liquid-glass">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </span>
+          </div>
+          <h3 class="card-title">Stories &amp; Strategy</h3>
+          <p class="card-desc">How coaches actually get clients today — the offers, the funnels, and the daily habits behind sustainable, compounding growth.</p>
+        </div>
+      </div>
+      <div class="service-card liquid-glass reveal r-y50" style="transition-delay: 0.15s;">
+        <div class="card-video">
+          <video muted autoplay loop playsinline preload="auto"
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260324_151826_c7218672-6e92-402c-9e45-f1e0f454bdc4.mp4"></video>
+          <div class="card-video-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-tag">Systems</span>
+            <span class="card-arrow liquid-glass">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </span>
+          </div>
+          <h3 class="card-title">AI &amp; Leverage</h3>
+          <p class="card-desc">How the smartest coaches use AI and automation to buy back their time and scale — without burning out or hiring an army.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ---------- HERO VIDEO seamless crossfade loop ---------- */
+(function () {
+  var v = document.getElementById('heroVideo');
+  var fading = false;
+
+  function animateOpacity(from, to, duration, done) {
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      v.style.opacity = (from + (to - from) * p).toFixed(3);
+      if (p < 1) requestAnimationFrame(step);
+      else if (done) done();
+    }
+    requestAnimationFrame(step);
+  }
+
+  v.addEventListener('canplay', function onCanPlay() {
+    v.removeEventListener('canplay', onCanPlay);
+    v.play().catch(function () {});
+    animateOpacity(0, 1, 500);
+  });
+
+  v.addEventListener('timeupdate', function () {
+    if (!fading && v.duration && (v.duration - v.currentTime) <= 0.55) {
+      fading = true;
+      animateOpacity(parseFloat(v.style.opacity) || 1, 0, 500);
+    }
+  });
+
+  v.addEventListener('ended', function () {
+    v.style.opacity = '0';
+    setTimeout(function () {
+      v.currentTime = 0;
+      v.play().catch(function () {});
+      fading = false;
+      animateOpacity(0, 1, 500);
+    }, 100);
+  });
+})();
+
+/* ---------- Scroll reveal (framer-motion useInView equivalent) ---------- */
+(function () {
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -100px 0px' });
+  document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+})();
+
+/* ---------- Email form ---------- */
+document.getElementById('emailForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var input = document.getElementById('email');
+  if (!input.value) return;
+  input.value = '';
+  input.placeholder = "You're in. Talk soon.";
+});
+</script>
+</body>
+</html>
