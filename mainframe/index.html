@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mainframe® — We'd love to hear from you</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root { --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif; }
+
+::selection { background: #EAECE9; color: #1C2E1E; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #fff;
+  color: #171717;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button, input { font-family: inherit; }
+a { text-decoration: none; color: inherit; }
+
+/* ---------- keyframes ---------- */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink { animation: blink 1s step-end infinite; }
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.drop-in {
+  opacity: 0;
+  animation: dropIn 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98) forwards;
+}
+
+@keyframes springIn {
+  0%   { transform: scale(0); }
+  55%  { transform: scale(1.25); }
+  80%  { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* ---------- page shell ---------- */
+.page {
+  position: relative;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ---------- background video ---------- */
+.video-wrap {
+  order: 99; /* order-last on mobile */
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #fafafa;
+}
+.video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  display: block;
+}
+
+/* ---------- navbar ---------- */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+}
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+.logo-text {
+  font-size: 21px;
+  letter-spacing: -0.025em;
+  color: #000;
+  font-weight: 500;
+  user-select: none;
+}
+.logo-star {
+  font-size: 25px;
+  color: #000;
+  user-select: none;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+.nav-center {
+  display: none;
+  flex-direction: row;
+  font-size: 23px;
+  color: #000;
+}
+.nav-center a { transition: opacity 0.2s; }
+.nav-center a:hover { opacity: 0.6; }
+.nav-center .comma { opacity: 0.4; white-space: pre; }
+.nav-cta {
+  display: none;
+  font-size: 23px;
+  color: #000;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.6; }
+
+/* hamburger */
+.burger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 2px;
+  z-index: 11;
+}
+.burger span {
+  width: 1.5rem;
+  height: 2px;
+  background: #000;
+  display: block;
+  transition: all 0.3s;
+}
+.burger.open span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
+
+/* mobile overlay */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.mobile-overlay.open { opacity: 1; pointer-events: auto; }
+.mobile-overlay a {
+  font-size: 2rem;
+  color: #000;
+  letter-spacing: -0.025em;
+  transition: opacity 0.2s;
+}
+.mobile-overlay a:hover { opacity: 0.6; }
+.mobile-overlay .m-cta {
+  font-size: 1.25rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-top: 1rem;
+}
+
+/* ---------- content layer ---------- */
+.content {
+  position: relative;
+  z-index: 10; /* wait — z-10 same as header per spec; keep below header stacking by DOM order */
+  display: flex;
+  flex-direction: column;
+  order: -1; /* order-first on mobile */
+  width: 100%;
+  background: #fff;
+  padding-bottom: 2rem;
+}
+.main {
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* headline */
+.h1 {
+  font-size: 3rem;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: #000;
+  line-height: 1.08;
+  margin-bottom: 2rem;
+  user-select: none;
+  width: 100%;
+  white-space: pre-wrap;
+  min-height: 2.16em;
+}
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: #000;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+/* description */
+.desc-wrap { animation-delay: 0.1s; }
+.desc {
+  font-size: 1.125rem;
+  color: #5A635A;
+  line-height: 1.625;
+  font-weight: 400;
+  margin-bottom: 3.5rem;
+  max-width: 42rem;
+}
+
+/* ---------- service pills ---------- */
+.svc-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+.svc-sub {
+  opacity: 0.85;
+  color: #738273;
+  margin-bottom: 2rem;
+}
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fff;
+  color: #1C2E1E;
+  border: 1px solid #F1F3F1;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.pill:hover { background: rgba(241, 243, 241, 0.55); }
+.pill:active { transform: scale(0.97); }
+.pill.active {
+  background: #1C2E1E;
+  color: #fff;
+  border-color: #1C2E1E;
+  box-shadow: 0 4px 6px -1px rgba(6, 44, 22, 0.05), 0 2px 4px -2px rgba(6, 44, 22, 0.05);
+}
+.pill .check {
+  display: none;
+  animation: springIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.pill.active .check { display: inline-flex; }
+
+/* ---------- status banner ---------- */
+.status-zone { min-height: 3.5rem; position: relative; }
+.status-empty {
+  opacity: 0.5;
+  font-style: italic;
+  font-size: 0.75rem;
+  color: #171717;
+  transition: opacity 0.25s;
+}
+.status-empty.hidden { opacity: 0; position: absolute; pointer-events: none; }
+.banner-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+}
+.banner-wrap.open { grid-template-rows: 1fr; }
+.banner-clip { overflow: hidden; }
+.banner {
+  background: #FAFBF9;
+  border: 1px solid #F1F3F1;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s 0.05s, transform 0.3s 0.05s;
+  max-width: 42rem;
+}
+.banner-wrap.open .banner { opacity: 1; transform: translateY(0); }
+.banner-text { font-size: 0.875rem; color: #1C2E1E; }
+.banner-text strong { font-weight: 500; }
+.lets-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  color: #4D6D47;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.lets-go:hover { opacity: 0.7; }
+
+/* ---------- responsive (sm 640 / md 768 / lg 1024) ---------- */
+@media (min-width: 640px) {
+  .header { padding: 1.25rem 2rem; }
+  .logo-text { font-size: 26px; }
+  .logo-star { font-size: 30px; }
+}
+@media (min-width: 768px) {
+  .video-wrap { aspect-ratio: 16 / 9; }
+  .nav-center { display: flex; gap: 0; margin-left: 2rem; }
+  .nav-cta { display: inline; }
+  .burger { display: none; }
+  .mobile-overlay { display: none; }
+  .h1 { font-size: 3.75rem; }
+  .desc { font-size: 1.25rem; }
+}
+@media (min-width: 1024px) {
+  .page { display: block; min-height: 100vh; }
+  .video-wrap {
+    order: 0;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    aspect-ratio: auto;
+    height: 100%;
+    background: transparent;
+  }
+  .video-wrap video { object-position: right bottom; }
+  .content {
+    order: 0;
+    background: transparent;
+    padding-bottom: 0;
+    min-height: 100vh;
+  }
+  .h1 { font-size: 76px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-text">Mainframe&reg;</span>
+      <span class="logo-star">&#10033;</span>
+    </div>
+    <nav class="nav-center">
+      <a href="#">Labs</a><span class="comma">,&nbsp;</span>
+      <a href="#">Studio</a><span class="comma">,&nbsp;</span>
+      <a href="#">Openings</a><span class="comma">,&nbsp;</span>
+      <a href="#">Shop</a>
+    </nav>
+    <a class="nav-cta" href="#">Get in touch</a>
+    <button class="burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile overlay -->
+  <div class="mobile-overlay" id="mobileOverlay">
+    <a href="#">Labs</a>
+    <a href="#">Studio</a>
+    <a href="#">Openings</a>
+    <a href="#">Shop</a>
+    <a href="#" class="m-cta">Get in touch</a>
+  </div>
+
+  <!-- ============ CONTENT LAYER ============ -->
+  <div class="content">
+    <main id="spade-hero" class="main">
+
+      <!-- Headline (typewriter) -->
+      <div class="drop-in">
+        <h1 class="h1" id="headline"></h1>
+      </div>
+
+      <!-- Description -->
+      <div class="drop-in desc-wrap">
+        <p class="desc">Whether you have questions, feedback, <br> drop us a message and we'll get back to you as soon as possible.</p>
+      </div>
+
+      <!-- Service pills -->
+      <div class="drop-in" style="animation-delay: 0.2s;">
+        <h2 class="svc-title">What sort of service?</h2>
+        <p class="svc-sub">Select all that apply</p>
+
+        <div class="pills" id="pills"></div>
+
+        <div class="status-zone">
+          <p class="status-empty" id="statusEmpty">Please click to select services above.</p>
+          <div class="banner-wrap" id="bannerWrap">
+            <div class="banner-clip">
+              <div class="banner">
+                <span class="banner-text">Ready to inquire about: <strong id="bannerList"></strong></span>
+                <button class="lets-go">
+                  Let's Go
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ============ BACKGROUND VIDEO ============ -->
+  <div class="video-wrap">
+    <video id="bgVideo" muted playsinline preload="auto"
+      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260601_110537_3a579fa0-7bbc-4d94-9d25-0e816c7840f5.mp4"></video>
+  </div>
+
+</div>
+
+<script>
+/* ---------- Background video: desktop mouse scrubbing + mobile autoplay ---------- */
+(function () {
+  var video = document.getElementById('bgVideo');
+  var prevX = null;
+  var targetTime = 0;
+  var seeking = false;
+
+  // Mobile autoplay hook (scrubbing disabled < 1024)
+  if (window.innerWidth < 1024) {
+    video.autoplay = true;
+    video.loop = true;
+    video.play().catch(function () {});
+  }
+
+  video.addEventListener('loadedmetadata', function () {
+    targetTime = video.currentTime;
+  });
+
+  // Desktop mouse scrubbing hook
+  window.addEventListener('mousemove', function (e) {
+    if (window.innerWidth < 1024) return; // disable scrubbing below lg
+    if (prevX === null) { prevX = e.clientX; return; }
+    var delta = e.clientX - prevX;
+    prevX = e.clientX;
+    if (!video.duration) return;
+    targetTime += (delta / window.innerWidth) * 0.8 * video.duration;
+    targetTime = Math.max(0, Math.min(video.duration, targetTime)); // clamp
+    if (!seeking) {
+      seeking = true;
+      video.currentTime = targetTime;
+    }
+  });
+
+  // seeked listener → smooth frame-to-frame tracking
+  video.addEventListener('seeked', function () {
+    if (Math.abs(video.currentTime - targetTime) > 0.01) {
+      video.currentTime = targetTime;
+    } else {
+      seeking = false;
+    }
+  });
+})();
+
+/* ---------- Mobile menu ---------- */
+(function () {
+  var burger = document.getElementById('burger');
+  var overlay = document.getElementById('mobileOverlay');
+  burger.addEventListener('click', function () {
+    var open = burger.classList.toggle('open');
+    overlay.classList.toggle('open', open);
+  });
+  overlay.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      burger.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+  });
+})();
+
+/* ---------- useTypewriter(text, speed = 38, startDelay = 600) ---------- */
+(function () {
+  var text = "we'd love to\nhear from you!";
+  var speed = 38;
+  var startDelay = 600;
+  var h1 = document.getElementById('headline');
+  var i = 0;
+
+  function render(displayed, done) {
+    h1.textContent = displayed;
+    if (!done) {
+      var cur = document.createElement('span');
+      cur.className = 'cursor animate-blink';
+      h1.appendChild(cur);
+    }
+  }
+
+  render('', false);
+  setTimeout(function () {
+    var interval = setInterval(function () {
+      i++;
+      var done = i >= text.length;
+      render(text.slice(0, i), done);
+      if (done) clearInterval(interval);
+    }, speed);
+  }, startDelay);
+})();
+
+/* ---------- Multi-select service pills ---------- */
+(function () {
+  var options = ["Brand", "Digital", "Campaign", "Other"];
+  var selected = [];
+  var pillsEl = document.getElementById('pills');
+  var statusEmpty = document.getElementById('statusEmpty');
+  var bannerWrap = document.getElementById('bannerWrap');
+  var bannerList = document.getElementById('bannerList');
+
+  var checkSVG = '<svg class="check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+  options.forEach(function (name) {
+    var btn = document.createElement('button');
+    btn.className = 'pill';
+    btn.innerHTML = checkSVG + '<span>' + name + '</span>';
+    btn.addEventListener('click', function () {
+      var idx = selected.indexOf(name);
+      if (idx === -1) selected.push(name);
+      else selected.splice(idx, 1);
+      btn.classList.toggle('active', idx === -1);
+      updateStatus();
+    });
+    pillsEl.appendChild(btn);
+  });
+
+  function updateStatus() {
+    if (selected.length === 0) {
+      statusEmpty.classList.remove('hidden');
+      bannerWrap.classList.remove('open');
+    } else {
+      statusEmpty.classList.add('hidden');
+      bannerList.textContent = selected.join(', ');
+      bannerWrap.classList.add('open');
+    }
+  }
+})();
+</script>
+</body>
+</html>
