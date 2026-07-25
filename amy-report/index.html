@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Universal Work Design × Evolv AI — LinkedIn Engagement Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#ffffff;
+  --parchment:#f5f5f7;
+  --dark:#1d1d1f;
+  --ink:#1d1d1f;
+  --ink-sec:#6e6e73;
+  --on-dark:#f5f5f7;
+  --sec-on-dark:#a1a1a6;
+  --blue:#0066cc;
+  --blue-msg:#0b93f6;
+  --green:#34c759;
+  --green-ink:#248a3d;
+  --red:#ff3b30;
+  --amber:#ff9f0a;
+  --line:#d2d2d7;
+  --line-dark:rgba(255,255,255,.13);
+  --faint:#86868b;
+  --r:18px;
+  --pill:9999px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ===== mobile gate ===== */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--canvas);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif}
+.mobile-block .mb-emoji{font-size:46px;margin-bottom:22px}
+.mobile-block .mb-title{font-weight:600;font-size:1.7rem;letter-spacing:-.02em;margin-bottom:14px;color:var(--ink)}
+.mobile-block .mb-sub{font-size:1rem;color:var(--ink-sec);max-width:340px;line-height:1.5}
+.mobile-block .g{color:var(--blue)}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+  line-height:1.47;
+  font-size:17px;
+  letter-spacing:-.012em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;
+  font-weight:600;letter-spacing:-.02em;line-height:1.06}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+section{position:relative;min-height:calc(100vh + 2px);display:flex;flex-direction:column;justify-content:center;padding:96px 0;scroll-margin-top:0}
+
+/* full-bleed tiles — the colour change IS the divider */
+.tile-light{background:var(--canvas)}
+.tile-parch{background:var(--parchment)}
+.tile-dark{background:var(--dark);color:var(--on-dark)}
+.tile-dark h1,.tile-dark h2,.tile-dark h3,.tile-dark h4{color:var(--on-dark)}
+
+/* eyebrow (Apple category line) */
+.eyebrow{font-size:19px;font-weight:600;letter-spacing:-.01em;color:var(--blue);margin-bottom:6px}
+.tile-dark .eyebrow{color:#2997ff}
+
+/* ===== nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(180%) blur(20px);
+  background:rgba(255,255,255,.72);border-bottom:1px solid rgba(0,0,0,.08)}
+.navin{display:flex;align-items:center;justify-content:space-between;height:52px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:19px;letter-spacing:-.02em}
+.brand .spark{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--blue);color:#fff;font-size:14px}
+.navtag{font-size:13px;color:var(--ink-sec);font-weight:400}
+
+/* ===== hero ===== */
+.hero{text-align:center}
+.hero h1{font-size:clamp(36px,5.2vw,56px);line-height:1.05;font-weight:600;margin:8px 0 22px}
+.hero h1 .accent{color:var(--blue)}
+.hero h1 .ln{display:block;white-space:nowrap}
+.hero p.sub{font-size:clamp(18px,2.2vw,21px);font-weight:400;color:var(--ink-sec);max-width:740px;margin:0 auto;line-height:1.45;text-wrap:balance}
+.hero .stats{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-top:60px;border-top:1px solid var(--line)}
+.statchip{padding:30px 38px;min-width:190px;border-right:1px solid var(--line)}
+.statchip:last-child{border-right:none}
+.statchip b{font-size:38px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.statchip b.accent{color:var(--blue)}
+.statchip span{font-size:15px;color:var(--ink-sec);font-weight:400}
+
+/* ===== section heads ===== */
+.shead{text-align:center;max-width:900px;margin:0 auto 52px}
+.shead h2{font-size:clamp(30px,4vw,42px);font-weight:600;margin:0 0 16px;line-height:1.12}
+.shead p{color:var(--ink-sec);font-size:20px;font-weight:400;line-height:1.45;text-wrap:balance;max-width:780px;margin:0 auto}
+.tile-dark .shead p{color:var(--sec-on-dark)}
+
+/* ===== report table ===== */
+.tblshell{border-radius:24px;background:var(--canvas);border:1px solid var(--line);overflow:hidden;box-shadow:rgba(0,0,0,.06) 0 18px 40px -20px}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{padding:17px 24px;text-align:left;font-size:16px}
+th{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-sec);border-bottom:1px solid var(--line);font-weight:600;background:var(--parchment)}
+td{border-bottom:1px solid #e8e8ed;color:var(--ink-sec)}
+tr:last-child td{border-bottom:none}
+tr.total td{color:var(--ink);font-weight:600;background:rgba(0,102,204,.05)}
+td b{color:var(--ink);font-weight:600}
+
+/* tag pills */
+.tag{display:inline-block;padding:4px 12px;border-radius:var(--pill);font-size:12px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.tag.green{background:rgba(52,199,89,.12);color:var(--green-ink)}
+.tag.blue{background:rgba(0,102,204,.1);color:var(--blue)}
+.tag.amber{background:rgba(255,159,10,.14);color:#b06e00}
+.tag.red{background:rgba(255,59,48,.1);color:#c0392b}
+
+/* fact trio under the table */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:52px;border-top:1px solid var(--line)}
+.fact{padding:28px 30px;border-right:1px solid var(--line)}
+.fact:last-child{border-right:none}
+.fact h3{font-size:19px;font-weight:600;margin-bottom:8px}
+.fact p{font-size:15.5px;color:var(--ink-sec);line-height:1.5}
+.fact p b{color:var(--ink);font-weight:600}
+
+/* ===== moment cards ===== */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.mcard{border-radius:var(--r);border:1px solid var(--line);background:var(--canvas);padding:30px}
+.mcard .who{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.mcard h3{font-size:20px;font-weight:600}
+.mcard .role{font-size:14px;color:var(--faint);margin-bottom:14px}
+.mcard p{font-size:15.5px;color:var(--ink-sec);line-height:1.5}
+.mcard p b{color:var(--ink);font-weight:600}
+.quote{margin:0 0 14px;padding:13px 18px;border-left:3px solid var(--blue);
+  background:rgba(0,102,204,.045);border-radius:0 12px 12px 0;
+  font-size:15.5px;color:var(--ink);font-style:italic;line-height:1.5}
+
+/* ===== response gap (dark) ===== */
+.gapbig{text-align:center;margin-bottom:14px}
+.gapbig .gnum{font-size:clamp(54px,7vw,84px);font-weight:600;letter-spacing:-.03em;line-height:1;color:#ff6b6b}
+.gapbig .gnum .ok{color:var(--on-dark)}
+.gapbig p{color:var(--sec-on-dark);font-size:18px;max-width:640px;margin:18px auto 0;line-height:1.5;text-wrap:balance}
+.gapbig p b{color:var(--on-dark);font-weight:600}
+.lagcard{border-radius:var(--r);padding:28px;background:#2a2a2c;border:1px solid var(--line-dark)}
+.lagcard .who{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:4px;flex-wrap:wrap}
+.lagcard h4{font-size:19px;font-weight:600}
+.lagcard .role{font-size:14px;color:var(--sec-on-dark);margin-bottom:16px}
+.lagbadge{font-size:12.5px;font-weight:600;white-space:nowrap;padding:5px 13px;border-radius:var(--pill);
+  background:rgba(255,107,107,.14);color:#ff6b6b}
+.tline .stp{display:flex;gap:14px;padding:8px 0;font-size:15px;color:var(--sec-on-dark);align-items:baseline}
+.tline .when{font-size:12.5px;font-weight:600;color:var(--faint);min-width:64px;flex-shrink:0;text-transform:uppercase;letter-spacing:.04em}
+.tline .stp.hot{color:var(--on-dark)}
+.tline .stp.hot .when{color:var(--sec-on-dark)}
+.tline .stp.miss{color:#ff6b6b}
+.tline .stp b{color:inherit;font-weight:600}
+
+/* ===== cost of silence (parch) ===== */
+.costshell{border-radius:24px;background:var(--canvas);border:1px solid var(--line);padding:52px 56px;box-shadow:rgba(0,0,0,.06) 0 18px 40px -20px}
+.costshell p{color:var(--ink-sec);font-size:17px;line-height:1.55;max-width:820px}
+.costshell p b{color:var(--ink);font-weight:600}
+.costshell ul{list-style:none;margin:26px 0 22px}
+.costshell li{padding:13px 0 13px 32px;position:relative;color:var(--ink-sec);border-bottom:1px solid #e8e8ed;font-size:16.5px;line-height:1.5}
+.costshell li:last-child{border-bottom:none}
+.costshell li::before{content:'';position:absolute;left:4px;top:23px;width:8px;height:8px;border-radius:50%;background:var(--red)}
+.costshell li b{color:var(--ink);font-weight:600}
+.credit{border-radius:var(--r);background:rgba(52,199,89,.08);padding:32px 38px;margin-top:22px}
+.credit h3{font-size:21px;margin-bottom:10px;color:var(--green-ink)}
+.credit p{color:var(--ink-sec);font-size:16px;line-height:1.55}
+.credit p b{color:var(--ink);font-weight:600}
+
+/* ===== playbook ===== */
+.pcard{border-radius:var(--r);border:1px solid var(--line);background:var(--canvas);padding:28px;display:flex;flex-direction:column}
+.pcard .who{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:2px}
+.pcard h4{font-size:19px;font-weight:600}
+.pcard .role{font-size:14px;color:var(--faint);margin-bottom:12px}
+.pcard .why{font-size:15px;color:var(--ink-sec);margin-bottom:18px;line-height:1.5}
+.pcard .why b{color:var(--ink);font-weight:600}
+
+/* ===== closing (dark) ===== */
+.cta{text-align:center;max-width:920px;margin:0 auto}
+.cta h2{font-size:clamp(30px,4.2vw,46px);font-weight:600;margin:8px 0 18px;line-height:1.1}
+.cta h2 .accent{color:#2997ff}
+.cta p{color:var(--sec-on-dark);font-size:19px;max-width:680px;margin:0 auto;line-height:1.5;text-wrap:balance}
+.cta p b{color:var(--on-dark);font-weight:600}
+.cta .stats{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-top:56px;border-top:1px solid var(--line-dark)}
+.cta .statchip{border-right:1px solid var(--line-dark)}
+.cta .statchip:last-child{border-right:none}
+.cta .statchip b{color:var(--on-dark)}
+.cta .statchip b.accent{color:#2997ff}
+.cta .statchip span{color:var(--sec-on-dark)}
+
+footer{text-align:center;padding:54px 0;color:var(--ink-sec);font-size:14px;border-top:1px solid var(--line);background:var(--canvas)}
+footer b{color:var(--ink);font-weight:600}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title">Open on desktop</div>
+  <div class="mb-sub">This report is built for a full screen. Open <span class="g">this link on your computer</span> to see everything properly.</div>
+</div>
+
+<nav>
+  <div class="wrap navin">
+    <div class="brand"><span class="spark">✦</span>Evolv AI</div>
+    <div class="navtag">Universal Work Design · Engagement Report · July 2026</div>
+  </div>
+</nav>
+
+<!-- ============ HERO (light) ============ -->
+<section class="tile-light hero">
+  <div class="wrap">
+    <div class="eyebrow reveal in">End-of-Engagement Report</div>
+    <h1 class="reveal in"><span class="ln">The system filled your pipeline.</span><span class="ln accent">The follow-up is where it leaked.</span></h1>
+    <p class="sub reveal in">Four campaigns ran under your LinkedIn profile from March to July 2026. Here is everything they produced, conversation by conversation — and an honest look at where opportunities were created, and where they quietly expired.</p>
+    <div class="stats reveal in">
+      <div class="statchip"><b>3,536</b><span>Profiles targeted</span></div>
+      <div class="statchip"><b>383</b><span>New connections</span></div>
+      <div class="statchip"><b>61</b><span>Real conversations</span></div>
+      <div class="statchip"><b class="accent">70%+</b><span>Replied positively</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 1 — THE MACHINE (parch) ============ -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">Part 1 — The Machine</div>
+      <h2>Four campaigns.<br>Every number, transparent.</h2>
+      <p>Each batch targeted a segment of your ICP — educators, founders, women business owners, legal providers. Batches 3 and 4 were launched mid-July and were still ramping up when the engagement ended.</p>
+    </div>
+    <div class="tblshell reveal">
+      <table>
+        <thead><tr><th>Campaign</th><th>Targets</th><th>Executed</th><th>Connections</th><th>Conversations</th></tr></thead>
+        <tbody>
+          <tr><td><b>Batch 1</b> · Educators &amp; Coaches</td><td>461</td><td>100%</td><td><b>158</b> (34.7%)</td><td><b>31</b></td></tr>
+          <tr><td><b>Batch 2</b> · Expanded ICP</td><td>1,278</td><td>100%</td><td><b>183</b> (14.4%)</td><td><b>25</b></td></tr>
+          <tr><td><b>Batch 3</b> · Founders &amp; Leaders</td><td>858</td><td>32% <span class="tag amber">still loading</span></td><td><b>29</b> (16.2%)</td><td><b>4</b></td></tr>
+          <tr><td><b>Batch 4</b> · Law Firm Leaders</td><td>939</td><td>15% <span class="tag amber">still loading</span></td><td><b>13</b> (14.4%)</td><td><b>1</b></td></tr>
+          <tr class="total"><td>Total</td><td>3,536</td><td>—</td><td>383</td><td>61</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="facts reveal">
+      <div class="fact">
+        <h3>Quality, not spam</h3>
+        <p>1,059 duplicate prospects were auto-skipped across batches. Of 61 conversations, roughly <b>43 were positive or curious</b> — only a handful asked to stop.</p>
+      </div>
+      <div class="fact">
+        <h3>Senior people engaged</h3>
+        <p>CEOs, founders, Harvard &amp; Duke faculty, senior counsel, fractional GCs. These weren't bots replying — they were <b>your exact ICP, in real dialogue</b>.</p>
+      </div>
+      <div class="fact">
+        <h3>Pipeline still loading</h3>
+        <p><b>~1,372 profiles in Batches 3–4 were never reached</b> — the engagement ended while two campaigns were mid-ramp. That volume never got its chance to convert.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 2 — THE MOMENTS (light) ============ -->
+<section class="tile-light">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">Part 2 — The Moments</div>
+      <h2>Five people raised their hand to talk.</h2>
+      <p>Out of 61 conversations, five reached explicit call-level intent. One became a completed call. This is what the system was built to produce.</p>
+    </div>
+    <div class="grid2">
+      <div class="mcard reveal">
+        <div class="who"><h3>Kimberly Figueroa</h3><span class="tag green">CALL HELD ✓</span></div>
+        <div class="role">Founder · The Kimberly Figueroa</div>
+        <div class="quote">"I'm enjoying this conversation so much! Let me know if a Zoom call would be of interest."</div>
+        <p>She proposed the call herself, booked it, and it <b>happened on July 8</b>. A follow-up call was being scheduled for late August when the engagement ended. Proof the full loop works.</p>
+      </div>
+      <div class="mcard reveal">
+        <div class="who"><h3>Bryan McAllister-Grande</h3><span class="tag blue">ASKED TO BOOK</span></div>
+        <div class="role">Consultant · Ivy Global Scholars (Harvard)</div>
+        <div class="quote">"Sure — do you have a booking link?"</div>
+        <p>The hottest possible signal on LinkedIn: he asked for your calendar on May 21. The link reached him <b>seven days later</b>. No call resulted.</p>
+      </div>
+      <div class="mcard reveal">
+        <div class="who"><h3>Rajesh Nair</h3><span class="tag blue">MEETING REQUEST</span></div>
+        <div class="role">Founder &amp; CEO · EnCube Labs</div>
+        <div class="quote">"Hi Amy — let us talk sometime."</div>
+        <p>A founder-CEO asked to talk on May 6. First reply came May 13; the calendar link followed on June 3 — <b>almost a month after his ask</b>. He never booked.</p>
+      </div>
+      <div class="mcard reveal">
+        <div class="who"><h3>Shannon T.</h3><span class="tag blue">BUYING QUESTION</span></div>
+        <div class="role">Conflict Resolution Educator · Boston University</div>
+        <div class="quote">"What kind of work do you do with leaders? Always interested in connecting with people in adjacent spaces."</div>
+        <p>An open door: she asked what you do. The conversation never advanced to an offer or a call.</p>
+      </div>
+    </div>
+    <div class="mcard reveal" style="margin-top:20px">
+      <div class="who"><h3>Akaash Deepak</h3><span class="tag blue">REVERSE MEETING ASK</span></div>
+      <div class="role">CEO &amp; Co-Founder · Nuvo App</div>
+      <p>He pitched a webinar/podcast collaboration — lower fit, but still an inbound meeting request from a CEO. The reply was "Good luck in your ventures." Defensible, but a door closed rather than explored.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 3 — THE RESPONSE GAP (dark) ============ -->
+<section class="tile-dark">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">Part 3 — The Response Gap</div>
+      <h2>The agreement was 48 hours.<br>Here's what actually happened.</h2>
+      <p>Our contract set one responsibility on your side: reply to leads within 48 hours. Speed is the single biggest conversion lever in outbound — a warm reply answered in a day converts at a completely different rate than the same reply answered two weeks later. These are the documented gaps.</p>
+    </div>
+
+    <div class="gapbig reveal">
+      <div class="gnum"><span class="ok">48h</span> → 28d</div>
+      <p>The agreed response window was <b>48 hours</b>. Across the engagement, hot-lead responses ranged from <b>5 to 28 days</b> — and several of the warmest replies were <b>never answered at all</b>. Every day of silence after a positive reply measurably cools the lead.</p>
+    </div>
+
+    <div class="grid2" style="margin-top:36px">
+
+      <div class="lagcard reveal">
+        <div class="who"><h4>Rajesh Nair</h4><span class="lagbadge">48h agreed · 28 days actual</span></div>
+        <div class="role">Founder &amp; CEO · EnCube Labs — asked for a meeting</div>
+        <div class="tline">
+          <div class="stp hot"><span class="when">May 06</span><span>"Let us talk sometime."</span></div>
+          <div class="stp miss"><span class="when">May 13</span><span>First reply — 7 days later</span></div>
+          <div class="stp miss"><span class="when">Jun 03</span><span>Calendar link finally sent — day 28</span></div>
+          <div class="stp"><span class="when">—</span><span>No booking ever happened</span></div>
+        </div>
+      </div>
+
+      <div class="lagcard reveal">
+        <div class="who"><h4>Bryan McAllister-Grande</h4><span class="lagbadge">48h agreed · 7 days actual</span></div>
+        <div class="role">Ivy Global Scholars — asked for your booking link</div>
+        <div class="tline">
+          <div class="stp hot"><span class="when">May 21</span><span>"Sure — do you have a booking link?"</span></div>
+          <div class="stp miss"><span class="when">May 28</span><span>Link sent — 7 days later</span></div>
+          <div class="stp"><span class="when">—</span><span>Momentum gone, no call booked</span></div>
+        </div>
+      </div>
+
+      <div class="lagcard reveal">
+        <div class="who"><h4>Sam Lewis</h4><span class="lagbadge">48h agreed · 10 days actual</span></div>
+        <div class="role">GTM Lead · Stitch — tagged Interested</div>
+        <div class="tline">
+          <div class="stp hot"><span class="when">Jun 12</span><span>Warm, playful reply ("I close my other tabs and get to it 😊")</span></div>
+          <div class="stp miss"><span class="when">Jun 22</span><span>Answer came 10 days later</span></div>
+        </div>
+      </div>
+
+      <div class="lagcard reveal">
+        <div class="who"><h4>Domaine Waysome</h4><span class="lagbadge">48h agreed · 13 days actual</span></div>
+        <div class="role">Co-VP Events · SWAG — engaged multi-turn</div>
+        <div class="tline">
+          <div class="stp hot"><span class="when">Jun 09</span><span>Thoughtful reply on how they prioritize</span></div>
+          <div class="stp miss"><span class="when">Jun 22</span><span>Answer came 13 days later</span></div>
+        </div>
+      </div>
+
+      <div class="lagcard reveal">
+        <div class="who"><h4>Jacob Fohtung</h4><span class="lagbadge">NEVER ANSWERED</span></div>
+        <div class="role">Founder · Systems of Systems Institute — tagged Interested</div>
+        <div class="tline">
+          <div class="stp hot"><span class="when">Jul 09</span><span>"Great to connect" — warm open</span></div>
+          <div class="stp miss"><span class="when">Jul 25</span><span>Still no reply at engagement end (16+ days). An AI-suggested reply sat drafted, unsent.</span></div>
+        </div>
+      </div>
+
+      <div class="lagcard reveal">
+        <div class="who"><h4>Piyush Gupta</h4><span class="lagbadge">NEVER ANSWERED</span></div>
+        <div class="role">Founder &amp; CEO · Naveris — tagged Interested</div>
+        <div class="tline">
+          <div class="stp hot"><span class="when">Jul 22</span><span>Thoughtful reply: "too many priorities" + big-picture progress feels too slow — your exact pitch, in his words</span></div>
+          <div class="stp miss"><span class="when">Jul 25</span><span>Unanswered. The AI draft was ready — never sent.</span></div>
+        </div>
+      </div>
+
+      <div class="lagcard reveal">
+        <div class="who"><h4>Ted Metrakas &amp; Mark S. King</h4><span class="lagbadge">UNREAD AT CLOSE</span></div>
+        <div class="role">Founder · Negativa / Fractional GC · Castlegate Law — both engaged</div>
+        <div class="tline">
+          <div class="stp hot"><span class="when">Jul</span><span>Both sent replies that were <b>still sitting unread</b> in the inbox when we captured the account</span></div>
+          <div class="stp miss"><span class="when">—</span><span>Live, interested threads — waiting on you</span></div>
+        </div>
+      </div>
+
+      <div class="lagcard reveal">
+        <div class="who"><h4>The Interested pool</h4><span class="lagbadge">FADED ON PLEASANTRIES</span></div>
+        <div class="role">Elizabeth Meltz · Christine S. · Erika Crawley · Shannon T. · Evan Dobelle &amp; more</div>
+        <div class="tline">
+          <div class="stp hot"><span class="when">Mar–Jul</span><span>18 leads tagged Interested across the engagement</span></div>
+          <div class="stp miss"><span class="when">—</span><span>Most conversations ended on friendly small talk. <b>Not one was asked to book a call</b> after Batch 1.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ COST OF SILENCE (parch) ============ -->
+<section class="tile-parch">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">The math, conservatively</div>
+      <h2>What the silence actually cost.</h2>
+      <p>No inflated projections — just your own numbers.</p>
+    </div>
+    <div class="costshell reveal">
+      <ul>
+        <li><b>5 explicit call-level signals</b> were generated (Kimberly, Bryan, Rajesh, Shannon, Akaash). <b>1</b> became a held call — the only one answered inside the agreed window.</li>
+        <li><b>18 leads tagged Interested</b> — senior, in-ICP people in live dialogue. Zero of them received a call ask after Batch 1.</li>
+        <li><b>4 warm threads were still unanswered or unread</b> on the final day (Jacob, Piyush, Ted, Mark) — two with AI-drafted replies sitting one click from sent.</li>
+        <li>Every documented response to a hot signal took <b>5–28 days against the agreed 48 hours</b>.</li>
+      </ul>
+      <p>The one lead answered promptly — Kimberly — became a completed call with a follow-up in the works. That's not a coincidence; <b>that's the pattern.</b> If even two of the five call-level signals had been met inside 48 hours, this engagement likely ends with a different scoreboard. The system created the at-bats. The swing window was 48 hours, and it kept passing.</p>
+    </div>
+    <div class="credit reveal">
+      <h3>Credit where it's due</h3>
+      <p>From late June onward your replies got noticeably faster and sharper — several same-day answers, better questions, and graceful closes (John Tarantino and Jungmee Lee were handled genuinely well; Jungmee even said <b>"I'll keep an eye out!"</b> and now follows your content). The skill was there. The habit arrived late — and the leads below are still recoverable because of it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 4 — REACTIVATION PLAYBOOK (light) ============ -->
+<section class="tile-light">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">Part 4 — The Reactivation Playbook</div>
+      <h2>These leads are cooled, not dead.</h2>
+      <p>You keep every connection and every thread. These are the warmest ones to reach back out to before end of month — each card tells you who they are and why they are worth a message now.</p>
+    </div>
+
+    <div class="grid2">
+
+      <div class="pcard reveal">
+        <div class="who"><h4>Kimberly Figueroa</h4><span class="tag green">HIGHEST PRIORITY</span></div>
+        <div class="role">Call already held Jul 08 · August follow-up floated</div>
+        <p class="why"><b>Why now:</b> she's the closest thing to a client in the account. Lock the August call before the thread goes cold.</p>
+      </div>
+
+      <div class="pcard reveal">
+        <div class="who"><h4>Piyush Gupta</h4><span class="tag green">REPLY TODAY</span></div>
+        <div class="role">CEO · Naveris · replied Jul 22 — still warm</div>
+        <p class="why"><b>Why now:</b> his reply is only days old and describes your exact problem space in his own words.</p>
+      </div>
+
+      <div class="pcard reveal">
+        <div class="who"><h4>Ted Metrakas &amp; Mark S. King</h4><span class="tag green">OPEN THE UNREAD</span></div>
+        <div class="role">Both have unread replies sitting in your inbox</div>
+        <p class="why"><b>Why now:</b> they wrote to you last. Read their message first and answer their actual point.</p>
+      </div>
+
+      <div class="pcard reveal">
+        <div class="who"><h4>Jacob Fohtung</h4><span class="tag amber">RE-OPEN</span></div>
+        <div class="role">Founder · said "great to connect" Jul 09, never answered</div>
+        <p class="why"><b>Why now:</b> two weeks is recoverable with honesty. Founders forgive lateness; they don't forgive silence.</p>
+      </div>
+
+      <div class="pcard reveal">
+        <div class="who"><h4>Bryan McAllister-Grande</h4><span class="tag amber">RE-OFFER THE LINK</span></div>
+        <div class="role">Asked for your booking link May 21 · never booked</div>
+        <p class="why"><b>Why now:</b> he already said yes once. A no-friction re-ask can revive it.</p>
+      </div>
+
+      <div class="pcard reveal">
+        <div class="who"><h4>Rajesh Nair</h4><span class="tag amber">REVIVE THE ASK</span></div>
+        <div class="role">CEO · EnCube Labs · "Let us talk sometime" — May 06</div>
+        <p class="why"><b>Why now:</b> he initiated. "Sometime" never expires if you name a date.</p>
+      </div>
+
+      <div class="pcard reveal">
+        <div class="who"><h4>Shannon T.</h4><span class="tag amber">ANSWER THE QUESTION</span></div>
+        <div class="role">Asked directly what you do with leaders — never got the pitch</div>
+        <p class="why"><b>Why now:</b> she asked for the pitch. Give her the real answer she never received.</p>
+      </div>
+
+      <div class="pcard reveal">
+        <div class="who"><h4>The Interested pool</h4><span class="tag blue">NURTURE TEMPLATE</span></div>
+        <div class="role">Keith Paulsen · Morgan Davis · Marshella Lie · Khush Shah · Sam Lewis · Jennifer Casriel · Mitchell Lipton · Placide Shema…</div>
+        <p class="why"><b>Why now:</b> 18 Interested leads deserve one value-first touch, not a pitch. A free resource re-opens the door without pressure.</p>
+      </div>
+
+    </div>
+
+    <div class="pcard reveal" style="margin-top:20px">
+      <div class="who"><h4>Jungmee Lee</h4><span class="tag blue">SEPTEMBER CHECK-IN</span></div>
+      <div class="role">Founder &amp; Attorney · JL Counsel — said "maybe in the future" and now follows your content</div>
+      <p class="why"><b>Why now:</b> she left the door open herself. A light check-in in September keeps you the first name she thinks of.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING (dark) ============ -->
+<section class="tile-dark">
+  <div class="wrap cta">
+    <div class="eyebrow reveal">What you keep</div>
+    <h2 class="reveal">383 connections. 61 conversations.<br><span class="accent">All of it stays with you.</span></h2>
+    <p class="reveal">Every connection, thread, and contact lives on your LinkedIn profile — including 40+ enriched contacts with direct emails and phone numbers, documented in the campaign records. The machine did its job and the audience is built. What happens to it next comes down to one habit: <b>when someone warm writes back, answer within 48 hours.</b></p>
+    <div class="stats reveal">
+      <div class="statchip"><b>383</b><span>Connections kept</span></div>
+      <div class="statchip"><b>40+</b><span>Emails &amp; phones</span></div>
+      <div class="statchip"><b>9</b><span>Leads worth reviving</span></div>
+      <div class="statchip"><b class="accent">48h</b><span>The one habit</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Prepared for <b>Amy Hage · Universal Work Design</b> by <b>Evolv AI</b> · July 2026 · All figures taken directly from campaign records.</div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
