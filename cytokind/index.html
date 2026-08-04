@@ -1,0 +1,276 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CytoKind — Where the Money Is Going</title>
+<style>
+  :root{
+    --ink:#15171b; --ink2:#454b55; --ink3:#767d88;
+    --rule:#e3e6eb; --rule2:#f0f2f5;
+    --bg:#fbfbfa; --panel:#fff;
+    --red:#b3121f; --redbg:#fdf2f2;
+    --green:#0d6b3f; --greenbg:#f1f8f3;
+  }
+  *{box-sizing:border-box}
+  .mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--bg);
+    flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+    font-family:ui-sans-serif,-apple-system,"Segoe UI",Inter,Helvetica,Arial,sans-serif}
+  .mobile-block .mb-emoji{font-size:44px;margin-bottom:20px}
+  .mobile-block .mb-title{font-size:1.6rem;font-weight:650;letter-spacing:-.02em;margin-bottom:12px;color:var(--ink)}
+  .mobile-block .mb-sub{font-size:.95rem;color:var(--ink2);max-width:340px;line-height:1.6}
+  @media screen and (max-width:900px){
+    .mobile-block{display:flex!important}
+    body>*:not(.mobile-block){display:none!important}
+  }
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+  .wrap{max-width:1180px;margin:0 auto;padding:48px 28px 88px}
+
+  header{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:28px}
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:650}
+  h1{font-size:30px;line-height:1.15;margin:9px 0 7px;letter-spacing:-.02em;font-weight:650}
+  .sub{color:var(--ink2);font-size:15px;max-width:78ch;margin:0}
+  .meta{margin-top:13px;font-size:12px;color:var(--ink3);display:flex;gap:20px;flex-wrap:wrap}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);
+         border:1px solid var(--rule);margin:0 0 12px}
+  .stats div{background:var(--panel);padding:16px 18px}
+  .stats .k{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);font-weight:650}
+  .stats .v{font-size:31px;font-weight:660;letter-spacing:-.03em;line-height:1.15;margin-top:5px}
+  .stats .n{font-size:12px;color:var(--ink3);margin-top:3px;line-height:1.4}
+  .stats .bad{background:var(--redbg)} .stats .bad .v{color:var(--red)}
+
+  .basis{font-size:12.5px;color:var(--ink3);margin:0 0 34px;padding:9px 12px;
+         background:var(--rule2);border-left:3px solid var(--ink3)}
+
+  h2{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);
+     font-weight:680;margin:42px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--rule)}
+
+  .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{width:100%;min-width:1050px;border-collapse:collapse;font-size:13px;line-height:1.45}
+  th{text-align:left;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);
+     font-weight:660;padding:0 11px 8px;border-bottom:2px solid var(--ink);vertical-align:bottom}
+  td{padding:13px 11px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink2)}
+  tbody tr:nth-child(even) td{background:#f7f8f9}
+  td.rank{color:var(--ink3);font-weight:660;font-size:11.5px;width:26px;padding-right:0}
+  td.btl{color:var(--ink);font-weight:640;width:16%}
+  td.num{width:22%}
+  td.mon{width:15%;color:var(--red);font-weight:640}
+  td.mon .grey{color:var(--ink3);font-weight:400;font-size:11.5px;display:block;margin-top:3px;line-height:1.35}
+  td.ina{width:19%}
+  td.fix{width:20%;color:var(--ink)}
+  .q{color:var(--ink);font-style:italic}
+  .src{color:var(--ink3);font-size:11px;display:block;margin-top:4px}
+  .ours{display:inline-block;background:#fff0e6;border:1px solid #f0c8a8;color:#8a4a12;
+        font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:680;
+        padding:1px 5px;border-radius:2px;margin-left:5px;vertical-align:2px}
+  .unk{display:inline-block;background:#eef0f3;border:1px solid #d8dce2;color:#5b626c;
+       font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:680;
+       padding:1px 5px;border-radius:2px;vertical-align:2px}
+
+  .scen{border:1px solid var(--rule);background:var(--panel);padding:20px 22px;margin:16px 0 0}
+  .scen h3{margin:0 0 6px;font-size:16px;font-weight:650;color:var(--ink)}
+  .scen p{margin:0 0 14px;color:var(--ink2);font-size:14px;max-width:82ch}
+  table.mini{min-width:0;width:auto;font-size:13.5px}
+  table.mini th{border-bottom:1px solid var(--ink)}
+  table.mini td{padding:9px 26px 9px 0;border-bottom:1px solid var(--rule2)}
+  table.mini td:last-child{color:var(--green);font-weight:660}
+
+  blockquote{margin:0;padding:14px 18px;background:var(--redbg);border-left:3px solid var(--red);
+             color:var(--ink);font-size:15px}
+  blockquote cite{display:block;font-style:normal;font-size:11.5px;color:var(--ink3);margin-top:6px}
+
+  footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--rule);font-size:12px;color:var(--ink3)}
+
+  @media (max-width:760px){
+    .wrap{padding:32px 16px 60px} h1{font-size:24px}
+    .stats{grid-template-columns:1fr 1fr} .stats .v{font-size:26px}
+  }
+  @media print{body{background:#fff}.wrap{padding:0;max-width:none}table{min-width:0;font-size:9.5px}
+    tr{page-break-inside:avoid}}
+</style>
+
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title">Open on desktop</div>
+  <div class="mb-sub">This is a wide data table — open it on your laptop so every column is readable.</div>
+</div>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Evolv AI &nbsp;·&nbsp; Prepared for John MacMahon</div>
+  <h1>CytoKind — where the money is going</h1>
+  <p class="sub">Every bottleneck between the ad and the sale, what each one costs, and what fixes it. All figures are read from ActiveCampaign or stated on the record by you or Adrian between 27 July and 1 August. Nothing is estimated except where labelled.</p>
+  <div class="meta"><span>4 August 2026</span><span>Sources: 3 recorded calls + live CRM</span><span>No invented numbers</span></div>
+</header>
+
+<div class="stats">
+  <div><div class="k">Target</div><div class="v">20</div><div class="n">sales/month — your number</div></div>
+  <div class="bad"><div class="k">Actual</div><div class="v">2</div><div class="n">as of 1 August</div></div>
+  <div class="bad"><div class="k">Gap</div><div class="v">$36K<span style="font-size:16px">/mo</span></div><div class="n">≈ $180,000 through 1 January</div></div>
+  <div><div class="k">Raw material already paid for</div><div class="v">~400</div><div class="n">people who have reached out. No new ad spend needed.</div></div>
+</div>
+
+<p class="basis"><strong>How money is counted here:</strong> every dollar figure uses <strong>$2,000</strong> — the price of the <em>cheapest</em> unit CytoKind sells (Phothera 200). The 400, 600 and 600-3D are $3,300, $3,930 and $7,000; clinical units average ~$50,000. So every number below is a floor, not a forecast. Your <strong>margin per unit</strong> is the one figure I do not have — give it to me and these become profit rather than volume.</p>
+
+<h2>The bottlenecks, ranked by what they cost</h2>
+
+<div class="tscroll">
+<table>
+<thead>
+<tr>
+  <th></th><th>Bottleneck</th><th>The real numbers</th><th>Money on the table</th><th>Cost of inaction</th><th>The fix</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+  <td class="rank">01</td>
+  <td class="btl">Almost nobody reaches the Scientific American article</td>
+  <td class="num">You close <strong>~1 in 3</strong> of patients who have read it. The MS email sequence: <strong>200 sends → 25% opened → 1% clicked</strong>. That is roughly <strong>2 people out of 200</strong> who reached the asset that closes at 33%.<span class="src">John, 27 Jul: “we know if they've read the Scientific American article, we close about a third of those patients.” · Adrian, 1 Aug: CRM campaign report</span></td>
+  <td class="mon">$43,000+<span class="grey">Reaching just 25% of the 262 CRM contacts = ~65 readers × 33% = ~21 sales</span></td>
+  <td class="ina">The single highest-converting asset in the company is being used as an email attachment. Every week it stays there, ~98% of paid leads never see it.</td>
+  <td class="fix">Make the article the destination, not a footnote. Ad → landing page built around the article → meeting request. Stop asking for the meeting before the article has done its job.</td>
+</tr>
+
+<tr>
+  <td class="rank">02</td>
+  <td class="btl">82% of leads bought against the segment that cannot buy</td>
+  <td class="num"><strong>216 of the 262</strong> contacts arrived via the Facebook “MS Fatigue” form. MS has <strong>no FDA indication</strong> → patient pays <strong>$2,000–$7,000 cash</strong>. Dermatology <em>is</em> indicated → <strong>insurance pays, patient pays $0</strong>. Sales from MS leads: <strong>0</strong>. Sales from derm: <strong>2 — both of them</strong>.<span class="src">John, 27 Jul: “Who we are actually selling to are dermatological patients that are seeing our MS ads… we're accidentally selling to them.”</span></td>
+  <td class="mon">3 months of ad budget<span class="grey">~200 MS leads acquired over ~3 months, zero sales</span></td>
+  <td class="ina">The derm campaign has been requested for weeks and has not launched. Every day it slips, budget keeps buying the segment with a $2,000–$7,000 cash barrier instead of the one with a $0 barrier.</td>
+  <td class="fix">Majority of budget onto the indicated conditions — psoriasis, eczema, vitiligo, pruritus. MS becomes the secondary campaign until clearance lands.</td>
+</tr>
+
+<tr>
+  <td class="rank">03</td>
+  <td class="btl">82% of the database has never been phoned</td>
+  <td class="num"><strong>262</strong> contacts in ActiveCampaign. <strong>48</strong> have ever received a call attempt (Adrian 40, John 8). <strong>214 have no call tag at all.</strong> Demonstrated rate: 48 calls → 2 sales = <strong>1 sale per 24 calls</strong>.<span class="src">Adrian, 1 Aug — tag counts read live off the CRM</span></td>
+  <td class="mon">~$17,800<span class="grey">214 ÷ 24 ≈ 9 sales. Same database as row 01 — do not add the two together.</span></td>
+  <td class="ina">These leads decay by the week. Adrian is already hearing “what did I do? What is this for?” Left another month, the backlog is worth close to nothing.</td>
+  <td class="fix">Work the backlog to zero, sequenced by condition — indicated conditions first. This is the cheapest revenue in the business.</td>
+</tr>
+
+<tr>
+  <td class="rank">04</td>
+  <td class="btl">~138 people who reached out are not in the CRM at all</td>
+  <td class="num">You said <strong>“we have like 400 people that have reached out.”</strong> The CRM holds <strong>262</strong>. Website product form and the Google Sheet were never integrated into ActiveCampaign — only Facebook leads flow in.<span class="src">John, 27 Jul · confirmed as an open action 27 Jul</span></td>
+  <td class="mon">~$11,500<span class="grey">~138 contacts at the same 1-sale-per-24 rate ≈ 6 sales</span></td>
+  <td class="ina">These are inbound, self-selected, higher-intent than any Facebook lead — and nobody can see them. One of your two closed sales came through the contact form, not the ads.</td>
+  <td class="fix">One pipeline. Website forms, Google Sheet and Meta all land in the same CRM with a source tag that actually works.</td>
+</tr>
+
+<tr>
+  <td class="rank">05</td>
+  <td class="btl">14 prescription forms sent and never chased</td>
+  <td class="num"><strong>16</strong> prescription forms sent → <strong>4</strong> confirmed a doctor visit → <strong>2</strong> came back signed. One patient attended on the wrong day. “Next outreach date” is a free-text field in the CRM that notifies nobody.<span class="src">Adrian, 1 Aug</span></td>
+  <td class="mon">$28,000<span class="grey">14 forms outstanding × $2,000</span></td>
+  <td class="ina">This is the highest-intent moment in the entire funnel — the patient has already said yes — and it is managed by memory. Each one that goes cold is a sale that was already won.</td>
+  <td class="fix">Automated prescription-chase: reminder before the appointment, follow-up after, escalation at day 7 and 14. Nothing depends on anyone remembering.</td>
+</tr>
+
+<tr>
+  <td class="rank">06</td>
+  <td class="btl">Speed-to-lead is structurally impossible</td>
+  <td class="num">Standard agreed 27 July: <strong>6 minutes</strong> (John 11pm–11am, Adrian 8am–8pm). Reality: leads are called <strong>weeks</strong> later. There is <strong>no SMS and no push notification</strong> on a new lead — Adrian discovers them by checking email manually. Connect rate: <strong>10 calls → 1 conversation</strong>.<span class="src">John, 27 Jul: “100 minutes or 30 minutes versus 6 minutes is a 100x fall off.” · Adrian, 1 Aug</span></td>
+  <td class="mon">Multiplies every row above<span class="grey">By your own 100× figure, this is the compounding factor on all lead value</span></td>
+  <td class="ina">A 6-minute standard that nothing enforces is not a standard. Until an alert fires, every new lead repeats the same decay as the 262 already sitting there.</td>
+  <td class="fix">Instant SMS/push to the rep on lead creation, automatic first-touch SMS to the patient, missed-call auto-reply. Adrian never checks an inbox again.</td>
+</tr>
+
+<tr>
+  <td class="rank">07</td>
+  <td class="btl">Meetings are asked for too early — and they no-show</td>
+  <td class="num">Ads → book a meeting: <strong>most people did not show</strong>, at high lead cost. Ads → nurture → meeting: improvement was <strong>“not a whole lot.”</strong> Today: <strong>1–2 discovery calls booked per week</strong>; <strong>1–2 meetings per 100 leads</strong>.<span class="src">John, 27 Jul · Adrian, 28 Jul and 1 Aug</span></td>
+  <td class="mon"><span class="unk">Unmeasured</span><span class="grey">No-show rate has never been recorded</span></td>
+  <td class="ina">Your time and Adrian's is being spent on empty calendar slots. You called it directly: “It's wasting my time. It's wasting Adrian's.”</td>
+  <td class="fix">Earn the meeting instead of buying it — article first, then the ask. Confirmation + reminder sequence on every booking, and start recording the no-show rate.</td>
+</tr>
+
+<tr>
+  <td class="rank">08</td>
+  <td class="btl">Phone numbers were being stripped before they reached you <span class="ours">Evolv's fault</span></td>
+  <td class="num">The Evolv notification email removed the phone number, so you believed phone numbers were not being captured. Adrian had them all along. Separately, phone number is <strong>still not a required field</strong>: <strong>7</strong> contacts have no number, <strong>2</strong> are invalid.<span class="src">John, 27 Jul: “in the Evolv auto email, for one reason or another, it strips the phone number. So Adrian's like, no, I have all those phone numbers.”</span></td>
+  <td class="mon">Weeks of delay<span class="grey">The cold-call effort started later than it should have</span></td>
+  <td class="ina">Nine contacts are permanently unreachable by phone, and every new lead without a number joins them.</td>
+  <td class="fix">Ours to fix, at no charge: correct the field mapping, and make phone a required field on every form.</td>
+</tr>
+
+<tr>
+  <td class="rank">09</td>
+  <td class="btl">The CRM cannot be trusted, so nothing can be optimised</td>
+  <td class="num">No business goals were configured — you did <strong>2 hours of ActiveCampaign Academy yourself</strong> to find that out. <strong>2 of the 3 automations do not function</strong> (one has no trigger). Tags: <strong>the CRM says 48 calls → 22 conversations (46%); Adrian's lived rate is 10–13%.</strong> Both cannot be true.<span class="src">John, 27 Jul · Adrian, 1 Aug: “I'm basically using the CRM like a notepad.”</span></td>
+  <td class="mon">Every decision above<span class="grey">Nothing can be optimised on numbers nobody believes</span></td>
+  <td class="ina">You cannot tell the ad team what is working, cannot coach Adrian, and cannot show Alex a number you would defend.</td>
+  <td class="fix">Business goal set to 20. Real pipeline stages. Working automations. One dashboard you open instead of asking anyone for a slide.</td>
+</tr>
+
+<tr>
+  <td class="rank">10</td>
+  <td class="btl">22 sales conversations have happened and none were recorded</td>
+  <td class="num"><strong>22</strong> live conversations, <strong>0</strong> phone recordings. The script was written by Adrian and Craig — <strong>Craig has never made a sales call</strong> — and Adrian's own verdict is that it “is not working very good.” Average patient age <strong>~65</strong>.<span class="src">Adrian, 28 Jul and 1 Aug</span></td>
+  <td class="mon">All objection data<span class="grey">The reason people say no is unknown and unrecoverable</span></td>
+  <td class="ina">Every objection is heard once and lost. Adrian cannot improve, and neither you nor the ad team learn what the market actually pushes back on.</td>
+  <td class="fix">Record every call. Pull the top five objections after two weeks and rewrite the script off real transcripts, not guesses.</td>
+</tr>
+
+<tr>
+  <td class="rank">11</td>
+  <td class="btl">Canadian leads are handed away for free</td>
+  <td class="num">Canadian patients book discovery calls and cannot be served. A referral commission through Phothera's Canadian distributor (Michael) <strong>exists and is not being claimed</strong>.<span class="src">Adrian, 1 Aug</span></td>
+  <td class="mon"><span class="unk">Unmeasured</span><span class="grey">Volume and commission rate both unknown</span></td>
+  <td class="ina">Paid clicks are being converted into revenue for someone else, and the call time is spent either way.</td>
+  <td class="fix">Auto-route non-US leads to the right distributor at capture, and invoice the referral commission.</td>
+</tr>
+
+<tr>
+  <td class="rank">12</td>
+  <td class="btl">Roughly 50 delivered sales have never been invoiced</td>
+  <td class="num">~<strong>50 sales</strong> made for Phothera to date. <strong>Nothing has been invoiced.</strong> Adrian's estimate of the outstanding balance is <strong>~$250,000</strong>.<span class="src">Adrian, 1 Aug — <strong>his estimate, unverified.</strong> This needs your number, not his.</span></td>
+  <td class="mon"><span class="unk">Verify first</span><span class="grey">If anywhere near right, this is the cheapest cash in the business</span></td>
+  <td class="ina">The company is funded entirely out of your pocket while a receivable sits uncollected.</td>
+  <td class="fix">Confirm the real balance with Phothera and decide deliberately whether to invoice — rather than by default.</td>
+</tr>
+
+<tr>
+  <td class="rank">13</td>
+  <td class="btl">Nobody owns the pipe — so the CEO is doing it</td>
+  <td class="num">Your words, 27 July: <strong>“no one is owning the whole pipe”</strong> · <strong>“there's no leadership there to come up with a solution”</strong> · <strong>“I am really frustrated that I am having to come up with that idea.”</strong> The derm-ad idea was yours. The ActiveCampaign training was yours. Reporting from the ad team arrives <strong>every two weeks</strong>.</td>
+  <td class="mon">Your time<span class="grey">Spent on CRM admin while the cancer paper waits</span></td>
+  <td class="ina">The paper is the asset that changes the addressable market. Every hour spent inventing marketing strategy is an hour not spent on clearance.</td>
+  <td class="fix">One owner for everything between the ad and the signed prescription — targeting, funnel, CRM, follow-up, reporting — accountable to the 20-sale number, not to task lists.</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<h2>The one number that changes everything</h2>
+
+<div class="scen">
+  <h3>You close about a third of the people who read the article. Right now 1% of them ever click it.</h3>
+  <p>This is your own conversion rate, applied to the ~400 people who have already raised their hand. It requires no new advertising spend — only that they reach the asset before they are asked for anything. Priced at the cheapest unit you sell.</p>
+  <table class="mini">
+    <tr><th>If this share of the 400 reads the article</th><th>Readers</th><th>Sales at your 33%</th><th>At $2,000/unit</th></tr>
+    <tr><td>10%</td><td>40</td><td>13</td><td>$26,000</td></tr>
+    <tr><td>25%</td><td>100</td><td>33</td><td>$66,000</td></tr>
+    <tr><td>50%</td><td>200</td><td>66</td><td>$132,000</td></tr>
+  </table>
+  <p style="margin:14px 0 0;font-size:12.5px;color:#767d88">Scenario, clearly labelled as such — built entirely on your 33% figure and the ~400 contacts you named. The 33% is your estimate and should be pressure-tested against real closed cases before anyone plans against it.</p>
+</div>
+
+<h2>What this is really costing</h2>
+
+<blockquote>
+  “Have you gotten any ROI currently in this period of work?” — <b>“No. It's gas. Might as well be infinite because we've gotten so few sales.”</b><br><br>
+  “I've stopped bringing up revenue [with Alex] because our ROI is in the shitter… and this is all coming out of my pocket.”
+  <cite>John MacMahon, 27 July 2026</cite>
+</blockquote>
+
+<p style="margin-top:18px;max-width:82ch">The real cost is not the ad budget — at a few hundred dollars a month it is the smallest line in this document. The cost is that Alex's investment is gated on proof the sales model works, and the proof is sitting unworked in a CRM: <strong>~400 people who raised their hand, 214 never called, and the one asset that closes 1-in-3 reaching 1% of them.</strong></p>
+
+<footer>
+  Evolv AI · 4 August 2026 · Sourced from recorded calls of 27 July (John), 28 July (Adrian) and 1 August (Adrian), and ActiveCampaign read live on 1 August. Figures marked <span class="unk">unmeasured</span> or <span class="unk">verify first</span> do not exist anywhere in the business today and have been left blank rather than estimated.
+</footer>
+
+</div>
