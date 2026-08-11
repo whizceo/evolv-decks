@@ -162,7 +162,23 @@ section:nth-of-type(even) .stats{background:var(--canvas);border-radius:18px;bor
 section:nth-of-type(even) .stat{border-bottom:none}
 td.k{color:var(--ink);font-weight:500}
 td.num{font-family:var(--disp);font-size:17px;color:var(--ink);font-weight:600;text-align:right;white-space:nowrap;letter-spacing:-.02em}
-td.url{font-family:var(--mono);font-size:13px;color:var(--blue);word-break:break-all}
+td.url{font-family:var(--mono);font-size:13px;color:var(--ink-sec);word-break:break-word;line-height:1.7}
+/* a real, clickable destination */
+a.u{font-family:var(--mono);font-size:13px;color:var(--blue);text-decoration:none;
+  border-bottom:1px solid rgba(0,102,204,.22);transition:border-color .18s,color .18s;word-break:break-word}
+.dom{color:var(--faint)}
+a.u .dom{color:var(--faint);transition:color .18s}
+a.u:hover{border-bottom-color:var(--blue)}
+a.u:hover .dom{color:var(--ink-sec)}
+a.u::after{content:'↗';font-family:var(--disp);font-size:10px;margin-left:3px;vertical-align:1px;color:var(--faint);transition:color .18s}
+a.u:hover::after{color:var(--blue)}
+/* a string that is NOT a destination — campaign / creative / utm names */
+.tok{font-family:var(--mono);font-size:12.5px;color:var(--ink-sec);background:var(--parchment);
+  border:1px solid var(--line-soft);border-radius:7px;padding:3px 8px;display:inline-block;
+  letter-spacing:-.01em;word-break:break-word;line-height:1.5}
+section:nth-of-type(even) .tok{background:#ececf1;border-color:#e0e0e6}
+td.url .plain{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  font-size:15px;color:var(--ink-sec);letter-spacing:-.01em}
 .dn{color:var(--red-ink);font-size:13px;font-weight:500}
 .up{color:var(--green-ink);font-size:13px;font-weight:500}
 .bar{height:4px;border-radius:2px;background:var(--blue);margin-top:8px;min-width:3px;opacity:.85}
@@ -446,14 +462,14 @@ footer{
   <div class="tbox"><div class="tscroll"><table>
     <thead><tr><th>Landing page</th><th>Campaign string in the URL</th><th>Ads</th></tr></thead>
     <tbody>
-      <tr><td class="url">/en-us</td><td class="k">dtc_conversion_na_prospecting_leads_national_2026_advantage+</td><td class="num">19</td></tr>
-      <tr><td class="url">/en-us</td><td class="k">dtc_consideration_…_advantage+</td><td class="num">16</td></tr>
-      <tr><td class="url">/en-us</td><td class="k">dtc_consideration_…_swoop</td><td class="num">15</td></tr>
-      <tr><td class="url">/join-webinar/</td><td class="k">cht_awareness_na_prospecting_traffic_national_2026_q3</td><td class="num">15</td></tr>
-      <tr><td class="url">/en-us</td><td class="k">dtc_…_retargeting</td><td class="num">9</td></tr>
-      <tr><td class="url">/do-i-qualify/</td><td class="k">4 separate variants</td><td class="num">18</td></tr>
-      <tr><td class="url">/cost-and-insurance</td><td class="k">3 separate variants</td><td class="num">6</td></tr>
-      <tr><td class="url">local event pages — Lansing MI 8/28 · Bowling Green KY 8/11 · Barrington IL 8/19</td><td class="k">cht_ clinic-partner webinars</td><td class="num">2–3 ea.</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.inspiresleep.com/en-us" target="_blank" rel="noopener"><span class="dom">inspiresleep.com</span>/en-us</a></td><td class="k">dtc_conversion_na_prospecting_leads_national_2026_advantage+</td><td class="num">19</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.inspiresleep.com/en-us" target="_blank" rel="noopener"><span class="dom">inspiresleep.com</span>/en-us</a></td><td class="k">dtc_consideration_…_advantage+</td><td class="num">16</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.inspiresleep.com/en-us" target="_blank" rel="noopener"><span class="dom">inspiresleep.com</span>/en-us</a></td><td class="k">dtc_consideration_…_swoop</td><td class="num">15</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.inspiresleep.com/en-us/join-webinar/" target="_blank" rel="noopener"><span class="dom">inspiresleep.com</span>/join-webinar/</a></td><td class="k">cht_awareness_na_prospecting_traffic_national_2026_q3</td><td class="num">15</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.inspiresleep.com/en-us" target="_blank" rel="noopener"><span class="dom">inspiresleep.com</span>/en-us</a></td><td class="k">dtc_…_retargeting</td><td class="num">9</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.inspiresleep.com/en-us/do-i-qualify/" target="_blank" rel="noopener"><span class="dom">inspiresleep.com</span>/do-i-qualify/</a></td><td class="k">4 separate variants</td><td class="num">18</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.inspiresleep.com/en-us/cost-and-insurance/" target="_blank" rel="noopener"><span class="dom">inspiresleep.com</span>/cost-and-insurance</a></td><td class="k">3 separate variants</td><td class="num">6</td></tr>
+      <tr><td class="url"><span class="plain">Local event pages — Lansing MI 8/28 · Bowling Green KY 8/11 · Barrington IL 8/19</span></td><td class="k">cht_ clinic-partner webinars</td><td class="num">2–3 ea.</td></tr>
     </tbody>
   </table></div></div>
   <div class="note"><b>The finding:</b> Inspire does not treat "am I eligible?" and "what does it cost?" as FAQ pages. Each is a <b>paid ad destination in its own right</b>. And the entire <span style="font-family:var(--mono);font-size:12px">cht_</span> family exists to fill <b>local clinic webinars</b> — a doctor in Lansing gets a room full of pre-educated patients, paid for by the manufacturer.</div>
@@ -572,15 +588,15 @@ footer{
   <div class="tbox"><div class="tscroll"><table>
     <thead><tr><th>Page</th><th>What the slug means</th><th>Ads</th></tr></thead>
     <tbody>
-      <tr><td class="url">/dtm</td><td>direct-to-member<div class="bar" style="width:100%"></div></td><td class="num">117</td></tr>
-      <tr><td class="url">/pti</td><td>paid-traffic insurance qualifier<div class="bar" style="width:98%"></div></td><td class="num">115</td></tr>
-      <tr><td class="url">/spqti</td><td><b style="color:var(--blue);font-weight:500">Spanish</b> qualify-through-insurance<div class="bar" style="width:83%"></div></td><td class="num">97</td></tr>
-      <tr><td class="url">/QTI</td><td>qualify through insurance<div class="bar" style="width:44%"></div></td><td class="num">51</td></tr>
-      <tr><td class="url">/qti</td><td>same page, lowercase test<div class="bar" style="width:28%"></div></td><td class="num">33</td></tr>
-      <tr><td class="url">/pti · /dtm (https variants)</td><td>protocol split-test</td><td class="num">31</td></tr>
-      <tr><td class="url">resupply.aeroflowurology.com</td><td><b style="color:var(--green-ink);font-weight:500">retention</b> — reorder, existing customers</td><td class="num">9</td></tr>
-      <tr><td class="url">/my-insurance-products/checkout/onepage/success/</td><td>retargeting off the thank-you page</td><td class="num">5</td></tr>
-      <tr><td class="url">/qualify-through-insurance-logos</td><td>same form + <b style="color:var(--blue);font-weight:500">insurer logos as social proof</b></td><td class="num">3</td></tr>
+      <tr><td class="url"><a class="u" href="https://aeroflowurology.com/dtm" target="_blank" rel="noopener"><span class="dom">aeroflowurology.com</span>/dtm</a></td><td>direct-to-member<div class="bar" style="width:100%"></div></td><td class="num">117</td></tr>
+      <tr><td class="url"><a class="u" href="https://aeroflowurology.com/pti" target="_blank" rel="noopener"><span class="dom">aeroflowurology.com</span>/pti</a></td><td>paid-traffic insurance qualifier<div class="bar" style="width:98%"></div></td><td class="num">115</td></tr>
+      <tr><td class="url"><a class="u" href="https://aeroflowurology.com/spqti" target="_blank" rel="noopener"><span class="dom">aeroflowurology.com</span>/spqti</a></td><td><b style="color:var(--blue);font-weight:500">Spanish</b> qualify-through-insurance<div class="bar" style="width:83%"></div></td><td class="num">97</td></tr>
+      <tr><td class="url"><a class="u" href="https://aeroflowurology.com/QTI" target="_blank" rel="noopener"><span class="dom">aeroflowurology.com</span>/QTI</a></td><td>qualify through insurance<div class="bar" style="width:44%"></div></td><td class="num">51</td></tr>
+      <tr><td class="url"><a class="u" href="https://aeroflowurology.com/qti" target="_blank" rel="noopener"><span class="dom">aeroflowurology.com</span>/qti</a></td><td>same page, lowercase test<div class="bar" style="width:28%"></div></td><td class="num">33</td></tr>
+      <tr><td class="url"><a class="u" href="https://aeroflowurology.com/pti" target="_blank" rel="noopener"><span class="dom">aeroflowurology.com</span>/pti</a> · <a class="u" href="https://aeroflowurology.com/dtm" target="_blank" rel="noopener"><span class="dom">aeroflowurology.com</span>/dtm</a> <span class="plain">(https variants)</span></td><td>protocol split-test</td><td class="num">31</td></tr>
+      <tr><td class="url"><a class="u" href="https://resupply.aeroflowurology.com" target="_blank" rel="noopener"><span class="dom">resupply.aeroflowurology.com</span></a></td><td><b style="color:var(--green-ink);font-weight:500">retention</b> — reorder, existing customers</td><td class="num">9</td></tr>
+      <tr><td class="url"><a class="u" href="https://aeroflowurology.com/my-insurance-products/checkout/onepage/success/" target="_blank" rel="noopener"><span class="dom">aeroflowurology.com</span>/my-insurance-products/checkout/onepage/success/</a></td><td>retargeting off the thank-you page</td><td class="num">5</td></tr>
+      <tr><td class="url"><a class="u" href="https://aeroflowurology.com/qualify-through-insurance-logos" target="_blank" rel="noopener"><span class="dom">aeroflowurology.com</span>/qualify-through-insurance-logos</a></td><td>same form + <b style="color:var(--blue);font-weight:500">insurer logos as social proof</b></td><td class="num">3</td></tr>
     </tbody>
   </table></div></div>
 
@@ -689,13 +705,13 @@ footer{
   <div class="tbox"><div class="tscroll"><table>
     <thead><tr><th>Destination</th><th>Audience</th><th>Job</th></tr></thead>
     <tbody>
-      <tr><td class="url">provider.dexcom.com/coverage-tools#medicare</td><td class="k">Doctor</td><td>Answers "will my patient be covered?" — the #1 reason a doctor doesn't prescribe</td></tr>
-      <tr><td class="url">provider.dexcom.com/prescribe</td><td class="k">Doctor</td><td>How to actually write the script</td></tr>
-      <tr><td class="url">provider.dexcom.com/events-and-webinars#clinical-conversations-</td><td class="k">Doctor</td><td>KOL webinars: T1D paeds · T2D on insulin · T1D adults · T2 non-insulin</td></tr>
-      <tr><td class="url">dexcom.com/get-started-cgm/226 · 228 · 232 · 233 · 234 · 235</td><td class="k">Patient</td><td>Six numbered funnel variants running simultaneously</td></tr>
-      <tr><td class="url">dexcom.com/freetrial</td><td class="k">Patient</td><td>De-risks a device you can't return</td></tr>
-      <tr><td class="url">dexcom.com/es-US/…</td><td class="k">Patient</td><td>Full Spanish mirror</td></tr>
-      <tr><td class="url">dexcom.com/dexcom-care · /all-access</td><td class="k">Customer</td><td>Retention &amp; education after the sale</td></tr>
+      <tr><td class="url"><a class="u" href="https://provider.dexcom.com/coverage-tools" target="_blank" rel="noopener"><span class="dom">provider.dexcom.com</span>/coverage-tools#medicare</a></td><td class="k">Doctor</td><td>Answers "will my patient be covered?" — the #1 reason a doctor doesn't prescribe</td></tr>
+      <tr><td class="url"><a class="u" href="https://provider.dexcom.com/prescribe" target="_blank" rel="noopener"><span class="dom">provider.dexcom.com</span>/prescribe</a></td><td class="k">Doctor</td><td>How to actually write the script</td></tr>
+      <tr><td class="url"><a class="u" href="https://provider.dexcom.com/events-and-webinars" target="_blank" rel="noopener"><span class="dom">provider.dexcom.com</span>/events-and-webinars#clinical-conversations-</a></td><td class="k">Doctor</td><td>KOL webinars: T1D paeds · T2D on insulin · T1D adults · T2 non-insulin</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.dexcom.com/get-started-cgm/226" target="_blank" rel="noopener"><span class="dom">dexcom.com</span>/get-started-cgm/226</a> · <a class="u" href="https://www.dexcom.com/get-started-cgm/228" target="_blank" rel="noopener"><span class="dom"></span>/228</a> · <a class="u" href="https://www.dexcom.com/get-started-cgm/232" target="_blank" rel="noopener"><span class="dom"></span>/232</a> · <a class="u" href="https://www.dexcom.com/get-started-cgm/233" target="_blank" rel="noopener"><span class="dom"></span>/233</a> · <a class="u" href="https://www.dexcom.com/get-started-cgm/234" target="_blank" rel="noopener"><span class="dom"></span>/234</a> · <a class="u" href="https://www.dexcom.com/get-started-cgm/235" target="_blank" rel="noopener"><span class="dom"></span>/235</a></td><td class="k">Patient</td><td>Six numbered funnel variants running simultaneously</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.dexcom.com/freetrial" target="_blank" rel="noopener"><span class="dom">dexcom.com</span>/freetrial</a></td><td class="k">Patient</td><td>De-risks a device you can't return</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.dexcom.com/es-US" target="_blank" rel="noopener"><span class="dom">dexcom.com</span>/es-US/…</a></td><td class="k">Patient</td><td>Full Spanish mirror</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.dexcom.com/dexcom-care" target="_blank" rel="noopener"><span class="dom">dexcom.com</span>/dexcom-care</a> · <a class="u" href="https://www.dexcom.com/all-access" target="_blank" rel="noopener"><span class="dom"></span>/all-access</a></td><td class="k">Customer</td><td>Retention &amp; education after the sale</td></tr>
     </tbody>
   </table></div></div>
 
@@ -703,13 +719,13 @@ footer{
   <div class="tbox"><div class="tscroll"><table>
     <thead><tr><th>String</th><th>Decoded</th></tr></thead>
     <tbody>
-      <tr><td class="url">g7-15-day_awa|con|cnv|tra_us_q1|q2|q3_2026_social</td><td>One product launch, four funnel stages, three quarters — named consistently</td></tr>
-      <tr><td class="url">g7_US_conversion_RT100%_prsp</td><td>Retargeting 100% video viewers</td></tr>
-      <tr><td class="url">g7_US_traffic_GLP1_prsp</td><td><b style="color:var(--blue);font-weight:500">A dedicated GLP-1 audience</b> — riding someone else's demand wave</td></tr>
-      <tr><td class="url">g7_US_…_PEAQUI · HLTMRW · INYIT2 · DEXREV · RETENT</td><td>Named audience cohorts, reused across quarters</td></tr>
-      <tr><td class="url">AreYouCoveredMap_static</td><td>A <b style="color:var(--blue);font-weight:500">map</b> of coverage as a static creative</td></tr>
-      <tr><td class="url">Affordability_static · MorePeopleCovered_video</td><td>Coverage is the message, not the product</td></tr>
-      <tr><td class="url">50PercentMoreWear15Day_static</td><td>The one product claim — expressed as a percentage</td></tr>
+      <tr><td class="url"><span class="tok">g7-15-day_awa|con|cnv|tra_us_q1|q2|q3_2026_social</span></td><td>One product launch, four funnel stages, three quarters — named consistently</td></tr>
+      <tr><td class="url"><span class="tok">g7_US_conversion_RT100%_prsp</span></td><td>Retargeting 100% video viewers</td></tr>
+      <tr><td class="url"><span class="tok">g7_US_traffic_GLP1_prsp</span></td><td><b style="color:var(--blue);font-weight:500">A dedicated GLP-1 audience</b> — riding someone else's demand wave</td></tr>
+      <tr><td class="url"><span class="tok">g7_US_…_PEAQUI</span> <span class="tok">HLTMRW</span> <span class="tok">INYIT2</span> <span class="tok">DEXREV</span> <span class="tok">RETENT</span></td><td>Named audience cohorts, reused across quarters</td></tr>
+      <tr><td class="url"><span class="tok">AreYouCoveredMap_static</span></td><td>A <b style="color:var(--blue);font-weight:500">map</b> of coverage as a static creative</td></tr>
+      <tr><td class="url"><span class="tok">Affordability_static</span> <span class="tok">MorePeopleCovered_video</span></td><td>Coverage is the message, not the product</td></tr>
+      <tr><td class="url"><span class="tok">50PercentMoreWear15Day_static</span></td><td>The one product claim — expressed as a percentage</td></tr>
     </tbody>
   </table></div></div>
 
@@ -813,14 +829,14 @@ footer{
   <div class="tbox"><div class="tscroll"><table>
     <thead><tr><th>Page</th><th>Ads</th><th>Read</th></tr></thead>
     <tbody>
-      <tr><td class="url">forhers.ca/lp/so/wl/ozempic</td><td class="num">371</td><td>Named drug. Named country. Named source.</td></tr>
-      <tr><td class="url">forhers.ca/lp/se/wl/weight-loss</td><td class="num">339</td><td>Same category, different traffic source (<span style="font-family:var(--mono)">se</span> vs <span style="font-family:var(--mono)">so</span>)</td></tr>
-      <tr><td class="url">forhers.com/lp/wl-start-wegovy</td><td class="num">60</td><td>US mirror, different drug</td></tr>
-      <tr><td class="url">forhers.com/lp/hair-start-hair-loss</td><td class="num">46</td><td>Second category entirely</td></tr>
-      <tr><td class="url">forhers.com/mh-start-best-self-fa · -a</td><td class="num">26</td><td>Mental health · two creative variants</td></tr>
-      <tr><td class="url">forhers.com/labs</td><td class="num">13</td><td>Diagnostics as an entry product</td></tr>
-      <tr><td class="url">/lp/wl-start-wegovy-md-plan</td><td class="num">12</td><td>"MD plan" — the doctor tier as its own page</td></tr>
-      <tr><td class="url">.ca/lp/so/wl/{mounjaro · rybelsus · shop-generic-semaglutide · shop-ozempic}</td><td class="num">37</td><td><b style="color:var(--blue);font-weight:500">One page per molecule.</b> Not one page per condition.</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.forhers.ca/lp/so/wl/ozempic" target="_blank" rel="noopener"><span class="dom">forhers.ca</span>/lp/so/wl/ozempic</a></td><td class="num">371</td><td>Named drug. Named country. Named source.</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.forhers.ca/lp/se/wl/weight-loss" target="_blank" rel="noopener"><span class="dom">forhers.ca</span>/lp/se/wl/weight-loss</a></td><td class="num">339</td><td>Same category, different traffic source (<span style="font-family:var(--mono)">se</span> vs <span style="font-family:var(--mono)">so</span>)</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.forhers.com/lp/wl-start-wegovy" target="_blank" rel="noopener"><span class="dom">forhers.com</span>/lp/wl-start-wegovy</a></td><td class="num">60</td><td>US mirror, different drug</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.forhers.com/lp/hair-start-hair-loss" target="_blank" rel="noopener"><span class="dom">forhers.com</span>/lp/hair-start-hair-loss</a></td><td class="num">46</td><td>Second category entirely</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.forhers.com/mh-start-best-self-fa" target="_blank" rel="noopener"><span class="dom">forhers.com</span>/mh-start-best-self-fa</a> · <a class="u" href="https://www.forhers.com/mh-start-best-self-a" target="_blank" rel="noopener"><span class="dom"></span>-a</a></td><td class="num">26</td><td>Mental health · two creative variants</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.forhers.com/labs" target="_blank" rel="noopener"><span class="dom">forhers.com</span>/labs</a></td><td class="num">13</td><td>Diagnostics as an entry product</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.forhers.com/lp/wl-start-wegovy-md-plan" target="_blank" rel="noopener"><span class="dom">forhers.com</span>/lp/wl-start-wegovy-md-plan</a></td><td class="num">12</td><td>"MD plan" — the doctor tier as its own page</td></tr>
+      <tr><td class="url"><span class="dom" style="font-family:var(--mono);font-size:13px">forhers.ca/lp/so/wl</span><a class="u" href="https://www.forhers.ca/lp/so/wl/mounjaro" target="_blank" rel="noopener"><span class="dom"></span>/mounjaro</a> · <a class="u" href="https://www.forhers.ca/lp/so/wl/rybelsus" target="_blank" rel="noopener"><span class="dom"></span>/rybelsus</a> · <a class="u" href="https://www.forhers.ca/lp/so/wl/shop-generic-semaglutide" target="_blank" rel="noopener"><span class="dom"></span>/shop-generic-semaglutide</a> · <a class="u" href="https://www.forhers.ca/lp/so/wl/shop-ozempic" target="_blank" rel="noopener"><span class="dom"></span>/shop-ozempic</a></td><td class="num">37</td><td><b style="color:var(--blue);font-weight:500">One page per molecule.</b> Not one page per condition.</td></tr>
     </tbody>
   </table></div></div>
 
@@ -922,13 +938,13 @@ footer{
   <div class="tbox"><div class="tscroll"><table>
     <thead><tr><th>utm_content</th><th>Angle</th><th>Persona</th></tr></thead>
     <tbody>
-      <tr><td class="url">_teethshifted_midadultfemale_generic</td><td class="k">Problem recognition</td><td>Mid-adult female</td></tr>
-      <tr><td class="url">_cost_youngadultfemale</td><td class="k">Price</td><td>Young adult female</td></tr>
-      <tr><td class="url">_health_olderadultfemale</td><td class="k">Health, not looks</td><td>Older adult female</td></tr>
-      <tr><td class="url">_beforeafterefficacy_olderadultfemale</td><td class="k">Proof</td><td>Older adult female</td></tr>
-      <tr><td class="url">_differentiation_midadult</td><td class="k">Vs. competitors</td><td>Mid-adult</td></tr>
-      <tr><td class="url">_complexcase_midadultmale</td><td class="k">"Even my case?"</td><td>Mid-adult male</td></tr>
-      <tr><td class="url">fsa-hsa-balance-static-close-up</td><td class="k"><b style="color:var(--blue);font-weight:500">"Use your FSA before it expires"</b></td><td>Seasonal, everyone</td></tr>
+      <tr><td class="url"><span class="tok">_teethshifted_midadultfemale_generic</span></td><td class="k">Problem recognition</td><td>Mid-adult female</td></tr>
+      <tr><td class="url"><span class="tok">_cost_youngadultfemale</span></td><td class="k">Price</td><td>Young adult female</td></tr>
+      <tr><td class="url"><span class="tok">_health_olderadultfemale</span></td><td class="k">Health, not looks</td><td>Older adult female</td></tr>
+      <tr><td class="url"><span class="tok">_beforeafterefficacy_olderadultfemale</span></td><td class="k">Proof</td><td>Older adult female</td></tr>
+      <tr><td class="url"><span class="tok">_differentiation_midadult</span></td><td class="k">Vs. competitors</td><td>Mid-adult</td></tr>
+      <tr><td class="url"><span class="tok">_complexcase_midadultmale</span></td><td class="k">"Even my case?"</td><td>Mid-adult male</td></tr>
+      <tr><td class="url"><span class="tok">fsa-hsa-balance-static-close-up</span></td><td class="k"><b style="color:var(--blue);font-weight:500">"Use your FSA before it expires"</b></td><td>Seasonal, everyone</td></tr>
     </tbody>
   </table></div></div>
 
@@ -936,12 +952,12 @@ footer{
   <div class="tbox"><div class="tscroll"><table>
     <thead><tr><th>Destination</th><th>Job</th></tr></thead>
     <tbody>
-      <tr><td class="url">fb.me/… (instant forms)</td><td>22 ads — cheapest possible capture, no site needed</td></tr>
-      <tr><td class="url">/find-a-doctor</td><td>The gate, made into a product</td></tr>
-      <tr><td class="url">/find-a-doctor/schedule-online</td><td><b style="color:var(--green-ink);font-weight:500">Book the appointment in the same session</b> — no callback, no phone tag</td></tr>
-      <tr><td class="url">cloud.info.invisalign.com/shift-happens</td><td>A named flagship campaign with its own subdomain</td></tr>
-      <tr><td class="url">/invisalign-cost/financing/hfd-prequal <span style="color:var(--blue);font-weight:500">+ tx / fl / ca</span></td><td>Financing pre-qual as a paid destination, localised by state</td></tr>
-      <tr><td class="url">/why-invisalign/oral-health</td><td>Reframes a cosmetic purchase as a medical one</td></tr>
+      <tr><td class="url"><span class="tok">fb.me/…</span> <span class="plain">Meta instant forms — no page at all</span></td><td>22 ads — cheapest possible capture, no site needed</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.invisalign.com/find-a-doctor" target="_blank" rel="noopener"><span class="dom">invisalign.com</span>/find-a-doctor</a></td><td>The gate, made into a product</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.invisalign.com/find-a-doctor/schedule-online" target="_blank" rel="noopener"><span class="dom">invisalign.com</span>/find-a-doctor/schedule-online</a></td><td><b style="color:var(--green-ink);font-weight:500">Book the appointment in the same session</b> — no callback, no phone tag</td></tr>
+      <tr><td class="url"><a class="u" href="https://cloud.info.invisalign.com/shift-happens" target="_blank" rel="noopener"><span class="dom">cloud.info.invisalign.com</span>/shift-happens</a></td><td>A named flagship campaign with its own subdomain</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.invisalign.com/invisalign-cost/financing/hfd-prequal" target="_blank" rel="noopener"><span class="dom">invisalign.com</span>/invisalign-cost/financing/hfd-prequal</a> <span style="color:var(--blue);font-weight:500;font-size:13px">+ tx / fl / ca</span></td><td>Financing pre-qual as a paid destination, localised by state</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.invisalign.com/why-invisalign/oral-health" target="_blank" rel="noopener"><span class="dom">invisalign.com</span>/why-invisalign/oral-health</a></td><td>Reframes a cosmetic purchase as a medical one</td></tr>
     </tbody>
   </table></div></div>
 
@@ -1039,13 +1055,13 @@ footer{
   <div class="tbox"><div class="tscroll"><table>
     <thead><tr><th>Page</th><th>Side</th><th>Ads</th></tr></thead>
     <tbody>
-      <tr><td class="url">/collections/best-sellers</td><td class="k">Consumer</td><td class="num">25</td></tr>
-      <tr><td class="url">/pages/celluma-professional-registration</td><td class="k" style="color:var(--green-ink);font-weight:500"><b>Practitioner</b></td><td class="num">19</td></tr>
-      <tr><td class="url">/products/celluma-pro-plus</td><td class="k">Consumer / pro crossover</td><td class="num">14</td></tr>
-      <tr><td class="url">/pages/become-a-celluma-professional-today</td><td class="k" style="color:var(--green-ink);font-weight:500"><b>Practitioner</b></td><td class="num">2</td></tr>
-      <tr><td class="url">/products/…-mystique-led-light-therapy-mask</td><td class="k">Consumer</td><td class="num">2</td></tr>
-      <tr><td class="url">/collections/acne</td><td class="k">Consumer, by condition</td><td class="num">2</td></tr>
-      <tr><td class="url">/collections/body-contouring-collection</td><td class="k">Consumer, by outcome</td><td class="num">1</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.celluma.com/collections/best-sellers" target="_blank" rel="noopener"><span class="dom">celluma.com</span>/collections/best-sellers</a></td><td class="k">Consumer</td><td class="num">25</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.celluma.com/pages/celluma-professional-registration" target="_blank" rel="noopener"><span class="dom">celluma.com</span>/pages/celluma-professional-registration</a></td><td class="k" style="color:var(--green-ink);font-weight:500"><b>Practitioner</b></td><td class="num">19</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.celluma.com/products/celluma-pro-plus" target="_blank" rel="noopener"><span class="dom">celluma.com</span>/products/celluma-pro-plus</a></td><td class="k">Consumer / pro crossover</td><td class="num">14</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.celluma.com/pages/become-a-celluma-professional-today" target="_blank" rel="noopener"><span class="dom">celluma.com</span>/pages/become-a-celluma-professional-today</a></td><td class="k" style="color:var(--green-ink);font-weight:500"><b>Practitioner</b></td><td class="num">2</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.celluma.com/products/celluma-mystique-led-light-therapy-mask" target="_blank" rel="noopener"><span class="dom">celluma.com</span>/products/…-mystique-led-light-therapy-mask</a></td><td class="k">Consumer</td><td class="num">2</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.celluma.com/collections/acne" target="_blank" rel="noopener"><span class="dom">celluma.com</span>/collections/acne</a></td><td class="k">Consumer, by condition</td><td class="num">2</td></tr>
+      <tr><td class="url"><a class="u" href="https://www.celluma.com/collections/body-contouring-collection" target="_blank" rel="noopener"><span class="dom">celluma.com</span>/collections/body-contouring-collection</a></td><td class="k">Consumer, by outcome</td><td class="num">1</td></tr>
     </tbody>
   </table></div></div>
 
