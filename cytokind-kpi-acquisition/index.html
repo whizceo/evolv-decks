@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CytoKind — Acquisition Control Room</title>
+<style>
+:root{
+  --canvas:#ffffff;
+  --parchment:#f5f5f7;
+  --dark:#1d1d1f;
+  --ink:#1d1d1f;
+  --ink-sec:#6e6e73;
+  --faint:#86868b;
+  --on-dark:#f5f5f7;
+  --sec-on-dark:#a1a1a6;
+  --blue:#0066cc;
+  --blue-lt:#2997ff;
+  --blue-tint:rgba(0,102,204,.07);
+  --blue-line:rgba(0,102,204,.30);
+  --green:#34c759;
+  --green-ink:#248a3d;
+  --green-tint:rgba(52,199,89,.07);
+  --green-line:rgba(52,199,89,.32);
+  --red:#ff3b30;
+  --red-ink:#c0392b;
+  --red-tint:rgba(255,59,48,.06);
+  --red-line:rgba(255,59,48,.28);
+  --amber:#ff9f0a;
+  --amber-ink:#8a5a00;
+  --amber-tint:rgba(255,159,10,.08);
+  --amber-line:rgba(255,159,10,.35);
+  --line:#d2d2d7;
+  --line-soft:#e8e8ed;
+  --line-dark:rgba(255,255,255,.14);
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,monospace;
+  --disp:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--canvas); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  line-height:1.47; letter-spacing:-.012em; font-size:17px; overflow-x:hidden;
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+/* ---------- MOBILE GATE ---------- */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--canvas);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+.mobile-block .mb-emoji{font-size:44px;margin-bottom:22px}
+.mobile-block .mb-title{font-family:var(--disp);font-weight:600;font-size:1.7rem;letter-spacing:-.025em;margin-bottom:14px}
+.mobile-block .mb-title em{font-style:normal;color:var(--blue)}
+.mobile-block .mb-sub{font-size:.95rem;color:var(--ink-sec);max-width:340px;line-height:1.55}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+
+/* ---------- HERO ---------- */
+header{padding:84px 0 40px}
+.kicker{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:500;
+  color:var(--ink-sec);background:var(--parchment);border:1px solid var(--line-soft);
+  padding:8px 16px;border-radius:9999px;margin-bottom:26px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+h1{font-family:var(--disp);font-weight:600;font-size:clamp(38px,5.6vw,62px);line-height:1.04;
+  letter-spacing:-.026em;margin-bottom:20px}
+h1 em{font-style:normal;color:var(--blue)}
+.sub{font-size:20px;color:var(--ink-sec);max-width:840px;line-height:1.44;text-wrap:balance}
+.sub b{color:var(--ink);font-weight:600}
+.meta{display:flex;flex-wrap:wrap;margin-top:34px;font-size:13px;color:var(--ink-sec);border-top:1px solid var(--line)}
+.meta span{padding:15px 24px 15px 0;margin-right:24px;border-right:1px solid var(--line)}
+.meta span:last-child{border-right:none;margin-right:0;padding-right:0}
+
+/* ---------- INTEGRITY BAR ---------- */
+.integrity{display:grid;grid-template-columns:auto auto auto auto 1fr;gap:26px;align-items:center;
+  border:1px solid var(--amber-line);background:var(--amber-tint);border-radius:18px;
+  padding:20px 24px;margin:34px 0 0}
+.ibig{font-family:var(--disp);font-size:36px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--amber-ink)}
+.ibig small{display:block;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--amber-ink);opacity:.8;margin-top:7px;font-family:inherit}
+.isep{width:1px;height:46px;background:var(--amber-line)}
+.itxt{font-size:14.5px;color:var(--ink);line-height:1.5}
+.itxt b{font-weight:600}
+
+/* ---------- STICKY BAR ---------- */
+.sticky{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);
+  backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-soft)}
+.sbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:13px 0}
+.slabel{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin-right:2px}
+.scn{display:flex;gap:7px;background:var(--parchment);padding:4px;border-radius:11px;border:1px solid var(--line-soft)}
+.scn button{font:inherit;font-size:13.5px;font-weight:500;letter-spacing:-.006em;border:none;background:transparent;
+  color:var(--ink-sec);padding:7px 15px;border-radius:8px;cursor:pointer;transition:.16s;white-space:nowrap}
+.scn button:hover{color:var(--ink)}
+.scn button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.10)}
+.ghost{font:inherit;font-size:13px;font-weight:500;border:1px solid var(--line);background:#fff;color:var(--ink-sec);
+  padding:8px 15px;border-radius:9999px;cursor:pointer;transition:.16s}
+.ghost:hover{border-color:var(--ink-sec);color:var(--ink)}
+.spush{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:13px;color:var(--ink-sec)}
+.spush b{font-family:var(--disp);font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+
+/* ---------- SECTIONS ---------- */
+section{padding:66px 0 46px}
+section.alt{background:var(--parchment);box-shadow:0 0 0 100vmax var(--parchment);clip-path:inset(0 -100vmax)}
+.sechead{display:flex;align-items:flex-start;gap:18px;margin-bottom:10px;flex-wrap:wrap}
+.rank{font-family:var(--disp);font-size:13.5px;font-weight:600;color:#fff;background:var(--blue);
+  width:42px;height:42px;border-radius:12px;display:grid;place-items:center;flex:none}
+h2{font-family:var(--disp);font-size:clamp(27px,3.4vw,38px);letter-spacing:-.024em;line-height:1.1;font-weight:600}
+.tag{font-size:12.5px;font-weight:500;padding:6px 13px;border-radius:9999px;border:1px solid var(--line);
+  display:inline-block;margin-top:10px;color:var(--ink-sec)}
+.lede{font-size:18px;color:var(--ink-sec);max-width:900px;margin:16px 0 32px;line-height:1.5}
+.lede b{color:var(--ink);font-weight:600}
+.lede em{font-style:normal;color:var(--blue);font-weight:500}
+h3{font-family:var(--disp);font-size:20px;font-weight:600;letter-spacing:-.02em;margin:42px 0 16px}
+h3:first-of-type{margin-top:0}
+
+/* ---------- OUTPUT TILES ---------- */
+.outs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}
+.out{border:1px solid var(--line);border-radius:18px;padding:20px 20px 17px;background:#fff;
+  box-shadow:rgba(0,0,0,.05) 0 12px 28px -22px;position:relative;overflow:hidden}
+.out .ol{font-size:12.5px;color:var(--ink-sec);line-height:1.35;min-height:34px}
+.out .ov{font-family:var(--disp);font-size:38px;font-weight:600;letter-spacing:-.034em;line-height:1;
+  margin:10px 0 8px;transition:color .2s}
+.out .od{font-size:12.5px;font-weight:600;letter-spacing:-.006em;display:inline-flex;align-items:center;gap:5px}
+.out .os{font-size:11.5px;color:var(--faint);margin-top:3px}
+.out.hero{background:var(--dark);border-color:var(--dark)}
+.out.hero .ol,.out.hero .os{color:var(--sec-on-dark)}
+.out.hero .ov{color:#fff}
+.out.warn .ov{color:var(--red-ink)}
+.out.good .ov{color:var(--green-ink)}
+.up{color:var(--green-ink)} .dn{color:var(--red-ink)} .flat{color:var(--faint)}
+@media(max-width:1080px){.outs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- LEVERS ---------- */
+.lgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.lgroup{border:1px solid var(--line);border-radius:18px;background:#fff;padding:22px 22px 8px}
+section.alt .lgroup{background:#fff}
+.lgt{font-family:var(--disp);font-size:15px;font-weight:600;letter-spacing:-.015em;margin-bottom:4px}
+.lgs{font-size:12.5px;color:var(--faint);margin-bottom:20px;line-height:1.4}
+.lever{padding:13px 0;border-top:1px solid var(--line-soft)}
+.lever:first-of-type{border-top:none;padding-top:2px}
+.lhead{display:flex;align-items:baseline;gap:8px;margin-bottom:9px}
+.lname{font-size:13.5px;color:var(--ink);flex:1;line-height:1.3}
+.src{font-size:9.5px;font-weight:700;letter-spacing:.05em;padding:2px 5px;border-radius:4px;flex:none;
+  position:relative;top:-1px;cursor:help}
+.src.m{color:var(--green-ink);background:var(--green-tint);border:1px solid var(--green-line)}
+.src.a{color:var(--amber-ink);background:var(--amber-tint);border:1px solid var(--amber-line)}
+.lval{font-family:var(--disp);font-variant-numeric:tabular-nums;font-size:16px;font-weight:600;
+  letter-spacing:-.02em;flex:none;min-width:74px;text-align:right}
+.lval.moved{color:var(--blue)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;
+  background:var(--line);outline:none;cursor:pointer;display:block}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:#fff;border:.5px solid rgba(0,0,0,.10);box-shadow:0 3px 8px rgba(0,0,0,.16);cursor:grab;margin-top:0}
+input[type=range]:active::-webkit-slider-thumb{cursor:grabbing;transform:scale(1.06)}
+.lnote{font-size:11.5px;color:var(--faint);margin-top:7px;line-height:1.4}
+@media(max-width:1080px){.lgrid{grid-template-columns:1fr}}
+
+/* ---------- CHAIN ---------- */
+.chain{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
+.crow{display:grid;grid-template-columns:34px 1fr 118px 92px 118px;gap:0;align-items:center;
+  padding:15px 22px;border-top:1px solid var(--line-soft)}
+.crow:first-child{border-top:none}
+.crow.head{background:var(--parchment);font-size:11px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--faint);padding:11px 22px}
+.cn{font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+.cl{font-size:14.5px;line-height:1.3}
+.cl small{display:block;font-size:11.5px;color:var(--faint);margin-top:2px}
+.cv{font-family:var(--disp);font-variant-numeric:tabular-nums;font-size:20px;font-weight:600;
+  letter-spacing:-.024em;text-align:right}
+.cp{font-family:var(--disp);font-variant-numeric:tabular-nums;font-size:13.5px;text-align:right;color:var(--ink-sec)}
+.cbar{padding-left:20px}
+.cbar i{display:block;height:7px;border-radius:4px;background:var(--blue);transition:width .3s ease}
+.cbar i.bad{background:var(--red)} .cbar i.mid{background:var(--amber)} .cbar i.ok{background:var(--green)}
+.crow.leak{background:var(--red-tint)}
+.crow.leak .cv{color:var(--red-ink)}
+.crow.win{background:var(--green-tint)}
+.crow.win .cv{color:var(--green-ink)}
+
+/* ---------- NOTES ---------- */
+.note{border:1px solid var(--line);border-left:3px solid var(--blue);background:var(--parchment);
+  border-radius:12px;padding:17px 20px;font-size:14.5px;line-height:1.55;margin-top:20px}
+section.alt .note{background:#fff}
+.note.red{border-left-color:var(--red);background:var(--red-tint);border-color:var(--red-line)}
+.note.green{border-left-color:var(--green);background:var(--green-tint);border-color:var(--green-line)}
+.note.amber{border-left-color:var(--amber);background:var(--amber-tint);border-color:var(--amber-line)}
+.note b{font-weight:600}
+.note em{font-style:italic;color:var(--ink-sec)}
+
+/* ---------- TABLES ---------- */
+.tbox{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
+/* A ledger whose Verdict column is parked off-screen is not a ledger. These tables carry
+   up to 16 columns, so they get to break the 1240px measure and use the real screen. */
+.tbox.wide{width:min(100vw - 56px, 1460px);margin-left:calc(50% - min(100vw - 56px, 1460px)/2)}
+.tscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:var(--parchment);text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--faint);padding:11px 13px;white-space:nowrap;border-bottom:1px solid var(--line)}
+td{padding:10px 13px;border-top:1px solid var(--line-soft);vertical-align:middle;white-space:nowrap}
+.tbox.wide th{padding:10px 9px}
+.tbox.wide td{padding:9px 9px}
+.tbox.wide table{font-size:13px}
+.tbox.wide table input{font-size:13px;min-width:54px;padding:5px 6px}
+.tbox.wide table input.txt{min-width:104px}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.tot td{background:var(--parchment);font-weight:600;border-top:1px solid var(--line)}
+table input{font:inherit;font-size:13.5px;font-family:inherit;font-variant-numeric:tabular-nums;
+  border:1px solid transparent;background:transparent;border-radius:7px;padding:5px 7px;width:100%;
+  color:var(--ink);transition:.14s;min-width:62px}
+table input:hover{border-color:var(--line)}
+table input:focus{outline:none;border-color:var(--blue);background:var(--blue-tint)}
+table input.txt{text-align:left;min-width:120px}
+table input.nn{text-align:right}
+.vd{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:9999px;display:inline-block;white-space:nowrap}
+.vd.scale{color:var(--green-ink);background:var(--green-tint);border:1px solid var(--green-line)}
+.vd.hold{color:var(--amber-ink);background:var(--amber-tint);border:1px solid var(--amber-line)}
+.vd.kill{color:var(--red-ink);background:var(--red-tint);border:1px solid var(--red-line)}
+.vd.na{color:var(--faint);background:var(--parchment);border:1px solid var(--line-soft)}
+.xbtn{font:inherit;font-size:15px;line-height:1;border:none;background:transparent;color:var(--faint);
+  cursor:pointer;padding:4px 7px;border-radius:6px}
+.xbtn:hover{color:var(--red-ink);background:var(--red-tint)}
+.tfoot{display:flex;align-items:center;gap:12px;padding:13px 16px;border-top:1px solid var(--line);
+  background:var(--parchment);flex-wrap:wrap}
+.tfoot .hint{font-size:12.5px;color:var(--faint);margin-left:auto}
+.k{font-family:var(--mono);font-size:12.5px;color:var(--ink-sec);background:var(--parchment);
+  padding:2px 6px;border-radius:5px;border:1px solid var(--line-soft)}
+
+/* ---------- MARGINAL ROI ---------- */
+.mroi{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
+.mrow{display:grid;grid-template-columns:38px 1fr 118px 108px 1fr;gap:0;align-items:center;
+  padding:13px 22px;border-top:1px solid var(--line-soft)}
+.mrow:first-child{border-top:none}
+.mrow.head{background:var(--parchment);font-size:11px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--faint);padding:11px 22px}
+.mrk{font-family:var(--disp);font-size:15px;font-weight:600;color:var(--faint)}
+.mrow.top1{background:var(--green-tint)}
+.mrow.top1 .mrk{color:var(--green-ink)}
+.mnm{font-size:14.5px}
+.mnm small{display:block;font-size:11.5px;color:var(--faint)}
+.mv{font-family:var(--disp);font-variant-numeric:tabular-nums;font-size:17px;font-weight:600;
+  letter-spacing:-.022em;text-align:right}
+.mv.pos{color:var(--green-ink)} .mv.neg{color:var(--red-ink)} .mv.zero{color:var(--faint)}
+.mb{padding-left:22px}
+.mb i{display:block;height:7px;border-radius:4px;background:var(--green);transition:width .3s ease}
+.mb i.neg{background:var(--red)}
+.mcost{font-family:var(--disp);font-variant-numeric:tabular-nums;font-size:13.5px;text-align:right;color:var(--ink-sec)}
+
+/* ---------- BOARD ---------- */
+.bgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:1080px){.bgrid{grid-template-columns:1fr}}
+.status{font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:9999px;display:inline-block}
+.status.g{color:var(--green-ink);background:var(--green-tint);border:1px solid var(--green-line)}
+.status.a{color:var(--amber-ink);background:var(--amber-tint);border:1px solid var(--amber-line)}
+.status.r{color:var(--red-ink);background:var(--red-tint);border:1px solid var(--red-line)}
+.act{font-size:12.5px;color:var(--ink-sec);white-space:normal;line-height:1.4;min-width:280px}
+
+/* ---------- BACKLOG ---------- */
+.bl{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}
+@media(max-width:1080px){.bl{grid-template-columns:1fr}}
+.blcard{border:1px solid var(--line);border-radius:18px;background:#fff;padding:24px}
+.blbig{font-family:var(--disp);font-size:48px;font-weight:600;letter-spacing:-.036em;line-height:1;color:var(--green-ink)}
+.blsub{font-size:14px;color:var(--ink-sec);margin-top:10px;line-height:1.5}
+
+footer{padding:52px 0 76px;font-size:12.5px;color:var(--faint);line-height:1.75;border-top:1px solid var(--line);margin-top:40px}
+footer b{color:var(--ink-sec);font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title"><em>Open on desktop</em></div>
+  <div class="mb-sub">This is an interactive control room with live levers and editable tables. Open it on a laptop.</div>
+</div>
+
+<div class="wrap">
+<header>
+  <div class="kicker"><span class="dot"></span>Evolv AI · Internal + client-facing · 14 Aug 2026 · Acquisition · KPI &amp; data monitoring</div>
+  <h1>The acquisition<br><em>control room</em></h1>
+  <p class="sub">Every number CytoKind spends money to create, in one model you can pull apart. <b>Move a lever and the whole chain re-computes</b> — contacts, JotForms, devices, revenue, cost per acquisition. Then the model tells you, on its own, <b>which single lever is worth the most money next month</b>.</p>
+  <div class="meta">
+    <span>Baseline: 14 Aug 2026</span>
+    <span>Money on the $2,000 floor unit</span>
+    <span>Sources: Adrian call 14 Aug · Spyglass live corpus · Meta Ads Manager</span>
+  </div>
+
+  <div class="integrity">
+    <div class="ibig"><span id="i-m">6</span><small>measured</small></div>
+    <div class="isep"></div>
+    <div class="ibig"><span id="i-a">16</span><small>assumed</small></div>
+    <div class="isep"></div>
+    <div class="itxt"><b>This is the real finding before a single lever moves.</b> <span id="i-m2">8</span> of the <span id="i-t">22</span> inputs below come from a recorded call or a live system. The other <span id="i-a2">14</span> are assumptions, marked <span class="src a">A</span>, because <b>the numbers do not exist anywhere</b> — not in Ads Manager, not in the CRM, not in a sheet. Week one of the engagement replaces every <span class="src a">A</span> with an <span class="src m">M</span>. That is what "data monitoring" actually means here.</div>
+  </div>
+</header>
+</div>
+
+<div class="sticky">
+  <div class="wrap">
+    <div class="sbar">
+      <span class="slabel">Scenario</span>
+      <div class="scn" id="scn">
+        <button data-s="today" class="on">Today · 14 Aug</button>
+        <button data-s="p1">P1 · days 1–30</button>
+        <button data-s="p2">P2 · days 31–90</button>
+      </div>
+      <button class="ghost" id="reset">Reset all</button>
+      <div class="spush">
+        <span>Devices / month <b class="num" id="q-dev">0</b></span>
+        <span>Revenue / month <b class="num" id="q-rev">$0</b></span>
+        <span>ROAS <b class="num" id="q-roas">0.0×</b></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ============ 01 OUTPUTS ============ -->
+<section>
+  <div class="sechead">
+    <div class="rank">01</div>
+    <div>
+      <h2>What the machine produces</h2>
+      <span class="tag">Live output · deltas measured against Today · 14 Aug</span>
+    </div>
+  </div>
+  <p class="lede">The target is <b>20 devices a month</b>. Everything on this page exists to move the first tile. <em>Nothing here is a forecast</em> — it is arithmetic on the inputs in section 03, and every input is visible and editable.</p>
+
+  <div class="outs" id="outs"></div>
+
+  <div class="note red" id="headline"></div>
+</section>
+
+<!-- ============ 02 CHAIN ============ -->
+<section class="alt">
+  <div class="sechead">
+    <div class="rank">02</div>
+    <div>
+      <h2>The chain, stage by stage</h2>
+      <span class="tag">Each bar is retention from the stage above it, not share of the total</span>
+    </div>
+  </div>
+  <p class="lede">A funnel is only useful if you can see <b>where the volume dies</b>. The bar is what survives each step. <em>Red under 20%, amber under 50%, green above.</em> The two red rows are where the money is.</p>
+
+  <div class="chain" id="chain"></div>
+  <div class="note" id="chainnote"></div>
+</section>
+
+<!-- ============ 03 LEVERS ============ -->
+<section>
+  <div class="sechead">
+    <div class="rank">03</div>
+    <div>
+      <h2>The levers</h2>
+      <span class="tag">22 inputs · <span class="src m">M</span> measured, sourced · <span class="src a">A</span> assumed, must be replaced</span>
+    </div>
+  </div>
+  <p class="lede">Pull anything. The model recomputes on every pixel of movement. <b>Hover a source badge to see where the number came from.</b> A value that has been moved off its Today baseline turns blue.</p>
+  <div class="lgrid" id="levers"></div>
+</section>
+
+<!-- ============ 04 MARGINAL ROI ============ -->
+<section class="alt">
+  <div class="sechead">
+    <div class="rank">04</div>
+    <div>
+      <h2>Marginal ROI — what to attack next</h2>
+      <span class="tag">Every lever improved by one increment in isolation, ranked by gross contribution</span>
+    </div>
+  </div>
+  <p class="lede">This is the panel that decides the month. The model improves each lever <b>on its own</b> — by 10% of its current value, or one step of that lever, whichever is the larger move — holds everything else still, and reports the change in monthly revenue <em>net of any extra spend it costs</em>. <b>The top row is the constraint.</b> Re-read it every time the numbers move, because it moves too.</p>
+
+  <div class="mroi" id="mroi"></div>
+  <div class="note green" id="mroinote"></div>
+</section>
+
+<!-- ============ 05 CREATIVE LEDGER ============ -->
+<section>
+  <div class="sechead">
+    <div class="rank">05</div>
+    <div>
+      <h2>The creative ledger</h2>
+      <span class="tag">One row per creative · every cell editable · verdict computed</span>
+    </div>
+  </div>
+  <p class="lede">The ads seat cannot return a lesson if creatives are not named and measured individually. Every creative is logged as <span class="k">angle_persona</span>, and the ledger issues a verdict against the targets you set — so <b>killing an ad is a rule, not an argument</b>.</p>
+
+  <div class="tbox wide">
+    <div class="tscroll">
+      <table id="crtable">
+        <thead><tr>
+          <th>Creative</th><th>Angle</th><th>Persona</th><th>Format</th>
+          <th class="n">Spend</th><th class="n">Impr</th><th class="n">Clicks</th><th class="n">Submits</th><th class="n">Devices</th>
+          <th class="n">CPM</th><th class="n">CTR</th><th class="n">CPC</th><th class="n">$ / submit</th><th class="n">$ / device</th>
+          <th>Verdict</th><th></th>
+        </tr></thead>
+        <tbody id="crbody"></tbody>
+      </table>
+    </div>
+    <div class="tfoot">
+      <button class="ghost" id="craddrow">+ Add creative</button>
+      <span style="font-size:13px;color:var(--ink-sec)">Target cost / submit
+        <input class="nn" id="tgt-cps" type="number" value="14" style="width:70px;border:1px solid var(--line);background:#fff">
+      </span>
+      <span class="hint">Scale &lt; 0.75× target · Kill &gt; 1.6× target or CTR under 0.60%</span>
+    </div>
+  </div>
+  <div class="note amber">Seeded with the <b>two creatives measured live on 14 Aug</b>. Spend, impressions and clicks are placeholders — they are the first three numbers to pull from Ads Manager, and until they exist <b>no verdict on any creative is defensible</b>. Note what the ledger already shows: half the live creative points at MS, where the device count has never left zero.</div>
+</section>
+
+<!-- ============ 06 CONTENT LEDGER ============ -->
+<section class="alt">
+  <div class="sechead">
+    <div class="rank">06</div>
+    <div>
+      <h2>The content ledger</h2>
+      <span class="tag">Organic · unpaid · the same discipline, no media cost</span>
+    </div>
+  </div>
+  <p class="lede">Organic content is measured on one number: <b>contacts per 1,000 views</b>. It converts attention that costs nothing into the same funnel the ads feed, so a post that produces contacts is worth more than a post that produces views. <em>Fifteen reels have run. None produced a contact.</em></p>
+
+  <div class="tbox wide">
+    <div class="tscroll">
+      <table id="cotable">
+        <thead><tr>
+          <th>Post / series</th><th>Hook type</th><th>Format</th><th>Channel</th>
+          <th class="n">Views</th><th class="n">Engag.</th><th class="n">Link clicks</th><th class="n">Contacts</th>
+          <th class="n">Eng. rate</th><th class="n">Click rate</th><th class="n">Cont / 1K</th>
+          <th>Verdict</th><th></th>
+        </tr></thead>
+        <tbody id="cobody"></tbody>
+      </table>
+    </div>
+    <div class="tfoot">
+      <button class="ghost" id="coaddrow">+ Add content</button>
+      <span style="font-size:13px;color:var(--ink-sec)">Target contacts / 1,000 views
+        <input class="nn" id="tgt-cpk" type="number" step="0.1" value="2" style="width:70px;border:1px solid var(--line);background:#fff">
+      </span>
+      <span class="hint">Repeat ≥ target · Kill &lt; 0.25× target with 1,000+ views</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 BACKLOG ============ -->
+<section>
+  <div class="sechead">
+    <div class="rank">07</div>
+    <div>
+      <h2>Cash already inside the building</h2>
+      <span class="tag">One-time · not part of the monthly model above</span>
+    </div>
+  </div>
+  <p class="lede">Before a single new contact is bought, there is money sitting in the pipe that has already been paid for. <b>This is the cheapest revenue on the page</b> and it needs no ad spend, no new creative and no build.</p>
+
+  <div class="bl">
+    <div class="blcard">
+      <div class="blbig num" id="bl-val">$0</div>
+      <div class="blsub"><b>Parked prescriptions, recovered.</b> Prescription forms sitting with patients waiting on a signature nobody chases. Aeroflow's entire model is chasing the doctor instead of the patient.</div>
+      <div style="margin-top:22px">
+        <div class="lever" id="bl-l1"></div>
+        <div class="lever" id="bl-l2"></div>
+      </div>
+    </div>
+    <div class="blcard">
+      <div class="blbig num" id="bl-val2">$0</div>
+      <div class="blsub"><b>The never-touched, worked once.</b> Contacts that arrive each month and are never attempted because one person cannot reach them all. Worked at today's own connect and completion rates — no optimism added.</div>
+      <div style="margin-top:22px">
+        <div class="lever" id="bl-l3"></div>
+      </div>
+      <div class="note" style="margin-top:20px">This second number is the honest one. It is small on purpose. <b>Calling harder is not the fix</b> — the rate is the constraint, not the list. That is why section 04 almost never ranks dials first.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 MONDAY BOARD ============ -->
+<section class="alt">
+  <div class="sechead">
+    <div class="rank">08</div>
+    <div>
+      <h2>The Monday board</h2>
+      <span class="tag">Eight numbers · read every Monday · each red has one written action</span>
+    </div>
+  </div>
+  <p class="lede">Monitoring is not a dashboard, it is <b>a decision that fires when a number crosses a line</b>. Type the week's actual into each row; the status and the action are computed. <em>If nothing is red, you do not meet.</em></p>
+
+  <div class="tbox">
+    <div class="tscroll">
+      <table id="mbtable">
+        <thead><tr>
+          <th>Metric</th><th class="n">Target</th><th class="n">This week</th><th>Status</th><th>If red, do this — same week</th>
+        </tr></thead>
+        <tbody id="mbbody"></tbody>
+      </table>
+    </div>
+    <div class="tfoot"><span class="hint">Targets are editable. Status flips amber below target, red below 60% of target.</span></div>
+  </div>
+</section>
+
+<footer>
+  Evolv AI · CytoKind · Acquisition KPI &amp; data monitoring · 14 Aug 2026<br>
+  <b>Measured inputs</b> are sourced to the Adrian Delli Colli call of 14 Aug 2026, the Spyglass live Meta ad corpus measured 14 Aug 2026, or the CytoKind CRM. <b>Assumed inputs</b> are marked and are not claims — they are placeholders for numbers that do not currently exist in any CytoKind system.<br>
+  All money is calculated on the <b>$2,000 Phothera 200</b>, the cheapest device CytoKind sells, so every dollar figure on this page is a floor and not a projection.<br>
+  Nothing on this page is saved to a server. Values persist in this browser only, and "Reset all" restores the 14 August baseline.
+</footer>
+</div>
+
+<script>
+"use strict";
+const $=(s,r)=>(r||document).querySelector(s), $$=(s,r)=>[...(r||document).querySelectorAll(s)];
+const KEY='ck_kpi_acq_v2';
+
+/* ===================== LEVER DEFINITIONS ===================== */
+const GROUPS=[
+ {id:'paid',   t:'Paid media',        s:'Money in, contacts out. The three rate levers here have never been measured at CytoKind.'},
+ {id:'organic',t:'Organic content',   s:'Attention that costs nothing, entering the same landing page and the same form.'},
+ {id:'after',  t:'After the submit',  s:'The break point. Today this whole group is switched off — submit returns the person to Facebook.'},
+ {id:'human',  t:'The human leg',     s:'One person, a phone, and a finite number of hours. Capacity is a hard ceiling, not an attitude.'},
+ {id:'value',  t:'Conversion & value',s:'Which segment the traffic lands in decides whether a completed form becomes a device.'},
+ {id:'target', t:'The target',        s:'What "working" means, and what a month of not working costs.'}
+];
+
+const L=[
+ {id:'spend',   g:'paid',  n:'Monthly paid spend',                 u:'$', min:0,   max:30000,step:100, d:0, v:8400, src:'A', why:'Never disclosed. Tom gave one figure only: ~$300 on the psoriasis test.', note:'The single number to pull from Ads Manager first.'},
+ {id:'cpm',     g:'paid',  n:'CPM — cost per 1,000 impressions',   u:'$', min:4,   max:60,   step:.5,  d:2, v:20,   src:'A', why:'Not measured. US health/DTC on Meta typically runs $15–30.'},
+ {id:'ctr',     g:'paid',  n:'Click-through rate',                 u:'%', min:.2,  max:4,    step:.05, d:2, v:1.00, src:'A', why:'Not measured. 1.0% is a neutral placeholder for health DTC.'},
+ {id:'lprate',  g:'paid',  n:'Click → landing page actually loads',u:'%', min:50,  max:100,  step:1,   d:0, v:90,   src:'A', why:'Not measured. 10% bounce-before-load assumed.'},
+ {id:'formrate',g:'paid',  n:'Landing page → form submitted',      u:'%', min:1,   max:40,   step:.1,  d:1, v:15.9, src:'A', why:'Calibrated so cost per submit lands on $14 — the one ad economics number Tom disclosed.', note:'Calibrated to the measured $14 per form fill.'},
+
+ {id:'posts',   g:'organic',n:'Posts published per month',         u:'',  min:0,   max:60,   step:1,   d:0, v:8,    src:'A', why:'15 reels have run in total to date; a monthly cadence has never been set.'},
+ {id:'viewspp', g:'organic',n:'Average views per post',            u:'',  min:0,   max:20000,step:100, d:0, v:900,  src:'A', why:'Not measured post by post. "We haven\'t had anything well over a thousand views."'},
+ {id:'orgctr',  g:'organic',n:'View → link click',                 u:'%', min:0,   max:8,    step:.05, d:2, v:0.60, src:'A', why:'Not measured. No link tracking exists on organic posts.'},
+
+ {id:'postsub', g:'after', n:'Contacts routed onward after submit',u:'%', min:0,   max:100,  step:1,   d:0, v:0,    src:'M', why:'Measured at zero. Adrian, 14 Aug: "they hit submit… and that\'s the end of the experience."', note:'Zero today. The fix is already built and has never been switched on.'},
+ {id:'jfcomp',  g:'after', n:'JotForm started → completed',        u:'%', min:0,   max:100,  step:1,   d:0, v:35,   src:'A', why:'Only four JotForms have ever been completed, so a rate cannot yet be derived.'},
+
+ {id:'dials',   g:'human', n:'Outbound attempts per working day',  u:'',  min:0,   max:200,  step:5,   d:0, v:40,   src:'A', why:'Not logged. 40/day is a full-time seat working the phone.'},
+ {id:'wdays',   g:'human', n:'Working days per month',             u:'',  min:10,  max:26,   step:1,   d:0, v:22,   src:'A', why:'Standard month.'},
+ {id:'attempts',g:'human', n:'Attempts before a contact is dropped',u:'', min:1,   max:10,   step:1,   d:0, v:3,    src:'A', why:'Not defined anywhere. There is no written follow-up cadence.'},
+ {id:'connect', g:'human', n:'Connect rate per attempt',           u:'%', min:1,   max:40,   step:.5,  d:1, v:5.5,  src:'M', why:'Adrian, 14 Aug: "one in fifteen, one in twenty" on the phone.', note:'Measured. 1 in 18 per dial.'},
+ {id:'conn2jf', g:'human', n:'Connected → JotForm completed',      u:'%', min:0,   max:100,  step:1,   d:0, v:25,   src:'A', why:'Not tracked. Calls are not logged against outcomes.'},
+
+ {id:'dermsh',  g:'value', n:'Share of traffic aimed at dermatology',u:'%',min:0,  max:100,  step:1,   d:0, v:50,   src:'M', why:'Spyglass, 14 Aug: two live creatives, one psoriasis and one MS. Half the spend each.', note:'Measured. The other half points at MS.'},
+ {id:'dermcv',  g:'value', n:'Derm JotForm → device invoiced',     u:'%', min:0,   max:100,  step:1,   d:0, v:85,   src:'M', why:'Adrian, 14 Aug: "if you fill out that form, it\'s a sale, basically." All six sales were insurance-covered.'},
+ {id:'mscv',    g:'value', n:'MS JotForm → device invoiced',       u:'%', min:0,   max:100,  step:1,   d:0, v:5,    src:'M', why:'Zero devices have ever been sold to an MS patient. No FDA indication, so the patient pays $2–7K cash.', note:'Measured at effectively zero, across the whole history.'},
+ {id:'unit',    g:'value', n:'Revenue per device',                 u:'$', min:500, max:8000, step:100, d:0, v:2000, src:'M', why:'The Phothera 200 — the cheapest device CytoKind sells. Every figure on this page is therefore a floor.'},
+
+ {id:'goal',    g:'target',n:'Device target per month',            u:'',  min:1,   max:60,   step:1,   d:0, v:20,   src:'M', why:'Adrian, 14 Aug: 20 sales between 10 Aug and 10 Sep. Currently at 6.'},
+ {id:'parked',  g:'target',n:'Prescriptions parked right now',     u:'',  min:0,   max:100,  step:1,   d:0, v:19,   src:'M', why:'Adrian, 14 Aug: "now that number is up to 18, so that\'s, or like 20."'},
+ {id:'recover', g:'target',n:'Parked prescriptions recovered if chased',u:'%',min:0,max:100, step:5,   d:0, v:60,   src:'A', why:'Nobody has ever chased them, so no recovery rate exists.'}
+];
+
+const BASE={}; L.forEach(l=>BASE[l.id]=l.v);
+const V=Object.assign({},BASE);
+
+const SCEN={
+ today:{},
+ p1:{postsub:4, jfcomp:40, dermsh:85, attempts:4, conn2jf:28, recover:80},
+ p2:{spend:11000, ctr:1.15, formrate:17, postsub:9, jfcomp:45, dermsh:92,
+     attempts:5, conn2jf:32, posts:20, viewspp:2500, orgctr:1.00, recover:90}
+};
+
+/* ===================== THE MODEL ===================== */
+function model(v){
+  const impressions = v.cpm>0 ? (v.spend/v.cpm)*1000 : 0;
+  const clicks      = impressions*(v.ctr/100);
+  const lpPaid      = clicks*(v.lprate/100);
+  const cPaid       = lpPaid*(v.formrate/100);
+
+  const orgViews    = v.posts*v.viewspp;
+  const orgClicks   = orgViews*(v.orgctr/100);
+  const lpOrg       = orgClicks*(v.lprate/100);
+  const cOrg        = lpOrg*(v.formrate/100);
+
+  const lpviews     = lpPaid+lpOrg;
+  const contacts    = cPaid+cOrg;
+
+  // self-serve leg — the fix that is built and switched off
+  const jfStart     = contacts*(v.postsub/100);
+  const jfSelf      = jfStart*(v.jfcomp/100);
+
+  // human leg — capacity is a hard ceiling
+  const remaining   = Math.max(0, contacts-jfStart);
+  const capacity    = v.attempts>0 ? (v.dials*v.wdays)/v.attempts : 0;
+  const attempted   = Math.min(remaining, capacity);
+  const untouched   = Math.max(0, remaining-attempted);
+  const reach       = 1-Math.pow(1-(v.connect/100), v.attempts);   // per contact, over N attempts
+  const connects    = attempted*reach;
+  const jfHuman     = connects*(v.conn2jf/100);
+
+  const jf          = jfSelf+jfHuman;
+  const jfDerm      = jf*(v.dermsh/100);
+  const jfMs        = jf*(1-v.dermsh/100);
+  const devices     = jfDerm*(v.dermcv/100) + jfMs*(v.mscv/100);
+  const revenue     = devices*v.unit;
+
+  const cpl   = cPaid>0 ? v.spend/cPaid : 0;
+  const cpjf  = jf>0 ? v.spend/jf : 0;
+  const cac   = devices>0 ? v.spend/devices : 0;
+  const roas  = v.spend>0 ? revenue/v.spend : 0;
+  const gap   = Math.max(0, v.goal-devices)*v.unit;
+  const untouchedPct = contacts>0 ? untouched/contacts : 0;
+  const c2d   = contacts>0 ? devices/contacts : 0;
+
+  const parkedVal = v.parked*(v.recover/100)*(v.dermcv/100)*v.unit;
+  const untouchedVal = untouched*reach*(v.conn2jf/100)*((v.dermsh/100)*(v.dermcv/100)+(1-v.dermsh/100)*(v.mscv/100))*v.unit;
+
+  return {impressions,clicks,lpviews,contacts,cPaid,cOrg,jfStart,jfSelf,remaining,capacity,
+          attempted,untouched,connects,jfHuman,jf,devices,revenue,cpl,cpjf,cac,roas,gap,
+          untouchedPct,c2d,parkedVal,untouchedVal,reach};
+}
+
+/* ===================== FORMATTING ===================== */
+const nf=(x,d)=>{ if(!isFinite(x))return'—';
+  return x.toLocaleString('en-US',{minimumFractionDigits:d||0,maximumFractionDigits:d||0}); };
+const money=x=>{ if(!isFinite(x))return'—';
+  const a=Math.abs(x);
+  if(a>=1000000) return (x<0?'−$':'$')+(a/1000000).toFixed(2)+'M';
+  if(a>=10000)   return (x<0?'−$':'$')+nf(a/1000,1)+'K';
+  return (x<0?'−$':'$')+nf(a,0); };
+const money0=x=>(x<0?'−$':'$')+nf(Math.abs(x),0);
+const pct=(x,d)=>nf(x*100,d===undefined?1:d)+'%';
+
+/* ===================== OUTPUT TILES ===================== */
+const OUTS=[
+ {k:'devices', hero:1, l:'Devices invoiced per month', f:m=>nf(m.devices,1),
+   s:m=>'target '+nf(V.goal,0)+' · shortfall '+nf(Math.max(0,V.goal-m.devices),1)},
+ {k:'gap', warn:1, l:'Monthly revenue gap to target', f:m=>money(m.gap),
+   s:m=>'at the $'+nf(V.unit,0)+' floor unit', inv:1},
+ {k:'revenue', l:'Revenue per month', f:m=>money(m.revenue), s:m=>'ROAS '+nf(m.roas,2)+'×'},
+ {k:'contacts', l:'New contacts per month', f:m=>nf(m.contacts,0),
+   s:m=>nf(m.contacts/V.wdays,1)+' per working day'},
+
+ {k:'untouched', warn:1, l:'Contacts never attempted', f:m=>nf(m.untouched,0),
+   s:m=>pct(m.untouchedPct,0)+' of everyone who raised a hand', inv:1},
+ {k:'jf', l:'JotForms completed per month', f:m=>nf(m.jf,1), s:m=>'4 have ever been completed'},
+ {k:'cac', l:'Cost per device acquired', f:m=>money0(m.cac),
+   s:m=>m.cac>V.unit?'above the floor unit price':'below the floor unit price', inv:1},
+ {k:'c2d', l:'Contact → device conversion', f:m=>pct(m.c2d,2), s:m=>'CRM lifetime close rate: 1.8% (6 of 334)'}
+];
+
+function renderOuts(){
+  $('#outs').innerHTML = OUTS.map(o=>
+    `<div class="out ${o.hero?'hero':''} ${o.warn?'warn':''}" data-k="${o.k}">
+      <div class="ol">${o.l}</div>
+      <div class="ov num" data-v></div>
+      <div class="od" data-d></div>
+      <div class="os" data-s></div>
+    </div>`).join('');
+}
+
+/* ===================== LEVERS ===================== */
+function renderLevers(){
+  $('#levers').innerHTML = GROUPS.filter(g=>g.id!=='target'||true).map(g=>{
+    const items=L.filter(l=>l.g===g.id);
+    if(!items.length) return '';
+    return `<div class="lgroup">
+      <div class="lgt">${g.t}</div>
+      <div class="lgs">${g.s}</div>
+      ${items.map(l=>leverHTML(l)).join('')}
+    </div>`;
+  }).join('');
+}
+function leverHTML(l){
+  return `<div class="lever" data-lv="${l.id}">
+    <div class="lhead">
+      <span class="lname">${l.n}</span>
+      <span class="src ${l.src.toLowerCase()}" title="${l.why.replace(/"/g,'&quot;')}">${l.src}</span>
+      <span class="lval num" data-lval>${fmtLever(l,l.v)}</span>
+    </div>
+    <input type="range" data-lid="${l.id}" min="${l.min}" max="${l.max}" step="${l.step}" value="${V[l.id]!==undefined?V[l.id]:l.v}">
+    ${l.note?`<div class="lnote">${l.note}</div>`:''}
+  </div>`;
+}
+function fmtLever(l,val){
+  if(l.u==='$') return '$'+nf(val,l.d);
+  if(l.u==='%') return nf(val,l.d)+'%';
+  return nf(val,l.d);
+}
+/* a lever can be rendered in more than one place (the backlog panel repeats three of them),
+   so every read/write goes through data-lid and touches every copy */
+function ranges(id){ return $$('input[type=range][data-lid="'+id+'"]'); }
+function syncLever(id){
+  const l=L.find(x=>x.id===id);
+  ranges(id).forEach(r=>{ r.value=V[id]; paintRange(r,l); });
+}
+function bindAllRanges(){
+  $$('input[type=range][data-lid]').forEach(r=>{
+    if(r.dataset.bound) return;
+    r.dataset.bound='1';
+    const id=r.dataset.lid, l=L.find(x=>x.id===id);
+    paintRange(r,l);
+    r.addEventListener('input',()=>{
+      V[id]=parseFloat(r.value);
+      syncLever(id); update(); markScenario();
+    });
+    /* a range input under the cursor eats the scroll wheel and silently rewrites itself.
+       Only allow that when the slider has actually been clicked; otherwise scroll the page. */
+    r.addEventListener('wheel',e=>{
+      if(document.activeElement===r) return;
+      e.preventDefault();
+      window.scrollBy(0,e.deltaY);
+    },{passive:false});
+  });
+}
+function paintRange(r,l){
+  const p=((r.value-l.min)/(l.max-l.min))*100;
+  r.style.background=`linear-gradient(90deg, var(--blue) 0%, var(--blue) ${p}%, var(--line) ${p}%, var(--line) 100%)`;
+  const box=r.closest('[data-lv]');
+  if(box){
+    const lv=$('[data-lval]',box);
+    lv.textContent=fmtLever(l,parseFloat(r.value));
+    lv.classList.toggle('moved', parseFloat(r.value)!==BASE[l.id]);
+  }
+}
+
+/* ===================== CHAIN ===================== */
+function renderChain(m){
+  const rows=[
+    {n:'01',l:'Impressions',              s:'paid media only',                        v:m.impressions, p:null},
+    {n:'02',l:'Clicks',                   s:'click-through rate',                     v:m.clicks,      p:m.impressions},
+    {n:'03',l:'Landing pages loaded',     s:'paid + organic',                         v:m.lpviews,     p:m.clicks},
+    {n:'04',l:'Contacts captured',        s:'the form is submitted',                  v:m.contacts,    p:m.lpviews},
+    {n:'05',l:'Routed onward after submit',s:'today: nothing happens here',           v:m.jfStart,     p:m.contacts, leak:m.jfStart/Math.max(1,m.contacts)<.05},
+    {n:'06',l:'Attempted by a human',     s:'capacity '+nf(m.capacity,0)+' contacts / month', v:m.attempted, p:m.remaining, leak:m.untouchedPct>.3},
+    {n:'07',l:'Actually reached',         s:nf(m.reach*100,1)+'% reach over '+nf(V.attempts,0)+' attempts', v:m.connects, p:m.attempted},
+    {n:'08',l:'JotForms completed',       s:'self-serve + phone · this is the sale',  v:m.jf,          p:m.contacts},
+    {n:'09',l:'Devices invoiced',         s:'after segment and insurance',            v:m.devices,     p:m.jf, win:true}
+  ];
+  $('#chain').innerHTML =
+   `<div class="crow head"><span></span><span>Stage</span><span style="text-align:right">Per month</span><span style="text-align:right">Survives</span><span class="cbar">Retention</span></div>`+
+   rows.map(r=>{
+    const ret = r.p===null? 1 : (r.p>0? r.v/r.p : 0);
+    const cls = r.p===null?'ok':(ret<.2?'bad':ret<.5?'mid':'ok');
+    return `<div class="crow ${r.leak?'leak':''} ${r.win?'win':''}">
+      <span class="cn">${r.n}</span>
+      <span class="cl">${r.l}<small>${r.s}</small></span>
+      <span class="cv num">${r.v>=1000?nf(r.v,0):nf(r.v,r.v<10?1:0)}</span>
+      <span class="cp num">${r.p===null?'—':pct(ret,ret<.1?2:0)}</span>
+      <span class="cbar"><i class="${cls}" style="width:${Math.max(2,Math.min(100,ret*100))}%"></i></span>
+    </div>`;
+   }).join('');
+
+  const grew = baseM && m.untouchedPct > baseM.untouchedPct + .001;
+  $('#chainnote').innerHTML = m.untouched>0
+    ? `<b>Read row 05 and row 06 together.</b> ${nf(m.jfStart,0)} of ${nf(m.contacts,0)} contacts are given a next step at the moment of highest intent, and of the ${nf(m.remaining,0)} left over, one person can attempt ${nf(m.capacity,0)}. <b>${nf(m.untouched,0)} people — ${pct(m.untouchedPct,0)} of everyone who raised a hand — are never contacted at all.</b> They are not lost to a competitor. They are lost to arithmetic.`
+      + (grew ? ` <br><br><b>And note what just happened.</b> Chasing each person harder made this number <em>worse</em>, not better — the same seat, divided across more attempts per person, reaches fewer people. <b>That is the whole argument in one row: the phone cannot be the answer at this volume.</b> Every scenario that works, works by putting something in front of the contact automatically, in row 05.` : '')
+    : `<b>Capacity now clears the queue.</b> Every contact arriving is either routed onward automatically or attempted by a human. The constraint has moved off volume and onto conversion — read section 04.`;
+}
+
+/* ===================== MARGINAL ROI ===================== */
+const MR = L.filter(l=>!['goal','parked','recover','unit','wdays'].includes(l.id));
+function renderMroi(m){
+  const rows = MR.map(l=>{
+    const v2=Object.assign({},V);
+    /* 10% of its own value — or one step of the lever, whichever is the bigger move.
+       Without the step floor a lever sitting at zero can never be improved at all,
+       and the most important lever on this page is currently sitting at zero. */
+    let nv;
+    if(l.id==='cpm') nv = Math.max(l.min, Math.min(V[l.id]*0.9, V[l.id]-l.step)); // lower CPM is better
+    else            nv = Math.min(l.max, Math.max(V[l.id]*1.1, V[l.id]+l.step));
+    v2[l.id]=nv;
+    const m2=model(v2);
+    const dRev=m2.revenue-m.revenue;
+    const dCost=v2.spend-V.spend;
+    return {l, nv, dRev, dCost, net:dRev-dCost};
+  }).sort((a,b)=>b.net-a.net);
+
+  const max=Math.max(...rows.map(r=>Math.abs(r.net)),1);
+  $('#mroi').innerHTML =
+   `<div class="mrow head"><span></span><span>Improve this by 10%</span><span style="text-align:right">Revenue / mo</span><span style="text-align:right">Extra cost</span><span class="mb">Gross contribution</span></div>`+
+   rows.map((r,i)=>{
+    const dirTxt = (r.l.id==='cpm'?'down to ':'to ')+fmtLever(r.l,r.nv);
+    const cls=r.net>1?'pos':r.net<-1?'neg':'zero';
+    return `<div class="mrow ${i===0&&r.net>1?'top1':''}">
+      <span class="mrk">${i+1}</span>
+      <span class="mnm">${r.l.n}<small>${dirTxt} · currently ${fmtLever(r.l,V[r.l.id])}</small></span>
+      <span class="mv ${cls} num">${r.dRev>=0?'+':''}${money(r.dRev)}</span>
+      <span class="mcost num">${r.dCost>0?money(r.dCost):'—'}</span>
+      <span class="mb"><i class="${r.net<0?'neg':''}" style="width:${Math.max(1,Math.abs(r.net)/max*100)}%"></i></span>
+    </div>`;
+   }).join('');
+
+  const top=rows[0];
+  const dead=rows.filter(r=>Math.abs(r.net)<1).map(r=>r.l.id);
+  const trafficDead=['ctr','cpm','lprate','formrate','spend','posts','viewspp','orgctr'].filter(id=>dead.includes(id));
+  $('#mroinote').innerHTML = (top && top.net>1
+    ? `<b>The constraint right now is “${top.l.n}”.</b> One realistic increment on it is worth <b>${money(top.net)} a month</b> in gross contribution — ${rows[1]&&rows[1].net>1?`${nf(top.net/Math.max(1,rows[1].net),1)}× the next lever on the list`:'more than every other lever combined'}. Attack this one, alone, until it stops being first. <em>Then re-read this panel — it will have changed.</em>`
+    : `<b>No lever returns a meaningful gain at these settings.</b> That is not a modelling error — it means the funnel is closed somewhere downstream and there is nothing for any lever to act on.`)
+   + (trafficDead.length>=4
+    ? `<br><br><b>And read the bottom of this list, because it is the more expensive lesson.</b> ${trafficDead.length} of the traffic levers — spend, CPM, click-through, landing page conversion, posts, views — return <b>exactly nothing</b>. Not a little. Nothing. Every extra contact they create lands behind a queue that is already longer than anyone can work, so <b>more traffic buys zero additional devices at today's settings</b>. <em>That is the case for fixing the funnel before touching the budget.</em>` : '');
+}
+
+/* ===================== TILE UPDATE ===================== */
+let baseM=null;
+function update(){
+  const m=model(V);
+  if(!baseM) baseM=model(BASE);
+
+  OUTS.forEach(o=>{
+    const el=$(`.out[data-k="${o.k}"]`); if(!el)return;
+    $('[data-v]',el).textContent=o.f(m);
+    $('[data-s]',el).textContent=o.s(m);
+    const cur=rawOut(o.k,m), bse=rawOut(o.k,baseM);
+    const d=cur-bse, dd=$('[data-d]',el);
+    if(Math.abs(bse)<1e-9 && Math.abs(d)<1e-9){ dd.textContent='at baseline'; dd.className='od flat'; }
+    else{
+      const better = o.inv ? d<0 : d>0;
+      const rel = Math.abs(bse)>1e-9 ? (d/Math.abs(bse))*100 : null;
+      dd.className='od '+(Math.abs(d)<1e-6?'flat':better?'up':'dn');
+      dd.textContent = Math.abs(d)<1e-6 ? 'at baseline'
+        : (d>0?'▲ ':'▼ ') + (rel===null?'':nf(Math.abs(rel),0)+'% ') + 'vs today';
+    }
+  });
+
+  renderChain(m);
+  renderMroi(m);
+
+  $('#q-dev').textContent=nf(m.devices,1);
+  $('#q-rev').textContent=money(m.revenue);
+  $('#q-roas').textContent=nf(m.roas,2)+'×';
+
+  $('#headline').innerHTML =
+   `<b>Where this lands.</b> ${nf(m.contacts,0)} contacts a month produce <b>${nf(m.devices,1)} devices</b> — ${pct(m.c2d,2)} of everyone who raised a hand. Against a target of ${nf(V.goal,0)}, that is <b>${money(m.gap)} of revenue not collected this month</b>, and <b>${money(m.gap*12)} a year</b> if nothing changes. Cost per device is <b>${money0(m.cac)}</b> against a floor unit price of $${nf(V.unit,0)}${m.cac>V.unit?' — <b>every device currently costs more to acquire than the cheapest one sells for</b>':''}.`;
+
+  $('#bl-val').textContent=money(m.parkedVal);
+  $('#bl-val2').textContent=money(m.untouchedVal);
+
+  const nM=L.filter(l=>l.src==='M').length, nA=L.filter(l=>l.src==='A').length;
+  $('#i-m').textContent=nM; $('#i-a').textContent=nA;
+  $('#i-m2').textContent=nM; $('#i-a2').textContent=nA; $('#i-t').textContent=L.length;
+
+  recalcCreatives(); recalcContent(); recalcBoard(m);
+  save();
+}
+function rawOut(k,m){
+  return {devices:m.devices,gap:m.gap,revenue:m.revenue,contacts:m.contacts,
+          untouched:m.untouched,jf:m.jf,cac:m.cac,c2d:m.c2d}[k];
+}
+
+/* ===================== SCENARIOS ===================== */
+function applyScenario(name){
+  Object.assign(V,BASE,SCEN[name]||{});
+  L.forEach(l=>syncLever(l.id));
+  $$('#scn button').forEach(b=>b.classList.toggle('on',b.dataset.s===name));
+  update();
+}
+function markScenario(){
+  let hit=null;
+  for(const k in SCEN){
+    const s=Object.assign({},BASE,SCEN[k]);
+    if(L.every(l=>Math.abs(V[l.id]-s[l.id])<1e-9)){hit=k;break;}
+  }
+  $$('#scn button').forEach(b=>b.classList.toggle('on',b.dataset.s===hit));
+}
+
+/* ===================== CREATIVE LEDGER ===================== */
+let CR=[
+ {name:'Trusted by Dermatologists for 40+ Years',angle:'authority',persona:'psoriasis_adult',fmt:'image',
+  spend:0,impr:0,clicks:0,sub:0,dev:0},
+ {name:'MS Fatigue. New Research.',angle:'research',persona:'ms_patient',fmt:'video',
+  spend:0,impr:0,clicks:0,sub:0,dev:0}
+];
+const CRC=[['name','txt','Creative'],['angle','txt','Angle'],['persona','txt','Persona'],['fmt','txt','Format'],
+           ['spend','nn'],['impr','nn'],['clicks','nn'],['sub','nn'],['dev','nn']];
+function renderCreatives(){
+  $('#crbody').innerHTML=CR.map((r,i)=>
+    `<tr data-i="${i}">
+      ${CRC.map(([k,c])=>`<td><input class="${c}" data-k="${k}" ${c==='nn'?'type="number"':''} value="${r[k]}"></td>`).join('')}
+      <td class="n" data-o="cpm"></td><td class="n" data-o="ctr"></td><td class="n" data-o="cpc"></td>
+      <td class="n" data-o="cps"></td><td class="n" data-o="cpd"></td>
+      <td data-o="vd"></td>
+      <td><button class="xbtn" data-del="${i}">✕</button></td>
+    </tr>`).join('') + `<tr class="tot" id="crtot"></tr>`;
+
+  $$('#crbody input').forEach(inp=>inp.addEventListener('input',e=>{
+    const i=+e.target.closest('tr').dataset.i, k=e.target.dataset.k;
+    CR[i][k]= e.target.classList.contains('nn') ? (parseFloat(e.target.value)||0) : e.target.value;
+    recalcCreatives(); save();
+  }));
+  $$('#crbody [data-del]').forEach(b=>b.addEventListener('click',e=>{
+    CR.splice(+e.target.dataset.del,1); renderCreatives(); recalcCreatives(); save();
+  }));
+  recalcCreatives();
+}
+function recalcCreatives(){
+  const tgt=parseFloat($('#tgt-cps').value)||14;
+  let T={spend:0,impr:0,clicks:0,sub:0,dev:0};
+  CR.forEach((r,i)=>{
+    const tr=$(`#crbody tr[data-i="${i}"]`); if(!tr)return;
+    const cpm=r.impr>0?r.spend/r.impr*1000:0, ctr=r.impr>0?r.clicks/r.impr:0,
+          cpc=r.clicks>0?r.spend/r.clicks:0, cps=r.sub>0?r.spend/r.sub:0, cpd=r.dev>0?r.spend/r.dev:0;
+    $('[data-o=cpm]',tr).textContent=r.impr>0?money0(cpm):'—';
+    $('[data-o=ctr]',tr).textContent=r.impr>0?pct(ctr,2):'—';
+    $('[data-o=cpc]',tr).textContent=r.clicks>0?money0(cpc):'—';
+    $('[data-o=cps]',tr).textContent=r.sub>0?money0(cps):'—';
+    $('[data-o=cpd]',tr).textContent=r.dev>0?money0(cpd):'—';
+    let v='na',t='no data';
+    if(r.spend>0&&r.sub>0){
+      if(cps<tgt*0.75){v='scale';t='scale';}
+      else if(cps>tgt*1.6||ctr<0.006){v='kill';t='kill';}
+      else {v='hold';t='hold';}
+    } else if(r.spend>0&&r.impr>0&&r.sub===0){ v='kill'; t='kill · no submits'; }
+    $('[data-o=vd]',tr).innerHTML=`<span class="vd ${v}">${t}</span>`;
+    ['spend','impr','clicks','sub','dev'].forEach(k=>T[k]+=r[k]);
+  });
+  const cps=T.sub>0?T.spend/T.sub:0, ctr=T.impr>0?T.clicks/T.impr:0;
+  const tot=$('#crtot'); if(tot) tot.innerHTML=
+   `<td colspan="4">All creatives</td>
+    <td class="n">${money0(T.spend)}</td><td class="n">${nf(T.impr,0)}</td><td class="n">${nf(T.clicks,0)}</td>
+    <td class="n">${nf(T.sub,0)}</td><td class="n">${nf(T.dev,0)}</td>
+    <td class="n">${T.impr>0?money0(T.spend/T.impr*1000):'—'}</td><td class="n">${T.impr>0?pct(ctr,2):'—'}</td>
+    <td class="n">${T.clicks>0?money0(T.spend/T.clicks):'—'}</td><td class="n">${T.sub>0?money0(cps):'—'}</td>
+    <td class="n">${T.dev>0?money0(T.spend/T.dev):'—'}</td><td colspan="2"></td>`;
+}
+
+/* ===================== CONTENT LEDGER ===================== */
+let CO=[
+ {name:'Podcast cut-downs (25 pieces)',hook:'authority',fmt:'short video',ch:'IG + FB',views:0,eng:0,clicks:0,con:0},
+ {name:'Reels — first 15',hook:'mixed',fmt:'reel',ch:'IG + FB',views:0,eng:0,clicks:0,con:0}
+];
+const COC=[['name','txt'],['hook','txt'],['fmt','txt'],['ch','txt'],['views','nn'],['eng','nn'],['clicks','nn'],['con','nn']];
+function renderContent(){
+  $('#cobody').innerHTML=CO.map((r,i)=>
+    `<tr data-i="${i}">
+      ${COC.map(([k,c])=>`<td><input class="${c}" data-k="${k}" ${c==='nn'?'type="number"':''} value="${r[k]}"></td>`).join('')}
+      <td class="n" data-o="er"></td><td class="n" data-o="cr"></td><td class="n" data-o="cpk"></td>
+      <td data-o="vd"></td>
+      <td><button class="xbtn" data-del="${i}">✕</button></td>
+    </tr>`).join('') + `<tr class="tot" id="cotot"></tr>`;
+
+  $$('#cobody input').forEach(inp=>inp.addEventListener('input',e=>{
+    const i=+e.target.closest('tr').dataset.i, k=e.target.dataset.k;
+    CO[i][k]= e.target.classList.contains('nn') ? (parseFloat(e.target.value)||0) : e.target.value;
+    recalcContent(); save();
+  }));
+  $$('#cobody [data-del]').forEach(b=>b.addEventListener('click',e=>{
+    CO.splice(+e.target.dataset.del,1); renderContent(); recalcContent(); save();
+  }));
+  recalcContent();
+}
+function recalcContent(){
+  const tgt=parseFloat($('#tgt-cpk').value)||2;
+  let T={views:0,eng:0,clicks:0,con:0};
+  CO.forEach((r,i)=>{
+    const tr=$(`#cobody tr[data-i="${i}"]`); if(!tr)return;
+    const er=r.views>0?r.eng/r.views:0, cr=r.views>0?r.clicks/r.views:0, cpk=r.views>0?r.con/r.views*1000:0;
+    $('[data-o=er]',tr).textContent=r.views>0?pct(er,2):'—';
+    $('[data-o=cr]',tr).textContent=r.views>0?pct(cr,2):'—';
+    $('[data-o=cpk]',tr).textContent=r.views>0?nf(cpk,2):'—';
+    let v='na',t='no data';
+    if(r.views>=1000){
+      if(cpk>=tgt){v='scale';t='repeat';}
+      else if(cpk<tgt*0.25){v='kill';t='kill';}
+      else {v='hold';t='hold';}
+    }
+    $('[data-o=vd]',tr).innerHTML=`<span class="vd ${v}">${t}</span>`;
+    ['views','eng','clicks','con'].forEach(k=>T[k]+=r[k]);
+  });
+  const tot=$('#cotot'); if(tot) tot.innerHTML=
+   `<td colspan="4">All content</td>
+    <td class="n">${nf(T.views,0)}</td><td class="n">${nf(T.eng,0)}</td><td class="n">${nf(T.clicks,0)}</td><td class="n">${nf(T.con,0)}</td>
+    <td class="n">${T.views>0?pct(T.eng/T.views,2):'—'}</td><td class="n">${T.views>0?pct(T.clicks/T.views,2):'—'}</td>
+    <td class="n">${T.views>0?nf(T.con/T.views*1000,2):'—'}</td><td colspan="2"></td>`;
+}
+
+/* ===================== MONDAY BOARD ===================== */
+let MB=[
+ {m:'Contacts captured',                    t:150, a:null, act:'Check spend actually delivered, then check the form did not break. Both have happened before.'},
+ {m:'Cost per contact ($)',                 t:14,  a:null, inv:1, act:'Pause the two worst creatives in the ledger and shift the budget to the best cost-per-submit row.'},
+ {m:'Contacts routed onward after submit (%)',t:60, a:null, act:'The post-submit page is down or unrouted. This is the highest-value red on the board — fix it before anything else.'},
+ {m:'JotForms completed',                   t:20,  a:null, act:'Read the last ten completions for the drop-off step, then shorten the form to that step.'},
+ {m:'Contacts never attempted (%)',         t:10,  a:null, inv:1, act:'Capacity is exceeded. Automate the first touch — do not add dials, the arithmetic does not close.'},
+ {m:'Share of spend on dermatology (%)',    t:85,  a:null, act:'Spend has drifted back to the segment with no FDA indication. Re-weight the campaign the same day.'},
+ {m:'Devices invoiced',                     t:20,  a:null, act:'Work the parked prescriptions before buying a single new contact — that revenue is already paid for.'},
+ {m:'Prescriptions parked over 14 days',    t:0,   a:null, inv:1, act:'Call the prescribing doctor directly. Do not wait on the patient to chase their own physician.'}
+];
+function renderBoard(){
+  $('#mbbody').innerHTML=MB.map((r,i)=>
+    `<tr data-i="${i}">
+      <td>${r.m}</td>
+      <td class="n"><input class="nn" data-k="t" type="number" value="${r.t}"></td>
+      <td class="n"><input class="nn" data-k="a" type="number" value="${r.a===null?'':r.a}" placeholder="—"></td>
+      <td data-o="st"></td>
+      <td class="act">${r.act}</td>
+    </tr>`).join('');
+  $$('#mbbody input').forEach(inp=>inp.addEventListener('input',e=>{
+    const i=+e.target.closest('tr').dataset.i;
+    const raw=e.target.value.trim();
+    MB[i][e.target.dataset.k] = (raw==='' && e.target.dataset.k==='a') ? null : (parseFloat(raw)||0);
+    recalcBoard(model(V)); save();
+  }));
+}
+function recalcBoard(m){
+  MB.forEach((r,i)=>{
+    const tr=$(`#mbbody tr[data-i="${i}"]`); if(!tr)return;
+    let s,t;
+    const ratio = r.t===0 ? (r.a===0?1:0) : (r.inv ? r.t/Math.max(r.a,1e-9) : r.a/r.t);
+    /* Blank is never a pass. Inferring it from a===0 silently scored the one row whose
+       target is 0 as green before anybody had entered anything. */
+    if(r.a===null){ s='r'; t='not entered'; }
+    else if(ratio>=1){ s='g'; t='on target'; }
+    else if(ratio>=0.6){ s='a'; t='below target'; }
+    else { s='r'; t='red — act'; }
+    $('[data-o=st]',tr).innerHTML=`<span class="status ${s}">${t}</span>`;
+  });
+}
+
+/* ===================== BACKLOG LEVERS ===================== */
+function renderBacklog(){
+  $('#bl-l1').outerHTML=leverHTML(L.find(l=>l.id==='parked'));
+  $('#bl-l2').outerHTML=leverHTML(L.find(l=>l.id==='recover'));
+  $('#bl-l3').outerHTML=leverHTML(L.find(l=>l.id==='conn2jf'));
+}
+
+/* ===================== PERSISTENCE ===================== */
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify({V,CR,CO,MB,
+    tgt:{cps:$('#tgt-cps').value, cpk:$('#tgt-cpk').value}})); }catch(e){}
+}
+function load(){
+  try{
+    const d=JSON.parse(localStorage.getItem(KEY)||'null'); if(!d)return;
+    if(d.V) Object.assign(V,d.V);
+    if(Array.isArray(d.CR)&&d.CR.length) CR=d.CR;
+    if(Array.isArray(d.CO)&&d.CO.length) CO=d.CO;
+    if(Array.isArray(d.MB)&&d.MB.length===MB.length) MB=d.MB;
+    if(d.tgt){ $('#tgt-cps').value=d.tgt.cps; $('#tgt-cpk').value=d.tgt.cpk; }
+  }catch(e){}
+}
+
+/* ===================== BOOT ===================== */
+load();
+renderOuts();
+renderLevers();
+renderBacklog();
+bindAllRanges();
+L.forEach(l=>syncLever(l.id));
+renderCreatives();
+renderContent();
+renderBoard();
+$$('#scn button').forEach(b=>b.addEventListener('click',()=>applyScenario(b.dataset.s)));
+$('#reset').addEventListener('click',()=>{
+  try{localStorage.removeItem(KEY);}catch(e){}
+  CR=[{name:'Trusted by Dermatologists for 40+ Years',angle:'authority',persona:'psoriasis_adult',fmt:'image',spend:0,impr:0,clicks:0,sub:0,dev:0},
+      {name:'MS Fatigue. New Research.',angle:'research',persona:'ms_patient',fmt:'video',spend:0,impr:0,clicks:0,sub:0,dev:0}];
+  CO=[{name:'Podcast cut-downs (25 pieces)',hook:'authority',fmt:'short video',ch:'IG + FB',views:0,eng:0,clicks:0,con:0},
+      {name:'Reels — first 15',hook:'mixed',fmt:'reel',ch:'IG + FB',views:0,eng:0,clicks:0,con:0}];
+  MB.forEach(r=>r.a=null);   /* null, not 0 — 0 is an entered value and scores as one */
+  $('#tgt-cps').value=14; $('#tgt-cpk').value=2;
+  renderCreatives(); renderContent(); renderBoard();
+  applyScenario('today');
+});
+$('#craddrow').addEventListener('click',()=>{
+  CR.push({name:'New creative',angle:'angle',persona:'persona',fmt:'format',spend:0,impr:0,clicks:0,sub:0,dev:0});
+  renderCreatives(); save();
+});
+$('#coaddrow').addEventListener('click',()=>{
+  CO.push({name:'New post',hook:'hook',fmt:'format',ch:'channel',views:0,eng:0,clicks:0,con:0});
+  renderContent(); save();
+});
+$('#tgt-cps').addEventListener('input',()=>{recalcCreatives();save();});
+$('#tgt-cpk').addEventListener('input',()=>{recalcContent();save();});
+update();
+markScenario();
+</script>
+</body>
+</html>
