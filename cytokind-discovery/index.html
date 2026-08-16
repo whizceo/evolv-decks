@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>CytoKind &middot; 01 Discovery</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#1C5D43; --green-d:#0F3D2A; --green-m:#2E7D5B; --green-l:#4E9E78;
+  --mint:#C9DCC9; --mint-50:#EEF5F0; --mint-25:#F6FAF7;
+  --ink:#0B0B0C; --ink-2:#1D1D1F; --ink-3:#6E6E73; --ink-4:#86868B;
+  --line:#E3E3E8; --line-2:#F0F0F3; --paper:#FFFFFF; --gray:#F5F5F7;
+  --red:#B3261E; --amber:#8A6100;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif;
+  --mono:"SF Mono",ui-monospace,"JetBrains Mono","Menlo",monospace;
+}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink-2);
+     font-size:17px;line-height:1.55;letter-spacing:-.01em}
+::selection{background:var(--mint);color:var(--green-d)}
+
+/* ── top bar ── */
+.bar{position:sticky;top:0;z-index:60;background:rgba(11,11,12,.92);
+     -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+     border-bottom:1px solid rgba(255,255,255,.08)}
+.bar .in{max-width:1180px;margin:0 auto;padding:0 28px;height:48px;
+     display:flex;align-items:center;justify-content:space-between;gap:20px}
+.bar a.brand{color:#fff;font-size:13.5px;font-weight:600;letter-spacing:-.005em;text-decoration:none;white-space:nowrap}
+.bar .rail{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.bar .rail::-webkit-scrollbar{display:none}
+.bar .rail a,.bar .rail span{font-size:12px;font-weight:500;color:rgba(255,255,255,.5);
+     text-decoration:none;padding:5px 10px;border-radius:980px;white-space:nowrap;transition:.18s}
+.bar .rail a:hover{color:#fff;background:rgba(255,255,255,.1)}
+.bar .rail .cur{color:var(--ink);background:var(--mint);font-weight:600}
+.bar .rail .off{color:rgba(255,255,255,.26)}
+.bar .rail .n{font-variant-numeric:tabular-nums;opacity:.6;margin-right:5px}
+.bar .rail .cur .n{opacity:.55}
+
+/* ── layout ── */
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.narrow{max-width:820px;margin:0 auto}
+section{padding:96px 0;border-top:1px solid var(--line-2)}
+section.gray{background:var(--gray);border-top:none}
+section.first{border-top:none;padding-top:0}
+
+/* ── type ── */
+.eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+     color:var(--green);margin-bottom:16px}
+.eyebrow .num{font-variant-numeric:tabular-nums;color:var(--ink-4);margin-right:10px}
+h1{font-size:clamp(46px,7.2vw,86px);font-weight:700;letter-spacing:-.038em;line-height:1.03;
+   color:var(--ink);margin-bottom:26px}
+h2{font-size:clamp(30px,4vw,46px);font-weight:700;letter-spacing:-.032em;line-height:1.08;
+   color:var(--ink);margin-bottom:20px}
+h3{font-size:22px;font-weight:600;letter-spacing:-.022em;line-height:1.22;color:var(--ink);margin-bottom:10px}
+h4{font-size:16px;font-weight:600;letter-spacing:-.015em;color:var(--ink);margin-bottom:7px}
+.lead{font-size:clamp(19px,2.1vw,23px);line-height:1.5;letter-spacing:-.017em;color:var(--ink-3);
+      max-width:760px}
+.lead strong{color:var(--ink-2);font-weight:600}
+p{margin-bottom:14px;color:var(--ink-3)}
+p:last-child{margin-bottom:0}
+p strong{color:var(--ink-2);font-weight:600}
+.sub{font-size:14.5px;color:var(--ink-4);line-height:1.5}
+.card p .sub,.card li .sub{display:block;margin-top:9px;font-size:13.5px;color:var(--green-m);font-weight:500}
+.mono{font-family:var(--mono);font-size:.88em;letter-spacing:0}
+a.link{color:var(--green-m);text-decoration:none;border-bottom:1px solid rgba(46,125,91,.3)}
+a.link:hover{border-bottom-color:var(--green-m)}
+
+/* ── hero ── */
+.hero{padding:104px 0 72px}
+.hero h1{margin-bottom:30px}
+.hero .meta{margin-top:38px;display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-block;font-size:12.5px;font-weight:500;color:var(--ink-3);
+      background:var(--gray);border:1px solid var(--line);padding:6px 13px;border-radius:980px}
+.chip.g{background:var(--mint-50);border-color:#CFE3D6;color:var(--green)}
+
+/* ── stat strip ── */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);
+       border-bottom:1px solid var(--line)}
+.strip .s{padding:34px 26px 34px 0;border-right:1px solid var(--line)}
+.strip .s:last-child{border-right:none}
+.strip .s:not(:first-child){padding-left:26px}
+.strip .v{font-size:clamp(34px,4.4vw,52px);font-weight:700;letter-spacing:-.04em;line-height:1;
+          color:var(--green);font-variant-numeric:tabular-nums;margin-bottom:10px}
+.strip .k{font-size:13.5px;color:var(--ink-3);line-height:1.4}
+
+/* ── cards ── */
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:30px}
+section.gray .card{border-color:#E6E6EB}
+.card .tag{font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+     color:var(--green);margin-bottom:14px;font-variant-numeric:tabular-nums}
+.card p{font-size:15.5px;line-height:1.55}
+.card.dark{background:var(--ink);border-color:var(--ink)}
+.card.dark h3,.card.dark h4{color:#fff}
+.card.dark p{color:rgba(255,255,255,.62)}
+.card.dark .tag{color:var(--mint)}
+
+/* ── finding blocks ── */
+.find{border-top:1px solid var(--line);padding:38px 0;display:grid;
+      grid-template-columns:88px 1fr 1fr;gap:36px;align-items:start}
+.find:last-child{border-bottom:1px solid var(--line)}
+.find .no{font-size:13px;font-weight:600;color:var(--green);font-variant-numeric:tabular-nums;
+     letter-spacing:.06em;padding-top:5px}
+.find h3{margin-bottom:12px}
+.find .body p{font-size:15.5px}
+.quote{border-left:3px solid var(--green);padding:2px 0 2px 20px}
+.quote .q{font-size:18px;line-height:1.42;letter-spacing:-.018em;color:var(--ink);font-weight:500}
+.quote .a{font-size:13px;color:var(--ink-4);margin-top:10px}
+
+/* ── tables ── */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:640px}
+thead th{text-align:left;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+   color:var(--ink-4);padding:0 18px 12px 0;border-bottom:1px solid var(--ink);vertical-align:bottom}
+tbody td{padding:15px 18px 15px 0;border-bottom:1px solid var(--line);color:var(--ink-3);
+   vertical-align:top;line-height:1.45}
+tbody tr:last-child td{border-bottom:none}
+td.k,th.k{padding-right:26px}
+td strong{color:var(--ink-2);font-weight:600}
+td .ref{font-family:var(--mono);font-size:12px;color:var(--green);font-weight:500}
+td .dt{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink-4);font-size:13.5px}
+.tnote{font-size:13px;color:var(--ink-4);margin-top:16px;line-height:1.5}
+
+/* ── list ── */
+ul.lst{list-style:none}
+ul.lst li{padding:14px 0 14px 26px;border-bottom:1px solid var(--line-2);position:relative;
+     font-size:15.5px;color:var(--ink-3);line-height:1.5}
+ul.lst li:last-child{border-bottom:none}
+ul.lst li:before{content:"";position:absolute;left:2px;top:23px;width:7px;height:7px;
+     border-radius:50%;background:var(--green-l)}
+ul.lst li strong{color:var(--ink-2);font-weight:600}
+ul.lst.plain li:before{display:none}
+ul.lst.plain li{padding-left:0}
+
+/* ── numbers section (dark green) ── */
+.nums{background:var(--green-d);color:#fff;border-top:none}
+.nums h2{color:#fff}
+.nums .eyebrow{color:var(--mint)}
+.nums .lead{color:rgba(255,255,255,.66)}
+.nums .lead strong{color:#fff}
+.ncard{border-top:1px solid rgba(255,255,255,.16);padding:28px 0 4px}
+.ncard .v{font-size:clamp(38px,4.6vw,54px);font-weight:700;letter-spacing:-.04em;line-height:1;
+     color:#fff;font-variant-numeric:tabular-nums;margin-bottom:12px}
+.ncard .k{font-size:15px;font-weight:600;color:#fff;letter-spacing:-.015em;margin-bottom:7px}
+.ncard .d{font-size:14px;color:rgba(255,255,255,.58);line-height:1.5}
+.nums .close{margin-top:76px;border-top:1px solid rgba(255,255,255,.16);padding-top:48px}
+.nums .close .q{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.03em;
+     line-height:1.16;color:#fff;max-width:900px}
+.nums .close .a{font-size:14px;color:rgba(255,255,255,.55);margin-top:20px}
+.nums .src{font-size:12.5px;color:rgba(255,255,255,.42);margin-top:44px;line-height:1.6;max-width:820px}
+
+/* ── callout ── */
+.callout{background:var(--mint-50);border:1px solid #CFE3D6;border-radius:20px;padding:30px 32px}
+.callout .t{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+     color:var(--green);margin-bottom:12px}
+.callout p{color:var(--ink-2);font-size:16px}
+.callout.k{background:var(--ink);border-color:var(--ink)}
+.callout.k .t{color:var(--mint)}
+.callout.k p{color:rgba(255,255,255,.78)}
+.callout.k p strong,.card.dark p strong,.card.dark li strong,
+.nums p strong,.nums li strong{color:#fff}
+.callout.k em,.card.dark em{color:rgba(255,255,255,.9)}
+
+/* ── footer ── */
+footer{background:var(--ink);color:rgba(255,255,255,.5);padding:56px 0;font-size:13.5px}
+footer .in{max-width:1180px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;
+     justify-content:space-between;gap:20px;align-items:center}
+footer strong{color:#fff;font-weight:600}
+footer a{color:var(--mint);text-decoration:none}
+.nextlink{display:inline-flex;align-items:center;gap:9px;background:var(--mint);color:var(--green-d);
+     font-size:14px;font-weight:600;padding:11px 20px;border-radius:980px;text-decoration:none;transition:.18s}
+.nextlink:hover{background:#fff}
+.nextlink.off{background:transparent;border:1px solid rgba(255,255,255,.18);
+     color:rgba(255,255,255,.42);font-weight:500}
+
+/* ── responsive ── */
+@media (max-width:1000px){
+  .find{grid-template-columns:64px 1fr;gap:22px}
+  .find .body.q{grid-column:2}
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  section{padding:64px 0}
+  .hero{padding:56px 0 48px}
+  .wrap{padding:0 20px}
+  .bar .in{padding:0 20px;height:44px}
+  .bar a.brand{font-size:12.5px}
+  .strip{grid-template-columns:repeat(2,1fr)}
+  .strip .s{padding:24px 18px 24px 0;border-bottom:1px solid var(--line)}
+  .strip .s:nth-child(2n){border-right:none;padding-left:18px}
+  .strip .s:nth-child(2n+1){padding-left:0}
+  .strip .s:nth-last-child(-n+2){border-bottom:none}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .find{grid-template-columns:1fr;gap:16px;padding:30px 0}
+  .find .no{padding-top:0}
+  .card{padding:24px}
+}
+</style>
+</head><body>
+
+<div class="bar"><div class="in">
+  <a class="brand" href="https://whizceo.github.io/evolv-decks/cytokind-discovery/">CytoKind &times; Evolv AI</a>
+  <nav class="rail"><span class="cur"><span class="n">01</span>Discovery</span><span class="off"><span class="n">02</span>Data + AI audit</span><span class="off"><span class="n">03</span>Bottlenecks</span><span class="off"><span class="n">04</span>Solutions</span><span class="off"><span class="n">05</span>Prioritization</span><span class="off"><span class="n">06</span>Roadmap</span></nav>
+</div></div>
+
+<section class="first">
+  <div class="wrap">
+    <div class="hero">
+      <div class="eyebrow"><span class="num">Stage 01 of 06</span>Discovery</div>
+      <h1>Discovery</h1>
+      <p class="lead">Twelve recorded conversations between December 2025 and August 2026, the live CRM, the live ad account and the live website &mdash; read as one picture. <strong>This is what CytoKind looks like from the inside, before anybody proposes anything.</strong></p>
+      <div class="meta"><span class="chip g">Updated 16 August 2026</span><span class="chip">12 recorded calls</span><span class="chip">1 CRM export</span><span class="chip">1 ad&#8209;account measurement</span><span class="chip">1 site audit</span></div>
+    </div>
+    <div class="strip"><div class="s"><div class="v">14</div><div class="k">sources read end to end</div></div><div class="s"><div class="v">10</div><div class="k">findings established</div></div><div class="s"><div class="v">7</div><div class="k">earlier conclusions overturned</div></div><div class="s"><div class="v">1<span style='font-size:.42em;font-weight:600;color:var(--ink-4)'> of 12</span></div><div class="k">business metrics that exist</div></div></div>
+  </div>
+</section>
+
+
+<section class="gray">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">01</span>Method</div>
+    <h2>How this was built</h2>
+    <p class="lead">Discovery is the first of six stages. Its only job is to establish
+    what is true — before anybody proposes anything.</p>
+
+    <div class="grid g3" style="margin-top:52px">
+      <div class="card">
+        <div class="tag">Rule 01</div>
+        <h3>Artifact&#8209;anchored, not memory&#8209;anchored</h3>
+        <p>Never &ldquo;how many.&rdquo; Always &ldquo;show me the last five.&rdquo;
+        Every number here came out of a system that was opened on a call &mdash;
+        the CRM export, the ad account, the JotForm, the website &mdash; not out of
+        anyone&rsquo;s recollection.</p>
+      </div>
+      <div class="card">
+        <div class="tag">Rule 02</div>
+        <h3>Nothing is estimated</h3>
+        <p>Where a metric does not exist, this document says it does not exist.
+        That absence is itself the most repeated finding in the file:
+        eleven of the twelve numbers a business like this runs on are not being
+        measured at all.</p>
+      </div>
+      <div class="card">
+        <div class="tag">Rule 03</div>
+        <h3>Priced on the floor unit</h3>
+        <p>All money is calculated on the <strong>$2,000 Phothera&nbsp;200</strong>,
+        the cheapest device CytoKind sells. Every dollar figure in all six documents
+        is therefore a minimum, and none of them depends on a margin or ASP figure
+        nobody has had to supply.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:24px">
+      <div class="t">The six stages</div>
+      <p><strong>01 Discovery</strong> &mdash; what is true today. &nbsp;
+      <strong>02 Data + AI audit</strong> &mdash; what the systems actually hold and do. &nbsp;
+      <strong>03 Bottlenecks</strong> &mdash; where the money stops, ranked. &nbsp;
+      <strong>04 Solutions</strong> &mdash; one fix per bottleneck. &nbsp;
+      <strong>05 Prioritization</strong> &mdash; impact against effort, every solution placed. &nbsp;
+      <strong>06 Roadmap</strong> &mdash; the order, the owner and the date.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">02</span>The record</div>
+    <h2>Fourteen sources, eight months</h2>
+    <p class="lead">Twelve recorded conversations, the live CRM and the live ad account,
+    read end to end as one picture.</p>
+    <div style="margin-top:48px"><div class="tw"><table style="min-width:900px"><thead><tr><th>Ref</th><th>Conversation</th><th>Date</th><th>Who</th><th>What it produced</th></tr></thead><tbody><tr><td><span class="ref">D0</span></td><td><strong>Seven lead&#8209;generation strategies</strong></td><td><span class="dt">22 Dec 2025</span></td><td>John, Whiz</td><td>The original channel map. A clinic sale had already happened and was never turned into a process.</td></tr><tr><td><span class="ref">D1</span></td><td><strong>Full strategy update</strong></td><td><span class="dt">06 Jan 2026</span></td><td>John, Whiz</td><td>Earned media converts around 10&percnt; &mdash; <strong>&ldquo;it should be 30&percnt;, if I had a system about how to manage them when they came in.&rdquo;</strong></td></tr><tr><td><span class="ref">D2</span></td><td><strong>DTC vs direct&#8209;to&#8209;clinic</strong></td><td><span class="dt">12 Jan 2026</span></td><td>John, Whiz</td><td>Agreed to pick one primary motion for the next 6&ndash;12 months. Both are still running.</td></tr><tr><td><span class="ref">E1</span></td><td><strong>B2B2D, clinics, the prescriber channel</strong></td><td><span class="dt">03 Jun 2026</span></td><td>John, Adrian, Whiz</td><td><strong>&ldquo;B to D &mdash; to the doctor who&rsquo;s then writing 100 scripts for us.&rdquo;</strong> Also: a sale takes four to six touches.</td></tr><tr><td><span class="ref">J1</span></td><td><strong>John update</strong></td><td><span class="dt">27 Jul 2026</span></td><td>John, Whiz</td><td>Speed to lead, in his own words: <strong>&ldquo;100 minutes or 30 minutes versus 6 minutes is a 100&times; fall&#8209;off.&rdquo;</strong></td></tr><tr><td><span class="ref">S1</span></td><td><strong>Sales strategy</strong></td><td><span class="dt">27 Jul 2026</span></td><td>John, Whiz</td><td>The three funnel shapes already tried and abandoned &mdash; the reason none of them is re&#8209;proposed in stage 04.</td></tr><tr><td><span class="ref">A1</span></td><td><strong>Adrian update</strong></td><td><span class="dt">28 Jul 2026</span></td><td>Adrian, Whiz</td><td>First view of the pipeline from the person actually on the phones.</td></tr><tr><td><span class="ref">A2</span></td><td><strong>Adrian funnel walkthrough</strong></td><td><span class="dt">01 Aug 2026</span></td><td>Adrian, Whiz</td><td>The CRM was opened live. 214 of 262 contacts had never been phoned.</td></tr><tr><td><span class="ref">CRM</span></td><td><strong>ActiveCampaign export</strong></td><td><span class="dt">04 Aug 2026</span></td><td>Live system</td><td>The first real baseline the business has ever had.</td></tr><tr><td><span class="ref">J2</span></td><td><strong>John, 55 minutes</strong></td><td><span class="dt">06 Aug 2026</span></td><td>John, Whiz</td><td><strong>&ldquo;Don&rsquo;t say what&rsquo;s wrong. Say where you&rsquo;re going to take us.&rdquo;</strong> Confirmed: fewer than 8 hours have ever been spent in the CRM.</td></tr><tr><td><span class="ref">T1</span></td><td><strong>Ads working session</strong></td><td><span class="dt">07 Aug 2026</span></td><td>Tom (983), Adrian, John, Craig, Whiz</td><td>The ad account opened for the first time. <strong>&ldquo;We don&rsquo;t need the back end. The problem is way out top.&rdquo;</strong></td></tr><tr><td><span class="ref">A3</span></td><td><strong>Adrian, 44 minutes</strong></td><td><span class="dt">14 Aug 2026</span></td><td>Adrian, Whiz</td><td>The break point named out loud, and the current numbers rewritten. The most valuable source in the file.</td></tr><tr><td><span class="ref">WEB</span></td><td><strong>cytokind.net audit</strong></td><td><span class="dt">28 Jul 2026</span></td><td>Live site</td><td>No price, no checkout, no insurance page, no financing, MS one nav item deep.</td></tr><tr><td><span class="ref">ADS</span></td><td><strong>Meta ad library measurement</strong></td><td><span class="dt">14 Aug 2026</span></td><td>Live account</td><td>4 active ads, 2 creatives run as A/B pairs, live since 11 Aug, behind 2 landing pages.</td></tr></tbody></table></div><div class="tnote">Every quotation in these six documents traces back to one of these fourteen rows. No transcript exists for one working session (07 Aug) &mdash; no notetaker was running; the raw transcript is the only record and has been kept.</div>
+    </div>
+  </div>
+</section>
+<section class="gray">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">03</span>The agenda</div>
+    <h2>What discovery set out to answer</h2>
+    <p class="lead">Twenty questions, in three groups. Nine are answered.
+    Eleven are still open &mdash; and which ones are still open is itself a finding.</p>
+
+    <div class="grid g3" style="margin-top:52px">
+      <div class="card">
+        <div class="tag">Numbers</div>
+        <ul class="lst" style="margin-top:4px">
+          <li><strong>Answered.</strong> Contacts in the CRM, sales to date, close rate, prescriptions parked, new contacts per day, phone and email connect rates, drip open and click rates.</li>
+          <li><strong>Open.</strong> Total monthly ad spend. MS versus dermatology split. Impressions, CTR, cost per booked call, cost per sale. Form abandonment rate. Monthly site traffic and how much is still the <em>Scientific&nbsp;American</em> article.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tag">Model</div>
+        <ul class="lst" style="margin-top:4px">
+          <li><strong>Answered.</strong> Why a patient buys here rather than direct. Cash&#8209;pay versus insurance mix. Whether a telehealth prescriber is possible &mdash; it is not, and the reason is structural.</li>
+          <li><strong>Open.</strong> What the distribution agreement gives them. Whether the clinical line has any sales motion at all. Reconciliation of units delivered against units invoiced &mdash; never performed.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tag">Operations &amp; compliance</div>
+        <ul class="lst" style="margin-top:4px">
+          <li><strong>Answered.</strong> Who does what across marketing, creative, ads and sales. Where the CEO&rsquo;s time goes. What breaks in the automation.</li>
+          <li><strong>Open.</strong> Who signs off medical copy. Where patient health data sits and under what safeguards. What happens to a patient after the device ships.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout k" style="margin-top:24px">
+      <div class="t">Two questions deliberately not asked</div>
+      <p><strong>Margin per unit and average selling price.</strong> Neither is needed. Every dollar
+      figure across the six documents is calculated on the $2,000 floor unit, which makes each of
+      them a minimum rather than a claim &mdash; and removes the one question that would otherwise
+      have to be answered before any of this could be priced.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">04</span>Findings</div>
+    <h2>Ten things that are true today</h2>
+    <p class="lead">Ordered as they occur in the funnel, not by severity. Severity is stage&nbsp;03.</p>
+    <div style="margin-top:52px"><div class="find"><div class="no">F01</div><div class="body"><h3>The supplier is also the competitor</h3><p>CytoKind is the US distributor of Phothera NB&#8209;UVB devices. Phothera is the former Daavlin &mdash; Daavlin and National Biological merged under Madison Industries and rebranded. That company runs its own direct&#8209;to&#8209;patient request flow, its own dermatologist portal, and advertises broad insurance coverage at $0 cost to eligible patients.</p><p>Any plan that only says &ldquo;convert more leads&rdquo; without answering <em>why a patient buys here instead of there</em> is built on sand. Discovery found the answer, and it is finding F02.</p></div><div class="body q"></div></div><div class="find"><div class="no">F02</div><div class="body"><h3>The traffic is autoimmune. The site is dermatology.</h3><p>The inbound the business actually receives is overwhelmingly not standard dermatology &mdash; MS, long Covid, autoimmune fatigue, post&#8209;viral neuropathy &mdash; arriving from a <em>Scientific&nbsp;American</em> cover article. Two of the three homepage testimonials are MS patients. Yet MS sits one navigation item deep, and the site is built for psoriasis, vitiligo and eczema.</p><p>This is simultaneously the only lane the supplier does not own, and the only lane with no FDA indication behind it &mdash; which is why it is a positioning decision, not a copy tweak.</p></div><div class="body q"><div class="quote"><div class="q">&ldquo;I listened to an article in <em>Scientific American</em> and was amazed by the results found in MS patients&hellip; I have a family member with severe fatigue, auto&#8209;immune disorder, and autonomic nervous system dysfunction.&rdquo;</div><div class="a">Verbatim inbound enquiry, from the live intake</div></div></div></div><div class="find"><div class="no">F03</div><div class="body"><h3>Insurance is the sale &mdash; and it lives only in one person&rsquo;s mouth</h3><p>For a dermatology patient with an indication, insurance covers the device and the patient pays nothing. That single fact is the strongest closing argument the company has. It appears in the automated email, and it appears <strong>nowhere on the website</strong> &mdash; no insurance page, no HSA/FSA, no financing, no letter&#8209;of&#8209;medical&#8209;necessity template.</p><p>Consequence, observed live in August: some buyers reach the phone still not knowing that insurance covers it. One told the company it sounded like a scam, went and checked the website himself, came back a day later and bought. He rescued himself. Nothing in the funnel does that for anyone else.</p></div><div class="body q"><div class="quote"><div class="q">&ldquo;They don&rsquo;t know what the JotForm is, they don&rsquo;t know that insurance covers it, they don&rsquo;t know that they need XYZ from their dermatologist.&rdquo;</div><div class="a">Adrian, 14 Aug 2026</div></div></div></div><div class="find"><div class="no">F04</div><div class="body"><h3>The funnel ends at the submit button</h3><p>The ads work. The landing page works. Then a patient fills in the form, presses submit &mdash; and is returned to Facebook. No thank&#8209;you page, no education, no routing, no explanation of what happens next, no statement of what it costs.</p><p>Everything from that second onward is one person on a phone connecting once in fifteen to twenty attempts, against roughly twenty new arrivals a day. Email connects once in forty. The four&#8209;email drip opens at 25&percnt; and clicks at 1&percnt;.</p></div><div class="body q"><div class="quote"><div class="q">&ldquo;They fill out the form, and then they hit submit&hellip; and that&rsquo;s the end of the experience. So we&rsquo;re letting go of them while we have them.&rdquo;</div><div class="a">Adrian, 14 Aug 2026</div></div></div></div><div class="find"><div class="no">F05</div><div class="body"><h3>Leads are captured before they are educated</h3><p>The ask comes before the value. By the time a human calls, the person on the other end has no memory of, and no reason for, the conversation. This is not a follow&#8209;up problem &mdash; it is a capture&#8209;order problem, and it was reached independently by the CEO and by the person making the calls, ten days apart.</p></div><div class="body q"><div class="quote"><div class="q">&ldquo;I&rsquo;ve talked with many patients on the phone and it&rsquo;s a matter of: what is this? <strong>Oh, I did that form one time. I have no context of what&rsquo;s going on.</strong>&rdquo;</div><div class="a">Adrian, 07 Aug 2026 &mdash; &ldquo;Why don&rsquo;t we educate them a little further before we ask for the information?&rdquo; &mdash; John, same call</div></div></div></div><div class="find"><div class="no">F06</div><div class="body"><h3>Half the paid spend points at the segment that has never sold</h3><p>Four ads are live. Two creatives, each run as an A/B pair. One half points at psoriasis, where there is an FDA indication, insurance pays and the patient pays $0 &mdash; and where every sale the company has ever made came from. The other half points at MS, where there is no indication, the patient pays $2,000&ndash;$7,000 in cash, and <strong>zero devices have ever been sold</strong>.</p><p>The stated reason MS stays live is that it is a benchmark. That is a decision to make, not a system to build &mdash; and it is already being discussed internally.</p></div><div class="body q"><div class="quote"><div class="q">&ldquo;Most of those are MS. The close rate out of derm is pretty good.&rdquo;</div><div class="a">Adrian, 14 Aug 2026 &mdash; the mix is the cap, not the effort</div></div></div></div><div class="find"><div class="no">F07</div><div class="body"><h3>One completed form is one sale. Four have ever been completed.</h3><p>The JotForm captures the insurance card, the clinical notes and the prescriber&rsquo;s NPI &mdash; everything the manufacturer needs to ship. It is the single unambiguous conversion event in the business. In the entire history of the company it has been completed four times.</p><p>Meanwhile eighteen to twenty prescriptions sit parked, waiting on a signature nobody is chasing. Those are people who have already decided.</p></div><div class="body q"><div class="quote"><div class="q">&ldquo;If you fill out that form, it&rsquo;s a sale, basically. We only have four. We do that a hundred times, we do it a thousand times. That&rsquo;s what we need.&rdquo;</div><div class="a">Adrian, 14 Aug 2026</div></div></div></div><div class="find"><div class="no">F08</div><div class="body"><h3>The fix for the largest leak was built, and never switched on</h3><p>A dynamic qualification form already exists. It asks where the psoriasis is, what insurance the patient carries, what symptoms they have &mdash; and ends by telling them their insurance will cover the device and handing them the JotForm. It has never been tested, never been shipped, and the CEO did not know it existed.</p><p>It sat in a folder for weeks while roughly twenty people a day walked into the leak it was built to close. This is not a capability gap. It is an ownership gap.</p></div><div class="body q"><div class="quote"><div class="q">&ldquo;I built it and I don&rsquo;t know why we haven&rsquo;t put this&hellip; I don&rsquo;t exactly understand why we didn&rsquo;t pursue it.&rdquo;</div><div class="a">Adrian, 14 Aug 2026</div></div></div></div><div class="find"><div class="no">F09</div><div class="body"><h3>Eleven of twelve numbers do not exist</h3><p>Form abandonment is invisible &mdash; a cost is paid at the click and the drop&#8209;off is never recorded. Sales calls are not recorded, so a close rate cannot be listened to. Two of three CRM automations do not function and the tags are decorative. Fewer than eight hours have ever been spent inside the CRM, and the only goal configured in it was set by the CEO.</p><p>The business has also been given two different connect rates that disagree by a factor of 4.6 &mdash; the CRM says one thing, the person making the calls says another. Both cannot be used to make a decision.</p></div><div class="body q"><div class="quote"><div class="q">&ldquo;If somebody doesn&rsquo;t fill out the form, we don&rsquo;t know anything about it.&rdquo;</div><div class="a">Tom (983 Group), 07 Aug 2026</div></div></div></div><div class="find"><div class="no">F10</div><div class="body"><h3>Nobody owns the whole pipe</h3><p>Ads are set up by one party. Creative is made by another. The landing page by a third. The calls, emails, CRM and the form by a fourth. Every individual seat is filled and every individual seat is doing its job &mdash; which is exactly why findings F04, F07 and F08 can all be true at the same time and nobody is at fault for any of them.</p><p>The gap is not a person missing from a function. It is that no function owns the distance between an impression and an invoice.</p></div><div class="body q"><div class="quote"><div class="q">&ldquo;No one is owning the whole pipe.&rdquo;</div><div class="a">John MacMahon</div></div></div></div></div>
+  </div>
+</section>
+<section class="gray">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">05</span>Corrections</div>
+    <h2>Seven things we believed that turned out to be wrong</h2>
+    <p class="lead">Discovery is only worth running if it is allowed to overturn its own earlier
+    conclusions. These seven were overturned during it.</p>
+    <div style="margin-top:48px"><div class="tw"><table style="min-width:820px"><thead><tr><th>What was believed</th><th>What is actually true</th><th>Source</th></tr></thead><tbody><tr><td>There is no landing page &mdash; a Meta instant form only, and the lead never leaves Facebook</td><td>A real WordPress landing page exists, with a Gravity Form feeding the CRM. The lead does leave Facebook.</td><td><span class="dt">07 Aug</span></td></tr><tr><td>Asking for a phone number is what drives people away</td><td>It was never the phone field. The drop&#8209;off appeared when the button copy changed from &ldquo;Contact us&rdquo; to &ldquo;Set up a consultation.&rdquo; Phone is now mandatory.</td><td><span class="dt">07 Aug</span></td></tr><tr><td>Nothing is running &mdash; zero active ads, zero landing pages</td><td>Four ads live since 11 August behind two landing pages, and roughly twenty new contacts a day &mdash; the highest the company has ever seen.</td><td><span class="dt">14 Aug</span></td></tr><tr><td>Daavlin is a competitor whose insurance handling should be copied</td><td>Daavlin <em>is</em> Phothera &mdash; the supplier. The frame is channel conflict, not competitive catch&#8209;up.</td><td><span class="dt">28 Jul</span></td></tr><tr><td>A telehealth prescriber would unlock the prescription step</td><td>Structurally impossible. Insurance requires the treating physician&rsquo;s own clinical notes, so a company&#8209;supplied prescriber destroys the coverage that makes the patient pay $0. The only play is arming the patient to arm their own doctor.</td><td><span class="dt">07 Aug</span></td></tr><tr><td>Effort is the constraint &mdash; more calls, more emails</td><td>The mix is the constraint. Derm converts; MS never has. Same effort, different segment, different outcome.</td><td><span class="dt">14 Aug</span></td></tr><tr><td>The uncalled list is the opportunity</td><td>Calling every never&#8209;phoned contact, at the observed connect rate and the observed close rate, is worth roughly <strong>$3,900</strong>. The list is not the constraint. The rate is.</td><td><span class="dt">04&ndash;11 Aug</span></td></tr></tbody></table></div><div class="tnote">Two Evolv&#8209;side errors are recorded in the same spirit: an automated email stripped the phone number from the lead notification, which led the CEO to conclude phone numbers were not being captured at all &mdash; they were. And an early email drafter produced no usable output. Both are ours and both are named here rather than quietly fixed.</div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">06</span>Open</div>
+    <h2>What discovery could not close</h2>
+    <p class="lead">Each of these is held by a named party. None of them is a research task &mdash;
+    they are all one request away.</p>
+    <div class="grid g2" style="margin-top:48px">
+      <div class="card">
+        <h4>Ad performance history</h4>
+        <p>Total monthly spend, the MS versus dermatology split, impressions, CTR, cost per booked call,
+        cost per sale. Held by the ads partner; a review was scheduled and arrived without the detail.
+        <span class="sub">One report closes it.</span></p>
+      </div>
+      <div class="card">
+        <h4>Form abandonment</h4>
+        <p>How many people arrive at the form and leave without submitting. Not held by anyone &mdash;
+        it has never been instrumented. A cost is paid at the click and the loss is invisible.
+        <span class="sub">One tag closes it.</span></p>
+      </div>
+      <div class="card">
+        <h4>Delivered versus invoiced</h4>
+        <p>Units already shipped to patients, reconciled against units actually invoiced. The
+        reconciliation has never been performed. The figure discussed internally is material and remains
+        unverified, which is why no number for it appears anywhere in these documents.
+        <span class="sub">One afternoon and a spreadsheet closes it.</span></p>
+      </div>
+      <div class="card">
+        <h4>The people who are not in the CRM</h4>
+        <p>The count of enquiries the business believes it has received exceeds the count of contact
+        records by a wide margin. The website form and the intake sheet were never integrated with each
+        other. <span class="sub">One import closes it.</span></p>
+      </div>
+      <div class="card">
+        <h4>Medical copy sign&#8209;off</h4>
+        <p>NB&#8209;UVB for MS and autoimmune conditions is research&#8209;stage, not an FDA&#8209;cleared
+        indication. Every claim in that lane is regulated, and no named person currently approves the
+        wording. <span class="sub">One decision closes it.</span></p>
+      </div>
+      <div class="card">
+        <h4>Where the health data sits</h4>
+        <p>Conditions, medical history and prescriptions are moving through spreadsheets and inboxes.
+        Whether any of that is covered by an agreement, and who can see it, has not been assessed.
+        <span class="sub">One assessment closes it.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="nums">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">§</span>The numbers</div>
+    <h2>What the arithmetic says</h2>
+    <p class="lead">Every figure below is taken from a recorded call or a live system, with its date. Nothing is estimated, benchmarked or forecast. All money is calculated on the <strong>$2,000 Phothera&nbsp;200</strong>, the cheapest device CytoKind sells &mdash; so every dollar figure is a floor, not a claim.</p>
+    <div class="grid g4" style="margin-top:56px"><div class="ncard"><div class="v">1 <span style='font-size:.5em;font-weight:600;opacity:.55'>of 12</span></div><div class="k">Business metrics that exist</div><div class="d">Eleven of the twelve numbers this company runs on are not measured at all. That is the finding discovery repeats most often.</div></div><div class="ncard"><div class="v">16</div><div class="k">Touchpoints from impression to invoice</div><div class="d">Mapped end to end. Most of them carry no number whatsoever, and none of them carries more than one.</div></div><div class="ncard"><div class="v">4.6&times;</div><div class="k">Spread between two connect rates</div><div class="d">The CRM reports one figure and the person making the calls reports another. Both are in use. Neither can be planned against.</div></div><div class="ncard"><div class="v">6 <span style='font-size:.5em;font-weight:600;opacity:.55'>/ 334</span></div><div class="k">Devices sold against contacts held</div><div class="d">A 1.8&percnt; close rate across the whole database &mdash; and all six sales are insurance&#8209;covered dermatology.</div></div><div class="ncard"><div class="v">4</div><div class="k">JotForms ever completed</div><div class="d">The one unambiguous conversion event in the business, completed four times in the company&rsquo;s history.</div></div><div class="ncard"><div class="v">18&ndash;20</div><div class="k">Prescriptions parked</div><div class="d">People who have already decided, waiting on a signature that nobody currently owns.</div></div><div class="ncard"><div class="v">~20 <span style='font-size:.5em;font-weight:600;opacity:.55'>/ day</span></div><div class="k">New contacts arriving now</div><div class="d">The highest volume the company has ever had, walking into the funnel described in F04.</div></div><div class="ncard"><div class="v">$30,000</div><div class="k">The monthly gap, valued at the floor</div><div class="d">Between devices sold in the last thirty days and the stated target for the same period, priced on the cheapest unit in the catalogue.</div></div></div>
+    <div class="close">
+      <div class="q">&ldquo;No one is owning the whole pipe.&rdquo;</div>
+      <div class="a">John MacMahon &mdash; the one line discovery exists to prove, and the one that determines everything in stages 02 through 06.</div>
+    </div>
+    <div class="src">Sources: recorded calls of 22 Dec 2025, 06 Jan, 12 Jan, 03 Jun, 27 Jul (&times;2), 28 Jul, 01 Aug, 06 Aug, 07 Aug and 14 Aug 2026; the live ActiveCampaign export of 04 Aug 2026; the Meta ad library measurement of 14 Aug 2026; and the cytokind.net audit of 28 Jul 2026. Where a figure has changed since it was first recorded, the 14 Aug value is the one shown.</div>
+  </div>
+</section>
+
+<footer><div class="in">
+  <div><strong>Evolv AI</strong> &nbsp;&middot;&nbsp; CytoKind masterplan, stage 01 of 06
+       &nbsp;&middot;&nbsp; updated 16 August 2026</div>
+  <div><span class="nextlink off">02 &nbsp;Data + AI audit &nbsp;&middot;&nbsp; in build</span></div>
+</div></footer>
+
+</body></html>
