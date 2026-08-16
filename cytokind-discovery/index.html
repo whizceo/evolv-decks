@@ -25,25 +25,25 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink-2);
 ::selection{background:var(--mint);color:var(--green-d)}
 
 /* ── top bar ── */
-.bar{position:sticky;top:0;z-index:60;background:rgba(11,11,12,.92);
+.bar{position:sticky;top:0;z-index:60;background:rgba(3,32,24,.94);
      -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
-     border-bottom:1px solid rgba(255,255,255,.08)}
+     border-bottom:1px solid rgba(255,255,255,.10)}
 .bar .in{max-width:1180px;margin:0 auto;padding:0 28px;height:48px;
      display:flex;align-items:center;justify-content:space-between;gap:20px}
 .bar a.brand{display:flex;align-items:center;gap:9px;color:#fff;font-size:13.5px;font-weight:600;
      letter-spacing:-.005em;text-decoration:none;white-space:nowrap}
 .bar a.brand img{height:19px;width:auto;display:block;opacity:.95}
-.bar a.brand .sep{color:rgba(255,255,255,.3);font-weight:400}
+.bar a.brand .sep{color:rgba(255,255,255,.38);font-weight:400}
 .bar .rail{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none}
 .bar .rail::-webkit-scrollbar{display:none}
-.bar .rail a,.bar .rail span{font-size:12px;font-weight:600;color:rgba(255,255,255,.95);
-     background:rgba(255,255,255,.11);text-decoration:none;padding:5px 11px;border-radius:980px;
+.bar .rail a,.bar .rail span{font-size:12px;font-weight:600;color:var(--ink);
+     background:#fff;text-decoration:none;padding:5px 11px;border-radius:980px;
      white-space:nowrap;transition:.18s}
-.bar .rail a:hover{color:#fff;background:rgba(255,255,255,.16)}
-.bar .rail .cur{color:var(--ink);background:var(--mint);font-weight:600}
-.bar .rail .off{color:rgba(255,255,255,.95)}
-.bar .rail .n{font-variant-numeric:tabular-nums;opacity:.55;font-weight:500;margin-right:6px}
-.bar .rail .cur .n{opacity:.62}
+.bar .rail a:hover{background:var(--mint)}
+.bar .rail .cur{color:var(--ink);background:var(--mint);font-weight:700}
+.bar .rail .off{color:var(--ink);background:#fff}
+.bar .rail .n{font-variant-numeric:tabular-nums;opacity:.42;font-weight:500;margin-right:6px}
+.bar .rail .cur .n{opacity:.5}
 
 /* ── layout ── */
 .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
