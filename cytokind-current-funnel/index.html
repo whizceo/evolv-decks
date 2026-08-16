@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1560">
+<title>CytoKind — The Funnel As It Exists Today</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..600;1,6..72,200..500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16150f; --ink2:#4a4740; --ink3:#918c81;
+  --rule:#ddd9cf; --rule2:#efece4;
+  --paper:#ffffff; --band:#f7f5ef; --band2:#fbfaf6;
+  --ok:#1c5d43; --weak:#9a6b12; --broken:#a3281c; --none:#8d887d;
+  --hot:#a3281c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#e8e5dc; color:var(--ink);
+  font-family:'Inter',-apple-system,sans-serif;
+  font-size:13px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.sheet{width:1560px;margin:0 auto;background:var(--paper);}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.9em;letter-spacing:-.01em}
+
+/* ══ MASTHEAD ══ */
+.mast{padding:64px 72px 46px;border-bottom:2px solid var(--ink);}
+.eyebrow{font-size:10px;letter-spacing:.30em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:26px}
+.mast h1{font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:74px;line-height:.98;letter-spacing:-.025em;max-width:1020px}
+.mast h1 em{font-style:italic;color:var(--ink2)}
+.deck{margin-top:24px;max-width:760px;font-size:15.5px;line-height:1.62;color:var(--ink2)}
+.mastmeta{margin-top:34px;display:grid;grid-template-columns:repeat(4,1fr);gap:30px;
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+.mastmeta b{display:block;color:var(--ink);font-weight:600;letter-spacing:.06em;
+  text-transform:none;font-size:12.5px;margin-top:5px}
+
+/* ══ SPINE STRIP ══ */
+.spine{display:grid;grid-template-columns:repeat(8,1fr);border-bottom:1px solid var(--rule);background:var(--band)}
+.spine div{padding:22px 18px;border-right:1px solid var(--rule);}
+.spine div:last-child{border-right:0}
+.spine .f{font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:34px;line-height:1;letter-spacing:-.03em}
+.spine .l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-top:9px;line-height:1.45;font-weight:600}
+.spine .red .f{color:var(--broken)}
+
+/* ══ LEGEND ══ */
+.legend{display:flex;gap:0;border-bottom:2px solid var(--ink);}
+.legend div{flex:1;padding:16px 22px;border-right:1px solid var(--rule);font-size:11.5px;color:var(--ink2)}
+.legend div:last-child{border-right:0}
+.legend i{font-style:normal;font-size:13px;margin-right:9px}
+.legend b{color:var(--ink);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.legend .ok i{color:var(--ok)} .legend .weak i{color:var(--weak)}
+.legend .broken i{color:var(--broken)} .legend .none i{color:var(--none)}
+
+/* ══ STAGE ══ */
+.stage{display:grid;grid-template-columns:236px 1fr 296px;border-bottom:1px solid var(--rule);}
+.stage.hot{background:#fdf8f6}
+.rail{padding:42px 30px 42px 72px;border-right:1px solid var(--rule);position:relative}
+.rail:after{content:"";position:absolute;right:-5px;top:64px;width:9px;height:9px;
+  border-radius:50%;background:var(--ink);}
+.stage.hot .rail:after{background:var(--hot)}
+.stg{font-family:'Newsreader',Georgia,serif;font-weight:200;font-size:62px;line-height:.8;
+  letter-spacing:-.04em;color:var(--rule);}
+.stage.hot .stg{color:#e8bdb6}
+.stn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:27px;line-height:1.12;
+  letter-spacing:-.015em;margin-top:14px}
+.stage.hot .stn{color:var(--hot)}
+.sts{margin-top:13px;font-size:12.5px;line-height:1.6;color:var(--ink2)}
+
+.flow{padding:42px 34px;position:relative}
+.flow.parallel{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.parnote{grid-column:1/-1;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink3);font-weight:600;margin-bottom:4px}
+.joiner{display:flex;justify-content:center;padding:0}
+.joiner span{display:block;width:1px;height:22px;background:var(--rule);position:relative}
+.joiner span:after{content:"";position:absolute;bottom:0;left:-3px;
+  border-left:3.5px solid transparent;border-right:3.5px solid transparent;
+  border-top:5px solid var(--rule)}
+
+/* ══ CARD ══ */
+.card{border:1px solid var(--rule);border-left:3px solid var(--none);
+  background:var(--paper);padding:20px 24px 20px 22px}
+.card.ok{border-left-color:var(--ok)}
+.card.weak{border-left-color:var(--weak)}
+.card.broken{border-left-color:var(--broken)}
+.card.none{border-left-color:var(--none);background:var(--band2)}
+.card header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.tid{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:.08em;
+  color:var(--ink3);border:1px solid var(--rule);padding:2px 7px}
+.stat{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--ink3)}
+.stat i{font-style:normal;font-size:12px;margin-right:6px;vertical-align:-1px}
+.card.ok .stat,.card.ok .stat i{color:var(--ok)}
+.card.weak .stat,.card.weak .stat i{color:var(--weak)}
+.card.broken .stat,.card.broken .stat i{color:var(--broken)}
+.card h3{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:21px;line-height:1.2;
+  letter-spacing:-.012em;margin-bottom:9px}
+.card .body{font-size:12.8px;line-height:1.62;color:var(--ink2)}
+.card .body b{color:var(--ink);font-weight:600}
+blockquote{margin:14px 0 0;padding:11px 0 11px 16px;border-left:2px solid var(--ink);
+  font-family:'Newsreader',Georgia,serif;font-size:16px;line-height:1.42;font-style:italic;color:var(--ink)}
+blockquote cite{display:block;margin-top:8px;font-family:'Inter',sans-serif;font-style:normal;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+.meta{margin-top:15px;padding-top:12px;border-top:1px solid var(--rule2);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mk{display:block;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-bottom:3px}
+.mv{display:block;font-size:11.5px;line-height:1.42;color:var(--ink)}
+.flag{margin-top:14px;padding:11px 14px;background:var(--band);font-size:11.8px;line-height:1.55;color:var(--ink2);
+  border-left:2px solid var(--rule)}
+.card.broken .flag,.card.none .flag{background:#fbf2f0;border-left-color:#e0b8b1;color:#6d3a33}
+.flag b{color:var(--ink)}
+
+/* ══ BLEED GUTTER ══ */
+.bleed{padding:42px 72px 42px 30px;border-left:1px solid var(--rule);background:var(--band2)}
+.bleedh{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--broken);
+  font-weight:700;margin-bottom:16px;padding-bottom:9px;border-bottom:1px solid #e6cdc8}
+.bl{margin-bottom:20px}
+.bl:last-child{margin-bottom:0}
+.blh{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.2;font-weight:400;
+  color:var(--broken);margin-bottom:7px;letter-spacing:-.01em}
+.bl p{font-size:12px;line-height:1.6;color:var(--ink2)}
+.bl p b{color:var(--ink)}
+.bl.empty .blh{color:var(--ink3);font-size:15px}
+
+/* ══ PANELS ══ */
+.panels{border-top:2px solid var(--ink)}
+.panel{padding:56px 72px;border-bottom:1px solid var(--rule)}
+.ph{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-bottom:16px}
+.pt{font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:40px;line-height:1.08;
+  letter-spacing:-.022em;margin-bottom:12px;max-width:900px}
+.pd{font-size:13.5px;line-height:1.65;color:var(--ink2);max-width:780px;margin-bottom:30px}
+
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);
+  font-weight:700;padding:0 14px 10px 0;border-bottom:1px solid var(--ink)}
+td{padding:13px 14px 13px 0;border-bottom:1px solid var(--rule2);font-size:13px;vertical-align:baseline}
+th.n,td.n{text-align:right;padding-right:26px}
+.wstep{font-weight:500;width:280px}
+td.big{font-family:'Newsreader',Georgia,serif;font-size:24px;font-weight:400;letter-spacing:-.02em;width:120px}
+td.loss{color:var(--broken);font-weight:500;width:170px}
+.wnote{color:var(--ink3);font-size:11.8px;line-height:1.5}
+
+.owngrid{display:grid;gap:0;border-top:1px solid var(--ink)}
+.ownrow{display:grid;grid-template-columns:340px 1fr;gap:30px;padding:16px 0;border-bottom:1px solid var(--rule2);
+  border-left:3px solid transparent;padding-left:16px;margin-left:-19px}
+.ownrow.ok{border-left-color:var(--ok)}
+.ownrow.weak{border-left-color:var(--weak)}
+.ownrow.none{border-left-color:var(--broken);background:#fbf2f0}
+.ownwho{font-weight:600;font-size:13.5px}
+.ownwhat{color:var(--ink2);font-size:13px}
+.ownrow.none .ownwhat{color:var(--broken);font-weight:600;font-family:'Newsreader',Georgia,serif;font-size:19px;font-style:italic}
+
+.abslist{columns:3;column-gap:44px;list-style:none;margin-top:8px}
+.abslist li{break-inside:avoid;padding:9px 0 9px 26px;border-bottom:1px solid var(--rule2);
+  font-size:13px;color:var(--ink);position:relative}
+.abslist li:before{content:"○";position:absolute;left:0;color:var(--none);font-size:12px}
+
+.mathgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--ink);margin-top:8px}
+.mathgrid div{padding:26px 26px 26px 0;border-right:1px solid var(--rule)}
+.mathgrid div:last-child{border-right:0;padding-right:0}
+.mathgrid .f{font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:46px;line-height:1;letter-spacing:-.035em}
+.mathgrid .f.red{color:var(--broken)}
+.mathgrid .l{margin-top:12px;font-size:12.2px;line-height:1.55;color:var(--ink2)}
+
+.kicker{padding:64px 72px;background:var(--ink);color:#f5f2ea}
+.kicker .ph{color:#8f8a7e}
+.kicker p{font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:37px;line-height:1.24;
+  letter-spacing:-.02em;max-width:1200px}
+.kicker p em{font-style:italic;color:#d9b5ad}
+.kicker .sub{font-family:'Inter',sans-serif;font-size:14px;line-height:1.65;font-weight:300;
+  color:#a8a297;max-width:820px;margin-top:26px;letter-spacing:0}
+
+.foot{padding:34px 72px;font-size:10.5px;line-height:1.75;color:var(--ink3);
+  border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:40px}
+.foot b{color:var(--ink2);font-weight:600}
+</style><meta name="robots" content="noindex,nofollow,noarchive">
+<style>
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:#16150f;
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+  font-family:'Inter',-apple-system,sans-serif;color:#fff}
+.mobile-block .mb-emoji{font-size:46px;margin-bottom:20px}
+.mobile-block .mb-title{font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:2rem;
+  margin-bottom:14px;letter-spacing:-.02em}
+.mobile-block .mb-title em{font-style:italic;color:#7fc0a4}
+.mobile-block .mb-sub{font-size:.95rem;color:#a9a496;max-width:360px;line-height:1.6}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+</style>
+</head>
+<body>
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title">Open on <em>desktop</em></div>
+  <div class="mb-sub">This is one continuous 13,000-pixel board — ten stages and thirty-four touchpoints. Open it on a laptop.</div>
+</div>
+
+<div class="sheet">
+
+<header class="mast">
+  <div class="eyebrow">CytoKind · Systems mapping · Evolv AI · 16 August 2026</div>
+  <h1>The funnel as it<br>exists <em>today</em>.</h1>
+  <p class="deck">Every step and every touchpoint between a stranger seeing an ad and a device
+  being invoiced — nine stages, thirty-four touchpoints, drawn exactly as they run right now.
+  Nothing on this page is modelled or proposed. Every number comes from a call, the live CRM,
+  or the ad account, and where a number does not exist that is written down as the finding.</p>
+  <div class="mastmeta">
+    <span>Money basis<b>$2,000 floor unit — the cheapest device</b></span>
+    <span>Primary sources<b>Adrian 14 Aug · John 27 Jul &amp; 6 Aug · Tom 7 Aug</b></span>
+    <span>Systems read<b>ActiveCampaign · n8n · Meta Ads Library · cytokind.net</b></span>
+    <span>Status<b>Current state. No recommendations on this page.</b></span>
+  </div>
+</header>
+
+<div class="spine">
+  <div><div class="f">~20</div><div class="l">New contacts<br>per day</div></div>
+  <div><div class="f">334</div><div class="l">Contacts in<br>the CRM</div></div>
+  <div class="red"><div class="f">0%</div><div class="l">Routed onward<br>after submit</div></div>
+  <div class="red"><div class="f">4</div><div class="l">JotForms completed,<br>ever</div></div>
+  <div class="red"><div class="f">18–20</div><div class="l">Prescriptions<br>parked</div></div>
+  <div><div class="f">6</div><div class="l">Devices sold<br>to date</div></div>
+  <div class="red"><div class="f">1.8%</div><div class="l">End to end<br>close rate</div></div>
+  <div class="red"><div class="f">$30K</div><div class="l">Monthly gap vs<br>the 20-unit target</div></div>
+</div>
+
+<div class="legend">
+  <div class="ok"><i>●</i><b>Works</b> — built, running, doing its job</div>
+  <div class="weak"><i>◐</i><b>Degraded</b> — exists, but underperforming or entirely unmeasured</div>
+  <div class="broken"><i>■</i><b>Broken</b> — exists and does not work</div>
+  <div class="none"><i>○</i><b>Absent</b> — does not exist at all</div>
+</div>
+
+
+    <section class="stage">
+      <div class="rail">
+        <div class="stg">00</div>
+        <div class="stn">Demand</div>
+        <div class="sts">Six doors into the business. Two are paid, three are earned, one is untracked. They have never been ranked against each other.</div>
+      </div>
+      <div class="flow parallel">
+        <div class="parnote">These run in parallel — a person enters through one of them, not through all</div>
+        <div class="slot">
+    <article class="card ok">
+      <header>
+        <span class="tid">T01</span>
+        <span class="stat"><i>●</i>WORKS</span>
+      </header>
+      <h3>Paid ad — psoriasis</h3>
+      <p class="body">Static image, <i>“Trusted by Dermatologists for 40+ Years.”</i> Made by Craig, set up and captioned by Tom. Run as an A/B pair, live since 11 Aug. Points at <span class='mono'>/a-trusted-psoriasis-treatment-for-over-40-years/</span>.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Tom (983) · creative by Craig</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Meta Ads Manager</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">≈50% of live spend · SG</span></div></div>
+      <div class="flag">This half of the spend has produced 100% of the revenue.</div>
+    </article></div><div class="slot">
+    <article class="card broken">
+      <header>
+        <span class="tid">T02</span>
+        <span class="stat"><i>■</i>BROKEN</span>
+      </header>
+      <h3>Paid ad — MS fatigue</h3>
+      <p class="body">Video cut from a podcast, hook <i>“It’s really cool to hear that there’s this new type of therapy.”</i> A/B pair, live since 11 Aug. Points at <span class='mono'>/light-therapy-for-ms-fatigue-contact-us/</span>.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Tom (983) · clip by Craig</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Meta Ads Manager</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">≈50% of live spend · SG</span></div></div>
+      <div class="flag">No FDA indication → insurance will not pay → the patient must find $2,000–$7,000 in cash. 0 devices sold here, ever.</div>
+    </article></div><div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T03</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>The Scientific American cover</h3>
+      <p class="body">June 2025, <i>“Surprising Ways That Sunlight Might Heal Autoimmune Diseases.”</i> Earned, free, still pulling traffic every day. It is the single strongest closing instrument in the business.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Nigel (983) placed it</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Earned media</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">≈1 in 3 close after reading · J1</span></div></div>
+      <div class="flag">Used as an email attachment. At 1% email CTR, roughly 2 people in 200 ever reach it.</div>
+    </article></div><div class="slot">
+    <article class="card ok">
+      <header>
+        <span class="tid">T04</span>
+        <span class="stat"><i>●</i>WORKS</span>
+      </header>
+      <h3>PR, podcasts, earned media</h3>
+      <p class="body">KERA, WBUR and other press. John on this team: <i>“They’ve been doing great.”</i> The one part of 983’s work nobody disputes.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Nigel (983)</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Outreach + placements</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Not tracked to a single contact</span></div></div>
+      <div class="flag">Connected to no capture mechanism. The attention arrives and disperses.</div>
+    </article></div><div class="slot">
+    <article class="card none">
+      <header>
+        <span class="tid">T05</span>
+        <span class="stat"><i>○</i>ABSENT</span>
+      </header>
+      <h3>Organic social</h3>
+      <p class="body">15 reels in total, all cut by Adrian, none performed. No monthly cadence, no link tracking, no owner. <i>“Doing social media management properly, we haven’t done. And that’s on me.”</i></p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Adrian, informally</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">FB / IG</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Nothing above ~1,000 views</span></div></div>
+      
+    </article></div><div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T06</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>Direct, referral, word of mouth</h3>
+      <p class="body">Straight to cytokind.net. Includes the highest-intent traffic in the business — one of the first two closed sales came through the website contact form, not an ad.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Nobody</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">cytokind.net</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Untracked · attribution unprovable</span></div></div>
+      
+    </article></div>
+      </div>
+      <aside class="bleed">
+        <div class="bleedh">Lost here</div>
+        <div class="bl"><div class="blh">Half of every ad dollar</div><p>points at a segment that has produced <b>zero devices in the entire history of the company</b>. That is a budget decision, not a data problem — and it is being discussed internally right now.</p></div>
+      </aside>
+    </section>
+    <section class="stage">
+      <div class="rail">
+        <div class="stg">01</div>
+        <div class="stn">The click</div>
+        <div class="sts">From the ad to a filled-in form. This part of the machine works — it is the only stretch of the journey that does.</div>
+      </div>
+      <div class="flow serial">
+        
+        <div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T07</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>Ad click → landing page</h3>
+      <p class="body">Two pages, both vibe-coded by Tom, live since 11 Aug. They replaced the old Meta instant form — a real improvement. But neither page states the price, neither mentions that insurance covers it, neither carries the Scientific American article.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Tom (983)</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">WordPress</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Landing-page views at cents · T1</span></div></div>
+      <div class="flag">Message-match between ad and page has never been audited. Mismatched scent is the most common invisible leak in paid acquisition.</div>
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T08</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>The form</h3>
+      <p class="body">Gravity Form → ActiveCampaign. Name, email, phone, condition, message. Phone is now mandatory — it was not, and 7 contacts sit in the CRM with no number and 2 with invalid ones.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Tom (983) built it</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Gravity Forms</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">$14 per form fill · T1</span></div></div>
+      <div class="flag"><i>“If somebody doesn’t fill out the form, we don’t know anything about it.”</i> Abandonment is not instrumented.</div>
+    </article></div>
+      </div>
+      <aside class="bleed">
+        <div class="bleedh">Lost here</div>
+        <div class="bl"><div class="blh">Every abandoner</div><p>is invisible and therefore unrecoverable. There is no field-level tracking, so the people who started and stopped cannot even be retargeted.</p></div>
+      </aside>
+    </section>
+    <section class="stage hot">
+      <div class="rail">
+        <div class="stg">02</div>
+        <div class="stn">The submit button</div>
+        <div class="sts">The break point of the entire business. One click, and the highest-intent second in the funnel is spent on nothing.</div>
+      </div>
+      <div class="flow serial">
+        
+        <div class="slot">
+    <article class="card none">
+      <header>
+        <span class="tid">T09</span>
+        <span class="stat"><i>○</i>ABSENT</span>
+      </header>
+      <h3>Submit → returned to Facebook</h3>
+      <p class="body">No thank-you page. No confirmation of what happens next. No education, no routing, no calendar, no article, no price. The person is put back where they came from and left to keep scrolling.</p>
+      <blockquote>“They fill out the form, which is a landing page, and then they hit submit… and that’s the end of the experience. So we’re letting go of them while we have them.”<cite>Adrian Delli Colli, 14 August 2026</cite></blockquote>
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Nobody</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">None — there is no page</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">0% routed onward</span></div></div>
+      <div class="flag">What they still do not know at this second: that insurance covers it · that a JotForm exists and <i>is</i> the sale · what they need from their dermatologist · what any of it costs.</div>
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card none">
+      <header>
+        <span class="tid">T10</span>
+        <span class="stat"><i>○</i>ABSENT</span>
+      </header>
+      <h3>The fix that was built and never switched on</h3>
+      <p class="body">Adrian built a dynamic qualification form with Claude — it asks where the psoriasis is, which insurer they carry, what symptoms they have, and ends with <i>“Congratulations, your insurance will cover this light. Here’s what you need to do. Here’s the JotForm.”</i></p>
+      <blockquote>“And then, in theory, we don’t need to talk to them. Ever. I built it and I don’t know why we haven’t put this.”<cite>Adrian Delli Colli, 14 August 2026</cite></blockquote>
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Adrian built it</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Claude-built form</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Never tested. Never shipped.</span></div></div>
+      <div class="flag">John did not know it existed. The fix for the largest leak in the business sat in a folder, unknown to the CEO, while ~20 people a day walked into the leak.</div>
+    </article></div>
+      </div>
+      <aside class="bleed">
+        <div class="bleedh">Lost here</div>
+        <div class="bl"><div class="blh">100% of arrivals</div><p>roughly <b>20 people every day</b> — the highest volume CytoKind has ever had — reach this moment and are handed nothing at all.</p></div><div class="bl"><div class="blh">The credibility cost, said out loud</div><p><i>“It sounds like a scam.”</i> A buyer’s verbatim. He went and checked the site himself, came back a day later and bought. <b>He self-rescued. Nothing in the funnel does that for anyone else.</b></p></div>
+      </aside>
+    </section>
+    <section class="stage">
+      <div class="rail">
+        <div class="stg">03</div>
+        <div class="stn">The record</div>
+        <div class="sts">Three parallel intake systems that have never been reconciled with each other. What lands where depends entirely on which door the person came through.</div>
+      </div>
+      <div class="flow parallel">
+        <div class="parnote">These run in parallel — a person enters through one of them, not through all</div>
+        <div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T11</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>Meta lead → ActiveCampaign</h3>
+      <p class="body">334 contacts, up from 262 in under three weeks. Only Meta leads arrive here. Tags were set up by 983 and are, in Adrian’s words, <i>“a fuckload of other tags that I don’t even know what they do.”</i></p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Tom built it · Adrian works it</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">ActiveCampaign</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">334 contacts · A3</span></div></div>
+      <div class="flag">Source attribution is therefore unprovable. 2 of the 3 automations in the account do not function — one has no trigger at all.</div>
+    </article></div><div class="slot">
+    <article class="card ok">
+      <header>
+        <span class="tid">T12</span>
+        <span class="stat"><i>●</i>WORKS</span>
+      </header>
+      <h3>Website form → n8n</h3>
+      <p class="body">Four WordPress forms feed a webhook: LLM spam check → normalise → append a row to the Google Sheet. This part runs cleanly.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Evolv AI</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">n8n · Google Sheets</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Live, verified in the workflow JSON</span></div></div>
+      <div class="flag">The Google Sheet has never been connected to the CRM. It is a second, invisible database.</div>
+    </article></div><div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T13</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>Country routing</h3>
+      <p class="body">US continues down the funnel. Canada takes a separate path. Everywhere else is handed to a local distributor by automated email.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Evolv AI</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">n8n</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Volume of non-US leads unknown</span></div></div>
+      <div class="flag">Every non-US lead is given away. A referral commission exists on the Canadian side via Michael and is not being taken.</div>
+    </article></div><div class="slot">
+    <article class="card ok">
+      <header>
+        <span class="tid">T14</span>
+        <span class="stat"><i>●</i>WORKS</span>
+      </header>
+      <h3>Condition routing + AI reply draft</h3>
+      <p class="body">Derm branch (psoriasis / vitiligo / eczema) · neuro branch (MS / long Covid) · anything else triggers a Perplexity lookup first. An LLM writes one empathetic opening line matched to what the patient actually wrote.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Evolv AI</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">n8n · gpt-4o-mini · Perplexity</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Live</span></div></div>
+      <div class="flag">The derm email is the strongest asset in the stack — it carries the insurance paragraph, the order form, the Calendly link and the Scientific American cover.</div>
+    </article></div><div class="slot">
+    <article class="card broken">
+      <header>
+        <span class="tid">T15</span>
+        <span class="stat"><i>■</i>BROKEN</span>
+      </header>
+      <h3>The draft goes to John, not to the lead</h3>
+      <p class="body">Human-in-the-loop by design. John reviews, edits, sends. In practice he rewrites all of it, so the queue is a second inbox rather than a saving.</p>
+      <blockquote>“There wasn’t a single email that got drafted that I didn’t customize.”<cite>John MacMahon, 27 July 2026</cite></blockquote>
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">John</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">n8n → Gmail</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Hundreds of unused drafts</span></div></div>
+      <div class="flag">Evolv’s own bug, to be owned unprompted: the notification email stripped the phone number, so the CEO concluded they were not capturing phones at all. Adrian had them the whole time — and the cold-call effort was delayed by weeks because of it.</div>
+    </article></div><div class="slot">
+    <article class="card none">
+      <header>
+        <span class="tid">T16</span>
+        <span class="stat"><i>○</i>ABSENT</span>
+      </header>
+      <h3>New-lead alert</h3>
+      <p class="body">There is none. No SMS, no push, no Slack. Adrian finds new leads by manually checking email — <i>“I can’t check my email every five minutes or else I’ll go insane.”</i></p>
+      <blockquote>“I don’t know how to set up this notification that gets me an SMS, but I want that badly.”<cite>Adrian Delli Colli, 1 August 2026</cite></blockquote>
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Nobody</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">None</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">0 alerts fire</span></div></div>
+      <div class="flag">By the time the call happens, weeks have passed: <i>“you filled a Facebook ad a couple weeks ago. And they’re like, what did I do? What is this for?”</i></div>
+    </article></div>
+      </div>
+      <aside class="bleed">
+        <div class="bleedh">Lost here</div>
+        <div class="bl"><div class="blh">≈138 people who reached out</div><p>exist in no system at all. John believes ~400 people have contacted the company; the CRM holds 334. The website form and the Google Sheet were never integrated into ActiveCampaign — only Meta leads flow in.</p></div><div class="bl"><div class="blh">Speed to lead</div><p>John’s own number: <i>“a hundred minutes or 30 minutes versus six minutes is a 100× fall off.”</i> A 6-minute standard was agreed. Nothing in the stack enforces it.</p></div>
+      </aside>
+    </section>
+    <section class="stage">
+      <div class="rail">
+        <div class="stg">04</div>
+        <div class="stn">The human leg</div>
+        <div class="sts">One person, a phone, and a finite number of hours, against ~20 new arrivals a day. Capacity here is a hard ceiling, not an attitude.</div>
+      </div>
+      <div class="flow serial">
+        
+        <div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T17</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>The outbound call</h3>
+      <p class="body">Adrian, alone. He has personally contacted 200+ people. The average patient is around 65 years old and is being walked through a medical device by a young rep learning the science alongside them.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Adrian</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Phone</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Connect 1 in 15–20 · A3</span></div></div>
+      <div class="flag">There is no follow-up cadence written down anywhere. “Next outreach date” is a free-text field that notifies nobody.</div>
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T18</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>Voicemail → email after voicemail</h3>
+      <p class="body">17 voicemails left, 9 emailed afterwards, 7 contacts with no phone number on record, 2 invalid numbers.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Adrian</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Phone · Gmail</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Tag counts, read live off the CRM</span></div></div>
+      
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T19</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>The live conversation</h3>
+      <p class="body">Not recorded. 48 calls and 22 conversations have produced zero objection data and zero coaching material. The script was written by Craig, who has never made a sales call.</p>
+      <blockquote>“We made one, but it’s not working very good.”<cite>Adrian Delli Colli, 1 August 2026</cite></blockquote>
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Adrian · script by Craig</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Phone</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">No recordings exist</span></div></div>
+      <div class="flag">Some people reach this call still not knowing that insurance covers the device.</div>
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T20</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>Cold email</h3>
+      <p class="body">1 reply in 40. Deliverability has never been verified — <i>“I don’t know if these emails are landing in spam.”</i></p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Adrian</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">ActiveCampaign · Gmail</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">1 in 40 · A3</span></div></div>
+      
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card broken">
+      <header>
+        <span class="tid">T21</span>
+        <span class="stat"><i>■</i>BROKEN</span>
+      </header>
+      <h3>The 4-email MS drip</h3>
+      <p class="body">200 sends. 25% open. 1% click. Zero sales attributed. Roughly 1,000 emails have gone out across all campaigns.</p>
+      <blockquote>“We’ve sent a thousand emails, but it doesn’t matter. It’s not leading to anything.”<cite>Adrian Delli Colli</cite></blockquote>
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Adrian</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">ActiveCampaign</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">25% open · 1% CTR · 0 sales</span></div></div>
+      
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T22</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>Calendly — 10-minute discovery call</h3>
+      <p class="body">1–2 booked per week. Roughly 1–2 people per 100 leads reach a booked meeting. No-shows are confirmed to happen and the rate has never been counted.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">John’s calendar</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Calendly · Google Calendar</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">1–2 bookings/week · A2</span></div></div>
+      <div class="flag">“Meta ad → book a meeting directly” has already been tried and failed: <i>“it was an expensive lead… it was a no-show.”</i></div>
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T23</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>The Zoom call with John</h3>
+      <p class="body">This is where the sale is actually made. John handles the insurance question conversationally, per lead, from memory — and that message appears nowhere on the website, in no page, no PDF, no automation.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">John — the CEO</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Zoom</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">~5 calls · cadence never clarified</span></div></div>
+      <div class="flag">His stated goal for the whole engagement is to get <i>out</i> of this seat and focus on fundraising. Today the funnel’s only working conversion step is his own calendar.</div>
+    </article></div>
+      </div>
+      <aside class="bleed">
+        <div class="bleedh">Lost here</div>
+        <div class="bl"><div class="blh">214 of 262 contacts</div><p>at the last full count showed no call tag at all — 82% of the database, paid for, delivered, and left sitting. The database has since grown to 334.</p></div><div class="bl"><div class="blh">The connect rate disagrees with itself</div><p>The CRM tags say 48 calls produced 22 conversations — 46%. Adrian, from the phones, says 1 in 15–20. <b>Nobody in the company can say which is true.</b> That is the deepest problem in this document: not one broken step, but that no step is measured.</p></div>
+      </aside>
+    </section>
+    <section class="stage hot">
+      <div class="rail">
+        <div class="stg">05</div>
+        <div class="stn">The one conversion event</div>
+        <div class="sts">Everything upstream exists to produce one thing: a completed JotForm. It is the only unambiguous metric in the business.</div>
+      </div>
+      <div class="flow serial">
+        
+        <div class="slot">
+    <article class="card broken">
+      <header>
+        <span class="tid">T24</span>
+        <span class="stat"><i>■</i>BROKEN</span>
+      </header>
+      <h3>The JotForm</h3>
+      <p class="body">HIPAA-compliant, built by Adrian with Claude. Captures the insurance card, the doctor’s clinical notes and the NPI — everything Phothera needs to fulfil. It is, functionally, the checkout.</p>
+      <blockquote>“So if you fill out that form, it’s a sale, basically.”<cite>Adrian Delli Colli, 14 August 2026</cite></blockquote>
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Adrian</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">JotForm</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">4 completions in the company’s history</span></div></div>
+      <div class="flag">Nothing in the funnel drives anyone to it. It is not on the landing page, not on the thank-you page (there isn’t one), not in the drip.</div>
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T25</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>The order & prescription page</h3>
+      <p class="body"><span class='mono'>cytokind.net/order-page/</span> — three sections: patient information and shipping · light selection · prescription requirements. Every product page CTAs here. There is no price on any of them and no checkout.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">CytoKind</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">WordPress</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">18–20 forms outstanding · A3</span></div></div>
+      <div class="flag">The prescription-form automation in ActiveCampaign does not fire — <i>“it doesn’t work because there isn’t a trigger.”</i></div>
+    </article></div>
+      </div>
+      <aside class="bleed">
+        <div class="bleedh">Lost here</div>
+        <div class="bl"><div class="blh">18–20 prescriptions parked</div><p>right now — people who have already decided, with nobody owning the signature. At the $2,000 floor unit that is <b>$36,000–$40,000 of decided demand</b> sitting still.</p></div><div class="bl"><div class="blh">4 JotForms, ever</div><p><i>“We only have four. We’ve done it successfully four times. We do that a hundred times. We do it a thousand times. That’s what we need.”</i></p></div>
+      </aside>
+    </section>
+    <section class="stage">
+      <div class="rail">
+        <div class="stg">06</div>
+        <div class="stn">The doctor gate</div>
+        <div class="sts">The hand-off out of CytoKind’s control, and the highest-intent moment in the entire journey.</div>
+      </div>
+      <div class="flow serial">
+        
+        <div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T26</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>The patient must persuade their own provider</h3>
+      <p class="body">They walk into an appointment and ask a doctor — who may never have prescribed home NB-UVB in their career — to write for one, and to produce clinical notes an insurer will accept.</p>
+      <blockquote>“My rheumatologist recommended phothera but insurance won’t cover it so far.”<cite>Real inbound inquiry</cite></blockquote>
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">The patient, alone</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">None</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">4 of 16 sent forms agreed to go</span></div></div>
+      
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card none">
+      <header>
+        <span class="tid">T27</span>
+        <span class="stat"><i>○</i>ABSENT</span>
+      </header>
+      <h3>Everything that would arm them</h3>
+      <p class="body">No Letter of Medical Necessity template. No prescriber packet. No find-a-prescriber list. No home-vs-office comparison, despite the LITE trial proving home NB-UVB non-inferior. No coverage checker.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Nobody</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">None</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Does not exist</span></div></div>
+      <div class="flag">Telehealth is dead by design — John: <i>“we can’t even have our own doctors, because we need all the clinical notes for the insurance company.”</i> The only remaining play is arming the patient to arm their own doctor. Nothing does that today.</div>
+    </article></div>
+      </div>
+      <aside class="bleed">
+        <div class="bleedh">Lost here</div>
+        <div class="bl"><div class="blh">The signature has no shepherd</div><p>Four people agreed to go to their doctor. One went on the wrong day. The rest are scattered across weeks and live in one person’s memory. This step is managed by recollection.</p></div>
+      </aside>
+    </section>
+    <section class="stage">
+      <div class="rail">
+        <div class="stg">07</div>
+        <div class="stn">Who pays</div>
+        <div class="sts">The whole business splits here — and the split is decided upstream, by which ad the person clicked.</div>
+      </div>
+      <div class="flow parallel">
+        <div class="parnote">These run in parallel — a person enters through one of them, not through all</div>
+        <div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T28</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>Indicated → insurance pays → the patient pays $0</h3>
+      <p class="body">Psoriasis, vitiligo, eczema. FDA-cleared. Insurance covers it and the patient’s out-of-pocket is zero. <b>All six sales came from here</b> — and all six are insurance sales.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">John, conversationally</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Nothing written down</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">6 of 6 sales · A3</span></div></div>
+      <div class="flag">The single most converting sentence in the business — “insurance may cover this at $0” — appears nowhere on the website. No insurance page, no HSA/FSA, no financing, no coverage checker. Aetna began covering home NB-UVB for vitiligo in July 2026 and nothing has been built against it.</div>
+    </article></div><div class="slot">
+    <article class="card broken">
+      <header>
+        <span class="tid">T29</span>
+        <span class="stat"><i>■</i>BROKEN</span>
+      </header>
+      <h3>Not indicated → cash → $2,000–$7,000</h3>
+      <p class="body">MS and long Covid. No FDA indication, so no insurer pays and the patient must find the full price themselves. 82% of the database arrived here.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">—</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">—</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">0 devices, ever</span></div></div>
+      <div class="flag">John’s own framing: <i>“Who we are actually selling to are dermatological patients that are seeing our MS ads.”</i> The only segment that converts has never been deliberately targeted.</div>
+    </article></div>
+      </div>
+      <aside class="bleed">
+        <div class="bleedh">Lost here</div>
+        <div class="bl"><div class="blh">The mix is the cap, not the effort</div><p><i>“Most of those are MS. The close rate out of derm is pretty good.”</i> Which means the fix is a routing and targeting decision, not calling harder.</p></div>
+      </aside>
+    </section>
+    <section class="stage">
+      <div class="rail">
+        <div class="stg">08</div>
+        <div class="stn">Fulfilment</div>
+        <div class="sts">The device ships. The invoice does not.</div>
+      </div>
+      <div class="flow serial">
+        
+        <div class="slot">
+    <article class="card ok">
+      <header>
+        <span class="tid">T30</span>
+        <span class="stat"><i>●</i>WORKS</span>
+      </header>
+      <h3>Order → Phothera → shipped</h3>
+      <p class="body">The order goes to the manufacturer (Kayla handles order intake) and the device ships to the patient. This step works.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">John</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Phothera direct</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">~80 lights to date · timeframe unconfirmed</span></div></div>
+      <div class="flag">Structural note: Phothera is the former Daavlin, now a Madison Industries company, and it runs its own DTC funnel at phothera.com advertising <i>“broad insurance coverage with $0 cost for eligible patients.”</i> CytoKind’s supplier sells to the same patient.</div>
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card broken">
+      <header>
+        <span class="tid">T31</span>
+        <span class="stat"><i>■</i>BROKEN</span>
+      </header>
+      <h3>The invoice</h3>
+      <p class="body">John has never invoiced Phothera for the devices already delivered. He wants clean numbers for investors first.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">John</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">None</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">$0 collected on ~50 sales</span></div></div>
+      <div class="flag">No offline conversion is uploaded back to Meta either — so the ad platform has never learned who actually bought, and has been optimising toward the wrong human since day one.</div>
+    </article></div>
+      </div>
+      <aside class="bleed">
+        <div class="bleedh">Lost here</div>
+        <div class="bl"><div class="blh">The cheapest cash in the business</div><p>sits here. Roughly 50 devices delivered, and no invoice has ever been raised for them. Adrian’s estimate of the receivable: <i>“something like a quarter million.”</i> <b>Unverified — ask John, do not repeat it as fact.</b></p></div>
+      </aside>
+    </section>
+    <section class="stage">
+      <div class="rail">
+        <div class="stg">09</div>
+        <div class="stn">After the sale</div>
+        <div class="sts">There is no stage 09. It is drawn here because its absence is a finding.</div>
+      </div>
+      <div class="flow serial">
+        
+        <div class="slot">
+    <article class="card none">
+      <header>
+        <span class="tid">T32</span>
+        <span class="stat"><i>○</i>ABSENT</span>
+      </header>
+      <h3>Onboarding, adherence, reorder, referral</h3>
+      <p class="body">Nothing exists. No welcome sequence, no compliance or adherence check, no bulb-replacement reorder, no second-device offer, no referral ask, no review request, no case study captured from a patient who got their life back.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Nobody</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">None</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Does not exist</span></div></div>
+      <div class="flag">Two of the three homepage testimonials are MS patients — <i>“this gave me my life back”</i> — and no process produced them.</div>
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card weak">
+      <header>
+        <span class="tid">T33</span>
+        <span class="stat"><i>◐</i>DEGRADED</span>
+      </header>
+      <h3>CytokindSuccessfulEmails</h3>
+      <p class="body">A Supabase table holding the emails to and from clients who actually purchased. A labelled corpus of the exact language that closed a sale — the kind of asset nobody else in this category has.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Evolv AI built it</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">Supabase</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Population unconfirmed</span></div></div>
+      <div class="flag">Nobody has confirmed it is populated, or how a row gets into it. It is the most valuable data asset in the account and it is unowned.</div>
+    </article></div><div class="joiner"><span></span></div><div class="slot">
+    <article class="card none">
+      <header>
+        <span class="tid">T34</span>
+        <span class="stat"><i>○</i>ABSENT</span>
+      </header>
+      <h3>The loop back to the top</h3>
+      <p class="body">No lead-quality score travels back to whoever buys the media. No closed sale travels back to Meta. No objection from a phone call travels back to a creative. The funnel is a straight line that ends, not a system that learns.</p>
+      
+      <div class="meta"><div class="mrow"><span class="mk">Owner</span><span class="mv">Nobody</span></div><div class="mrow"><span class="mk">Tool</span><span class="mv">None</span></div><div class="mrow"><span class="mk">Measured</span><span class="mv">Does not exist</span></div></div>
+      
+    </article></div>
+      </div>
+      <aside class="bleed">
+        <div class="bleedh">Lost here</div>
+        <div class="bl"><div class="blh">Every repeat dollar</div><p>Bulb replacement, a second device, the household, the caregiver, the referral, the review, the case study. None of it has an owner, a trigger, or a document.</p></div>
+      </aside>
+    </section>
+
+<div class="panels">
+
+<section class="panel">
+  <div class="ph">Panel A</div>
+  <h2 class="pt">The waterfall, as counted</h2>
+  <p class="pd">The last full step-by-step count anyone made was at the 262-contact snapshot on
+  1 August, read live off ActiveCampaign. The 14 August figures sit beside it. The two do not
+  reconcile, and that is itself the finding — the tags say 48 calls produced 22 conversations,
+  a 46% connect rate; the person making the calls says one in fifteen to twenty.</p>
+  <table>
+    <thead><tr><th>Step</th><th class="n">Count</th><th class="n">Of the top</th>
+    <th class="n">Lost here</th><th>Note</th></tr></thead>
+    <tbody><tr><td class='wstep'>New contacts arriving</td><td class='n big'>~20 / day</td><td class='n'>—</td><td class='n loss'>—</td><td class='wnote'>The highest volume CytoKind has ever had · 14 Aug</td></tr><tr><td class='wstep'>Contacts in the CRM</td><td class='n big'>334</td><td class='n'>100%</td><td class='n loss'>—</td><td class='wnote'>Up from 262 in under three weeks</td></tr><tr><td class='wstep'>Routed onward after submit</td><td class='n big'>0</td><td class='n'>0%</td><td class='n loss'>334</td><td class='wnote'>The submit button returns them to Facebook</td></tr><tr><td class='wstep'>Ever received a call attempt</td><td class='n big'>48</td><td class='n'>18%</td><td class='n loss'>214 never phoned</td><td class='wnote'>Counted at the 262-contact snapshot, 1 Aug</td></tr><tr><td class='wstep'>Reached a live conversation</td><td class='n big'>22</td><td class='n'>8.4%</td><td class='n loss'>26</td><td class='wnote'>Tag count — Adrian’s lived rate says far fewer</td></tr><tr><td class='wstep'>Sent a prescription form</td><td class='n big'>16</td><td class='n'>6.1%</td><td class='n loss'>6</td><td class='wnote'>18–20 are parked right now</td></tr><tr><td class='wstep'>Agreed to see their doctor</td><td class='n big'>4</td><td class='n'>1.5%</td><td class='n loss'>12</td><td class='wnote'>No shepherd on any of them</td></tr><tr><td class='wstep'>Completed the JotForm</td><td class='n big'>4</td><td class='n'>—</td><td class='n loss'>—</td><td class='wnote'>Four times in the company’s history</td></tr><tr><td class='wstep'>Devices sold</td><td class='n big'>6</td><td class='n'>1.8%</td><td class='n loss'>—</td><td class='wnote'>All six insurance-covered dermatology</td></tr></tbody>
+  </table>
+</section>
+
+<section class="panel">
+  <div class="ph">Panel B</div>
+  <h2 class="pt">Who owns what</h2>
+  <p class="pd">Every individual box in this journey has a competent person attached to it.
+  The thing that has no owner is the sequence.</p>
+  <div class="owngrid"><div class='ownrow ok'><div class='ownwho'>Tom — 983 Group</div><div class='ownwhat'>The ad set-up, the captions, the two landing pages</div></div><div class='ownrow weak'><div class='ownwho'>Craig</div><div class='ownwhat'>The videos, the AI-generated psoriasis creative, and the sales script</div></div><div class='ownrow ok'><div class='ownwho'>Nigel — 983 Group</div><div class='ownwhat'>PR, podcasts, the Scientific American placement</div></div><div class='ownrow weak'><div class='ownwho'>Adrian</div><div class='ownwhat'>The phone, the JotForm, the CRM, the reels, and the qualification form that was never shipped</div></div><div class='ownrow weak'><div class='ownwho'>John — CEO</div><div class='ownwhat'>The discovery call, the insurance conversation, the email approval queue, the invoice he has not sent</div></div><div class='ownrow ok'><div class='ownwho'>Evolv AI</div><div class='ownwhat'>The n8n intake, the routing, the drafted reply</div></div><div class='ownrow none'><div class='ownwho'>The 34 touchpoints between the ad and the invoice</div><div class='ownwhat'>Nobody</div></div></div>
+</section>
+
+<section class="panel">
+  <div class="ph">Panel C</div>
+  <h2 class="pt">What does not exist at all</h2>
+  <p class="pd">Eighteen components a funnel of this shape normally has. None of these is broken —
+  none of them was ever built.</p>
+  <ul class="abslist"><li>A thank-you page</li><li>Any post-submit routing</li><li>A new-lead alert (SMS or push)</li><li>Speed-to-lead enforcement</li><li>Form-abandonment tracking</li><li>Call recording</li><li>A written follow-up cadence</li><li>A Letter of Medical Necessity template</li><li>A prescriber packet</li><li>A find-a-prescriber list</li><li>Anyone shepherding the prescription</li><li>Insurance content anywhere on the website</li><li>A coverage checker</li><li>Pricing anywhere on the site</li><li>Offline conversion upload to Meta</li><li>A lead-quality loop back to the ad account</li><li>Post-purchase anything</li><li>A named med-legal approver for copy</li></ul>
+</section>
+
+<section class="panel">
+  <div class="ph">Panel D</div>
+  <h2 class="pt">The arithmetic of the gap</h2>
+  <p class="pd">All figures on the $2,000 floor unit — the cheapest device CytoKind sells —
+  so every number here is a floor, not an estimate.</p>
+  <div class="mathgrid">
+    <div><div class="f">20</div><div class="l">Devices per month, the target Adrian and John are working to between 10 Aug and 10 Sep</div></div>
+    <div><div class="f">6</div><div class="l">Devices actually sold — all six insurance-covered dermatology, none from MS</div></div>
+    <div><div class="f red">$30K</div><div class="l">Of device volume not transacting each month at the floor unit price</div></div>
+    <div><div class="f red">$178K</div><div class="l">Cumulative, from today to 1 January, if nothing between the ad and the sale changes</div></div>
+  </div>
+  <p class="pd" style="margin-top:34px;max-width:1100px">And the marginal read, from the
+  acquisition model built on these same inputs: a single point of improvement on
+  <b>“contacts routed onward after submit”</b> — a lever sitting at zero — is worth more than any
+  other lever on the board. Every traffic lever in the model returns nothing, because the human
+  leg is already saturated at one person and one phone. <b>The constraint is arithmetic, not
+  rhetoric: it is not traffic, and it is not effort.</b></p>
+</section>
+
+</div>
+
+<section class="kicker">
+  <div class="ph">The one line</div>
+  <p>The ads work. The page works. Then the funnel stops at the submit button —
+  and everything between there and the sale is <em>one person on a phone, at one in twenty,
+  against twenty arrivals a day.</em></p>
+  <p class="sub">Nothing happens between “submit” and “a human calls.” That gap is thirty-four
+  touchpoints wide, it has no owner, and the fix for its largest single leak has been built and
+  sitting in a folder for weeks.</p>
+</section>
+
+<footer class="foot">
+  <div><b>Sources.</b> Adrian Delli Colli 2026-08-14 (Fathom 785506161) · Adrian 2026-08-01 · Adrian 2026-07-28 ·
+  John MacMahon 2026-07-27 &amp; 2026-08-06 · Tom + Adrian 2026-08-07 · live ActiveCampaign read ·
+  n8n workflow JSON · Meta Ads Library and Spyglass measurement 2026-08-14 · cytokind.net audit 2026-07-28.</div>
+  <div style="text-align:right;min-width:230px"><b>Evolv AI</b><br>Current-state map, no recommendations.<br>
+  Every figure is a floor. Unknowns are marked, never estimated.</div>
+</footer>
+
+</div>
+</body></html>
