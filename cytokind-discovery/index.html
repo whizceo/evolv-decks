@@ -145,48 +145,52 @@ ul.lst.plain li:before{display:none}
 ul.lst.plain li{padding-left:0}
 
 /* ── numbers section — competitor-teardown palette, dark tile, four-tone coded ── */
-.nums{background:var(--paper);padding:0 0 56px;border-top:1px solid var(--line-2)}
-.nums .wrap{max-width:1180px}
+.nums{background:var(--paper);padding:0 0 40px;border-top:1px solid var(--line-2)}
+.nums .wrap{max-width:1360px}
 .nums .tile{
-  background:#1D1D1F;color:#F5F5F7;border-radius:26px;
-  padding:44px 42px 38px;margin-top:56px;
+  background:#1D1D1F;color:#F5F5F7;border-radius:24px;
+  padding:34px 34px 28px;margin-top:40px;
   box-shadow:rgba(0,0,0,.34) 0 40px 80px -46px;
   --t-good:#34C759; --t-park:#FF9F0A; --t-open:#2997FF; --t-loss:#FF3B30}
-.nums h2{color:#F5F5F7;margin-bottom:12px;font-size:clamp(28px,3.2vw,40px)}
-.nums .lead{color:#A1A1A6;max-width:820px;font-size:clamp(16px,1.5vw,18px);line-height:1.45}
+.nums .head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 34px}
+.nums h2{color:#F5F5F7;margin-bottom:0;font-size:clamp(24px,2.4vw,32px);flex:none}
+.nums .lead{color:#A1A1A6;flex:1 1 640px;min-width:420px;font-size:14.5px;line-height:1.42;margin:0}
 .nums .lead strong{color:#F5F5F7}
 
-.legend{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
-.legend .lg{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.legend .lg{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:500;
      color:#A1A1A6;background:rgba(255,255,255,.05);
-     border:1px solid rgba(255,255,255,.14);padding:6px 13px 6px 10px;border-radius:9999px}
-.legend .lg i{width:8px;height:8px;border-radius:50%;display:block;flex:none}
+     border:1px solid rgba(255,255,255,.14);padding:5px 12px 5px 9px;border-radius:9999px}
+.legend .lg i{width:7px;height:7px;border-radius:50%;display:block;flex:none}
 .legend .lg b{font-weight:600}
 .legend .good i{background:var(--t-good)} .legend .good b{color:var(--t-good)}
 .legend .park i{background:var(--t-park)} .legend .park b{color:var(--t-park)}
 .legend .open i{background:var(--t-open)} .legend .open b{color:var(--t-open)}
 .legend .loss i{background:var(--t-loss)} .legend .loss b{color:var(--t-loss)}
 
-.ncard{border:1px solid rgba(255,255,255,.14);border-radius:16px;
-     background:rgba(255,255,255,.05);padding:18px 18px 16px;
+.ncard{border:1px solid rgba(255,255,255,.14);border-radius:14px;
+     background:rgba(255,255,255,.05);padding:14px 15px 13px;
      transition:background .2s,border-color .2s}
 .ncard:hover{background:rgba(255,255,255,.085);border-color:rgba(255,255,255,.26)}
-.ncard .v{font-size:clamp(30px,3.5vw,42px);font-weight:700;letter-spacing:-.04em;line-height:1;
-     color:#F5F5F7;font-variant-numeric:tabular-nums;margin-bottom:10px}
-.ncard .k{font-size:14.5px;font-weight:600;color:#F5F5F7;letter-spacing:-.015em;margin-bottom:4px}
-.ncard .d{font-size:13px;color:#A1A1A6;line-height:1.4}
+.ncard .v{font-size:clamp(26px,2.5vw,32px);font-weight:700;letter-spacing:-.04em;line-height:1;
+     color:#F5F5F7;font-variant-numeric:tabular-nums;margin-bottom:7px}
+.ncard .k{font-size:13px;font-weight:600;color:#F5F5F7;letter-spacing:-.015em;
+     margin-bottom:3px;line-height:1.25}
+.ncard .d{font-size:11.8px;color:#A1A1A6;line-height:1.38}
 .ncard.good{border-color:rgba(52,199,89,.32);background:rgba(52,199,89,.07)} .ncard.good .v{color:var(--t-good)}
 .ncard.park{border-color:rgba(255,159,10,.35);background:rgba(255,159,10,.08)} .ncard.park .v{color:var(--t-park)}
 .ncard.open{border-color:rgba(41,151,255,.32);background:rgba(41,151,255,.08)} .ncard.open .v{color:var(--t-open)}
 .ncard.loss{border-color:rgba(255,59,48,.30);background:rgba(255,59,48,.07)} .ncard.loss .v{color:var(--t-loss)}
-.nums .close{margin-top:30px;border-top:1px solid rgba(255,255,255,.14);padding-top:26px;
-     display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:14px 30px}
-.nums .close .q{font-size:clamp(22px,2.6vw,32px);font-weight:600;letter-spacing:-.03em;
-     line-height:1.14;color:#F5F5F7}
-.nums .close .a{font-size:13px;color:#A1A1A6}
+.nums .close{margin-top:20px;border-top:1px solid rgba(255,255,255,.14);padding-top:18px;
+     display:flex;flex-wrap:nowrap;align-items:baseline;justify-content:space-between;gap:10px 34px}
+.nums .close .q{font-size:clamp(19px,2vw,25px);font-weight:600;letter-spacing:-.03em;
+     line-height:1.14;color:#F5F5F7;flex:none}
+.nums .close .a{font-size:12px;color:#A1A1A6;line-height:1.4;max-width:520px;text-align:right}
 .nums .close .a strong{color:#F5F5F7}
-.nums .src{font-size:11.5px;color:#86868B;margin-top:22px;line-height:1.5}
-@media(max-width:760px){.nums .tile{padding:34px 22px 30px;border-radius:20px;margin-top:44px}}
+.nums .src{font-size:10.8px;color:#86868B;margin-top:14px;line-height:1.45;max-width:1100px}
+@media(max-width:960px){.nums .close{flex-wrap:wrap}.nums .close .a{text-align:left}}
+@media(max-width:760px){.nums .tile{padding:28px 20px 24px;border-radius:20px;margin-top:36px}
+     .nums .lead{min-width:0}}
 
 /* ── callout ── */
 .callout{background:var(--mint-50);border:1px solid var(--mint-line);border-radius:20px;padding:30px 32px}
@@ -413,15 +417,14 @@ ul.lst.plain li{padding-left:0}
 <section class="nums">
   <div class="wrap">
     <div class="tile">
-      <h2>Numbers</h2>
-      <p class="lead">Nothing estimated. Every figure comes from a recorded call or a live system, and all money is priced on the <strong>$2,000</strong> device &mdash; so each one is a floor.</p>
+      <div class="head"><h2>Numbers</h2><p class="lead">Every figure below is taken from a recorded call or a live system, with its date. Nothing is estimated, benchmarked or forecast. All money is calculated on the <strong>$2,000 Phothera&nbsp;200</strong>, the cheapest device CytoKind sells &mdash; so every dollar figure is a floor, not a claim.</p></div>
       <div class="legend"><span class="lg good"><i></i><b>Working</b>&nbsp;&mdash; already an asset</span><span class="lg park"><i></i><b>Parked</b>&nbsp;&mdash; waiting on a decision</span><span class="lg open"><i></i><b>Unmeasured</b>&nbsp;&mdash; no reliable number</span><span class="lg loss"><i></i><b>Leaking</b>&nbsp;&mdash; money lost right now</span></div>
-      <div class="grid g4" style="margin-top:26px;gap:14px"><div class="ncard open"><div class="v">1 <span style='font-size:.5em;font-weight:600;opacity:.55'>of 12</span></div><div class="k">Metrics that exist</div><div class="d">Eleven are unmeasured.</div></div><div class="ncard open"><div class="v">16</div><div class="k">Touchpoints to invoice</div><div class="d">Almost none carry a number.</div></div><div class="ncard open"><div class="v">4.6&times;</div><div class="k">Connect rates disagree</div><div class="d">CRM says one thing, the phone another.</div></div><div class="ncard loss"><div class="v">6 <span style='font-size:.5em;font-weight:600;opacity:.55'>/ 334</span></div><div class="k">Sold against contacts held</div><div class="d">A 1.8&percnt; close rate.</div></div><div class="ncard loss"><div class="v">4</div><div class="k">JotForms ever completed</div><div class="d">The only clean conversion event.</div></div><div class="ncard park"><div class="v">18&ndash;20</div><div class="k">Prescriptions parked</div><div class="d">Decided. Waiting on a signature.</div></div><div class="ncard good"><div class="v">~20 <span style='font-size:.5em;font-weight:600;opacity:.55'>/ day</span></div><div class="k">New contacts arriving</div><div class="d">The highest volume ever.</div></div><div class="ncard loss"><div class="v">$30,000</div><div class="k">The monthly gap</div><div class="d">Target minus actual, at the floor.</div></div></div>
+      <div class="grid g4" style="margin-top:16px;gap:11px"><div class="ncard open"><div class="v">1 <span style='font-size:.5em;font-weight:600;opacity:.55'>of 12</span></div><div class="k">Business metrics that exist</div><div class="d">Eleven of the twelve numbers this company runs on are not measured at all. That is the finding discovery repeats most often.</div></div><div class="ncard open"><div class="v">16</div><div class="k">Touchpoints from impression to invoice</div><div class="d">Mapped end to end. Most of them carry no number whatsoever, and none of them carries more than one.</div></div><div class="ncard open"><div class="v">4.6&times;</div><div class="k">Spread between two connect rates</div><div class="d">The CRM reports one figure and the person making the calls reports another. Both are in use. Neither can be planned against.</div></div><div class="ncard loss"><div class="v">6 <span style='font-size:.5em;font-weight:600;opacity:.55'>/ 334</span></div><div class="k">Devices sold against contacts held</div><div class="d">A 1.8&percnt; close rate across the whole database &mdash; and all six sales are insurance&#8209;covered dermatology.</div></div><div class="ncard loss"><div class="v">4</div><div class="k">JotForms ever completed</div><div class="d">The one unambiguous conversion event in the business, completed four times in the company&rsquo;s history.</div></div><div class="ncard park"><div class="v">18&ndash;20</div><div class="k">Prescriptions parked</div><div class="d">People who have already decided, waiting on a signature that nobody currently owns.</div></div><div class="ncard good"><div class="v">~20 <span style='font-size:.5em;font-weight:600;opacity:.55'>/ day</span></div><div class="k">New contacts arriving now</div><div class="d">The highest volume the company has ever had, walking into the funnel described in F04.</div></div><div class="ncard loss"><div class="v">$30,000</div><div class="k">The monthly gap, valued at the floor</div><div class="d">Between devices sold in the last thirty days and the stated target for the same period, priced on the cheapest unit in the catalogue.</div></div></div>
       <div class="close">
         <div class="q">&ldquo;No one is owning the whole pipe.&rdquo;</div>
-        <div class="a">John MacMahon &mdash; the one line discovery exists to prove.</div>
+        <div class="a">John MacMahon &mdash; the one line discovery exists to prove, and the one that determines everything in stages 02 through 06.</div>
       </div>
-      <div class="src">Eleven recorded calls, Dec 2025 &ndash; Aug 2026 &nbsp;&middot;&nbsp; ActiveCampaign export, 04 Aug &nbsp;&middot;&nbsp; Meta ad library, 14 Aug &nbsp;&middot;&nbsp; cytokind.net audit, 28 Jul.</div>
+      <div class="src">Sources: recorded calls of 22 Dec 2025, 06 Jan, 12 Jan, 03 Jun, 27 Jul (&times;2), 28 Jul, 01 Aug, 06 Aug, 07 Aug and 14 Aug 2026; the live ActiveCampaign export of 04 Aug 2026; the Meta ad library measurement of 14 Aug 2026; and the cytokind.net audit of 28 Jul 2026. Where a figure has changed since it was first recorded, the 14 Aug value is the one shown.</div>
     </div>
   </div>
 </section>
