@@ -25,7 +25,7 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink-2);
 ::selection{background:var(--mint);color:var(--green-d)}
 
 /* ── top bar ── */
-.bar{position:sticky;top:0;z-index:60;background:rgba(3,32,24,.94);
+.bar{position:sticky;top:0;z-index:60;background:rgba(0,0,0,.94);
      -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
      border-bottom:1px solid rgba(255,255,255,.10)}
 .bar .in{max-width:1180px;margin:0 auto;padding:0 28px;height:48px;
@@ -144,17 +144,32 @@ ul.lst li strong{color:var(--ink-2);font-weight:600}
 ul.lst.plain li:before{display:none}
 ul.lst.plain li{padding-left:0}
 
-/* ── numbers section (dark green) ── */
-.nums{background:var(--green-d);color:#fff;border-top:none}
+/* ── numbers section (black, four-tone coded) ── */
+.nums{background:#000;color:#fff;border-top:none;
+      --t-good:#49C699; --t-park:#FFD60A; --t-open:#0A84FF; --t-loss:#FF453A}
 .nums h2{color:#fff}
 .nums .eyebrow{color:var(--mint)}
 .nums .lead{color:rgba(255,255,255,.66)}
 .nums .lead strong{color:#fff}
-.ncard{border-top:1px solid rgba(255,255,255,.16);padding:28px 0 4px}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:34px}
+.legend .lg{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:500;
+     color:rgba(255,255,255,.72);background:rgba(255,255,255,.06);
+     border:1px solid rgba(255,255,255,.14);padding:7px 13px 7px 10px;border-radius:980px}
+.legend .lg i{width:9px;height:9px;border-radius:50%;display:block;flex:none}
+.legend .lg b{color:#fff;font-weight:600}
+.legend .good i{background:var(--t-good)} .legend .park i{background:var(--t-park)}
+.legend .open i{background:var(--t-open)} .legend .loss i{background:var(--t-loss)}
+
+.ncard{border-top:2px solid rgba(255,255,255,.18);padding:26px 0 4px}
 .ncard .v{font-size:clamp(38px,4.6vw,54px);font-weight:700;letter-spacing:-.04em;line-height:1;
      color:#fff;font-variant-numeric:tabular-nums;margin-bottom:12px}
 .ncard .k{font-size:15px;font-weight:600;color:#fff;letter-spacing:-.015em;margin-bottom:7px}
 .ncard .d{font-size:14px;color:rgba(255,255,255,.58);line-height:1.5}
+.ncard.good{border-top-color:var(--t-good)} .ncard.good .v{color:var(--t-good)}
+.ncard.park{border-top-color:var(--t-park)} .ncard.park .v{color:var(--t-park)}
+.ncard.open{border-top-color:var(--t-open)} .ncard.open .v{color:var(--t-open)}
+.ncard.loss{border-top-color:var(--t-loss)} .ncard.loss .v{color:var(--t-loss)}
 .nums .close{margin-top:76px;border-top:1px solid rgba(255,255,255,.16);padding-top:48px}
 .nums .close .q{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.03em;
      line-height:1.16;color:#fff;max-width:900px}
@@ -401,7 +416,8 @@ footer .lg .txt{line-height:1.45}
   <div class="wrap">
     <h2>Numbers</h2>
     <p class="lead">Every figure below is taken from a recorded call or a live system, with its date. Nothing is estimated, benchmarked or forecast. All money is calculated on the <strong>$2,000 Phothera&nbsp;200</strong>, the cheapest device CytoKind sells &mdash; so every dollar figure is a floor, not a claim.</p>
-    <div class="grid g4" style="margin-top:56px"><div class="ncard"><div class="v">1 <span style='font-size:.5em;font-weight:600;opacity:.55'>of 12</span></div><div class="k">Business metrics that exist</div><div class="d">Eleven of the twelve numbers this company runs on are not measured at all. That is the finding discovery repeats most often.</div></div><div class="ncard"><div class="v">16</div><div class="k">Touchpoints from impression to invoice</div><div class="d">Mapped end to end. Most of them carry no number whatsoever, and none of them carries more than one.</div></div><div class="ncard"><div class="v">4.6&times;</div><div class="k">Spread between two connect rates</div><div class="d">The CRM reports one figure and the person making the calls reports another. Both are in use. Neither can be planned against.</div></div><div class="ncard"><div class="v">6 <span style='font-size:.5em;font-weight:600;opacity:.55'>/ 334</span></div><div class="k">Devices sold against contacts held</div><div class="d">A 1.8&percnt; close rate across the whole database &mdash; and all six sales are insurance&#8209;covered dermatology.</div></div><div class="ncard"><div class="v">4</div><div class="k">JotForms ever completed</div><div class="d">The one unambiguous conversion event in the business, completed four times in the company&rsquo;s history.</div></div><div class="ncard"><div class="v">18&ndash;20</div><div class="k">Prescriptions parked</div><div class="d">People who have already decided, waiting on a signature that nobody currently owns.</div></div><div class="ncard"><div class="v">~20 <span style='font-size:.5em;font-weight:600;opacity:.55'>/ day</span></div><div class="k">New contacts arriving now</div><div class="d">The highest volume the company has ever had, walking into the funnel described in F04.</div></div><div class="ncard"><div class="v">$30,000</div><div class="k">The monthly gap, valued at the floor</div><div class="d">Between devices sold in the last thirty days and the stated target for the same period, priced on the cheapest unit in the catalogue.</div></div></div>
+    <div class="legend"><span class="lg good"><i></i><b>Working</b>&nbsp;&mdash; already an asset</span><span class="lg park"><i></i><b>Parked</b>&nbsp;&mdash; waiting on a decision</span><span class="lg open"><i></i><b>Unmeasured</b>&nbsp;&mdash; no reliable number</span><span class="lg loss"><i></i><b>Leaking</b>&nbsp;&mdash; money lost right now</span></div>
+    <div class="grid g4" style="margin-top:52px"><div class="ncard open"><div class="v">1 <span style='font-size:.5em;font-weight:600;opacity:.55'>of 12</span></div><div class="k">Business metrics that exist</div><div class="d">Eleven of the twelve numbers this company runs on are not measured at all. That is the finding discovery repeats most often.</div></div><div class="ncard open"><div class="v">16</div><div class="k">Touchpoints from impression to invoice</div><div class="d">Mapped end to end. Most of them carry no number whatsoever, and none of them carries more than one.</div></div><div class="ncard open"><div class="v">4.6&times;</div><div class="k">Spread between two connect rates</div><div class="d">The CRM reports one figure and the person making the calls reports another. Both are in use. Neither can be planned against.</div></div><div class="ncard loss"><div class="v">6 <span style='font-size:.5em;font-weight:600;opacity:.55'>/ 334</span></div><div class="k">Devices sold against contacts held</div><div class="d">A 1.8&percnt; close rate across the whole database &mdash; and all six sales are insurance&#8209;covered dermatology.</div></div><div class="ncard loss"><div class="v">4</div><div class="k">JotForms ever completed</div><div class="d">The one unambiguous conversion event in the business, completed four times in the company&rsquo;s history.</div></div><div class="ncard park"><div class="v">18&ndash;20</div><div class="k">Prescriptions parked</div><div class="d">People who have already decided, waiting on a signature that nobody currently owns.</div></div><div class="ncard good"><div class="v">~20 <span style='font-size:.5em;font-weight:600;opacity:.55'>/ day</span></div><div class="k">New contacts arriving now</div><div class="d">The highest volume the company has ever had, walking into the funnel described in F04.</div></div><div class="ncard loss"><div class="v">$30,000</div><div class="k">The monthly gap, valued at the floor</div><div class="d">Between devices sold in the last thirty days and the stated target for the same period, priced on the cheapest unit in the catalogue.</div></div></div>
     <div class="close">
       <div class="q">&ldquo;No one is owning the whole pipe.&rdquo;</div>
       <div class="a">John MacMahon &mdash; the one line discovery exists to prove, and the one that determines everything in stages 02 through 06.</div>
