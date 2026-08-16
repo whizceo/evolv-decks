@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<title>CytoKind × ActiveCampaign — Full setup in 3 days</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#070830;      /* AC chrome */
+  --navy2:#111349;
+  --ink:#14155A;       /* AC headline navy */
+  --blue:#3256E8;      /* AC primary action */
+  --peri:#5B6CE8;      /* AC logo mark */
+  --lav:#EEF1FE;       /* AC light ground */
+  --lav2:#F7F8FF;
+  --line:#DCE1F6;
+  --line2:#EBEEFA;
+  --grey:#5A5F86;
+  --grey2:#8E93B4;
+  --red:#D93A55;
+  --green:#0E9E79;
+  --white:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#c9cee6;font-family:'Inter',-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.page{width:1920px;height:1200px;background:var(--white);overflow:hidden;
+  display:flex;flex-direction:column;position:relative}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.88em;letter-spacing:-.02em;color:var(--blue);font-weight:500}
+
+/* ══════ HEADER ══════ */
+.hd{background:var(--navy);color:#fff;padding:26px 56px 24px;display:flex;
+  align-items:center;gap:34px;flex:0 0 auto;position:relative;overflow:hidden}
+.hd:after{content:"";position:absolute;right:-90px;top:-150px;width:420px;height:420px;
+  border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(91,108,232,.55),rgba(91,108,232,0) 68%)}
+.mark{flex:0 0 auto;width:52px;height:52px;border-radius:50%;background:var(--peri);
+  display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+.mark svg{width:24px;height:24px}
+.hdmain{flex:1 1 auto;position:relative;z-index:2}
+.eyebrow{font-size:9.5px;letter-spacing:.30em;text-transform:uppercase;color:#8f95c8;font-weight:700}
+.hd h1{font-size:31px;font-weight:700;letter-spacing:-.028em;margin-top:7px;line-height:1.06}
+.hd h1 span{color:var(--peri)}
+.hd .sub{font-size:12.5px;color:#adb2d6;margin-top:7px;font-weight:300;letter-spacing:.005em;max-width:1080px;line-height:1.5}
+.chips{display:flex;gap:0;position:relative;z-index:2;flex:0 0 auto}
+.chip{padding:0 26px;border-left:1px solid rgba(255,255,255,.14);text-align:right}
+.chip:first-child{border-left:0}
+.chip .f{font-size:27px;font-weight:700;letter-spacing:-.035em;line-height:1}
+.chip .l{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:#8f95c8;
+  margin-top:7px;font-weight:600;line-height:1.4}
+.chip.a .f{color:var(--peri)}
+
+/* ══════ BODY ══════ */
+.body{flex:1 1 auto;display:grid;grid-template-columns:372px 1fr;min-height:0}
+
+/* — starting point — */
+.today{background:var(--lav2);border-right:1px solid var(--line);padding:24px 26px 20px 56px;
+  display:flex;flex-direction:column;min-height:0}
+.sech{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;color:var(--grey2)}
+.today h2{font-size:19px;font-weight:700;letter-spacing:-.025em;color:var(--ink);margin-top:8px;line-height:1.12}
+.today .lead{font-size:10.5px;line-height:1.55;color:var(--grey);margin-top:9px;font-weight:400}
+.tlist{margin-top:15px;flex:1 1 auto}
+.trow{padding:8.5px 0 8.5px 17px;border-bottom:1px solid var(--line2);position:relative}
+.trow:last-child{border-bottom:0}
+.trow:before{content:"";position:absolute;left:0;top:13.5px;width:6px;height:6px;border-radius:50%;
+  background:var(--red);opacity:.85}
+.trow b{display:block;font-size:10.8px;font-weight:600;color:var(--ink);letter-spacing:-.005em;line-height:1.3}
+.trow span{display:block;font-size:9.6px;line-height:1.45;color:var(--grey);margin-top:2.5px}
+.tfoot{margin-top:14px;background:var(--ink);color:#fff;padding:13px 16px;border-radius:3px}
+.tfoot .k{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#9aa0d4;font-weight:700}
+.tfoot p{font-size:11px;line-height:1.5;margin-top:6px;font-weight:400;color:#e7e9fb}
+
+/* — the three days — */
+.days{padding:24px 56px 20px 30px;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:26px;min-height:0}
+.day{display:flex;flex-direction:column;min-height:0}
+.dayh{border-top:3px solid var(--blue);padding-top:11px;margin-bottom:13px}
+.day:nth-child(2) .dayh{border-top-color:var(--peri)}
+.day:nth-child(3) .dayh{border-top-color:var(--ink)}
+.dnum{display:flex;align-items:baseline;gap:10px}
+.dnum b{font-size:26px;font-weight:800;letter-spacing:-.05em;color:var(--blue);line-height:1}
+.day:nth-child(2) .dnum b{color:var(--peri)}
+.day:nth-child(3) .dnum b{color:var(--ink)}
+.dnum .lbl{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--grey2)}
+.dayh h3{font-size:16.5px;font-weight:700;letter-spacing:-.024em;color:var(--ink);margin-top:6px;line-height:1.12}
+.dayh p{font-size:9.8px;line-height:1.5;color:var(--grey);margin-top:6px}
+.ilist{display:flex;flex-direction:column;gap:0;flex:1 1 auto}
+.it{display:grid;grid-template-columns:20px 1fr;gap:9px;padding:8px 0;border-bottom:1px solid var(--line2)}
+.it:last-child{border-bottom:0}
+.inum{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;color:var(--blue);
+  padding-top:1.5px;letter-spacing:-.03em}
+.day:nth-child(2) .inum{color:var(--peri)}
+.day:nth-child(3) .inum{color:var(--ink)}
+.it b{display:block;font-size:11px;font-weight:600;color:var(--ink);letter-spacing:-.008em;line-height:1.28}
+.it span{display:block;font-size:9.7px;line-height:1.47;color:var(--grey);margin-top:2.5px}
+.it span.mono{display:inline;margin-top:0;font-size:9.4px}
+.need{margin-top:16px;border:1px solid var(--line);border-top:3px solid var(--green);
+  background:var(--lav2);padding:12px 14px}
+.need .k{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--green)}
+.need h5{font-size:12.5px;font-weight:700;color:var(--ink);letter-spacing:-.018em;margin-top:5px;line-height:1.15}
+.need ul{list-style:none;margin-top:8px}
+.need li{font-size:9.7px;line-height:1.45;color:var(--grey);padding:4px 0 4px 13px;
+  border-top:1px solid var(--line2);position:relative}
+.need li:first-child{border-top:0}
+.need li:before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;
+  border-radius:50%;background:var(--green);opacity:.7}
+.need li b{color:var(--ink);font-weight:600}
+
+/* ══════ ARCHITECTURE BAND ══════ */
+.arch{flex:0 0 auto;background:var(--lav);border-top:1px solid var(--line);
+  padding:17px 56px 16px;display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center}
+.archl{border-right:1px solid var(--line);padding-right:30px}
+.archl .sech{color:var(--grey2)}
+.archl h4{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.022em;margin-top:6px;line-height:1.15;max-width:180px}
+.archflow{display:grid;grid-template-columns:auto 26px auto 26px 1fr 26px auto;align-items:center;gap:0}
+.grp{}
+.grph{font-size:8px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--grey2);margin-bottom:7px}
+.pills{display:flex;flex-wrap:wrap;gap:4px;max-width:250px}
+.pill{background:#fff;border:1px solid var(--line);border-radius:11px;padding:3px 9px;
+  font-size:9.2px;font-weight:500;color:var(--ink);white-space:nowrap}
+.hub{background:var(--navy);color:#fff;border-radius:4px;padding:11px 15px;text-align:center;min-width:132px}
+.hub b{display:block;font-size:11.5px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
+.hub span{display:block;font-size:8.4px;color:#9aa0d4;margin-top:4px;line-height:1.35;font-weight:500}
+.arrow{display:flex;align-items:center;justify-content:center;color:var(--peri);font-size:15px;font-weight:700}
+.stages{display:flex;align-items:stretch;gap:3px}
+.stg{flex:1 1 0;background:#fff;border:1px solid var(--line);border-top:2px solid var(--peri);
+  padding:7px 6px;font-size:8.9px;font-weight:600;color:var(--ink);text-align:center;line-height:1.25;
+  display:flex;align-items:center;justify-content:center;min-height:38px}
+.stg:last-child{border-top-color:var(--green);background:#F0FBF7}
+.pill.out{border-color:#c9d1f5;background:#fff}
+
+/* ══════ FOOTER ══════ */
+.ft{flex:0 0 auto;background:var(--navy2);color:#fff;padding:15px 56px;
+  display:flex;align-items:center;gap:26px}
+.ftl{flex:0 0 auto;border-right:1px solid rgba(255,255,255,.16);padding-right:26px}
+.ftl .k{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#8f95c8;font-weight:700}
+.ftl b{display:block;font-size:15px;font-weight:700;letter-spacing:-.02em;margin-top:5px;line-height:1.15}
+.aft{flex:1 1 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.aft div{font-size:9.8px;line-height:1.42;color:#c6cae8;padding-left:14px;position:relative;font-weight:400}
+.aft div:before{content:"";position:absolute;left:0;top:5px;width:5px;height:5px;
+  border-radius:50%;background:var(--green)}
+.sig{flex:0 0 auto;text-align:right;font-size:8.6px;line-height:1.5;color:#7a80ad;letter-spacing:.06em}
+.sig b{display:block;color:#fff;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+</style>
+<style>
+/* ── hosted view: fit the 1920×1200 sheet to any desktop viewport ── */
+html,body{width:100%;height:100%;overflow:hidden;background:#0b0c30}
+#fitwrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#fitwrap .page{transform-origin:center center;box-shadow:0 30px 90px rgba(0,0,0,.45)}
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:#070830;
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+  font-family:'Inter',-apple-system,sans-serif;color:#fff}
+.mobile-block .mb-emoji{font-size:46px;margin-bottom:20px}
+.mobile-block .mb-title{font-weight:700;font-size:1.7rem;margin-bottom:14px;letter-spacing:-.02em}
+.mobile-block .mb-title span{color:#5B6CE8}
+.mobile-block .mb-sub{font-size:.95rem;color:#AEB4DA;max-width:340px;line-height:1.6}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+</style>
+</head><body>
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title">Open on <span>desktop</span></div>
+  <div class="mb-sub">This is one wide page built for a big screen — open it on your laptop for the full view.</div>
+</div>
+
+<div id="fitwrap"><div class="page">
+
+<header class="hd">
+  <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4.5 17 12 6 19.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="hdmain">
+    <div class="eyebrow">CytoKind × Evolv AI · CRM, follow-up and speed to response</div>
+    <h1>ActiveCampaign — <span>full setup in three days</span></h1>
+    <p class="sub">Everything that gets built inside the software, and what it does for you once it is running. Three working days from access to handover — after which every enquiry is captured in one place, routed the moment it arrives, followed up on a schedule, and counted.</p>
+  </div>
+  <div class="chips">
+    <div class="chip"><div class="f">3</div><div class="l">Working<br>days</div></div>
+    <div class="chip a"><div class="f">20</div><div class="l">Things<br>built</div></div>
+    <div class="chip"><div class="f">6</div><div class="l">Doors into<br>one record</div></div>
+    <div class="chip a"><div class="f">60s</div><div class="l">To first<br>alert</div></div>
+    <div class="chip"><div class="f">5</div><div class="l">Numbers you<br>can see daily</div></div>
+  </div>
+</header>
+
+<div class="body">
+  <aside class="today">
+    <div class="sech">The starting point</div>
+    <h2>What the account does today</h2>
+    <p class="lead">Nine facts about the account as it stands. They are listed only so the build on the right is legible — every one of them is closed by day three.</p>
+    <div class="tlist"><div class='trow'><b>Only paid contacts flow in</b><span>Meta lead forms write to the CRM automatically. The website forms and the intake sheet do not.</span></div><div class='trow'><b>Records live in three places</b><span>The CRM, a Google Sheet, and JotForm — none of them reconciled to each other.</span></div><div class='trow'><b>Tags carried over from the old setup</b><span>No naming convention, so a tag can't be trusted to mean anything.</span></div><div class='trow'><b>Two of three automations don't run</b><span>One has no trigger. The prescription-form automation never fires.</span></div><div class='trow'><b>No deal pipeline</b><span>There is no stage a contact sits in, so the funnel exists in someone's head.</span></div><div class='trow'><b>No alert when a contact arrives</b><span>First touch happens whenever an inbox gets checked.</span></div><div class='trow'><b>Nothing decides who is called next</b><span>Priority is memory, not a list.</span></div><div class='trow'><b>No sending authentication</b><span>Whether the email reaches the inbox has never been verified.</span></div><div class='trow'><b>Nothing goes back to the ad account</b><span>Meta has never been told which contact actually bought.</span></div></div>
+    <div class="tfoot">
+      <div class="k">The point of all of it</div>
+      <p>Nothing above is a people problem. It is configuration — which means three days of work, not a rebuild.</p>
+    </div>
+  </aside>
+
+  <main class="days"><div class="day">
+          <div class="dayh">
+            <div class="dnum"><b>01</b><span class="lbl">Day</span></div>
+            <h3>One source of truth</h3><p>Data, fields and structure. Every enquiry that has ever reached CytoKind ends the day in one place, described the same way.</p>
+          </div>
+          <div class="ilist"><div class='it'><div class='inum'>01.1</div><div><b>Audit and freeze</b><span>Full export, every existing tag, list and automation mapped to what it actually does. Nothing is deleted before it is understood.</span></div></div><div class='it'><div class='inum'>01.2</div><div><b>One intake, six doors</b><span>Meta lead forms · the four website forms · the n8n intake sheet · JotForm · Calendly · inbound email — all writing to the same contact record.</span></div></div><div class='it'><div class='inum'>01.3</div><div><b>Backfill the missing history</b><span>The intake sheet and the website history imported and de-duplicated against the contacts already in the account. Everyone who ever reached out becomes reachable.</span></div></div><div class='it'><div class='inum'>01.4</div><div><b>The fields the business actually runs on</b><span>Condition · Indicated yes/no · Who pays · Insurer · Prescriber and NPI · Device · Prescription status · JotForm status · Source, campaign and creative.</span></div></div><div class='it'><div class='inum'>01.5</div><div><b>A tag architecture, five families</b><span><span class='mono'>SOURCE_</span> · <span class='mono'>CONDITION_</span> · <span class='mono'>STAGE_</span> · <span class='mono'>ACTION_</span> · <span class='mono'>OUTCOME_</span>. Anything that doesn't belong to one of them is retired.</span></div></div><div class='it'><div class='inum'>01.6</div><div><b>Six segments that get used every day</b><span>Indicated · Not indicated · Never contacted · Prescription outstanding · Booked · Customer.</span></div></div></div>
+        </div><div class="day">
+          <div class="dayh">
+            <div class="dnum"><b>02</b><span class="lbl">Day</span></div>
+            <h3>The engine</h3><p>Pipeline, routing, speed and follow-up. The day the software starts doing the work instead of storing it.</p>
+          </div>
+          <div class="ilist"><div class='it'><div class='inum'>02.1</div><div><b>A deal pipeline, seven stages</b><span>New → Contacted → Qualified → Prescription sent → JotForm complete → Ordered → Delivered &amp; invoiced. Every contact sits in exactly one, and moving is automatic.</span></div></div><div class='it'><div class='inum'>02.2</div><div><b>Routing at the moment of submit</b><span>Indicated goes down the insurance track and is told, immediately, that their cost may be $0. Not indicated goes down its own track. The form decides, not a person.</span></div></div><div class='it'><div class='inum'>02.3</div><div><b>Speed to lead, enforced</b><span>New contact fires an SMS and a push inside 60 seconds carrying the name, the condition and the phone number. The six-minute standard stops being a promise and becomes a setting.</span></div></div><div class='it'><div class='inum'>02.4</div><div><b>Call tasks that create themselves</b><span>Every new contact generates a dated task. Three attempts — day 0, day 2, day 5. Anything unworked escalates. Nobody is called twice and nobody is missed.</span></div></div><div class='it'><div class='inum'>02.5</div><div><b>The three automations rebuilt</b><span>Trigger, condition, exit and goal on each one, tested with live contacts before it is switched on.</span></div></div><div class='it'><div class='inum'>02.6</div><div><b>The outstanding-prescription sequence</b><span>The people who have already said yes and have not yet signed, chased automatically until the JotForm is in. The single highest-value automation in the account.</span></div></div><div class='it'><div class='inum'>02.7</div><div><b>Follow-up cadence written into the software</b><span>Not a free-text date in a field that notifies nobody — a scheduled sequence with an owner and a deadline.</span></div></div><div class='it'><div class='inum'>02.8</div><div><b>Lead scoring</b><span>Condition, insurer and engagement combine into one number, so the call list is ordered by who is most likely to buy today.</span></div></div></div>
+        </div><div class="day">
+          <div class="dayh">
+            <div class="dnum"><b>03</b><span class="lbl">Day</span></div>
+            <h3>Measurement and handover</h3><p>Proof the machine works, and the ability to run it without us in the room.</p>
+          </div>
+          <div class="ilist"><div class='it'><div class='inum'>03.1</div><div><b>Deliverability</b><span>SPF, DKIM and DMARC on the sending domain, reputation warm-up and an inbox-placement test. From day three, whether an email arrives is a known number.</span></div></div><div class='it'><div class='inum'>03.2</div><div><b>Site and event tracking</b><span>Tracking live on cytokind.net — form starts, form abandonment, article reads, page depth. What people do before they submit becomes visible.</span></div></div><div class='it'><div class='inum'>03.3</div><div><b>Attribution, end to end</b><span>Campaign and creative stamped on the contact at capture and carried all the way through to the invoice.</span></div></div><div class='it'><div class='inum'>03.4</div><div><b>Conversions sent back to Meta</b><span>Every completed sale uploaded to the ad account, so the platform starts optimising toward buyers instead of form-fillers.</span></div></div><div class='it'><div class='inum'>03.5</div><div><b>One dashboard, five numbers</b><span>Contacts in · time to first touch · connect rate · JotForms completed · devices invoiced. Open it and you know where the business is.</span></div></div><div class='it'><div class='inum'>03.6</div><div><b>Handover</b><span>Automation health check, a one-page owner's manual, and a 90-minute working session so the team can run and change it themselves.</span></div></div></div><div class="need">
+  <div class="k">Day zero — what we need from you</div>
+  <h5>Three things, and the clock starts</h5>
+  <ul>
+    <li><b>Admin access</b> to the ActiveCampaign account.</li>
+    <li><b>Access to the website forms and the DNS record</b> for the sending domain, so authentication and tracking can go live.</li>
+    <li><b>Forty-five minutes</b> with whoever works the phone, to confirm the pipeline stages and the fields before anything is built.</li>
+  </ul>
+</div>
+        </div></main>
+</div>
+
+<section class="arch">
+  <div class="archl">
+    <div class="sech">The shape of it</div>
+    <h4>Six doors, one record, one pipeline</h4>
+  </div>
+  <div class="archflow">
+    <div class="grp"><div class="grph">Every door in</div><div class="pills"><span class='pill'>Meta lead forms</span><span class='pill'>Website forms</span><span class='pill'>Intake sheet</span><span class='pill'>JotForm</span><span class='pill'>Calendly</span><span class='pill'>Inbound email &amp; phone</span></div></div>
+    <div class="arrow">›</div>
+    <div class="grp"><div class="grph">One record</div>
+      <div class="hub"><b>The contact</b><span>Condition · who pays ·<br>source · stage · score</span></div></div>
+    <div class="arrow">›</div>
+    <div class="grp"><div class="grph">One pipeline — a contact is always in exactly one stage</div>
+      <div class="stages"><div class='stg'>New</div><div class='stg'>Contacted</div><div class='stg'>Qualified</div><div class='stg'>Prescription sent</div><div class='stg'>JotForm complete</div><div class='stg'>Ordered</div><div class='stg'>Delivered &amp; invoiced</div></div></div>
+    <div class="arrow">›</div>
+    <div class="grp"><div class="grph">What comes out</div><div class="pills"><span class='pill out'>60-second alert to the rep</span><span class='pill out'>Automatic follow-up sequences</span><span class='pill out'>Conversions back to Meta</span><span class='pill out'>The five-number dashboard</span></div></div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="ftl"><div class="k">Day four onwards</div><b>What runs<br>without anyone</b></div>
+  <div class="aft"><div>Every enquiry lands in one record — tagged, routed and scored</div><div>The rep is notified in under 60 seconds with everything needed to call</div><div>Nobody is contacted twice, and nobody is forgotten</div><div>The outstanding prescriptions chase themselves</div><div>The ad account finally learns who actually buys</div></div>
+  <div class="sig"><b>Evolv AI</b>Prepared 16 August 2026<br>for CytoKind</div>
+</footer>
+
+</div></div>
+<script>
+(function(){
+  var p=document.querySelector('#fitwrap .page');
+  function fit(){
+    var s=Math.min(window.innerWidth/1920, window.innerHeight/1200);
+    p.style.transform='scale('+s+')';
+  }
+  fit(); window.addEventListener('resize', fit);
+})();
+</script>
+</body></html>
