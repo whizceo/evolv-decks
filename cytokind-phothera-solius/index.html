@@ -292,6 +292,38 @@ section:nth-of-type(even) .jstep::before{background:var(--parchment)}
 }
 .note b{color:var(--amber-ink);font-weight:600}
 
+/* ---------- THE CORRECTION — top thesis tile ---------- */
+#thesis{padding:10px 0 0}
+.thesis{margin:0 0 8px}
+.tlabel{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--disp);font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+  color:#ffb340;background:rgba(255,159,10,.13);border:1px solid rgba(255,159,10,.34);
+  padding:7px 14px;border-radius:9999px;margin-bottom:22px;
+}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
+.tcard{border:1px solid var(--line-dark);border-radius:16px;padding:24px 26px;background:rgba(255,255,255,.05)}
+.tk{
+  font-family:var(--disp);font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--sec-on-dark);margin-bottom:11px;display:block;
+}
+.tcard .th{display:block;font-family:var(--disp);font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--on-dark);margin-bottom:11px;line-height:1.25}
+.tcard p{font-size:15px;color:var(--sec-on-dark);font-weight:400;line-height:1.52;margin-bottom:11px}
+.tcard p:last-child{margin-bottom:0}
+.tcard p b{color:var(--on-dark);font-weight:600}
+.tcard em{font-style:normal;color:var(--blue-lt);font-weight:600}
+.tcard code{color:var(--blue-lt);background:rgba(41,151,255,.14)}
+.tfoot{
+  margin-top:14px;border:1px solid rgba(255,255,255,.16);border-radius:16px;
+  padding:22px 26px;background:rgba(255,255,255,.04);
+  font-size:15.5px;color:var(--sec-on-dark);line-height:1.52;font-weight:400;
+}
+.tfoot p{margin-bottom:11px}
+.tfoot p:last-child{margin-bottom:0}
+.tfoot b{color:var(--on-dark);font-weight:600}
+.tfoot em{font-style:normal;color:var(--blue-lt);font-weight:600}
+.tfoot .tk{color:#ffb340}
+
 /* ---------- FINAL BOARD — the dark tile ---------- */
 #board{background:var(--canvas);box-shadow:none;clip-path:none;padding-bottom:20px}
 .board{
@@ -382,7 +414,7 @@ footer{
 <header>
   <div class="kicker"><span class="dot"></span>Evolv AI · 17 Aug 2026 · Source: Spyglass live ad corpus</div>
   <h1>Two competitors.<br><em>Zero paid ads between them.</em></h1>
-  <p class="sub">Craig asked for the same teardown we ran on the six funnels, this time on <b>Phothera</b> and <b>Solius</b>. Same instrument, same corpus, same day. It returned something the brief did not anticipate: <b>neither company is buying a single Meta ad</b> — not one, not inactive, not archived. The entire contest is being fought organically. One of the two is winning it with twenty-six posts and no budget, and the other has structurally walked away from the patient.</p>
+  <p class="sub">Craig asked for the same teardown we ran on the six funnels, this time on <b>Phothera</b> and <b>Solius</b>. Same instrument, same corpus, same day. It returned something the brief did not anticipate: <b>neither company is buying a single Meta ad</b> — not one, not inactive, not archived. And neither is compensating with organic. Both accounts publish to almost nobody at engagement levels that round to zero, so there is no content playbook here to copy either. Which changes the question. It is no longer <em>what are they doing on Meta</em>. It is <b>where their revenue is actually coming from</b> — and that is the first thing on this page.</p>
   <div class="meta">
     <span>Instrument: sum of active ads per destination URL</span>
     <span>Paid measured 17 Aug 2026</span>
@@ -413,6 +445,42 @@ footer{
     </a>
   </nav>
 </header>
+
+<!-- ============ THE THESIS — a DIV, never a section (stripe parity) ============ -->
+<div id="thesis">
+  <div class="board thesis">
+    <div class="tlabel">The finding that matters &mdash; read this first</div>
+    <h2>Neither of them is beating CytoKind on marketing.<br>They are beating it somewhere this instrument cannot see.</h2>
+    <p class="lede">The brief assumed Phothera and Solius were running Facebook ads. They are not — zero paid, zero landing pages, confirmed live and historical. The reflex is then to look at their organic and find the playbook there. <b>There is no playbook there either.</b> Both accounts are small, infrequent and barely engaged with. If either company is selling devices, the demand is being created somewhere neither Meta nor this teardown can measure. Here is the honest read of where.</p>
+
+    <div class="tgrid">
+
+      <div class="tcard">
+        <span class="tk">Phothera</span>
+        <span class="th">The threat is distribution, not marketing.</span>
+        <p>Phothera is Daavlin and National Biological merged under Madison Industries — a forty-year narrowband-UVB manufacturer, not a startup. <b>Its customer is the dermatology practice, not the patient.</b> That demand is created by field sales representatives, distributor and DME relationships, presence at AAD and the derm conference circuit, a separate physician portal at <code>photherahcp.com</code>, published reimbursement and insurance support, and decades of installed base already sitting inside those offices.</p>
+        <p>A direct-to-patient ad funnel would put them in competition with the exact channel that sells for them. <b>Zero ads is not a hole in their strategy. It is their strategy.</b></p>
+        <p>Which means Phothera cannot be beaten with better creative. It is beaten in the derm office — by becoming the device the practice already trusts, or by reaching the patient who then walks in and names CytoKind to their own doctor. <em>That is a channel fight, not an ad fight.</em></p>
+      </div>
+
+      <div class="tcard">
+        <span class="tk">Solius</span>
+        <span class="th">The threat is regulatory, not marketing.</span>
+        <p>Solius raised $19M and has been publishing for nine weeks. Whatever sales exist are almost certainly coming from the raise itself — founder and investor networks, PR, earned media around the published research it cites, podcast appearances, and a <em>$99.99</em> Founding Membership sold into a list that existed before the Instagram account did. <b>There is no evidence of a repeatable acquisition engine, and it would be a mistake to assume they have volume at all.</b></p>
+        <p>The real danger is structural. Solius obtained a <b>brand-new FDA product code, <em>SGZ</em></b>, clearing personalized UVB for over-the-counter sale with no prescription and no doctor.</p>
+        <p>They did not out-market the prescription stage. <b>They deleted it.</b> And that is the precise stage where CytoKind's funnel stalls — 18 prescriptions parked, 4 JotForms completed in the company's history. <em>A regulatory move, not a marketing one.</em></p>
+      </div>
+
+    </div>
+
+    <div class="tfoot">
+      <span class="tk">What this means for CytoKind</span>
+      <p><b>The paid patient channel in home phototherapy is genuinely empty, and CytoKind is the only one of the three standing in it.</b> Seven active ads against zero and zero. Nobody is bidding against you, nobody is raising your CPM, and the $8.56 blended CPM in the account reflects that.</p>
+      <p>But an empty auction is not automatically a cheap one. <b>Nobody is bidding because nobody has proven the patient can be sold to directly in this category</b> — the incumbent sells through the doctor, and the challenger removed the doctor. CytoKind is doing neither. It is going straight at the patient while keeping the prescription. That is a real position, and it is defensible, but it means <em>demand has to be created, not captured</em>.</p>
+      <p>Everything downstream is priced by that one fact. The submit page, the phone leg, the parked prescriptions — none of it is a leak in a funnel that would otherwise convert. It is the machine that has to manufacture the intent in the first place. <b>Build it as an engine, not as a patch.</b></p>
+    </div>
+  </div>
+</div>
 
 <!-- ============ THE INSTRUMENT — a DIV, never a section (stripe parity) ============ -->
 <div id="instrument" style="padding:76px 0 40px">
@@ -576,17 +644,19 @@ footer{
     </div>
   </div>
 
-  <p class="lede">Solius raised $19M, is FDA-cleared, and has been publishing since <b>17 June 2026</b> — nine weeks. It has bought <b>zero ads</b>. On 26 organic posts it produces <b>2.8× Phothera's likes per post and 12.3× its video views</b>, and it captures buyers in the comment thread. But the media is not the finding. The finding is that <b>Solius removed the prescription from the funnel entirely</b> — a brand-new FDA product code, <em>SGZ</em>, cleared for over-the-counter sale without a doctor. CytoKind's funnel breaks precisely there: 18 prescriptions parked, 4 JotForms completed in the company's history. Solius does not have that stage.</p>
+  <p class="lede">Solius raised $19M, is FDA-cleared, and has been publishing since <b>17 June 2026</b> — nine weeks. It has bought <b>zero ads</b>. Across 26 organic posts it averages 18.9 likes and, over ten videos, 1,772 views — on 1.1K followers. Higher than Phothera, but <b>both figures are near zero in absolute terms</b>: this is not an acquisition engine, and no amount of copying it would produce one. Whatever revenue exists is coming from the raise, the founder and press network, and a pre-launch membership list — none of which is visible on this instrument. So the media is not the finding. The finding is that <b>Solius removed the prescription from the funnel entirely</b> — a brand-new FDA product code, <em>SGZ</em>, cleared for over-the-counter sale without a doctor. CytoKind's funnel breaks precisely there: 18 prescriptions parked, 4 JotForms completed in the company's history. Solius does not have that stage.</p>
 
   <h3>The numbers</h3>
   <div class="stats">
     <div class="stat warn"><div class="n">0</div><div class="l">Active Meta ads</div></div>
     <div class="stat good"><div class="n">26</div><div class="l">Organic posts since 17 June</div></div>
     <div class="stat good"><div class="n">2.3</div><div class="l">Days between posts</div></div>
-    <div class="stat good"><div class="n">1,772</div><div class="l">Mean views per video (n=10)</div></div>
-    <div class="stat good"><div class="n">18.9</div><div class="l">Mean likes per static post</div></div>
+    <div class="stat"><div class="n">1,772</div><div class="l">Mean views per video (n=10)</div></div>
+    <div class="stat"><div class="n">18.9</div><div class="l">Mean likes per static post</div></div>
     <div class="stat"><div class="n sm">$99.99</div><div class="l">Founding Membership, per year</div></div>
   </div>
+
+  <div class="note"><b>Read these numbers absolutely, not relatively.</b> Solius out-engages Phothera on every metric here, and it does not matter: 18.9 likes and 1,772 views is a rounding error against any real acquisition channel. Phothera at 6.7 likes is worse, but both are effectively zero. <b>Neither company is selling devices because of its Instagram account.</b> What follows is worth reading for how they <em>argue</em> — the structure, the citations, the category-building — not as evidence that any of it is working.</div>
 
   <h3>What they publish — 26 posts, classified by hand</h3>
   <div class="tbox">
@@ -862,7 +932,9 @@ footer{
 <footer>
   <b style="color:var(--ink-sec)">Method.</b> Paid figures measured 17 August 2026 on the same instrument used throughout the six-funnel teardown: <span class="tok">getBrandLandingPages</span> → the sum of currently-active ads across every destination URL, with the row count as the landing-page total. Run against Phothera (<span class="tok">697438917094916</span>) and Solius (<span class="tok">1904918069775633</span>) in both active and <span class="tok">showInactive</span> modes, it returned zero pages and zero ads in all four calls. Hims &amp; Hers, Aeroflow and Dexcom figures are carried from the 17 Aug re-pull for scale.<br><br>
   <b style="color:var(--ink-sec)">Organic corpus.</b> 90-day window. Phothera: 16 posts, 21 May – 13 Aug 2026, all Instagram, all organic. Solius: 26 posts, 17 Jun – 14 Aug 2026, all Instagram, all organic — its complete history in the corpus. CytoKind: 13 creatives, of which 6 organic (Instagram) and 7 paid (Facebook). Every content cluster on this page was produced by reading all 42 captions and classifying them by hand, because Spyglass's aggregate insight layer is computed on advertising and returned 0 hook clusters for Phothera and 1 for Solius. No figure here is a machine count.<br><br>
-  <b style="color:var(--ink-sec)">Engagement.</b> The platform-reported metric captured by Spyglass at pull time — likes on static and carousel posts, views on video. Likes and views are never mixed; each brand is compared to the other on the same metric only. Follower counts are as reported in the Spyglass brand record on 17 Aug 2026.<br><br>
+  <b style="color:var(--ink-sec)">Engagement.</b> The platform-reported metric captured by Spyglass at pull time — likes on static and carousel posts, views on video. Likes and views are never mixed; each brand is compared to the other on the same metric only. Follower counts are as reported in the Spyglass brand record on 17 Aug 2026. Absolute volumes on both accounts are very low, and no conclusion about either company's revenue is drawn from them — organic engagement is reported here as a description of activity, never as evidence of sales.<br><br>
+
+  <b style="color:var(--ink-sec)">What this instrument cannot see.</b> Spyglass measures paid and organic activity on Meta. It does not measure field sales, distributor and DME relationships, conference and KOL activity, physician-portal traffic, PR and earned media, investor and founder networks, email lists built before an account existed, or direct sales. Phothera's and Solius's revenue channels are read here as an interpretation of their business model and public positioning, not as a measurement. They are labelled as such on the page.<br><br>
   <b style="color:var(--ink-sec)">CytoKind figures.</b> Spend, campaign and segment figures come from the single read of the Meta ad account transcribed on 4 Aug 2026, window 5 Jul – 3 Aug 2026 — the last full month before the 11 Aug relaunch. Sales, CRM, prescription and JotForm figures are from the 14 Aug 2026 live state. Landing pages = destinations of currently-active ads, not a site crawl.<br><br>
   Evolv AI · Internal document. Not client-facing in this form.
 </footer>
