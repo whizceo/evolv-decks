@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Unlisted. The page now carries a read of CytoKind's own Meta ad account; keep it out of search. -->
+<!-- Unlisted. Working model of a live operation. Keep it out of search. -->
 <meta name="robots" content="noindex, nofollow">
 <title>CytoKind — Acquisition Control Room</title>
 <style>
@@ -77,11 +77,12 @@ h1 em{font-style:normal;color:var(--blue)}
 .meta span:last-child{border-right:none;margin-right:0;padding-right:0}
 
 /* ---------- INTEGRITY BAR ---------- */
-.integrity{display:grid;grid-template-columns:repeat(6,auto) 1fr;gap:22px;align-items:center;
+/* Four numbers now (M · W · A · N) + three separators = 7 auto columns, then the prose. */
+.integrity{display:grid;grid-template-columns:repeat(7,auto) 1fr;gap:20px;align-items:center;
   border:1px solid var(--amber-line);background:var(--amber-tint);border-radius:18px;
   padding:20px 24px;margin:34px 0 0}
-.ibig{font-family:var(--disp);font-size:36px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--amber-ink)}
-.ibig small{display:block;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+.ibig{font-family:var(--disp);font-size:34px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--amber-ink)}
+.ibig small{display:block;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
   color:var(--amber-ink);opacity:.8;margin-top:7px;font-family:inherit}
 .isep{width:1px;height:46px;background:var(--amber-line)}
 .itxt{font-size:14.5px;color:var(--ink);line-height:1.5}
@@ -117,7 +118,9 @@ h2{font-family:var(--disp);font-size:clamp(27px,3.4vw,38px);letter-spacing:-.024
 .lede b{color:var(--ink);font-weight:600}
 .lede em{font-style:normal;color:var(--blue);font-weight:500}
 h3{font-family:var(--disp);font-size:20px;font-weight:600;letter-spacing:-.02em;margin:42px 0 16px}
-h3:first-of-type{margin-top:0}
+/* first-child, not first-of-type: an h3 that follows a card row is the first h3 in its
+   container and was losing its 42px of air to the old rule. */
+h3:first-child{margin-top:0}
 
 /* ---------- OUTPUT TILES ---------- */
 .outs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}
@@ -153,6 +156,8 @@ section.alt .lgroup{background:#fff}
 /* W = read once, in a single window. Not measured (it is not repeatable and it is already stale),
    not assumed (somebody has actually seen it). It needs its own colour or it gets read as one or the other. */
 .src.w{color:var(--blue);background:var(--blue-tint);border:1px solid var(--blue-line)}
+/* N = not tracked at all. Grey on purpose — it is an absence, not a reading. */
+.src.n{color:var(--ink-sec);background:var(--parchment);border:1px solid var(--line)}
 .lval{font-family:var(--disp);font-variant-numeric:tabular-nums;font-size:16px;font-weight:600;
   letter-spacing:-.02em;flex:none;min-width:74px;text-align:right}
 .lval.moved{color:var(--blue)}
@@ -202,7 +207,7 @@ section.alt .note.amber{background:var(--amber-tint)}
 
 /* ---------- TABLES ---------- */
 .tbox{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
-/* A ledger whose Verdict column is parked off-screen is not a ledger. These tables carry
+/* A scoreboard whose Verdict column is parked off-screen is not a scoreboard. These tables carry
    up to 16 columns, so they get to break the 1240px measure and use the real screen. */
 .tbox.wide{width:min(100vw - 56px, 1460px);margin-left:calc(50% - min(100vw - 56px, 1460px)/2)}
 .tscroll{overflow-x:auto}
@@ -217,6 +222,7 @@ td{padding:10px 13px;border-top:1px solid var(--line-soft);vertical-align:middle
 .tbox.wide table input{font-size:13px;min-width:68px;padding:5px 6px}
 .tbox.wide table input.txt{min-width:104px}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td.wrap2{white-space:normal;line-height:1.4;min-width:300px}
 tr.tot td{background:var(--parchment);font-weight:600;border-top:1px solid var(--line)}
 table input{font:inherit;font-size:13.5px;font-family:inherit;font-variant-numeric:tabular-nums;
   border:1px solid transparent;background:transparent;border-radius:7px;padding:5px 7px;width:100%;
@@ -241,7 +247,7 @@ table input.nn{text-align:right}
 
 /* ---------- MARGINAL ROI ---------- */
 .mroi{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
-.mrow{display:grid;grid-template-columns:38px 1fr 118px 108px 1fr;gap:0;align-items:center;
+.mrow{display:grid;grid-template-columns:38px 1fr 132px 1fr;gap:0;align-items:center;
   padding:13px 22px;border-top:1px solid var(--line-soft)}
 .mrow:first-child{border-top:none}
 .mrow.head{background:var(--parchment);font-size:11px;font-weight:600;letter-spacing:.07em;
@@ -257,7 +263,6 @@ table input.nn{text-align:right}
 .mb{padding-left:22px}
 .mb i{display:block;height:7px;border-radius:4px;background:var(--green);transition:width .3s ease}
 .mb i.neg{background:var(--red)}
-.mcost{font-family:var(--disp);font-variant-numeric:tabular-nums;font-size:13.5px;text-align:right;color:var(--ink-sec)}
 
 /* ---------- BOARD ---------- */
 .bgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
@@ -299,893 +304,1198 @@ footer b{color:var(--ink-sec);font-weight:600}
   <div class="mb-sub">This is an interactive control room with live levers and editable tables. Open it on a laptop.</div>
 </div>
 
-<div class="wrap">
-<header>
-  <div class="kicker"><span class="dot"></span>Evolv AI · Internal + client-facing · 17 Aug 2026 · Acquisition · KPI &amp; data monitoring</div>
-  <h1>The acquisition<br><em>control room</em></h1>
-  <p class="sub">Every number CytoKind spends money to create, in one model you can pull apart. <b>Move a lever and the whole chain re-computes</b> — contacts, JotForms, devices, revenue, cost per acquisition. Then the model tells you, on its own, <b>which single lever is worth the most money next month</b>.</p>
+<header class="wrap">
+  <div class="kicker"><span class="dot"></span> CytoKind &middot; KPI + data monitoring &middot; live working model</div>
+  <h1>The acquisition<br><em>control room.</em></h1>
+  <p class="sub">Every number CytoKind could steer the business with, in one place — with each one labelled by <b>how well it is actually known</b>. Move a lever and watch devices, revenue and the gap to twenty move with it. The point of the page is not the forecast. It is the count of how few of these numbers exist today.</p>
   <div class="meta">
     <span>Baseline: 17 Aug 2026</span>
-    <span>Money on the $2,000 floor unit</span>
-    <span>Sources: Adrian call 14 Aug · Spyglass re-pull 17 Aug · Ads Manager read once, 5 Jul – 3 Aug</span>
+    <span>Unit of revenue: $2,000 — the cheapest Phothera device, so every figure is a floor</span>
+    <span>Scope: client acquisition &middot; funnel &middot; sales</span>
+    <span>Money spent on ads is deliberately excluded — see below</span>
   </div>
 
   <div class="integrity">
-    <div class="ibig"><span id="i-m">8</span><small>measured</small></div>
+    <div class="ibig" id="i-m">11<small>measured</small></div>
     <div class="isep"></div>
-    <div class="ibig" style="color:var(--blue)"><span id="i-w">3</span><small style="color:var(--blue)">read once</small></div>
+    <div class="ibig" id="i-w">2<small>read once</small></div>
     <div class="isep"></div>
-    <div class="ibig"><span id="i-a">11</span><small>assumed</small></div>
+    <div class="ibig" id="i-a">13<small>assumed</small></div>
     <div class="isep"></div>
-    <div class="itxt"><b>This is the real finding before a single lever moves.</b> <span id="i-m2">8</span> of the <span id="i-t">22</span> inputs below come from a recorded call or a live system. <b><span id="i-w2">3</span> were seen exactly once</b> — spend, CPM and page-to-form, on the Ads Manager screenshot of 4 August, for the 30 days to 3 August, a window that <em>predates the 11 Aug relaunch</em>. They are marked <span class="src w">W</span>, and section 04 shows what they do to this model. The remaining <span id="i-a2">11</span> are assumptions, marked <span class="src a">A</span>, because <b>the numbers do not exist anywhere</b> — not in Ads Manager, not in the CRM, not in a sheet. Week one of the engagement replaces every <span class="src a">A</span> and every <span class="src w">W</span> with an <span class="src m">M</span>. That is what "data monitoring" actually means here.</div>
+    <div class="ibig" id="i-n">2<small>not tracked</small></div>
+    <div class="itxt"><b><span id="i-m2">11</span> of <span id="i-t">28</span> inputs to this model are really measured.</b> <span id="i-w2">2</span> were seen once, in a single window, and are already stale. <span id="i-a2">13</span> are assumptions I made so the arithmetic would run — and the honest thing to do with an assumption is print it in amber rather than hide it inside a total. Week one of an engagement turns amber into green.</div>
+  </div>
+
+  <div class="note red">
+    <b>The amount spent on ads is not used as data anywhere on this page.</b> The only spend figure Evolv has ever been shown came off a screen during a call on 4 August, covers one 30-day window, and is already a week out of date — so it is not a fact, it is a memory. Every finding below is built on <em>volumes</em> instead: impressions, reach, landing-page views, contacts, forms, devices. Those were read the same way but they do not decay into a wrong budget. There is one spend field, in the paid-media group, set to zero and tagged <b>N</b>; type a real number into it and cost per contact, cost per JotForm, CAC and ROAS switch on. Until somebody does, they stay blank on purpose.
   </div>
 </header>
-</div>
 
 <div class="sticky">
-  <div class="wrap">
-    <div class="sbar">
-      <span class="slabel">Scenario</span>
-      <div class="scn" id="scn">
-        <button data-s="today" class="on">Today · 17 Aug</button>
-        <button data-s="p1">P1 · days 1–30</button>
-        <button data-s="p2">P2 · days 31–90</button>
-      </div>
-      <button class="ghost" id="reset">Reset all</button>
-      <div class="spush">
-        <span>Devices / month <b class="num" id="q-dev">0</b></span>
-        <span>Revenue / month <b class="num" id="q-rev">$0</b></span>
-        <span>ROAS <b class="num" id="q-roas">0.0×</b></span>
-      </div>
+  <div class="wrap sbar">
+    <span class="slabel">Scenario</span>
+    <div class="scn" id="scn">
+      <button data-s="today" class="on">Today</button>
+      <button data-s="p1">Phase 1 &middot; days 1&ndash;30</button>
+      <button data-s="p2">Phase 2 &middot; days 31&ndash;90</button>
+    </div>
+    <button class="ghost" id="reset">Reset everything</button>
+    <div class="spush">
+      <span>Devices / month <b id="s-dev">5.2</b></span>
+      <span>Revenue / month <b id="s-rev">$10,302</b></span>
+      <span>Gap to 20 <b id="s-gap">&minus;$29,698</b></span>
     </div>
   </div>
 </div>
-
-<div class="wrap">
 
 <!-- ============ 01 OUTPUTS ============ -->
 <section>
-  <div class="sechead">
-    <div class="rank">01</div>
-    <div>
-      <h2>What the machine produces</h2>
-      <span class="tag">Live output · deltas measured against Today · 17 Aug</span>
-    </div>
+  <div class="wrap">
+    <div class="sechead"><div class="rank">01</div><div><h2>What the machine produces</h2>
+      <span class="tag">Eight outputs &middot; every one of them computed, none of them typed in</span></div></div>
+    <p class="lede">These are consequences, not inputs. Every figure here falls out of the levers in section 03. The baseline is calibrated so that before any lever moves, the model reproduces the three things somebody has actually observed — <b>about twenty contacts a day</b>, <b>six devices sold in total</b>, and <b>a gap of roughly $28&ndash;30K a month</b> against the target of twenty.</p>
+    <div class="outs" id="outs"></div>
+    <div class="note amber" id="calnote"></div>
   </div>
-  <p class="lede">The target is <b>20 devices a month</b>. Everything on this page exists to move the first tile. <em>Nothing here is a forecast</em> — it is arithmetic on the inputs in section 03, and every input is visible and editable.</p>
-
-  <div class="outs" id="outs"></div>
-
-  <div class="note red" id="headline"></div>
-  <div class="note"><b>How this squares with the number in <em>7 — THE NUMBERS</em>.</b> That document prices the gap at <b>$28,000 a month</b> — 20 targeted, <b>6 invoiced</b>, 14 short at the floor unit. Those 6 are the all-time count, every one of them insurance-covered dermatology. This model computes the monthly run-rate from the inputs instead of counting history, and lands within one device of it. <b>The two agree; they are not the same measurement.</b> Nothing has been fitted to make them match — the day the CRM can report devices invoiced per calendar month, this tile stops being a computation and becomes an <span class="src m">M</span>.</div>
 </section>
 
 <!-- ============ 02 CHAIN ============ -->
 <section class="alt">
-  <div class="sechead">
-    <div class="rank">02</div>
-    <div>
-      <h2>The chain, stage by stage</h2>
-      <span class="tag">Each bar is retention from the stage above it, not share of the total</span>
-    </div>
+  <div class="wrap">
+    <div class="sechead"><div class="rank">02</div><div><h2>The chain, end to end</h2>
+      <span class="tag">Impression &rarr; invoice &middot; one row per stage &middot; red = the leak</span></div></div>
+    <p class="lede">Read it downward. Each row is what survives the row above it. The bar is that row's survival rate. Red rows are where people are lost and nobody is watching; the green row is money.</p>
+    <div class="chain" id="chain"></div>
+    <div class="note red" id="chainnote"></div>
   </div>
-  <p class="lede">A funnel is only useful if you can see <b>where the volume dies</b>. The bar is what survives each step. <em>Red under 20%, amber under 50%, green above.</em> The two red rows are where the money is.</p>
-
-  <div class="chain" id="chain"></div>
-  <div class="note" id="chainnote"></div>
 </section>
 
 <!-- ============ 03 LEVERS ============ -->
 <section>
-  <div class="sechead">
-    <div class="rank">03</div>
-    <div>
-      <h2>The levers</h2>
-      <span class="tag">22 inputs · <span class="src m">M</span> measured, sourced · <span class="src w">W</span> read once, 5 Jul – 3 Aug · <span class="src a">A</span> assumed, must be replaced</span>
-    </div>
+  <div class="wrap">
+    <div class="sechead"><div class="rank">03</div><div><h2>The levers</h2>
+      <span class="tag" id="ltag">28 inputs &middot; <span class="src m">M</span> measured &middot; <span class="src w">W</span> read once &middot; <span class="src a">A</span> assumed &middot; <span class="src n">N</span> not tracked</span></div></div>
+    <p class="lede">Grouped exactly the way CytoKind's own KPI slides group them: <b>acquisition</b> split into paid and organic, <b>the funnel</b> split into the website and the CRM, <b>sales</b> split into the phone and the pipeline. Hover any tag to see where the number came from. Anything amber or grey is a question waiting for an answer, not a fact.</p>
+    <div class="lgrid" id="levers"></div>
   </div>
-  <p class="lede">Pull anything. The model recomputes on every pixel of movement. <b>Hover a source badge to see where the number came from.</b> A value that has been moved off its Today baseline turns blue.</p>
-  <div class="lgrid" id="levers"></div>
 </section>
 
-<!-- ============ 04 THE AD ACCOUNT, READ ONCE ============ -->
+<!-- ============ 04 AD ACCOUNT ============ -->
 <section class="alt">
-  <div class="sechead">
-    <div class="rank">04</div>
-    <div>
-      <h2>The ad account, read once</h2>
-      <span class="tag">Window: 5 Jul – 3 Aug 2026 · one screenshot · <span class="src w">W</span></span>
+  <div class="wrap">
+    <div class="sechead"><div class="rank">04</div><div><h2>The ad account, read once</h2>
+      <span class="tag">Meta account 1963572114287304 &middot; window 5 Jul &ndash; 3 Aug 2026 &middot; volumes only</span></div></div>
+    <p class="lede">This is the only look Evolv has ever had inside the ad account — one screen, during one call, on 4 August. It covers the last full month <b>before</b> the 11 August relaunch, so it describes the account that has been running all year, not the one running today. <b>No money is reproduced here.</b> Reach, frequency and landing-page views were read directly off the screen; impressions are reach × frequency, which is arithmetic, not a guess.</p>
+    <div class="tbox wide">
+      <div class="tscroll">
+        <table>
+          <thead><tr>
+            <th>Campaign</th><th>Segment</th><th>Reporting on</th>
+            <th class="n">Results</th><th class="n">Reach</th><th class="n">Freq.</th><th class="n">Impressions</th>
+            <th class="n">Cost / result</th><th>State</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>MS Fatigue &mdash; LP views</td><td>MS</td><td>Landing page views</td>
+              <td class="n">8,495</td><td class="n">82,558</td><td class="n">1.74</td><td class="n">143,651</td>
+              <td class="n">$0.19</td><td>ended 8 Aug</td></tr>
+            <tr><td>Boosted post &mdash; &ldquo;Can UV light reduce MS fatigue?&rdquo;</td><td>MS</td><td>Link clicks</td>
+              <td class="n">283</td><td class="n">19,563</td><td class="n">3.44</td><td class="n">67,297</td>
+              <td class="n">$0.36</td><td>ended 8 Aug</td></tr>
+            <tr><td>Psoriasis &mdash; banner ads</td><td>Derm</td><td>Landing page views</td>
+              <td class="n">250</td><td class="n">4,389</td><td class="n">1.13</td><td class="n">4,960</td>
+              <td class="n">$0.30</td><td>ended 8 Aug</td></tr>
+            <tr><td>Light therapy for psoriasis</td><td>Derm</td><td>Landing page views</td>
+              <td class="n">462</td><td class="n">18,221</td><td class="n">1.15</td><td class="n">20,954</td>
+              <td class="n">$0.51</td><td>ended 8 Aug</td></tr>
+            <tr class="tot"><td>4 of 7 campaigns reported</td><td>&mdash;</td><td>&mdash;</td>
+              <td class="n">9,490</td><td class="n">124,731</td><td class="n">&mdash;</td><td class="n">236,862</td>
+              <td class="n">&mdash;</td><td>2 live, 2 unpublished</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tfoot"><span class="hint">Impressions = reach &times; frequency. Results and cost per result were read as printed. Nothing here is derived from a budget.</span></div>
     </div>
-  </div>
-  <p class="lede">On <b>4 August at 20:20 CEST</b>, Tom Kirwan shared his screen and the Meta account was visible for the first and only time. Account <span class="k">1963572114287304</span>, 7 campaigns, 2 live, 2 edits sitting unpublished. <b>Meta computes cost-per-result as spend ÷ results, so multiplying them back recovers the spend</b> — that is division reversed, not an estimate. Everything below carries its window, because this month <em>predates the 11 August relaunch</em>.</p>
 
-  <div class="tbox wide">
-    <div class="tscroll">
-      <table>
-        <thead><tr>
-          <th>#</th><th>Campaign</th><th>Segment</th><th>State</th>
-          <th class="n">Results</th><th>Result type</th><th class="n">Reach</th><th class="n">Freq</th>
-          <th class="n">Cost / result</th><th class="n">Spend, derived</th><th class="n">Impressions</th><th class="n">CPM</th>
-        </tr></thead>
-        <tbody>
-          <tr><td>1</td><td>Light Therapy for MS Fatigue — Leads</td><td>MS</td><td>off</td><td class="n">—</td><td>—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
-          <tr><td>2</td><td>MS Fatigue — Landing Page Views: Contact Us</td><td>MS</td><td><span class="vd scale">on</span></td><td class="n">8,495</td><td>landing page views</td><td class="n">82,558</td><td class="n">1.74</td><td class="n">$0.19</td><td class="n">$1,614</td><td class="n">143,651</td><td class="n">$11.24</td></tr>
-          <tr><td>3</td><td>Psoriasis — Banner Ads</td><td>Derm</td><td><span class="vd scale">on</span></td><td class="n">250</td><td>landing page views</td><td class="n">4,389</td><td class="n">1.13</td><td class="n">$0.30</td><td class="n">$75</td><td class="n">4,960</td><td class="n">$15.12</td></tr>
-          <tr><td>4</td><td>Light Therapy for Psoriasis</td><td>Derm</td><td>off</td><td class="n">462</td><td>landing page views</td><td class="n">18,221</td><td class="n">1.15</td><td class="n">$0.51</td><td class="n">$236</td><td class="n">20,954</td><td class="n">$11.26</td></tr>
-          <tr><td>5</td><td>Post: "Can UV light therapy reduce MS fatigue?"</td><td>MS</td><td>off</td><td class="n">283</td><td>link clicks</td><td class="n">19,563</td><td class="n">3.44</td><td class="n">$0.36</td><td class="n">$102</td><td class="n">67,297</td><td class="n">$1.52</td></tr>
-          <tr><td>6</td><td>MS Fatigue — Landing Page Views Objective</td><td>MS</td><td>off</td><td class="n">—</td><td>—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
-          <tr><td>7</td><td>MS Fatigue — Max Clicks Objective</td><td>MS</td><td>off</td><td class="n">—</td><td>—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
-          <tr class="tot"><td colspan="4">Four campaigns that returned data</td><td class="n">—</td><td>—</td><td class="n">124,731</td><td class="n">—</td><td class="n">—</td><td class="n">$2,027</td><td class="n">236,862</td><td class="n">$8.56</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="tfoot"><span class="hint">Reach, frequency and cost-per-result are read off the screen. Spend, impressions and CPM are that arithmetic reversed. The <b>Amount spent</b> column was cut off the right edge of the screenshot — and never read out loud.</span></div>
-  </div>
-
-  <div class="rogrid">
-    <div class="rocard hot">
-      <div class="rol">Spend pointed at MS</div>
-      <div class="robig num">$1,716 · 85%</div>
-      <div class="rosub">Campaigns 2 and 5. <b>MS has sold zero devices, all time.</b> Dermatology took $311 — 15% — and is where every sale CytoKind has ever made came from.</div>
-    </div>
-    <div class="rocard">
-      <div class="rol">Why the money drifts there</div>
-      <div class="robig num">$0.19 <span style="font-size:20px;color:var(--faint)">vs $0.30–$0.51</span></div>
-      <div class="rosub">MS traffic is up to <b>2.7× cheaper per landing-page view</b>. An account optimised on cost per view will drift to MS every time — and nothing in the account knows better, because <b>no sale has ever been uploaded back to Meta</b>.</div>
-    </div>
-    <div class="rocard hot">
-      <div class="rol">Page → form, implied by the read</div>
-      <div class="robig num">under 2.8%</div>
-      <div class="rosub">9,207 landing-page views in one month against a CRM holding <b>262 records in total</b>, accumulated over the life of the business. This model needs 8.9% to reproduce ~20 contacts a day. <b>The traffic was never the constraint.</b></div>
-    </div>
-  </div>
-
-  <div class="note red" id="ronote"></div>
-  <div class="note amber"><b>Two more things the read establishes.</b> The boosted MS post ran at frequency <b>3.44</b> — the same people seeing it 3.4 times — while every other campaign sat at 1.13–1.74, so creative fatigue is visible in the only month anyone has looked at. And <b>five of seven campaigns were off with two edits sitting unpublished</b>: the account is run in bursts, not continuously. <em>One screenshot of the Amount spent column, last 90 days, by campaign, settles the contradiction above and is the only input the four load-bearing assumptions all hang from. Ask Tom for it.</em></div>
-</section>
-
-<!-- ============ 05 MARGINAL ROI ============ -->
-<section>
-  <div class="sechead">
-    <div class="rank">05</div>
-    <div>
-      <h2>Marginal ROI — what to attack next</h2>
-      <span class="tag">Every lever improved by one increment in isolation, ranked by gross contribution</span>
-    </div>
-  </div>
-  <p class="lede">This is the panel that decides the month. The model improves each lever <b>on its own</b> — by 10% of its current value, or one step of that lever, whichever is the larger move — holds everything else still, and reports the change in monthly revenue <em>net of any extra spend it costs</em>. <b>The top row is the constraint.</b> Re-read it every time the numbers move, because it moves too.</p>
-
-  <div class="mroi" id="mroi"></div>
-  <div class="note green" id="mroinote"></div>
-</section>
-
-<!-- ============ 06 CREATIVE LEDGER ============ -->
-<section class="alt">
-  <div class="sechead">
-    <div class="rank">06</div>
-    <div>
-      <h2>The creative ledger</h2>
-      <span class="tag">One row per creative · every cell editable · verdict computed</span>
-    </div>
-  </div>
-  <p class="lede">The ads seat cannot return a lesson if creatives are not named and measured individually. Every creative is logged as <span class="k">angle_persona</span>, and the ledger issues a verdict against the targets you set — so <b>killing an ad is a rule, not an argument</b>.</p>
-
-  <div class="tbox wide">
-    <div class="tscroll">
-      <table id="crtable">
-        <thead><tr>
-          <th>Creative</th><th>Angle</th><th>Persona</th><th>Format</th>
-          <th class="n">Spend</th><th class="n">Impr</th><th class="n">Clicks</th><th class="n">Submits</th><th class="n">Devices</th>
-          <th class="n">CPM</th><th class="n">CTR</th><th class="n">CPC</th><th class="n">$ / submit</th><th class="n">$ / device</th>
-          <th>Verdict</th><th></th>
-        </tr></thead>
-        <tbody id="crbody"></tbody>
-      </table>
-    </div>
-    <div class="tfoot">
-      <button class="ghost" id="craddrow">+ Add creative</button>
-      <span style="font-size:13px;color:var(--ink-sec)">Target cost / submit
-        <input class="nn" id="tgt-cps" type="number" value="14" style="width:70px;border:1px solid var(--line);background:#fff">
-      </span>
-      <span class="hint">Scale &lt; 0.75× target · Kill &gt; 1.6× target or CTR under 0.60%</span>
-    </div>
-  </div>
-  <div class="note amber"><b>Now seeded with real numbers</b> — the four campaigns that returned data in the 30 days to 3 Aug, plus the two creatives running live on 17 Aug (7 ads across 3 destinations, still empty because that window has never been read). Spend and impressions are Meta's own cost-per-result arithmetic reversed; the <b>Clicks</b> column carries landing-page views for the three LPV-objective campaigns, because no click column was visible on the screenshot.<br><br><b>Read the Verdict column, then read why.</b> Every seeded row returns <em>kill · no submits</em> — not because the creative failed, but because <b>not one campaign in that account can be tied to a single form submission</b>. Submits and devices were never attributed per campaign, so the ledger cannot do the one job it exists for. That is the defect, and it is one tracking parameter wide. Note also what the money says: <b>$1,716 of $2,027 — 85% — went to MS, where the device count has never left zero.</b></div>
-</section>
-
-<!-- ============ 07 CONTENT LEDGER ============ -->
-<section>
-  <div class="sechead">
-    <div class="rank">07</div>
-    <div>
-      <h2>The content ledger</h2>
-      <span class="tag">Organic · unpaid · the same discipline, no media cost</span>
-    </div>
-  </div>
-  <p class="lede">Organic content is measured on one number: <b>contacts per 1,000 views</b>. It converts attention that costs nothing into the same funnel the ads feed, so a post that produces contacts is worth more than a post that produces views. <em>Fifteen reels have run. None produced a contact.</em></p>
-
-  <div class="tbox wide">
-    <div class="tscroll">
-      <table id="cotable">
-        <thead><tr>
-          <th>Post / series</th><th>Hook type</th><th>Format</th><th>Channel</th>
-          <th class="n">Views</th><th class="n">Engag.</th><th class="n">Link clicks</th><th class="n">Contacts</th>
-          <th class="n">Eng. rate</th><th class="n">Click rate</th><th class="n">Cont / 1K</th>
-          <th>Verdict</th><th></th>
-        </tr></thead>
-        <tbody id="cobody"></tbody>
-      </table>
-    </div>
-    <div class="tfoot">
-      <button class="ghost" id="coaddrow">+ Add content</button>
-      <span style="font-size:13px;color:var(--ink-sec)">Target contacts / 1,000 views
-        <input class="nn" id="tgt-cpk" type="number" step="0.1" value="2" style="width:70px;border:1px solid var(--line);background:#fff">
-      </span>
-      <span class="hint">Repeat ≥ target · Kill &lt; 0.25× target with 1,000+ views</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 08 BACKLOG ============ -->
-<section class="alt">
-  <div class="sechead">
-    <div class="rank">08</div>
-    <div>
-      <h2>Cash already inside the building</h2>
-      <span class="tag">One-time · not part of the monthly model above</span>
-    </div>
-  </div>
-  <p class="lede">Before a single new contact is bought, there is money sitting in the pipe that has already been paid for. <b>This is the cheapest revenue on the page</b> and it needs no ad spend, no new creative and no build.</p>
-
-  <div class="bl">
-    <div class="blcard">
-      <div class="blbig num" id="bl-val">$0</div>
-      <div class="blsub"><b>Parked prescriptions, recovered.</b> Prescription forms sitting with patients waiting on a signature nobody chases. Aeroflow's entire model is chasing the doctor instead of the patient.</div>
-      <div style="margin-top:22px">
-        <div class="lever" id="bl-l1"></div>
-        <div class="lever" id="bl-l2"></div>
+    <div class="rogrid">
+      <div class="rocard hot">
+        <div class="rol">Who the account reached</div>
+        <div class="robig">82%</div>
+        <div class="rosub"><b>102,121 of the 124,731 people reached were reached about MS</b> — the segment with no FDA indication, where the patient pays $2&ndash;7K in cash, and where CytoKind has never made a single sale.</div>
+      </div>
+      <div class="rocard hot">
+        <div class="rol">Who actually landed on a page</div>
+        <div class="robig">92%</div>
+        <div class="rosub"><b>8,495 of 9,207 landing-page views were MS.</b> Derm — the segment that produced <b>all six sales ever</b>, where insurance pays and the patient pays nothing — got 712 of them.</div>
+      </div>
+      <div class="rocard">
+        <div class="rol">Why it drifted there</div>
+        <div class="robig">$0.19</div>
+        <div class="rosub">MS traffic is the cheapest thing in the account, against <b>$0.30&ndash;$0.51</b> for derm. An account optimised on cost per view will walk toward the audience that cannot buy. That is not a targeting mistake, it is the objective doing its job.</div>
       </div>
     </div>
-    <div class="blcard">
-      <div class="blbig num" id="bl-val2">$0</div>
-      <div class="blsub"><b>The never-touched, worked once.</b> Contacts that arrive each month and are never attempted because one person cannot reach them all. Worked at today's own connect and completion rates — no optimism added.</div>
-      <div style="margin-top:22px">
-        <div class="lever" id="bl-l3"></div>
-      </div>
-      <div class="note" style="margin-top:20px">This second number is the honest one. It is small on purpose. <b>Calling harder is not the fix</b> — the rate is the constraint, not the list. That is why section 05 almost never ranks dials first.</div>
+
+    <div class="note red">
+      <b>Three findings, none of which need a budget figure.</b> One — the account has spent the year talking to the wrong segment, and the proof is in people, not dollars: 82% of everyone reached, 92% of everyone who landed. Two — <b>9,207 landing-page views in one month against a CRM that holds 334 records in total</b> means the page converts somewhere well under 3%, where this model has to assume 12%; traffic was never the constraint. Three — every reporting campaign in that window is now <b>ended</b>, all four on 8 August, which is the failed card, and the seven ads live today were relaunched on the 11th with almost none of this history carried over.
+    </div>
+    <div class="note">
+      <b>The one thing to ask Tom for, and it is a screenshot, not a project:</b> the Amount-spent column for the same window, plus results by campaign for the ads live now. That single image turns cost per contact, cost per JotForm, CAC and ROAS from blanks into numbers — and it is the only reason the spend lever exists on this page at all.
     </div>
   </div>
 </section>
 
-<!-- ============ 09 MONDAY BOARD ============ -->
+<!-- ============ 05 WEBSITE ============ -->
 <section>
-  <div class="sechead">
-    <div class="rank">09</div>
-    <div>
-      <h2>The Monday board</h2>
-      <span class="tag">Nine numbers · read every Monday · each red has one written action</span>
+  <div class="wrap">
+    <div class="sechead"><div class="rank">05</div><div><h2>The website, from the outside</h2>
+      <span class="tag">cytokind.net &middot; July 2026 &middot; third-party estimate, desktop only</span></div></div>
+    <p class="lede">CytoKind has never shared analytics, so this is the site measured from outside it. Treat every figure as an estimate of <b>desktop</b> traffic only — but the shape it describes is unambiguous, and it agrees with everything the phones say.</p>
+    <div class="rogrid">
+      <div class="rocard">
+        <div class="rol">Monthly visits</div>
+        <div class="robig">5.1K</div>
+        <div class="rosub">Roughly <b>2.6K in May &rarr; 5.4K in June &rarr; 5.1K in July</b>. The ads doubled the traffic and then held it.</div>
+      </div>
+      <div class="rocard hot">
+        <div class="rol">Average visit duration</div>
+        <div class="robig">26 sec</div>
+        <div class="rosub"><b>60.5% bounce, 1.64 pages per visit.</b> Twenty-six seconds is not enough time to read a paragraph about a prescription device, let alone decide to ask a doctor for one.</div>
+      </div>
+      <div class="rocard">
+        <div class="rol">Where the traffic is</div>
+        <div class="robig">100%</div>
+        <div class="rosub">United States, on desktop. Global rank <b>#3.76M</b>, US rank <b>#1.13M</b> — this is a site with almost no organic surface area, living entirely on paid and referral.</div>
+      </div>
     </div>
-  </div>
-  <p class="lede">Monitoring is not a dashboard, it is <b>a decision that fires when a number crosses a line</b>. Type the week's actual into each row; the status and the action are computed. <em>If nothing is red, you do not meet.</em></p>
 
-  <div class="tbox">
-    <div class="tscroll">
-      <table id="mbtable">
-        <thead><tr>
-          <th>Metric</th><th class="n">Target</th><th class="n">This week</th><th>Status</th><th>If red, do this — same week</th>
-        </tr></thead>
-        <tbody id="mbbody"></tbody>
-      </table>
+    <h3>The five search terms it is actually found for</h3>
+    <div class="tbox">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Keyword</th><th class="n">Volume</th><th class="n">Cost per click</th><th>What that person wants</th></tr></thead>
+          <tbody>
+            <tr><td>using uvb bulbs at home</td><td class="n">130</td><td class="n">&mdash;</td><td>To build one themselves. Will not buy a prescription device.</td></tr>
+            <tr><td>phototherapy chart for neonatal jaundice</td><td class="n">40</td><td class="n">&mdash;</td><td>A newborn. Wrong product, wrong clinic, wrong everything.</td></tr>
+            <tr><td>uvb light at home</td><td class="n">30</td><td class="n">&mdash;</td><td>A device. No condition named, no intent to treat.</td></tr>
+            <tr><td>uvb light therapy device</td><td class="n">30</td><td class="n">&mdash;</td><td>The closest thing to a buyer on this list.</td></tr>
+            <tr><td>phothera</td><td class="n">20</td><td class="n">&mdash;</td><td>The <b>supplier's</b> brand. These people are looking for the manufacturer.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tfoot"><span class="hint">Cost per click is unreported for all five, which is itself the finding: nobody is bidding on them.</span></div>
     </div>
-    <div class="tfoot"><span class="hint">Targets are editable. Status flips amber below target, red below 60% of target.</span></div>
+
+    <div class="note amber">
+      <b>Not one of the five terms names a disease and a treatment in the same breath.</b> Two of them — home-made bulbs and neonatal jaundice — describe people who can never buy this product. One is the supplier's own brand name. There is no organic demand capture for &ldquo;psoriasis light therapy at home&rdquo;, &ldquo;does insurance cover phototherapy&rdquo;, or &ldquo;vitiligo home treatment&rdquo;, which are the searches an indicated, insured, closeable patient actually makes. The site ranks for the device and not for the problem.
+    </div>
+    <div class="note red">
+      <b>And the button the whole homepage is built around is counted nowhere.</b> The primary call to action on cytokind.net is <em>&ldquo;Book a 10-Min Discovery Call&rdquo;</em>, with <em>&ldquo;Explore the Science&rdquo;</em> beside it. There is no booking log, no calendar report, no show-rate figure in any system — so the site's main conversion event has never been observed once. It is a lever in section 03, set to zero and tagged N.
+    </div>
+    <div class="note">
+      <b>One comparison I am deliberately not making.</b> 5.1K desktop visits a month and 9,207 landing-page views in the July ad window are not the same measurement and must not be netted off against each other — one is a third-party desktop-only estimate, the other is platform-reported and includes mobile, which is where nearly all of this traffic lives. Both are here because they point the same way. Neither is evidence about the other.
+    </div>
   </div>
 </section>
 
-<footer>
-  Evolv AI · CytoKind · Acquisition KPI &amp; data monitoring · 17 Aug 2026<br>
-  <b>Measured inputs</b> <span class="src m">M</span> are sourced to the Adrian Delli Colli call of 14 Aug 2026, the Spyglass Meta ad corpus re-pulled 17 Aug 2026, or the CytoKind CRM. <b>Read-once inputs</b> <span class="src w">W</span> — spend, CPM and page-to-form — come from one screenshot of Meta Ads Manager taken on 4 Aug 2026 covering <b>5 Jul – 3 Aug 2026</b>, a window that predates the 11 Aug relaunch; they are stale by construction and every one of them carries its window. <b>Assumed inputs</b> <span class="src a">A</span> are marked and are not claims — they are placeholders for numbers that do not currently exist in any CytoKind system.<br>
-  All money is calculated on the <b>$2,000 Phothera 200</b>, the cheapest device CytoKind sells, so every dollar figure on this page is a floor and not a projection.<br>
-  Nothing on this page is saved to a server. Values persist in this browser only, and "Reset all" restores the 17 August baseline.
+<!-- ============ 06 MARGINAL ROI ============ -->
+<section class="alt">
+  <div class="wrap">
+    <div class="sechead"><div class="rank">06</div><div><h2>Which lever is worth pulling</h2>
+      <span class="tag">One unit of improvement on each input, ranked by the revenue it adds</span></div></div>
+    <p class="lede">Every lever gets nudged by one honest unit — one percentage point, one post, ten thousand impressions — and the model reports what that alone adds in monthly revenue. This is the whole argument about sequencing, computed rather than asserted.</p>
+    <div class="mroi" id="mroi"></div>
+    <div class="note green" id="mroinote"></div>
+    <div class="note red" id="deadnote"></div>
+  </div>
+</section>
+
+<!-- ============ 07 KPI REGISTER ============ -->
+<section>
+  <div class="wrap">
+    <div class="sechead"><div class="rank">07</div><div><h2>Every KPI on the board, and whether it exists</h2>
+      <span class="tag" id="regtag">108 metrics &middot; six families</span></div></div>
+    <p class="lede">This is CytoKind's own KPI list — the full set from the acquisition, funnel and sales slides — with one column added that changes the meaning of the whole exercise: <b>whether the number can be produced today.</b> Not whether it matters. Whether anybody can answer it. The last column is the single cheapest move that turns a grey row green.</p>
+    <div class="rogrid">
+      <div class="rocard">
+        <div class="rol">Measured today</div>
+        <div class="robig" id="reg-m">24</div>
+        <div class="rosub">Somebody can produce this number this afternoon, repeatably.</div>
+      </div>
+      <div class="rocard">
+        <div class="rol">Seen once</div>
+        <div class="robig" id="reg-w">12</div>
+        <div class="rosub">Read off a screen in a single window and never since. Stale by definition.</div>
+      </div>
+      <div class="rocard hot">
+        <div class="rol">Not tracked at all</div>
+        <div class="robig" id="reg-n">72</div>
+        <div class="rosub">No system produces it. Most are one field, one event or one export away.</div>
+      </div>
+    </div>
+    <div class="sbar" style="padding:22px 0 14px">
+      <span class="slabel">Family</span>
+      <div class="scn" id="regfilter">
+        <button data-f="all" class="on">All</button>
+        <button data-f="AP">Paid</button>
+        <button data-f="AO">Organic</button>
+        <button data-f="FW">Website</button>
+        <button data-f="FC">CRM &amp; email</button>
+        <button data-f="SP">Pipeline</button>
+        <button data-f="SF">Phone</button>
+      </div>
+    </div>
+    <div class="tbox wide">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th style="width:26px"></th><th>Metric</th><th>Family</th><th>Where it would be read</th><th>Status</th><th>In the model</th><th>The one move that produces it</th></tr></thead>
+          <tbody id="regbody"></tbody>
+        </table>
+      </div>
+      <div class="tfoot"><span class="hint" id="reghint"></span></div>
+    </div>
+    <div class="note red">
+      <b>This table is the case for the seat, and it makes it without an argument.</b> CytoKind has already decided which 108 numbers run the business — the slides exist, the thinking is done. Twenty-four of them can be produced today. Twelve were seen once. <b>Seventy-two have never been produced at all</b>, and the majority are not projects: they are one GA4 event, one CRM field, one UTM parameter, one dropdown on a call log. The plan is not the missing piece. The instrumentation is.
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 CREATIVE SCOREBOARD ============ -->
+<section class="alt">
+  <div class="wrap">
+    <div class="sechead"><div class="rank">08</div><div><h2>The creative scoreboard</h2>
+      <span class="tag">Every paid creative &middot; seeded from the ad library and the 4 Aug read &middot; editable</span></div></div>
+    <p class="lede">One row per creative or ad cluster, with what it did and a verdict. The four July campaigns carry real volumes from the account read; the seven ads live since 11 August carry none, because <b>nothing has been reported on them yet</b>. Add a row for every new concept and the verdict column does the deciding for you.</p>
+    <div class="tbox wide">
+      <div class="tscroll">
+        <table>
+          <thead><tr id="crhead"></tr></thead>
+          <tbody id="crbody"></tbody>
+        </table>
+      </div>
+      <div class="tfoot">
+        <button class="ghost" id="cradd">+ Add creative</button>
+        <span style="font-size:12.5px;color:var(--ink-sec)">Target submit rate <input class="nn" id="tgt-sr" value="5" style="width:56px;border:1px solid var(--line);text-align:right"> % of landing-page views</span>
+        <span class="hint">Verdict fires on <span class="k">&ge;1,000 impressions</span>. Everything is saved in this browser.</span>
+      </div>
+    </div>
+    <div class="note red" id="crnote"></div>
+    <div class="note amber">
+      <b>Two things the ad library says that the account cannot.</b> The five derm ads live right now carry <b>no UTM parameters at all</b>, so if one of them produces a sale nobody will ever know which — while the two MS ads carry three different UTM variants, meaning the tagging discipline exists and was simply not applied to the segment that actually sells. And two live ads point at <b>fb.me</b>, a destination that resolves to nothing: budget with nowhere to land.
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 CONTENT SCOREBOARD ============ -->
+<section>
+  <div class="wrap">
+    <div class="sechead"><div class="rank">09</div><div><h2>The content scoreboard</h2>
+      <span class="tag">All 18 organic posts on @cytokind_inc &middot; 10 Sep 2025 &rarr; 6 Aug 2026 &middot; real numbers</span></div></div>
+    <p class="lede">This is not a sample. It is <b>everything CytoKind has published organically</b>, with the real view count against each hook. Ten videos, eight stills, 331 days. The verdict column compares each post to the account's own average rather than to an industry number, because the only honest benchmark here is itself.</p>
+    <div class="tbox wide">
+      <div class="tscroll">
+        <table>
+          <thead><tr id="cohead"></tr></thead>
+          <tbody id="cobody"></tbody>
+        </table>
+      </div>
+      <div class="tfoot">
+        <button class="ghost" id="coadd">+ Add post</button>
+        <span style="font-size:12.5px;color:var(--ink-sec)">Benchmark <input class="nn" id="tgt-views" value="202" style="width:64px;border:1px solid var(--line);text-align:right"> views &middot; the account's own average</span>
+        <span class="hint">Verdict fires above <span class="k">100 views</span>. Stills have no view count and are marked accordingly.</span>
+      </div>
+    </div>
+    <div class="note red" id="conote"></div>
+    <div class="note amber">
+      <b>The best post this account has ever made is the one pointing at the asset that closes.</b> 324 views — an interview clip about a patient going from a fatigue score of 3 to 1 — is the all-time ceiling, and it sits directly upstream of the article John closes roughly one in three readers on. The second and third best are a researcher explaining what narrowband UVB is (294) and a patient saying her energy came back (248). Explainers and testimonials work; press mentions do not — the eight stills average <b>2.5 likes</b> between them, and the Economist link got zero. Two of the ten videos are the same file posted twice, and both times <b>the repost did worse than the original</b>.
+    </div>
+    <div class="note">
+      <b>And a collision I am putting on the page rather than quietly fixing.</b> The returns document values a &ldquo;content 10&times;&rdquo; at roughly +$1,600/month, built on a baseline of 8 posts a month at 900 views each. The real account publishes <b>1.6 posts a month at 202 views</b> — so that baseline is overstated by about 22&times;, and the increment computed from it is not reliable. The correct reading is not that content matters less; it is that content has effectively never been run, and its true baseline is close to zero. That is a bigger opportunity and a smaller certainty at the same time, and it should be presented that way.
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 BACKLOG ============ -->
+<section class="alt">
+  <div class="wrap">
+    <div class="sechead"><div class="rank">10</div><div><h2>Cash already inside the building</h2>
+      <span class="tag">No ads, no creative, no new traffic &mdash; just work already done and not finished</span></div></div>
+    <p class="lede">Before a single new person is reached, there is revenue sitting in the pipe that has already been paid for. This is the first thirty days of any sane plan, and it needs nothing from Meta.</p>
+    <div class="bl">
+      <div class="blcard">
+        <div class="rol">Parked prescriptions</div>
+        <div class="blbig" id="bl-parked">$21,600</div>
+        <div class="blsub" id="bl-parkedsub"></div>
+      </div>
+      <div class="blcard">
+        <div class="rol">Contacts nobody has the hours to reach</div>
+        <div class="blbig" id="bl-untouched">308</div>
+        <div class="blsub" id="bl-untouchedsub"></div>
+      </div>
+    </div>
+    <div id="blbacklog" style="margin-top:16px"></div>
+  </div>
+</section>
+
+<!-- ============ 11 MONDAY BOARD ============ -->
+<section>
+  <div class="wrap">
+    <div class="sechead"><div class="rank">11</div><div><h2>The Monday board</h2>
+      <span class="tag">Eleven rows &middot; every red has one written action &middot; a blank is never a pass</span></div></div>
+    <p class="lede">What a weekly review looks like once the instrumentation exists. Two rules: a number nobody can produce shows as <b>red, not empty</b>, because &ldquo;we don't measure that&rdquo; is a worse answer than a bad number. And every red carries the specific next move, so the meeting is fifteen minutes.</p>
+    <div class="tbox wide">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Metric</th><th class="n">This week</th><th class="n">Target</th><th>Status</th><th>The move</th></tr></thead>
+          <tbody id="mbody"></tbody>
+        </table>
+      </div>
+      <div class="tfoot"><span class="hint">Edit the middle column each Monday. Anything left blank goes red on purpose.</span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <b>CytoKind &mdash; acquisition control room.</b> A working model of the live operation, built to be argued with. Baseline 17 August 2026.<br>
+  <b>Sources.</b> Adrian call 14 Aug 2026 (contacts per day, close rate, parked prescriptions, connect and reply rates, the submit-button break point, JotForm history) &middot; John calls 27 Jul and 6 Aug 2026 (target of twenty, segment economics, the article) &middot; Tom + Adrian call 7 Aug 2026 &middot; Meta ad account 1963572114287304 read from a screenshot on 4 Aug 2026, window 5 Jul &ndash; 3 Aug 2026, volumes only &middot; Meta ad library and organic corpus for @cytokind_inc pulled 17 Aug 2026 (33 creatives: 15 paid, 18 organic) &middot; third-party traffic estimate for cytokind.net, July 2026, desktop only &middot; competitor funnel research, refreshed 17 Aug 2026.<br>
+  <b>What the tags mean.</b> <span class="src m">M</span> measured — repeatable today. <span class="src w">W</span> read once — somebody saw it in one window and it is already stale. <span class="src a">A</span> assumed — my number, printed in amber so it can be shot at. <span class="src n">N</span> not tracked — no system produces it.<br>
+  <b>Money.</b> Every revenue figure uses the $2,000 floor device, so all of them are minimums. <b>The amount spent on ads appears nowhere as data</b> — the one figure available is a week old and unconfirmed, and a stale budget produces confidently wrong efficiency metrics. Cost per contact, cost per JotForm, CAC and ROAS stay blank until a real spend figure is supplied.
 </footer>
-</div>
 
 <script>
-"use strict";
-const $=(s,r)=>(r||document).querySelector(s), $$=(s,r)=>[...(r||document).querySelectorAll(s)];
-/* v3 — the 17 Aug rebuild changed lever baselines (CPM, page-to-form, parked) and the creative seed,
-   so a v2 payload in a returning browser would silently restore the stale 14 Aug model. */
-const KEY='ck_kpi_acq_v3';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+/* Real hooks are quoted sentences. Interpolating a raw " into value="…" silently truncates
+   the attribute and the cell renders empty — escape before it touches an attribute. */
+const esc=x=>String(x==null?'':x).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const KEY='ck_kpi_acq_v4';
 
-/* ===================== LEVER DEFINITIONS ===================== */
+/* ============================================================
+   LEVERS — grouped the way CytoKind's own KPI slides group them
+   ============================================================ */
 const GROUPS=[
- {id:'paid',   t:'Paid media',        s:'Money in, contacts out. The three rate levers here have never been measured at CytoKind.'},
- {id:'organic',t:'Organic content',   s:'Attention that costs nothing, entering the same landing page and the same form.'},
- {id:'after',  t:'After the submit',  s:'The break point. Today this whole group is switched off — submit returns the person to Facebook.'},
- {id:'human',  t:'The human leg',     s:'One person, a phone, and a finite number of hours. Capacity is a hard ceiling, not an attitude.'},
- {id:'value',  t:'Conversion & value',s:'Which segment the traffic lands in decides whether a completed form becomes a device.'},
- {id:'target', t:'The target',        s:'What "working" means, and what a month of not working costs.'}
+ {id:'paid',   t:'Acquisition &middot; paid media', s:'Money buys attention. Attention buys a landing-page view. Everything after that is free or it is nothing.'},
+ {id:'organic',t:'Acquisition &middot; organic',    s:'Eighteen posts in eleven months. The cheapest channel in the business and the least used.'},
+ {id:'web',    t:'Funnel &middot; the website',      s:'Where intent is created and then dropped. This group holds the highest-return input on the page.'},
+ {id:'crm',    t:'Funnel &middot; CRM &amp; email',  s:'One record per human, and a sequence that gets opened and does nothing.'},
+ {id:'phone',  t:'Sales &middot; the phone',          s:'One person, forty dials, twenty-two days. This is the ceiling the whole model runs into.'},
+ {id:'pipe',   t:'Sales &middot; pipeline &amp; value',s:'Which segment the demand lands in decides whether insurance pays or the patient does.'},
+ {id:'target', t:'The target',                       s:'What "working" means, and the cash already sitting in the pipe.'}
 ];
 
 const L=[
- {id:'spend',   g:'paid',  n:'Monthly paid spend',                 u:'$', min:0,   max:30000,step:100, d:0, v:8400, src:'W', why:'Read once: ≈$2,027 for the 30 days to 3 Aug 2026, recovered by reversing Meta\'s own cost-per-result on four campaigns. This model runs on $8,400. Both cannot be true.', note:'⚠️ Unresolved 4× contradiction — see section 04. The Amount spent column was cut off the screenshot.'},
- {id:'cpm',     g:'paid',  n:'CPM — cost per 1,000 impressions',   u:'$', min:4,   max:60,   step:.01, d:2, v:11.24,src:'W', why:'Read once: $11.24 on the MS landing-page campaign, 30 days to 3 Aug — $1,614 over 143,651 impressions (82,558 reach × 1.74 frequency). Half the $20 previously assumed.', note:'Was assumed at $20. Now the account\'s own arithmetic.'},
- {id:'ctr',     g:'paid',  n:'Click-through rate',                 u:'%', min:.2,  max:4,    step:.05, d:2, v:1.00, src:'A', why:'Not measured. 1.0% is a neutral placeholder for health DTC. The one campaign that reported link clicks ran at 0.42%.'},
- {id:'lprate',  g:'paid',  n:'Click → landing page actually loads',u:'%', min:50,  max:100,  step:1,   d:0, v:90,   src:'A', why:'Not measured. 10% bounce-before-load assumed.'},
- {id:'formrate',g:'paid',  n:'Landing page → form submitted',      u:'%', min:1,   max:40,   step:.1,  d:1, v:8.9,  src:'W', why:'Read once and it did not survive: 9,207 landing-page views arrived in the 30 days to 3 Aug against a CRM holding 262 records in TOTAL, which caps the true rate under 2.8%. 8.9% is what this model needs to reproduce both measured anchors — $14 per form fill and ~20 contacts a day.', note:'Was 15.9%. The account read caps it under 2.8% — the residual gap is unexplained.'},
+ /* --- Acquisition · paid --- */
+ {id:'impr', g:'paid', n:'Impressions per month', u:'', min:0, max:600000, step:1, d:0, v:236862, src:'W',
+  why:'Read once, 5 Jul – 3 Aug 2026: reach × frequency across the four reporting campaigns = 236,862.',
+  note:'One window, already stale. A weekly export turns this green.'},
+ {id:'imp2lp', g:'paid', n:'Impression → landing-page view', u:'%', min:0, max:30, step:.01, d:2, v:3.89, src:'W',
+  why:'9,207 landing-page views on 236,862 impressions, same window, same read.',
+  note:'Includes the boosted post, which behaved nothing like the rest of the account.'},
+ {id:'formstart', g:'paid', n:'Landing page → form start', u:'%', min:0, max:60, step:.1, d:1, v:12.0, src:'A',
+  why:'Assumed. Form starts are not instrumented at all — "if somebody doesn\'t fill out the form, we don\'t know anything about it."',
+  note:'One GA4 event ends this assumption forever.'},
+ {id:'formcomp', g:'paid', n:'Form start → submit', u:'%', min:0, max:100, step:.1, d:1, v:54.4, src:'A',
+  why:'Assumed. Only the product of this and the row above is anchored — contacts do arrive at about twenty a day.',
+  note:'Abandonment is completely invisible today.'},
+ {id:'spend', g:'paid', n:'Monthly ad spend — for costing only', u:'$', min:0, max:30000, step:100, d:0, v:0, src:'N',
+  why:'Deliberately zero. The only spend figure Evolv has been shown is a week old and unconfirmed, so it is not used as data anywhere on this page.',
+  note:'Type a real number and CPL, cost per JotForm, CAC and ROAS switch on. Nothing else moves.'},
 
- {id:'posts',   g:'organic',n:'Posts published per month',         u:'',  min:0,   max:60,   step:1,   d:0, v:8,    src:'A', why:'15 reels have run in total to date; a monthly cadence has never been set.'},
- {id:'viewspp', g:'organic',n:'Average views per post',            u:'',  min:0,   max:20000,step:100, d:0, v:900,  src:'A', why:'Not measured post by post. "We haven\'t had anything well over a thousand views."'},
- {id:'orgctr',  g:'organic',n:'View → link click',                 u:'%', min:0,   max:8,    step:.05, d:2, v:0.60, src:'A', why:'Not measured. No link tracking exists on organic posts.'},
+ /* --- Acquisition · organic --- */
+ {id:'posts', g:'organic', n:'Posts published per month', u:'', min:0, max:60, step:.1, d:1, v:1.6, src:'M',
+  why:'Counted: 18 posts on @cytokind_inc between 10 Sep 2025 and 6 Aug 2026 — 331 days.',
+  note:'Two of the ten videos are the same file posted twice.'},
+ {id:'viewspp', g:'organic', n:'Views per post', u:'', min:0, max:20000, step:1, d:0, v:202, src:'M',
+  why:'Counted: 2,019 views across the 10 videos. Best ever 324, worst 107.',
+  note:'No post has ever reached 1,000 views.'},
+ {id:'orgctr', g:'organic', n:'View → click through to the site', u:'%', min:0, max:8, step:.05, d:2, v:.60, src:'A',
+  why:'Assumed. Not one organic post carries a UTM, so no organic click has ever been attributed to anything.',
+  note:'One link tag per post ends this assumption.'},
 
- {id:'postsub', g:'after', n:'Contacts routed onward after submit',u:'%', min:0,   max:100,  step:1,   d:0, v:0,    src:'M', why:'Measured at zero. Adrian, 14 Aug: "they hit submit… and that\'s the end of the experience."', note:'Zero today. The fix is already built and has never been switched on.'},
- {id:'jfcomp',  g:'after', n:'JotForm started → completed',        u:'%', min:0,   max:100,  step:1,   d:0, v:35,   src:'A', why:'Only four JotForms have ever been completed, so a rate cannot yet be derived.'},
+ /* --- Funnel · website --- */
+ {id:'postsub', g:'web', n:'Contacts routed onward after submit', u:'%', min:0, max:100, step:1, d:0, v:0, src:'M',
+  why:'Measured at zero. "They hit submit… and that\'s the end of the experience." The button returns them to Facebook.',
+  note:'The highest-return input on this page, from a standing start of nothing.'},
+ {id:'jfcomp', g:'web', n:'Routed → JotForm completed', u:'%', min:0, max:100, step:1, d:0, v:35, src:'A',
+  why:'Assumed. JotForm has been completed four times ever, never off a routed hand-off, because routing does not exist.',
+  note:'"If you fill out that form, it\'s a sale."'},
+ {id:'bookrate', g:'web', n:'Site visitors booking the 10-minute call', u:'%', min:0, max:20, step:.1, d:1, v:0, src:'N',
+  why:'Not tracked. The homepage\'s primary button is "Book a 10-Min Discovery Call" and not one booking is counted in any system.',
+  note:'The site\'s main conversion event has never been observed once.'},
+ {id:'showrate', g:'web', n:'Booked call → showed up', u:'%', min:0, max:100, step:1, d:0, v:60, src:'A',
+  why:'Assumed at a normal show rate. There is no booking log to check it against.', note:''},
+ {id:'call2jf', g:'web', n:'Call held → JotForm completed', u:'%', min:0, max:100, step:1, d:0, v:50, src:'A',
+  why:'Assumed. A held call is the warmest possible route to the form and has never been counted.', note:''},
 
- {id:'dials',   g:'human', n:'Outbound attempts per working day',  u:'',  min:0,   max:200,  step:5,   d:0, v:40,   src:'A', why:'Not logged. 40/day is a full-time seat working the phone.'},
- {id:'wdays',   g:'human', n:'Working days per month',             u:'',  min:10,  max:26,   step:1,   d:0, v:22,   src:'A', why:'Standard month.'},
- {id:'attempts',g:'human', n:'Attempts before a contact is dropped',u:'', min:1,   max:10,   step:1,   d:0, v:3,    src:'A', why:'Not defined anywhere. There is no written follow-up cadence.'},
- {id:'connect', g:'human', n:'Connect rate per attempt',           u:'%', min:1,   max:40,   step:.5,  d:1, v:5.5,  src:'M', why:'Adrian, 14 Aug: "one in fifteen, one in twenty" on the phone.', note:'Measured. 1 in 18 per dial.'},
- {id:'conn2jf', g:'human', n:'Connected → JotForm completed',      u:'%', min:0,   max:100,  step:1,   d:0, v:25,   src:'A', why:'Not tracked. Calls are not logged against outcomes.'},
+ /* --- Funnel · CRM & email --- */
+ {id:'emsent', g:'crm', n:'Unreached contacts entering the sequence', u:'%', min:0, max:100, step:1, d:0, v:100, src:'A',
+  why:'Assumed at everyone. ActiveCampaign has one goal set in it and under eight hours of work.', note:''},
+ {id:'emresp', g:'crm', n:'Sequence reply rate', u:'%', min:0, max:20, step:.1, d:1, v:2.5, src:'M',
+  why:'Measured from the phones: email works about one in forty.',
+  note:'25% open, 1% click — "not leading to anything."'},
+ {id:'em2jf', g:'crm', n:'Reply → JotForm completed', u:'%', min:0, max:100, step:1, d:0, v:0, src:'M',
+  why:'Measured at zero. No JotForm has ever been traced back to the drip.',
+  note:'Email contributes no revenue at all today. Baseline zero, on purpose.'},
 
- {id:'dermsh',  g:'value', n:'Share of traffic aimed at dermatology',u:'%',min:0,  max:100,  step:1,   d:0, v:50,   src:'M', why:'Spyglass, 17 Aug: 7 live ads across 3 destinations, roughly half derm and half MS by creative COUNT. But by MONEY, in the one window ever read, dermatology took $311 of $2,027 — 15%. Count and money disagree by 3.4×.', note:'⚠️ 50% by creative count. 15% by money in the 30 days to 3 Aug. Pull the split down to 15 and watch the device count.'},
- {id:'dermcv',  g:'value', n:'Derm JotForm → device invoiced',     u:'%', min:0,   max:100,  step:1,   d:0, v:85,   src:'M', why:'Adrian, 14 Aug: "if you fill out that form, it\'s a sale, basically." All six sales were insurance-covered.'},
- {id:'mscv',    g:'value', n:'MS JotForm → device invoiced',       u:'%', min:0,   max:100,  step:1,   d:0, v:5,    src:'M', why:'Zero devices have ever been sold to an MS patient. No FDA indication, so the patient pays $2–7K cash.', note:'Measured at effectively zero, across the whole history.'},
- {id:'unit',    g:'value', n:'Revenue per device',                 u:'$', min:500, max:8000, step:100, d:0, v:2000, src:'M', why:'The Phothera 200 — the cheapest device CytoKind sells. Every figure on this page is therefore a floor.'},
+ /* --- Sales · phone --- */
+ {id:'dials', g:'phone', n:'Dials per working day', u:'', min:0, max:200, step:5, d:0, v:40, src:'A',
+  why:'Assumed for one person on the phone alongside everything else they do.',
+  note:'This is the number that sets the ceiling for the whole model.'},
+ {id:'wdays', g:'phone', n:'Working days per month', u:'', min:15, max:26, step:1, d:0, v:22, src:'A',
+  why:'Standard month.', note:''},
+ {id:'attempts', g:'phone', n:'Attempts before giving up', u:'', min:1, max:8, step:1, d:0, v:3, src:'A',
+  why:'Assumed. Attempts per contact are not logged anywhere.',
+  note:'More attempts reach more people and cut total capacity. The model prices both sides.'},
+ {id:'connect', g:'phone', n:'Connect rate per attempt', u:'%', min:0, max:40, step:.5, d:1, v:5.5, src:'M',
+  why:'Measured from the phones: one in fifteen to one in twenty.',
+  note:'Four sources disagree on this by 9.2×. This is the most conservative of them.'},
+ {id:'conn2jf', g:'phone', n:'Conversation → JotForm completed', u:'%', min:0, max:100, step:1, d:0, v:25, src:'A',
+  why:'Assumed. Six sales from 334 contacts is 1.8% end to end; this is the step in the middle nobody has instrumented.', note:''},
 
- {id:'goal',    g:'target',n:'Device target per month',            u:'',  min:1,   max:60,   step:1,   d:0, v:20,   src:'M', why:'Adrian, 14 Aug: 20 sales between 10 Aug and 10 Sep. Currently at 6.'},
- {id:'parked',  g:'target',n:'Prescriptions parked right now',     u:'',  min:0,   max:100,  step:1,   d:0, v:18,   src:'M', why:'Adrian, 14 Aug: "now that number is up to 18, so that\'s, or like 20." 18 is the figure carried in 7 — THE NUMBERS: 18 × $2,000 = $36,000 parked.'},
- {id:'recover', g:'target',n:'Parked prescriptions recovered if chased',u:'%',min:0,max:100, step:5,   d:0, v:60,   src:'A', why:'Nobody has ever chased them, so no recovery rate exists.'}
+ /* --- Sales · pipeline & value --- */
+ {id:'dermsh', g:'pipe', n:'Share of demand in derm (insurance pays)', u:'%', min:0, max:100, step:1, d:0, v:50, src:'A',
+  why:'Assumed, because the three real readings disagree violently: 8% of July landing-page views, 71% of the ads live today, 100% of every sale ever made.',
+  note:'Every sale has been derm. Nothing on the media side reflects that yet.'},
+ {id:'dermcv', g:'pipe', n:'JotForm → sale, derm', u:'%', min:0, max:100, step:1, d:0, v:85, src:'M',
+  why:'Measured: insurance covers it, the patient pays $0, and the form itself is the qualification.', note:''},
+ {id:'mscv', g:'pipe', n:'JotForm → sale, MS', u:'%', min:0, max:100, step:1, d:0, v:5, src:'M',
+  why:'Measured at effectively nothing. No FDA indication, so the patient pays $2–7K cash. Zero MS sales, ever.', note:''},
+ {id:'unit', g:'pipe', n:'Revenue per device', u:'$', min:1000, max:8000, step:100, d:0, v:2000, src:'M',
+  why:'The cheapest Phothera unit. Every figure on this page is therefore a floor, not an estimate.', note:''},
+
+ /* --- Target --- */
+ {id:'goal', g:'target', n:'Devices per month target', u:'', min:1, max:60, step:1, d:0, v:20, src:'M',
+  why:'CytoKind\'s own number, and the gate on Alex\'s investment.', note:''},
+ {id:'parked', g:'target', n:'Prescriptions parked right now', u:'', min:0, max:60, step:1, d:0, v:18, src:'M',
+  why:'Counted on the 14 Aug call: eighteen to twenty outstanding.', note:'Cash already inside the building.'},
+ {id:'recover', g:'target', n:'Share of parked scripts recoverable', u:'%', min:0, max:100, step:5, d:0, v:60, src:'A',
+  why:'Assumed. Nobody has worked the list, so nobody knows.', note:''}
 ];
+
+const SRCNAME={M:'Measured — repeatable today',W:'Read once — seen in a single window, already stale',A:'Assumed — my number, not theirs',N:'Not tracked — no system produces it'};
 
 const BASE={}; L.forEach(l=>BASE[l.id]=l.v);
 const V=Object.assign({},BASE);
-
 const SCEN={
  today:{},
  p1:{postsub:4, jfcomp:40, dermsh:85, attempts:4, conn2jf:28, recover:80},
- p2:{spend:11000, ctr:1.15, formrate:12, postsub:9, jfcomp:45, dermsh:92,
-     attempts:5, conn2jf:32, posts:20, viewspp:2500, orgctr:1.00, recover:90}
+ p2:{impr:310000, formstart:16, formcomp:62, postsub:9, jfcomp:45, bookrate:1.5, dermsh:92,
+     attempts:5, conn2jf:32, em2jf:8, posts:20, viewspp:2500, orgctr:1.00, recover:90}
 };
+let SC='today';
 
-/* ===================== THE MODEL ===================== */
+/* ============================================================
+   THE MODEL — no money in, no money assumed. Volumes only.
+   ============================================================ */
 function model(v){
-  const impressions = v.cpm>0 ? (v.spend/v.cpm)*1000 : 0;
-  const clicks      = impressions*(v.ctr/100);
-  const lpPaid      = clicks*(v.lprate/100);
-  const cPaid       = lpPaid*(v.formrate/100);
+  // paid leg
+  const impressions = v.impr;
+  const lpPaid = impressions*(v.imp2lp/100);
+  // organic leg
+  const orgViews  = v.posts*v.viewspp;
+  const orgClicks = orgViews*(v.orgctr/100);
+  // the site
+  const lpviews    = lpPaid + orgClicks;
+  const formStarts = lpviews*(v.formstart/100);
+  const contacts   = formStarts*(v.formcomp/100);
+  const abandoned  = formStarts - contacts;
 
-  const orgViews    = v.posts*v.viewspp;
-  const orgClicks   = orgViews*(v.orgctr/100);
-  const lpOrg       = orgClicks*(v.lprate/100);
-  const cOrg        = lpOrg*(v.formrate/100);
+  // routed at the moment of intent — the break point
+  const jfStart = contacts*(v.postsub/100);
+  const jfSelf  = jfStart*(v.jfcomp/100);
+  // the site's own primary CTA
+  const booked  = lpviews*(v.bookrate/100);
+  const shown   = booked*(v.showrate/100);
+  const jfCall  = shown*(v.call2jf/100);
+  const routed  = jfStart + booked;
 
-  const lpviews     = lpPaid+lpOrg;
-  const contacts    = cPaid+cOrg;
+  // the human leg
+  const remaining = Math.max(0, contacts - routed);
+  const capacity  = v.attempts>0 ? (v.dials*v.wdays)/v.attempts : 0;
+  const attempted = Math.min(remaining, capacity);
+  const untouched = Math.max(0, remaining - attempted);
+  const reach     = 1-Math.pow(1-(v.connect/100), v.attempts);
+  const connects  = attempted*reach;
+  const jfHuman   = connects*(v.conn2jf/100);
 
-  // self-serve leg — the fix that is built and switched off
-  const jfStart     = contacts*(v.postsub/100);
-  const jfSelf      = jfStart*(v.jfcomp/100);
+  // the sequence
+  const emailed  = untouched*(v.emsent/100);
+  const replies  = emailed*(v.emresp/100);
+  const jfEmail  = replies*(v.em2jf/100);
 
-  // human leg — capacity is a hard ceiling
-  const remaining   = Math.max(0, contacts-jfStart);
-  const capacity    = v.attempts>0 ? (v.dials*v.wdays)/v.attempts : 0;
-  const attempted   = Math.min(remaining, capacity);
-  const untouched   = Math.max(0, remaining-attempted);
-  const reach       = 1-Math.pow(1-(v.connect/100), v.attempts);   // per contact, over N attempts
-  const connects    = attempted*reach;
-  const jfHuman     = connects*(v.conn2jf/100);
+  const jf     = jfSelf + jfCall + jfHuman + jfEmail;
+  const jfDerm = jf*(v.dermsh/100);
+  const jfMs   = jf - jfDerm;
+  const devices = jfDerm*(v.dermcv/100) + jfMs*(v.mscv/100);
+  const revenue = devices*v.unit;
 
-  const jf          = jfSelf+jfHuman;
-  const jfDerm      = jf*(v.dermsh/100);
-  const jfMs        = jf*(1-v.dermsh/100);
-  const devices     = jfDerm*(v.dermcv/100) + jfMs*(v.mscv/100);
-  const revenue     = devices*v.unit;
+  // costing only — blank unless a real spend figure is typed in
+  const hasSpend = v.spend>0;
+  const cpl  = hasSpend && contacts>0 ? v.spend/contacts : null;
+  const cpjf = hasSpend && jf>0       ? v.spend/jf       : null;
+  const cac  = hasSpend && devices>0  ? v.spend/devices  : null;
+  const roas = hasSpend               ? revenue/v.spend  : null;
 
-  const cpl   = cPaid>0 ? v.spend/cPaid : 0;
-  const cpjf  = jf>0 ? v.spend/jf : 0;
-  const cac   = devices>0 ? v.spend/devices : 0;
-  const roas  = v.spend>0 ? revenue/v.spend : 0;
-  const gap   = Math.max(0, v.goal-devices)*v.unit;
-  const untouchedPct = contacts>0 ? untouched/contacts : 0;
-  const c2d   = contacts>0 ? devices/contacts : 0;
-
-  const parkedVal = v.parked*(v.recover/100)*(v.dermcv/100)*v.unit;
+  const gap = (v.goal-devices)*v.unit;
+  const parkedVal    = v.parked*(v.recover/100)*v.unit;
   const untouchedVal = untouched*reach*(v.conn2jf/100)*((v.dermsh/100)*(v.dermcv/100)+(1-v.dermsh/100)*(v.mscv/100))*v.unit;
 
-  return {impressions,clicks,lpviews,contacts,cPaid,cOrg,jfStart,jfSelf,remaining,capacity,
-          attempted,untouched,connects,jfHuman,jf,devices,revenue,cpl,cpjf,cac,roas,gap,
-          untouchedPct,c2d,parkedVal,untouchedVal,reach};
+  return {impressions,lpPaid,orgViews,orgClicks,lpviews,formStarts,contacts,abandoned,
+          jfStart,jfSelf,booked,shown,jfCall,routed,remaining,capacity,attempted,untouched,
+          reach,connects,jfHuman,emailed,replies,jfEmail,jf,jfDerm,jfMs,devices,revenue,
+          cpl,cpjf,cac,roas,gap,parkedVal,untouchedVal,perDay:contacts/30};
 }
 
-/* ===================== FORMATTING ===================== */
-const nf=(x,d)=>{ if(!isFinite(x))return'—';
-  return x.toLocaleString('en-US',{minimumFractionDigits:d||0,maximumFractionDigits:d||0}); };
-const money=x=>{ if(!isFinite(x))return'—';
-  const a=Math.abs(x);
-  if(a>=1000000) return (x<0?'−$':'$')+(a/1000000).toFixed(2)+'M';
-  if(a>=10000)   return (x<0?'−$':'$')+nf(a/1000,1)+'K';
-  return (x<0?'−$':'$')+nf(a,0); };
-const money0=x=>(x<0?'−$':'$')+nf(Math.abs(x),0);
-const pct=(x,d)=>nf(x*100,d===undefined?1:d)+'%';
-
-/* ===================== OUTPUT TILES ===================== */
-const OUTS=[
- {k:'devices', hero:1, l:'Devices invoiced per month', f:m=>nf(m.devices,1),
-   s:m=>'target '+nf(V.goal,0)+' · shortfall '+nf(Math.max(0,V.goal-m.devices),1)},
- {k:'gap', warn:1, l:'Monthly revenue gap to target', f:m=>money(m.gap),
-   s:m=>'at the $'+nf(V.unit,0)+' floor unit', inv:1},
- {k:'revenue', l:'Revenue per month', f:m=>money(m.revenue), s:m=>'ROAS '+nf(m.roas,2)+'×'},
- {k:'contacts', l:'New contacts per month', f:m=>nf(m.contacts,0),
-   s:m=>nf(m.contacts/V.wdays,1)+' per working day'},
-
- {k:'untouched', warn:1, l:'Contacts never attempted', f:m=>nf(m.untouched,0),
-   s:m=>pct(m.untouchedPct,0)+' of everyone who raised a hand', inv:1},
- {k:'jf', l:'JotForms completed per month', f:m=>nf(m.jf,1), s:m=>'4 have ever been completed'},
- {k:'cac', l:'Cost per device acquired', f:m=>money0(m.cac),
-   s:m=>m.cac>V.unit?'above the floor unit price':'below the floor unit price', inv:1},
- {k:'c2d', l:'Contact → device conversion', f:m=>pct(m.c2d,2), s:m=>'CRM lifetime close rate: 1.8% (6 of 334)'}
-];
-
-function renderOuts(){
-  $('#outs').innerHTML = OUTS.map(o=>
-    `<div class="out ${o.hero?'hero':''} ${o.warn?'warn':''}" data-k="${o.k}">
-      <div class="ol">${o.l}</div>
-      <div class="ov num" data-v></div>
-      <div class="od" data-d></div>
-      <div class="os" data-s></div>
-    </div>`).join('');
+/* ---------- formatting ---------- */
+const n0=x=>Math.round(x).toLocaleString('en-US');
+const n1=x=>x.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1});
+const n2=x=>x.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const m0=x=>'$'+n0(x);
+const m2=x=>'$'+n2(x);
+const pc=(a,b)=>b>0?(a/b*100):0;
+function fmtL(l,val){
+  if(l.u==='$') return '$'+n0(val);
+  if(l.u==='%') return (l.d===0?n0(val):l.d===1?n1(val):n2(val))+'%';
+  return l.d===0?n0(val):n1(val);
 }
 
-/* ===================== LEVERS ===================== */
+/* ============================================================
+   RENDER — levers
+   ============================================================ */
 function renderLevers(){
-  $('#levers').innerHTML = GROUPS.filter(g=>g.id!=='target'||true).map(g=>{
-    const items=L.filter(l=>l.g===g.id);
-    if(!items.length) return '';
-    return `<div class="lgroup">
-      <div class="lgt">${g.t}</div>
-      <div class="lgs">${g.s}</div>
-      ${items.map(l=>leverHTML(l)).join('')}
-    </div>`;
+  $('#levers').innerHTML = GROUPS.map(g=>{
+    const rows = L.filter(l=>l.g===g.id).map(l=>`
+      <div class="lever" data-lv="${l.id}">
+        <div class="lhead">
+          <span class="lname">${l.n}</span>
+          <span class="src ${l.src.toLowerCase()}" title="${SRCNAME[l.src]} — ${l.why.replace(/"/g,'&quot;')}">${l.src}</span>
+          <span class="lval" id="v-${l.id}">${fmtL(l,V[l.id])}</span>
+        </div>
+        <input type="range" id="r-${l.id}" min="${l.min}" max="${l.max}" step="${l.step}" value="${V[l.id]}">
+        ${l.note?`<div class="lnote">${l.note}</div>`:''}
+      </div>`).join('');
+    return `<div class="lgroup"><div class="lgt">${g.t}</div><div class="lgs">${g.s}</div>${rows}</div>`;
   }).join('');
-}
-function leverHTML(l){
-  return `<div class="lever" data-lv="${l.id}">
-    <div class="lhead">
-      <span class="lname">${l.n}</span>
-      <span class="src ${l.src.toLowerCase()}" title="${l.why.replace(/"/g,'&quot;')}">${l.src}</span>
-      <span class="lval num" data-lval>${fmtLever(l,l.v)}</span>
-    </div>
-    <input type="range" data-lid="${l.id}" min="${l.min}" max="${l.max}" step="${l.step}" value="${V[l.id]!==undefined?V[l.id]:l.v}">
-    ${l.note?`<div class="lnote">${l.note}</div>`:''}
-  </div>`;
-}
-function fmtLever(l,val){
-  if(l.u==='$') return '$'+nf(val,l.d);
-  if(l.u==='%') return nf(val,l.d)+'%';
-  return nf(val,l.d);
-}
-/* a lever can be rendered in more than one place (the backlog panel repeats three of them),
-   so every read/write goes through data-lid and touches every copy */
-function ranges(id){ return $$('input[type=range][data-lid="'+id+'"]'); }
-function syncLever(id){
-  const l=L.find(x=>x.id===id);
-  ranges(id).forEach(r=>{ r.value=V[id]; paintRange(r,l); });
-}
-function bindAllRanges(){
-  $$('input[type=range][data-lid]').forEach(r=>{
-    if(r.dataset.bound) return;
-    r.dataset.bound='1';
-    const id=r.dataset.lid, l=L.find(x=>x.id===id);
-    paintRange(r,l);
-    r.addEventListener('input',()=>{
-      V[id]=parseFloat(r.value);
-      syncLever(id); update(); markScenario();
+
+  L.forEach(l=>{
+    $('#r-'+l.id).addEventListener('input',e=>{
+      V[l.id]=parseFloat(e.target.value); update(); save();
     });
-    /* a range input under the cursor eats the scroll wheel and silently rewrites itself.
-       Only allow that when the slider has actually been clicked; otherwise scroll the page. */
-    r.addEventListener('wheel',e=>{
-      if(document.activeElement===r) return;
-      e.preventDefault();
-      window.scrollBy(0,e.deltaY);
-    },{passive:false});
   });
 }
-function paintRange(r,l){
-  const p=((r.value-l.min)/(l.max-l.min))*100;
-  r.style.background=`linear-gradient(90deg, var(--blue) 0%, var(--blue) ${p}%, var(--line) ${p}%, var(--line) 100%)`;
-  const box=r.closest('[data-lv]');
-  if(box){
-    const lv=$('[data-lval]',box);
-    lv.textContent=fmtLever(l,parseFloat(r.value));
-    lv.classList.toggle('moved', parseFloat(r.value)!==BASE[l.id]);
-  }
+
+/* ============================================================
+   RENDER — outputs
+   ============================================================ */
+function renderOuts(m){
+  const b=model(BASE);
+  const d=(cur,base,inv)=>{
+    if(base===null||cur===null) return '<span class="flat">no baseline</span>';
+    const diff=cur-base;
+    if(Math.abs(diff)<1e-9) return '<span class="flat">at baseline</span>';
+    const good = inv ? diff<0 : diff>0;
+    const sign = diff>0?'+':'−';
+    return `<span class="${good?'up':'dn'}">${sign}${Math.abs(diff)>=100?n0(Math.abs(diff)):n1(Math.abs(diff))} vs baseline</span>`;
+  };
+  const tiles=[
+    {l:'Devices invoiced per month',   v:n1(m.devices), cls:m.devices>=V.goal?'good':'', dd:d(m.devices,b.devices), s:'Six have ever been sold, all of them derm'},
+    {l:'Revenue per month',            v:m0(m.revenue), cls:'hero',                       dd:d(m.revenue,b.revenue), s:'At the $2,000 floor device'},
+    /* Exact, not rounded to 30K — the sticky bar prints $29,698 and two figures for one number
+       is how a reader stops trusting a page. */
+    {l:'Gap to the target of twenty',  v:(m.gap>0?'−':'+')+m0(Math.abs(m.gap)),  cls:m.gap>0?'warn':'good', dd:d(m.gap,b.gap,true), s:'CytoKind\'s own number'},
+    {l:'Contacts created per month',   v:n0(m.contacts), cls:'',                          dd:d(m.contacts,b.contacts), s:n1(m.perDay)+' a day — Adrian said "about twenty"'},
+    {l:'JotForms completed per month', v:n1(m.jf),      cls:'',                           dd:d(m.jf,b.jf), s:'Four have been completed in the product\'s life'},
+    {l:'Contacts nobody reaches',      v:n0(m.untouched),cls:m.untouched>0?'warn':'good', dd:d(m.untouched,b.untouched,true), s:'Capacity is '+n0(m.capacity)+' attempts-worth a month'},
+    {l:'Cost per contact',             v:m.cpl===null?'—':m2(m.cpl), cls:'',              dd:m.cpl===null?'<span class="flat">needs a spend figure</span>':d(m.cpl,b.cpl,true), s:'Blank until spend is supplied'},
+    {l:'Return on ad spend',           v:m.roas===null?'—':n2(m.roas)+'×', cls:'',        dd:m.roas===null?'<span class="flat">needs a spend figure</span>':d(m.roas,b.roas), s:'Blank until spend is supplied'}
+  ];
+  $('#outs').innerHTML = tiles.map(t=>`
+    <div class="out ${t.cls}">
+      <div class="ol">${t.l}</div>
+      <div class="ov num">${t.v}</div>
+      <div class="od">${t.dd}</div>
+      <div class="os">${t.s}</div>
+    </div>`).join('');
+
+  $('#s-dev').textContent=n1(m.devices);
+  $('#s-rev').textContent=m0(m.revenue);
+  $('#s-gap').textContent=(m.gap>0?'−':'+')+m0(Math.abs(m.gap)).slice(1).replace(/^/,'$');
+
+  $('#calnote').innerHTML = `<b>Why you can trust the baseline before you trust anything built on it.</b>
+    Three numbers were checked against three different people and were never fitted to each other.
+    Contacts land at <b>${n1(b.perDay)} a day</b> against Adrian's "about twenty".
+    Devices land at <b>${n1(b.devices)} a month</b> against six sold in total.
+    The gap lands at <b>${m0(b.gap)}</b> against the $28–30K everyone in the business already quotes.
+    ${m.cpl===null?'<b>Cost per contact and ROAS are blank</b>, and they stay blank until somebody supplies a spend figure that is not a week old — a model that invents its own denominator is worse than one that admits it has none.':''}`;
 }
 
-/* ===================== CHAIN ===================== */
+/* ============================================================
+   RENDER — chain
+   ============================================================ */
 function renderChain(m){
   const rows=[
-    {n:'01',l:'Impressions',              s:'paid media only',                        v:m.impressions, p:null},
-    {n:'02',l:'Clicks',                   s:'click-through rate',                     v:m.clicks,      p:m.impressions},
-    {n:'03',l:'Landing pages loaded',     s:'paid + organic',                         v:m.lpviews,     p:m.clicks},
-    {n:'04',l:'Contacts captured',        s:'the form is submitted',                  v:m.contacts,    p:m.lpviews},
-    {n:'05',l:'Routed onward after submit',s:'today: nothing happens here',           v:m.jfStart,     p:m.contacts, leak:m.jfStart/Math.max(1,m.contacts)<.05},
-    {n:'06',l:'Attempted by a human',     s:'capacity '+nf(m.capacity,0)+' contacts / month', v:m.attempted, p:m.remaining, leak:m.untouchedPct>.3},
-    {n:'07',l:'Actually reached',         s:nf(m.reach*100,1)+'% reach over '+nf(V.attempts,0)+' attempts', v:m.connects, p:m.attempted},
-    {n:'08',l:'JotForms completed',       s:'self-serve + phone · this is the sale',  v:m.jf,          p:m.contacts},
-    {n:'09',l:'Devices invoiced',         s:'after segment and insurance',            v:m.devices,     p:m.jf, win:true}
+    {n:'01',l:'Impressions',                 s:'Paid, one window, read once',                       v:n0(m.impressions), p:null, w:100, k:''},
+    {n:'02',l:'Landing-page views',          s:'Paid '+n0(m.lpPaid)+' + organic clicks '+n0(m.orgClicks), v:n0(m.lpviews), p:pc(m.lpviews,m.impressions), w:pc(m.lpviews,m.impressions), k:'bad'},
+    {n:'03',l:'Form starts',                 s:'Not instrumented — this row is an assumption',      v:n0(m.formStarts), p:pc(m.formStarts,m.lpviews), w:pc(m.formStarts,m.lpviews), k:'bad'},
+    {n:'04',l:'Contacts created',            s:n1(m.perDay)+' a day. The one number everyone agrees on', v:n0(m.contacts), p:pc(m.contacts,m.formStarts), w:pc(m.contacts,m.formStarts), k:'mid'},
+    {n:'05',l:'Routed onward at the moment of intent', s:'Submit returns them to Facebook. Nothing happens next', v:n1(m.routed), p:pc(m.routed,m.contacts), w:pc(m.routed,m.contacts), k:'bad', leak:m.routed<1},
+    {n:'06',l:'Reachable by phone this month',s:'Capacity '+n0(m.capacity)+' against '+n0(m.remaining)+' waiting', v:n0(m.attempted), p:pc(m.attempted,m.remaining), w:pc(m.attempted,m.remaining), k:'bad', leak:m.untouched>0},
+    {n:'07',l:'Conversations',               s:n1(m.reach*100)+'% of those attempted actually pick up', v:n1(m.connects), p:pc(m.connects,m.attempted), w:pc(m.connects,m.attempted), k:'bad'},
+    {n:'08',l:'JotForms completed',          s:'"If you fill out that form, it\'s a sale"',          v:n1(m.jf), p:pc(m.jf,m.connects+m.routed), w:pc(m.jf,m.connects+m.routed), k:'mid'},
+    {n:'09',l:'Devices invoiced',            s:'Derm closes at '+n0(V.dermcv)+'%, MS at '+n0(V.mscv)+'%', v:n1(m.devices), p:pc(m.devices,m.jf), w:pc(m.devices,m.jf), k:'ok', win:true},
+    {n:'10',l:'Revenue',                     s:'At the $2,000 floor device',                        v:m0(m.revenue), p:null, w:100, k:'ok', win:true}
   ];
   $('#chain').innerHTML =
-   `<div class="crow head"><span></span><span>Stage</span><span style="text-align:right">Per month</span><span style="text-align:right">Survives</span><span class="cbar">Retention</span></div>`+
-   rows.map(r=>{
-    const ret = r.p===null? 1 : (r.p>0? r.v/r.p : 0);
-    const cls = r.p===null?'ok':(ret<.2?'bad':ret<.5?'mid':'ok');
-    return `<div class="crow ${r.leak?'leak':''} ${r.win?'win':''}">
-      <span class="cn">${r.n}</span>
-      <span class="cl">${r.l}<small>${r.s}</small></span>
-      <span class="cv num">${r.v>=1000?nf(r.v,0):nf(r.v,r.v<10?1:0)}</span>
-      <span class="cp num">${r.p===null?'—':pct(ret,ret<.1?2:0)}</span>
-      <span class="cbar"><i class="${cls}" style="width:${Math.max(2,Math.min(100,ret*100))}%"></i></span>
-    </div>`;
-   }).join('');
+    `<div class="crow head"><div>#</div><div>Stage</div><div style="text-align:right">Volume</div><div style="text-align:right">Survives</div><div></div></div>`+
+    rows.map(r=>`<div class="crow ${r.leak?'leak':''} ${r.win?'win':''}">
+      <div class="cn">${r.n}</div>
+      <div class="cl">${r.l}<small>${r.s}</small></div>
+      <div class="cv num">${r.v}</div>
+      <div class="cp num">${r.p===null?'—':(r.p<10?n1(r.p):n0(r.p))+'%'}</div>
+      <div class="cbar"><i class="${r.k}" style="width:${Math.max(2,Math.min(100,r.w))}%"></i></div>
+    </div>`).join('');
 
-  const grew = baseM && m.untouchedPct > baseM.untouchedPct + .001;
-  $('#chainnote').innerHTML = m.untouched>0
-    ? `<b>Read row 05 and row 06 together.</b> ${nf(m.jfStart,0)} of ${nf(m.contacts,0)} contacts are given a next step at the moment of highest intent, and of the ${nf(m.remaining,0)} left over, one person can attempt ${nf(m.capacity,0)}. <b>${nf(m.untouched,0)} people — ${pct(m.untouchedPct,0)} of everyone who raised a hand — are never contacted at all.</b> They are not lost to a competitor. They are lost to arithmetic.`
-      + (grew ? ` <br><br><b>And note what just happened.</b> Chasing each person harder made this number <em>worse</em>, not better — the same seat, divided across more attempts per person, reaches fewer people. <b>That is the whole argument in one row: the phone cannot be the answer at this volume.</b> Every scenario that works, works by putting something in front of the contact automatically, in row 05.` : '')
-    : `<b>Capacity now clears the queue.</b> Every contact arriving is either routed onward automatically or attempted by a human. The constraint has moved off volume and onto conversion — read section 05.`;
+  $('#chainnote').innerHTML = `<b>Row 05 is the whole business.</b>
+    ${n0(m.contacts)} people a month raise their hand, and <b>${n1(m.routed)}</b> of them are handed anything at all —
+    the submit button sends them back to Facebook. Everything downstream is then rationing:
+    one person with a phone can attempt <b>${n0(m.capacity)}</b> contacts a month against <b>${n0(m.remaining)}</b> waiting,
+    so <b>${n0(m.untouched)}</b> people who asked for help are never spoken to.
+    Fixing row 05 costs nothing per contact. Fixing row 06 costs a salary.`;
 }
 
-/* ===================== READ-ONCE RECONCILIATION =====================
-   Runs this same model on the three numbers actually read off the account, holding every
-   other lever where it stands, and reports the collision with the two measured anchors.
-   Nothing here is fitted: 2027, 11.24 and 2.8 all come off the 4 Aug screenshot. */
-const RO={spend:2027, cpm:11.24, formrate:2.8};
-function renderReadOnce(m){
-  const el=$('#ronote'); if(!el) return;
-  const mr=model(Object.assign({},V,RO));
-  const cplRO = mr.cPaid>0 ? RO.spend/mr.cPaid : 0;
-  el.innerHTML =
-   `<b>Now put the read through the model and watch it collide.</b> Hold every other lever where it stands, `
-   +`set spend to <b>$2,027</b>, CPM to <b>$11.24</b> and page-to-form to <b>2.8%</b> — the three figures actually on the screen — and this funnel produces `
-   +`<b>${nf(mr.contacts,0)} contacts a month</b>, ${nf(mr.contacts/30,1)} a day, at <b>${money0(cplRO)}</b> each, ending in <b>${nf(mr.devices,1)} devices</b>. `
-   +`Adrian counts <b>about twenty contacts a day</b> and Tom disclosed <b>$14</b> a form fill. `
-   +`Today's baseline on this page reproduces both: ${nf(m.contacts,0)} contacts a month, ${nf(m.contacts/30,1)} a day, ${money0(m.cpl)} each. `
-   +`<b>The two readings differ by ${nf(m.contacts/Math.max(1,mr.contacts),0)}×, and they cannot both describe the same account.</b><br><br>`
-   +`<em>The likeliest explanation is that the window is the wrong one</em> — 5 Jul to 3 Aug is the last full month of the old configuration, and the relaunch on 11 August added ads, destinations and, presumably, budget. `
-   +`But "presumably" is the whole problem: <b>the plan on this page is built on $8,400 a month and the only evidence anyone has says $2,027</b>. `
-   +`Until the Amount spent column is read, every cost figure on this page is a range, not a number — and that is exactly why the three levers above are marked <span class="src w">W</span> and not <span class="src m">M</span>.`;
-}
+/* ============================================================
+   RENDER — marginal ROI
+   ============================================================ */
+const MSTEP={impr:10000, imp2lp:1, formstart:1, formcomp:1,
+             posts:1, viewspp:50, orgctr:.1,
+             postsub:1, jfcomp:1, bookrate:.1, showrate:1, call2jf:1,
+             emsent:5, emresp:1, em2jf:1,
+             dials:5, attempts:1, connect:1, conn2jf:1,
+             dermsh:1, dermcv:1, mscv:1};
+const MLABEL={impr:'+10,000 impressions', imp2lp:'+1 point', formstart:'+1 point', formcomp:'+1 point',
+              posts:'+1 post a month', viewspp:'+50 views a post', orgctr:'+0.1 point',
+              postsub:'+1 point', jfcomp:'+1 point', bookrate:'+0.1 point', showrate:'+1 point', call2jf:'+1 point',
+              emsent:'+5 points', emresp:'+1 point', em2jf:'+1 point',
+              dials:'+5 dials a day', attempts:'+1 attempt', connect:'+1 point', conn2jf:'+1 point',
+              dermsh:'+1 point', dermcv:'+1 point', mscv:'+1 point'};
+const MR = L.filter(l=>MSTEP[l.id]!==undefined);
 
-/* ===================== MARGINAL ROI ===================== */
-const MR = L.filter(l=>!['goal','parked','recover','unit','wdays'].includes(l.id));
 function renderMroi(m){
   const rows = MR.map(l=>{
     const v2=Object.assign({},V);
-    /* 10% of its own value — or one step of the lever, whichever is the bigger move.
-       Without the step floor a lever sitting at zero can never be improved at all,
-       and the most important lever on this page is currently sitting at zero. */
-    let nv;
-    if(l.id==='cpm') nv = Math.max(l.min, Math.min(V[l.id]*0.9, V[l.id]-l.step)); // lower CPM is better
-    else            nv = Math.min(l.max, Math.max(V[l.id]*1.1, V[l.id]+l.step));
-    v2[l.id]=nv;
-    const m2=model(v2);
-    const dRev=m2.revenue-m.revenue;
-    const dCost=v2.spend-V.spend;
-    return {l, nv, dRev, dCost, net:dRev-dCost};
-  }).sort((a,b)=>b.net-a.net);
-
-  const max=Math.max(...rows.map(r=>Math.abs(r.net)),1);
+    v2[l.id]=Math.min(l.max, V[l.id]+MSTEP[l.id]);
+    const dRev = model(v2).revenue - m.revenue;
+    return {id:l.id, n:l.n, src:l.src, lab:MLABEL[l.id], d:dRev};
+  }).sort((a,b)=>b.d-a.d);
+  const max=Math.max(...rows.map(r=>Math.abs(r.d)),1);
   $('#mroi').innerHTML =
-   `<div class="mrow head"><span></span><span>Improve this by 10%</span><span style="text-align:right">Revenue / mo</span><span style="text-align:right">Extra cost</span><span class="mb">Gross contribution</span></div>`+
-   rows.map((r,i)=>{
-    const dirTxt = (r.l.id==='cpm'?'down to ':'to ')+fmtLever(r.l,r.nv);
-    const cls=r.net>1?'pos':r.net<-1?'neg':'zero';
-    return `<div class="mrow ${i===0&&r.net>1?'top1':''}">
-      <span class="mrk">${i+1}</span>
-      <span class="mnm">${r.l.n}<small>${dirTxt} · currently ${fmtLever(r.l,V[r.l.id])}</small></span>
-      <span class="mv ${cls} num">${r.dRev>=0?'+':''}${money(r.dRev)}</span>
-      <span class="mcost num">${r.dCost>0?money(r.dCost):'—'}</span>
-      <span class="mb"><i class="${r.net<0?'neg':''}" style="width:${Math.max(1,Math.abs(r.net)/max*100)}%"></i></span>
-    </div>`;
-   }).join('');
+    `<div class="mrow head"><div>#</div><div>Lever &middot; one unit of improvement</div><div style="text-align:right">Revenue / month</div><div></div></div>`+
+    rows.map((r,i)=>`<div class="mrow ${i===0&&r.d>0?'top1':''}">
+      <div class="mrk">${i+1}</div>
+      <div class="mnm">${r.n} <span class="src ${r.src.toLowerCase()}" title="${SRCNAME[r.src]}">${r.src}</span><small>${r.lab}</small></div>
+      <div class="mv num ${r.d>0.5?'pos':r.d<-0.5?'neg':'zero'}">${Math.abs(r.d)<0.5?'—':(r.d>0?'+':'−')+m0(Math.abs(r.d))}</div>
+      <div class="mb"><i class="${r.d<0?'neg':''}" style="width:${Math.max(1,Math.abs(r.d)/max*100)}%"></i></div>
+    </div>`).join('');
 
-  const top=rows[0];
-  const dead=rows.filter(r=>Math.abs(r.net)<1).map(r=>r.l.id);
-  const trafficDead=['ctr','cpm','lprate','formrate','spend','posts','viewspp','orgctr'].filter(id=>dead.includes(id));
-  $('#mroinote').innerHTML = (top && top.net>1
-    ? `<b>The constraint right now is “${top.l.n}”.</b> One realistic increment on it is worth <b>${money(top.net)} a month</b> in gross contribution — ${rows[1]&&rows[1].net>1?`${nf(top.net/Math.max(1,rows[1].net),1)}× the next lever on the list`:'more than every other lever combined'}. Attack this one, alone, until it stops being first. <em>Then re-read this panel — it will have changed.</em>`
-    : `<b>No lever returns a meaningful gain at these settings.</b> That is not a modelling error — it means the funnel is closed somewhere downstream and there is nothing for any lever to act on.`)
-   + (trafficDead.length>=4
-    ? `<br><br><b>And read the bottom of this list, because it is the more expensive lesson.</b> ${trafficDead.length} of the traffic levers — spend, CPM, click-through, landing page conversion, posts, views — return <b>exactly nothing</b>. Not a little. Nothing. Every extra contact they create lands behind a queue that is already longer than anyone can work, so <b>more traffic buys zero additional devices at today's settings</b>. <em>That is the case for fixing the funnel before touching the budget.</em>` : '');
+  const top=rows[0], dead=rows.filter(r=>Math.abs(r.d)<0.5).map(r=>r.n);
+  $('#mroinote').innerHTML = `<b>Rank one is ${top.n.toLowerCase()}, at ${(top.d>0?'+':'')+m0(top.d)} a month for a single point of improvement</b>
+    — from a standing start of ${fmtL(L.find(l=>l.id===top.id),V[top.id])}. Nothing else on the list is close.
+    That is the arithmetic version of "the submit button is the constraint", and it is why the first thirty days
+    are a funnel job and not a media job.`;
+  $('#deadnote').innerHTML = `<b>And here is the part that decides the order of work.</b>
+    ${dead.length} of the ${rows.length} levers return <b>nothing at all</b> right now —
+    ${dead.slice(0,8).join(', ').toLowerCase()}${dead.length>8?' and others':''}.
+    Every one of them makes more people arrive, and the phone is already saturated:
+    capacity is <b>${n0(m.capacity)}</b> contacts a month against <b>${n0(m.contacts)}</b> arriving.
+    Contact number ${n0(m.contacts)+1} simply joins the ${n0(m.untouched)} nobody has hours to call.
+    More traffic buys zero devices until something downstream of the form exists to catch it.`;
 }
 
-/* ===================== TILE UPDATE ===================== */
-let baseM=null;
-function update(){
-  const m=model(V);
-  if(!baseM) baseM=model(BASE);
+/* ============================================================
+   07 — THE KPI REGISTER
+   Every metric on CytoKind's own three KPI slides, with whether
+   it can be produced today. Status: M measured / W read once / N not tracked.
+   ============================================================ */
+const FAM={AP:'Acquisition · paid', AO:'Acquisition · organic', FW:'Funnel · website',
+           FC:'Funnel · CRM & email', SP:'Sales · pipeline', SF:'Sales · phone'};
+/* [family, metric, where it would be read, status, lever id or '', the one move] */
+const REG=[
+ ['AP','Impressions','Meta Ads Manager','W','impr','Read once: 236,862 in the 30 days to 3 Aug. Needs a standing weekly export.'],
+ ['AP','Reach','Meta Ads Manager','W','','124,731 people, one window. 82% of them about MS.'],
+ ['AP','Frequency','Meta Ads Manager','W','','1.13 to 3.44. The 3.44 on the boosted post is fatigue, visible exactly once.'],
+ ['AP','CPM','Meta Ads Manager','N','','Needs a current spend figure. Deliberately not modelled here.'],
+ ['AP','Hook rate — 3-second views ÷ impressions','Ads Manager, video breakdown','N','','One column in a report nobody opens. It is the only number that says whether the first frame works.'],
+ ['AP','Hold rate — thruplays ÷ 3-second views','Ads Manager, video breakdown','N','','Same report. Says whether the video earns its second five seconds.'],
+ ['AP','Click-through rate','Meta Ads Manager','W','','0.42% on the one campaign that reported link clicks.'],
+ ['AP','Cost per click','Meta Ads Manager','N','','Needs a current spend figure.'],
+ ['AP','Landing-page views','Ads Manager + GA4','W','','9,207 in one window. GA4 reports it daily and free.'],
+ ['AP','Form submit rate','Website + CRM','W','formstart','Implied under 3% by the July read. Needs the form instrumented to be real.'],
+ ['AP','Contacts created','ActiveCampaign','M','','Counted. About twenty a day.'],
+ ['AP','Cost per contact','Derived','N','','$14 was disclosed once on 4 Aug. One number, one window, never repeated.'],
+ ['AP','JotForms completed','JotForm','M','','Four, ever. None of them attributable to a campaign.'],
+ ['AP','Cost per JotForm','Derived','N','','Impossible until JotForm carries a source parameter.'],
+ ['AP','Devices invoiced','Phothera invoices','M','','Six all time. Never joined to a campaign or a creative.'],
+ ['AP','Customer acquisition cost','Derived','N','','Blocked twice over: no current spend, no per-campaign attribution.'],
+ ['AP','Return on ad spend','Derived','N','','Same two blockers. Quoted elsewhere at 1.23 on an assumed budget.'],
+ ['AP','Revenue','Invoices','M','unit','Known per device. Not known per source.'],
 
-  OUTS.forEach(o=>{
-    const el=$(`.out[data-k="${o.k}"]`); if(!el)return;
-    $('[data-v]',el).textContent=o.f(m);
-    $('[data-s]',el).textContent=o.s(m);
-    const cur=rawOut(o.k,m), bse=rawOut(o.k,baseM);
-    const d=cur-bse, dd=$('[data-d]',el);
-    if(Math.abs(bse)<1e-9 && Math.abs(d)<1e-9){ dd.textContent='at baseline'; dd.className='od flat'; }
-    else{
-      const better = o.inv ? d<0 : d>0;
-      const rel = Math.abs(bse)>1e-9 ? (d/Math.abs(bse))*100 : null;
-      dd.className='od '+(Math.abs(d)<1e-6?'flat':better?'up':'dn');
-      dd.textContent = Math.abs(d)<1e-6 ? 'at baseline'
-        : (d>0?'▲ ':'▼ ') + (rel===null?'':nf(Math.abs(rel),0)+'% ') + 'vs today';
-    }
-  });
+ ['AO','Posts published','Instagram / Facebook','M','posts','Counted: 18 posts in 331 days = 1.6 a month.'],
+ ['AO','Views','Instagram insights','M','viewspp','Counted: 2,019 views across 10 videos. Mean 202, ceiling 324.'],
+ ['AO','Reach','Instagram insights','N','','Sitting in the app, never exported. Two minutes a week.'],
+ ['AO','Average view duration','Instagram insights','N','','The single number that says whether the hook holds. Never looked at.'],
+ ['AO','Retention curve','Instagram insights','N','','Screenshot it per reel. Costs nothing and tells you where people leave.'],
+ ['AO','Engagement rate','Instagram','M','','Median 3 likes on 243 followers — about 1.2%.'],
+ ['AO','Saves','Instagram','N','','The best proxy for "worth keeping" in a medical niche, and the most ignored.'],
+ ['AO','Shares','Instagram','N','','The only organic distribution mechanism this account has.'],
+ ['AO','Comments','Instagram','N','','Free objection research. Nobody reads them as data.'],
+ ['AO','New follows per post','Instagram','N','','243 followers after eleven months. Which posts earned them is unknown.'],
+ ['AO','Profile visits','Instagram','N','','The step between watching and clicking. Invisible.'],
+ ['AO','Link clicks','Instagram + UTM','N','','No organic post has ever carried a UTM. Zero organic attribution exists.'],
+ ['AO','Click rate','Derived','N','orgctr','Modelled at 0.60%. Never measured, because there is nothing to measure it with.'],
+ ['AO','Contacts from organic','CRM','N','','Cannot be separated from paid without a tagged link.'],
+ ['AO','Contacts per 1,000 views','Derived','N','','The one number that decides whether content is a channel or a hobby.'],
+ ['AO','JotForms from organic','JotForm + CRM','N','','Needs the source carried through the form.'],
+ ['AO','Devices from organic','Invoices + CRM','N','','Needs the source carried all the way to the invoice.'],
+ ['AO','Revenue from organic','Derived','N','','The end of a chain whose first link does not exist yet.'],
+ ['AO','Average view duration by hook type','Instagram insights','N','','Testimonials beat press mentions on views. Nobody has checked whether they also hold attention.'],
 
-  renderChain(m);
-  renderMroi(m);
+ ['FW','Monthly visits','Third-party estimate / GA4','W','','5.1K desktop in July, estimated from outside. GA4 makes it exact and free.'],
+ ['FW','Landing-page views','GA4','W','','Platform-reported for paid only. No site-side figure exists.'],
+ ['FW','Bounce rate','Third-party estimate / GA4','W','','60.5%. Estimated, desktop only.'],
+ ['FW','Pages per visit','Third-party estimate','W','','1.64. Nobody goes anywhere after the page they land on.'],
+ ['FW','Average time on page','Third-party estimate / GA4','W','','Twenty-six seconds, site-wide.'],
+ ['FW','Page load time','PageSpeed / GA4','N','','Never tested. On a mobile ad click it is the first thing that loses people.'],
+ ['FW','Scroll depth','GA4 event','N','','One event. Tells you whether the argument is ever reached.'],
+ ['FW','Time on the landing page','GA4','N','','Site-wide duration hides the only page that matters.'],
+ ['FW','Form starts','Gravity Forms + GA4','N','formstart','"If somebody doesn\'t fill out the form, we don\'t know anything about it." One event ends that.'],
+ ['FW','Form completion rate','Derived','N','formcomp','Needs starts and submits in the same place.'],
+ ['FW','Form abandonment','Derived','N','','Currently invisible. Likely the largest single loss on the site.'],
+ ['FW','Submits','CRM','M','','Counted. This is where the CRM record begins.'],
+ ['FW','Submit rate','Derived','W','','Implied under 3% by the July read.'],
+ ['FW','Contacts routed onward after submit','Website','M','postsub','Measured at zero. The break point of the whole business.'],
+ ['FW','Education page views','GA4','N','','The page exists and is not instrumented, so nobody can say whether it is ever seen.'],
+ ['FW','JotForm starts','JotForm','N','','JotForm reports this natively. It has never been read.'],
+ ['FW','JotForm completion rate','JotForm','N','jfcomp','Four completions ever, no denominator.'],
+ ['FW','JotForms completed','JotForm','M','','Four. "If you fill out that form, it\'s a sale."'],
+ ['FW','Booked discovery calls','Calendar','N','bookrate','The homepage\'s primary button is "Book a 10-Min Discovery Call" and no booking is counted anywhere.'],
+ ['FW','Show rate','Calendar','N','showrate','No booking log, so no show rate.'],
+ ['FW','Devices from the site','Invoices + CRM','M','','Known in total, not by path.'],
 
-  $('#q-dev').textContent=nf(m.devices,1);
-  $('#q-rev').textContent=money(m.revenue);
-  $('#q-roas').textContent=nf(m.roas,2)+'×';
+ ['FC','Contacts created','ActiveCampaign','M','','334 records.'],
+ ['FC','CRM match rate — site forms landing in the CRM','ActiveCampaign','N','','John said about 400 people had reached out, the CRM held 262. That gap was never reconciled.'],
+ ['FC','Time to first touch','ActiveCampaign','N','','Speed to lead is the highest-leverage sales metric in existence and is not recorded.'],
+ ['FC','Attempts per contact','ActiveCampaign','N','attempts','Outcomes are noted, attempts are not. Without it the connect rate is folklore.'],
+ ['FC','Contacts never attempted','Derived','N','','The model puts it above 300 a month. Nobody counts it, so nobody feels it.'],
+ ['FC','Connect rate','Phone log','M','connect','One in fifteen to one in twenty, from the person doing it.'],
+ ['FC','Conversation rate','Phone log','N','','A connect and a conversation are not the same event and are recorded as one.'],
+ ['FC','Deliverability','ActiveCampaign','N','','A 25% open rate could be a copy problem or an inbox problem. Nobody has checked which.'],
+ ['FC','Open rate','ActiveCampaign','M','','25%.'],
+ ['FC','Click rate','ActiveCampaign','M','','1%. "Not leading to anything."'],
+ ['FC','Reply rate','ActiveCampaign','M','emresp','About one in forty.'],
+ ['FC','Unsubscribe rate','ActiveCampaign','N','','The cost side of sending more. Unwatched.'],
+ ['FC','Sequence completion rate','ActiveCampaign','N','','Nobody knows how far down the drip anybody gets.'],
+ ['FC','Time in stage','ActiveCampaign','N','','There are no stages yet, so there is no time in them.'],
+ ['FC','Stage-to-stage conversion','ActiveCampaign','N','','The seven-stage pipeline is designed and not built.'],
+ ['FC','Reactivation rate','ActiveCampaign','N','','Hundreds of lukewarm contacts and no measured attempt to wake them.'],
+ ['FC','JotForms completed from email','JotForm + CRM','M','em2jf','Measured at zero. Not one JotForm has ever been traced to the drip.'],
+ ['FC','Devices from email','Invoices + CRM','N','','Follows from the row above. Currently zero.'],
 
-  $('#headline').innerHTML =
-   `<b>Where this lands.</b> ${nf(m.contacts,0)} contacts a month produce <b>${nf(m.devices,1)} devices</b> — ${pct(m.c2d,2)} of everyone who raised a hand. Against a target of ${nf(V.goal,0)}, that is <b>${money(m.gap)} of revenue not collected this month</b>, and <b>${money(m.gap*12)} a year</b> if nothing changes. Cost per device is <b>${money0(m.cac)}</b> against a floor unit price of $${nf(V.unit,0)}${m.cac>V.unit?' — <b>every device currently costs more to acquire than the cheapest one sells for</b>':''}.`;
+ ['SP','Qualified conversations','CRM','N','','The unit of work for a salesperson, and it is not a field.'],
+ ['SP','Opportunities created','CRM','N','','No opportunity object exists.'],
+ ['SP','Pipeline value','CRM','N','','Nobody can answer "what is in the pipe" with a number.'],
+ ['SP','Stage-to-stage conversion','CRM','N','','Needs stages first.'],
+ ['SP','Time in stage','CRM','N','','The metric that would have surfaced eighteen parked prescriptions in week one.'],
+ ['SP','Sales cycle length','CRM','N','','Unknown, so forecasting is impossible.'],
+ ['SP','Prescriptions issued','Manual','N','','Counted by hand, in a message, when somebody happens to ask.'],
+ ['SP','Prescriptions parked over 14 days','Manual','M','parked','Eighteen, worth $36,000 at the floor device. The best number on this whole page.'],
+ ['SP','Insurance verification rate','Manual','N','','The step that decides whether the patient pays $0 or $2–7K.'],
+ ['SP','Approval rate','Manual','N','','Never aggregated, so never improved.'],
+ ['SP','JotForms sent','JotForm','N','','Sent versus completed is the parked-prescription problem restated.'],
+ ['SP','JotForms completed','JotForm','M','','Four.'],
+ ['SP','Devices invoiced','Invoices','M','goal','Six all time against a target of twenty a month.'],
+ ['SP','Close rate','Derived','M','','1.8% — six of 334.'],
+ ['SP','Revenue per contact','Derived','N','','Computable the day contacts and invoices live in the same system.'],
+ ['SP','Revenue','Invoices','M','','Known. Roughly fifty delivered units are reportedly still uninvoiced.'],
 
-  $('#bl-val').textContent=money(m.parkedVal);
-  $('#bl-val2').textContent=money(m.untouchedVal);
-
-  const nM=L.filter(l=>l.src==='M').length, nA=L.filter(l=>l.src==='A').length,
-        nW=L.filter(l=>l.src==='W').length;
-  $('#i-m').textContent=nM; $('#i-a').textContent=nA; $('#i-w').textContent=nW;
-  $('#i-m2').textContent=nM; $('#i-a2').textContent=nA; $('#i-w2').textContent=nW;
-  $('#i-t').textContent=L.length;
-
-  renderReadOnce(m);
-
-  recalcCreatives(); recalcContent(); recalcBoard(m);
-  save();
-}
-function rawOut(k,m){
-  return {devices:m.devices,gap:m.gap,revenue:m.revenue,contacts:m.contacts,
-          untouched:m.untouched,jf:m.jf,cac:m.cac,c2d:m.c2d}[k];
-}
-
-/* ===================== SCENARIOS ===================== */
-function applyScenario(name){
-  Object.assign(V,BASE,SCEN[name]||{});
-  L.forEach(l=>syncLever(l.id));
-  $$('#scn button').forEach(b=>b.classList.toggle('on',b.dataset.s===name));
-  update();
-}
-function markScenario(){
-  let hit=null;
-  for(const k in SCEN){
-    const s=Object.assign({},BASE,SCEN[k]);
-    if(L.every(l=>Math.abs(V[l.id]-s[l.id])<1e-9)){hit=k;break;}
-  }
-  $$('#scn button').forEach(b=>b.classList.toggle('on',b.dataset.s===hit));
-}
-
-/* ===================== CREATIVE LEDGER ===================== */
-/* Seeded from the only read of the account — the 30 days to 3 Aug 2026. Spend and impressions are
-   Meta's own cost-per-result arithmetic reversed; the Clicks column carries landing-page views for
-   the three LPV-objective campaigns, because no click column was visible on the screenshot. */
-const CR_SEED=[
- {name:'MS Fatigue — LPV: Contact Us  (Jul window)',angle:'symptom',persona:'ms_patient',fmt:'lpv',
-  spend:1614,impr:143651,clicks:8495,sub:0,dev:0},
- {name:'Boosted post — "Can UV light reduce MS fatigue?"',angle:'research',persona:'ms_patient',fmt:'post',
-  spend:102,impr:67297,clicks:283,sub:0,dev:0},
- {name:'Psoriasis — Banner Ads  (Jul window)',angle:'authority',persona:'psoriasis_adult',fmt:'image',
-  spend:75,impr:4960,clicks:250,sub:0,dev:0},
- {name:'Light Therapy for Psoriasis  (Jul window)',angle:'condition',persona:'psoriasis_adult',fmt:'image',
-  spend:236,impr:20954,clicks:462,sub:0,dev:0},
- {name:'Trusted by Dermatologists for 40+ Years  (live 17 Aug)',angle:'authority',persona:'psoriasis_adult',fmt:'image',
-  spend:0,impr:0,clicks:0,sub:0,dev:0},
- {name:'MS Fatigue. New Research.  (live 17 Aug)',angle:'research',persona:'ms_patient',fmt:'video',
-  spend:0,impr:0,clicks:0,sub:0,dev:0}
+ ['SF','Dials per day','Phone log','N','dials','Assumed at forty. Not logged.'],
+ ['SF','Attempts per contact','Phone log','N','attempts','Not logged, which is why the ceiling is a guess.'],
+ ['SF','Contacts never attempted','Derived','N','','Above 300 a month in the model. Zero visibility.'],
+ ['SF','Connect rate','Phone log','M','connect','One in fifteen to twenty. Four sources disagree by 9.2×.'],
+ ['SF','Conversation rate','Phone log','N','','Not separated from a connect.'],
+ ['SF','Qualification rate','Phone log','N','','Whether the person is even indicated is decided on the call and not recorded.'],
+ ['SF','Average call length','Phone log','N','','Separates a real conversation from a brush-off.'],
+ ['SF','Voicemail rate','Phone log','N','','Would say instantly whether the calling window is wrong.'],
+ ['SF','Callback rate','Phone log','N','','Nobody knows if leaving a voicemail is worth the seconds.'],
+ ['SF','Best time to call','Phone log','N','','One timestamp column, sorted. The cheapest improvement on this list.'],
+ ['SF','Objection type','Call log dropdown','N','','One dropdown. It is the cheapest market research in the business — "it sounds like a scam" came from here by accident.'],
+ ['SF','Follow-ups per contact','Phone log','N','','Three attempts is policy nowhere and habit everywhere.'],
+ ['SF','No-show rate','Calendar','N','showrate','No bookings are logged, so no no-shows are either.'],
+ ['SF','Script version','Call log','N','','Nothing is A/B tested because nothing is versioned.'],
+ ['SF','Conversation → JotForm rate','Phone log + JotForm','N','conn2jf','The single step between a good call and a sale, and it is unmeasured.'],
+ ['SF','JotForms completed','JotForm','M','','Four, and the phone is the only route that has ever produced one.']
 ];
-let CR=CR_SEED.map(r=>Object.assign({},r));
-const CRC=[['name','txt','Creative'],['angle','txt','Angle'],['persona','txt','Persona'],['fmt','txt','Format'],
-           ['spend','nn'],['impr','nn'],['clicks','nn'],['sub','nn'],['dev','nn']];
-function renderCreatives(){
-  $('#crbody').innerHTML=CR.map((r,i)=>
-    `<tr data-i="${i}">
-      ${CRC.map(([k,c])=>`<td><input class="${c}" data-k="${k}" ${c==='nn'?'type="number"':''} value="${r[k]}"></td>`).join('')}
-      <td class="n" data-o="cpm"></td><td class="n" data-o="ctr"></td><td class="n" data-o="cpc"></td>
-      <td class="n" data-o="cps"></td><td class="n" data-o="cpd"></td>
-      <td data-o="vd"></td>
-      <td><button class="xbtn" data-del="${i}">✕</button></td>
-    </tr>`).join('') + `<tr class="tot" id="crtot"></tr>`;
+let REGF='all';
+function renderRegister(){
+  const rows = REG.filter(r=>REGF==='all'||r[0]===REGF);
+  $('#regbody').innerHTML = rows.map((r,i)=>`<tr>
+    <td class="n" style="color:var(--faint);font-family:var(--mono);font-size:11px">${i+1}</td>
+    <td>${r[1]}</td>
+    <td style="color:var(--ink-sec)">${FAM[r[0]]}</td>
+    <td style="color:var(--ink-sec)">${r[2]}</td>
+    <td><span class="src ${r[3].toLowerCase()}" title="${SRCNAME[r[3]]}">${r[3]}</span></td>
+    <td style="color:var(--faint);font-family:var(--mono);font-size:11.5px">${r[4]?r[4]:'—'}</td>
+    <td class="wrap2">${r[5]}</td>
+  </tr>`).join('');
+  const cnt=s=>REG.filter(r=>r[3]===s).length;
+  $('#reg-m').textContent=cnt('M'); $('#reg-w').textContent=cnt('W'); $('#reg-n').textContent=cnt('N');
+  $('#regtag').innerHTML=`${REG.length} metrics &middot; six families &middot; ${REG.filter(r=>r[4]).length} of them are live levers in section 03`;
+  $('#reghint').innerHTML=`Showing <b>${rows.length}</b> of ${REG.length}. `+
+    `${cnt('M')} measured &middot; ${cnt('W')} read once &middot; ${cnt('N')} not tracked at all.`;
+}
 
+/* ============================================================
+   08 — CREATIVE SCOREBOARD (seeded from the real ad library)
+   ============================================================ */
+const CR_SEED=[
+ {name:'MS Fatigue — LP views',                 angle:'Symptom relief',  persona:'MS patient',      fmt:'Video', dest:'/light-therapy-for-ms-fatigue-contact-us/', state:'ended 8 Aug', impr:143651, lpv:8495, sub:0, dev:0},
+ {name:'Boosted post — "Can UV light reduce MS fatigue?"', angle:'Research', persona:'MS patient',  fmt:'Post',  dest:'/light-therapy-for-ms-fatigue-contact-us/', state:'ended 8 Aug', impr:67297,  lpv:283,  sub:0, dev:0},
+ {name:'Psoriasis — banner ads',                angle:'Condition',       persona:'Psoriasis adult', fmt:'Image', dest:'/a-trusted-psoriasis-treatment-for-over-40-years/', state:'ended 8 Aug', impr:4960, lpv:250, sub:0, dev:0},
+ {name:'Light therapy for psoriasis',           angle:'Condition',       persona:'Psoriasis adult', fmt:'Image', dest:'/a-trusted-psoriasis-treatment-for-over-40-years/', state:'ended 8 Aug', impr:20954, lpv:462, sub:0, dev:0},
+ {name:'"Trusted by Dermatologists for 40+ Years" ×5', angle:'Authority', persona:'Psoriasis adult',fmt:'Image', dest:'/a-trusted-psoriasis-treatment… NO UTM', state:'live 11 Aug', impr:0, lpv:0, sub:0, dev:0},
+ {name:'"MS Fatigue. New Research." ×2',        angle:'Research',        persona:'MS patient',      fmt:'Video', dest:'/…ms-fatigue-contact-us/ · 3 UTM variants', state:'live 11 Aug', impr:0, lpv:0, sub:0, dev:0},
+ {name:'Ads pointing at fb.me ×2',              angle:'None',            persona:'Undefined',       fmt:'Image', dest:'fb.me → resolves to nothing', state:'ended 8 Aug', impr:0, lpv:0, sub:0, dev:0}
+];
+const CRC=[
+ {k:'name',   t:'Creative',    c:'txt'},
+ {k:'angle',  t:'Angle',       c:'txt'},
+ {k:'persona',t:'Persona',     c:'txt'},
+ {k:'fmt',    t:'Format',      c:'txt'},
+ {k:'dest',   t:'Destination', c:'txt'},
+ {k:'state',  t:'State',       c:'txt'},
+ {k:'impr',   t:'Impressions', c:'nn'},
+ {k:'lpv',    t:'LP views',    c:'nn'},
+ {k:'sub',    t:'Submits',     c:'nn'},
+ {k:'dev',    t:'Devices',     c:'nn'}
+];
+let CR=JSON.parse(JSON.stringify(CR_SEED));
+
+function renderCreatives(){
+  $('#crhead').innerHTML = CRC.map(c=>`<th class="${c.c==='nn'?'n':''}">${c.t}</th>`).join('')+
+    `<th class="n">LPV / 1K impr</th><th class="n">Submit rate</th><th>Verdict</th><th></th>`;
+  $('#crbody').innerHTML = CR.map((r,i)=>{
+    const per = r.impr>0 ? r.lpv/r.impr*1000 : null;
+    const sr  = r.lpv>0  ? r.sub/r.lpv*100   : null;
+    return `<tr>${CRC.map(c=>`<td class="${c.c==='nn'?'n':''}"><input class="${c.c}" data-cr="${i}" data-k="${c.k}" value="${esc(r[c.k])}"></td>`).join('')}
+      <td class="n num">${per===null?'—':n1(per)}</td>
+      <td class="n num">${sr===null?'—':n2(sr)+'%'}</td>
+      <td id="crv-${i}"></td>
+      <td><button class="xbtn" data-crx="${i}">&times;</button></td></tr>`;
+  }).join('');
   $$('#crbody input').forEach(inp=>inp.addEventListener('input',e=>{
-    const i=+e.target.closest('tr').dataset.i, k=e.target.dataset.k;
-    CR[i][k]= e.target.classList.contains('nn') ? (parseFloat(e.target.value)||0) : e.target.value;
+    const i=+e.target.dataset.cr, k=e.target.dataset.k;
+    CR[i][k] = CRC.find(c=>c.k===k).c==='nn' ? (parseFloat(e.target.value)||0) : e.target.value;
     recalcCreatives(); save();
   }));
-  $$('#crbody [data-del]').forEach(b=>b.addEventListener('click',e=>{
-    CR.splice(+e.target.dataset.del,1); renderCreatives(); recalcCreatives(); save();
+  $$('#crbody [data-crx]').forEach(b=>b.addEventListener('click',e=>{
+    CR.splice(+e.target.dataset.crx,1); renderCreatives(); save();
   }));
   recalcCreatives();
 }
 function recalcCreatives(){
-  const tgt=parseFloat($('#tgt-cps').value)||14;
-  let T={spend:0,impr:0,clicks:0,sub:0,dev:0};
+  const tgt=parseFloat($('#tgt-sr').value)||5;
+  let noSub=0, imprNoSub=0, unreported=0;
   CR.forEach((r,i)=>{
-    const tr=$(`#crbody tr[data-i="${i}"]`); if(!tr)return;
-    const cpm=r.impr>0?r.spend/r.impr*1000:0, ctr=r.impr>0?r.clicks/r.impr:0,
-          cpc=r.clicks>0?r.spend/r.clicks:0, cps=r.sub>0?r.spend/r.sub:0, cpd=r.dev>0?r.spend/r.dev:0;
-    $('[data-o=cpm]',tr).textContent=r.impr>0?money0(cpm):'—';
-    $('[data-o=ctr]',tr).textContent=r.impr>0?pct(ctr,2):'—';
-    $('[data-o=cpc]',tr).textContent=r.clicks>0?money0(cpc):'—';
-    $('[data-o=cps]',tr).textContent=r.sub>0?money0(cps):'—';
-    $('[data-o=cpd]',tr).textContent=r.dev>0?money0(cpd):'—';
-    let v='na',t='no data';
-    if(r.spend>0&&r.sub>0){
-      if(cps<tgt*0.75){v='scale';t='scale';}
-      else if(cps>tgt*1.6||ctr<0.006){v='kill';t='kill';}
-      else {v='hold';t='hold';}
-    } else if(r.spend>0&&r.impr>0&&r.sub===0){ v='kill'; t='kill · no submits'; }
-    $('[data-o=vd]',tr).innerHTML=`<span class="vd ${v}">${t}</span>`;
-    ['spend','impr','clicks','sub','dev'].forEach(k=>T[k]+=r[k]);
+    const cell=$('#crv-'+i); if(!cell) return;
+    let cls='na', txt='no data yet';
+    if(r.impr<1000){ cls='na'; txt=r.impr===0?'nothing reported':'too little volume'; if(r.impr===0) unreported++; }
+    else if(r.sub===0){ cls='kill'; txt='kill · no submits'; noSub++; imprNoSub+=r.impr; }
+    else {
+      const sr=r.lpv>0?r.sub/r.lpv*100:0;
+      if(sr>=tgt){cls='scale';txt='scale · '+n1(sr)+'% submit';}
+      else if(sr>=tgt*0.6){cls='hold';txt='hold · '+n1(sr)+'% submit';}
+      else {cls='kill';txt='kill · '+n1(sr)+'% submit';}
+    }
+    cell.innerHTML=`<span class="vd ${cls}">${txt}</span>`;
   });
-  const cps=T.sub>0?T.spend/T.sub:0, ctr=T.impr>0?T.clicks/T.impr:0;
-  const tot=$('#crtot'); if(tot) tot.innerHTML=
-   `<td colspan="4">All creatives</td>
-    <td class="n">${money0(T.spend)}</td><td class="n">${nf(T.impr,0)}</td><td class="n">${nf(T.clicks,0)}</td>
-    <td class="n">${nf(T.sub,0)}</td><td class="n">${nf(T.dev,0)}</td>
-    <td class="n">${T.impr>0?money0(T.spend/T.impr*1000):'—'}</td><td class="n">${T.impr>0?pct(ctr,2):'—'}</td>
-    <td class="n">${T.clicks>0?money0(T.spend/T.clicks):'—'}</td><td class="n">${T.sub>0?money0(cps):'—'}</td>
-    <td class="n">${T.dev>0?money0(T.spend/T.dev):'—'}</td><td colspan="2"></td>`;
+  $('#crnote').innerHTML = `<b>Every campaign with real volume in it returns the same verdict, and that is the finding.</b>
+    ${noSub} of the ${CR.length} rows carry <b>${n0(imprNoSub)} impressions between them and not one form submission that can be traced back to any of them</b>.
+    ${unreported} rows have no numbers at all, because the ads live today have never been reported on.
+    This table is not saying the creative is bad — it is saying <b>the account has never been able to connect a creative to a sale</b>,
+    and until submits and devices carry a source, no amount of new creative can be judged.`;
 }
 
-/* ===================== CONTENT LEDGER ===================== */
-let CO=[
- {name:'Podcast cut-downs (25 pieces)',hook:'authority',fmt:'short video',ch:'IG + FB',views:0,eng:0,clicks:0,con:0},
- {name:'Reels — first 15',hook:'mixed',fmt:'reel',ch:'IG + FB',views:0,eng:0,clicks:0,con:0}
+/* ============================================================
+   09 — CONTENT SCOREBOARD (all 18 real organic posts)
+   ============================================================ */
+const CO_SEED=[
+ {name:'"So, Kathy, I\'m going to ask you the question…" — fatigue score 3 → 1', kind:'Testimonial', fmt:'Video', date:'2026-04-15', views:324, eng:0, clicks:0, contacts:0},
+ {name:'"It\'s narrowband UVB phototherapy, and we\'re taking it from dermatology into autoimmune disease"', kind:'Explainer', fmt:'Video', date:'2026-04-22', views:294, eng:0, clicks:0, contacts:0},
+ {name:'"My whole demeanor had changed and my energy level was higher"', kind:'Testimonial', fmt:'Video', date:'2026-05-02', views:248, eng:0, clicks:0, contacts:0},
+ {name:'"You don\'t want to burn" — How to use the light, 3 steps', kind:'How-to', fmt:'Video', date:'2026-03-30', views:219, eng:0, clicks:0, contacts:0},
+ {name:'"What makes UV light special?"', kind:'Explainer', fmt:'Video', date:'2026-05-18', views:186, eng:0, clicks:0, contacts:0},
+ {name:'"It\'s really cool to hear there\'s this new type of therapy… fatigue" (original)', kind:'Testimonial', fmt:'Video', date:'2026-06-11', views:173, eng:0, clicks:0, contacts:0},
+ {name:'"You don\'t want to burn" — at-home NB-UVB, re-cut', kind:'How-to', fmt:'Video', date:'2026-08-06', views:167, eng:0, clicks:0, contacts:0},
+ {name:'"It\'s really cool to hear…" — SAME FILE re-posted', kind:'Testimonial', fmt:'Video', date:'2026-08-05', views:151, eng:0, clicks:0, contacts:0},
+ {name:'Richard Weller / Karolinska — sun exposure research', kind:'Authority', fmt:'Video', date:'2025-12-10', views:150, eng:0, clicks:0, contacts:0},
+ {name:'"And the data shows that you absorb the sunlight"', kind:'Explainer', fmt:'Video', date:'2026-08-06', views:107, eng:0, clicks:0, contacts:0},
+ {name:'Ryan Roy testimonial — Rare Disease Advisor', kind:'Press', fmt:'Image', date:'2026-07-22', views:0, eng:4, clicks:0, contacts:0},
+ {name:'Featured in Life Science Daily', kind:'Press', fmt:'Image', date:'2026-07-02', views:0, eng:4, clicks:0, contacts:0},
+ {name:'Fatigue Severity Scale — free assessment tool', kind:'Tool', fmt:'Carousel', date:'2026-05-04', views:0, eng:4, clicks:0, contacts:0},
+ {name:'Icotyde / J&J news + "book a 10-minute discovery call"', kind:'Press', fmt:'Image', date:'2026-04-17', views:0, eng:3, clicks:0, contacts:0},
+ {name:'Octave collaboration + published study', kind:'Press', fmt:'Image', date:'2025-10-28', views:0, eng:3, clicks:0, contacts:0},
+ {name:'PhoCIS trial blog post', kind:'Science', fmt:'Image', date:'2026-04-24', views:0, eng:1, clicks:0, contacts:0},
+ {name:'Seniority Authority podcast appearance', kind:'Press', fmt:'Image', date:'2025-09-10', views:0, eng:1, clicks:0, contacts:0},
+ {name:'The Economist article link', kind:'Press', fmt:'Image', date:'2025-09-18', views:0, eng:0, clicks:0, contacts:0}
 ];
-const COC=[['name','txt'],['hook','txt'],['fmt','txt'],['ch','txt'],['views','nn'],['eng','nn'],['clicks','nn'],['con','nn']];
-function renderContent(){
-  $('#cobody').innerHTML=CO.map((r,i)=>
-    `<tr data-i="${i}">
-      ${COC.map(([k,c])=>`<td><input class="${c}" data-k="${k}" ${c==='nn'?'type="number"':''} value="${r[k]}"></td>`).join('')}
-      <td class="n" data-o="er"></td><td class="n" data-o="cr"></td><td class="n" data-o="cpk"></td>
-      <td data-o="vd"></td>
-      <td><button class="xbtn" data-del="${i}">✕</button></td>
-    </tr>`).join('') + `<tr class="tot" id="cotot"></tr>`;
+const COC=[
+ {k:'name', t:'Post',        c:'txt'},
+ {k:'kind', t:'Hook type',   c:'txt'},
+ {k:'fmt',  t:'Format',      c:'txt'},
+ {k:'date', t:'Published',   c:'txt'},
+ {k:'views',t:'Views',       c:'nn'},
+ {k:'eng',  t:'Likes',       c:'nn'},
+ {k:'clicks',t:'Link clicks',c:'nn'},
+ {k:'contacts',t:'Contacts', c:'nn'}
+];
+let CO=JSON.parse(JSON.stringify(CO_SEED));
 
+function renderContent(){
+  $('#cohead').innerHTML = COC.map(c=>`<th class="${c.c==='nn'?'n':''}">${c.t}</th>`).join('')+
+    `<th class="n">vs average</th><th>Verdict</th><th></th>`;
+  $('#cobody').innerHTML = CO.map((r,i)=>
+    `<tr>${COC.map(c=>`<td class="${c.c==='nn'?'n':''}"><input class="${c.c}" data-co="${i}" data-k="${c.k}" value="${esc(r[c.k])}"></td>`).join('')}
+      <td class="n num" id="coi-${i}"></td>
+      <td id="cov-${i}"></td>
+      <td><button class="xbtn" data-cox="${i}">&times;</button></td></tr>`).join('')+
+    `<tr class="tot"><td>18 posts &middot; 331 days</td><td>&mdash;</td><td>10 video &middot; 8 still</td><td>&mdash;</td>
+      <td class="n num" id="co-tv"></td><td class="n num" id="co-te"></td>
+      <td class="n num" id="co-tc"></td><td class="n num" id="co-tk"></td>
+      <td class="n">&mdash;</td><td>&mdash;</td><td></td></tr>`;
   $$('#cobody input').forEach(inp=>inp.addEventListener('input',e=>{
-    const i=+e.target.closest('tr').dataset.i, k=e.target.dataset.k;
-    CO[i][k]= e.target.classList.contains('nn') ? (parseFloat(e.target.value)||0) : e.target.value;
+    const i=+e.target.dataset.co, k=e.target.dataset.k;
+    CO[i][k] = COC.find(c=>c.k===k).c==='nn' ? (parseFloat(e.target.value)||0) : e.target.value;
     recalcContent(); save();
   }));
-  $$('#cobody [data-del]').forEach(b=>b.addEventListener('click',e=>{
-    CO.splice(+e.target.dataset.del,1); renderContent(); recalcContent(); save();
+  $$('#cobody [data-cox]').forEach(b=>b.addEventListener('click',e=>{
+    CO.splice(+e.target.dataset.cox,1); renderContent(); save();
   }));
   recalcContent();
 }
 function recalcContent(){
-  const tgt=parseFloat($('#tgt-cpk').value)||2;
-  let T={views:0,eng:0,clicks:0,con:0};
+  const bench=parseFloat($('#tgt-views').value)||202;
+  let tv=0,te=0,tc=0,tk=0,vids=0,stills=0,best=0;
   CO.forEach((r,i)=>{
-    const tr=$(`#cobody tr[data-i="${i}"]`); if(!tr)return;
-    const er=r.views>0?r.eng/r.views:0, cr=r.views>0?r.clicks/r.views:0, cpk=r.views>0?r.con/r.views*1000:0;
-    $('[data-o=er]',tr).textContent=r.views>0?pct(er,2):'—';
-    $('[data-o=cr]',tr).textContent=r.views>0?pct(cr,2):'—';
-    $('[data-o=cpk]',tr).textContent=r.views>0?nf(cpk,2):'—';
-    let v='na',t='no data';
-    if(r.views>=1000){
-      if(cpk>=tgt){v='scale';t='repeat';}
-      else if(cpk<tgt*0.25){v='kill';t='kill';}
-      else {v='hold';t='hold';}
+    tv+=r.views; te+=r.eng; tc+=r.clicks; tk+=r.contacts;
+    if(r.views>0){vids++; if(r.views>best)best=r.views;} else stills++;
+    const idx=$('#coi-'+i), cell=$('#cov-'+i); if(!cell) return;
+    if(r.views>=100){
+      const ratio=r.views/bench;
+      idx.textContent=n2(ratio)+'×';
+      let cls='hold', txt='hold';
+      if(ratio>=1.25){cls='scale';txt='scale · '+n0(r.views)+' views';}
+      else if(ratio>=0.75){cls='hold';txt='hold · '+n0(r.views)+' views';}
+      else {cls='kill';txt='below average · '+n0(r.views)+' views';}
+      cell.innerHTML=`<span class="vd ${cls}">${txt}</span>`;
+    } else if(r.eng>0){
+      idx.textContent='—';
+      cell.innerHTML=`<span class="vd na">still — no view count</span>`;
+    } else {
+      idx.textContent='—';
+      cell.innerHTML=`<span class="vd kill">zero engagement</span>`;
     }
-    $('[data-o=vd]',tr).innerHTML=`<span class="vd ${v}">${t}</span>`;
-    ['views','eng','clicks','con'].forEach(k=>T[k]+=r[k]);
   });
-  const tot=$('#cotot'); if(tot) tot.innerHTML=
-   `<td colspan="4">All content</td>
-    <td class="n">${nf(T.views,0)}</td><td class="n">${nf(T.eng,0)}</td><td class="n">${nf(T.clicks,0)}</td><td class="n">${nf(T.con,0)}</td>
-    <td class="n">${T.views>0?pct(T.eng/T.views,2):'—'}</td><td class="n">${T.views>0?pct(T.clicks/T.views,2):'—'}</td>
-    <td class="n">${T.views>0?nf(T.con/T.views*1000,2):'—'}</td><td colspan="2"></td>`;
+  const set=(id,val)=>{const e=$(id); if(e) e.textContent=val;};
+  set('#co-tv',n0(tv)); set('#co-te',n0(te)); set('#co-tc',n0(tc)); set('#co-tk',n0(tk));
+  $('#conote').innerHTML = `<b>Eleven months of publishing, ${n0(tv)} total video views, ${n0(tk)} contacts and ${n0(tc)} attributed clicks.</b>
+    The ceiling is <b>${n0(best)} views</b> — no post has ever reached a thousand.
+    Eight of the ${CO.length} are stills that report likes and nothing else, averaging ${n1(te/Math.max(1,stills))} likes each on 243 followers.
+    Not one post carries a link tag, so the two right-hand columns are <b>structurally zero rather than genuinely zero</b>:
+    organic could be producing contacts today and nobody would be able to see them.`;
 }
 
-/* ===================== MONDAY BOARD ===================== */
-let MB=[
- {m:'Contacts captured',                    t:150, a:null, act:'Check spend actually delivered, then check the form did not break. Both have happened before.'},
- {m:'Cost per contact ($)',                 t:14,  a:null, inv:1, act:'Pause the two worst creatives in the ledger and shift the budget to the best cost-per-submit row.'},
- {m:'Contacts routed onward after submit (%)',t:60, a:null, act:'The post-submit page is down or unrouted. This is the highest-value red on the board — fix it before anything else.'},
- {m:'JotForms completed',                   t:20,  a:null, act:'Read the last ten completions for the drop-off step, then shorten the form to that step.'},
- {m:'Contacts never attempted (%)',         t:10,  a:null, inv:1, act:'Capacity is exceeded. Automate the first touch — do not add dials, the arithmetic does not close.'},
- {m:'Share of spend on dermatology (%)',    t:85,  a:null, act:'Spend has drifted back to the segment with no FDA indication — it was 15% in the one month ever read. Re-weight the campaign the same day.'},
- {m:'Sales uploaded back to Meta (%)',      t:100, a:null, act:'Zero have ever been uploaded, so the platform has optimised toward form-fillers for the life of the account. Push the offline conversions this week — it is a one-time setup, not a project.'},
- {m:'Devices invoiced',                     t:20,  a:null, act:'Work the parked prescriptions before buying a single new contact — that revenue is already paid for.'},
- {m:'Prescriptions parked over 14 days',    t:0,   a:null, inv:1, act:'Call the prescribing doctor directly. Do not wait on the patient to chase their own physician.'}
+/* ============================================================
+   10 — BACKLOG
+   ============================================================ */
+function renderBacklog(m){
+  $('#bl-parked').textContent=m0(m.parkedVal);
+  $('#bl-parkedsub').innerHTML=`<b>${n0(V.parked)} prescriptions</b> are sitting written and unfilled, and
+    ${n0(V.recover)}% of them are assumed recoverable. At the floor device the full eighteen are worth
+    <b>${m0(V.parked*V.unit)}</b>. Nobody has worked the list, which is why the recovery rate is amber and not green.
+    This needs no ads, no creative and no new traffic — only a phone and an afternoon.`;
+  $('#bl-untouched').textContent=n0(m.untouched);
+  $('#bl-untouchedsub').innerHTML=`People who raised their hand this month and will never be spoken to,
+    because capacity is <b>${n0(m.capacity)}</b> and <b>${n0(m.remaining)}</b> are waiting.
+    Worked at today's connect and conversion rates they are worth <b>${m0(m.untouchedVal)}</b> a month.
+    The rate is the constraint, not the list.`;
+}
+
+/* The same four levers repeated inside section 10 so the trade-off can be worked without
+   scrolling. Built ONCE, with its own id prefix — duplicating id="r-parked" into the DOM and
+   re-rendering it on every input would both be invalid and cancel a slider drag mid-gesture. */
+const BL_IDS=['parked','recover','conn2jf','attempts'];
+function renderBacklogLevers(){
+  $('#blbacklog').innerHTML=`<div class="lgrid"><div class="lgroup" style="grid-column:span 3">
+    <div class="lgt">The four levers that decide how much of it comes back</div>
+    <div class="lgs">Repeated here so the trade-off can be worked without scrolling. Moving them moves the whole model.</div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 26px">
+    ${BL_IDS.map(id=>{
+      const l=L.find(x=>x.id===id);
+      return `<div class="lever" style="border-top:none">
+        <div class="lhead">
+          <span class="lname">${l.n}</span>
+          <span class="src ${l.src.toLowerCase()}" title="${SRCNAME[l.src]}">${l.src}</span>
+          <span class="lval" id="vb-${id}">${fmtL(l,V[id])}</span>
+        </div>
+        <input type="range" id="rb-${id}" min="${l.min}" max="${l.max}" step="${l.step}" value="${V[id]}">
+      </div>`;
+    }).join('')}
+    </div></div></div>`;
+  BL_IDS.forEach(id=>{
+    $('#rb-'+id).addEventListener('input',e=>{
+      V[id]=parseFloat(e.target.value);
+      const r=$('#r-'+id); if(r) r.value=V[id];
+      update(); save();
+    });
+  });
+}
+
+/* ============================================================
+   11 — MONDAY BOARD
+   ============================================================ */
+const MB=[
+ {n:'Contacts routed onward after submit', a:0,    t:4,   dir:'up',   u:'%',   act:'Ship the dynamic qualification form that is already built. It exists and has never been switched on \u2014 this is the fastest point on the board.'},
+ {n:'JotForms completed this week',        a:0,    t:3,   dir:'up',   u:'',    act:'Every routed contact gets the form inside the same session, not a week later by email. Four have been completed in the product\'s life.'},
+ {n:'Prescriptions parked over 14 days',   a:18,   t:0,   dir:'down', u:'',    act:'Phone all eighteen this week. $36,000 at the floor device, already earned, sitting still.'},
+ {n:'Share of live ads pointed at derm',   a:71,   t:90,  dir:'up',   u:'%',   act:'MS took 92% of every landing-page view in the month that was read, and has never produced a sale. Re-aim the same ads; this is not a budget decision.'},
+ {n:'Live ads carrying a UTM',             a:null, t:100, dir:'up',   u:'%',   act:'The five derm ads live right now carry none. Until they do, no sale can ever be traced to a creative.'},
+ {n:'Sales uploaded back to Meta',         a:0,    t:100, dir:'up',   u:'%',   act:'Zero, ever. The platform has been optimising toward form-fillers for the life of the account without once being told who actually bought.'},
+ {n:'Contacts never attempted',            a:null, t:0,   dir:'down', u:'',    act:'Nobody counts this. The model puts it above three hundred a month. One saved CRM view ends the blindness.'},
+ {n:'Attempts logged per contact',         a:null, t:4,   dir:'up',   u:'',    act:'Log the attempt, not just the outcome. Without it the connect rate is folklore and the ceiling is a guess.'},
+ {n:'Booked discovery calls',              a:null, t:8,   dir:'up',   u:'',    act:'It is the homepage\'s primary button and it is counted nowhere.'},
+ {n:'Posts published',                     a:1.6,  t:8,   dir:'up',   u:'/mo', act:'Eighteen posts in 331 days, two of them the same video twice, and both reposts did worse than the original. Best post ever: 324 views.'},
+ {n:'Organic posts carrying a link tag',   a:0,    t:100, dir:'up',   u:'%',   act:'Zero organic clicks have ever been attributed. This is the cheapest fix on the entire board.'}
 ];
 function renderBoard(){
-  $('#mbbody').innerHTML=MB.map((r,i)=>
-    `<tr data-i="${i}">
-      <td>${r.m}</td>
-      <td class="n"><input class="nn" data-k="t" type="number" value="${r.t}"></td>
-      <td class="n"><input class="nn" data-k="a" type="number" value="${r.a===null?'':r.a}" placeholder="—"></td>
-      <td data-o="st"></td>
-      <td class="act">${r.act}</td>
-    </tr>`).join('');
-  $$('#mbbody input').forEach(inp=>inp.addEventListener('input',e=>{
-    const i=+e.target.closest('tr').dataset.i;
-    const raw=e.target.value.trim();
-    MB[i][e.target.dataset.k] = (raw==='' && e.target.dataset.k==='a') ? null : (parseFloat(raw)||0);
-    recalcBoard(model(V)); save();
+  $('#mbody').innerHTML = MB.map((r,i)=>`<tr>
+    <td>${r.n}</td>
+    <td class="n"><input class="nn" data-mb="${i}" value="${r.a===null?'':r.a}" placeholder="—"></td>
+    <td class="n num">${n1(r.t)}${r.u}</td>
+    <td id="mst-${i}"></td>
+    <td class="act">${r.act}</td></tr>`).join('');
+  $$('#mbody input').forEach(inp=>inp.addEventListener('input',e=>{
+    const i=+e.target.dataset.mb, s=e.target.value.trim();
+    MB[i].a = s===''?null:(parseFloat(s)||0); recalcBoard(); save();
   }));
+  recalcBoard();
 }
-function recalcBoard(m){
+function recalcBoard(){
   MB.forEach((r,i)=>{
-    const tr=$(`#mbbody tr[data-i="${i}"]`); if(!tr)return;
-    let s,t;
-    const ratio = r.t===0 ? (r.a===0?1:0) : (r.inv ? r.t/Math.max(r.a,1e-9) : r.a/r.t);
-    /* Blank is never a pass. Inferring it from a===0 silently scored the one row whose
-       target is 0 as green before anybody had entered anything. */
-    if(r.a===null){ s='r'; t='not entered'; }
-    else if(ratio>=1){ s='g'; t='on target'; }
-    else if(ratio>=0.6){ s='a'; t='below target'; }
-    else { s='r'; t='red — act'; }
-    $('[data-o=st]',tr).innerHTML=`<span class="status ${s}">${t}</span>`;
+    const cell=$('#mst-'+i); if(!cell) return;
+    if(r.a===null){ cell.innerHTML='<span class="status r">not measured</span>'; return; }
+    const hit = r.dir==='up' ? r.a>=r.t : r.a<=r.t;
+    const close = r.dir==='up' ? r.a>=r.t*0.6 : r.a<=r.t+2;
+    cell.innerHTML=`<span class="status ${hit?'g':close?'a':'r'}">${hit?'on target':close?'behind':'off target'}</span>`;
   });
 }
 
-/* ===================== BACKLOG LEVERS ===================== */
-function renderBacklog(){
-  $('#bl-l1').outerHTML=leverHTML(L.find(l=>l.id==='parked'));
-  $('#bl-l2').outerHTML=leverHTML(L.find(l=>l.id==='recover'));
-  $('#bl-l3').outerHTML=leverHTML(L.find(l=>l.id==='conn2jf'));
-}
-
-/* ===================== PERSISTENCE ===================== */
+/* ============================================================
+   PERSISTENCE + BOOT
+   ============================================================ */
 function save(){
-  try{ localStorage.setItem(KEY, JSON.stringify({V,CR,CO,MB,
-    tgt:{cps:$('#tgt-cps').value, cpk:$('#tgt-cpk').value}})); }catch(e){}
+  try{ localStorage.setItem(KEY,JSON.stringify({V,CR,CO,MB:MB.map(r=>r.a),SC,
+    tgtSr:$('#tgt-sr').value, tgtViews:$('#tgt-views').value})); }catch(e){}
 }
 function load(){
   try{
-    const d=JSON.parse(localStorage.getItem(KEY)||'null'); if(!d)return;
-    if(d.V) Object.assign(V,d.V);
-    if(Array.isArray(d.CR)&&d.CR.length) CR=d.CR;
-    if(Array.isArray(d.CO)&&d.CO.length) CO=d.CO;
-    if(Array.isArray(d.MB)&&d.MB.length===MB.length) MB=d.MB;
-    if(d.tgt){ $('#tgt-cps').value=d.tgt.cps; $('#tgt-cpk').value=d.tgt.cpk; }
+    const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(!s) return;
+    if(s.V) Object.keys(BASE).forEach(k=>{ if(typeof s.V[k]==='number') V[k]=s.V[k]; });
+    if(Array.isArray(s.CR)&&s.CR.length) CR=s.CR;
+    if(Array.isArray(s.CO)&&s.CO.length) CO=s.CO;
+    if(Array.isArray(s.MB)) s.MB.forEach((a,i)=>{ if(MB[i]) MB[i].a=a; });
+    if(s.SC) SC=s.SC;
+    if(s.tgtSr) $('#tgt-sr').value=s.tgtSr;
+    if(s.tgtViews) $('#tgt-views').value=s.tgtViews;
   }catch(e){}
 }
 
-/* ===================== BOOT ===================== */
+function update(){
+  const m=model(V);
+  L.forEach(l=>{
+    const moved = Math.abs(V[l.id]-BASE[l.id])>1e-9;
+    ['#v-','#vb-'].forEach(p=>{
+      const s=$(p+l.id); if(!s) return;
+      s.textContent=fmtL(l,V[l.id]);
+      s.classList.toggle('moved', moved);
+    });
+    const rb=$('#rb-'+l.id); if(rb && +rb.value!==V[l.id]) rb.value=V[l.id];
+  });
+  renderOuts(m); renderChain(m); renderMroi(m); renderBacklog(m);
+  const cnt=s=>L.filter(l=>l.src===s).length;
+  $('#i-m').innerHTML=cnt('M')+'<small>measured</small>';
+  $('#i-w').innerHTML=cnt('W')+'<small>read once</small>';
+  $('#i-a').innerHTML=cnt('A')+'<small>assumed</small>';
+  $('#i-n').innerHTML=cnt('N')+'<small>not tracked</small>';
+  $('#i-m2').textContent=cnt('M'); $('#i-w2').textContent=cnt('W');
+  $('#i-a2').textContent=cnt('A'); $('#i-t').textContent=L.length;
+  $('#ltag').innerHTML=`${L.length} inputs &middot; <span class="src m">M</span> ${cnt('M')} measured &middot; `+
+    `<span class="src w">W</span> ${cnt('W')} read once &middot; <span class="src a">A</span> ${cnt('A')} assumed &middot; `+
+    `<span class="src n">N</span> ${cnt('N')} not tracked`;
+}
+
+function applyScenario(s){
+  SC=s;
+  Object.keys(BASE).forEach(k=>V[k]=BASE[k]);
+  Object.entries(SCEN[s]||{}).forEach(([k,val])=>{ if(k in V) V[k]=val; });
+  L.forEach(l=>{ const r=$('#r-'+l.id); if(r) r.value=V[l.id]; });
+  update(); save();
+}
+
+/* --- sanity check: every baseline must land exactly on its slider step,
+       or the range input will silently snap it (the CPM 11.24 → 11.00 bug). --- */
+(function(){
+  const bad=L.filter(l=>{
+    const k=(l.v-l.min)/l.step;
+    return Math.abs(k-Math.round(k))>1e-6;
+  });
+  if(bad.length) console.warn('Lever baselines not aligned to their step:',bad.map(b=>b.id+'='+b.v));
+})();
+
 load();
-renderOuts();
 renderLevers();
-renderBacklog();
-bindAllRanges();
-L.forEach(l=>syncLever(l.id));
+renderBacklogLevers();
 renderCreatives();
 renderContent();
 renderBoard();
-$$('#scn button').forEach(b=>b.addEventListener('click',()=>applyScenario(b.dataset.s)));
-$('#reset').addEventListener('click',()=>{
-  try{localStorage.removeItem(KEY);}catch(e){}
-  CR=CR_SEED.map(r=>Object.assign({},r));
-  CO=[{name:'Podcast cut-downs (25 pieces)',hook:'authority',fmt:'short video',ch:'IG + FB',views:0,eng:0,clicks:0,con:0},
-      {name:'Reels — first 15',hook:'mixed',fmt:'reel',ch:'IG + FB',views:0,eng:0,clicks:0,con:0}];
-  MB.forEach(r=>r.a=null);   /* null, not 0 — 0 is an entered value and scores as one */
-  $('#tgt-cps').value=14; $('#tgt-cpk').value=2;
-  renderCreatives(); renderContent(); renderBoard();
-  applyScenario('today');
-});
-$('#craddrow').addEventListener('click',()=>{
-  CR.push({name:'New creative',angle:'angle',persona:'persona',fmt:'format',spend:0,impr:0,clicks:0,sub:0,dev:0});
+renderRegister();
+update();
+$$('#scn button').forEach(b=>b.addEventListener('click',()=>{
+  $$('#scn button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); applyScenario(b.dataset.s);
+}));
+$$('#scn button').forEach(b=>{ if(b.dataset.s===SC){ $$('#scn button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); }});
+$$('#regfilter button').forEach(b=>b.addEventListener('click',()=>{
+  $$('#regfilter button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); REGF=b.dataset.f; renderRegister();
+}));
+$('#tgt-sr').addEventListener('input',()=>{recalcCreatives();save();});
+$('#tgt-views').addEventListener('input',()=>{recalcContent();save();});
+$('#cradd').addEventListener('click',()=>{
+  CR.push({name:'New creative',angle:'',persona:'',fmt:'',dest:'',state:'draft',impr:0,lpv:0,sub:0,dev:0});
   renderCreatives(); save();
 });
-$('#coaddrow').addEventListener('click',()=>{
-  CO.push({name:'New post',hook:'hook',fmt:'format',ch:'channel',views:0,eng:0,clicks:0,con:0});
+$('#coadd').addEventListener('click',()=>{
+  CO.push({name:'New post',kind:'',fmt:'',date:'',views:0,eng:0,clicks:0,contacts:0});
   renderContent(); save();
 });
-$('#tgt-cps').addEventListener('input',()=>{recalcCreatives();save();});
-$('#tgt-cpk').addEventListener('input',()=>{recalcContent();save();});
-update();
-markScenario();
+$('#reset').addEventListener('click',()=>{
+  localStorage.removeItem(KEY);
+  Object.keys(BASE).forEach(k=>V[k]=BASE[k]);
+  CR=JSON.parse(JSON.stringify(CR_SEED));
+  CO=JSON.parse(JSON.stringify(CO_SEED));
+  MB.forEach((r,i)=>{ r.a=[0,0,18,71,null,0,null,null,null,1.6,0][i]; });
+  $('#tgt-sr').value=5; $('#tgt-views').value=202;
+  SC='today';
+  $$('#scn button').forEach(x=>x.classList.toggle('on',x.dataset.s==='today'));
+  L.forEach(l=>{ const r=$('#r-'+l.id); if(r) r.value=V[l.id]; });
+  renderCreatives(); renderContent(); renderBoard(); renderRegister(); update(); save();
+});
 </script>
 </body>
 </html>
