@@ -169,6 +169,89 @@ td.loss{color:var(--broken);font-weight:500;width:170px}
 .kicker .sub{font-family:'Inter',sans-serif;font-size:14px;line-height:1.65;font-weight:300;
   color:#a8a297;max-width:820px;margin-top:26px;letter-spacing:0}
 
+/* ══ CALCULATOR — same ink band, second movement ══ */
+:root{--cream:#f5f2ea; --dim:#a8a297; --dim2:#7d7870; --drule:#33302a;
+      --dred:#d98d80; --dgreen:#7fc0a4;}
+.calc{margin-top:60px;padding-top:52px;border-top:1px solid var(--drule)}
+.calc h2{font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:44px;line-height:1.06;
+  letter-spacing:-.024em;max-width:940px;color:var(--cream)}
+.calc h2 em{font-style:italic;color:#d9b5ad}
+.calc .cd{margin-top:18px;max-width:900px;font-size:13.4px;line-height:1.72;color:var(--dim);font-weight:300}
+.calc .cd b{color:var(--cream);font-weight:500}
+
+.presets{display:flex;gap:0;margin-top:34px;border:1px solid var(--drule);width:max-content}
+.presets button{appearance:none;background:none;border:0;border-right:1px solid var(--drule);
+  color:var(--dim);font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:700;padding:14px 26px;cursor:pointer;transition:.15s}
+.presets button:last-child{border-right:0}
+.presets button:hover{color:var(--cream);background:#201e18}
+.presets button.on{background:var(--cream);color:var(--ink)}
+
+.cwrap{display:grid;grid-template-columns:600px 1fr;gap:0;margin-top:0;
+  border-top:1px solid var(--drule)}
+.levers{padding:34px 46px 34px 0;border-right:1px solid var(--drule)}
+.gh{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim2);
+  font-weight:700;margin:26px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--drule)}
+.gh:first-child{margin-top:0}
+.lev{margin-bottom:20px}
+.lev:last-child{margin-bottom:4px}
+.lh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+.ln{font-size:12.6px;color:var(--cream);font-weight:400;letter-spacing:-.005em}
+.lv{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--cream);
+  letter-spacing:-.02em;min-width:74px;text-align:right}
+.lv.up{color:var(--dgreen)}
+.lev input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;
+  background:#3a3730;outline:none;cursor:pointer;display:block}
+.lev input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;
+  border-radius:50%;background:var(--cream);border:0;cursor:pointer;margin-top:0}
+.lev input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;
+  background:var(--cream);border:0;cursor:pointer}
+.lf{display:flex;justify-content:space-between;margin-top:8px;
+  font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim2);font-weight:600}
+.lf b{color:var(--dim);font-weight:700}
+
+.out{padding:34px 0 34px 46px}
+.obig{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--drule);
+  padding-bottom:26px}
+.obig>div{padding-right:24px;border-right:1px solid var(--drule)}
+.obig>div:last-child{border-right:0;padding-right:0}
+.obig .f{font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:50px;line-height:1;
+  letter-spacing:-.035em;color:var(--cream)}
+.obig .f small{font-size:23px;letter-spacing:-.02em;color:var(--dim)}
+.obig .l{margin-top:11px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim2);font-weight:600;line-height:1.5}
+.obig .d{margin-top:7px;font-size:11.5px;color:var(--dim);line-height:1.5}
+.obig .d .g{color:var(--dgreen)}
+
+.ledgers{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:30px}
+.ldg{padding:0 26px 0 18px;border-left:2px solid var(--drule)}
+.ldg:last-child{padding-right:8px}
+.ldg.bad{border-left-color:var(--dred)}
+.ldg.good{border-left-color:var(--dgreen)}
+.ldgh{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:16px}
+.ldg.bad .ldgh{color:var(--dred)} .ldg.good .ldgh{color:var(--dgreen)}
+.lrow{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:9px 0;border-bottom:1px solid #262420}
+.lrow span{font-size:11.8px;color:var(--dim);line-height:1.45}
+.lrow em{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:12.4px;
+  color:var(--cream);white-space:nowrap;letter-spacing:-.02em}
+.lrow.dimmed span,.lrow.dimmed em{color:var(--dim2)}
+.lrow.tot{border-bottom:0;border-top:1px solid var(--drule);margin-top:6px;padding-top:14px}
+.lrow.tot span{color:var(--cream);font-weight:500;font-size:12.4px}
+.lrow.tot em{font-family:'Newsreader',Georgia,serif;font-size:29px;font-weight:300;letter-spacing:-.03em}
+.ldg.bad .lrow.tot em{color:var(--dred)}
+.ldg.good .lrow.tot em{color:var(--dgreen)}
+.lnote{margin-top:13px;font-size:10.8px;line-height:1.6;color:var(--dim2)}
+
+.verdict{margin-top:34px;padding:22px 26px;background:#201e18;border-left:2px solid #d9b5ad}
+.verdict .vt{font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:23px;line-height:1.34;
+  color:var(--cream);letter-spacing:-.015em}
+.verdict .vt b{font-weight:400;color:#d9b5ad;font-style:italic}
+.verdict .vs{margin-top:10px;font-size:11.4px;line-height:1.62;color:var(--dim2)}
+.calcfoot{margin-top:36px;padding-top:20px;border-top:1px solid var(--drule);
+  display:grid;grid-template-columns:1fr 1fr;gap:44px;font-size:10.8px;line-height:1.72;color:var(--dim2)}
+.calcfoot b{color:var(--dim);font-weight:600}
+
 .foot{padding:34px 72px;font-size:10.5px;line-height:1.75;color:var(--ink3);
   border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:40px}
 .foot b{color:var(--ink2);font-weight:600}
@@ -186,15 +269,13 @@ td.loss{color:var(--broken);font-weight:500;width:170px}
   .mobile-block{display:flex!important}
   body>*:not(.mobile-block){display:none!important}
 }
-</style>
-</head>
+</style></head>
 <body>
 <div class="mobile-block">
   <div class="mb-emoji">🖥️</div>
   <div class="mb-title">Open on <em>desktop</em></div>
-  <div class="mb-sub">This is one continuous 13,000-pixel board — ten stages and thirty-four touchpoints. Open it on a laptop.</div>
+  <div class="mb-sub">This is one continuous board — ten stages and thirty-four touchpoints. Open it on a laptop.</div>
 </div>
-
 <div class="sheet">
 
 <header class="mast">
@@ -202,13 +283,14 @@ td.loss{color:var(--broken);font-weight:500;width:170px}
   <h1>The funnel as it<br>exists <em>today</em>.</h1>
   <p class="deck">Every step and every touchpoint between a stranger seeing an ad and a device
   being invoiced — nine stages, thirty-four touchpoints, drawn exactly as they run right now.
-  Nothing on this page is modelled or proposed. Every number comes from a call, the live CRM,
-  or the ad account, and where a number does not exist that is written down as the finding.</p>
+  Every number comes from a call, the live CRM, or the ad account, and where a number does not
+  exist that is written down as the finding. The map itself proposes nothing; the closing section,
+  and only the closing section, prices what standing still costs and what moving would return.</p>
   <div class="mastmeta">
     <span>Money basis<b>$2,000 floor unit — the cheapest device</b></span>
     <span>Primary sources<b>Adrian 14 Aug · John 27 Jul &amp; 6 Aug · Tom 7 Aug</b></span>
     <span>Systems read<b>ActiveCampaign · n8n · Meta Ads Library · cytokind.net</b></span>
-    <span>Status<b>Current state. No recommendations on this page.</b></span>
+    <span>Status<b>Current state throughout. One modelled section, at the end, marked as such.</b></span>
   </div>
 </header>
 
@@ -220,7 +302,7 @@ td.loss{color:var(--broken);font-weight:500;width:170px}
   <div class="red"><div class="f">18–20</div><div class="l">Prescriptions<br>parked</div></div>
   <div><div class="f">6</div><div class="l">Devices sold<br>to date</div></div>
   <div class="red"><div class="f">1.8%</div><div class="l">End to end<br>close rate</div></div>
-  <div class="red"><div class="f">$30K</div><div class="l">Monthly gap vs<br>the 20-unit target</div></div>
+  <div class="red"><div class="f">$28K</div><div class="l">Monthly gap vs<br>the 20-unit target</div></div>
 </div>
 
 <div class="legend">
@@ -796,8 +878,8 @@ td.loss{color:var(--broken);font-weight:500;width:170px}
   <div class="mathgrid">
     <div><div class="f">20</div><div class="l">Devices per month, the target Adrian and John are working to between 10 Aug and 10 Sep</div></div>
     <div><div class="f">6</div><div class="l">Devices actually sold — all six insurance-covered dermatology, none from MS</div></div>
-    <div><div class="f red">$30K</div><div class="l">Of device volume not transacting each month at the floor unit price</div></div>
-    <div><div class="f red">$178K</div><div class="l">Cumulative, from today to 1 January, if nothing between the ad and the sale changes</div></div>
+    <div><div class="f red">$28K</div><div class="l">Of device volume not transacting each month at the floor unit price — fourteen units short</div></div>
+    <div><div class="f red">$162K</div><div class="l">To 1 January — $126K of shortfall over four and a half months, plus $36K already prescribed and parked</div></div>
   </div>
   <p class="pd" style="margin-top:34px;max-width:1100px">And the marginal read, from the
   acquisition model built on these same inputs: a single point of improvement on
@@ -817,13 +899,259 @@ td.loss{color:var(--broken);font-weight:500;width:170px}
   <p class="sub">Nothing happens between “submit” and “a human calls.” That gap is thirty-four
   touchpoints wide, it has no owner, and the fix for its largest single leak has been built and
   sitting in a folder for weeks.</p>
+
+  <!-- ══════════ THE CALCULATOR ══════════ -->
+  <div class="calc">
+    <div class="ph" style="color:#8f8a7e">The board</div>
+    <h2>What standing still costs, and <em>what moving returns.</em></h2>
+    <p class="cd">Eight levers. Every one of them is a real input in the acquisition model built on
+    CytoKind’s own figures, and the model is calibrated to reproduce the present before anything is
+    touched — <b>601 paid contacts a month, $13.98 a contact against the $14 Tom disclosed, 5.1
+    devices, a $29.7K monthly gap.</b> Nothing here was fitted to a conclusion. Move a lever and the
+    same arithmetic runs forward.</p>
+
+    <div class="presets">
+      <button data-p="0" class="on">Today</button>
+      <button data-p="1">Phase 1 · the funnel</button>
+      <button data-p="2">Phase 2 · everything</button>
+    </div>
+
+    <div class="cwrap">
+      <div class="levers">
+        <div class="gh">The funnel — days 1 to 30</div>
+        <div class="lev" data-k="routed">
+          <div class="lh"><span class="ln">Contacts routed onward after submit</span><span class="lv"></span></div>
+          <input type="range" min="0" max="10" step="0.5" value="0">
+          <div class="lf"><span>Today <b>0%</b></span><span>Phase 1 <b>3%</b></span></div>
+        </div>
+        <div class="lev" data-k="rc">
+          <div class="lh"><span class="ln">Of those routed, complete the JotForm</span><span class="lv"></span></div>
+          <input type="range" min="20" max="60" step="1" value="40">
+          <div class="lf"><span>Modelled <b>40%</b></span><span>Observed <b>never run</b></span></div>
+        </div>
+        <div class="lev" data-k="derm">
+          <div class="lh"><span class="ln">Share of spend aimed at dermatology</span><span class="lv"></span></div>
+          <input type="range" min="15" max="100" step="1" value="50">
+          <div class="lf"><span>Ad account, 30d to 3 Aug <b>15%</b></span><span>Phase 1 <b>85%</b></span></div>
+        </div>
+        <div class="lev" data-k="att">
+          <div class="lh"><span class="ln">Call attempts before a contact is dropped</span><span class="lv"></span></div>
+          <input type="range" min="2" max="6" step="1" value="3">
+          <div class="lf"><span>Today <b>3</b></span><span>Phase 1 <b>4</b></span></div>
+        </div>
+        <div class="lev" data-k="c2j">
+          <div class="lh"><span class="ln">Connected call → JotForm sent and completed</span><span class="lv"></span></div>
+          <input type="range" min="15" max="45" step="1" value="25">
+          <div class="lf"><span>Today <b>25%</b></span><span>Phase 1 <b>28%</b></span></div>
+        </div>
+
+        <div class="gh">Creative — days 31 to 90</div>
+        <div class="lev" data-k="ctr">
+          <div class="lh"><span class="ln">Click-through rate on paid</span><span class="lv"></span></div>
+          <input type="range" min="0.6" max="2" step="0.05" value="1">
+          <div class="lf"><span>Today <b>1.00%</b></span><span>Phase 2 <b>1.40%</b></span></div>
+        </div>
+        <div class="lev" data-k="lp">
+          <div class="lh"><span class="ln">Landing page → form submitted</span><span class="lv"></span></div>
+          <input type="range" min="5" max="30" step="0.1" value="15.9">
+          <div class="lf"><span>Today <b>15.9%</b></span><span>Phase 2 <b>22%</b></span></div>
+        </div>
+
+        <div class="gh">Content — days 31 to 90</div>
+        <div class="lev" data-k="org">
+          <div class="lh"><span class="ln">Organic contacts a month</span><span class="lv"></span></div>
+          <input type="range" min="0" max="150" step="1" value="6">
+          <div class="lf"><span>Today <b>6</b></span><span>Phase 2 <b>99</b></span></div>
+        </div>
+
+        <div class="lnote" style="margin-top:30px;padding-top:20px;border-top:1px solid var(--drule)">
+          <b style="color:var(--dim)">Read it in this order.</b> Start on <b style="color:var(--dim)">Today</b> —
+          the board reproduces the present and the seat returns nothing, because nothing has moved.
+          Then move the five funnel levers alone. Only then touch creative and content, and watch how
+          little they add when the phone is already the ceiling. Every value in green is a change from
+          today; the two Phase figures under each slider are the ones the acquisition model carries.
+        </div>
+      </div>
+
+      <div class="out">
+        <div class="obig">
+          <div><div class="f" id="oDev">5.1</div><div class="l">Devices<br>per month</div>
+               <div class="d" id="oDevD">14.9 short of the target</div></div>
+          <div><div class="f" id="oRev">$10.3<small>K</small></div><div class="l">Revenue per month<br>at the floor unit</div>
+               <div class="d" id="oRevD">ROAS 1.23 on media</div></div>
+          <div><div class="f" id="oCap">293</div><div class="l">Of <span id="oCon">607</span> contacts<br>a phone can reach</div>
+               <div class="d" id="oCapD">314 nobody has hours to call</div></div>
+        </div>
+
+        <div class="ledgers">
+          <div class="ldg bad">
+            <div class="ldgh">Cost of inaction</div>
+            <div class="lrow"><span>Device volume not transacting, per month</span><em id="iGap">$29,700</em></div>
+            <div class="lrow"><span>Prescriptions written and parked, one-time</span><em>$36,000</em></div>
+            <div class="lrow"><span>Spend pointed at a segment that has never sold, 30d to 3 Aug</span><em id="iMis">$1,014</em></div>
+            <div class="lrow"><span>Delivered units not yet invoiced · contacts never reached</span><em>not priced</em></div>
+            <div class="lrow tot"><span>Carried to 1 January</span><em id="iTot">$169,650</em></div>
+            <div class="lnote">Four and a half months of shortfall plus the parked prescriptions —
+            <span id="iDay">$1,238</span> a day. This column does not move with the sliders: inaction
+            means the levers stay where they are. Counted rather than modelled — six devices, not 5.2 —
+            the same line reads <b>$28,000</b> a month and <b>$162,000</b> to 1 January.</div>
+          </div>
+
+          <div class="ldg good">
+            <div class="ldgh">Cost of action</div>
+            <div class="lrow"><span>Evolv AI, the seat that owns the whole pipe — €2,500/mo</span><em>$2,700</em></div>
+            <div class="lrow dimmed"><span>Media — unchanged, re-aimed not increased</span><em>$8,400</em></div>
+            <div class="lrow"><span>Return at these settings, per month</span><em id="aRet">$0</em></div>
+            <div class="lrow"><span>Net, per month</span><em id="aNet">−$2,700</em></div>
+            <div class="lrow"><span>Of the <span id="aCutL">$169,641</span> opposite, removed by 1 January</span><em id="aCut">$0</em></div>
+            <div class="lrow tot"><span>Back for every $1 spent on the seat</span><em id="aMul">—</em></div>
+            <div class="lnote">Media is not counted as a cost of action: it is already being spent, and
+            these settings re-aim it rather than raise it. The only new money is the seat.
+            Payback: <span id="aPay">—</span>.</div>
+          </div>
+        </div>
+
+        <div class="verdict">
+          <div class="vt" id="vT">At today’s settings the seat returns <b>nothing</b> — because nothing has moved yet.</div>
+          <div class="vs" id="vS">Move the first lever. Until a contact is routed onward after submit, an extra
+          contact is worth $0.00, because contact 608 simply joins the 314 nobody has hours to call.</div>
+        </div>
+
+        <div class="calcfoot">
+          <div><b>Order is not a preference.</b> One seat at forty dials, three attempts each, reaches 293 of the
+          607 arriving. Until the funnel routes people onward, every traffic lever returns exactly zero —
+          more contacts land in the half nobody calls. After it, one extra contact is worth
+          3% × 40% × 0.73 × $2,000 = <b>$17.52</b>. Funnel, then creative, then content.</div>
+          <div><b>What is measured, and what is not.</b> Eight of the twenty-two inputs behind this board are
+          measured; fourteen are assumed, and the four load-bearing ones — spend, CPM, click-through, page-to-form —
+          rest on a single read of the ad account covering the thirty days to 3 August.
+          Week one of an engagement replaces every assumption with a measurement.</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
+<script>
+(function(){
+  var SPEND=8400, CPM=20, C2P=0.90, DIALS=40, DAYS=22, CONN=0.055, UNIT=2000,
+      TARGET=20, RETAINER=2700, PARKED=36000, ADWIN=2027, MONTHS=4.5;
+
+  var PRESETS=[
+    {routed:0,  rc:40, derm:50, att:3, c2j:25, ctr:1.00, lp:15.9, org:6},
+    {routed:3,  rc:40, derm:85, att:4, c2j:28, ctr:1.00, lp:15.9, org:6},
+    {routed:3,  rc:40, derm:85, att:4, c2j:28, ctr:1.40, lp:22.0, org:99}
+  ];
+  var FMT={routed:'%',rc:'%',derm:'%',att:'',c2j:'%',ctr:'%',lp:'%',org:''};
+  var DEC ={routed:1,rc:0,derm:0,att:0,c2j:0,ctr:2,lp:1,org:0};
+
+  var levs={};
+  [].forEach.call(document.querySelectorAll('.calc .lev'), function(el){
+    var k=el.getAttribute('data-k');
+    levs[k]={el:el, input:el.querySelector('input'), out:el.querySelector('.lv')};
+    levs[k].input.addEventListener('input', function(){ clearPreset(); render(); });
+  });
+
+  function vals(){ var v={}; for(var k in levs) v[k]=parseFloat(levs[k].input.value); return v; }
+
+  function model(v){
+    var impressions = SPEND/CPM*1000;
+    var clicks      = impressions * (v.ctr/100);
+    var pages       = clicks * C2P;
+    var paid        = pages * (v.lp/100);
+    var contacts    = paid + v.org;
+    var capacity    = DIALS*DAYS / v.att;
+    var worked      = Math.min(contacts, capacity);
+    var reach       = 1 - Math.pow(1-CONN, v.att);
+    var jotPhone    = worked * reach * (v.c2j/100);
+    var jotRouted   = contacts * (v.routed/100) * (v.rc/100);
+    var yld         = (v.derm/100)*0.85 + (1-v.derm/100)*0.05;
+    var devices     = (jotPhone + jotRouted) * yld;
+    return {contacts:contacts, capacity:capacity, unreached:Math.max(0,contacts-capacity),
+            devices:devices, revenue:devices*UNIT, jot:jotPhone+jotRouted};
+  }
+
+  var BASE = model(PRESETS[0]);
+  var BGAP = (TARGET-BASE.devices)*UNIT,
+      BMIS = (1-PRESETS[0].derm/100)*ADWIN,
+      BTOT = BGAP*MONTHS + PARKED;
+
+  function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function set(id,t){ var e=document.getElementById(id); if(e) e.innerHTML=t; }
+
+  // the inaction column is fixed at the baseline — inaction means the levers do not move
+  set('iGap', money(BGAP)); set('iMis', money(BMIS));
+  set('iTot', money(BTOT)); set('iDay', money(BTOT/137));
+  set('aCutL', money(BTOT));
+
+  function clearPreset(){
+    [].forEach.call(document.querySelectorAll('.presets button'), function(b){ b.classList.remove('on'); });
+  }
+
+  function render(){
+    var v=vals(), m=model(v), b=PRESETS[0];
+
+    for(var k in levs){
+      var d=DEC[k], txt=v[k].toFixed(d)+FMT[k];
+      levs[k].out.textContent=txt;
+      levs[k].out.classList.toggle('up', Math.abs(v[k]-b[k])>1e-9);
+    }
+
+    // headline
+    set('oDev', m.devices.toFixed(1));
+    var short = TARGET - m.devices;
+    set('oDevD', short>0.05 ? short.toFixed(1)+' short of the target'
+                            : '<span class="g">at or past the 20-unit target</span>');
+    set('oRev', '$'+(m.revenue/1000).toFixed(1)+'<small>K</small>');
+    set('oRevD', 'ROAS '+(m.revenue/SPEND).toFixed(2)+' on media');
+    set('oCap', Math.round(m.capacity));
+    set('oCon', Math.round(m.contacts));
+    set('oCapD', m.unreached>0.5 ? Math.round(m.unreached)+' nobody has hours to call'
+                                 : '<span class="g">the phone is no longer the ceiling</span>');
+
+    // action
+    var gap = Math.max(0, short) * UNIT;
+    var ret = m.revenue - BASE.revenue;
+    var net = ret - RETAINER;
+    var cut = Math.min(BGAP, ret) * MONTHS;
+    set('aRet', (ret>0?'+':'') + money(ret));
+    set('aNet', (net>=0?'+':'−') + money(Math.abs(net)));
+    set('aCut', ret>0 ? money(cut) : '$0');
+    set('aMul', ret>0 ? '$'+(ret/RETAINER).toFixed(1) : '—');
+    set('aPay', ret>0 ? '<b style="color:#7fc0a4">'+(RETAINER/(ret/30)).toFixed(1)+' days</b>'
+                      : 'nothing to pay back yet');
+
+    // verdict
+    if(ret<=0){
+      set('vT','At today’s settings the seat returns <b>nothing</b> — because nothing has moved yet.');
+      set('vS','Move the first lever. Until a contact is routed onward after submit, an extra contact is '+
+               'worth $0.00, because contact 608 simply joins the '+Math.round(m.unreached)+' nobody has hours to call.');
+    } else {
+      set('vT','This costs <b>'+money(RETAINER)+' a month</b> and returns <b>'+money(ret)+' a month</b> — '+
+               '$'+(ret/RETAINER).toFixed(1)+' back for every dollar, inside '+(RETAINER/(ret/30)).toFixed(1)+' days.');
+      set('vS','Media does not move: the same '+money(SPEND)+' is re-aimed, not increased. '+
+               'Device volume goes from '+BASE.devices.toFixed(1)+' to '+m.devices.toFixed(1)+' a month, '+
+               'and the gap to twenty narrows from '+money((TARGET-BASE.devices)*UNIT)+' to '+money(gap)+'.');
+    }
+  }
+
+  [].forEach.call(document.querySelectorAll('.presets button'), function(btn){
+    btn.addEventListener('click', function(){
+      var p=PRESETS[parseInt(btn.getAttribute('data-p'),10)];
+      for(var k in levs) levs[k].input.value=p[k];
+      clearPreset(); btn.classList.add('on'); render();
+    });
+  });
+
+  render();
+})();
+</script>
 
 <footer class="foot">
   <div><b>Sources.</b> Adrian Delli Colli 2026-08-14 (Fathom 785506161) · Adrian 2026-08-01 · Adrian 2026-07-28 ·
   John MacMahon 2026-07-27 &amp; 2026-08-06 · Tom + Adrian 2026-08-07 · live ActiveCampaign read ·
   n8n workflow JSON · Meta Ads Library and Spyglass measurement 2026-08-14 · cytokind.net audit 2026-07-28.</div>
-  <div style="text-align:right;min-width:230px"><b>Evolv AI</b><br>Current-state map, no recommendations.<br>
+  <div style="text-align:right;min-width:230px"><b>Evolv AI</b><br>Current-state map. One modelled section, at the end.<br>
   Every figure is a floor. Unknowns are marked, never estimated.</div>
 </footer>
 
