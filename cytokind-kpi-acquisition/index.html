@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Unlisted. The page now carries a read of CytoKind's own Meta ad account; keep it out of search. -->
+<meta name="robots" content="noindex, nofollow">
 <title>CytoKind — Acquisition Control Room</title>
 <style>
 :root{
@@ -75,7 +77,7 @@ h1 em{font-style:normal;color:var(--blue)}
 .meta span:last-child{border-right:none;margin-right:0;padding-right:0}
 
 /* ---------- INTEGRITY BAR ---------- */
-.integrity{display:grid;grid-template-columns:auto auto auto auto 1fr;gap:26px;align-items:center;
+.integrity{display:grid;grid-template-columns:repeat(6,auto) 1fr;gap:22px;align-items:center;
   border:1px solid var(--amber-line);background:var(--amber-tint);border-radius:18px;
   padding:20px 24px;margin:34px 0 0}
 .ibig{font-family:var(--disp);font-size:36px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--amber-ink)}
@@ -148,6 +150,9 @@ section.alt .lgroup{background:#fff}
   position:relative;top:-1px;cursor:help}
 .src.m{color:var(--green-ink);background:var(--green-tint);border:1px solid var(--green-line)}
 .src.a{color:var(--amber-ink);background:var(--amber-tint);border:1px solid var(--amber-line)}
+/* W = read once, in a single window. Not measured (it is not repeatable and it is already stale),
+   not assumed (somebody has actually seen it). It needs its own colour or it gets read as one or the other. */
+.src.w{color:var(--blue);background:var(--blue-tint);border:1px solid var(--blue-line)}
 .lval{font-family:var(--disp);font-variant-numeric:tabular-nums;font-size:16px;font-weight:600;
   letter-spacing:-.02em;flex:none;min-width:74px;text-align:right}
 .lval.moved{color:var(--blue)}
@@ -187,6 +192,11 @@ section.alt .note{background:#fff}
 .note.red{border-left-color:var(--red);background:var(--red-tint);border-color:var(--red-line)}
 .note.green{border-left-color:var(--green);background:var(--green-tint);border-color:var(--green-line)}
 .note.amber{border-left-color:var(--amber);background:var(--amber-tint);border-color:var(--amber-line)}
+/* section.alt .note above is (0,2,1) and beats the tinted variants at (0,2,0), so a coloured note
+   inside a striped section silently loses its tint. Restate the three with the parent selector. */
+section.alt .note.red{background:var(--red-tint)}
+section.alt .note.green{background:var(--green-tint)}
+section.alt .note.amber{background:var(--amber-tint)}
 .note b{font-weight:600}
 .note em{font-style:italic;color:var(--ink-sec)}
 
@@ -203,7 +213,8 @@ td{padding:10px 13px;border-top:1px solid var(--line-soft);vertical-align:middle
 .tbox.wide th{padding:10px 9px}
 .tbox.wide td{padding:9px 9px}
 .tbox.wide table{font-size:13px}
-.tbox.wide table input{font-size:13px;min-width:54px;padding:5px 6px}
+/* 68px, not 54 — the real July impression counts are six digits (143,651) and were being clipped. */
+.tbox.wide table input{font-size:13px;min-width:68px;padding:5px 6px}
 .tbox.wide table input.txt{min-width:104px}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 tr.tot td{background:var(--parchment);font-weight:600;border-top:1px solid var(--line)}
@@ -257,6 +268,18 @@ table input.nn{text-align:right}
 .status.r{color:var(--red-ink);background:var(--red-tint);border:1px solid var(--red-line)}
 .act{font-size:12.5px;color:var(--ink-sec);white-space:normal;line-height:1.4;min-width:280px}
 
+/* ---------- READ-ONCE PANEL ---------- */
+.rogrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}
+@media(max-width:1080px){.rogrid{grid-template-columns:1fr}}
+.rocard{border:1px solid var(--line);border-radius:18px;background:#fff;padding:22px}
+.rocard.hot{border-color:var(--red-line);background:var(--red-tint)}
+.rol{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.robig{font-family:var(--disp);font-size:40px;font-weight:600;letter-spacing:-.034em;line-height:1;
+  margin:11px 0 0;color:var(--ink)}
+.rocard.hot .robig{color:var(--red-ink)}
+.rosub{font-size:13.5px;color:var(--ink-sec);margin-top:11px;line-height:1.5}
+.rosub b{color:var(--ink);font-weight:600}
+
 /* ---------- BACKLOG ---------- */
 .bl{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}
 @media(max-width:1080px){.bl{grid-template-columns:1fr}}
@@ -278,21 +301,23 @@ footer b{color:var(--ink-sec);font-weight:600}
 
 <div class="wrap">
 <header>
-  <div class="kicker"><span class="dot"></span>Evolv AI · Internal + client-facing · 14 Aug 2026 · Acquisition · KPI &amp; data monitoring</div>
+  <div class="kicker"><span class="dot"></span>Evolv AI · Internal + client-facing · 17 Aug 2026 · Acquisition · KPI &amp; data monitoring</div>
   <h1>The acquisition<br><em>control room</em></h1>
   <p class="sub">Every number CytoKind spends money to create, in one model you can pull apart. <b>Move a lever and the whole chain re-computes</b> — contacts, JotForms, devices, revenue, cost per acquisition. Then the model tells you, on its own, <b>which single lever is worth the most money next month</b>.</p>
   <div class="meta">
-    <span>Baseline: 14 Aug 2026</span>
+    <span>Baseline: 17 Aug 2026</span>
     <span>Money on the $2,000 floor unit</span>
-    <span>Sources: Adrian call 14 Aug · Spyglass live corpus · Meta Ads Manager</span>
+    <span>Sources: Adrian call 14 Aug · Spyglass re-pull 17 Aug · Ads Manager read once, 5 Jul – 3 Aug</span>
   </div>
 
   <div class="integrity">
-    <div class="ibig"><span id="i-m">6</span><small>measured</small></div>
+    <div class="ibig"><span id="i-m">8</span><small>measured</small></div>
     <div class="isep"></div>
-    <div class="ibig"><span id="i-a">16</span><small>assumed</small></div>
+    <div class="ibig" style="color:var(--blue)"><span id="i-w">3</span><small style="color:var(--blue)">read once</small></div>
     <div class="isep"></div>
-    <div class="itxt"><b>This is the real finding before a single lever moves.</b> <span id="i-m2">8</span> of the <span id="i-t">22</span> inputs below come from a recorded call or a live system. The other <span id="i-a2">14</span> are assumptions, marked <span class="src a">A</span>, because <b>the numbers do not exist anywhere</b> — not in Ads Manager, not in the CRM, not in a sheet. Week one of the engagement replaces every <span class="src a">A</span> with an <span class="src m">M</span>. That is what "data monitoring" actually means here.</div>
+    <div class="ibig"><span id="i-a">11</span><small>assumed</small></div>
+    <div class="isep"></div>
+    <div class="itxt"><b>This is the real finding before a single lever moves.</b> <span id="i-m2">8</span> of the <span id="i-t">22</span> inputs below come from a recorded call or a live system. <b><span id="i-w2">3</span> were seen exactly once</b> — spend, CPM and page-to-form, on the Ads Manager screenshot of 4 August, for the 30 days to 3 August, a window that <em>predates the 11 Aug relaunch</em>. They are marked <span class="src w">W</span>, and section 04 shows what they do to this model. The remaining <span id="i-a2">11</span> are assumptions, marked <span class="src a">A</span>, because <b>the numbers do not exist anywhere</b> — not in Ads Manager, not in the CRM, not in a sheet. Week one of the engagement replaces every <span class="src a">A</span> and every <span class="src w">W</span> with an <span class="src m">M</span>. That is what "data monitoring" actually means here.</div>
   </div>
 </header>
 </div>
@@ -302,7 +327,7 @@ footer b{color:var(--ink-sec);font-weight:600}
     <div class="sbar">
       <span class="slabel">Scenario</span>
       <div class="scn" id="scn">
-        <button data-s="today" class="on">Today · 14 Aug</button>
+        <button data-s="today" class="on">Today · 17 Aug</button>
         <button data-s="p1">P1 · days 1–30</button>
         <button data-s="p2">P2 · days 31–90</button>
       </div>
@@ -324,7 +349,7 @@ footer b{color:var(--ink-sec);font-weight:600}
     <div class="rank">01</div>
     <div>
       <h2>What the machine produces</h2>
-      <span class="tag">Live output · deltas measured against Today · 14 Aug</span>
+      <span class="tag">Live output · deltas measured against Today · 17 Aug</span>
     </div>
   </div>
   <p class="lede">The target is <b>20 devices a month</b>. Everything on this page exists to move the first tile. <em>Nothing here is a forecast</em> — it is arithmetic on the inputs in section 03, and every input is visible and editable.</p>
@@ -332,6 +357,7 @@ footer b{color:var(--ink-sec);font-weight:600}
   <div class="outs" id="outs"></div>
 
   <div class="note red" id="headline"></div>
+  <div class="note"><b>How this squares with the number in <em>7 — THE NUMBERS</em>.</b> That document prices the gap at <b>$28,000 a month</b> — 20 targeted, <b>6 invoiced</b>, 14 short at the floor unit. Those 6 are the all-time count, every one of them insurance-covered dermatology. This model computes the monthly run-rate from the inputs instead of counting history, and lands within one device of it. <b>The two agree; they are not the same measurement.</b> Nothing has been fitted to make them match — the day the CRM can report devices invoiced per calendar month, this tile stops being a computation and becomes an <span class="src m">M</span>.</div>
 </section>
 
 <!-- ============ 02 CHAIN ============ -->
@@ -355,17 +381,73 @@ footer b{color:var(--ink-sec);font-weight:600}
     <div class="rank">03</div>
     <div>
       <h2>The levers</h2>
-      <span class="tag">22 inputs · <span class="src m">M</span> measured, sourced · <span class="src a">A</span> assumed, must be replaced</span>
+      <span class="tag">22 inputs · <span class="src m">M</span> measured, sourced · <span class="src w">W</span> read once, 5 Jul – 3 Aug · <span class="src a">A</span> assumed, must be replaced</span>
     </div>
   </div>
   <p class="lede">Pull anything. The model recomputes on every pixel of movement. <b>Hover a source badge to see where the number came from.</b> A value that has been moved off its Today baseline turns blue.</p>
   <div class="lgrid" id="levers"></div>
 </section>
 
-<!-- ============ 04 MARGINAL ROI ============ -->
+<!-- ============ 04 THE AD ACCOUNT, READ ONCE ============ -->
 <section class="alt">
   <div class="sechead">
     <div class="rank">04</div>
+    <div>
+      <h2>The ad account, read once</h2>
+      <span class="tag">Window: 5 Jul – 3 Aug 2026 · one screenshot · <span class="src w">W</span></span>
+    </div>
+  </div>
+  <p class="lede">On <b>4 August at 20:20 CEST</b>, Tom Kirwan shared his screen and the Meta account was visible for the first and only time. Account <span class="k">1963572114287304</span>, 7 campaigns, 2 live, 2 edits sitting unpublished. <b>Meta computes cost-per-result as spend ÷ results, so multiplying them back recovers the spend</b> — that is division reversed, not an estimate. Everything below carries its window, because this month <em>predates the 11 August relaunch</em>.</p>
+
+  <div class="tbox wide">
+    <div class="tscroll">
+      <table>
+        <thead><tr>
+          <th>#</th><th>Campaign</th><th>Segment</th><th>State</th>
+          <th class="n">Results</th><th>Result type</th><th class="n">Reach</th><th class="n">Freq</th>
+          <th class="n">Cost / result</th><th class="n">Spend, derived</th><th class="n">Impressions</th><th class="n">CPM</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Light Therapy for MS Fatigue — Leads</td><td>MS</td><td>off</td><td class="n">—</td><td>—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+          <tr><td>2</td><td>MS Fatigue — Landing Page Views: Contact Us</td><td>MS</td><td><span class="vd scale">on</span></td><td class="n">8,495</td><td>landing page views</td><td class="n">82,558</td><td class="n">1.74</td><td class="n">$0.19</td><td class="n">$1,614</td><td class="n">143,651</td><td class="n">$11.24</td></tr>
+          <tr><td>3</td><td>Psoriasis — Banner Ads</td><td>Derm</td><td><span class="vd scale">on</span></td><td class="n">250</td><td>landing page views</td><td class="n">4,389</td><td class="n">1.13</td><td class="n">$0.30</td><td class="n">$75</td><td class="n">4,960</td><td class="n">$15.12</td></tr>
+          <tr><td>4</td><td>Light Therapy for Psoriasis</td><td>Derm</td><td>off</td><td class="n">462</td><td>landing page views</td><td class="n">18,221</td><td class="n">1.15</td><td class="n">$0.51</td><td class="n">$236</td><td class="n">20,954</td><td class="n">$11.26</td></tr>
+          <tr><td>5</td><td>Post: "Can UV light therapy reduce MS fatigue?"</td><td>MS</td><td>off</td><td class="n">283</td><td>link clicks</td><td class="n">19,563</td><td class="n">3.44</td><td class="n">$0.36</td><td class="n">$102</td><td class="n">67,297</td><td class="n">$1.52</td></tr>
+          <tr><td>6</td><td>MS Fatigue — Landing Page Views Objective</td><td>MS</td><td>off</td><td class="n">—</td><td>—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+          <tr><td>7</td><td>MS Fatigue — Max Clicks Objective</td><td>MS</td><td>off</td><td class="n">—</td><td>—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+          <tr class="tot"><td colspan="4">Four campaigns that returned data</td><td class="n">—</td><td>—</td><td class="n">124,731</td><td class="n">—</td><td class="n">—</td><td class="n">$2,027</td><td class="n">236,862</td><td class="n">$8.56</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tfoot"><span class="hint">Reach, frequency and cost-per-result are read off the screen. Spend, impressions and CPM are that arithmetic reversed. The <b>Amount spent</b> column was cut off the right edge of the screenshot — and never read out loud.</span></div>
+  </div>
+
+  <div class="rogrid">
+    <div class="rocard hot">
+      <div class="rol">Spend pointed at MS</div>
+      <div class="robig num">$1,716 · 85%</div>
+      <div class="rosub">Campaigns 2 and 5. <b>MS has sold zero devices, all time.</b> Dermatology took $311 — 15% — and is where every sale CytoKind has ever made came from.</div>
+    </div>
+    <div class="rocard">
+      <div class="rol">Why the money drifts there</div>
+      <div class="robig num">$0.19 <span style="font-size:20px;color:var(--faint)">vs $0.30–$0.51</span></div>
+      <div class="rosub">MS traffic is up to <b>2.7× cheaper per landing-page view</b>. An account optimised on cost per view will drift to MS every time — and nothing in the account knows better, because <b>no sale has ever been uploaded back to Meta</b>.</div>
+    </div>
+    <div class="rocard hot">
+      <div class="rol">Page → form, implied by the read</div>
+      <div class="robig num">under 2.8%</div>
+      <div class="rosub">9,207 landing-page views in one month against a CRM holding <b>262 records in total</b>, accumulated over the life of the business. This model needs 8.9% to reproduce ~20 contacts a day. <b>The traffic was never the constraint.</b></div>
+    </div>
+  </div>
+
+  <div class="note red" id="ronote"></div>
+  <div class="note amber"><b>Two more things the read establishes.</b> The boosted MS post ran at frequency <b>3.44</b> — the same people seeing it 3.4 times — while every other campaign sat at 1.13–1.74, so creative fatigue is visible in the only month anyone has looked at. And <b>five of seven campaigns were off with two edits sitting unpublished</b>: the account is run in bursts, not continuously. <em>One screenshot of the Amount spent column, last 90 days, by campaign, settles the contradiction above and is the only input the four load-bearing assumptions all hang from. Ask Tom for it.</em></div>
+</section>
+
+<!-- ============ 05 MARGINAL ROI ============ -->
+<section>
+  <div class="sechead">
+    <div class="rank">05</div>
     <div>
       <h2>Marginal ROI — what to attack next</h2>
       <span class="tag">Every lever improved by one increment in isolation, ranked by gross contribution</span>
@@ -377,10 +459,10 @@ footer b{color:var(--ink-sec);font-weight:600}
   <div class="note green" id="mroinote"></div>
 </section>
 
-<!-- ============ 05 CREATIVE LEDGER ============ -->
-<section>
+<!-- ============ 06 CREATIVE LEDGER ============ -->
+<section class="alt">
   <div class="sechead">
-    <div class="rank">05</div>
+    <div class="rank">06</div>
     <div>
       <h2>The creative ledger</h2>
       <span class="tag">One row per creative · every cell editable · verdict computed</span>
@@ -408,13 +490,13 @@ footer b{color:var(--ink-sec);font-weight:600}
       <span class="hint">Scale &lt; 0.75× target · Kill &gt; 1.6× target or CTR under 0.60%</span>
     </div>
   </div>
-  <div class="note amber">Seeded with the <b>two creatives measured live on 14 Aug</b>. Spend, impressions and clicks are placeholders — they are the first three numbers to pull from Ads Manager, and until they exist <b>no verdict on any creative is defensible</b>. Note what the ledger already shows: half the live creative points at MS, where the device count has never left zero.</div>
+  <div class="note amber"><b>Now seeded with real numbers</b> — the four campaigns that returned data in the 30 days to 3 Aug, plus the two creatives running live on 17 Aug (7 ads across 3 destinations, still empty because that window has never been read). Spend and impressions are Meta's own cost-per-result arithmetic reversed; the <b>Clicks</b> column carries landing-page views for the three LPV-objective campaigns, because no click column was visible on the screenshot.<br><br><b>Read the Verdict column, then read why.</b> Every seeded row returns <em>kill · no submits</em> — not because the creative failed, but because <b>not one campaign in that account can be tied to a single form submission</b>. Submits and devices were never attributed per campaign, so the ledger cannot do the one job it exists for. That is the defect, and it is one tracking parameter wide. Note also what the money says: <b>$1,716 of $2,027 — 85% — went to MS, where the device count has never left zero.</b></div>
 </section>
 
-<!-- ============ 06 CONTENT LEDGER ============ -->
-<section class="alt">
+<!-- ============ 07 CONTENT LEDGER ============ -->
+<section>
   <div class="sechead">
-    <div class="rank">06</div>
+    <div class="rank">07</div>
     <div>
       <h2>The content ledger</h2>
       <span class="tag">Organic · unpaid · the same discipline, no media cost</span>
@@ -444,10 +526,10 @@ footer b{color:var(--ink-sec);font-weight:600}
   </div>
 </section>
 
-<!-- ============ 07 BACKLOG ============ -->
-<section>
+<!-- ============ 08 BACKLOG ============ -->
+<section class="alt">
   <div class="sechead">
-    <div class="rank">07</div>
+    <div class="rank">08</div>
     <div>
       <h2>Cash already inside the building</h2>
       <span class="tag">One-time · not part of the monthly model above</span>
@@ -470,18 +552,18 @@ footer b{color:var(--ink-sec);font-weight:600}
       <div style="margin-top:22px">
         <div class="lever" id="bl-l3"></div>
       </div>
-      <div class="note" style="margin-top:20px">This second number is the honest one. It is small on purpose. <b>Calling harder is not the fix</b> — the rate is the constraint, not the list. That is why section 04 almost never ranks dials first.</div>
+      <div class="note" style="margin-top:20px">This second number is the honest one. It is small on purpose. <b>Calling harder is not the fix</b> — the rate is the constraint, not the list. That is why section 05 almost never ranks dials first.</div>
     </div>
   </div>
 </section>
 
-<!-- ============ 08 MONDAY BOARD ============ -->
-<section class="alt">
+<!-- ============ 09 MONDAY BOARD ============ -->
+<section>
   <div class="sechead">
-    <div class="rank">08</div>
+    <div class="rank">09</div>
     <div>
       <h2>The Monday board</h2>
-      <span class="tag">Eight numbers · read every Monday · each red has one written action</span>
+      <span class="tag">Nine numbers · read every Monday · each red has one written action</span>
     </div>
   </div>
   <p class="lede">Monitoring is not a dashboard, it is <b>a decision that fires when a number crosses a line</b>. Type the week's actual into each row; the status and the action are computed. <em>If nothing is red, you do not meet.</em></p>
@@ -500,17 +582,19 @@ footer b{color:var(--ink-sec);font-weight:600}
 </section>
 
 <footer>
-  Evolv AI · CytoKind · Acquisition KPI &amp; data monitoring · 14 Aug 2026<br>
-  <b>Measured inputs</b> are sourced to the Adrian Delli Colli call of 14 Aug 2026, the Spyglass live Meta ad corpus measured 14 Aug 2026, or the CytoKind CRM. <b>Assumed inputs</b> are marked and are not claims — they are placeholders for numbers that do not currently exist in any CytoKind system.<br>
+  Evolv AI · CytoKind · Acquisition KPI &amp; data monitoring · 17 Aug 2026<br>
+  <b>Measured inputs</b> <span class="src m">M</span> are sourced to the Adrian Delli Colli call of 14 Aug 2026, the Spyglass Meta ad corpus re-pulled 17 Aug 2026, or the CytoKind CRM. <b>Read-once inputs</b> <span class="src w">W</span> — spend, CPM and page-to-form — come from one screenshot of Meta Ads Manager taken on 4 Aug 2026 covering <b>5 Jul – 3 Aug 2026</b>, a window that predates the 11 Aug relaunch; they are stale by construction and every one of them carries its window. <b>Assumed inputs</b> <span class="src a">A</span> are marked and are not claims — they are placeholders for numbers that do not currently exist in any CytoKind system.<br>
   All money is calculated on the <b>$2,000 Phothera 200</b>, the cheapest device CytoKind sells, so every dollar figure on this page is a floor and not a projection.<br>
-  Nothing on this page is saved to a server. Values persist in this browser only, and "Reset all" restores the 14 August baseline.
+  Nothing on this page is saved to a server. Values persist in this browser only, and "Reset all" restores the 17 August baseline.
 </footer>
 </div>
 
 <script>
 "use strict";
 const $=(s,r)=>(r||document).querySelector(s), $$=(s,r)=>[...(r||document).querySelectorAll(s)];
-const KEY='ck_kpi_acq_v2';
+/* v3 — the 17 Aug rebuild changed lever baselines (CPM, page-to-form, parked) and the creative seed,
+   so a v2 payload in a returning browser would silently restore the stale 14 Aug model. */
+const KEY='ck_kpi_acq_v3';
 
 /* ===================== LEVER DEFINITIONS ===================== */
 const GROUPS=[
@@ -523,11 +607,11 @@ const GROUPS=[
 ];
 
 const L=[
- {id:'spend',   g:'paid',  n:'Monthly paid spend',                 u:'$', min:0,   max:30000,step:100, d:0, v:8400, src:'A', why:'Never disclosed. Tom gave one figure only: ~$300 on the psoriasis test.', note:'The single number to pull from Ads Manager first.'},
- {id:'cpm',     g:'paid',  n:'CPM — cost per 1,000 impressions',   u:'$', min:4,   max:60,   step:.5,  d:2, v:20,   src:'A', why:'Not measured. US health/DTC on Meta typically runs $15–30.'},
- {id:'ctr',     g:'paid',  n:'Click-through rate',                 u:'%', min:.2,  max:4,    step:.05, d:2, v:1.00, src:'A', why:'Not measured. 1.0% is a neutral placeholder for health DTC.'},
+ {id:'spend',   g:'paid',  n:'Monthly paid spend',                 u:'$', min:0,   max:30000,step:100, d:0, v:8400, src:'W', why:'Read once: ≈$2,027 for the 30 days to 3 Aug 2026, recovered by reversing Meta\'s own cost-per-result on four campaigns. This model runs on $8,400. Both cannot be true.', note:'⚠️ Unresolved 4× contradiction — see section 04. The Amount spent column was cut off the screenshot.'},
+ {id:'cpm',     g:'paid',  n:'CPM — cost per 1,000 impressions',   u:'$', min:4,   max:60,   step:.01, d:2, v:11.24,src:'W', why:'Read once: $11.24 on the MS landing-page campaign, 30 days to 3 Aug — $1,614 over 143,651 impressions (82,558 reach × 1.74 frequency). Half the $20 previously assumed.', note:'Was assumed at $20. Now the account\'s own arithmetic.'},
+ {id:'ctr',     g:'paid',  n:'Click-through rate',                 u:'%', min:.2,  max:4,    step:.05, d:2, v:1.00, src:'A', why:'Not measured. 1.0% is a neutral placeholder for health DTC. The one campaign that reported link clicks ran at 0.42%.'},
  {id:'lprate',  g:'paid',  n:'Click → landing page actually loads',u:'%', min:50,  max:100,  step:1,   d:0, v:90,   src:'A', why:'Not measured. 10% bounce-before-load assumed.'},
- {id:'formrate',g:'paid',  n:'Landing page → form submitted',      u:'%', min:1,   max:40,   step:.1,  d:1, v:15.9, src:'A', why:'Calibrated so cost per submit lands on $14 — the one ad economics number Tom disclosed.', note:'Calibrated to the measured $14 per form fill.'},
+ {id:'formrate',g:'paid',  n:'Landing page → form submitted',      u:'%', min:1,   max:40,   step:.1,  d:1, v:8.9,  src:'W', why:'Read once and it did not survive: 9,207 landing-page views arrived in the 30 days to 3 Aug against a CRM holding 262 records in TOTAL, which caps the true rate under 2.8%. 8.9% is what this model needs to reproduce both measured anchors — $14 per form fill and ~20 contacts a day.', note:'Was 15.9%. The account read caps it under 2.8% — the residual gap is unexplained.'},
 
  {id:'posts',   g:'organic',n:'Posts published per month',         u:'',  min:0,   max:60,   step:1,   d:0, v:8,    src:'A', why:'15 reels have run in total to date; a monthly cadence has never been set.'},
  {id:'viewspp', g:'organic',n:'Average views per post',            u:'',  min:0,   max:20000,step:100, d:0, v:900,  src:'A', why:'Not measured post by post. "We haven\'t had anything well over a thousand views."'},
@@ -542,13 +626,13 @@ const L=[
  {id:'connect', g:'human', n:'Connect rate per attempt',           u:'%', min:1,   max:40,   step:.5,  d:1, v:5.5,  src:'M', why:'Adrian, 14 Aug: "one in fifteen, one in twenty" on the phone.', note:'Measured. 1 in 18 per dial.'},
  {id:'conn2jf', g:'human', n:'Connected → JotForm completed',      u:'%', min:0,   max:100,  step:1,   d:0, v:25,   src:'A', why:'Not tracked. Calls are not logged against outcomes.'},
 
- {id:'dermsh',  g:'value', n:'Share of traffic aimed at dermatology',u:'%',min:0,  max:100,  step:1,   d:0, v:50,   src:'M', why:'Spyglass, 14 Aug: two live creatives, one psoriasis and one MS. Half the spend each.', note:'Measured. The other half points at MS.'},
+ {id:'dermsh',  g:'value', n:'Share of traffic aimed at dermatology',u:'%',min:0,  max:100,  step:1,   d:0, v:50,   src:'M', why:'Spyglass, 17 Aug: 7 live ads across 3 destinations, roughly half derm and half MS by creative COUNT. But by MONEY, in the one window ever read, dermatology took $311 of $2,027 — 15%. Count and money disagree by 3.4×.', note:'⚠️ 50% by creative count. 15% by money in the 30 days to 3 Aug. Pull the split down to 15 and watch the device count.'},
  {id:'dermcv',  g:'value', n:'Derm JotForm → device invoiced',     u:'%', min:0,   max:100,  step:1,   d:0, v:85,   src:'M', why:'Adrian, 14 Aug: "if you fill out that form, it\'s a sale, basically." All six sales were insurance-covered.'},
  {id:'mscv',    g:'value', n:'MS JotForm → device invoiced',       u:'%', min:0,   max:100,  step:1,   d:0, v:5,    src:'M', why:'Zero devices have ever been sold to an MS patient. No FDA indication, so the patient pays $2–7K cash.', note:'Measured at effectively zero, across the whole history.'},
  {id:'unit',    g:'value', n:'Revenue per device',                 u:'$', min:500, max:8000, step:100, d:0, v:2000, src:'M', why:'The Phothera 200 — the cheapest device CytoKind sells. Every figure on this page is therefore a floor.'},
 
  {id:'goal',    g:'target',n:'Device target per month',            u:'',  min:1,   max:60,   step:1,   d:0, v:20,   src:'M', why:'Adrian, 14 Aug: 20 sales between 10 Aug and 10 Sep. Currently at 6.'},
- {id:'parked',  g:'target',n:'Prescriptions parked right now',     u:'',  min:0,   max:100,  step:1,   d:0, v:19,   src:'M', why:'Adrian, 14 Aug: "now that number is up to 18, so that\'s, or like 20."'},
+ {id:'parked',  g:'target',n:'Prescriptions parked right now',     u:'',  min:0,   max:100,  step:1,   d:0, v:18,   src:'M', why:'Adrian, 14 Aug: "now that number is up to 18, so that\'s, or like 20." 18 is the figure carried in 7 — THE NUMBERS: 18 × $2,000 = $36,000 parked.'},
  {id:'recover', g:'target',n:'Parked prescriptions recovered if chased',u:'%',min:0,max:100, step:5,   d:0, v:60,   src:'A', why:'Nobody has ever chased them, so no recovery rate exists.'}
 ];
 
@@ -558,7 +642,7 @@ const V=Object.assign({},BASE);
 const SCEN={
  today:{},
  p1:{postsub:4, jfcomp:40, dermsh:85, attempts:4, conn2jf:28, recover:80},
- p2:{spend:11000, ctr:1.15, formrate:17, postsub:9, jfcomp:45, dermsh:92,
+ p2:{spend:11000, ctr:1.15, formrate:12, postsub:9, jfcomp:45, dermsh:92,
      attempts:5, conn2jf:32, posts:20, viewspp:2500, orgctr:1.00, recover:90}
 };
 
@@ -747,7 +831,28 @@ function renderChain(m){
   $('#chainnote').innerHTML = m.untouched>0
     ? `<b>Read row 05 and row 06 together.</b> ${nf(m.jfStart,0)} of ${nf(m.contacts,0)} contacts are given a next step at the moment of highest intent, and of the ${nf(m.remaining,0)} left over, one person can attempt ${nf(m.capacity,0)}. <b>${nf(m.untouched,0)} people — ${pct(m.untouchedPct,0)} of everyone who raised a hand — are never contacted at all.</b> They are not lost to a competitor. They are lost to arithmetic.`
       + (grew ? ` <br><br><b>And note what just happened.</b> Chasing each person harder made this number <em>worse</em>, not better — the same seat, divided across more attempts per person, reaches fewer people. <b>That is the whole argument in one row: the phone cannot be the answer at this volume.</b> Every scenario that works, works by putting something in front of the contact automatically, in row 05.` : '')
-    : `<b>Capacity now clears the queue.</b> Every contact arriving is either routed onward automatically or attempted by a human. The constraint has moved off volume and onto conversion — read section 04.`;
+    : `<b>Capacity now clears the queue.</b> Every contact arriving is either routed onward automatically or attempted by a human. The constraint has moved off volume and onto conversion — read section 05.`;
+}
+
+/* ===================== READ-ONCE RECONCILIATION =====================
+   Runs this same model on the three numbers actually read off the account, holding every
+   other lever where it stands, and reports the collision with the two measured anchors.
+   Nothing here is fitted: 2027, 11.24 and 2.8 all come off the 4 Aug screenshot. */
+const RO={spend:2027, cpm:11.24, formrate:2.8};
+function renderReadOnce(m){
+  const el=$('#ronote'); if(!el) return;
+  const mr=model(Object.assign({},V,RO));
+  const cplRO = mr.cPaid>0 ? RO.spend/mr.cPaid : 0;
+  el.innerHTML =
+   `<b>Now put the read through the model and watch it collide.</b> Hold every other lever where it stands, `
+   +`set spend to <b>$2,027</b>, CPM to <b>$11.24</b> and page-to-form to <b>2.8%</b> — the three figures actually on the screen — and this funnel produces `
+   +`<b>${nf(mr.contacts,0)} contacts a month</b>, ${nf(mr.contacts/30,1)} a day, at <b>${money0(cplRO)}</b> each, ending in <b>${nf(mr.devices,1)} devices</b>. `
+   +`Adrian counts <b>about twenty contacts a day</b> and Tom disclosed <b>$14</b> a form fill. `
+   +`Today's baseline on this page reproduces both: ${nf(m.contacts,0)} contacts a month, ${nf(m.contacts/30,1)} a day, ${money0(m.cpl)} each. `
+   +`<b>The two readings differ by ${nf(m.contacts/Math.max(1,mr.contacts),0)}×, and they cannot both describe the same account.</b><br><br>`
+   +`<em>The likeliest explanation is that the window is the wrong one</em> — 5 Jul to 3 Aug is the last full month of the old configuration, and the relaunch on 11 August added ads, destinations and, presumably, budget. `
+   +`But "presumably" is the whole problem: <b>the plan on this page is built on $8,400 a month and the only evidence anyone has says $2,027</b>. `
+   +`Until the Amount spent column is read, every cost figure on this page is a range, not a number — and that is exactly why the three levers above are marked <span class="src w">W</span> and not <span class="src m">M</span>.`;
 }
 
 /* ===================== MARGINAL ROI ===================== */
@@ -828,9 +933,13 @@ function update(){
   $('#bl-val').textContent=money(m.parkedVal);
   $('#bl-val2').textContent=money(m.untouchedVal);
 
-  const nM=L.filter(l=>l.src==='M').length, nA=L.filter(l=>l.src==='A').length;
-  $('#i-m').textContent=nM; $('#i-a').textContent=nA;
-  $('#i-m2').textContent=nM; $('#i-a2').textContent=nA; $('#i-t').textContent=L.length;
+  const nM=L.filter(l=>l.src==='M').length, nA=L.filter(l=>l.src==='A').length,
+        nW=L.filter(l=>l.src==='W').length;
+  $('#i-m').textContent=nM; $('#i-a').textContent=nA; $('#i-w').textContent=nW;
+  $('#i-m2').textContent=nM; $('#i-a2').textContent=nA; $('#i-w2').textContent=nW;
+  $('#i-t').textContent=L.length;
+
+  renderReadOnce(m);
 
   recalcCreatives(); recalcContent(); recalcBoard(m);
   save();
@@ -857,12 +966,24 @@ function markScenario(){
 }
 
 /* ===================== CREATIVE LEDGER ===================== */
-let CR=[
- {name:'Trusted by Dermatologists for 40+ Years',angle:'authority',persona:'psoriasis_adult',fmt:'image',
+/* Seeded from the only read of the account — the 30 days to 3 Aug 2026. Spend and impressions are
+   Meta's own cost-per-result arithmetic reversed; the Clicks column carries landing-page views for
+   the three LPV-objective campaigns, because no click column was visible on the screenshot. */
+const CR_SEED=[
+ {name:'MS Fatigue — LPV: Contact Us  (Jul window)',angle:'symptom',persona:'ms_patient',fmt:'lpv',
+  spend:1614,impr:143651,clicks:8495,sub:0,dev:0},
+ {name:'Boosted post — "Can UV light reduce MS fatigue?"',angle:'research',persona:'ms_patient',fmt:'post',
+  spend:102,impr:67297,clicks:283,sub:0,dev:0},
+ {name:'Psoriasis — Banner Ads  (Jul window)',angle:'authority',persona:'psoriasis_adult',fmt:'image',
+  spend:75,impr:4960,clicks:250,sub:0,dev:0},
+ {name:'Light Therapy for Psoriasis  (Jul window)',angle:'condition',persona:'psoriasis_adult',fmt:'image',
+  spend:236,impr:20954,clicks:462,sub:0,dev:0},
+ {name:'Trusted by Dermatologists for 40+ Years  (live 17 Aug)',angle:'authority',persona:'psoriasis_adult',fmt:'image',
   spend:0,impr:0,clicks:0,sub:0,dev:0},
- {name:'MS Fatigue. New Research.',angle:'research',persona:'ms_patient',fmt:'video',
+ {name:'MS Fatigue. New Research.  (live 17 Aug)',angle:'research',persona:'ms_patient',fmt:'video',
   spend:0,impr:0,clicks:0,sub:0,dev:0}
 ];
+let CR=CR_SEED.map(r=>Object.assign({},r));
 const CRC=[['name','txt','Creative'],['angle','txt','Angle'],['persona','txt','Persona'],['fmt','txt','Format'],
            ['spend','nn'],['impr','nn'],['clicks','nn'],['sub','nn'],['dev','nn']];
 function renderCreatives(){
@@ -973,7 +1094,8 @@ let MB=[
  {m:'Contacts routed onward after submit (%)',t:60, a:null, act:'The post-submit page is down or unrouted. This is the highest-value red on the board — fix it before anything else.'},
  {m:'JotForms completed',                   t:20,  a:null, act:'Read the last ten completions for the drop-off step, then shorten the form to that step.'},
  {m:'Contacts never attempted (%)',         t:10,  a:null, inv:1, act:'Capacity is exceeded. Automate the first touch — do not add dials, the arithmetic does not close.'},
- {m:'Share of spend on dermatology (%)',    t:85,  a:null, act:'Spend has drifted back to the segment with no FDA indication. Re-weight the campaign the same day.'},
+ {m:'Share of spend on dermatology (%)',    t:85,  a:null, act:'Spend has drifted back to the segment with no FDA indication — it was 15% in the one month ever read. Re-weight the campaign the same day.'},
+ {m:'Sales uploaded back to Meta (%)',      t:100, a:null, act:'Zero have ever been uploaded, so the platform has optimised toward form-fillers for the life of the account. Push the offline conversions this week — it is a one-time setup, not a project.'},
  {m:'Devices invoiced',                     t:20,  a:null, act:'Work the parked prescriptions before buying a single new contact — that revenue is already paid for.'},
  {m:'Prescriptions parked over 14 days',    t:0,   a:null, inv:1, act:'Call the prescribing doctor directly. Do not wait on the patient to chase their own physician.'}
 ];
@@ -1044,8 +1166,7 @@ renderBoard();
 $$('#scn button').forEach(b=>b.addEventListener('click',()=>applyScenario(b.dataset.s)));
 $('#reset').addEventListener('click',()=>{
   try{localStorage.removeItem(KEY);}catch(e){}
-  CR=[{name:'Trusted by Dermatologists for 40+ Years',angle:'authority',persona:'psoriasis_adult',fmt:'image',spend:0,impr:0,clicks:0,sub:0,dev:0},
-      {name:'MS Fatigue. New Research.',angle:'research',persona:'ms_patient',fmt:'video',spend:0,impr:0,clicks:0,sub:0,dev:0}];
+  CR=CR_SEED.map(r=>Object.assign({},r));
   CO=[{name:'Podcast cut-downs (25 pieces)',hook:'authority',fmt:'short video',ch:'IG + FB',views:0,eng:0,clicks:0,con:0},
       {name:'Reels — first 15',hook:'mixed',fmt:'reel',ch:'IG + FB',views:0,eng:0,clicks:0,con:0}];
   MB.forEach(r=>r.a=null);   /* null, not 0 — 0 is an entered value and scores as one */
