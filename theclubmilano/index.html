@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>THE CLUB MILANO — More than a club</title>
+<meta name="description" content="More than a club. THE CLUB. Corso Garibaldi 97, Milano. Since 2005 — the landmark of Milanese nightlife.">
+<meta property="og:title" content="THE CLUB MILANO">
+<meta property="og:description" content="More than a club. THE CLUB. Corso Garibaldi 97, Milano.">
+<meta property="og:image" content="img/TC81.jpg">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#212121;
+  --bg-2:#1a1a1a;
+  --ink:#fbf9f6;
+  --body:#d9d9d9;
+  --mute:#8f8f8f;
+  --red:#d10c0c;
+  --line:rgba(251,249,246,.14);
+  --line-soft:rgba(251,249,246,.07);
+  --pad:clamp(18px,3.6vw,54px);
+  --nav-h:76px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--body);
+  font-family:"Inter Tight",-apple-system,Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--red);color:#fff}
+
+/* ============ TYPE ============ */
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:400}
+.mono-sm{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute)}
+.display{
+  font-weight:600;color:var(--ink);
+  letter-spacing:-.016em;line-height:.86;text-transform:uppercase;
+  margin:0;
+}
+.d-xl{font-size:clamp(52px,12.4vw,196px)}
+.d-lg{font-size:clamp(40px,7.6vw,116px)}
+.d-md{font-size:clamp(30px,4.4vw,64px)}
+.d-sm{font-size:clamp(22px,2.5vw,36px)}
+
+/* ============ LAYOUT ============ */
+.wrap{padding-inline:var(--pad)}
+section{position:relative}
+.rule{height:1px;background:var(--line-soft);width:100%}
+
+/* section head: mono index + label, UNVRS grammar */
+.shead{display:flex;align-items:baseline;gap:14px;margin-bottom:clamp(22px,3vw,40px)}
+.shead sup{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--mute);letter-spacing:.08em}
+.shead .lbl{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.shead .cnt{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--mute)}
+
+/* ============ NAV ============ */
+.nav{
+  position:fixed;inset:0 0 auto 0;height:var(--nav-h);z-index:90;
+  display:flex;align-items:center;justify-content:space-between;
+  padding-inline:var(--pad);
+  transition:transform .5s var(--ease),background .35s,backdrop-filter .35s;
+  mix-blend-mode:normal;
+}
+.nav.solid{background:rgba(33,33,33,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+.nav.up{transform:translateY(-102%)}
+.nav-l,.nav-r{display:flex;align-items:center;gap:26px;flex:1}
+.nav-r{justify-content:flex-end}
+.nav a.nlink{position:relative;color:var(--ink);opacity:.78;transition:opacity .25s}
+.nav a.nlink::after{content:"";position:absolute;left:0;bottom:-5px;height:1px;width:0;background:var(--ink);transition:width .35s var(--ease)}
+.nav a.nlink:hover{opacity:1}
+.nav a.nlink:hover::after{width:100%}
+.mark{
+  font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.1em;
+  color:var(--ink);white-space:nowrap;display:flex;gap:.35em;
+}
+.mark b{font-weight:400;color:var(--red)}
+.btn-book{
+  border:1px solid var(--line);border-radius:999px;padding:9px 20px;
+  font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink);position:relative;overflow:hidden;isolation:isolate;
+  transition:color .35s var(--ease),border-color .35s;
+}
+.btn-book::before{content:"";position:absolute;inset:0;background:var(--red);transform:translateY(101%);transition:transform .45s var(--ease);z-index:-1}
+.btn-book:hover{color:#fff;border-color:var(--red)}
+.btn-book:hover::before{transform:translateY(0)}
+.burger{display:none;width:34px;height:34px;place-items:center}
+.burger span{display:block;width:18px;height:1px;background:var(--ink);position:relative}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:1px;background:var(--ink)}
+.burger span::before{top:-5px}.burger span::after{top:5px}
+
+/* mobile sheet */
+.sheet{position:fixed;inset:0;background:var(--bg);z-index:95;transform:translateY(-100%);transition:transform .6s var(--ease);display:flex;flex-direction:column;padding:var(--pad);gap:6px;justify-content:center}
+.sheet.on{transform:translateY(0)}
+.sheet a{font-weight:600;font-size:clamp(30px,9vw,46px);letter-spacing:-.02em;text-transform:uppercase;color:var(--ink);line-height:1.12}
+.sheet .close{position:absolute;top:22px;right:var(--pad);font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--ink)}
+.sheet .meta{margin-top:34px;display:flex;flex-direction:column;gap:5px}
+
+/* ============ HERO ============ */
+.hero{height:100svh;min-height:600px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:heroZoom 14s var(--ease) forwards;filter:saturate(1.05) contrast(1.04)}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero-media::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(to bottom,rgba(20,20,20,.72) 0%,rgba(20,20,20,.18) 34%,rgba(20,20,20,.42) 66%,var(--bg) 99%)}
+.hero-inner{position:relative;z-index:2;padding:0 var(--pad) clamp(26px,3.4vw,44px)}
+.hero-kick{display:flex;flex-wrap:wrap;gap:8px 26px;margin-bottom:clamp(14px,2vw,26px);color:var(--ink);opacity:.85}
+.hero h1{overflow:hidden}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln i{display:block;font-style:normal;transform:translateY(105%);animation:rise 1.05s var(--ease) forwards}
+.hero h1 .ln:nth-child(2) i{animation-delay:.09s}
+@keyframes rise{to{transform:translateY(0)}}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;margin-top:clamp(18px,2.4vw,30px);flex-wrap:wrap}
+.hero-foot p{margin:0;max-width:38ch;font-size:14px;line-height:1.5;color:var(--body)}
+.scroller{display:flex;align-items:center;gap:10px;color:var(--ink)}
+.scroller .bar{width:1px;height:34px;background:var(--line);position:relative;overflow:hidden}
+.scroller .bar::after{content:"";position:absolute;inset:0;background:var(--ink);animation:drop 1.9s var(--ease) infinite}
+@keyframes drop{0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)}}
+
+/* ============ TICKER ============ */
+.ticker{border-block:1px solid var(--line-soft);overflow:hidden;padding:14px 0;background:var(--bg)}
+.ticker-row{display:flex;gap:0;width:max-content;animation:slide 34s linear infinite}
+.ticker span{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);opacity:.62;padding-inline:28px;white-space:nowrap;display:flex;align-items:center;gap:28px}
+.ticker span::after{content:"";width:5px;height:5px;background:var(--red);border-radius:50%}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ============ CAROUSEL ============ */
+.rail{
+  display:flex;gap:clamp(10px,1.1vw,16px);overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-bottom:4px;scrollbar-width:none;-ms-overflow-style:none;
+  margin-inline:calc(var(--pad)*-1);padding-inline:var(--pad);
+  scroll-padding-left:var(--pad);overscroll-behavior-x:contain;
+  cursor:grab;
+}
+.rail::-webkit-scrollbar{display:none}
+.rail.drag{cursor:grabbing;scroll-snap-type:none}
+.card{
+  flex:0 0 clamp(230px,25vw,360px);scroll-snap-align:start;position:relative;
+  aspect-ratio:3/4.15;overflow:hidden;background:var(--bg-2);
+  isolation:isolate;
+}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease),filter .6s;filter:saturate(.94) brightness(.86)}
+.card:hover img{transform:scale(1.06);filter:saturate(1.06) brightness(1)}
+.card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(15,15,15,.9) 0%,rgba(15,15,15,.15) 48%,rgba(15,15,15,.35) 100%);pointer-events:none}
+.card-body{position:absolute;inset:auto 0 0 0;z-index:2;padding:18px;display:flex;flex-direction:column;gap:6px}
+.card-top{position:absolute;top:0;left:0;right:0;z-index:2;padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-start}
+.chip{
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  border:1px solid rgba(251,249,246,.42);border-radius:999px;padding:5px 11px;color:var(--ink);
+  backdrop-filter:blur(6px);background:rgba(20,20,20,.22)
+}
+.chip.red{background:var(--red);border-color:var(--red);color:#fff}
+.card h3{margin:0;font-weight:600;font-size:clamp(20px,2.1vw,30px);letter-spacing:-.018em;text-transform:uppercase;color:var(--ink);line-height:.95}
+.card .sub{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:rgba(251,249,246,.66)}
+.card .go{margin-top:6px;display:flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);opacity:0;transform:translateY(6px);transition:.45s var(--ease)}
+.card:hover .go{opacity:1;transform:translateY(0)}
+
+.rail-ctl{display:flex;align-items:center;gap:16px;margin-top:22px}
+.prog{flex:1;height:1px;background:var(--line-soft);position:relative}
+.prog i{position:absolute;left:0;top:-1px;height:3px;background:var(--ink);width:16%;transition:width .25s linear,left .25s linear}
+.arw{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:.3s var(--ease);color:var(--ink)}
+.arw:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.arw[disabled]{opacity:.28;pointer-events:none}
+.arw svg{width:13px;height:13px}
+
+/* ============ RED BAND ============ */
+.band{background:var(--red);color:#fff;padding:clamp(56px,8vw,120px) var(--pad);position:relative;overflow:hidden}
+.band .display{color:#fff}
+.band-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.band .mono,.band .mono-sm{color:rgba(255,255,255,.82)}
+.band h2{margin:clamp(28px,4vw,54px) 0 0}
+.band .rline{display:block}
+.band .rline.r{text-align:right}
+.zones{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.28);margin-top:clamp(38px,5vw,72px);border-block:1px solid rgba(255,255,255,.28)}
+.zone{background:var(--red);padding:24px 20px 26px;display:flex;flex-direction:column;gap:8px;transition:background .4s}
+.zone:hover{background:#b70a0a}
+.zone h4{margin:0;font-weight:600;font-size:clamp(19px,2vw,27px);letter-spacing:-.015em;text-transform:uppercase;color:#fff}
+.zone p{margin:0;font-size:13.5px;color:rgba(255,255,255,.86);line-height:1.5}
+.zone .num{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.7)}
+.cta-white{
+  display:inline-flex;align-items:center;gap:12px;margin-top:clamp(30px,4vw,46px);
+  background:#fff;color:var(--red);padding:16px 26px;
+  font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  transition:.35s var(--ease)
+}
+.cta-white:hover{background:#0f0f0f;color:#fff}
+
+/* ============ STATS ============ */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border-block:1px solid var(--line-soft)}
+.stat{background:var(--bg);padding:clamp(26px,3.4vw,44px) clamp(16px,2vw,28px)}
+.stat .n{font-weight:600;font-size:clamp(34px,5.4vw,80px);letter-spacing:-.03em;color:var(--ink);line-height:.9}
+.stat .k{margin-top:10px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+
+/* ============ ABOUT ============ */
+.about{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(26px,4vw,70px);align-items:end}
+.about p{font-size:clamp(15px,1.35vw,19px);line-height:1.62;color:var(--body);max-width:46ch}
+.about .big{font-size:clamp(19px,2.05vw,30px);line-height:1.32;color:var(--ink);letter-spacing:-.012em;max-width:22ch;font-weight:500}
+
+/* ============ GALLERY ============ */
+.gal{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:calc(var(--pad)*-1);padding-inline:var(--pad);scroll-padding-left:var(--pad);overscroll-behavior-x:contain;cursor:grab}
+.gal::-webkit-scrollbar{display:none}
+.gal figure{margin:0;flex:0 0 clamp(240px,32vw,520px);aspect-ratio:16/10;overflow:hidden;background:var(--bg-2)}
+.gal img{width:100%;height:100%;object-fit:cover;filter:saturate(.95) brightness(.9);transition:.9s var(--ease)}
+.gal figure:hover img{filter:saturate(1.08) brightness(1);transform:scale(1.04)}
+
+/* ============ GUESTLIST ============ */
+.gl{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);align-items:center}
+.glform{display:flex;border-bottom:1px solid var(--line);padding-bottom:12px;gap:12px;align-items:center;max-width:520px}
+.glform input{flex:1;background:none;border:0;outline:none;color:var(--ink);font-family:inherit;font-size:16px;padding:6px 0}
+.glform input::placeholder{color:var(--mute)}
+.glform button{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);white-space:nowrap;transition:color .3s}
+.glform button:hover{color:var(--red)}
+.glnote{margin-top:12px;font-size:12px;color:var(--mute)}
+
+/* ============ FOOTER ============ */
+.foot{padding-top:clamp(46px,6vw,88px)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:clamp(22px,3vw,48px);padding-bottom:clamp(38px,5vw,66px)}
+.foot-grid h5{margin:0 0 16px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:400}
+.foot-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.foot-grid a{color:var(--body);font-size:14.5px;transition:color .25s}
+.foot-grid a:hover{color:var(--ink)}
+.foot-mark{padding:clamp(20px,3vw,34px) 0 clamp(14px,2vw,22px);border-top:1px solid var(--line-soft)}
+.foot-mark .big{font-weight:600;font-size:clamp(46px,15.6vw,250px);letter-spacing:-.035em;line-height:.82;color:var(--ink);text-transform:uppercase;display:flex;gap:.06em;white-space:nowrap}
+.foot-mark .big b{font-weight:600;color:var(--red)}
+.foot-bar{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:clamp(22px,3vw,34px);border-top:1px solid var(--line-soft);padding-top:16px}
+
+/* ============ REVEAL ============ */
+[data-rv]{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+[data-rv].in{opacity:1;transform:none}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1000px){
+  .about{grid-template-columns:1fr}
+  .gl{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .zones{grid-template-columns:1fr}
+}
+@media (max-width:820px){
+  .nav-l{display:none}
+  .burger{display:grid}
+  .nav-r{gap:14px}
+  .btn-book{padding:8px 15px;font-size:9.5px}
+  .card{flex:0 0 74vw}
+  .band .rline.r{text-align:left}
+  .hero-foot{align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<header class="nav" id="nav">
+  <div class="nav-l">
+    <a class="nlink mono" href="#nights">Nights</a>
+    <a class="nlink mono" href="#events">Special Events</a>
+    <a class="nlink mono" href="#club">The Club</a>
+  </div>
+  <a href="#top" class="mark">[<b>THE</b>&nbsp;CLUB]</a>
+  <div class="nav-r">
+    <a class="nlink mono" href="#contact" style="display:none" id="navContact">Contact</a>
+    <a class="btn-book" href="#tables">Book a table</a>
+    <button class="burger" id="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<div class="sheet" id="sheet">
+  <button class="close mono" id="sheetClose">Close</button>
+  <a href="#nights">Nights</a>
+  <a href="#events">Special Events</a>
+  <a href="#tables">Tables</a>
+  <a href="#club">The Club</a>
+  <a href="#contact">Contact</a>
+  <div class="meta">
+    <span class="mono-sm">Corso Garibaldi 97 — 20121 Milano</span>
+    <span class="mono-sm">+39 338 221 1001</span>
+  </div>
+</div>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="top">
+  <div class="hero-media">
+    <img src="img/TC81.jpg" alt="The Club Milano main room" fetchpriority="high" decoding="async">
+  </div>
+  <div class="hero-inner">
+    <div class="hero-kick mono">
+      <span>Milano — Corso Garibaldi 97</span>
+      <span>Est. 2005</span>
+      <span>Wed → Sun</span>
+    </div>
+    <h1 class="display d-xl">
+      <span class="ln"><i>More than</i></span>
+      <span class="ln"><i>a club<em>.</em></i></span>
+    </h1>
+    <div class="hero-foot">
+      <p>Five nights, one address. The room where Milan's Design Week, Fashion Week and international jet set have been landing since 2005.</p>
+      <div class="scroller mono"><span class="bar"></span> Scroll</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TICKER ========== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-row" id="tick"></div>
+</div>
+
+<!-- ========== NIGHTS ========== -->
+<section id="nights" class="wrap" style="padding-block:clamp(56px,7vw,104px)">
+  <div class="shead" data-rv>
+    <sup>01</sup><span class="lbl">The week</span>
+    <span class="cnt" id="nightsCnt">01 / 05</span>
+  </div>
+  <h2 class="display d-lg" data-rv style="margin-bottom:clamp(26px,3.4vw,46px)">Pick your night</h2>
+
+  <div class="rail" id="railNights" data-rail>
+    <a class="card" href="#tables">
+      <img src="img/TC11.jpg" loading="lazy" alt="One Two — Wednesday">
+      <div class="card-top"><span class="chip">Wed</span><span class="chip red">Residency</span></div>
+      <div class="card-body">
+        <span class="sub">Wednesday — from 23:30</span>
+        <h3>One Two</h3>
+        <span class="go">Book a table →</span>
+      </div>
+    </a>
+    <a class="card" href="#tables">
+      <img src="img/TC21.jpg" loading="lazy" alt="Atlanta — Thursday">
+      <div class="card-top"><span class="chip">Thu</span><span class="chip red">Residency</span></div>
+      <div class="card-body">
+        <span class="sub">Thursday — from 23:30</span>
+        <h3>Atlanta</h3>
+        <span class="go">Book a table →</span>
+      </div>
+    </a>
+    <a class="card" href="#tables">
+      <img src="img/TC31.jpg" loading="lazy" alt="First Class — Friday">
+      <div class="card-top"><span class="chip">Fri</span><span class="chip red">Residency</span></div>
+      <div class="card-body">
+        <span class="sub">Friday — from 23:30</span>
+        <h3>First Class</h3>
+        <span class="go">Book a table →</span>
+      </div>
+    </a>
+    <a class="card" href="#tables">
+      <img src="img/TC41.jpg" loading="lazy" alt="Girls Republic — Saturday">
+      <div class="card-top"><span class="chip">Sat</span><span class="chip red">Residency</span></div>
+      <div class="card-body">
+        <span class="sub">Saturday — from 23:30</span>
+        <h3>Girls Republic</h3>
+        <span class="go">Book a table →</span>
+      </div>
+    </a>
+    <a class="card" href="#tables">
+      <img src="img/TC51.jpg" loading="lazy" alt="Superbe — Sunday">
+      <div class="card-top"><span class="chip">Sun</span><span class="chip red">Residency</span></div>
+      <div class="card-body">
+        <span class="sub">Sunday — from 23:30</span>
+        <h3>Superbe</h3>
+        <span class="go">Book a table →</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="rail-ctl">
+    <button class="arw" data-arw="railNights" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 4 7 12l8 8"/></svg></button>
+    <button class="arw" data-arw="railNights" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4l8 8-8 8"/></svg></button>
+    <div class="prog"><i data-prog="railNights"></i></div>
+  </div>
+</section>
+
+<!-- ========== SPECIAL EVENTS ========== -->
+<section id="events" class="wrap" style="padding-block:clamp(46px,6vw,92px);border-top:1px solid var(--line-soft)">
+  <div class="shead" data-rv>
+    <sup>02</sup><span class="lbl">Special events</span>
+    <span class="cnt">04 formats</span>
+  </div>
+  <h2 class="display d-lg" data-rv style="margin-bottom:clamp(26px,3.4vw,46px)">Not just<br>a weekend.</h2>
+
+  <div class="rail" id="railEvents" data-rail>
+    <a class="card" href="#contact">
+      <img src="img/TC6.jpg" loading="lazy" alt="Design Week at The Club">
+      <div class="card-top"><span class="chip">April</span></div>
+      <div class="card-body"><span class="sub">Official party</span><h3>Design<br>Week</h3><span class="go">Enquire →</span></div>
+    </a>
+    <a class="card" href="#contact">
+      <img src="img/TC71.jpg" loading="lazy" alt="Fashion Week at The Club">
+      <div class="card-top"><span class="chip">Feb / Sep</span></div>
+      <div class="card-body"><span class="sub">Official party</span><h3>Fashion<br>Week</h3><span class="go">Enquire →</span></div>
+    </a>
+    <a class="card" href="#contact">
+      <img src="img/TC1.jpg" loading="lazy" alt="Private events at The Club">
+      <div class="card-top"><span class="chip">On request</span></div>
+      <div class="card-body"><span class="sub">Full venue — 350 guests</span><h3>Private<br>Events</h3><span class="go">Enquire →</span></div>
+    </a>
+    <a class="card" href="#contact">
+      <img src="img/TC2.jpg" loading="lazy" alt="Corporate events at The Club">
+      <div class="card-top"><span class="chip">On request</span></div>
+      <div class="card-body"><span class="sub">Sound &amp; video system</span><h3>Corporate</h3><span class="go">Enquire →</span></div>
+    </a>
+  </div>
+
+  <div class="rail-ctl">
+    <button class="arw" data-arw="railEvents" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 4 7 12l8 8"/></svg></button>
+    <button class="arw" data-arw="railEvents" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4l8 8-8 8"/></svg></button>
+    <div class="prog"><i data-prog="railEvents"></i></div>
+  </div>
+</section>
+
+<!-- ========== RED BAND / TABLES ========== -->
+<section class="band" id="tables">
+  <div class="band-top">
+    <div class="mono">03 — Tables &amp; bottle service</div>
+    <div class="mono">Night infoline +39 338 221 1001</div>
+  </div>
+  <h2 class="display d-xl" style="line-height:.84">
+    <span class="rline">Elevate</span>
+    <span class="rline r">your night</span>
+  </h2>
+
+  <div class="zones">
+    <div class="zone">
+      <span class="num">Zone 01</span>
+      <h4>Dancefloor</h4>
+      <p>On the floor, in the middle of it. Closest to the booth, closest to the room.</p>
+    </div>
+    <div class="zone">
+      <span class="num">Zone 02</span>
+      <h4>Gold VIP</h4>
+      <p>Raised seating over the dancefloor. The view everyone else is looking up at.</p>
+    </div>
+    <div class="zone">
+      <span class="num">Zone 03</span>
+      <h4>Privé VIP</h4>
+      <p>The private room. Own service, own space, own door.</p>
+    </div>
+  </div>
+
+  <a class="cta-white" href="https://wa.me/393382211001" target="_blank" rel="noopener">Request a table <span>→</span></a>
+</section>
+
+<!-- ========== STATS ========== -->
+<section class="stats" id="club">
+  <div class="stat" data-rv><div class="n">2005</div><div class="k">Open since</div></div>
+  <div class="stat" data-rv><div class="n">350</div><div class="k">Standing capacity</div></div>
+  <div class="stat" data-rv><div class="n">200</div><div class="k">Seated capacity</div></div>
+  <div class="stat" data-rv><div class="n">02</div><div class="k">Bar zones</div></div>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section class="wrap" style="padding-block:clamp(56px,7vw,110px)">
+  <div class="shead" data-rv><sup>04</sup><span class="lbl">The club</span></div>
+  <div class="about">
+    <div data-rv>
+      <h2 class="display d-md" style="margin-bottom:clamp(20px,2.4vw,32px)">A landmark of<br>Milanese nightlife.</h2>
+      <p>Since 2005, The Club has been one of the addresses that define how Milan goes out. Corso Garibaldi 97 — Brera — behind a door that has hosted worldwide famous DJs, the official parties of Design Week and Fashion Week, and an international jet set that keeps coming back.</p>
+      <p style="margin-top:18px">Two bar zones, a complete sound and video system, 200 seated and over 350 standing. Every night of the week has its own name, its own crowd, its own music.</p>
+    </div>
+    <div data-rv>
+      <p class="big">More than a club.<br>The Club.</p>
+      <div style="margin-top:26px;display:flex;flex-direction:column;gap:7px">
+        <span class="mono-sm">Corso Garibaldi 97 — 20121 Milano</span>
+        <span class="mono-sm">Day infoline — +39 339 184 6369</span>
+        <span class="mono-sm">Night infoline — +39 338 221 1001</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GALLERY ========== -->
+<section style="padding-bottom:clamp(50px,6vw,96px)" class="wrap">
+  <div class="shead" data-rv><sup>05</sup><span class="lbl">The room</span><span class="cnt">Drag →</span></div>
+  <div class="gal" data-rail id="gal">
+    <figure><img src="img/TC81.jpg" loading="lazy" alt="Dancefloor"></figure>
+    <figure><img src="img/TC6.jpg" loading="lazy" alt="Booths and bar"></figure>
+    <figure><img src="img/TC51.jpg" loading="lazy" alt="Privé seating"></figure>
+    <figure><img src="img/TC31.jpg" loading="lazy" alt="Gold VIP"></figure>
+    <figure><img src="img/TC11.jpg" loading="lazy" alt="Main room"></figure>
+    <figure><img src="img/TC21.jpg" loading="lazy" alt="LED bar"></figure>
+    <figure><img src="img/TC41.jpg" loading="lazy" alt="Lounge"></figure>
+    <figure><img src="img/TC71.jpg" loading="lazy" alt="Room detail"></figure>
+  </div>
+</section>
+
+<!-- ========== GUESTLIST ========== -->
+<section class="wrap" id="contact" style="padding-block:clamp(50px,6vw,96px);border-top:1px solid var(--line-soft)">
+  <div class="gl">
+    <div data-rv>
+      <div class="shead"><sup>06</sup><span class="lbl">Guestlist</span></div>
+      <h2 class="display d-md">On the list<br>before you arrive.</h2>
+    </div>
+    <div data-rv>
+      <form class="glform" id="glForm" novalidate>
+        <input type="email" name="email" placeholder="your@email.com" aria-label="Email" required>
+        <button type="submit">Join the list →</button>
+      </form>
+      <p class="glnote" id="glNote">Nights, guestlist and special events. No spam, ever.</p>
+      <div style="margin-top:26px;display:flex;gap:20px;flex-wrap:wrap">
+        <a class="mono" href="https://www.instagram.com/theclubmilano/" target="_blank" rel="noopener" style="color:var(--ink)">Instagram ↗</a>
+        <a class="mono" href="https://www.facebook.com/theclubmilano2" target="_blank" rel="noopener" style="color:var(--ink)">Facebook ↗</a>
+        <a class="mono" href="mailto:info@theclubmilano.com" style="color:var(--ink)">info@theclubmilano.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="foot wrap">
+  <div class="foot-grid">
+    <div>
+      <h5>The Club Milano</h5>
+      <p style="margin:0;max-width:32ch;font-size:14.5px;color:var(--body)">Corso Garibaldi 97<br>20121 Milano, Italia</p>
+      <p style="margin:14px 0 0;font-size:14.5px"><a href="tel:+393391846369">+39 339 184 6369</a> — day<br><a href="tel:+393382211001">+39 338 221 1001</a> — night</p>
+    </div>
+    <div>
+      <h5>The week</h5>
+      <ul>
+        <li><a href="#nights">Wed — One Two</a></li>
+        <li><a href="#nights">Thu — Atlanta</a></li>
+        <li><a href="#nights">Fri — First Class</a></li>
+        <li><a href="#nights">Sat — Girls Republic</a></li>
+        <li><a href="#nights">Sun — Superbe</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Visit</h5>
+      <ul>
+        <li><a href="#tables">Tables &amp; bottles</a></li>
+        <li><a href="#events">Special events</a></li>
+        <li><a href="#club">The venue</a></li>
+        <li><a href="#contact">Guestlist</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Follow</h5>
+      <ul>
+        <li><a href="https://www.instagram.com/theclubmilano/" target="_blank" rel="noopener">Instagram ↗</a></li>
+        <li><a href="https://www.facebook.com/theclubmilano2" target="_blank" rel="noopener">Facebook ↗</a></li>
+        <li><a href="mailto:info@theclubmilano.com">info@theclubmilano.com</a></li>
+        <li><a href="https://maps.google.com/?q=Corso+Garibaldi+97+Milano" target="_blank" rel="noopener">Google Maps ↗</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot-mark">
+    <div class="big">[<b>THE</b>&nbsp;CLUB]</div>
+  </div>
+
+  <div class="foot-bar">
+    <span class="mono-sm">© 2026 The Club Milano — All rights reserved</span>
+    <span class="mono-sm" id="clock">Milano —:—:—</span>
+    <span class="mono-sm">More than a club</span>
+  </div>
+</footer>
+
+<script>
+/* ---------- ticker ---------- */
+(function(){
+  var words=['More than a club','The Club','Milano','Corso Garibaldi 97','Since 2005','Design Week','Fashion Week','Wed → Sun'];
+  var half=words.map(function(w){return '<span>'+w+'</span>'}).join('');
+  document.getElementById('tick').innerHTML=half+half;
+})();
+
+/* ---------- nav ---------- */
+(function(){
+  var nav=document.getElementById('nav'),last=0;
+  addEventListener('scroll',function(){
+    var y=scrollY;
+    nav.classList.toggle('solid',y>60);
+    nav.classList.toggle('up',y>last&&y>420);
+    last=y;
+  },{passive:true});
+  var sheet=document.getElementById('sheet');
+  document.getElementById('burger').onclick=function(){sheet.classList.add('on')};
+  document.getElementById('sheetClose').onclick=function(){sheet.classList.remove('on')};
+  sheet.querySelectorAll('a').forEach(function(a){a.onclick=function(){sheet.classList.remove('on')}});
+})();
+
+/* ---------- reveal ---------- */
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('[data-rv]').forEach(function(el,i){el.style.transitionDelay=(i%4*60)+'ms';io.observe(el)});
+})();
+
+/* ---------- rails: drag + arrows + progress ---------- */
+document.querySelectorAll('[data-rail]').forEach(function(rail){
+  var down=false,sx=0,sl=0,moved=0;
+  rail.addEventListener('pointerdown',function(e){
+    down=true;moved=0;sx=e.clientX;sl=rail.scrollLeft;rail.classList.add('drag');rail.setPointerCapture(e.pointerId);
+  });
+  rail.addEventListener('pointermove',function(e){
+    if(!down)return;var d=e.clientX-sx;moved=Math.abs(d);rail.scrollLeft=sl-d;
+  });
+  ['pointerup','pointercancel'].forEach(function(ev){
+    rail.addEventListener(ev,function(){down=false;rail.classList.remove('drag')});
+  });
+  rail.addEventListener('click',function(e){if(moved>8){e.preventDefault();e.stopPropagation()}},true);
+  /* Chrome converts a vertical wheel into horizontal scroll on x-overflow
+     containers, which traps the page. Hand dominant-Y wheels back to the page. */
+  rail.addEventListener('wheel',function(e){
+    if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();scrollBy(0,e.deltaY)}
+  },{passive:false});
+});
+
+function railProgress(id){
+  var rail=document.getElementById(id);if(!rail)return;
+  var bar=document.querySelector('[data-prog="'+id+'"]');
+  var max=rail.scrollWidth-rail.clientWidth;
+  var vis=Math.min(1,rail.clientWidth/rail.scrollWidth);
+  var p=max>0?rail.scrollLeft/max:0;
+  bar.style.width=(vis*100)+'%';
+  bar.style.left=(p*(100-vis*100))+'%';
+  var cnt=document.getElementById('nightsCnt');
+  if(id==='railNights'&&cnt){
+    var cards=rail.children.length,card=rail.children[0].getBoundingClientRect().width+12;
+    var i=Math.min(cards,Math.round(rail.scrollLeft/card)+1);
+    cnt.textContent=('0'+i).slice(-2)+' / '+('0'+cards).slice(-2);
+  }
+  rail.querySelectorAll;
+  var arws=document.querySelectorAll('[data-arw="'+id+'"]');
+  if(arws.length===2){arws[0].disabled=rail.scrollLeft<4;arws[1].disabled=rail.scrollLeft>max-4}
+}
+['railNights','railEvents'].forEach(function(id){
+  var r=document.getElementById(id);if(!r)return;
+  r.addEventListener('scroll',function(){railProgress(id)},{passive:true});
+  railProgress(id);
+});
+addEventListener('resize',function(){['railNights','railEvents'].forEach(railProgress)});
+document.querySelectorAll('[data-arw]').forEach(function(b){
+  b.onclick=function(){
+    var rail=document.getElementById(b.dataset.arw);
+    var step=rail.children[0].getBoundingClientRect().width+12;
+    rail.scrollBy({left:step*(+b.dataset.dir),behavior:'smooth'});
+  };
+});
+
+/* ---------- clock ---------- */
+(function(){
+  var el=document.getElementById('clock');
+  function t(){
+    var s=new Date().toLocaleTimeString('en-GB',{timeZone:'Europe/Rome',hour12:false});
+    el.textContent='Milano '+s;
+  }
+  t();setInterval(t,1000);
+})();
+
+/* ---------- guestlist ---------- */
+document.getElementById('glForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var i=this.querySelector('input'),n=document.getElementById('glNote');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(i.value)){n.textContent='Enter a valid email address.';n.style.color='var(--red)';return}
+  n.textContent='You are on the list. See you at Corso Garibaldi 97.';n.style.color='var(--ink)';
+  i.value='';i.blur();
+});
+
+/* ---------- smooth anchors ---------- */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var t=document.querySelector(a.getAttribute('href'));if(!t)return;
+    e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+scrollY-60,behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
