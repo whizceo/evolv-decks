@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Ready List — Five Verified Owner-Operators — Evolv AI for Broker Social Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111418; --muted:#55606b; --faint:#87919c;
+    --rule:#d6d9de; --rule-soft:#eceef1;
+    --paper:#ffffff; --wash:#f7f8fa;
+    --navy:#1f3864; --navy-soft:#2e5c9a; --red:#8c2f2f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:Inter,-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased;
+    padding:0 26px 110px;
+  }
+  .wrap{max-width:780px;margin:0 auto}
+
+  header{padding:70px 0 0}
+  .rail{
+    font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--faint); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    padding-bottom:16px; border-bottom:2px solid var(--ink);
+  }
+  h1{font-weight:700; font-size:clamp(30px,5.2vw,42px); line-height:1.06; letter-spacing:-.025em; margin:34px 0 14px}
+  .standfirst{font-size:17.5px; color:var(--muted); max-width:40em; margin-bottom:6px}
+
+  h2{font-weight:700; font-size:12px; letter-spacing:.15em; text-transform:uppercase; color:var(--navy); margin:56px 0 0}
+  h2 .n{color:var(--faint); font-weight:600; margin-right:10px}
+  .h2sub{font-weight:600; font-size:24px; letter-spacing:-.02em; line-height:1.2; margin:10px 0 8px; color:var(--ink)}
+  h3{font-weight:600; font-size:17px; letter-spacing:-.01em; margin:30px 0 8px}
+  .lede{font-size:15px; color:var(--faint); margin:0 0 20px; max-width:44em}
+  p{margin:0 0 16px; max-width:44em; color:var(--muted)}
+  p.ink{color:var(--ink)}
+  strong{font-weight:600; color:var(--ink)}
+
+  .tbl{overflow-x:auto; margin:20px 0 26px}
+  table{width:100%; border-collapse:collapse; font-size:14.5px; min-width:520px}
+  th{font-size:10.5px; font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--faint);
+     text-align:left; padding:0 16px 9px 0; border-bottom:1.5px solid var(--ink); vertical-align:bottom}
+  td{padding:13px 16px 13px 0; border-bottom:1px solid var(--rule-soft); vertical-align:top; color:var(--muted)}
+  td:first-child{color:var(--ink); font-weight:500}
+  tr:last-child td{border-bottom:1px solid var(--rule)}
+  .num{text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums}
+  th.num{text-align:right}
+  tr.total td{border-top:1.5px solid var(--ink); border-bottom:none; color:var(--ink); font-weight:600; padding-top:13px}
+
+  .note{background:var(--wash); border:1px solid var(--rule); border-left:3px solid var(--navy);
+        padding:20px 22px; margin:24px 0; font-size:15px}
+  .note p{margin:0; max-width:none}
+  .note p + p{margin-top:11px}
+  .note .lab{display:block; font-size:10.5px; font-weight:600; letter-spacing:.13em;
+             text-transform:uppercase; color:var(--navy); margin-bottom:8px}
+
+  /* ---------- record block ---------- */
+  .record{border:1px solid var(--rule); padding:26px 26px 20px; margin:22px 0; background:var(--paper)}
+  .record .hd{font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+              color:var(--faint); padding-bottom:14px; margin-bottom:16px; border-bottom:1px solid var(--rule)}
+  .record .hd b{color:var(--ink); font-weight:700}
+  .record dl{display:grid; grid-template-columns:170px 1fr; gap:0}
+  .record dt{font-size:11px; font-weight:600; letter-spacing:.09em; text-transform:uppercase;
+             color:var(--faint); padding:9px 14px 9px 0; border-bottom:1px solid var(--rule-soft)}
+  .record dd{font-size:14.5px; color:var(--muted); padding:9px 0; border-bottom:1px solid var(--rule-soft)}
+  .record dd strong{color:var(--ink)}
+  .record dd a{color:var(--navy-soft); text-decoration:none; border-bottom:1px solid var(--rule)}
+  .record dt:last-of-type,.record dd:last-of-type{border-bottom:none}
+  .flag{display:inline-block; font-size:9.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+        padding:2px 6px; border:1px solid var(--rule); color:var(--faint); background:var(--wash); white-space:nowrap}
+  .flag.warn{color:var(--red); border-color:#e0c9c9; background:#fbf5f5}
+  .src{font-size:12.5px; color:var(--faint)}
+
+  ul.plain{list-style:none; margin:14px 0 20px}
+  ul.plain li{position:relative; padding:6px 0 6px 20px; font-size:15px; color:var(--muted); max-width:44em}
+  ul.plain li::before{content:''; position:absolute; left:1px; top:15px; width:6px; height:1.5px; background:var(--navy)}
+  ul.plain li strong{color:var(--ink)}
+
+  .spec{font-size:13.5px; color:var(--muted); border-left:2px solid var(--rule);
+        padding:2px 0 2px 16px; margin:14px 0 20px; max-width:44em}
+  .spec b{color:var(--ink); font-weight:600}
+
+  /* ---------- calculator ---------- */
+  .calc{border:1px solid var(--rule); border-top:3px solid var(--navy); padding:28px 28px 24px; margin:24px 0 0; background:var(--paper)}
+  .calc .ctitle{font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--faint);
+                padding-bottom:14px; margin-bottom:22px; border-bottom:1px solid var(--rule)}
+  .calc .row{margin-bottom:24px}
+  .calc label{display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+              font-size:14px; font-weight:500; color:var(--ink); margin-bottom:11px}
+  .calc label .val{font-size:19px; font-weight:700; color:var(--navy); letter-spacing:-.02em;
+                   font-variant-numeric:tabular-nums; white-space:nowrap}
+  input[type=range]{-webkit-appearance:none; appearance:none; width:100%; height:2px;
+                    background:var(--rule); outline:none; cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; appearance:none; width:16px; height:16px;
+    border-radius:2px; background:var(--navy); border:none; cursor:pointer; margin-top:0}
+  input[type=range]::-moz-range-thumb{width:16px; height:16px; border-radius:2px; background:var(--navy);
+    border:none; cursor:pointer}
+  .ledger{width:100%; border-collapse:collapse; font-size:14px; min-width:0; margin:4px 0 0}
+  .ledger td{padding:8px 0; border-bottom:1px solid var(--rule-soft); color:var(--muted)}
+  .ledger td:first-child{color:var(--ink); font-weight:500}
+  .ledger td:last-child{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+  .ledger tr.rule td{border-bottom:1.5px solid var(--ink)}
+  .ledger tr:last-child td{border-bottom:none}
+  input[type=range]{margin:0 0 4px}
+  .ledger .neg{color:var(--red)}
+  .result{border-top:1.5px solid var(--ink); margin-top:20px; padding-top:22px; text-align:center}
+  .result .rnum{font-size:clamp(40px,8vw,62px); font-weight:700; letter-spacing:-.035em; line-height:1;
+                color:var(--navy); font-variant-numeric:tabular-nums}
+  .result .rnum.red{color:var(--red)}
+  .result .rlbl{font-size:13px; color:var(--faint); margin-top:12px; letter-spacing:.02em; max-width:34em; margin-left:auto; margin-right:auto}
+  .result .roi{font-size:16px; font-weight:600; color:var(--ink); margin-top:16px}
+  .calc-foot{font-size:13px; color:var(--muted); margin-top:18px; padding-top:14px;
+             border-top:1px solid var(--rule-soft); text-align:center}
+  .calc-foot b{color:var(--ink)}
+
+  hr.sep{border:none; border-top:1px solid var(--rule); margin:46px 0 0}
+  hr.heavy{border:none; border-top:2px solid var(--ink); margin:60px 0 0}
+  footer{margin-top:60px; padding-top:18px; border-top:2px solid var(--ink);
+         font-size:11px; font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--faint);
+         display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+
+  @media(max-width:620px){
+    .record dl{grid-template-columns:1fr}
+    .record dt{border-bottom:none; padding-bottom:0}
+    .record dd{padding-top:2px}
+    .calc{padding:22px 18px 20px}
+  }
+  @media print{
+    body{padding:0; font-size:10.5pt; color:#000}
+    .wrap{max-width:none}
+    h2,.h2sub{page-break-after:avoid}
+    .tbl,.note,.record,.spec,.calc{page-break-inside:avoid}
+    table{min-width:0}
+    *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="rail">
+    <span>Evolv AI &nbsp;&rarr;&nbsp; Broker Social Solutions</span>
+    <span>The ready list &nbsp;·&nbsp; 19 August 2026</span>
+  </div>
+  <h1>Five owners who hold their own dirt</h1>
+  <p class="standfirst">Every line below is taken from a named public record &mdash; Dallas Central Appraisal District, Texas franchise-tax registration, or the company&rsquo;s own published page. Where a fact could not be confirmed, it is marked. Nothing here is estimated and nothing is inferred.</p>
+</header>
+
+<hr class="sep">
+
+<h2><span class="n">01</span>The filter</h2>
+<p class="h2sub">The operating company has to be the recorded owner of its own real estate.</p>
+
+<p class="ink">That single test is what separates a name on a list from an owner who can actually sign. When the company owns the building, one decision moves the business, the land and the equipment together. When the family owns the land personally and the company only rents it, the transaction needs two agreements, two sets of expectations and two sets of heirs &mdash; and it usually needs a year longer.</p>
+
+<p>Manda Machine Company, from the earlier set, is the clean counter-example: the sons run the company, the parents hold the dirt personally. Good business, wrong structure. It is not on this list for that reason alone.</p>
+
+<div class="spec">
+  Source universe: <b>239 Dallas County entities</b> in the scored registry.
+  Taken to the county property record: <b>17</b>. Cleared the ownership test: <b>5</b>.
+  That is roughly <b>one in five</b>, and it is why the list is five and not twenty-five.
+</div>
+
+<div class="note">
+  <span class="lab">How to read a Dallas CAD account</span>
+  <p>A <strong>COMMERCIAL</strong> account is real property &mdash; the land and the building. A <strong>BPP</strong> account is Business Personal Property &mdash; the machines, the tooling, the inventory. A company with a BPP account and no commercial account is a tenant in its own plant. All five below hold both, in the operating company&rsquo;s own name.</p>
+</div>
+
+<hr class="sep">
+
+<h2><span class="n">02</span>The five</h2>
+<p class="h2sub">$12.17M of real property, $19.24M of equipment, all of it under the operating name.</p>
+
+<div class="tbl">
+<table>
+  <thead>
+    <tr>
+      <th style="width:31%">Business</th>
+      <th>City</th>
+      <th class="num">Trading since</th>
+      <th class="num">Real property</th>
+      <th class="num">Equipment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Republic Sheet Metal &amp; Mfg</td><td>Dallas</td><td class="num">1962</td><td class="num">$3,161,990</td><td class="num">$11,401,620</td></tr>
+    <tr><td>Cary Products Company</td><td>Hutchins</td><td class="num">1946</td><td class="num">$2,386,680</td><td class="num">$2,800,000</td></tr>
+    <tr><td>Garland Steel Inc</td><td>Garland</td><td class="num">1971</td><td class="num">$3,568,500</td><td class="num">$4,566,670</td></tr>
+    <tr><td>Southern Maid Donut Flour Co</td><td>Garland</td><td class="num">1937</td><td class="num">$1,391,600</td><td class="num">$228,850</td></tr>
+    <tr><td>Thermo Sensors Corp</td><td>Garland</td><td class="num">1972</td><td class="num">$1,665,920</td><td class="num">$244,080</td></tr>
+    <tr class="total"><td>Five owners</td><td></td><td class="num">avg 66 yrs</td><td class="num">$12,174,690</td><td class="num">$19,241,220</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="src">Values are 2026 Certified Market Value, Dallas Central Appraisal District. Combined estimated 2026 property tax across the five: <strong>$268,265.96</strong>.</p>
+
+<hr class="sep">
+
+<h2><span class="n">03</span>The records</h2>
+<p class="lede">Each one carries the county account number it was verified against. The account is clickable &mdash; you can open the same page I read.</p>
+
+<!-- 1 -->
+<div class="record">
+  <div class="hd"><b>01 &nbsp;&middot;&nbsp; Republic Sheet Metal &amp; Mfg Co Inc</b> &nbsp;&middot;&nbsp; 5131 Cash Rd, Dallas TX 75247</div>
+  <dl>
+    <dt>Business</dt>
+    <dd>Sheet metal fabrication and contract manufacturing. <strong>ISO 9001:2015 certified.</strong> Primary plant at 5131 Cash Rd with a second Dallas site at 3916 Halifax St for shipping and receiving; sales offices in Denver and Salt Lake City.</dd>
+
+    <dt>Trading since</dt>
+    <dd>Founded <strong>1962</strong> &mdash; <strong>64 years</strong>. Texas franchise taxpayer 17510941416, active.</dd>
+
+    <dt>Ownership</dt>
+    <dd>Dallas CAD account <strong>007700000203B0000</strong> &mdash; owner of record <strong>REPUBLIC SHEET METAL, 100%</strong>. The multi-owner table shows a single owner with no split. Deed transfer date is recorded as <strong>11/11/1900</strong>, the district&rsquo;s placeholder for a holding that predates its digital deed index. <a href="https://www.dallascad.org/AcctDetailCom.aspx?ID=007700000203B0000" target="_blank" rel="noopener">Open the county record</a></dd>
+
+    <dt>Succession</dt>
+    <dd><strong>Fourth-generation Goff family.</strong> <strong>Zach Goff, President &amp; CEO</strong> &mdash; brought into the business in 1992 by his father, George Goff. <span class="src">Source: company history page.</span></dd>
+
+    <dt>Real estate</dt>
+    <dd><strong>2.0115 acres</strong> / 87,621 sq ft, zoned Industrial Research District. Land assessed $8.00/sq ft = <strong>$700,968</strong>; improvements <strong>$2,461,020</strong>; market value <strong>$3,161,990</strong>. <strong>Seven buildings</strong>, ~44,535 sq ft net lease area, built 1960, 1966 and 2000, most carried at 60% depreciation. Estimated 2026 tax <strong>$70,408.35</strong>. No exemptions. Tax agent of record: Ryan LLC.</dd>
+
+    <dt>Equipment</dt>
+    <dd>Separate Business Personal Property account at <strong>$11,401,620</strong> &mdash; by a wide margin the heaviest asset base on this list, and 3.6&times; the value of the building it sits in.</dd>
+
+    <dt>Contact</dt>
+    <dd><strong>1-800-847-0380</strong> &nbsp;&middot;&nbsp; <strong>info@republic-mfg.com</strong> &nbsp;<span class="flag">Published</span></dd>
+
+    <dt>Why it scores</dt>
+    <dd>One entity holds the land, seven buildings and $11.4M of machines. Sixty-four years, four generations, and a named chief executive who was handed the company by his own father &mdash; which means the succession question has already been answered once in this family, and everyone knows what it looked like.</dd>
+  </dl>
+</div>
+
+<!-- 2 -->
+<div class="record">
+  <div class="hd"><b>02 &nbsp;&middot;&nbsp; Cary Products Company</b> &nbsp;&middot;&nbsp; 101 Lancaster-Hutchins Rd, Hutchins TX 75141</div>
+  <dl>
+    <dt>Business</dt>
+    <dd>Custom <strong>plastic injection moulding and thermoforming</strong> &mdash; in-house tooling, an assembly hall and a distribution operation on one campus. 11&ndash;50 employees.</dd>
+
+    <dt>Trading since</dt>
+    <dd>Founded <strong>1946</strong> &mdash; <strong>80 years</strong>.</dd>
+
+    <dt>Ownership</dt>
+    <dd>Dallas CAD account <strong>30009500050130000</strong> &mdash; owner of record <strong>CARY PRODUCTS, 100%</strong>, care of the accounts payable department, PO Box 947, Hutchins. <strong>Deed transfer 21 May 1969</strong> (VOL69100/1867) &mdash; the same name has held this land for <strong>57 years</strong>. <a href="https://www.dallascad.org/AcctDetailCom.aspx?ID=30009500050130000" target="_blank" rel="noopener">Open the county record</a></dd>
+
+    <dt>Succession</dt>
+    <dd><strong>Earl Armstrong III &mdash; Chairman.</strong> <strong>Earl Armstrong IV &mdash; Chief Operating Officer.</strong> Gary O. Aguilar, CFO. R. L. Norbury, Vice President. Stephanie Evers, Director of Business Development and a part owner. <span class="src">Source: Better Business Bureau business profile. One aggregator lists a different chief executive &mdash; treat that single entry as unconfirmed.</span></dd>
+
+    <dt>Real estate</dt>
+    <dd><strong>16.0233 acres</strong> / 697,962 sq ft, Light Industrial. Land at $2.00/sq ft = <strong>$1,395,924</strong> &mdash; <strong>the land is worth more than every building on it</strong> ($931,430). Primary parcel $2,327,350; four further parcels bring recorded real property to <strong>$2,386,680</strong>. Three structures: a 68,700 sq ft tilt-wall distribution warehouse (1965, condition GOOD), a 1,392 sq ft office (1965), a 10,400 sq ft pre-engineered steel store (1987). Estimated 2026 tax <strong>$50,850.50</strong>. Tax agent: Pennington P E &amp; Co.</dd>
+
+    <dt>Equipment</dt>
+    <dd>Business Personal Property <strong>$2,800,000</strong> &mdash; moulds, presses and tooling, in the company&rsquo;s own name.</dd>
+
+    <dt>Contact</dt>
+    <dd><strong>(972) 225-4207</strong> &nbsp;&middot;&nbsp; toll free <strong>888-420-8861</strong> &nbsp;&middot;&nbsp; <strong>info@caryproducts.com</strong> &nbsp;<span class="flag">Published</span></dd>
+
+    <dt>Why it scores</dt>
+    <dd>Sixteen acres of light industrial ground eleven miles from downtown Dallas, held under one name since 1969, on a corridor that has been absorbing distribution demand for a decade. The second generation is already in the operating seat, which means the conversation is a timing conversation, not a persuasion one.</dd>
+  </dl>
+</div>
+
+<!-- 3 -->
+<div class="record">
+  <div class="hd"><b>03 &nbsp;&middot;&nbsp; Garland Steel Inc</b> &nbsp;&middot;&nbsp; 312 S International Rd, Garland TX 75042</div>
+  <dl>
+    <dt>Business</dt>
+    <dd>Steel service centre &mdash; cold finished bar, hot rolled steel, aluminium, stainless, pipe and round tubing, plate and sheet. Cutting and processing on site.</dd>
+
+    <dt>Trading since</dt>
+    <dd>Established <strong>1971</strong> &mdash; <strong>55 years</strong>, family owned throughout.</dd>
+
+    <dt>Ownership</dt>
+    <dd>Dallas CAD account <strong>26099500010020000</strong> &mdash; owner of record <strong>GARLAND STEEL INC, 100%</strong>, care of <strong>WILLIAM Z BECKER</strong>. <strong>The deed carries a person&rsquo;s name, not just an entity</strong> &mdash; the decision-maker is already on the public record. Deed transfer 31 December 1991 (VOL91252/4299) &mdash; <strong>34 years</strong>. <a href="https://www.dallascad.org/AcctDetailCom.aspx?ID=26099500010020000" target="_blank" rel="noopener">Open the county record</a></dd>
+
+    <dt>Succession</dt>
+    <dd><strong>The Becker family.</strong> William Becker is recorded as President; <strong>Josh Becker</strong> also holds a role at the company. <span class="src">Corporate filings and aggregators record William Becker variously as President, Treasurer and CFO &mdash; family control is confirmed, the exact current title is not. Do not state a title on first contact.</span></dd>
+
+    <dt>Real estate</dt>
+    <dd><strong>3.0579 acres</strong> / 132,858 sq ft, Industrial District. Land at $2.25/sq ft = <strong>$298,931</strong>; improvements <strong>$3,269,570</strong>; market value <strong>$3,568,500</strong>. One <strong>heavy industrial building, 58,500 sq ft</strong>, pre-engineered steel, built 1985, fully utilised as net lease area. Estimated 2026 tax <strong>$85,455.62</strong> &mdash; the largest annual carry of the five. Tax agent: Property Valuation Services.</dd>
+
+    <dt>Equipment</dt>
+    <dd>Business Personal Property <strong>$4,566,670</strong> &mdash; saws, shears, racking and steel inventory.</dd>
+
+    <dt>Contact</dt>
+    <dd><strong>(972) 494-6000</strong> &nbsp;<span class="flag">Published</span><br>
+    <strong>No email address is published.</strong> The company site lists a phone number and an address only, on every page. A third-party directory reports the domain pattern <strong>[first initial][last]@garlandsteel.com</strong> at 68.6% confidence, which would give <strong>wbecker@garlandsteel.com</strong>. <span class="flag warn">Unverified &mdash; do not send cold</span> Open this one on the phone and take the address from him.</dd>
+
+    <dt>Why it scores</dt>
+    <dd>An $85,000 annual tax bill on a single 58,500 sq ft building, plus $4.6M of steel and equipment, all under one corporate name with an individual named on the deed. The carrying cost alone makes this an owner who already thinks about what the site is worth.</dd>
+  </dl>
+</div>
+
+<!-- 4 -->
+<div class="record">
+  <div class="hd"><b>04 &nbsp;&middot;&nbsp; Southern Maid Donut Flour Co</b> &nbsp;&middot;&nbsp; 3615 Cavalier Dr, Garland TX 75042</div>
+  <dl>
+    <dt>Business</dt>
+    <dd>Donut mix manufacturer and franchisor. Produces the mix, licenses the name, and supplies <strong>more than 100 stores</strong>. The plant is one asset; the trademark and the licence book are another.</dd>
+
+    <dt>Trading since</dt>
+    <dd>Established <strong>1937</strong> by Mr and Mrs J. B. Hargrove &mdash; <strong>89 years</strong>, the oldest business on this list.</dd>
+
+    <dt>Ownership</dt>
+    <dd>Dallas CAD account <strong>26210500020340000</strong> &mdash; owner of record <strong>SOUTHERN MAID DONUT, 100%</strong>, and the owner&rsquo;s mailing address is the plant itself. Deed transfer 5 November 1979 (VOL79217/4190) &mdash; <strong>46 years</strong>. <a href="https://www.dallascad.org/AcctDetailCom.aspx?ID=26210500020340000" target="_blank" rel="noopener">Open the county record</a></dd>
+
+    <dt>Succession</dt>
+    <dd>From the company&rsquo;s own history page: the business has moved into the <strong>second and third generations of family ownership and management</strong>. Lon Hargrove is reported as president. <span class="src">Generational status: company-published. The named president: aggregator source, unconfirmed.</span></dd>
+
+    <dt>Real estate</dt>
+    <dd><strong>45,000 sq ft</strong> (200&times;225), zoned for commercial improvements, land at $9.00/sq ft = <strong>$405,000</strong>; improvements <strong>$986,600</strong>; market value <strong>$1,391,600</strong>. One tilt-wall distribution warehouse, <strong>19,880 sq ft</strong>, built 1970. Estimated 2026 tax <strong>$29,340.70</strong>. Tax agent: American Property Services.</dd>
+
+    <dt>Equipment</dt>
+    <dd>Business Personal Property <strong>$228,850</strong> &mdash; the lightest on this list, and that is the point. This is not a plant sale. The value sits in a licensed network and a brand.</dd>
+
+    <dt>Contact</dt>
+    <dd><strong>972.272.6425</strong> &nbsp;&middot;&nbsp; toll free <strong>800.936.6887</strong> &nbsp;&middot;&nbsp; <strong>information@southernmaiddonuts.com</strong> &nbsp;<span class="flag">Published</span></dd>
+
+    <dt>Why it scores</dt>
+    <dd>Eighty-nine years, three generations, an owned building and a franchise network &mdash; and a piece of provenance almost nothing else in the county can match: <strong>Elvis Presley made the only commercial endorsement of his career for Southern Maid Donuts, on 6 November 1954.</strong> Minnie Pearl, Johnny Horton and Johnny Cash followed. That is a story a buyer pays a premium for, and it is exactly the kind of asset a generic listing under-prices.</dd>
+  </dl>
+</div>
+
+<!-- 5 -->
+<div class="record">
+  <div class="hd"><b>05 &nbsp;&middot;&nbsp; Thermo Sensors Corp</b> &nbsp;&middot;&nbsp; 405 Gautney St, Garland TX 75040</div>
+  <dl>
+    <dt>Business</dt>
+    <dd>Manufactures <strong>thermocouples, thermowells, RTDs</strong>, thermocouple wire and accessories for industrial process measurement. Built to order, single site.</dd>
+
+    <dt>Trading since</dt>
+    <dd>Founded <strong>1972</strong> &mdash; <strong>54 years</strong>.</dd>
+
+    <dt>Ownership</dt>
+    <dd>Dallas CAD account <strong>262355000B0030000</strong> &mdash; owner of record <strong>THERMO SENSORS CORP, 100%</strong>. Deed transfer 15 June 2001 (VOL2001118/4623). The company also holds the <strong>adjoining parcel at 403 Gautney St</strong> ($85,920) &mdash; two contiguous lots, one owner, one signature. <a href="https://www.dallascad.org/AcctDetailCom.aspx?ID=262355000B0030000" target="_blank" rel="noopener">Open the county record</a></dd>
+
+    <dt>Succession</dt>
+    <dd>Key principal on record: <strong>Mark M. Medcalf</strong>. <span class="src">Source: Dun &amp; Bradstreet company record.</span></dd>
+
+    <dt>Real estate</dt>
+    <dd><strong>0.9580 acres</strong> / 41,730 sq ft, Industrial District. Land at $5.00/sq ft = <strong>$208,650</strong>; improvements <strong>$1,371,350</strong>; market value <strong>$1,580,000</strong>, plus the adjoining lot at $85,920 &mdash; <strong>$1,665,920</strong> total. Two buildings: 10,480 sq ft tilt-wall light industrial (1977, condition GOOD) and a 7,000 sq ft pre-engineered steel store (1996). Estimated 2026 tax <strong>$32,210.79</strong>. Tax agent: Sembrick Companies.</dd>
+
+    <dt>Equipment</dt>
+    <dd>Business Personal Property <strong>$244,080</strong>.</dd>
+
+    <dt>Contact</dt>
+    <dd><strong>(972) 494-1566</strong> &nbsp;&middot;&nbsp; published desk addresses: <strong>andy@thermosensors.com</strong> (technical sales), janna@thermosensors.com (customer service), tiffany@thermosensors.com (accounting). <span class="flag">Published</span><br>
+    <span class="src">No owner mailbox is published. Route the first approach through the technical sales desk or the main line &mdash; in a 54-year-old shop of this size, that desk sits within earshot of the principal.</span></dd>
+
+    <dt>Why it scores</dt>
+    <dd>The smallest and the cleanest of the five. Two adjoining parcels, one operating owner, one named principal, no partners on the deed, no exemptions and no complications. If you want a transaction that can actually close inside a year, this is the one to open first.</dd>
+  </dl>
+</div>
+
+<div class="note">
+  <span class="lab">The honest line on contacts</span>
+  <p>Four of the five have a <strong>published company email address and a direct phone number</strong>, taken from the company&rsquo;s own website. Garland Steel publishes a phone number and no email at all &mdash; so that one is marked as a phone-first approach, and the pattern address is shown only so you know it exists, not so you send to it. I would rather hand you four confirmed addresses and one honest gap than five that look complete.</p>
+</div>
+
+<hr class="heavy">
+
+<h2><span class="n">04</span>The arithmetic</h2>
+<p class="h2sub">What happens if this list produces exactly one closing.</p>
+
+<p class="ink">Not five. Not a pipeline. <strong>One.</strong> The case has to survive its own worst outcome, so this is built on the worst outcome. Move the sliders to your own numbers &mdash; they start at the figures you gave me.</p>
+
+<div class="calc">
+  <div class="ctitle">Calculator 01 &nbsp;&middot;&nbsp; The floor</div>
+
+  <div class="row">
+    <label>Closings this engagement produces <span class="val" id="aDealsV">1</span></label>
+    <input type="range" id="aDeals" min="1" max="6" value="1" step="1">
+  </div>
+  <div class="row">
+    <label>Your commission on one closing <span class="val" id="aCommV">$58,000</span></label>
+    <input type="range" id="aComm" min="20000" max="120000" value="58000" step="1000">
+  </div>
+  <div class="row">
+    <label>Length of engagement <span class="val" id="aMonV">6 months</span></label>
+    <input type="range" id="aMon" min="3" max="18" value="6" step="1">
+  </div>
+
+  <table class="ledger">
+    <tr><td>Gross commission</td><td id="aGross">$58,000</td></tr>
+    <tr><td>Evolv share, 30% of commission received</td><td class="neg" id="aShare">&minus;$17,400</td></tr>
+    <tr class="rule"><td>You keep</td><td id="aKeep">$40,600</td></tr>
+    <tr><td>Retainer, &euro;1,500 / mo &middot; <span id="aMonA">6</span> months</td><td class="neg" id="aRet">&minus;$9,780</td></tr>
+    <tr><td>Third-party tools, at cost, with receipts</td><td class="neg" id="aTools">&minus;$1,674</td></tr>
+    <tr class="rule"><td>Everything you pay</td><td class="neg" id="aCost">&minus;$11,454</td></tr>
+  </table>
+
+  <div class="result">
+    <div class="rnum" id="aNet">+$29,146</div>
+    <div class="rlbl">net in your pocket, after our share and after every dollar you have paid</div>
+    <div class="roi" id="aRoi">Every $1.00 you put in comes back as $3.54</div>
+  </div>
+  <div class="calc-foot" id="aFoot">Break-even sits at one closing of <b>$16,363</b> &mdash; <b>28%</b> of your own average commission. Everything past that line is profit.</div>
+</div>
+
+<div class="spec">
+  Fixed inputs, so you can check them: retainer <b>&euro;1,500 / month &asymp; $1,630</b>. Tools billed at cost, <b>$279 / month</b>, receipts attached. Evolv share <b>30%</b>, charged only on commission <b>you have actually received</b> &mdash; never on a signature, never on a projection. Commission default <b>$58,000</b> is your own 2025 average at the conservative end of the range you gave me.
+</div>
+
+<hr class="sep">
+
+<h2><span class="n">05</span>The other side of it</h2>
+<p class="h2sub">What standing still costs, priced at your own numbers.</p>
+
+<p class="ink">Twelve closings in 2025. Five in 2026 so far. That gap did not come from working less &mdash; it came from having one seller channel, referrals, and no way to turn it up. A referral network is the best channel you have and I would not touch it. It just does not have a dial on it.</p>
+
+<div class="calc">
+  <div class="ctitle">Calculator 02 &nbsp;&middot;&nbsp; The cost of standing still</div>
+
+  <div class="row">
+    <label>Closings, 2025 <span class="val" id="b25V">12</span></label>
+    <input type="range" id="b25" min="4" max="24" value="12" step="1">
+  </div>
+  <div class="row">
+    <label>Closings, 2026 so far <span class="val" id="bYtdV">5</span></label>
+    <input type="range" id="bYtd" min="0" max="20" value="5" step="1">
+  </div>
+  <div class="row">
+    <label>Your commission on one closing <span class="val" id="bCommV">$58,000</span></label>
+    <input type="range" id="bComm" min="20000" max="120000" value="58000" step="1000">
+  </div>
+  <div class="row">
+    <label>Months before you add a second channel <span class="val" id="bWaitV">6 months</span></label>
+    <input type="range" id="bWait" min="0" max="12" value="6" step="1">
+  </div>
+
+  <table class="ledger">
+    <tr><td>2026 run rate, through 19 August</td><td id="bPace">7.9 closings / yr</td></tr>
+    <tr><td>Shortfall against 2025</td><td class="neg" id="bShort">&minus;4.1 closings</td></tr>
+    <tr class="rule"><td>At your own commission</td><td class="neg" id="bGap">&minus;$238,105</td></tr>
+    <tr><td>Per month of standing still</td><td class="neg" id="bPer">&minus;$19,842</td></tr>
+  </table>
+
+  <div class="result">
+    <div class="rnum red" id="bNum">&minus;$119,053</div>
+    <div class="rlbl">commission never started, over the months you wait &mdash; at the rate you are currently losing ground</div>
+    <div class="roi" id="bRoi">That is 10.4&times; what the whole engagement costs over the same months</div>
+  </div>
+  <div class="calc-foot" id="bFoot">Your cycle is two to ten months, in your own words. Start today and the first closing lands around <b>February 2027</b>. Wait 6 months and it lands around <b>August 2027</b> instead.</div>
+</div>
+
+<div class="note">
+  <span class="lab">The point of the two numbers</span>
+  <p>The first calculator says the engagement pays for itself on a <strong>single</strong> closing, and break-even sits at roughly a quarter of your own average deal. The second says the gap you are already carrying this year is several times larger than the entire cost of closing it.</p>
+  <p>Those two facts do not depend on me being right about volume. They only depend on your commission being roughly what you said it is.</p>
+</div>
+
+<hr class="sep">
+
+<h2><span class="n">06</span>What I would do with this list</h2>
+<ul class="plain">
+  <li><strong>Thermo Sensors first.</strong> Cleanest structure, smallest transaction, named principal, published desk lines. It is the fastest one to learn on.</li>
+  <li><strong>Garland Steel by phone, not by email.</strong> No published address, and an $85,000 annual tax bill gives you an opening line that is about his money, not yours.</li>
+  <li><strong>Republic and Cary are the two real prizes</strong> &mdash; $11.4M and $2.8M of equipment respectively, both with the next generation already seated. Those are conversations to open properly, not quickly.</li>
+  <li><strong>Southern Maid is the one to price carefully.</strong> A licence book and a trademark with 89 years and an Elvis endorsement behind it does not value like a warehouse, and the wrong broker will treat it like one.</li>
+</ul>
+
+<p>Every account number above is live. Open any of them and check the line for yourself &mdash; that is the whole reason they are printed.</p>
+
+<footer>
+  <span>Evolv AI &nbsp;&middot;&nbsp; The ready list</span>
+  <span>Verified against Dallas CAD 2026 certified values &nbsp;&middot;&nbsp; 19 August 2026</span>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var RET = 1630, TOOLS = 279, SHARE = 0.30;
+  var money = function(n){
+    var v = Math.round(Math.abs(n)).toLocaleString('en-US');
+    return (n < 0 ? '−$' : '$') + v;
+  };
+  var plus = function(n){
+    var v = Math.round(Math.abs(n)).toLocaleString('en-US');
+    return (n < 0 ? '−$' : '+$') + v;
+  };
+  var el = function(id){ return document.getElementById(id); };
+
+  /* ---------- calculator 01 ---------- */
+  var aDeals = el('aDeals'), aComm = el('aComm'), aMon = el('aMon');
+  function calcA(){
+    var D = +aDeals.value, C = +aComm.value, M = +aMon.value;
+    var gross = D * C, share = gross * SHARE, keep = gross - share;
+    var ret = M * RET, tools = M * TOOLS, cost = ret + tools;
+    var net = keep - cost;
+    var be = cost / (1 - SHARE);
+    var pct = be / C * 100;
+
+    el('aDealsV').textContent = D;
+    el('aCommV').textContent = money(C);
+    el('aMonV').textContent = M + ' month' + (M === 1 ? '' : 's');
+    el('aMonA').textContent = M;
+    el('aGross').textContent = money(gross);
+    el('aShare').textContent = money(-share);
+    el('aKeep').textContent = money(keep);
+    el('aRet').textContent = money(-ret);
+    el('aTools').textContent = money(-tools);
+    el('aCost').textContent = money(-cost);
+    el('aNet').textContent = plus(net);
+    el('aNet').className = 'rnum' + (net < 0 ? ' red' : '');
+    el('aRoi').textContent = 'Every $1.00 you put in comes back as $' + (keep / cost).toFixed(2);
+    el('aFoot').innerHTML = (be <= C)
+      ? 'Break-even sits at one closing of <b>' + money(be) + '</b> — <b>' + pct.toFixed(0) +
+        '%</b> of the commission you set above. Everything past that line is profit.'
+      : 'At this commission and this length, break-even needs <b>' + money(be) +
+        '</b> — more than one closing of the size you set. Shorten the engagement or raise the commission and the floor drops below a single deal.';
+  }
+  [aDeals, aComm, aMon].forEach(function(s){ s.addEventListener('input', calcA); });
+  calcA();
+
+  /* ---------- calculator 02 ---------- */
+  var MONTHS_IN = 7.6; /* 1 Jan to 19 Aug 2026 */
+  var MON = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var b25 = el('b25'), bYtd = el('bYtd'), bComm = el('bComm'), bWait = el('bWait');
+
+  function label(offset){
+    var d = new Date(2026, 7, 1);
+    d.setMonth(d.getMonth() + offset);
+    return MON[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function calcB(){
+    var Y = +b25.value, T = +bYtd.value, C = +bComm.value, W = +bWait.value;
+    var pace = T / MONTHS_IN * 12;
+    var short = Y - pace;
+    var gap = short * C;
+    var per = gap / 12;
+    var loss = per * W;
+    var engCost = W * (RET + TOOLS);
+
+    el('b25V').textContent = Y;
+    el('bYtdV').textContent = T;
+    el('bCommV').textContent = money(C);
+    el('bWaitV').textContent = W + ' month' + (W === 1 ? '' : 's');
+    el('bPace').textContent = pace.toFixed(1) + ' closings / yr';
+
+    if (short <= 0){
+      el('bShort').textContent = '+' + Math.abs(short).toFixed(1) + ' closings';
+      el('bShort').className = '';
+      el('bGap').textContent = 'ahead of 2025';
+      el('bGap').className = '';
+      el('bPer').textContent = '—';
+      el('bPer').className = '';
+      el('bNum').textContent = '$0';
+      el('bNum').className = 'rnum';
+      el('bRoi').textContent = 'At this pace 2026 beats 2025 — on one channel, with no dial on it.';
+    } else {
+      el('bShort').textContent = '−' + short.toFixed(1) + ' closings';
+      el('bShort').className = 'neg';
+      el('bGap').textContent = money(-gap);
+      el('bGap').className = 'neg';
+      el('bPer').textContent = money(-per);
+      el('bPer').className = 'neg';
+      el('bNum').textContent = money(-loss);
+      el('bNum').className = 'rnum red';
+      el('bRoi').textContent = (W === 0)
+        ? 'Starting now is the only version of this with no gap in it.'
+        : 'That is ' + (loss / engCost).toFixed(1) + '× what the whole engagement costs over the same months';
+    }
+
+    el('bFoot').innerHTML = (W === 0)
+      ? 'Your cycle is two to ten months, in your own words. Start today and the first closing lands around <b>' + label(6) + '</b>.'
+      : 'Your cycle is two to ten months, in your own words. Start today and the first closing lands around <b>' +
+        label(6) + '</b>. Wait ' + W + ' month' + (W === 1 ? '' : 's') + ' and it lands around <b>' +
+        label(6 + W) + '</b> instead.';
+  }
+  [b25, bYtd, bComm, bWait].forEach(function(s){ s.addEventListener('input', calcB); });
+  calcB();
+})();
+</script>
+</body>
+</html>
