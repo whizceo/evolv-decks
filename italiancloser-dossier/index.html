@@ -1,0 +1,627 @@
+<title>Italiancloser Dossier</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,400;0,500;0,600;1,6..72,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#faf9f7; --ink:#16150f; --ink-2:#3a382e; --ink-3:#6d6a5c;
+  --rule:#ddd9cf; --rule-2:#c9c4b6; --accent:#9c3a24; --accent-soft:#f2e7e2;
+  --serif:"Newsreader",Georgia,serif; --sans:"Inter",-apple-system,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --max:1080px;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);
+  font-size:17.5px;line-height:1.62;-webkit-font-smoothing:antialiased;
+  margin:0;padding:0 28px 120px;overflow-x:hidden}
+.wrap{max-width:var(--max);margin:0 auto}
+
+/* ---------- masthead ---------- */
+.masthead{padding:68px 0 0}
+.kicker{font-family:var(--sans);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin:0 0 26px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,7vw,80px);line-height:.98;
+  letter-spacing:-.028em;margin:0 0 18px}
+h1 em{font-style:italic;color:var(--ink-3)}
+.standfirst{font-size:clamp(19px,2.3vw,23px);line-height:1.5;color:var(--ink-2);
+  max-width:33em;margin:0 0 34px;font-weight:300}
+.byline{font-family:var(--sans);font-size:11.5px;letter-spacing:.06em;color:var(--ink-3);
+  border-top:1px solid var(--ink);padding-top:12px;display:flex;flex-wrap:wrap;gap:8px 26px}
+.byline b{color:var(--ink);font-weight:600}
+
+/* ---------- structure ---------- */
+section{margin:74px 0 0;scroll-margin-top:20px}
+.secnum{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.08em;
+  display:block;margin-bottom:9px}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(27px,3.6vw,38px);line-height:1.1;
+  letter-spacing:-.02em;margin:0 0 8px;padding-bottom:16px;border-bottom:1.5px solid var(--ink)}
+h2 + .dek{font-family:var(--sans);font-size:14px;color:var(--ink-3);margin:14px 0 30px;
+  max-width:40em;line-height:1.6}
+h3{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink);margin:44px 0 14px}
+h4{font-family:var(--serif);font-weight:600;font-size:20px;margin:30px 0 8px;letter-spacing:-.01em}
+p{margin:0 0 17px;max-width:38em}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+a:hover{border-bottom-color:var(--accent)}
+strong{font-weight:600}
+em.q{font-style:italic;color:var(--ink-2)}
+
+/* ---------- tables ---------- */
+.scroll{overflow-x:auto;margin:22px 0 30px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:560px;font-family:var(--sans);font-size:13.5px}
+caption{text-align:left;font-family:var(--sans);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);padding-bottom:11px}
+th{text-align:left;font-weight:600;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);padding:0 16px 9px 0;border-bottom:1px solid var(--ink);white-space:nowrap}
+td{padding:10px 16px 10px 0;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.45}
+tr:last-child td{border-bottom:1px solid var(--ink)}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums;
+  padding-right:20px}
+td.lab{font-weight:500;color:var(--ink);white-space:nowrap}
+tbody tr:hover td{background:#f4f2ed}
+
+/* ---------- stat band ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);margin:30px 0 34px}
+.stat{background:var(--paper);padding:22px 20px}
+.stat .v{font-family:var(--serif);font-size:33px;line-height:1;letter-spacing:-.03em;display:block}
+.stat .k{font-family:var(--sans);font-size:10px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);margin-top:9px;display:block;line-height:1.4}
+.stat.hot .v{color:var(--accent)}
+
+/* ---------- callouts ---------- */
+.note{border-left:2px solid var(--accent);padding:4px 0 4px 22px;margin:30px 0;max-width:38em}
+.note .t{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin-bottom:7px}
+.note p{margin:0 0 10px;font-size:16.5px}
+.note p:last-child{margin:0}
+
+.pull{font-family:var(--serif);font-size:clamp(21px,2.7vw,27px);line-height:1.34;
+  font-style:italic;color:var(--ink);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  padding:26px 0;margin:38px 0;max-width:30em}
+
+/* ---------- funnel diagram ---------- */
+.funnel{border:1px solid var(--rule-2);background:#fff;padding:30px 26px;margin:26px 0 32px;
+  overflow-x:auto}
+.frow{display:flex;align-items:stretch;gap:0;min-width:620px}
+.fstage{flex:1;border:1px solid var(--rule);border-right:none;padding:16px 16px 18px;background:var(--paper)}
+.fstage:last-child{border-right:1px solid var(--rule)}
+.fstage .n{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.06em}
+.fstage .h{font-family:var(--sans);font-weight:600;font-size:13px;margin:7px 0 5px;letter-spacing:-.01em}
+.fstage .m{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.fstage .s{font-family:var(--sans);font-size:11px;color:var(--ink-3);margin-top:7px;line-height:1.45}
+.fstage.leak{background:var(--accent-soft);border-color:var(--accent)}
+.fstage.leak .h{color:var(--accent)}
+.fcap{font-family:var(--sans);font-size:11.5px;color:var(--ink-3);margin-top:18px;line-height:1.55;
+  max-width:52em}
+
+/* ---------- tags ---------- */
+.tag{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;padding:2px 7px;border:1px solid var(--rule-2);color:var(--ink-3);
+  border-radius:2px;white-space:nowrap}
+.tag.v{border-color:#2f6b3f;color:#2f6b3f}
+.tag.c{border-color:var(--accent);color:var(--accent)}
+.tag.u{border-color:var(--rule-2);color:var(--ink-3)}
+
+/* ---------- lists ---------- */
+ul.clean{list-style:none;padding:0;margin:16px 0 24px;max-width:40em}
+ul.clean li{padding:0 0 12px 22px;position:relative;line-height:1.55}
+ul.clean li:before{content:"—";position:absolute;left:0;color:var(--accent);font-family:var(--sans)}
+ol.q{padding-left:20px;margin:16px 0 24px;max-width:38em}
+ol.q li{padding-left:8px;margin-bottom:13px;line-height:1.55}
+ol.q li::marker{font-family:var(--mono);font-size:12px;color:var(--accent)}
+
+/* ---------- timeline ---------- */
+.tl{border-left:1px solid var(--rule-2);margin:24px 0 30px;padding-left:0;max-width:40em}
+.tlrow{position:relative;padding:0 0 26px 26px}
+.tlrow:before{content:"";position:absolute;left:-3.5px;top:7px;width:6px;height:6px;
+  background:var(--accent);border-radius:50%}
+.tlrow .d{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.04em}
+.tlrow .t{font-family:var(--sans);font-size:14px;font-weight:600;margin:4px 0 3px}
+.tlrow .b{font-size:15.5px;color:var(--ink-2);line-height:1.5}
+
+footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
+  font-family:var(--sans);font-size:11.5px;color:var(--ink-3);line-height:1.7}
+
+@media (max-width:640px){
+  body{padding:0 20px 80px;font-size:16.5px}
+  .masthead{padding-top:44px}
+  section{margin-top:56px}
+  .stat{padding:17px 15px}
+  .stat .v{font-size:27px}
+}
+</style>
+
+<div class="wrap">
+
+<div class="masthead">
+  <p class="kicker">Evolv AI · Lead Dossier 01 · Section 1 of 5 — Context</p>
+  <h1>Italiancloser<br><em>Francesco Manara</em></h1>
+  <p class="standfirst">A 4-month-old Italian high-ticket-sales brand that has already built an audience, a community, a review base and a two-sided placement product — and is monetising almost none of it.</p>
+  <div class="byline">
+    <span><b>Compiled</b> 20 Aug 2026</span>
+    <span><b>Method</b> Open-source only — no contact made</span>
+    <span><b>Scope</b> Context &amp; asset map</span>
+    <span><b>Next</b> §2 Funnel analysis</span>
+  </div>
+</div>
+
+<!-- ============ 1 ============ -->
+<section>
+<span class="secnum">§ 1.0</span>
+<h2>At a glance</h2>
+<p class="dek">Everything verified directly from the source on 20 Aug 2026. Figures marked <span class="tag c">claimed</span> come from his own marketing copy and could not be independently checked.</p>
+
+<div class="stats">
+  <div class="stat"><span class="v">3,623</span><span class="k">Instagram followers</span></div>
+  <div class="stat"><span class="v">615</span><span class="k">Discord members</span></div>
+  <div class="stat"><span class="v">485</span><span class="k">Skool members</span></div>
+  <div class="stat"><span class="v">546</span><span class="k">YouTube subscribers</span></div>
+  <div class="stat"><span class="v">47</span><span class="k">Trustpilot reviews · 4.8★</span></div>
+  <div class="stat hot"><span class="v">134 d</span><span class="k">Age of the domain</span></div>
+</div>
+
+<div class="scroll">
+<table>
+<caption>Identity card</caption>
+<tbody>
+<tr><td class="lab">Operator</td><td>Francesco Manara — goes by <em class="q">Manny</em> on YouTube (<span class="tag u">@mannyonjourney</span>)</td></tr>
+<tr><td class="lab">Brand</td><td>Italiancloser / Italian Closer Academy / Placement Hub</td></tr>
+<tr><td class="lab">Positioning</td><td>“High Ticket Closer &amp; Sales Coach” — <em class="q">1mln+ Cash Collected</em></td></tr>
+<tr><td class="lab">Audience</td><td>Young Italian men chasing the <em class="q">American Dream</em> by becoming remote high-ticket closers for US info-businesses</td></tr>
+<tr><td class="lab">Language</td><td>Italian content, US market outcome. Explicitly not a native English speaker.</td></tr>
+<tr><td class="lab">Website</td><td><a href="https://www.italiancloser.com">italiancloser.com</a> · app at <a href="https://app.italiancloser.com/login">app.italiancloser.com</a></td></tr>
+<tr><td class="lab">Contact</td><td>info@italiancloser.com · Instagram DM · Discord</td></tr>
+<tr><td class="lab">Company entity</td><td>Not disclosed publicly. Legal pages exist but the registered entity is not surfaced in the crawled copy.</td></tr>
+<tr><td class="lab">Paid media</td><td><strong>No evidence of any Meta / TikTok ads.</strong> Absent from the Spyglass ad corpus; no results in Meta Ad Library keyword search. Treat as <strong>100% organic</strong>.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+  <div class="t">ICP note — read before investing time</div>
+  <p>He fails two of the locked Evolv One filters: <strong>he is not paying for Meta ads</strong>, and his business is Italian-language, Italy-based, almost certainly well under the €400K/yr floor. He is a <strong>fit on shape</strong> — info-business, active personal brand, visible funnel, coaching-adjacent — and a <strong>miss on size and buying signal</strong>.</p>
+  <p>That does not make him a bad first rep. It makes him a good <em>practice</em> rep and a plausible small-ticket buyer, not a €1,500/mo retainer. Worth knowing before the funnel teardown, not after.</p>
+</div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section>
+<span class="secnum">§ 2.0</span>
+<h2>Who he is</h2>
+<p class="dek">The story he tells is the product. It is unusually specific, which is why it works.</p>
+
+<p>His own About copy, in full:</p>
+
+<div class="pull">“Nel 2024 sono partito da zero: una mentorship, nessun contatto e non madrelingua inglese. Mi sono ossessionato al processo fino a scalare l'infobusiness americano, diventando top producer su offerte premium nel mercato più competitivo al mondo.”</div>
+
+<p>Three things are load-bearing in that paragraph, and all three are deliberate. <strong>Started 2024</strong> — recent enough to be relatable to a 22-year-old. <strong>Not a native English speaker</strong> — removes the biggest objection his audience has. <strong>Top producer in the US market</strong> — the status claim that makes him worth listening to.</p>
+
+<p>The second half of the About is where the business actually lives:</p>
+
+<p><em class="q">“Oggi vendo ancora attivamente. Ma parallelamente gestisco team commerciali, lavoro con aziende per trovare e formare nuovi closer, e aiuto chi vuole costruire una carriera seria nelle high ticket sales.”</em></p>
+
+<p>So: still closing himself, <strong>plus</strong> running sales teams, <strong>plus</strong> recruiting and training closers for companies, <strong>plus</strong> coaching aspiring closers. Four jobs. That is a founder-bandwidth story before it is anything else — and it is the single most important line in this whole dossier for what we sell him later.</p>
+
+<h3>Personal texture</h3>
+<ul class="clean">
+  <li>Travels heavily and posts it — Miami, Peru, Australia. Lifestyle marquee of 8 photos on the homepage; a YouTube video titled <em class="q">Un Giorno da High Ticket Closer in Perù</em>.</li>
+  <li>Has publicly addressed being called a scammer — YouTube, 23 Jul: <em class="q">“Tutti mi danno della scammer?!”</em> He is aware of the category's credibility problem and is actively fighting it. This is why the Trustpilot profile exists.</li>
+  <li>Posts in the first person, lowercase, unpolished captions (<em class="q">amo la mia vita.</em> / <em class="q">è grato della sua vita.</em>). The brand voice is intimate, not corporate.</li>
+  <li>No meaningful LinkedIn presence found under this identity. For someone selling closers <em>to companies</em>, that is a notable hole.</li>
+  <li>Active on Skool since 2 Dec 2025. Member of <em class="q">STARK — Your Sales Partner</em> ($497) and <em class="q">Poppy AI Viral Content Academy</em> — he buys courses and he is actively studying AI content generation.</li>
+</ul>
+
+<div class="note">
+  <div class="t">Signal</div>
+  <p>A man who has already paid $497 for a sales community and joined an AI content academy is a man who buys tools and pays for leverage. He is not a hard-sell audience on the concept of paying for systems — only on the price.</p>
+</div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section>
+<span class="secnum">§ 3.0</span>
+<h2>What the business actually is</h2>
+<p class="dek">On the surface it looks like another closing course. It isn't. There are three distinct businesses stacked on one audience, and only one of them is obviously monetisable.</p>
+
+<h4>Layer 1 — The audience engine <span class="tag u">free</span></h4>
+<p>Instagram reels and YouTube shorts in Italian, near-daily, all pointing at a free course. The single repeated CTA across 14 of the last 22 reels: <em class="q">commenta “sales” e ti mando accesso al corso gratuito.</em> Comment-to-DM keyword play. No opt-in page, no email capture, no ad spend.</p>
+
+<h4>Layer 2 — The community <span class="tag u">free</span></h4>
+<p>Split across <strong>two</strong> platforms. Discord (615 members, 47 online) is the link in his Instagram bio. Skool (485 members, free) holds the actual course — <em class="q">Full academy di high ticket sales</em>. His own site describes Discord as <em class="q">“La più grande community di sales in Italia”</em> and Skool as the academy. Weekly live calls, roleplay, Q&amp;A, real call recordings, frameworks he says he paid $20K+ of US mentorships to acquire.</p>
+
+<h4>Layer 3 — Placement Hub <span class="tag c">the real product</span></h4>
+<p>A two-sided private network matching closers with companies. Live web app at <code>app.italiancloser.com</code>, Google SSO, separate closer and company logins, closer profile builder, offer feed, interest signalling, company brief intake, dedicated Slack/WhatsApp channel per company, curated shortlists. <strong>This is a genuine software product, not a landing page.</strong></p>
+
+<div class="scroll">
+<table>
+<caption>Placement Hub — the mechanics, in his words</caption>
+<thead><tr><th>Side</th><th>Step 1</th><th>Step 2</th><th>Step 3</th></tr></thead>
+<tbody>
+<tr>
+  <td class="lab">Closers</td>
+  <td>Build profile — sector, ticket, role, results. Set status <em class="q">In cerca</em> to enter the curated pool.</td>
+  <td>Browse offers, flag interest. Placement stays manually curated.</td>
+  <td>Team sends the profile to the company. Intro only if the fit is real.</td>
+</tr>
+<tr>
+  <td class="lab">Companies</td>
+  <td>Share the brief — funnel, ticket, ideal profile — with a named contact.</td>
+  <td>Get company-area access + a dedicated Slack or WhatsApp channel.</td>
+  <td>Receive a shortlist of 3–5 pre-filtered profiles with direct intros.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>The positioning is deliberately anti-marketplace: <em class="q">“Rete privata. Non è un marketplace aperto.”</em> · <em class="q">“Matching manuale. Nessun marketplace.”</em> · <em class="q">“Niente algoritmi opachi: la selezione resta umana e mirata.”</em></p>
+
+<div class="note">
+  <div class="t">The unanswered question</div>
+  <p>Nowhere on any public surface is there a <strong>price</strong>. Not on the site, not in the app's public pages, not on Skool, not on Discord. No placement fee, no retainer, no rev-share, no paid tier of the academy. Every visible door is free.</p>
+  <p>Either the money is quoted privately on the company call, or the monetisation is genuinely unbuilt. Both are extremely interesting for §2.</p>
+</div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section>
+<span class="secnum">§ 4.0</span>
+<h2>The asset map</h2>
+<p class="dek">Every property he owns, with the real number attached. Counts pulled live on 20 Aug 2026 — several are materially lower than what his own site claims.</p>
+
+<div class="scroll">
+<table>
+<caption>Owned properties</caption>
+<thead><tr><th>Asset</th><th>Handle / URL</th><th class="num">Verified size</th><th>Role in the machine</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td class="lab">Instagram</td><td>@italiancloser</td><td class="num">3,623</td><td>Primary top of funnel. Verified badge.</td><td><span class="tag v">Daily</span></td></tr>
+<tr><td class="lab">YouTube</td><td>@mannyonjourney</td><td class="num">546</td><td>Shorts + long-form call breakdowns</td><td><span class="tag v">Active</span></td></tr>
+<tr><td class="lab">Discord</td><td>Italian Closer Academy</td><td class="num">615</td><td>Link in bio. 47 online at scrape time.</td><td><span class="tag v">Live</span></td></tr>
+<tr><td class="lab">Skool</td><td>italian-closers-academy-6315</td><td class="num">485</td><td>Holds the free course + weekly calls</td><td><span class="tag v">Live</span></td></tr>
+<tr><td class="lab">Website</td><td>italiancloser.com</td><td class="num">6 pages</td><td>Brand + credibility + router</td><td><span class="tag v">Live</span></td></tr>
+<tr><td class="lab">Web app</td><td>app.italiancloser.com</td><td class="num">2 portals</td><td>Placement Hub — the product</td><td><span class="tag v">Live</span></td></tr>
+<tr><td class="lab">Linktree</td><td>francescomanarabusiness</td><td class="num">6 links</td><td>Secondary bio router</td><td><span class="tag c">Redundant</span></td></tr>
+<tr><td class="lab">Trustpilot</td><td>italiancloser.com</td><td class="num">47 · 4.8★</td><td>Third-party credibility</td><td><span class="tag v">Claimed Apr 26</span></td></tr>
+<tr><td class="lab">Email</td><td>info@italiancloser.com</td><td class="num">1</td><td>Only non-social contact route</td><td><span class="tag v">Google Workspace</span></td></tr>
+<tr><td class="lab">LinkedIn</td><td>—</td><td class="num">none found</td><td>Would be the natural B2B channel</td><td><span class="tag c">Absent</span></td></tr>
+<tr><td class="lab">TikTok</td><td>—</td><td class="num">not found</td><td>Linktree avatar is literally named <code>foto-profilo-tiktok.png</code></td><td><span class="tag c">Ghost</span></td></tr>
+<tr><td class="lab">Email list</td><td>—</td><td class="num">none</td><td>No opt-in anywhere on any surface</td><td><span class="tag c">Does not exist</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Site claim vs. live count</h3>
+<div class="scroll">
+<table>
+<caption>Where his marketing is ahead of his reality — and where it is behind</caption>
+<thead><tr><th>Figure</th><th>Where it appears</th><th class="num">He says</th><th class="num">Actually</th><th>Read</th></tr></thead>
+<tbody>
+<tr><td class="lab">Discord members</td><td>Site + Placement Hub</td><td class="num">590+</td><td class="num">615</td><td>Understated — copy is stale, reality is better</td></tr>
+<tr><td class="lab">Skool students</td><td>Site + Placement Hub</td><td class="num">450+</td><td class="num">485</td><td>Understated — same</td></tr>
+<tr><td class="lab">Trustpilot</td><td>Homepage badge</td><td class="num">50+</td><td class="num">47</td><td>Slightly overstated. 4.8★ is accurate, profile claimed Apr 2026.</td></tr>
+<tr><td class="lab">Brief response</td><td>Homepage: <em>&lt; 48h</em></td><td class="num">&lt;48h</td><td class="num">1–2 gg</td><td><strong>Contradicts itself</strong> — the actual intake form promises 1–2 <em>working</em> days</td></tr>
+<tr><td class="lab">YouTube subs</td><td>Homepage embed</td><td class="num">546</td><td class="num">546</td><td>Accurate — and small enough that showing it hurts him</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Claims we could not verify</h3>
+<div class="scroll">
+<table>
+<caption>All from his own copy. None independently checkable.</caption>
+<thead><tr><th>Claim</th><th>Surface</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="lab">+1M$ cash collected</td><td>Bio, site, everywhere</td><td>The cornerstone claim. Personal production, not company revenue.</td></tr>
+<tr><td class="lab">+2,000 calls handled</td><td>Homepage track record</td><td>Consistent with a full-time closer over ~2 years.</td></tr>
+<tr><td class="lab">+40% closing rate</td><td>Homepage track record</td><td>High but plausible on warm high-ticket info offers.</td></tr>
+<tr><td class="lab">100+ active closers</td><td>Placement Hub</td><td>vs 485 Skool + 615 Discord. Internally coherent.</td></tr>
+<tr><td class="lab">70+ placements</td><td>Homepage + Hub</td><td>In ~4 months of the brand existing. The number that matters most.</td></tr>
+<tr><td class="lab">20+ partner companies</td><td>Placement Hub</td><td>Demand side. Also the fragile side.</td></tr>
+<tr><td class="lab">3 gg to first shortlist</td><td>Homepage + Hub</td><td>Operational promise, manually delivered.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section>
+<span class="secnum">§ 5.0</span>
+<h2>The funnel as it exists today</h2>
+<p class="dek">Not the teardown — that's §2. This is simply the map of every path a stranger can take, with real numbers on the first two steps.</p>
+
+<div class="funnel">
+<div class="frow">
+  <div class="fstage">
+    <span class="n">01</span>
+    <div class="h">Reel / Short</div>
+    <div class="m">56,520 views / 30d</div>
+    <div class="s">22 reels in 31 days. Median 1,397 views.</div>
+  </div>
+  <div class="fstage leak">
+    <span class="n">02</span>
+    <div class="h">“Commenta SALES”</div>
+    <div class="m">72 comments / 30d</div>
+    <div class="s">0.127% of views. This is the whole capture mechanism.</div>
+  </div>
+  <div class="fstage">
+    <span class="n">03</span>
+    <div class="h">Manual DM</div>
+    <div class="m">unknown</div>
+    <div class="s">He appears to send the link by hand.</div>
+  </div>
+  <div class="fstage">
+    <span class="n">04</span>
+    <div class="h">Discord <em>or</em> Skool</div>
+    <div class="m">615 / 485</div>
+    <div class="s">Two front doors, no email captured at either.</div>
+  </div>
+  <div class="fstage">
+    <span class="n">05</span>
+    <div class="h">Placement Hub</div>
+    <div class="m">Google SSO</div>
+    <div class="s">Closer builds a profile, flags interest in offers.</div>
+  </div>
+  <div class="fstage leak">
+    <span class="n">06</span>
+    <div class="h">Money</div>
+    <div class="m">no price anywhere</div>
+    <div class="s">No paid tier, no fee, no checkout on any public surface.</div>
+  </div>
+</div>
+<p class="fcap"><strong>Supply side (closers).</strong> Six steps, entirely manual from step 3 onward, and it terminates in a free product. Every view he earns is converted by hand.</p>
+</div>
+
+<div class="funnel">
+<div class="frow">
+  <div class="fstage">
+    <span class="n">01</span>
+    <div class="h">Finds the site</div>
+    <div class="m">organic / word of mouth</div>
+    <div class="s">No ads, no LinkedIn, no outbound visible.</div>
+  </div>
+  <div class="fstage">
+    <span class="n">02</span>
+    <div class="h">Placement Hub page</div>
+    <div class="m">3 case studies</div>
+    <div class="s">SaaS B2B, coaching, online courses. Named metrics.</div>
+  </div>
+  <div class="fstage leak">
+    <span class="n">03</span>
+    <div class="h">10-field form</div>
+    <div class="m">no call booking</div>
+    <div class="s">Company name, contact, sector, role, email, phone, prefix, channel, source, message.</div>
+  </div>
+  <div class="fstage leak">
+    <span class="n">04</span>
+    <div class="h">Wait 1–2 days</div>
+    <div class="m">human reply</div>
+    <div class="s">Homepage promised &lt;48h; form says 1–2 working days.</div>
+  </div>
+  <div class="fstage">
+    <span class="n">05</span>
+    <div class="h">Slack / WhatsApp</div>
+    <div class="m">per-company channel</div>
+    <div class="s">Shortlist of 3–5 delivered by hand.</div>
+  </div>
+</div>
+<p class="fcap"><strong>Demand side (companies).</strong> This is where revenue must come from, and it is the thinner of the two funnels: one page, one form, no booking link, no pricing, no self-serve, and a 1–2 day human gap at the exact moment a hiring manager is hottest.</p>
+</div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section>
+<span class="secnum">§ 6.0</span>
+<h2>The content engine, measured</h2>
+<p class="dek">24 reels scraped. This is the raw material for the funnel analysis — the numbers are worse than the view counts make them look.</p>
+
+<div class="stats">
+  <div class="stat"><span class="v">22</span><span class="k">Reels in 31 days (71% of days)</span></div>
+  <div class="stat"><span class="v">1,397</span><span class="k">Median views</span></div>
+  <div class="stat"><span class="v">1.73%</span><span class="k">Like rate on views</span></div>
+  <div class="stat hot"><span class="v">0.127%</span><span class="k">Comment rate on views</span></div>
+  <div class="stat"><span class="v">3.3</span><span class="k">Mean comments per reel</span></div>
+  <div class="stat"><span class="v">0.39×</span><span class="k">Median views ÷ followers</span></div>
+</div>
+
+<div class="note">
+  <div class="t">The number to sit with</div>
+  <p>His best reel of the period did <strong>22,638 views</strong> and collected <strong>3 comments.</strong></p>
+  <p>Back on 10 April, a reel doing <strong>10,856 views</strong> — less than half the reach — collected <strong>152 comments.</strong> Same account, same CTA phrasing, <strong>a 110× collapse in conversion rate</strong> (1.40% → 0.013%). Something in the mechanism broke between April and August, and it is not the content: reach held up fine.</p>
+</div>
+
+<div class="scroll">
+<table>
+<caption>Every reel, 11 Mar – 19 Aug 2026</caption>
+<thead><tr><th>Date</th><th class="num">Views</th><th class="num">Likes</th><th class="num">Comm.</th><th class="num">C/V</th><th>CTA / hook</th></tr></thead>
+<tbody>
+<tr><td class="lab">19 Aug</td><td class="num">911</td><td class="num">20</td><td class="num">1</td><td class="num">0.11%</td><td>commenta “sales” → framework per le calls</td></tr>
+<tr><td class="lab">18 Aug</td><td class="num">2,141</td><td class="num">60</td><td class="num">2</td><td class="num">0.09%</td><td>la verità… <span class="tag u">no CTA</span></td></tr>
+<tr><td class="lab">16 Aug</td><td class="num">1,288</td><td class="num">31</td><td class="num">2</td><td class="num">0.16%</td><td>commenta “sales” → corso gratuito</td></tr>
+<tr><td class="lab">15 Aug</td><td class="num">1,367</td><td class="num">37</td><td class="num">5</td><td class="num">0.37%</td><td>commenta “sales” → corso completo</td></tr>
+<tr><td class="lab">14 Aug</td><td class="num">1,706</td><td class="num">40</td><td class="num">3</td><td class="num">0.18%</td><td>shoutout @federicoronzoni</td></tr>
+<tr><td class="lab">13 Aug</td><td class="num">1,470</td><td class="num">45</td><td class="num">4</td><td class="num">0.27%</td><td>fai le scelte giuste <span class="tag u">no CTA</span></td></tr>
+<tr><td class="lab">12 Aug</td><td class="num">1,654</td><td class="num">34</td><td class="num">0</td><td class="num">0.00%</td><td>commenta “sales” → corso gratuito</td></tr>
+<tr><td class="lab">11 Aug</td><td class="num">1,815</td><td class="num">26</td><td class="num">8</td><td class="num">0.44%</td><td>commenta “sales” → corso gratuito</td></tr>
+<tr><td class="lab">10 Aug</td><td class="num">1,200</td><td class="num">27</td><td class="num">5</td><td class="num">0.42%</td><td>commenta “sales” → corso gratuito</td></tr>
+<tr><td class="lab">9 Aug</td><td class="num">2,688</td><td class="num">35</td><td class="num">10</td><td class="num">0.37%</td><td>teaching carousel-style: “non perdere tempo…”</td></tr>
+<tr><td class="lab">7 Aug</td><td class="num">1,381</td><td class="num">22</td><td class="num">2</td><td class="num">0.14%</td><td>commenta “SALES” → ti metto in contatto con le aziende</td></tr>
+<tr><td class="lab">5 Aug</td><td class="num">22,638</td><td class="num">273</td><td class="num">3</td><td class="num">0.01%</td><td><strong>Top reel.</strong> Objection: “Sono tanti soldi” <span class="tag c">no CTA</span></td></tr>
+<tr><td class="lab">4 Aug</td><td class="num">891</td><td class="num">18</td><td class="num">7</td><td class="num">0.79%</td><td>commenta “sales” → corso gratuito</td></tr>
+<tr><td class="lab">3 Aug</td><td class="num">1,414</td><td class="num">24</td><td class="num">3</td><td class="num">0.21%</td><td>commenta “sales” → corso gratuito</td></tr>
+<tr><td class="lab">31 Jul</td><td class="num">2,968</td><td class="num">47</td><td class="num">1</td><td class="num">0.03%</td><td>lifestyle — “immagina prendere una call da qui”</td></tr>
+<tr><td class="lab">30 Jul</td><td class="num">2,631</td><td class="num">52</td><td class="num">2</td><td class="num">0.08%</td><td>segui @italiancloser + community</td></tr>
+<tr><td class="lab">27 Jul</td><td class="num">1,343</td><td class="num">27</td><td class="num">4</td><td class="num">0.30%</td><td>segui + community</td></tr>
+<tr><td class="lab">25 Jul</td><td class="num">3,221</td><td class="num">69</td><td class="num">1</td><td class="num">0.03%</td><td>segui + community</td></tr>
+<tr><td class="lab">23 Jul</td><td class="num">1,173</td><td class="num">28</td><td class="num">3</td><td class="num">0.26%</td><td>commenta “sales”</td></tr>
+<tr><td class="lab">22 Jul</td><td class="num">1,010</td><td class="num">22</td><td class="num">3</td><td class="num">0.30%</td><td>commenta “sales”</td></tr>
+<tr><td class="lab">21 Jul</td><td class="num">959</td><td class="num">27</td><td class="num">2</td><td class="num">0.21%</td><td>commenta “sales”</td></tr>
+<tr><td class="lab">20 Jul</td><td class="num">651</td><td class="num">11</td><td class="num">1</td><td class="num">0.15%</td><td>commenta “sales”</td></tr>
+<tr><td class="lab">24 May</td><td class="num">7,970</td><td class="num">203</td><td class="num">2</td><td class="num">0.03%</td><td>“tanta fame…” + commenta “sales”</td></tr>
+<tr><td class="lab">11 Mar</td><td class="num">14,881</td><td class="num">137</td><td class="num">10</td><td class="num">0.07%</td><td>mai mollare, never</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>YouTube, same window</h3>
+<p>Shorts carry the channel; long-form is close to dead on arrival. The three most recent long-form uploads — the ones that actually demonstrate expertise — did <strong>40, 91 and 83 views</strong>. Meanwhile his shorts do 200–1,000.</p>
+
+<div class="scroll">
+<table>
+<caption>15 most recent YouTube uploads</caption>
+<thead><tr><th>Date</th><th class="num">Views</th><th>Title</th><th>Format</th></tr></thead>
+<tbody>
+<tr><td class="lab">15 Aug</td><td class="num">1,069</td><td>commenta “sales” e ti mando accesso al mio corso completo</td><td>Short</td></tr>
+<tr><td class="lab">13 Aug</td><td class="num">958</td><td>fai le scelte giuste…</td><td>Short</td></tr>
+<tr><td class="lab">13 Aug</td><td class="num">40</td><td>Cosa Fa Diversamente un Top Closer Americano (Analisi Chiamata Reale)</td><td><span class="tag c">Long</span></td></tr>
+<tr><td class="lab">6 Aug</td><td class="num">91</td><td>Come Gabriel ha Chiuso 3.000€ il PRIMO giorno di chiamate</td><td><span class="tag c">Long</span></td></tr>
+<tr><td class="lab">30 Jul</td><td class="num">83</td><td>Il Mio Framework per SUPERARE Ogni Obiezione (Dimostrazione Reale)</td><td><span class="tag c">Long</span></td></tr>
+<tr><td class="lab">24 Jul</td><td class="num">225</td><td>La vera obiezione dietro “devo pensarci”</td><td>Short</td></tr>
+<tr><td class="lab">23 Jul</td><td class="num">63</td><td>Tutti mi danno della scammer?!</td><td>Short</td></tr>
+<tr><td class="lab">22 Jul</td><td class="num">90</td><td>La Parte Migliore di Fare Soldi Online (e non è comprarsi un Rolex)</td><td>Short</td></tr>
+<tr><td class="lab">21 Jul</td><td class="num">265</td><td>Stai attento ai tuoi amici</td><td>Short</td></tr>
+<tr><td class="lab">19 Jul</td><td class="num">157</td><td>NON fare il WORKING HOLIDAY VISA in Australia</td><td>Short</td></tr>
+<tr><td class="lab">19 Jul</td><td class="num">159</td><td>La dura verità di fare il closer</td><td>Short</td></tr>
+<tr><td class="lab">18 Jul</td><td class="num">546</td><td>Questi metodi non funzionano</td><td>Short</td></tr>
+<tr><td class="lab">18 Jul</td><td class="num">95</td><td>fare il closer nel mercato US</td><td>Short</td></tr>
+<tr><td class="lab">17 Jul</td><td class="num">280</td><td>e poi ti chiedi perché non fai soldi…</td><td>Short</td></tr>
+<tr><td class="lab">17 Jul</td><td class="num">159</td><td>LA TUA OPPORTUNITÀ ORA</td><td>Short</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Content pillars, as observed</h3>
+<ul class="clean">
+  <li><strong>Tactical sales teaching</strong> — objection handling, call frameworks, real call breakdowns. His strongest material and the source of his single 22K outlier.</li>
+  <li><strong>Aspirational lifestyle</strong> — travel, freedom, taking calls from abroad. Reliable mid-range reach, near-zero conversion.</li>
+  <li><strong>Tough-love mindset</strong> — “stai attento ai tuoi amici”, “e poi ti chiedi perché non fai soldi”. Cheap to produce, mid reach.</li>
+  <li><strong>Student proof</strong> — “Come Gabriel ha chiuso 3.000€ il primo giorno”. Buried in long-form where nobody sees it. <span class="tag c">Misallocated</span></li>
+  <li><strong>Credibility defence</strong> — the scammer video. Rare, and clearly reactive.</li>
+</ul>
+</section>
+
+<!-- ============ 7 ============ -->
+<section>
+<span class="secnum">§ 7.0</span>
+<h2>Proof inventory</h2>
+<p class="dek">What he can already point at. This is unusually strong for a 4-month-old brand and is the main reason he is worth analysing.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Proof asset</th><th>Detail</th><th>Strength</th></tr></thead>
+<tbody>
+<tr><td class="lab">Trustpilot</td><td>47 reviews, 4.8★, profile claimed Apr 2026. AI summary cites weekly coaching calls, the founder's availability, real job opportunities, high-level connections.</td><td><span class="tag v">Strong — third party</span></td></tr>
+<tr><td class="lab">5 named closer testimonials</td><td>Mattia (23, US market), Luca (Italian market), Alin (25, first US offer), Angelo (found work), Elvis (<em class="q">“sei cifre al mese”</em>, closing for a US offer selling Italian courses)</td><td><span class="tag v">Strong — faces + specifics</span></td></tr>
+<tr><td class="lab">3 video testimonials</td><td>Andrea, Matteo, Marco — hosted on YouTube, embedded on the Hub</td><td><span class="tag v">Strong</span></td></tr>
+<tr><td class="lab">3 company case studies</td><td>Online courses (5 days brief→call, 3 collaborations), coaching/consulting (3 profiles, 3 on target), B2B SaaS (closer in 7 days, still on team)</td><td><span class="tag v">Strong — anonymous but specific</span></td></tr>
+<tr><td class="lab">Personal track record</td><td>+1M$ / +2,000 calls / +40% close rate</td><td><span class="tag c">Unverifiable</span></td></tr>
+<tr><td class="lab">Network metrics</td><td>100+ closers · 70+ placements · 20+ companies</td><td><span class="tag c">Self-reported</span></td></tr>
+<tr><td class="lab">Community size</td><td>615 Discord + 485 Skool</td><td><span class="tag v">Verified live</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pull">He has more real proof than most agencies doing €50K/month. It is scattered across five platforms and pointed at a free product.</div>
+</section>
+
+<!-- ============ 8 ============ -->
+<section>
+<span class="secnum">§ 8.0</span>
+<h2>Brand &amp; technology</h2>
+<p class="dek">Bonus section as briefed. Extended into the AIOS angle in §5 of the wider analysis — this is the factual stack only.</p>
+
+<div class="scroll">
+<table>
+<caption>Stack</caption>
+<tbody>
+<tr><td class="lab">Hosting</td><td>Vercel (edge <code>fra1</code>, Frankfurt). Both the marketing site and the app.</td></tr>
+<tr><td class="lab">Domain</td><td>GoDaddy. Registered <strong>8 April 2026</strong>, expires Apr 2028.</td></tr>
+<tr><td class="lab">Email</td><td>Google Workspace (full MX on <code>aspmx.l.google.com</code>). SPF delegated via <code>_spfm</code> — a managed sending provider is in the path.</td></tr>
+<tr><td class="lab">Analytics</td><td>Google Search Console verified (TXT record present).</td></tr>
+<tr><td class="lab">Auth</td><td>Google SSO on the closer portal. Separate company login route.</td></tr>
+<tr><td class="lab">Ops channels</td><td>Slack (Pro+ required) or WhatsApp, one channel per partner company — chosen by the client at intake.</td></tr>
+<tr><td class="lab">Community</td><td>Discord (NEWS + COMMUNITY features enabled) and Skool, in parallel.</td></tr>
+<tr><td class="lab">Reviews</td><td>Trustpilot, claimed and actively collected.</td></tr>
+<tr><td class="lab">Paid media</td><td>None detected. No Meta pixel-driven ad presence, no ad library results, absent from the Spyglass corpus.</td></tr>
+<tr><td class="lab">CRM / email tool</td><td>None visible. No opt-in form of any kind on any public page.</td></tr>
+<tr><td class="lab">Booking tool</td><td>None visible. No Calendly, no cal.com, no embedded scheduler anywhere.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Brand read</h3>
+<p>Visually he is already in the right neighbourhood: black-and-white, editorial, photography-led, generous whitespace, no gradient-SaaS clichés. A lifestyle photo marquee, a clean track-record band, restrained type. The Placement Hub page is a step above the homepage — sectioned, tabbed, proof-heavy, with genuine product screenshots.</p>
+<p>The weaknesses are structural rather than aesthetic: the naming is inconsistent across surfaces (<em>Italiancloser</em> / <em>Italian Closer Academy</em> / <em>Italian Closers Academy</em> / <em>Placement Hub</em> / <em>@mannyonjourney</em> — five names for one thing), and the homepage embeds a YouTube player that displays <strong>546 subscribers</strong> as its first piece of social proof.</p>
+</section>
+
+<!-- ============ 9 ============ -->
+<section>
+<span class="secnum">§ 9.0</span>
+<h2>Timeline</h2>
+<p class="dek">The compression here is the story. Everything below happened in under nine months.</p>
+
+<div class="tl">
+  <div class="tlrow"><div class="d">2024</div><div class="t">Starts from zero</div><div class="b">Buys a US mentorship. No contacts, non-native English. Says he spent $20K+ on American sales mentorships in total.</div></div>
+  <div class="tlrow"><div class="d">Sep 2025</div><div class="t">First cohort forming</div><div class="b">Testimonial from Alin references being a closer “dal settembre 2025” — the network predates the brand.</div></div>
+  <div class="tlrow"><div class="d">2 Dec 2025</div><div class="t">Joins Skool</div><div class="b">Creates Italian Closers Academy as a free community.</div></div>
+  <div class="tlrow"><div class="d">11 Mar 2026</div><div class="t">Earliest surviving reel</div><div class="b">14,881 views, 137 likes. He already had reach.</div></div>
+  <div class="tlrow"><div class="d">10 Apr 2026</div><div class="t">The high-water mark</div><div class="b">10,856 views → <strong>152 comments</strong>. The comment-to-DM funnel worked at 1.40%.</div></div>
+  <div class="tlrow"><div class="d">8 Apr 2026</div><div class="t">italiancloser.com registered</div><div class="b">The brand becomes a company. Trustpilot profile claimed the same month.</div></div>
+  <div class="tlrow"><div class="d">~Jun–Jul 2026</div><div class="t">Placement Hub ships</div><div class="b">A real two-sided web app, Google SSO, company portal, Slack integration. Claims 70+ placements and 20+ partner companies.</div></div>
+  <div class="tlrow"><div class="d">20 Jul 2026</div><div class="t">Daily posting begins</div><div class="b">22 reels in the following 31 days. Reach holds. Comments collapse to 3.3 per reel.</div></div>
+  <div class="tlrow"><div class="d">19 Aug 2026</div><div class="t">Latest activity</div><div class="b">Still posting daily, still routing to a free course, still no price on any surface.</div></div>
+</div>
+</section>
+
+<!-- ============ 10 ============ -->
+<section>
+<span class="secnum">§ 10.0</span>
+<h2>Open questions carried into §2</h2>
+<p class="dek">What the public record cannot answer. These are the hinges the funnel analysis will turn on.</p>
+
+<ol class="q">
+  <li><strong>How does he actually make money?</strong> No price exists on any public surface. Placement fee per hire? Monthly retainer per company? Rev-share on closer commission? Paid academy tier sold in the DMs? The answer changes the entire diagnosis.</li>
+  <li><strong>Which side is the constraint — closers or companies?</strong> He has 1,100 people across two communities and claims only 20+ partner companies. If demand is the bottleneck, everything he is currently doing on Instagram is the wrong work.</li>
+  <li><strong>What broke between April and August?</strong> The comment-to-DM rate fell 110×. Algorithmic suppression of keyword CTAs, an audience gone stale, or a shift in what he's asking for — this needs isolating before anything is fixed.</li>
+  <li><strong>How much of the delivery is him personally?</strong> Manual matching, manual shortlists, weekly live calls, per-company Slack channels, hand-sent DMs, plus he says he still closes actively. Where is the ceiling and how close is he to it?</li>
+  <li><strong>Is there a team?</strong> He writes “il team” and “valutiamo” throughout the Hub copy. One admin online in Skool. Real staff or the founder's plural?</li>
+  <li><strong>Why no email list?</strong> 1,100 community members and zero owned contact data. Deliberate, or never got to it?</li>
+  <li><strong>Why no LinkedIn?</strong> He sells B2B recruitment to companies and has no presence on the only channel where those buyers live.</li>
+</ol>
+
+<div class="note">
+  <div class="t">Headline read, one line</div>
+  <p>He has built demand-side proof, a working product and a live audience in four months — and has attached no price to any of it. The bottleneck is almost certainly <strong>not traffic</strong>.</p>
+</div>
+</section>
+
+<!-- ============ 11 ============ -->
+<section>
+<span class="secnum">§ 11.0</span>
+<h2>Sources</h2>
+<p class="dek">All open-source. No contact was made and nothing gated was accessed. Captured 20 Aug 2026.</p>
+<ul class="clean">
+  <li><a href="https://www.instagram.com/italiancloser/">instagram.com/italiancloser</a> — profile + 24 reels, engagement scraped</li>
+  <li><a href="https://www.italiancloser.com">italiancloser.com</a> — homepage, full copy</li>
+  <li><a href="https://www.italiancloser.com/placement-hub">italiancloser.com/placement-hub</a> — product page, case studies, testimonials</li>
+  <li><a href="https://app.italiancloser.com/aziende/contatta">app.italiancloser.com/aziende/contatta</a> — company intake form, field by field</li>
+  <li><a href="https://app.italiancloser.com/login">app.italiancloser.com/login</a> — closer auth flow</li>
+  <li><a href="https://www.skool.com/italian-closers-academy-6315/about">skool.com/italian-closers-academy-6315</a> — 485 members, free</li>
+  <li><a href="https://www.skool.com/@francesco-manara-1250">skool.com/@francesco-manara-1250</a> — personal profile, memberships</li>
+  <li><a href="https://discord.gg/cAWSm5JYXA">discord.gg/cAWSm5JYXA</a> — 615 members, 47 online (Discord API)</li>
+  <li><a href="https://www.youtube.com/@mannyonjourney">youtube.com/@mannyonjourney</a> — 546 subs, 15 uploads via channel feed</li>
+  <li><a href="https://it.trustpilot.com/review/italiancloser.com">trustpilot.com/review/italiancloser.com</a> — 47 reviews, 4.8★</li>
+  <li><a href="https://linktr.ee/francescomanarabusiness">linktr.ee/francescomanarabusiness</a> — 6 links</li>
+  <li>WHOIS, DNS, HTTP headers — domain age, hosting, mail stack</li>
+  <li>Meta Ad Library + Spyglass ad corpus — both negative for this brand</li>
+</ul>
+</section>
+
+<footer>
+  <strong>Italiancloser — Lead Dossier, Section 1: Context.</strong> Prepared for Evolv AI, 20 August 2026.<br>
+  Every figure marked as verified was pulled live from the named source on that date. Figures marked <em>claimed</em> are his own and are reproduced without endorsement.<br>
+  Next: §2 Funnel analysis · §3 Bottlenecks · §4 Solutions &amp; prioritisation matrix · §5 Execution roadmap.
+</footer>
+
+</div>
