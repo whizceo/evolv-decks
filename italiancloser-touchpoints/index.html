@@ -1,0 +1,156 @@
+<title>Touchpoint Italiancloser</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+ --bg:#000000;--s1:#0d0d0f;--s2:#1c1c1e;--s3:#2c2c2e;--s4:#3a3a3c;
+ --sep:rgba(84,84,88,.55);--hair:rgba(255,255,255,.09);
+ --t1:#ffffff;--t2:rgba(235,235,245,.62);--t3:rgba(235,235,245,.32);--t4:rgba(235,235,245,.18);
+ --blue:#0A84FF;--green:#30D158;--red:#FF453A;--orange:#FF9F0A;--yellow:#FFD60A;
+ --purple:#BF5AF2;--teal:#40C8E0;--pink:#FF375F;--indigo:#5E5CE6;--cyan:#64D2FF;
+ --gray:#8E8E93;--mint:#66D4CF;--brown:#AC8E68;
+ --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Inter,system-ui,sans-serif;
+ --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,monospace}
+html{-webkit-text-size-adjust:100%;background:var(--bg)}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.55;
+ -webkit-font-smoothing:antialiased;letter-spacing:-.011em}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+a{color:var(--blue);text-decoration:none}
+.mono{font-family:var(--mono)}
+/* ── header ── */
+header{padding:84px 0 40px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+ color:var(--t3);margin-bottom:22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.eyebrow b{color:var(--blue);font-weight:600}
+h1{font-weight:700;font-size:clamp(2.3rem,5vw,3.6rem);line-height:1.05;letter-spacing:-.032em;margin-bottom:20px}
+h1 em{font-style:normal;color:var(--blue)}
+.lede{font-size:1.16rem;line-height:1.58;color:var(--t2);max-width:940px;letter-spacing:-.008em}
+.lede b{color:var(--t1);font-weight:600}
+.meta{margin-top:28px;font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.03em;display:flex;gap:22px;flex-wrap:wrap}
+/* ── stat band ── */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:44px 0 8px}
+.stat{background:var(--s2);border:1px solid var(--hair);border-radius:14px;padding:20px 20px 18px}
+.stat .v{font-size:2.05rem;font-weight:700;letter-spacing:-.04em;line-height:1;margin-bottom:9px}
+.stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.stat .d{font-size:12.5px;color:var(--t2);margin-top:7px;line-height:1.4}
+/* ── section headings ── */
+section{padding:66px 0 0}
+.secnum{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--blue);display:block;margin-bottom:14px}
+h2{font-size:clamp(1.65rem,3vw,2.35rem);font-weight:700;letter-spacing:-.028em;line-height:1.1;margin-bottom:14px}
+.dek{color:var(--t2);font-size:1.02rem;max-width:900px;margin-bottom:30px}
+/* ── mobile gate ── */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--bg);
+ flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+.mobile-block .mb-t{font-size:1.9rem;font-weight:700;letter-spacing:-.03em;margin-bottom:14px}
+.mobile-block .mb-t em{font-style:normal;color:var(--blue)}
+.mobile-block .mb-s{font-size:.95rem;color:var(--t2);max-width:360px;line-height:1.55}
+.mobile-block .mb-e{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:22px}
+@media screen and (max-width:900px){.mobile-block{display:flex!important}body>*:not(.mobile-block){display:none!important}}
+
+.railwrap{margin:36px 0 0;border-top:1px solid var(--sep);border-bottom:1px solid var(--sep);
+ background:var(--s1);padding:34px 0 40px}
+.rail{display:flex;gap:16px;overflow-x:auto;padding:0 40px 14px;scrollbar-color:var(--s4) transparent}
+.rail::-webkit-scrollbar{height:10px}
+.rail::-webkit-scrollbar-thumb{background:var(--s4);border-radius:6px}
+.rail::-webkit-scrollbar-track{background:transparent}
+.fn{flex:0 0 384px;background:var(--s2);border:1px solid var(--hair);border-top:3px solid var(--c);
+ border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.fnh{padding:20px 20px 18px;border-bottom:1px solid var(--hair)}
+.pill{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.13em;
+ padding:4px 9px;border-radius:6px;background:color-mix(in srgb,var(--c) 20%,transparent);color:var(--c);margin-bottom:13px}
+.fn h3{font-size:1.14rem;font-weight:650;letter-spacing:-.022em;line-height:1.22;margin-bottom:11px}
+.fnh .ad{font-size:12.5px;color:var(--t2);line-height:1.5;margin-bottom:8px}
+.fnh .ad b{color:var(--t1);font-weight:550}
+.fnh .ra{font-size:12px;color:var(--t3);line-height:1.5;margin-bottom:11px}
+.fnh .me{font-size:10px;letter-spacing:.04em;color:var(--c);line-height:1.5}
+.steps{list-style:none;padding:8px 0 12px}
+.st{display:grid;grid-template-columns:30px 1fr;gap:10px;padding:9px 20px 9px 14px;align-items:start}
+.st .num{font-family:var(--mono);font-size:11px;color:var(--t3);text-align:right;padding-top:2px;font-weight:500}
+.sb b{display:block;font-size:12.8px;font-weight:600;letter-spacing:-.01em;line-height:1.35;margin-bottom:3px}
+.sb span{display:block;font-size:11.5px;color:var(--t2);line-height:1.45}
+.st+.st{border-top:1px solid rgba(255,255,255,.05)}
+.st.leak{background:rgba(255,69,58,.075);border-left:2px solid var(--red);padding-left:12px}
+.st.leak .num{color:var(--red)}
+.st.leak .sb b{color:#FF7A70}
+.st.money{background:rgba(48,209,88,.085);border-left:2px solid var(--green);padding-left:12px}
+.st.money .num{color:var(--green)}
+.st.money .sb b{color:#5DE07E}
+.fork{margin:14px 14px;padding:10px 12px;border-radius:9px;background:rgba(191,90,242,.14);
+ border:1px solid rgba(191,90,242,.3);font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;
+ color:var(--purple);text-align:center;line-height:1.5}
+.sub{margin:14px 14px 6px;padding:7px 12px;border-radius:8px;background:var(--s3);
+ font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;color:var(--t2)}
+.legend2{display:flex;gap:20px;flex-wrap:wrap;padding:0 40px 22px;max-width:1240px;margin:0 auto}
+.lg2{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;
+ letter-spacing:.09em;text-transform:uppercase;color:var(--t3)}
+.lg2 i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.hint{max-width:1240px;margin:0 auto;padding:14px 40px 0;font-family:var(--mono);font-size:10.5px;
+ letter-spacing:.07em;color:var(--t3)}
+.rd{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.rc{background:var(--s2);border:1px solid var(--hair);border-radius:14px;padding:22px 22px 20px}
+.rc .rk{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:11px}
+.rc h4{font-size:1.02rem;font-weight:650;letter-spacing:-.02em;margin-bottom:8px;line-height:1.3}
+.rc p{font-size:13px;color:var(--t2);line-height:1.55}
+.crossnav{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.cn{background:var(--s2);border:1px solid var(--hair);border-radius:11px;padding:13px 18px;
+ font-size:13px;color:var(--t1);display:flex;gap:10px;align-items:center;transition:background .15s}
+.cn:hover{background:var(--s3)}
+.cn span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+
+footer{margin-top:96px;border-top:1px solid var(--sep);padding:44px 0 70px}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.fk{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.fgrid p{font-size:12.5px;color:var(--t3);line-height:1.65;word-break:break-word}
+.fend{margin-top:38px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--t4)}
+</style>
+<div class="mobile-block">
+  <div class="mb-e">Evolv AI · Analisi Lead</div>
+  <div class="mb-t">Aprilo sul <em>desktop</em></div>
+  <div class="mb-s">Questa mappa è costruita per uno schermo grande. Aprila dal laptop per vederla intera.</div>
+</div>
+
+<div class="wrap"><header>
+<div class="eyebrow"><b>Evolv AI</b> · Analisi Lead · Sezione 02b di 06 · 21 agosto 2026</div>
+<h1>Cinque percorsi, un solo<br>motore acceso — <em>dove ognuno perde</em></h1>
+<p class="lede">Stesso business, cinque strade strutturalmente diverse dal primo contatto al primo euro. Ogni percorso parte da un <b>tipo di ingresso diverso</b> — reel, Linktree, invito Discord, candidatura, richiesta aziendale — e il tipo di ingresso determina la forma di tutto ciò che viene dopo. Ogni touchpoint è numerato a partire da 1. <b>Il Funnel 01 è l'unico che gira davvero oggi.</b> In rosso i punti in cui qualcosa esce dal sistema, in verde i due soli punti in cui entrano soldi. Dove un dato non è pubblico il passaggio lo dice, non lo stima.</p>
+<div class="meta"><span>5 PERCORSI · 69 TOUCHPOINT</span><span>2 SOLI EVENTI DI RICAVO</span><span>1 RAMIFICAZIONE</span><span>RILEVATO 20–21 AGO 2026</span></div>
+</header></div>
+
+<div class="railwrap">
+<div class="legend2">
+ <div class="lg2"><i style="background:var(--s3)"></i>Touchpoint — un'azione reale e osservabile</div>
+ <div class="lg2"><i style="background:var(--red)"></i>Perdita — persone, dati o soldi che escono</div>
+ <div class="lg2"><i style="background:var(--green)"></i>Evento di ricavo — l'unico posto dove si paga</div>
+ <div class="lg2"><i style="background:var(--purple)"></i>Ramificazione — il percorso si biforca e l'economia cambia</div>
+</div>
+<div class="rail"><div class="fn" style="--c:var(--blue)"><div class="fnh"><div class="pill">FUNNEL 01 · VIVO OGGI</div><h3>Reel → commento → DM</h3><p class="ad"><b>Ingresso: un reel su Instagram. È l&#x27;unico motore di scoperta acceso in tutto il business.</b></p><p class="ra">Perché conta: il 100% delle persone nuove entra da qui. Tutto il resto del sistema esiste a valle di questo singolo formato.</p><p class="me mono">Misurato 20 ago: 22 reel / 30 gg · 56.520 view · mediana 1.397 · like 1,73% · commenti 0,127%</p></div><ol class="steps"><li class="st"><span class="num">1</span><div class="sb"><b>Impressione reel</b><span>22 reel negli ultimi 30 giorni. 56.520 view totali, mediana 1.397. La portata non è il problema.</span></div></li><li class="st"><span class="num">2</span><div class="sb"><b>Like</b><span>1,73% delle view. Perfettamente sano per il formato.</span></div></li><li class="st leak"><span class="num">3</span><div class="sb"><b>Commento — crollato 110×</b><span>10 apr: 10.856 view → 152 commenti (1,40%). 5 ago: 22.638 view → 3 commenti (0,01%). Stessa portata, meccanismo morto. (L1)</span></div></li><li class="st leak"><span class="num">4</span><div class="sb"><b>Nessuna automazione commento→DM</b><span>Nessuna parola chiave, nessun bot, nessuna risposta automatica. Ogni conversazione parte a mano da lui.</span></div></li><li class="st leak"><span class="num">5</span><div class="sb"><b>DM manuale</b><span>Una persona, una casella, nessun orario. Il primo contatto commerciale del business è la sua chat personale. (L26)</span></div></li><li class="st leak"><span class="num">6</span><div class="sb"><b>L&#x27;evento non viene registrato</b><span>Nessun Meta Pixel installato: solo GA4, che non vede Instagram. 56K view/mese impossibili da ritargetizzare. (L4)</span></div></li><li class="st"><span class="num">7</span><div class="sb"><b>Il profilo</b><span>3.623 follower · 577 seguiti · 5 post in griglia · 8 storie in evidenza · verificato · categoria Community.</span></div></li><li class="st leak"><span class="num">8</span><div class="sb"><b>Bio link 1 → discord.gg/cAWSm5JYXA</b><span>Il 100% del traffico primario esce dall&#x27;ecosistema al primo clic: nessun pixel, nessuna email, nessun cookie. (L2)</span></div></li><li class="st"><span class="num">9</span><div class="sb"><b>Discord — 615 membri</b><span>Fine del percorso misurabile. Da qui in avanti non esiste un solo dato attribuibile.</span></div></li></ol></div><div class="fn" style="--c:var(--orange)"><div class="fnh"><div class="pill">FUNNEL 02 · DISPERSIVO</div><h3>Linktree → tre rami senza gerarchia</h3><p class="ad"><b>Ingresso: il secondo bio link, «Risorse Gratuite» → linktr.ee/francescomanarabusiness.</b></p><p class="ra">Perché conta: è l&#x27;unico punto in cui il visitatore può scegliere. Sceglie male, perché tutte le scelte pesano uguale.</p><p class="me mono">Rilevato 20 ago: 6 link · 2 puntano alla stessa URL · piano gratuito</p></div><ol class="steps"><li class="st"><span class="num">1</span><div class="sb"><b>Clic sul secondo bio link</b><span>Il traffico che non è già finito su Discord passa da qui.</span></div></li><li class="st leak"><span class="num">2</span><div class="sb"><b>Linktree in piano gratuito</b><span>La pagina mostra il banner promozionale di Linktree: sta vendendo Linktree al proprio pubblico. (L23)</span></div></li><li class="st"><span class="num">3</span><div class="sb"><b>6 link, nessuna gerarchia</b><span>Nessun ordine di priorità, nessun link primario, nessuna differenza di peso visivo.</span></div></li><li class="st leak"><span class="num">4</span><div class="sb"><b>«Per Aziende» e «Per Closers» → stessa URL</b><span>I due lati opposti del marketplace vengono mandati esattamente nello stesso posto. (L23)</span></div></li><li class="st leak"><span class="num">5</span><div class="sb"><b>Card Discord ferma a «579 membri»</b><span>Il numero reale è 615. La prova sociale si auto-sottovaluta. (L17)</span></div></li><li class="st"><span class="num">6</span><div class="sb"><b>Ramo A → Discord</b><span>Dove finisce quasi tutto il traffico.</span></div></li><li class="st leak"><span class="num">7</span><div class="sb"><b>Ramo B → Skool</b><span>486 membri, 0 online, ultimo post di un membro il 31 marzo. È anche l&#x27;unico posto dove esistono i prodotti. (L7)</span></div></li><li class="st"><span class="num">8</span><div class="sb"><b>Ramo C → italiancloser.com</b><span>Sito vetrina: 0 form, 0 opt-in, 0 link di prenotazione.</span></div></li><li class="st leak"><span class="num">9</span><div class="sb"><b>Nessun UTM, nessun pixel</b><span>Impossibile sapere quale dei tre rami produce qualcosa. La decisione non è misurabile. (L4)</span></div></li></ol></div><div class="fn" style="--c:var(--purple)"><div class="fnh"><div class="pill">FUNNEL 03 · DOVE RAMIFICA</div><h3>Dentro Discord → il corso → Skool</h3><p class="ad"><b>Ingresso: uno dei due inviti Discord. Da qui in poi il percorso si biforca, e un solo ramo arriva ai soldi.</b></p><p class="ra">Perché conta: è l&#x27;unico punto del sistema in cui esiste qualcosa da comprare — e il ramo che ci porta è quello che quasi nessuno prende.</p><p class="me mono">Rilevato 20–21 ago: 615 membri · 17 canali · 1 admin · aperto 23 feb 2026</p></div><ol class="steps"><li class="st"><span class="num">1</span><div class="sb"><b>Ingresso via invito</b><span>Due inviti pubblici diversi circolano contemporaneamente.</span></div></li><li class="st"><span class="num">2</span><div class="sb"><b>Invito A → #inizia-qui</b><span>discord.gg/cAWSm5JYXA. Onboarding corretto, come previsto.</span></div></li><li class="st leak"><span class="num">3</span><div class="sb"><b>Invito B → #guest-calls</b><span>discord.gg/4jnPSGskMR salta l&#x27;intero onboarding: niente regole, niente manifesto, niente presentazione. Usato nel post Skool del 5 giugno. (L11)</span></div></li><li class="st"><span class="num">4</span><div class="sb"><b>Messaggio di benvenuto</b><span>3 step, pubblicati il 23/02 alle 20:46, più IL MANIFESTO.</span></div></li><li class="st leak"><span class="num">5</span><div class="sb"><b>Lo step 2 punta a un canale inesistente</b><span>Dice «Vai su #presentazioni». Il canale si chiama #introductions. L&#x27;onboarding si rompe allo step 2 di 3. (L10)</span></div></li><li class="st"><span class="num">6</span><div class="sb"><b>Albero canali — 17 canali</b><span>BENVENUTO · COMMUNITY · SELF DEVELOPMENT · ACCOUNTABILITY · HIGH TICKET SALES · CALLS.</span></div></li><li class="st"><span class="num">7</span><div class="sb"><b>Call settimanale</b><span>«IC I Coaching Call», giovedì 17:30 Roma. Una a settimana, tenuta da lui.</span></div></li><li class="st leak"><span class="num">8</span><div class="sb"><b>La stanza cambia in continuazione</b><span>Skool Live → Google Meet → Zoom → Discord. Quattro piattaforme in sei mesi: nessun indirizzo canonico, nessuna abitudine possibile. (L16)</span></div></li><li class="st"><span class="num">9</span><div class="sb"><b>Il corso non è qui</b><span>I 20 moduli vivono su Skool. Chi resta su Discord non li vede mai.</span></div></li><li class="fork">▼ QUI IL PERCORSO SI BIFORCA — un ramo porta ai soldi, l&#x27;altro a niente</li><li class="sub">3A — CHI PASSA SU SKOOL (il ramo con i prodotti)</li><li class="st leak"><span class="num">10</span><div class="sb"><b>Richiesta di ingresso</b><span>Dichiarato «Public · Free», ma con approvazione manuale. Un essere umano deve dire di sì. (L6)</span></div></li><li class="st leak"><span class="num">11</span><div class="sb"><b>In attesa</b><span>La richiesta inviata il 20 ago è ancora MEMBERSHIP PENDING. Il cancello è lento perché è una persona sola. (L6)</span></div></li><li class="st"><span class="num">12</span><div class="sb"><b>Classroom — 20 moduli</b><span>9 gratuiti · 1 Premium · 10 VIP.</span></div></li><li class="st leak"><span class="num">13</span><div class="sb"><b>Tutti fermi allo 0%</b><span>Nessun avanzamento visibile, nessun incentivo al completamento, nessun dato su chi arriva alla fine. (L24)</span></div></li><li class="st money"><span class="num">14</span><div class="sb"><b>Lucchetto PREMIUM</b><span>Sblocca OBJECTION HANDLING. È il primo dei due soli prodotti confermati dell&#x27;intero business.</span></div></li><li class="st money"><span class="num">15</span><div class="sb"><b>Lucchetto VIP</b><span>Sblocca i 10 moduli del percorso US. Il secondo e ultimo prodotto confermato.</span></div></li><li class="st leak"><span class="num">16</span><div class="sb"><b>Nessun prezzo sul lucchetto</b><span>Né qui né altrove. Non esiste una superficie pubblica su cui scoprire quanto costano. (L9)</span></div></li><li class="sub">3B — CHI RESTA SU DISCORD (dove va il 100% del traffico primario)</li><li class="st leak"><span class="num">17</span><div class="sb"><b>Nessun prodotto, in 17 canali</b><span>Zero cose in vendita, zero prezzi, zero link d&#x27;acquisto nel posto dove sta tutto il pubblico vivo.</span></div></li><li class="st leak"><span class="num">18</span><div class="sb"><b>Ce li ha portati lui, per iscritto</b><span>3 apr, post fissato su Skool: «Entra nella COMMUNITY GRATUITA su Discord!». (L8)</span></div></li><li class="st leak"><span class="num">19</span><div class="sb"><b>E l&#x27;ha detto due volte</b><span>25 feb: «ho aperto un server Discord… qui su skool è più un corso che altro». Ha spostato il pubblico lontano dai soldi. (L8)</span></div></li><li class="st"><span class="num">20</span><div class="sb"><b>Fine percorso</b><span>Nessun ricavo possibile su questo ramo. È il ramo che prende quasi tutti.</span></div></li></ol></div><div class="fn" style="--c:var(--teal)"><div class="fnh"><div class="pill">FUNNEL 04 · MANUALE</div><h3>Candidatura closer → placement</h3><p class="ad"><b>Ingresso: un link alla candidatura, condiviso nei canali e nei post.</b></p><p class="ra">Perché conta: è il lato dell&#x27;offerta, quello su cui ha costruito tutto. Ed è interamente a mano, dal primo campo all&#x27;ultimo account.</p><p class="me mono">Rilevato 20–21 ago: Google Form (3 mag) + Placement Hub (16 giu) · app su Vercel</p></div><ol class="steps"><li class="st"><span class="num">1</span><div class="sb"><b>Trigger</b><span>Post o canale che rimanda alla candidatura.</span></div></li><li class="st leak"><span class="num">2</span><div class="sb"><b>Il form vive su un dominio Google</b><span>«Candidatura per Venditori» è un Google Form grezzo, non una pagina sua. Nessun controllo, nessun brand, nessun tracciamento. (L27)</span></div></li><li class="st"><span class="num">3</span><div class="sb"><b>8 campi obbligatori</b><span>Tutti richiesti prima di ricevere qualsiasi valore.</span></div></li><li class="st leak"><span class="num">4</span><div class="sb"><b>«Numero di telefono e Email» in UN solo campo</b><span>Il dato nasce già sporco: impossibile importarlo in un CRM o in un ESP senza pulirlo a mano. (L27)</span></div></li><li class="st leak"><span class="num">5</span><div class="sb"><b>Video Loom da 2–3 minuti, obbligatorio</b><span>Attrito massimo su un candidato che non ha ancora ricevuto nulla in cambio.</span></div></li><li class="st leak"><span class="num">6</span><div class="sb"><b>Banner: «Questo modulo sembra sospetto? Segnala»</b><span>Google lo mostra in fondo a ogni form. Il primo atto commerciale del business porta un avviso di sospetto. (L27)</span></div></li><li class="st"><span class="num">7</span><div class="sb"><b>Invio</b><span>Il candidato ha finito.</span></div></li><li class="st"><span class="num">8</span><div class="sb"><b>Schermata di uscita</b><span>«Valuterò il tuo profilo… pochi giorni».</span></div></li><li class="st leak"><span class="num">9</span><div class="sb"><b>Il form dichiara di essere più lento dei suoi DM</b><span>«Se vuoi accelerare i tempi, entra nella community su Discord e scrivimi in privato, lì rispondo più velocemente.» (L13)</span></div></li><li class="st leak"><span class="num">10</span><div class="sb"><b>Seconda intake in concorrenza</b><span>italiancloser.com/placement-hub fa la stessa identica cosa. Dati divisi in due, nessuna fonte di verità. (L5)</span></div></li><li class="st"><span class="num">11</span><div class="sb"><b>Vetting manuale</b><span>Una persona sola, nessun criterio pubblicato, nessuna scorecard.</span></div></li><li class="st leak"><span class="num">12</span><div class="sb"><b>Account creato a mano</b><span>/registrati → 404 · /signup → 404. Non esiste registrazione self-serve: ogni singolo accesso passa fisicamente da lui. (L12)</span></div></li><li class="st"><span class="num">13</span><div class="sb"><b>app.italiancloser.com/closer/risultati</b><span>L&#x27;area riservata esiste e funziona. Ci si entra solo se lui ti apre la porta.</span></div></li><li class="st"><span class="num">14</span><div class="sb"><b>Matching manuale sul brief</b><span>«Selezionati a mano dalla community». Posizionamento voluto: «Rete privata. Non è un marketplace aperto.»</span></div></li><li class="st leak"><span class="num">15</span><div class="sb"><b>Nessun prezzo, nessun contratto visibile</b><span>Alla fine di quindici passaggi non c&#x27;è un numero, un termine o una firma. (L9)</span></div></li></ol></div><div class="fn" style="--c:var(--green)"><div class="fnh"><div class="pill">FUNNEL 05 · IL LATO CHE PAGA</div><h3>L&#x27;azienda — il percorso che nessuno ha costruito</h3><p class="ad"><b>Ingresso: un&#x27;azienda che ha bisogno di venditori. È l&#x27;unico lato del marketplace da cui arrivano soldi.</b></p><p class="ra">Perché conta: qui c&#x27;è il fatturato. E riceve un decimo dell&#x27;attenzione che riceve il lato dei closer.</p><p class="me mono">Rilevato 20–21 ago: 0 SEO · 0 LinkedIn · 0 advertising · 0 form sul sito</p></div><ol class="steps"><li class="st leak"><span class="num">1</span><div class="sb"><b>Come ti trova: passaparola</b><span>Passaparola più un singolo post Instagram. Nessun canale costruito per chi paga.</span></div></li><li class="st leak"><span class="num">2</span><div class="sb"><b>Zero ricerca</b><span>«Francesco Manara high ticket closer» non restituisce alcun risultato. Nessuna intercettazione dell&#x27;intento. (L21)</span></div></li><li class="st leak"><span class="num">3</span><div class="sb"><b>Zero LinkedIn</b><span>Vende recruiting B2B senza esistere nell&#x27;unico posto dove le aziende cercano recruiting B2B. (L22)</span></div></li><li class="st leak"><span class="num">4</span><div class="sb"><b>Linktree «Cerchi Venditori?»</b><span>Punta alla stessa URL del link per i closer. Chi compra e chi vende ricevono la stessa pagina. (L23)</span></div></li><li class="st leak"><span class="num">5</span><div class="sb"><b>Placement Hub, lato aziende</b><span>0 form sulla pagina, 0 pixel. Una vetrina che non raccoglie niente. (L18)</span></div></li><li class="st leak"><span class="num">6</span><div class="sb"><b>Prova sociale ferma</b><span>La pagina dice «590+ / 450+». I numeri reali sono 615 e 486. Il badge Trustpilot dice «50+», le recensioni sono 47. (L17 · L19)</span></div></li><li class="st"><span class="num">7</span><div class="sb"><b>La home promette «&lt;48h»</b><span>È la prima promessa operativa che un&#x27;azienda legge.</span></div></li><li class="st leak"><span class="num">8</span><div class="sb"><b>Ramo A — DM di Instagram</b><span>«se sei un azienda scrivimi pure in DM». Il lato che paga passa dalla sua casella personale. (L14)</span></div></li><li class="st leak"><span class="num">9</span><div class="sb"><b>Ramo B — mailto:info@italiancloser.com</b><span>Nessuna qualifica, nessun instradamento, nessuno SLA, nessun record. (L14)</span></div></li><li class="st leak"><span class="num">10</span><div class="sb"><b>Ramo C — app/aziende/contatta</b><span>9 campi obbligatori prima di ricevere qualsiasi valore. Chi compra viene interrogato, chi vende viene coccolato. (L15)</span></div></li><li class="st leak"><span class="num">11</span><div class="sb"><b>«La tua azienda usa Slack (piano Pro o superiore)?»</b><span>Un requisito tecnico chiesto a chi non ha ancora visto un solo profilo. (L15)</span></div></li><li class="st leak"><span class="num">12</span><div class="sb"><b>Il form dice «1–2 giorni lavorativi»</b><span>Contraddice il «&lt;48h» della home. La prima cosa che un&#x27;azienda impara è che i suoi numeri non coincidono. (L18)</span></div></li><li class="st"><span class="num">13</span><div class="sb"><b>Risposta manuale</b><span>Una persona, nessun backup, nessun secondo canale.</span></div></li><li class="st"><span class="num">14</span><div class="sb"><b>Consegna via Slack o WhatsApp</b><span>I profili arrivano in chat. Non c&#x27;è un prodotto: c&#x27;è un thread.</span></div></li><li class="st money"><span class="num">15</span><div class="sb"><b>Fee di placement</b><span>L&#x27;unico punto in cui entrano soldi dal lato domanda. Nessun prezzo pubblico, nessun contratto visibile, nessuna prova d&#x27;incasso.</span></div></li><li class="st leak"><span class="num">16</span><div class="sb"><b>Nessun percorso d&#x27;acquisto</b><span>0 checkout · 0 prezzo · 0 link di prenotazione. Anche un&#x27;azienda già convinta non ha un pulsante da premere. (B4)</span></div></li></ol></div></div>
+<div class="hint">Scorri lateralmente per passare da un percorso all'altro · ogni colonna si legge dall'alto verso il basso</div>
+</div>
+
+<div class="wrap">
+<section>
+<span class="secnum">§ 2b.1 — Cosa dice il confronto</span>
+<h2>Tre cose che si vedono solo mettendo i cinque percorsi uno accanto all'altro</h2>
+<p class="dek">Ogni percorso preso da solo sembra un problema di esecuzione. Messi in fila, raccontano una sola decisione ripetuta cinque volte.</p>
+<div class="rd">
+ <div class="rc"><div class="rk" style="color:var(--red)">Osservazione 01</div><h4>Il percorso più corto verso i soldi è quello che nessuno prende</h4><p>Il Funnel 03, ramo 3A, è l'unico che arriva a un evento di ricavo — e richiede un'approvazione manuale su una piattaforma con 0 persone online. Il Funnel 01, che porta praticamente tutto il traffico, finisce su Discord: 17 canali, zero prodotti.</p></div>
+ <div class="rc"><div class="rk" style="color:var(--orange)">Osservazione 02</div><h4>L'attrito è montato al contrario</h4><p>Il closer, che non paga, viene accolto con Discord, corso gratuito e call settimanale. L'azienda, che paga, incontra 9 campi obbligatori e una domanda sul piano Slack prima di vedere un solo profilo. Chi vende è coccolato, chi compra è interrogato.</p></div>
+ <div class="rc"><div class="rk" style="color:var(--purple)">Osservazione 03</div><h4>Ogni percorso finisce sulla stessa persona</h4><p>Cinque strade diverse, un solo terminale: lui. Approvazione Skool, vetting, creazione account, matching, DM aziende, DM closer, call. Non è un problema di funnel — è un problema di capacità travestito da problema di funnel.</p></div>
+</div>
+<div class="crossnav">
+ <a class="cn" href="https://whizceo.github.io/evolv-decks/italiancloser-dossier/"><span>§1</span> Dossier di contesto</a>
+ <a class="cn" href="https://whizceo.github.io/evolv-decks/italiancloser-funnel/"><span>§2</span> La mappa generale del funnel</a>
+</div>
+</section>
+</div>
+<footer>
+<div class="wrap">
+<div class="fgrid">
+ <div><div class="fk mono">Fonti verificate</div><p>instagram.com/italiancloser · youtube.com/@mannyonjourney · discord.gg/cAWSm5JYXA · discord.gg/4jnPSGskMR · skool.com/italian-closers-academy · italiancloser.com · app.italiancloser.com · linktr.ee/francescomanarabusiness · it.trustpilot.com · Google Forms</p></div>
+ <div><div class="fk mono">Metodo</div><p>Ogni nodo è stato aperto e letto a mano il 20 e 21 agosto 2026. Nessun numero è stimato: dove un dato non è pubblico, il nodo dice «invisibile» invece di indovinare.</p></div>
+ <div><div class="fk mono">Stato</div><p>Sezione 02 di 06 — Funnel. Prossima: §3 colli di bottiglia, §4 soluzioni, §5 matrice di priorità, §6 roadmap.</p></div>
+</div>
+<div class="fend mono">Evolv AI · Analisi Lead · Italiancloser · 21 agosto 2026 · interno</div>
+</div>
+</footer>
