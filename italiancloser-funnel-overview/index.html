@@ -450,6 +450,28 @@ footer{margin-top:100px;border-top:1px solid var(--sep);padding:46px 0 74px;back
 .fgrid p{font-size:12.5px;color:var(--t3);line-height:1.65;word-break:break-word}
 .fend{margin-top:38px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--t4)}
 
+
+.aib{background:var(--s1);border:1px solid var(--hair);border-radius:20px;
+ padding:34px 38px 32px;margin:44px 0 8px;max-width:900px}
+.aib-k{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+ color:var(--blue);margin-bottom:14px}
+.aib-h{font-size:1.42rem;font-weight:650;letter-spacing:-.028em;color:var(--t1);margin:0 0 12px}
+.aib-p{font-size:.97rem;line-height:1.62;color:var(--t2);margin:0 0 22px;max-width:62ch}
+.aib-p b{color:var(--t1);font-weight:600}
+.aib-b{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.aib-btn{font-family:inherit;font-size:13.5px;font-weight:550;letter-spacing:-.012em;
+ padding:11px 20px;border-radius:980px;border:1px solid var(--sep);background:#fff;
+ color:var(--t1);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.aib-btn:hover{background:var(--s3)}
+.aib-btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.aib-btn.pri:hover{background:#0055ad}
+.aib-btn.ok{background:var(--green,#1d7a33);border-color:var(--green,#1d7a33);color:#fff}
+.aib-pre{font-family:var(--mono);font-size:11.5px;line-height:1.72;color:var(--t2);
+ background:#fff;border:1px solid var(--hair);border-radius:14px;padding:20px 22px;
+ white-space:pre-wrap;margin:0 0 18px;max-height:290px;overflow-y:auto}
+.aib-f{font-size:12.6px;line-height:1.6;color:var(--t3);margin:0;max-width:62ch}
+@media screen and (max-width:1000px){.aib{padding:26px 22px}}
+
 </style></head><body>
 <div class="mobile-block">
   <div class="mb-e">Evolv AI · Analisi Indipendente</div>
@@ -494,6 +516,41 @@ footer{margin-top:100px;border-top:1px solid var(--sep);padding:46px 0 74px;back
    una vista. Poi i rilievi divisi per sezione. Alla fine, il conto di quanto costa lasciare tutto com’è.</p></div>
  </div>
 </div></header>
+
+<div class="wrap">
+<div class="aib">
+  <div class="aib-k">Parti da qui</div>
+  <h2 class="aib-h">Non leggerlo tutto. Fattelo leggere da un’AI.</h2>
+  <p class="aib-p">Questo documento e la panoramica generale, messi insieme, fanno circa 60.000 caratteri. Un clic qui sotto copia <b>tutti e due i documenti piu’ le istruzioni scritte apposta</b>. Incollalo in ChatGPT o Claude, una volta sola, e ti tornano sei risposte: cosa hai gia’ costruito, i colli di bottiglia ad alta gravita’, dove si perdono le persone su ognuno dei sei percorsi, le undici conclusioni, cosa resta ignoto e le tre cose che costano di piu’.</p>
+  <div class="aib-b">
+    <button class="aib-btn pri" data-copy="all">Copia i due documenti per l’AI</button>
+    <button class="aib-btn" data-copy="doc">Copia solo il testo</button>
+  </div>
+  <pre class="aib-pre" id="aib-prompt">Qui sotto trovi due documenti sulla mia azienda, Italiancloser, uno dopo l'altro. Li ha scritti qualcuno che non mi ha mai contattato: ogni numero e' stato letto a mano su una pagina pubblica il 20 e il 21 agosto 2026.
+
+- Documento 01, General Overview: cosa esiste, con tutti i numeri e le fonti.
+- Documento 02, Funnel Overview: i sei percorsi che una persona puo' seguire dentro il sistema, dove si rompe ognuno, e 36 rilievi con un codice e una gravita'.
+
+Regole, senza eccezioni:
+- Usa solo quello che c'e' nei due documenti. Niente benchmark, niente medie di settore, nessun consiglio preso dalla tua memoria.
+- Se una cosa non c'e', scrivi "non e' nei documenti".
+- Quello che e' marcato come dichiarato, ignoto o non verificabile dall'esterno resta cosi'. Non promuoverlo mai a fatto.
+- Cita ogni numero e ogni codice esattamente come sono scritti.
+- Questi documenti descrivono, non prescrivono. Non inventare raccomandazioni e non presentarne una come se l'avessero fatta loro.
+
+Dammi questo e nient'altro:
+
+1. COSA E' GIA' COSTRUITO - cinque righe, ognuna con il numero che la dimostra.
+2. I COLLI DI BOTTIGLIA AD ALTA GRAVITA' - tutti i rilievi del Documento 02 marcati "gravita': ALTA". Per ognuno: codice, titolo e il numero che lo prova. Dal piu' costoso in giu'.
+3. DOVE SI PERDONO LE PERSONE - per ognuno dei sei percorsi (A-F), una riga sola: dove si rompe e perche'.
+4. LE 11 CONCLUSIONI - il Documento 01 chiude ogni sezione con una riga marcata CONCLUSION. Dammele tutte e 11, in ordine, tradotte in italiano parola per parola: traduci, non riformulare, non accorciare, non fonderne due.
+5. COSA RESTA IGNOTO - i rilievi marcati "gravita': IGNOTO" e tutto cio' che i documenti dicono di non poter sapere dall'esterno.
+6. LE TRE COSE CHE COSTANO DI PIU' - le tre che i documenti registrano come rotte, mancanti o senza prezzo. Cita ognuna con il suo numero e fermati li'. Non aggiungere una soluzione tua.
+
+Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in italiano. Chiudi con questa riga esatta e nient'altro dopo: "Apri la calcolatrice in fondo al Documento 02 e mettici i tuoi numeri."</pre>
+  <p class="aib-f">Queste sono le istruzioni che il bottone copia insieme ai documenti, messe in chiaro cosi’ vedi esattamente cosa viene detto al modello. Sono severe apposta: gli si dice di usare solo questi due documenti, di lasciare marcato come non verificato tutto cio’ che lo e’, di non inventare consigli e di tradurre le undici conclusioni parola per parola. Quello che leggi e’ questa analisi, non l’opinione di un modello. Poi apri la calcolatrice in fondo a questo documento e mettici i tuoi numeri.</p>
+</div>
+</div>
 
 <section><div class="wrap">
  <span class="secnum">01 — Il terreno</span>
@@ -708,4 +765,641 @@ function calc(){
  el.addEventListener('input',calc);});
 calc();
 })();</script>
+
+<script type="text/plain" id="aib-doc">ITALIANCLOSER - GENERAL OVERVIEW. Document 01 of 06, prepared by Evolv AI.
+
+Every figure below was read off a public page on 20 August 2026. No contact was made. Items marked "claimed" come from Italiancloser's own copy and could not be verified.
+
+Evolv AI · Independent Analysis · Italiancloser · Document 01 of 06
+# Italiancloser *Francesco Manara*
+
+Eleven live surfaces, opened and read by hand on 20 August 2026 — what the brand is, what it has already built, and where every number in here actually comes from.
+**Compiled** 20 Aug 2026 **Method** Open-source only — no contact made **Scope** General overview — context & asset map **Next** Document 02 — Funnel analysis
+
+---
+
+## 01 — Overview — At a glance
+
+Everything verified directly from the source on 20 Aug 2026. Figures marked claimed come from his own marketing copy and could not be independently checked.
+- **3,623** — Instagram followers
+- **615** — Discord members
+- **485** — Skool members
+- **546** — YouTube subscribers
+- **47** — Trustpilot reviews · 4.8★
+- **134 d** — Age of the domain
+
+**Identity card**
+- **Operator:** Francesco Manara — goes by *Manny* on YouTube (@mannyonjourney)
+- **Brand:** Italiancloser / Italian Closer Academy / Placement Hub
+- **Positioning:** “High Ticket Closer & Sales Coach” — *1mln+ Cash Collected*
+- **Audience:** Young Italian men chasing the *American Dream* by becoming remote high-ticket closers for US info-businesses
+- **Language:** Italian content, US market outcome. Explicitly not a native English speaker.
+- **Website:** italiancloser.com · app at app.italiancloser.com
+- **Contact:** info@italiancloser.com · Instagram DM · Discord
+- **Company entity:** Not disclosed publicly. Legal pages exist but the registered entity is not surfaced in the crawled copy.
+- **Paid media:** **No evidence of any Meta / TikTok ads.** Absent from the Spyglass ad corpus; no results in Meta Ad Library keyword search. Treat as **100% organic**.
+
+> **CONCLUSION — The point:** 3,623 followers, 1,100 community members, 47 reviews and 70+ placements — with **zero euros of paid media** behind any of it. Everything here was earned, which also means none of it can be bought back if it stops working.
+
+---
+
+## 02 — The operator — Who he is
+
+The story he tells is the product. It is unusually specific, which is why it works.
+
+His own About copy, in full:
+
+> “Nel 2024 sono partito da zero: una mentorship, nessun contatto e non madrelingua inglese. Mi sono ossessionato al processo fino a scalare l'infobusiness americano, diventando top producer su offerte premium nel mercato più competitivo al mondo.”
+
+Three things are load-bearing in that paragraph, and all three are deliberate. **Started 2024** — recent enough to be relatable to a 22-year-old. **Not a native English speaker** — removes the biggest objection his audience has. **Top producer in the US market** — the status claim that makes him worth listening to.
+
+The second half of the About is where the business actually lives:
+
+*“Oggi vendo ancora attivamente. Ma parallelamente gestisco team commerciali, lavoro con aziende per trovare e formare nuovi closer, e aiuto chi vuole costruire una carriera seria nelle high ticket sales.”*
+
+So: still closing himself, **plus** running sales teams, **plus** recruiting and training closers for companies, **plus** coaching aspiring closers. Four jobs. That is a founder-bandwidth story before it is anything else — and it is the single most important line in this whole document.
+
+### Personal texture
+- Travels heavily and posts it — Miami, Peru, Australia. Lifestyle marquee of 8 photos on the homepage; a YouTube video titled *Un Giorno da High Ticket Closer in Perù*.
+- Has publicly addressed being called a scammer — YouTube, 23 Jul: *“Tutti mi danno della scammer?!”* He is aware of the category's credibility problem and is actively fighting it. This is why the Trustpilot profile exists.
+- Posts in the first person, lowercase, unpolished captions (*amo la mia vita.* / *è grato della sua vita.*). The brand voice is intimate, not corporate.
+- No meaningful LinkedIn presence found under this identity. For someone selling closers *to companies*, that is a notable hole.
+- Active on Skool since 2 Dec 2025. Member of *STARK — Your Sales Partner* ($497) and *Poppy AI Viral Content Academy* — he buys courses and he is actively studying AI content generation.
+
+**NOTE — Signal**
+
+A man who has already paid $497 for a sales community and joined an AI content academy is a man who buys tools and pays for leverage. He is not a hard-sell audience on the concept of paying for systems — only on the price.
+
+> **CONCLUSION — The point:** He still closes, runs sales teams, recruits closers for companies and coaches beginners. **Four jobs, one person.** That is a bandwidth story before it is a marketing story.
+
+---
+
+## 03 — The business — What the business actually is
+
+On the surface it looks like another closing course. It isn't. There are three distinct businesses stacked on one audience, and only one of them is obviously monetisable.
+
+**Layer 1 — The audience engine free**
+
+Instagram reels and YouTube shorts in Italian, near-daily, all pointing at a free course. The single repeated CTA across 14 of the last 22 reels: *commenta “sales” e ti mando accesso al corso gratuito.* Comment-to-DM keyword play. No opt-in page, no email capture, no ad spend.
+
+**Layer 2 — The community free**
+
+Split across **two** platforms. Discord (615 members, 47 online) is the link in his Instagram bio. Skool (485 members, free) holds the actual course — *Full academy di high ticket sales*. His own site describes Discord as *“La più grande community di sales in Italia”* and Skool as the academy. Weekly live calls, roleplay, Q&A, real call recordings, frameworks he says he paid $20K+ of US mentorships to acquire.
+
+**Layer 3 — Placement Hub the real product**
+
+A two-sided private network matching closers with companies. Live web app at app.italiancloser.com, Google SSO, separate closer and company logins, closer profile builder, offer feed, interest signalling, company brief intake, dedicated Slack/WhatsApp channel per company, curated shortlists. **This is a genuine software product, not a landing page.**
+
+**Placement Hub — the mechanics, in his words**
+
+| Side | Step 1 | Step 2 | Step 3 |
+|---|---|---|---|
+| Closers | Build profile — sector, ticket, role, results. Set status *In cerca* to enter the curated pool. | Browse offers, flag interest. Placement stays manually curated. | Team sends the profile to the company. Intro only if the fit is real. |
+| Companies | Share the brief — funnel, ticket, ideal profile — with a named contact. | Get company-area access + a dedicated Slack or WhatsApp channel. | Receive a shortlist of 3–5 pre-filtered profiles with direct intros. |
+
+The positioning is deliberately anti-marketplace: *“Rete privata. Non è un marketplace aperto.”* · *“Matching manuale. Nessun marketplace.”* · *“Niente algoritmi opachi: la selezione resta umana e mirata.”*
+
+**NOTE — Corrected 21 Aug 2026 — the money exists, and it is buried**
+
+**The paid tiers were found on 21 Aug, inside Skool.** The free course has locked modules gated behind **Premium** (unlocks *OBJECTION HANDLING*) and **VIP** (unlocks all 10 US modules). So the earlier read — “no monetisation exists” — was wrong. The accurate read is worse: **monetisation exists but is invisible from every public surface.**
+
+No price appears on the site, in the app's public pages, on Discord, on Linktree or in the bio. The only place a visitor can encounter a paid tier is inside the one asset he has personally abandoned — a Skool with 486 members, 0 online and 17 posts in its entire history. The demand side (companies) is still priced nowhere: it goes through a DM and a mailto:.
+
+> **CONCLUSION — The point:** The money exists. It is priced **inside the one asset he stopped showing up to** — a Skool with 486 members, zero online and 17 posts in its entire history. The company side isn't priced anywhere at all.
+
+---
+
+## 04 — The assets — The asset map
+
+Every property he owns, with the real number attached. Counts pulled live on 20 Aug 2026 — several are materially lower than what his own site claims.
+
+**Owned properties**
+
+| Asset | Handle / URL | Verified size | Role in the machine | Status |
+|---|---|---|---|---|
+| Instagram | @italiancloser | 3,623 | Primary top of funnel. Verified badge. | Daily |
+| YouTube | @mannyonjourney | 546 | Shorts + long-form call breakdowns | Active |
+| Discord | Italian Closer Academy | 615 | Link in bio. 47 online at scrape time. | Live |
+| Skool | italian-closers-academy-6315 | 485 | Holds the free course + weekly calls | Live |
+| Website | italiancloser.com | 6 pages | Brand + credibility + router | Live |
+| Web app | app.italiancloser.com | 2 portals | Placement Hub — the product | Live |
+| Linktree | francescomanarabusiness | 6 links | Secondary bio router | Redundant |
+| Trustpilot | italiancloser.com | 47 · 4.8★ | Third-party credibility | Claimed Apr 26 |
+| Email | info@italiancloser.com | 1 | Only non-social contact route | Google Workspace |
+| LinkedIn | — | none found | Would be the natural B2B channel | Absent |
+| TikTok | — | not found | Linktree avatar is literally named foto-profilo-tiktok.png | Ghost |
+| Email list | — | none | No opt-in anywhere on any surface | Does not exist |
+
+### Site claim vs. live count
+
+**Where his marketing is ahead of his reality — and where it is behind**
+
+| Figure | Where it appears | He says | Actually | Read |
+|---|---|---|---|---|
+| Discord members | Site + Placement Hub | 590+ | 615 | Understated — copy is stale, reality is better |
+| Skool students | Site + Placement Hub | 450+ | 485 | Understated — same |
+| Trustpilot | Homepage badge | 50+ | 47 | Slightly overstated. 4.8★ is accurate, profile claimed Apr 2026. |
+| Brief response | Homepage: *< 48h* | <48h | 1–2 gg | **Contradicts itself** — the actual intake form promises 1–2 *working* days |
+| YouTube subs | Homepage embed | 546 | 546 | Accurate — and the smallest proof point on the homepage |
+
+### Claims that could not be verified
+
+**All from his own copy. None independently checkable.**
+
+| Claim | Surface | Note |
+|---|---|---|
+| +1M$ cash collected | Bio, site, everywhere | The cornerstone claim. Personal production, not company revenue. |
+| +2,000 calls handled | Homepage track record | Consistent with a full-time closer over ~2 years. |
+| +40% closing rate | Homepage track record | High but plausible on warm high-ticket info offers. |
+| 100+ active closers | Placement Hub | vs 485 Skool + 615 Discord. Internally coherent. |
+| 70+ placements | Homepage + Hub | In ~4 months of the brand existing. The number that matters most. |
+| 20+ partner companies | Placement Hub | Demand side. Also the fragile side. |
+| 3 gg to first shortlist | Homepage + Hub | Operational promise, manually delivered. |
+
+> **CONCLUSION — The point:** Twelve properties, eleven of them live, and **not one owned email address**. Every person he has ever reached is rented from a platform that can change its mind.
+
+---
+
+## 05 — The funnel — The funnel as it exists today
+
+Not the diagnosis — that's Document 02. This is simply the map of every path a stranger can take, with real numbers on the first two steps.
+- **01 Reel / Short** — 56,520 views / 30d — 22 reels in 31 days. Median 1,397 views.
+- **02 “Commenta SALES” [LEAK]** — 72 comments / 30d — 0.127% of views. This is the whole capture mechanism.
+- **03 Manual DM** — unknown — He appears to send the link by hand.
+- **04 Discord *or* Skool** — 615 / 485 — Two front doors, no email captured at either.
+- **05 Placement Hub** — Google SSO — Closer builds a profile, flags interest in offers.
+- **06 Money [LEAK]** — priced only inside a dead asset — Premium + VIP exist on Skool only. No price on the site, app, Discord, bio or Linktree.
+
+**Supply side (closers).** Six steps, entirely manual from step 3 onward, and it terminates in a free product. Every view he earns is converted by hand.
+- **01 Finds the site** — organic / word of mouth — No ads, no LinkedIn, no outbound visible.
+- **02 Placement Hub page** — 3 case studies — SaaS B2B, coaching, online courses. Named metrics.
+- **03 10-field form [LEAK]** — no call booking — Company name, contact, sector, role, email, phone, prefix, channel, source, message.
+- **04 Wait 1–2 days [LEAK]** — human reply — Homepage promised <48h; form says 1–2 working days.
+- **05 Slack / WhatsApp** — per-company channel — Shortlist of 3–5 delivered by hand.
+
+**Demand side (companies).** This is where revenue must come from, and it is the thinner of the two funnels: one page, one form, no booking link, no pricing, no self-serve, and a 1–2 day human gap at the exact moment a hiring manager is hottest.
+
+> **CONCLUSION — The point:** Six steps on the closer side, five on the company side, and **both are manual from step three onward**. Every view he earns is converted by hand.
+
+---
+
+## 06 — The content — The content engine, measured
+
+24 reels scraped. This is the raw material for the funnel analysis — the numbers are worse than the view counts make them look.
+- **22** — Reels in 31 days (71% of days)
+- **1,397** — Median views
+- **1.73%** — Like rate on views
+- **0.127%** — Comment rate on views
+- **3.3** — Mean comments per reel
+- **0.39×** — Median views ÷ followers
+
+**NOTE — The number to sit with**
+
+His best reel of the period did **22,638 views** and collected **3 comments.**
+
+Back on 10 April, a reel doing **10,856 views** — less than half the reach — collected **152 comments.** Same account, same CTA phrasing, **a 110× collapse in conversion rate** (1.40% → 0.013%). Something in the mechanism broke between April and August, and it is not the content: reach held up fine.
+
+**Every reel, 11 Mar – 19 Aug 2026**
+
+| Date | Views | Likes | Comm. | C/V | CTA / hook |
+|---|---|---|---|---|---|
+| 19 Aug | 911 | 20 | 1 | 0.11% | commenta “sales” → framework per le calls |
+| 18 Aug | 2,141 | 60 | 2 | 0.09% | la verità… no CTA |
+| 16 Aug | 1,288 | 31 | 2 | 0.16% | commenta “sales” → corso gratuito |
+| 15 Aug | 1,367 | 37 | 5 | 0.37% | commenta “sales” → corso completo |
+| 14 Aug | 1,706 | 40 | 3 | 0.18% | shoutout @federicoronzoni |
+| 13 Aug | 1,470 | 45 | 4 | 0.27% | fai le scelte giuste no CTA |
+| 12 Aug | 1,654 | 34 | 0 | 0.00% | commenta “sales” → corso gratuito |
+| 11 Aug | 1,815 | 26 | 8 | 0.44% | commenta “sales” → corso gratuito |
+| 10 Aug | 1,200 | 27 | 5 | 0.42% | commenta “sales” → corso gratuito |
+| 9 Aug | 2,688 | 35 | 10 | 0.37% | teaching carousel-style: “non perdere tempo…” |
+| 7 Aug | 1,381 | 22 | 2 | 0.14% | commenta “SALES” → ti metto in contatto con le aziende |
+| 5 Aug | 22,638 | 273 | 3 | 0.01% | **Top reel.** Objection: “Sono tanti soldi” no CTA |
+| 4 Aug | 891 | 18 | 7 | 0.79% | commenta “sales” → corso gratuito |
+| 3 Aug | 1,414 | 24 | 3 | 0.21% | commenta “sales” → corso gratuito |
+| 31 Jul | 2,968 | 47 | 1 | 0.03% | lifestyle — “immagina prendere una call da qui” |
+| 30 Jul | 2,631 | 52 | 2 | 0.08% | segui @italiancloser + community |
+| 27 Jul | 1,343 | 27 | 4 | 0.30% | segui + community |
+| 25 Jul | 3,221 | 69 | 1 | 0.03% | segui + community |
+| 23 Jul | 1,173 | 28 | 3 | 0.26% | commenta “sales” |
+| 22 Jul | 1,010 | 22 | 3 | 0.30% | commenta “sales” |
+| 21 Jul | 959 | 27 | 2 | 0.21% | commenta “sales” |
+| 20 Jul | 651 | 11 | 1 | 0.15% | commenta “sales” |
+| 24 May | 7,970 | 203 | 2 | 0.03% | “tanta fame…” + commenta “sales” |
+| 11 Mar | 14,881 | 137 | 10 | 0.07% | mai mollare, never |
+
+### YouTube, same window
+
+Shorts carry the channel; long-form is close to dead on arrival. The three most recent long-form uploads — the ones that actually demonstrate expertise — did **40, 91 and 83 views**. Meanwhile his shorts do 200–1,000.
+
+**15 most recent YouTube uploads**
+
+| Date | Views | Title | Format |
+|---|---|---|---|
+| 15 Aug | 1,069 | commenta “sales” e ti mando accesso al mio corso completo | Short |
+| 13 Aug | 958 | fai le scelte giuste… | Short |
+| 13 Aug | 40 | Cosa Fa Diversamente un Top Closer Americano (Analisi Chiamata Reale) | Long |
+| 6 Aug | 91 | Come Gabriel ha Chiuso 3.000€ il PRIMO giorno di chiamate | Long |
+| 30 Jul | 83 | Il Mio Framework per SUPERARE Ogni Obiezione (Dimostrazione Reale) | Long |
+| 24 Jul | 225 | La vera obiezione dietro “devo pensarci” | Short |
+| 23 Jul | 63 | Tutti mi danno della scammer?! | Short |
+| 22 Jul | 90 | La Parte Migliore di Fare Soldi Online (e non è comprarsi un Rolex) | Short |
+| 21 Jul | 265 | Stai attento ai tuoi amici | Short |
+| 19 Jul | 157 | NON fare il WORKING HOLIDAY VISA in Australia | Short |
+| 19 Jul | 159 | La dura verità di fare il closer | Short |
+| 18 Jul | 546 | Questi metodi non funzionano | Short |
+| 18 Jul | 95 | fare il closer nel mercato US | Short |
+| 17 Jul | 280 | e poi ti chiedi perché non fai soldi… | Short |
+| 17 Jul | 159 | LA TUA OPPORTUNITÀ ORA | Short |
+
+### Content pillars, as observed
+- **Tactical sales teaching** — objection handling, call frameworks, real call breakdowns. His strongest material and the source of his single 22K outlier.
+- **Aspirational lifestyle** — travel, freedom, taking calls from abroad. Reliable mid-range reach, near-zero conversion.
+- **Tough-love mindset** — “stai attento ai tuoi amici”, “e poi ti chiedi perché non fai soldi”. Cheap to produce, mid reach.
+- **Student proof** — “Come Gabriel ha chiuso 3.000€ il primo giorno”. Buried in long-form where nobody sees it. Misallocated
+- **Credibility defence** — the scammer video. Rare, and clearly reactive.
+
+> **CONCLUSION — The number to sit with:** His best reel of the period did 22,638 views and collected **3 comments**. In April, half that reach collected 152. Reach held up fine — **the mechanism broke**.
+
+---
+
+## 07 — The proof — Proof inventory
+
+What he can already point at. This is unusually strong for a 4-month-old brand and is the main reason he is worth analysing.
+
+| Proof asset | Detail | Strength |
+|---|---|---|
+| Trustpilot | 47 reviews, 4.8★, profile claimed Apr 2026. AI summary cites weekly coaching calls, the founder's availability, real job opportunities, high-level connections. | Strong — third party |
+| 5 named closer testimonials | Mattia (23, US market), Luca (Italian market), Alin (25, first US offer), Angelo (found work), Elvis (*“sei cifre al mese”*, closing for a US offer selling Italian courses) | Strong — faces + specifics |
+| 3 video testimonials | Andrea, Matteo, Marco — hosted on YouTube, embedded on the Hub | Strong |
+| 3 company case studies | Online courses (5 days brief→call, 3 collaborations), coaching/consulting (3 profiles, 3 on target), B2B SaaS (closer in 7 days, still on team) | Strong — anonymous but specific |
+| Personal track record | +1M$ / +2,000 calls / +40% close rate | Unverifiable |
+| Network metrics | 100+ closers · 70+ placements · 20+ companies | Self-reported |
+| Community size | 615 Discord + 485 Skool | Verified live |
+
+> **CONCLUSION — The point:** He has more real proof than most agencies doing €50K/month. It is **scattered across five platforms and pointed at a free product**.
+
+---
+
+## 08 — The stack — Brand & technology
+
+Bonus section as briefed. Extended into the AIOS angle in Document 05 of the wider analysis — this is the factual stack only.
+
+**Stack**
+- **Hosting:** Vercel (edge fra1, Frankfurt). Both the marketing site and the app.
+- **Domain:** GoDaddy. Registered **8 April 2026**, expires Apr 2028.
+- **Email:** Google Workspace (full MX on aspmx.l.google.com). SPF delegated via _spfm — a managed sending provider is in the path.
+- **Analytics:** Google Search Console verified (TXT record present).
+- **Auth:** Google SSO on the closer portal. Separate company login route.
+- **Ops channels:** Slack (Pro+ required) or WhatsApp, one channel per partner company — chosen by the client at intake.
+- **Community:** Discord (NEWS + COMMUNITY features enabled) and Skool, in parallel.
+- **Reviews:** Trustpilot, claimed and actively collected.
+- **Paid media:** None detected. No Meta pixel-driven ad presence, no ad library results, absent from the Spyglass corpus.
+- **CRM / email tool:** None visible. No opt-in form of any kind on any public page.
+- **Booking tool:** None visible. No Calendly, no cal.com, no embedded scheduler anywhere.
+
+### Brand read
+
+Visually he is already in the right neighbourhood: black-and-white, editorial, photography-led, generous whitespace, no gradient-SaaS clichés. A lifestyle photo marquee, a clean track-record band, restrained type. The Placement Hub page is a step above the homepage — sectioned, tabbed, proof-heavy, with genuine product screenshots.
+
+The weaknesses are structural rather than aesthetic: the naming is inconsistent across surfaces (*Italiancloser* / *Italian Closer Academy* / *Italian Closers Academy* / *Placement Hub* / *@mannyonjourney* — five names for one thing), and the homepage embeds a YouTube player that displays **546 subscribers** as its first piece of social proof.
+
+> **CONCLUSION — The point:** Five names for one brand, and **no CRM, no email tool, no scheduler, no pixel** anywhere in the stack. The system is a website, a web app, and him.
+
+---
+
+## 09 — The timeline — Timeline
+
+The compression here is the story. Everything below happened in under nine months.
+- **2024 — Starts from zero** Buys a US mentorship. No contacts, non-native English. Says he spent $20K+ on American sales mentorships in total.
+- **Sep 2025 — First cohort forming** Testimonial from Alin references being a closer “dal settembre 2025” — the network predates the brand.
+- **2 Dec 2025 — Joins Skool** Creates Italian Closers Academy as a free community.
+- **11 Mar 2026 — Earliest surviving reel** 14,881 views, 137 likes. He already had reach.
+- **8 Apr 2026 — italiancloser.com registered** The brand becomes a company. Trustpilot profile claimed the same month.
+- **10 Apr 2026 — The high-water mark** 10,856 views → **152 comments**. The comment-to-DM funnel worked at 1.40%.
+- **~Jun–Jul 2026 — Placement Hub ships** A real two-sided web app, Google SSO, company portal, Slack integration. Claims 70+ placements and 20+ partner companies.
+- **20 Jul 2026 — Daily posting begins** 22 reels in the following 31 days. Reach holds. Comments collapse to 3.3 per reel.
+- **19 Aug 2026 — Latest activity** Still posting daily, still routing to a free course whose paid tiers live only inside the dead Skool.
+
+> **CONCLUSION — The point:** Domain registered 8 April. Two-sided product shipped by July. 70+ placements claimed. **Everything in this document happened in under nine months** — which is the argument for him, and the reason nothing is systematised yet.
+
+---
+
+## 10 — The unknowns — Open questions carried into Document 02
+
+What the public record cannot answer. These are the hinges the funnel analysis will turn on.
+- **How much does Premium and VIP cost, and does anyone buy?** *Partially answered 21 Aug:* the closer side is monetised through two Skool tiers (Premium, VIP) that gate the course modules — but they sit inside a community with 0 members online and no member post since 31 March. The company side remains unpriced anywhere: a DM and a mailto. Placement fee per hire? Retainer? Rev-share? Still unknown.
+- **Which side is the constraint — closers or companies?** He has 1,100 people across two communities and claims only 20+ partner companies. If demand is the bottleneck, everything he is currently doing on Instagram is the wrong work.
+- **What broke between April and August?** The comment-to-DM rate fell 110×. Algorithmic suppression of keyword CTAs, an audience gone stale, or a shift in what he's asking for — this needs isolating before anything is fixed.
+- **How much of the delivery is him personally?** Manual matching, manual shortlists, weekly live calls, per-company Slack channels, hand-sent DMs, plus he says he still closes actively. Where is the ceiling and how close is he to it?
+- **Is there a team?** He writes “il team” and “valutiamo” throughout the Hub copy. One admin online in Skool. Real staff or the founder's plural?
+- **Why no email list?** 1,100 community members and zero owned contact data. Deliberate, or never got to it?
+- **Why no LinkedIn?** He sells B2B recruitment to companies and has no presence on the only channel where those buyers live.
+
+**NOTE — Headline read, one line**
+
+He has built demand-side proof, a working product and a live audience in four months — and has parked the only paid tiers he owns inside the one asset he stopped showing up to. The bottleneck is almost certainly **not traffic**.
+
+> **CONCLUSION — Headline read:** He built demand-side proof, a working product and a live audience in four months — and parked his only paid tiers inside the one asset he abandoned. **The bottleneck is almost certainly not traffic.**
+
+---
+
+## 11 — The sources — Sources
+
+All open-source. No contact was made and nothing gated was accessed. Captured 20 Aug 2026.
+- instagram.com/italiancloser — profile + 24 reels, engagement scraped
+- italiancloser.com — homepage, full copy
+- italiancloser.com/placement-hub — product page, case studies, testimonials
+- app.italiancloser.com/aziende/contatta — company intake form, field by field
+- app.italiancloser.com/login — closer auth flow
+- skool.com/italian-closers-academy-6315 — 485 members, free
+- skool.com/@francesco-manara-1250 — personal profile, memberships
+- discord.gg/cAWSm5JYXA — 615 members, 47 online (Discord API)
+- youtube.com/@mannyonjourney — 546 subs, 15 uploads via channel feed
+- trustpilot.com/review/italiancloser.com — 47 reviews, 4.8★
+- linktr.ee/francescomanarabusiness — 6 links
+- WHOIS, DNS, HTTP headers — domain age, hosting, mail stack
+- Meta Ad Library + Spyglass ad corpus — both negative for this brand
+
+> **CONCLUSION — Standard:** Every figure in this document was **read live off a public surface on 20 August 2026**. Nothing was estimated, nothing was inferred from a competitor, and no contact was made.
+**Italiancloser — General Overview, Document 01 of 06.** Prepared by Evolv AI, 20 August 2026. Every figure marked as verified was pulled live from the named source on that date. Figures marked *claimed* are his own and are reproduced without endorsement. Next: Document 02 — Funnel analysis · Document 03 — Bottlenecks · Document 04 — Solutions & prioritisation matrix · Document 05 — Execution roadmap.
+
+============================================================
+QUI FINISCE IL DOCUMENTO 01 E COMINCIA IL DOCUMENTO 02
+============================================================
+
+ITALIANCLOSER - FUNNEL OVERVIEW. Documento 02 di 06, preparato da Evolv AI.
+
+Sei percorsi che una persona reale puo' seguire dentro il sistema, ricostruiti a mano il 21 agosto 2026 aprendo ogni superficie pubblica. Ogni passo e' un punto in cui qualcuno si perde. I colli di bottiglia sono osservati, non ipotizzati; quello che non si vede da fuori e' marcato come tale e resta tale.
+
+## I SEI PERCORSI
+
+### Percorso A - Vedo il reel e commento «sales»
+_Aspirante closer · ingresso freddo da Instagram_
+
+È il percorso che porta più persone: 152 commenti su un solo post, contro 10 sul secondo migliore. Tutto il resto del sistema dipende da cosa succede qui.
+
+1. **Vedo il reel nel feed.** Il testo dice "commenta “sales” e ti mando accesso al mio corso gratuito (framework, calls, etc…) 🔥🤝". Pubblicato il 10 aprile, segnato «Elemento modificato». 857 like, 152 commenti, 11 condivisioni. L’unico post del profilo che chieda qualcosa.
+2. **Commento «sales».** Nei commenti vedo altri che l’hanno fatto: parole «sales» con 1–3 risposte nel thread, datate 17, 13, 11 e 10 settimane fa. Quindi qualcosa risponde — ma la risposta è dentro un thread pubblico, non un messaggio.
+   - **NON VERIFICABILE DALL'ESTERNO:** Non posso vedere se dopo il commento parte davvero un DM, quanto ci mette, cosa contiene, né se serve seguire il profilo per riceverlo. Da fuori vedo solo il commento e la replica pubblica. **Tutto ciò che segue in questo ramo è quindi ipotesi finché non lo si guarda da dentro l’account.**
+3. **Provo a capire cosa succede se commento sul post sbagliato.** Trovato: sul post «miami with the boys», 18 settimane fa, l’utente **giovanniscalzolaro** ha scritto «sales» **due volte**. Nessuna risposta, né pubblica né visibile. Il commento è ancora lì.
+   - **COLLO DI BOTTIGLIA:** La parola chiave è legata a **un solo post**, ma le persone la scrivono ovunque incontrino il brand. Qui c’è la prova documentata di una persona che ha fatto esattamente ciò che le è stato chiesto, nel posto sbagliato, e non ha ricevuto nulla. **Ogni «sales» che cade fuori da quel reel è una persona persa in silenzio, e nessuno lo sta contando.**
+4. **Cerco altre richieste rimaste senza risposta.** Sul reel «mai mollare» (137 like, 10 commenti), l’utente **perniolamichelangelo** chiede esplicitamente un contenuto — un’opinione su un altro personaggio del settore. Nessuna replica visibile.
+   - **COLLO DI BOTTIGLIA:** Il profilo riceve **domande dirette** e non le raccoglie. Una richiesta di contenuto è la forma più economica di ricerca di mercato che esista: dice cosa il pubblico vuole vedere, gratis, con nome e cognome allegato.
+5. **Guardo il resto del profilo, per capire dove finisce chi non commenta.** 5 post in tutto. 4 sono personali: «amo la mia vita.», «è grato della sua vita.», «miami with the boys». Il quinto è l’offerta. Le 8 storie in evidenza — 4 chiamate «students» — sono l’unico blocco di prova sociale sul profilo.
+   - **COLLO DI BOTTIGLIA:** Con **5 post**, chi arriva sul profilo dopo aver visto il reel non ha nulla da leggere per decidere. Il brand ha 460 video su YouTube e 155 moduli su Skool: **la superficie che porta più persone è la meno documentata di tutte.**
+
+### Percorso B - Non commento: apro il link in bio
+_Aspirante closer · ingresso auto-diretto_
+
+Il ramo di chi non vuole aspettare un DM. È anche l’unico posto dove il sistema mostra tutte le sue porte contemporaneamente.
+
+1. **Apro la bio.** Leggo: "💰1mln+ Cash Collected / Per Ragazzi che vogliono inseguire l’American Dream diventando High Ticket Closers🇺🇸🇮🇹 / Community Gratuita👇". Sotto, **due** link etichettati: «Community Discord» e «Risorse Gratuite».
+   - **COLLO DI BOTTIGLIA:** Due porte, nessuna gerarchia. Nessuna delle due dice «inizia da qui». **La prima decisione che il sistema chiede al visitatore è una decisione che il visitatore non ha gli elementi per prendere.**
+2. **Scelgo «Risorse Gratuite» → linktr.ee/francescomanarabusiness.** Sei link, in quest’ordine: ① Italian Closer Academy (Discord) · ② Corso Gratuito High Ticket Sales (Skool) · ③ «Cerchi Venditori per la Tua Azienda?» · ④ «Sei un Closer e Cerchi un Azienda Seria?» · ⑤ YouTube · ⑥ il sito. Pagina creata attorno al 1° aprile 2026.
+3. **Clicco ③ «Cerchi Venditori per la Tua Azienda?». Poi clicco ④ «Sei un Closer e Cerchi un Azienda Seria?».** Entrambi portano a **italiancloser.com/placement-hub?utm_source=linktree**. Stesso identico URL. Stesso utm_source. Nessun utm_content, nessun utm_campaign, niente che distingua il click dell’azienda dal click del closer.
+   - **COLLO DI BOTTIGLIA:** Due link scritti per **due pubblici opposti** — chi compra e chi si offre — collassano sulla stessa pagina e sullo stesso parametro. Conseguenza doppia: **(1)** chi arriva legge una pagina che parla anche all’altro; **(2)** non si può sapere quale dei due bisogni sta muovendo il traffico, perché nei dati i due click sono indistinguibili.
+4. **Conto quante decisioni ho preso finora.** Bio (2 opzioni) → Linktree (6 opzioni) = **fino a 8 scelte** prima di aver ricevuto una singola informazione utile sul percorso.
+   - **COLLO DI BOTTIGLIA:** Il menu non ordina la domanda: la moltiplica. Un aspirante closer, un’azienda e un curioso vedono la **stessa identica lista**, e nessuno dei tre viene indirizzato.
+
+### Percorso C - Entro nel «corso gratuito»
+_Aspirante closer · il centro dichiarato del sistema_
+
+È ciò che il reel promette e ciò che il Linktree mette al secondo posto. È anche l’unico punto di tutto il sistema in cui il brand raccoglie un contatto.
+
+1. **Apro la pagina Skool del gruppo.** 486 membri, 1 amministratore, gruppo pubblico e gratuito, piano **hobby**, creato il 2 dicembre 2025. Nessun prodotto a pagamento associato al gruppo. Zero recensioni interne. La descrizione promette analisi di call reali, framework testati, **offerte di lavoro in Italia e USA** e live settimanali.
+2. **Clicco per entrare.** Compare un questionario d’iscrizione, aggiornato il 10 aprile 2026. Tre domande **obbligatorie**: la mia situazione (studente hustler / dipendente stuck / imprenditore / disoccupato), il mio **numero di telefono**, la mia **email**.
+   - **COLLO DI BOTTIGLIA:** Questo è **l’unico punto di cattura dati osservabile in tutto il sistema** — e sta dietro l’iscrizione a una piattaforma terza, non su una superficie del brand. Il sito non ha alcun form. Vuol dire che chi non entra su Skool non lascia traccia da nessuna parte, e che l’intera lista contatti vive dentro Skool.
+3. **Guardo cosa c’è dentro: la Classroom.** **20 corsi · 155 moduli.** Il materiale non è un pretesto: è una libreria vera, costruita in nove mesi.
+4. **Guardo il feed della community.** **17 post in totale.** Su 486 membri.
+   - **COLLO DI BOTTIGLIA:** Una libreria di 155 moduli e una piazza da 17 post. Il contenuto è stato prodotto; **la conversazione attorno al contenuto no**. Senza conversazione non ci sono domande, e senza domande non si sa dove le persone si bloccano.
+5. **Guardo la distribuzione dei livelli — è il dato più duro di tutto il rilievo.** **Level 1: 98%.** Level 2: 1%. Level 3: 1%. Dal 4 al 9: 0%.
+   - **COLLO DI BOTTIGLIA:** I livelli Skool salgono con l’attività. 98% fermo al primo significa che **quasi nessuno dei 486 fa un secondo gesto dopo essere entrato**. La promessa del reel viene mantenuta — l’accesso c’è — ma la persona entra, guarda e si ferma. **Questo è il vero punto di rottura del sistema: non l’acquisizione, l’attivazione.**
+6. **Cerco l’uscita: dove porta il gruppo chi invece è pronto?** La descrizione promette «offerte di lavoro (Italia e USA)». Nella pagina pubblica del gruppo **non trovo alcun link verso il Placement Hub**, che è esattamente il prodotto che mantiene quella promessa.
+   - **COLLO DI BOTTIGLIA:** Il bacino più grande e più qualificato del sistema — 486 persone che hanno lasciato telefono ed email — **non ha un ponte osservabile verso la superficie che le trasforma in candidati.**
+   - **NON VERIFICABILE DALL'ESTERNO:** Dentro la Classroom potrebbe esistere un modulo che rimanda al Placement Hub. Da fuori non è visibile, quindi non lo do per esistente — ma va controllato da dentro prima di intervenire.
+
+### Percorso D - Sono un closer e voglio un’azienda
+_Closer pronto · il ramo che dovrebbe convertire_
+
+Il percorso di chi ha già deciso. Da qui in poi il sistema cambia dominio — e cambia qualità.
+
+1. **Arrivo su italiancloser.com.** L’H1 della pagina è "ITALIANCLOSER". Track record dichiarato: **+1M$ · +2000 call · +40% closing rate**. C’è un video «About» incorporato. Nessun form, nessuna cattura email. L’unico CTA di conversione è un link interno: «Vai al Placement Hub».
+   - **COLLO DI BOTTIGLIA:** Il titolo principale della home è il **nome del brand**, non una promessa. Chi atterra qui da Linktree o da YouTube deve leggere il resto della pagina per capire cosa gli viene offerto, invece di saperlo in due secondi.
+2. **Apro il video «About» in home.** "La mia esperienza con la Vendita da Remoto (Tutta la Verità)" — 21 ottobre 2025, **13:57 di durata, 503 visualizzazioni**.
+   - **COLLO DI BOTTIGLIA:** Un video di quasi 14 minuti e di dieci mesi fa presidia il momento di massima attenzione della home. 503 visualizzazioni in dieci mesi dicono che **quasi nessuno lo guarda**: lo spazio più prezioso del sito è occupato da un asset che non lavora.
+3. **Clicco «Vai al Placement Hub».** Pagina /placement-hub. Promette **< 48h** per la prima risposta, **3 giorni** per la shortlist, **3–5 profili**, e dichiara una rete di **70+ placement · 100+ closer attivi · 20+ aziende partner**. Bivio esplicito: «Per Closers» | «Per Aziende». C’è GA4.
+4. **Clicco «Per Closers».** Vengo portato su **app.italiancloser.com/login**. Il bottone da cui sono partito diceva «Per Closers»; la pagina dove atterro è etichettata **«Accedi»**.
+   - **COLLO DI BOTTIGLIA:** «Accedi» è la parola che si usa con chi **ha già un account**. Io non ce l’ho — sono arrivato dieci secondi fa da un reel. La pagina d’ingresso di tutto il ramo closer è etichettata per il pubblico sbagliato.
+5. **Cerco come registrarmi.** In pagina c’è **un solo bottone: «Continua con Google»**. Nessun campo email, nessuna password, **nessun «Registrati»**. Sotto, una riga: "Usa il tuo account Google. Al primo accesso completerai l’onboarding."
+   - **COLLO DI BOTTIGLIA:** Il fatto che il bottone Google sia anche la registrazione è **spiegato in una riga di testo secondario**, non nell’etichetta del bottone. Chi non legge quella riga conclude che il posto non è per lui. E chi non ha o non vuole usare un account Google **non ha alcuna via alternativa.**
+6. **Guardo la prova sociale su questa pagina.** Ci sono card testimonianza — con i **cerchi degli avatar grigi e vuoti**, e tagliate dal bordo del pannello.
+   - **COLLO DI BOTTIGLIA:** Nel momento esatto in cui si chiede l’accesso all’account Google, la prova che dovrebbe rassicurare è **rotta a vista**. È il punto peggiore del sistema in cui mostrare un difetto di rifinitura.
+7. **Torno indietro e clicco «Vedi altri →» sul Placement Hub.** Atterro su **app.italiancloser.com/closer/risultati** — e **mi viene servita la dashboard interna, da non loggato**: barra laterale con Home · Offerte · Candidatura · Profilo · Risorse · Processo e stati · Risultati e, in fondo, **«Logout»**. Il titolo della scheda è duplicato: "Risultati | Placement Hub | Placement Hub | Italiancloser".
+   - **COLLO DI BOTTIGLIA:** Due problemi in un colpo solo. **(1)** Un visitatore anonimo vede l’interfaccia riservata ai membri, con un bottone «Logout» che non ha senso per lui: l’effetto è confusione, e la sensazione che il prodotto sia aperto per sbaglio. **(2)** Da questa pagina **non esiste alcun punto d’ingresso per iscriversi**: chi ci arriva cliccando un CTA del sito finisce in un vicolo cieco e deve tornare indietro da solo.
+8. **Controllo se qualcuno sta misurando tutto questo.** Il sito marketing ha GA4. **app.italiancloser.com non ha alcun analytics — né su /login, né su /aziende/contatta.**
+   - **COLLO DI BOTTIGLIA:** Il tracciamento si ferma **esattamente dove inizia la conversione**. Si può sapere quante persone arrivano al Placement Hub e nulla di ciò che succede dopo: quanti aprono il login, quanti completano Google, quanti abbandonano il form aziende, su quale campo. **Ogni decisione presa su questo ramo, da qui in avanti, è presa alla cieca.**
+
+### Percorso E - Sono un’azienda e cerco venditori
+_Azienda · il ramo dal lato della domanda_
+
+L’altro pubblico. Percorso più corto, più curato — e con un attrito concentrato in un punto solo.
+
+1. **Arrivo sul Placement Hub, dal Linktree o dal sito.** Se arrivo dal Linktree, il link che ho cliccato («Cerchi Venditori per la Tua Azienda?») **è indistinguibile**, nei dati, dal link pensato per i closer: stesso URL, stesso utm_source.
+   - **COLLO DI BOTTIGLIA:** La domanda dal lato azienda — la più preziosa da riconoscere — **arriva senza etichetta.**
+2. **Leggo la pagina.** Promette prima risposta **< 48h**, shortlist in **3 giorni**, **3–5 profili** selezionati, e cita 70+ placement e 20+ aziende partner. È il messaggio più concreto di tutto il sistema.
+   - **NON VERIFICABILE DALL'ESTERNO:** Non è osservabile se i «70+ placement» siano rapporti contrattualizzati, prove, o inserimenti conclusi. Nessuna superficie pubblica mostra né i termini né la struttura dell’accordo. **Lo tratto come una dichiarazione del brand, non come un fatto rilevato.**
+3. **Clicco «Per Aziende» → app.italiancloser.com/aziende/contatta.** Modulo con **8 campi obbligatori**: azienda, referente, settore, ruolo cercato, email, telefono con prefisso, canale di contatto preferito, come ci hai conosciuto. Più un messaggio facoltativo, **massimo 300 caratteri**.
+   - **COLLO DI BOTTIGLIA:** Otto campi obbligatori sono tanti per un **primo** contatto B2B. Tre di questi (settore, canale preferito, come ci hai conosciuto) servono a chi riceve, non a chi compila: si possono chiedere dopo. E il campo dove l’azienda spiegherebbe cosa le serve davvero è quello **tagliato a 300 caratteri** — l’unico che valga la pena allungare.
+4. **Noto una domanda specifica dentro il form.** "La tua azienda usa Slack (piano Pro o superiore)?"
+   - **COLLO DI BOTTIGLIA:** È un requisito operativo — probabilmente legato a come il servizio viene consegnato — **chiesto dentro il modulo di primo contatto, senza una riga che spieghi perché**. Un’azienda che non usa Slack, o che non lo sa, si blocca lì e non ha nessuno a cui chiedere.
+5. **Confronto la promessa con quella della pagina precedente.** Il form promette **«1–2 giorni lavorativi»**. La pagina marketing, un click prima, prometteva **«< 48h»**.
+   - **COLLO DI BOTTIGLIA:** Due promesse diverse a due schermate di distanza. «1–2 giorni lavorativi» richiesti di venerdì valgono martedì. È una piccola incoerenza che **lavora contro la promessa di velocità**, che è il punto di forza dichiarato del servizio.
+6. **Verifico se l’invio è misurato.** Nessun analytics sulla pagina. **Nemmeno l’evento di invio del form è tracciato.**
+   - **COLLO DI BOTTIGLIA:** Non è osservabile quante aziende arrivano al modulo, quante lo iniziano, quante lo abbandonano e dove. **La singola azione più importante del sistema non lascia dato.**
+
+### Percorso F - Non mi fido: vado a verificare
+_Chiunque · il percorso della prova_
+
+Prima di dare telefono, email o accesso Google, la maggior parte delle persone cerca conferme. Ecco cosa trovano.
+
+1. **Cerco il canale YouTube.** @mannyonjourney — titolo del canale «Francesco Manara I Italian Closer». **546 iscritti, 460 video.**
+   - **COLLO DI BOTTIGLIA:** L’handle (@mannyonjourney) e il brand (Italian Closer) sono due nomi diversi. Chi cerca «Italian Closer» su YouTube deve fidarsi che sia la persona giusta. **È un attrito piccolo ripetuto su ogni ricerca.**
+2. **Guardo come vanno i video.** Ultimi 22 video: da **42** a **249** visualizzazioni, mediana attorno a **110**.
+   - **COLLO DI BOTTIGLIA:** 460 video pubblicati per una mediana di ~110 visualizzazioni su 546 iscritti. Il volume di produzione è enorme e **la resa per pezzo è minima**: è il canale che costa di più e restituisce di meno. Nel frattempo Instagram, con 5 post, ne ha uno da 857 like. **Lo sforzo è allocato dove il risultato non c’è.**
+3. **Cerco recensioni. Trovo Trustpilot.** **47 recensioni, 4,8.** Profilo rivendicato ad aprile 2026. Quasi tutte 5 stelle. Il sito, però, dichiara **«50+ recensioni»**.
+   - **COLLO DI BOTTIGLIA:** Il sito dichiara più recensioni di quante ne esistano. È **verificabile in un click** da chiunque, e su una pagina che vende fiducia una piccola esagerazione controllabile costa più di quanto renda.
+4. **Guardo le date.** Le recensioni si concentrano fra il **6 e il 17 giugno 2026**. L’ultima visibile è del **13 luglio 2026**. Le risposte dell’azienda sono **tutte del 17 giugno, fra le 14:00:07 e le 14:02:05** — un unico blocco da due minuti.
+   - **COLLO DI BOTTIGLIA:** Il profilo racconta **una campagna, non un’abitudine**: una raccolta concentrata a giugno, un batch di risposte in due minuti, poi silenzio. Un visitatore attento legge le date, e le date dicono che il flusso si è fermato.
+5. **Leggo il banner che Trustpilot stesso mostra sulla scheda.** "Non risultano inviti alla recensione recenti — Questa azienda non ha mandato inviti ai suoi clienti di recente, quindi le recensioni potrebbero non essere rappresentative."
+   - **COLLO DI BOTTIGLIA:** Non è un’osservazione mia: è **Trustpilot che avvisa il visitatore**, sopra le recensioni, che quelle recensioni potrebbero non essere rappresentative. La prova sociale più forte del sistema porta addosso un’etichetta di dubbio, messa lì dalla piattaforma stessa.
+6. **Chiudo il giro: cerco come funziona commercialmente.** Su nessuna superficie pubblica osservata — Instagram, Linktree, Discord, Skool, YouTube, sito, app, Trustpilot — **compare un prezzo, un checkout, un piano a pagamento o dei termini economici**. Il gruppo Skool non ha prodotti a pagamento associati. Il Placement Hub non espone né condizioni né compensi.
+   - **NON VERIFICABILE DALL'ESTERNO:** Da fuori **non si può stabilire come il sistema generi ricavo**. Poteva sembrare deducibile, ma dedurlo significherebbe costruire tutta l’analisi su un’ipotesi. Lo registro come **ignoto** e lo metto come prima domanda da fare a voce. **Nessuna raccomandazione di questo documento poggia su un’assunzione economica.**
+
+## I RILIEVI, PER GRAVITA'
+
+Sette famiglie. Ogni rilievo ha un codice, e il codice e' quello usato nei documenti successivi. La gravita' e' assegnata da chi ha scritto il documento.
+
+### 01 - ARCHITETTURA E INSTRADAMENTO
+Come il sistema smista chi arriva — e dove smette di farlo.
+
+- **[A1] Due link per due pubblici opposti finiscono sullo stesso URL** _(gravita': ALTA)_ Linktree ③ «Cerchi Venditori?» e ④ «Sei un Closer?» → italiancloser.com/placement-hub?utm_source=linktree, identici, senza utm_content.
+- **[A2] La pagina d’ingresso dei closer è etichettata «Accedi»** _(gravita': ALTA)_ Il bottone di partenza dice «Per Closers», la destinazione dice «Accedi», e l’unica azione è «Continua con Google». Nessun «Registrati».
+- **[A3] Un CTA pubblico porta dentro la dashboard riservata** _(gravita': ALTA)_ «Vedi altri →» sul Placement Hub apre /closer/risultati: barra laterale completa e «Logout» serviti a un visitatore non autenticato, senza alcun punto d’iscrizione.
+- **[A4] La community più grande non ha un ponte verso il prodotto** _(gravita': ALTA)_ 486 membri Skool, la cui descrizione promette «offerte di lavoro (Italia e USA)» — nessun link osservabile verso il Placement Hub. Stesso vuoto dal Discord da 615 membri.
+- **[A5] La parola chiave vive su un solo post, ma viene scritta ovunque** _(gravita': MEDIA)_ «sales» digitato due volte sul post di Miami, 18 settimane fa, senza risposta. Nessun sistema di recupero.
+- **[A6] Il menu moltiplica le scelte invece di ordinarle** _(gravita': MEDIA)_ Bio (2 voci) → Linktree (6 voci) = fino a 8 decisioni prima di ricevere una sola informazione utile. Nessuna voce marcata «inizia da qui».
+- **[A7] L’unica cattura di contatto è su una piattaforma terza** _(gravita': MEDIA)_ Telefono ed email si raccolgono solo nel questionario d’iscrizione a Skool. Il sito del brand non ha alcun form.
+
+### 02 - MISURAZIONE
+Cosa il sistema può sapere di se stesso.
+
+- **[B1] Le due pagine che convertono non hanno analytics** _(gravita': ALTA)_ Nessun tag su app.italiancloser.com: né /login (ramo closer), né /aziende/contatta (ramo azienda). GA4 si ferma sul sito marketing.
+- **[B2] L’invio del form aziende non genera evento** _(gravita': ALTA)_ Non è osservabile quante aziende iniziano il modulo, quante lo completano, su quale degli 8 campi si fermano.
+- **[B3] Il traffico dai due link Linktree è indistinguibile** _(gravita': MEDIA)_ Stesso utm_source, nessun utm_content: non si può separare la domanda del closer da quella dell’azienda nemmeno a posteriori.
+- **[B4] Nessun pixel pubblicitario su alcuna superficie** _(gravita': MEDIA)_ Solo GA4 sul sito. Nessun pubblico riutilizzabile viene costruito dal traffico che già arriva.
+
+### 03 - DOMANDA E CONTENUTO
+Dove il pubblico si muove davvero, e dove va lo sforzo.
+
+- **[C1] Lo sforzo è allocato dove la resa è più bassa** _(gravita': ALTA)_ 460 video YouTube → mediana ≈110 visualizzazioni su 546 iscritti. 5 post Instagram → uno da 857 like e 152 commenti. Il canale più costoso è il meno produttivo.
+- **[C2] La superficie che porta più persone è la meno documentata** _(gravita': MEDIA)_ 5 post in totale, 4 dei quali personali. Chi arriva sul profilo dopo il reel non ha materiale per decidere.
+- **[C3] Il video della home ha dieci mesi e 503 visualizzazioni** _(gravita': MEDIA)_ «La mia esperienza con la Vendita da Remoto», 21 ott 2025, 13:57. Occupa il momento di massima attenzione del sito.
+- **[C4] Le richieste dirette del pubblico non vengono raccolte** _(gravita': BASSA)_ Almeno una richiesta esplicita di contenuto nei commenti, senza replica visibile. È ricerca di mercato gratuita lasciata cadere.
+- **[C5] L’H1 della home è il nome del brand** _(gravita': MEDIA)_ «ITALIANCLOSER» — non una promessa. Il visitatore deve leggere per capire l’offerta invece di riconoscerla subito.
+
+### 04 - PROVA SOCIALE
+Cosa trova chi va a verificare prima di dare i propri dati.
+
+- **[D1] Trustpilot avvisa i visitatori che le recensioni potrebbero non essere rappresentative** _(gravita': ALTA)_ Banner della piattaforma: «Non risultano inviti alla recensione recenti». Compare sopra le recensioni.
+- **[D2] La raccolta è una campagna, non un’abitudine** _(gravita': MEDIA)_ Recensioni concentrate 6–17 giugno 2026; risposte dell’azienda tutte il 17 giugno fra le 14:00:07 e le 14:02:05; ultima recensione visibile 13 luglio.
+- **[D3] Il sito dichiara più recensioni di quante ne esistano** _(gravita': MEDIA)_ «50+» dichiarate contro 47 osservate. Verificabile in un click.
+- **[D4] Le testimonianze sul login sono rotte a vista** _(gravita': MEDIA)_ Avatar grigi vuoti e card tagliate dal bordo, nel punto esatto in cui si chiede l’accesso all’account Google.
+- **[D5] Il gruppo Skool non ha recensioni interne** _(gravita': BASSA)_ 0 recensioni su 486 membri, su una piattaforma che le raccoglie nativamente. Prova sociale disponibile e non usata.
+
+### 05 - ATTIVAZIONE E RITENZIONE
+Cosa succede alle persone dopo che sono entrate.
+
+- **[E1] Il 98% dei membri Skool è fermo al primo livello** _(gravita': ALTA)_ 486 membri: L1 98% · L2 1% · L3 1% · L4–L9 0%. Quasi nessuno compie un secondo gesto dopo l’ingresso.
+- **[E2] La libreria è grande, la conversazione non esiste** _(gravita': ALTA)_ 20 corsi e 155 moduli contro 17 post totali nel feed. Nessun canale per sapere dove le persone si bloccano.
+- **[E3] Il Discord accoglie senza contestualizzare** _(gravita': MEDIA)_ 615 membri, atterraggio su 🪧・inizia-qui, descrizione del server vuota. Chi entra da fuori non riceve un inquadramento.
+- **[E4] 31 online su 615 al momento del rilievo** _(gravita': BASSA)_ ≈5%. Fotografia singola, non una serie — ma coerente con il quadro di attività bassa.
+
+### 06 - COERENZA E ATTRITO
+Le crepe che il visitatore nota e che costano fiducia.
+
+- **[F1] Due promesse di tempo diverse a due schermate di distanza** _(gravita': MEDIA)_ Pagina marketing: «< 48h». Form aziende: «1–2 giorni lavorativi». La velocità è il punto di forza dichiarato.
+- **[F2] Otto campi obbligatori per un primo contatto B2B** _(gravita': MEDIA)_ Tre di essi servono a chi riceve, non a chi compila; il messaggio libero — l’unico campo davvero utile — è limitato a 300 caratteri.
+- **[F3] Un requisito operativo compare nel form senza spiegazione** _(gravita': MEDIA)_ «La tua azienda usa Slack (piano Pro o superiore)?» chiesto al primo contatto, senza una riga sul perché.
+- **[F4] Handle e brand non coincidono su YouTube** _(gravita': BASSA)_ @mannyonjourney per un canale intitolato «Francesco Manara I Italian Closer».
+- **[F5] Titolo di pagina duplicato sulla app** _(gravita': BASSA)_ «Risultati | Placement Hub | Placement Hub | Italiancloser».
+
+### 07 - CIÒ CHE NON SI PUÒ SAPERE DALL’ESTERNO
+Registrato come ignoto. Nessuna raccomandazione poggia su questi punti.
+
+- **[G1] Come il sistema genera ricavo** _(gravita': IGNOTO)_ Nessun prezzo, checkout, piano a pagamento o termine economico su nessuna delle 8 superfici osservate. Il gruppo Skool non ha prodotti a pagamento; il Placement Hub non espone condizioni. Prima domanda da fare a voce.
+- **[G2] Cosa succede davvero dopo il commento «sales»** _(gravita': IGNOTO)_ Se parta un DM, con che ritardo, con che contenuto, se richieda il follow. Non osservabile senza accesso all’account.
+- **[G3] Cosa c’è dentro il Discord oltre 🪧・inizia-qui** _(gravita': IGNOTO)_ Struttura dei canali, moderazione, ritmo reale delle conversazioni.
+- **[G4] Cosa c’è dentro la Classroom Skool** _(gravita': IGNOTO)_ Se esista un modulo che rimanda al Placement Hub, e come sia sequenziato il percorso.
+- **[G5] Cosa succede dopo il login Google** _(gravita': IGNOTO)_ L’onboarding dichiarato in pagina, i suoi passaggi, il suo tasso di completamento.
+- **[G6] Se i «70+ placement» siano contrattualizzati** _(gravita': IGNOTO)_ Nessuna superficie pubblica mostra la natura del rapporto con le 20+ aziende partner.
+
+Totale rilievi: 36.
+
+## LE SUPERFICI OSSERVATE
+
+Ogni numero qui sotto e' stato letto a mano su una pagina pubblica il 21 agosto 2026. La colonna "dichiarato" e' quello che dice la sua copy e non e' stato verificato.
+
+
+**INSTAGRAM · @italiancloser**
+- **Follower:** 3.617
+- **Seguiti:** 575
+- **Post sul feed:** 5 - l’intero profilo è 5 post: 1 reel-offerta, 4 personali
+- **Storie in evidenza:** 8, di cui 4 chiamate «students»
+- **Reel dell’offerta:** 857 like · 152 commenti · 11 condivisioni - il post più performante del profilo, di gran lunga
+- **Link in bio:** 2 voci etichettate - «Community Discord» · «Risorse Gratuite»
+
+**LINKTREE · francescomanarabusiness**
+- **Creato:** ≈ 1 aprile 2026
+- **Link in pagina:** 6 - i link ③ e ④ puntano allo STESSO URL con lo stesso utm_source
+
+**DISCORD · Italian Closer Academy I Community**
+- **Membri:** 615 (dichiarato: «590+ members») - il dato reale supera la promessa
+- **Online al momento del rilievo:** 31 - ≈ 5% dei membri
+- **Atterraggio dell’invito:** canale 🪧・inizia-qui - invito senza scadenza
+- **Descrizione del server:** vuota (null) - nessuna riga di contesto per chi arriva da fuori
+
+**SKOOL · italian-closers-academy**
+- **Membri:** 486 (dichiarato: «450+ studenti»)
+- **Creato:** 2 dicembre 2025
+- **Corsi · moduli in Classroom:** 20 · 155 (dichiarato: «full academy») - il materiale esiste ed è abbondante
+- **Post totali nel feed:** 17 - 17 post per 486 membri
+- **Distribuzione dei livelli:** Level 1 = 98% · L2 1% · L3 1% · L4–L9 0% - la progressione non parte
+- **Recensioni interne al gruppo:** 0
+- **Piano del gruppo:** hobby
+- **Prodotti a pagamento nel gruppo:** nessuno (dichiarato: «Corso Gratuito») - coerente: il gruppo è gratuito
+
+**YOUTUBE · @mannyonjourney**
+- **Iscritti:** 546
+- **Video pubblicati:** 460
+- **Visualizzazioni, ultimi 22 video:** da 42 a 249 · mediana ≈ 110 - ≈ 20% degli iscritti guarda un video nuovo
+- **Titolo del canale:** «Francesco Manara I Italian Closer» - l’handle è @mannyonjourney, un altro nome
+
+**ITALIANCLOSER.COM**
+- **H1 della home:** «ITALIANCLOSER» - il titolo principale è il nome del brand, non una promessa
+- **Track record dichiarato:** — (dichiarato: +1M$ · +2000 call · +40% closing rate) - numeri esposti senza fonte in pagina
+- **Video «About» incorporato:** 21 ott 2025 · 13:57 · 503 views - un anno d’età, in home, quasi non guardato
+- **Form o cattura email sul sito:** nessuno
+- **Analytics:** GA4 · G-07PW41NQYZ - nessun pixel Meta
+- **Unico CTA di conversione:** link interno «Vai al Placement Hub»
+
+**APP.ITALIANCLOSER.COM · la superficie dove si converte**
+- **Ingresso closer:** /login, etichettato «Accedi» - solo «Continua con Google», nessun «Registrati»
+- **Ingresso azienda:** /aziende/contatta - 8 campi obbligatori + messaggio max 300 caratteri
+- **Pagina /closer/risultati:** dashboard interna servita a chi non è loggato - barra laterale completa, incluso «Logout»
+- **Analytics:** nessuno, su nessuna delle pagine - le due pagine che convertono non sono misurate
+- **Tempo di risposta promesso:** «1–2 giorni lavorativi» nel form (dichiarato: «< 48h» sulla pagina marketing) - due promesse diverse a due passi di distanza
+
+**TRUSTPILOT**
+- **Recensioni:** 47 (dichiarato: «50+ recensioni») - il sito dichiara più di quante ce ne siano
+- **Punteggio:** 4,8 (dichiarato: 4.8) - coerente
+- **Profilo rivendicato:** aprile 2026
+- **Concentrazione:** quasi tutte fra il 6 e il 17 giugno 2026 - ultima visibile: 13 luglio 2026
+- **Risposte dell’azienda:** tutte il 17 giu 2026, 14:00:07 → 14:02:05 - un unico blocco da due minuti
+- **Banner di Trustpilot sulla scheda:** «Non risultano inviti alla recensione recenti» - è Trustpilot stesso a segnalarlo
+
+## IL COSTO DELL'INAZIONE
+
+Il documento 02 si chiude con una calcolatrice interattiva che non e' riproducibile in testo: si apre in fondo alla pagina e va usata a mano. Prende il volume attuale e i tassi osservati e restituisce quanto costa lasciare il sistema com'e'. Il risultato e' sempre un numero in rosso. Non stimarlo, non inventarlo, non citarlo: se qualcuno chiede quel numero, la risposta e' che va aperta la calcolatrice.</script>
+<script>
+(function(){
+  var NL = String.fromCharCode(10);
+  var SEP = NL + NL;
+  function put(t, btn, label){
+    var done = function(){
+      var old = btn.textContent; btn.textContent = label; btn.classList.add('ok');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('ok'); }, 2600);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(t).then(done, function(){ fallback(t, done); });
+    } else { fallback(t, done); }
+  }
+  function fallback(t, done){
+    var a = document.createElement('textarea');
+    a.value = t; a.style.position='fixed'; a.style.opacity='0';
+    document.body.appendChild(a); a.select();
+    try { document.execCommand('copy'); done(); } catch(e){ a.style.opacity='1'; }
+    document.body.removeChild(a);
+  }
+  document.querySelectorAll('.aib-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var doc = document.getElementById('aib-doc').textContent.trim();
+      var pro = document.getElementById('aib-prompt').textContent.trim();
+      // "all" = un solo incolla: prima le istruzioni, poi i due documenti
+      var all = b.getAttribute('data-copy') === 'all';
+      put(all ? pro + SEP + doc : doc, b, all ? 'Copiato — ora incollalo in ChatGPT o Claude' : 'Copia solo il testo ✓');
+    });
+  });
+})();
+</script>
 </body></html>
