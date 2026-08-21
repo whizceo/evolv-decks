@@ -1,156 +1,230 @@
-<title>Italiancloser Dossier</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,400;0,500;0,600;1,6..72,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Italiancloser — General Overview</title>
 <style>
+*{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --paper:#faf9f7; --ink:#16150f; --ink-2:#3a382e; --ink-3:#6d6a5c;
-  --rule:#ddd9cf; --rule-2:#c9c4b6; --accent:#9c3a24; --accent-soft:#f2e7e2;
-  --serif:"Newsreader",Georgia,serif; --sans:"Inter",-apple-system,system-ui,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
-  --max:1080px;
-}
-*{box-sizing:border-box}
-body{background:var(--paper);color:var(--ink);font-family:var(--serif);
-  font-size:17.5px;line-height:1.62;-webkit-font-smoothing:antialiased;
-  margin:0;padding:0 28px 120px;overflow-x:hidden}
-.wrap{max-width:var(--max);margin:0 auto}
+ --bg:#ffffff;--s1:#f5f5f7;--s2:#ffffff;--s3:#efeff1;--s4:#e3e3e6;
+ --sep:rgba(0,0,0,.13);--hair:rgba(0,0,0,.085);
+ --t1:#1d1d1f;--t2:#515154;--t3:#86868b;--t4:#b4b4b8;
+ --blue:#0066CC;--blue-b:#F0F6FE;
+ --green:#1D7A33;--green-b:#EFF8F1;
+ --red:#C1121F;--red-b:#FDF2F2;
+ --orange:#B35309;--orange-b:#FDF5EC;
+ --purple:#7B3FA0;--purple-b:#F8F2FC;
+ --teal:#0071A4;--teal-b:#EFF7FB;
+ --gray:#86868b;--gray-b:#f5f5f7;
+ --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Inter,system-ui,sans-serif;
+ --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,monospace}
+html{-webkit-text-size-adjust:100%;background:var(--bg)}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.55;
+ -webkit-font-smoothing:antialiased;letter-spacing:-.011em}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+a{color:var(--blue);text-decoration:none}
+.mono{font-family:var(--mono)}
+q{quotes:"\201C" "\201D"}
+/* header */
+header{padding:88px 0 42px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+ color:var(--t3);margin-bottom:22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.eyebrow b{color:var(--blue);font-weight:600}
+h1{font-weight:700;font-size:clamp(2.3rem,5vw,3.7rem);line-height:1.04;letter-spacing:-.034em;margin-bottom:20px}
+h1 em{font-style:normal;color:var(--blue)}
+.lede{font-size:1.16rem;line-height:1.58;color:var(--t2);max-width:940px;letter-spacing:-.008em}
+.lede b{color:var(--t1);font-weight:600}
+.meta{margin-top:28px;font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.03em;
+ display:flex;gap:22px;flex-wrap:wrap}
+/* stat band */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:46px 0 6px}
+.stat{background:var(--s1);border:1px solid var(--hair);border-radius:16px;padding:20px 20px 18px}
+.stat .v{font-size:2.05rem;font-weight:700;letter-spacing:-.042em;line-height:1;margin-bottom:9px}
+.stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.stat .d{font-size:12.5px;color:var(--t2);margin-top:7px;line-height:1.4}
+.stat.alert{background:var(--red-b);border-color:rgba(193,18,31,.22)}
+.stat.alert .v{color:var(--red)}
+/* sections */
+section{padding:70px 0 0}
+.secnum{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--blue);display:block;margin-bottom:14px}
+h2{font-size:clamp(1.65rem,3vw,2.35rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:14px}
+h3{font-weight:650;letter-spacing:-.022em}
+.dek{color:var(--t2);font-size:1.02rem;max-width:900px;margin-bottom:30px}
+.dek b{color:var(--t1);font-weight:600}
+/* method / provenance */
+.method{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:26px}
+.mcard{background:var(--s1);border:1px solid var(--hair);border-radius:14px;padding:18px 20px}
+.mcard .mh{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--blue);margin-bottom:9px}
+.mcard p{font-size:12.8px;line-height:1.6;color:var(--t2)}
+/* table */
+.tbl{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.tbl th{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--t3);
+ text-align:left;padding:11px 14px;border-bottom:1px solid var(--sep);font-weight:400}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--hair);vertical-align:top;line-height:1.45}
+.tbl tr:hover td{background:var(--s1)}
+.tbl td.k{font-weight:550;width:26%}
+.tbl td.n{font-family:var(--mono);font-size:12px;width:22%;color:var(--t1)}
+.tbl td.d{font-family:var(--mono);font-size:12px;width:20%;color:var(--t3)}
+.tbl td.no{font-size:12.4px;color:var(--t2)}
+.tbl td.no.w{color:var(--red)}
+.tbl tr.grp td{background:var(--s3);font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
+ text-transform:uppercase;color:var(--t2);padding:8px 14px}
+/* mobile gate */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--bg);
+ flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+.mobile-block .mb-t{font-size:1.9rem;font-weight:700;letter-spacing:-.03em;margin-bottom:14px}
+.mobile-block .mb-t em{font-style:normal;color:var(--blue)}
+.mobile-block .mb-s{font-size:.95rem;color:var(--t2);max-width:360px;line-height:1.55}
+.mobile-block .mb-e{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+ color:var(--t3);margin-bottom:22px}
+@media screen and (max-width:900px){.mobile-block{display:flex!important}body>*:not(.mobile-block){display:none!important}}
 
-/* ---------- masthead ---------- */
-.masthead{padding:68px 0 0}
-.kicker{font-family:var(--sans);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--accent);font-weight:600;margin:0 0 26px}
-h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,7vw,80px);line-height:.98;
-  letter-spacing:-.028em;margin:0 0 18px}
-h1 em{font-style:italic;color:var(--ink-3)}
-.standfirst{font-size:clamp(19px,2.3vw,23px);line-height:1.5;color:var(--ink-2);
-  max-width:33em;margin:0 0 34px;font-weight:300}
-.byline{font-family:var(--sans);font-size:11.5px;letter-spacing:.06em;color:var(--ink-3);
-  border-top:1px solid var(--ink);padding-top:12px;display:flex;flex-wrap:wrap;gap:8px 26px}
-.byline b{color:var(--ink);font-weight:600}
 
-/* ---------- structure ---------- */
-section{margin:74px 0 0;scroll-margin-top:20px}
-.secnum{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.08em;
-  display:block;margin-bottom:9px}
-h2{font-family:var(--serif);font-weight:500;font-size:clamp(27px,3.6vw,38px);line-height:1.1;
-  letter-spacing:-.02em;margin:0 0 8px;padding-bottom:16px;border-bottom:1.5px solid var(--ink)}
-h2 + .dek{font-family:var(--sans);font-size:14px;color:var(--ink-3);margin:14px 0 30px;
-  max-width:40em;line-height:1.6}
-h3{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.11em;
-  text-transform:uppercase;color:var(--ink);margin:44px 0 14px}
-h4{font-family:var(--serif);font-weight:600;font-size:20px;margin:30px 0 8px;letter-spacing:-.01em}
-p{margin:0 0 17px;max-width:38em}
-a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
-a:hover{border-bottom-color:var(--accent)}
-strong{font-weight:600}
-em.q{font-style:italic;color:var(--ink-2)}
+/* ── masthead ─────────────────────────────────────────────────────────────── */
+.masthead{padding:88px 0 6px}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+ color:var(--t3);margin:0 0 22px}
+.masthead h1{font-weight:700;font-size:clamp(2.3rem,5vw,3.7rem);line-height:1.04;
+ letter-spacing:-.034em;margin:0 0 20px}
+.masthead h1 em{font-style:normal;color:var(--blue)}
+.standfirst{font-size:1.16rem;line-height:1.58;color:var(--t2);max-width:940px;
+ letter-spacing:-.008em;margin:0 0 30px;font-weight:400}
+.byline{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.03em;
+ border-top:1px solid var(--sep);padding-top:16px;display:flex;flex-wrap:wrap;gap:8px 26px}
+.byline b{color:var(--blue);font-weight:600}
 
-/* ---------- tables ---------- */
-.scroll{overflow-x:auto;margin:22px 0 30px;-webkit-overflow-scrolling:touch}
-table{border-collapse:collapse;width:100%;min-width:560px;font-family:var(--sans);font-size:13.5px}
-caption{text-align:left;font-family:var(--sans);font-size:11px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--ink-3);padding-bottom:11px}
-th{text-align:left;font-weight:600;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink-3);padding:0 16px 9px 0;border-bottom:1px solid var(--ink);white-space:nowrap}
-td{padding:10px 16px 10px 0;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.45}
-tr:last-child td{border-bottom:1px solid var(--ink)}
-td.num,th.num{text-align:right;font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums;
-  padding-right:20px}
-td.lab{font-weight:500;color:var(--ink);white-space:nowrap}
-tbody tr:hover td{background:#f4f2ed}
+/* ── testo corrente ───────────────────────────────────────────────────────── */
+p{margin:0 0 16px;max-width:900px;color:var(--t2);font-size:1rem;line-height:1.62}
+p:last-child{margin-bottom:0}
+strong{font-weight:600;color:var(--t1)}
+em.q{font-style:italic;color:var(--t1)}
+h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--blue);font-weight:600;margin:46px 0 14px}
+h4{font-size:1.06rem;font-weight:650;letter-spacing:-.022em;color:var(--t1);margin:30px 0 8px}
+.dek{color:var(--t2);font-size:1.02rem;max-width:900px;margin:0 0 30px}
 
-/* ---------- stat band ---------- */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
-  gap:1px;background:var(--rule);border:1px solid var(--rule);margin:30px 0 34px}
-.stat{background:var(--paper);padding:22px 20px}
-.stat .v{font-family:var(--serif);font-size:33px;line-height:1;letter-spacing:-.03em;display:block}
-.stat .k{font-family:var(--sans);font-size:10px;letter-spacing:.11em;text-transform:uppercase;
-  color:var(--ink-3);margin-top:9px;display:block;line-height:1.4}
-.stat.hot .v{color:var(--accent)}
+/* ── tabelle ──────────────────────────────────────────────────────────────── */
+.scroll{overflow-x:auto;margin:22px 0 32px;-webkit-overflow-scrolling:touch;
+ border:1px solid var(--hair);border-radius:16px;background:var(--s2)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:13px}
+caption{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
+ text-transform:uppercase;color:var(--t3);padding:15px 18px 11px}
+th{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+ color:var(--t3);text-align:left;font-weight:400;padding:10px 16px;
+ border-bottom:1px solid var(--sep);white-space:nowrap}
+td{padding:11px 16px;border-bottom:1px solid var(--hair);vertical-align:top;
+ line-height:1.5;color:var(--t2)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--s1)}
+td.lab{font-weight:550;color:var(--t1);white-space:nowrap}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:12px;
+ font-variant-numeric:tabular-nums;color:var(--t1)}
 
-/* ---------- callouts ---------- */
-.note{border-left:2px solid var(--accent);padding:4px 0 4px 22px;margin:30px 0;max-width:38em}
-.note .t{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--accent);font-weight:600;margin-bottom:7px}
-.note p{margin:0 0 10px;font-size:16.5px}
+/* ── banda numeri ─────────────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;
+ margin:30px 0 34px;background:none;border:none}
+.stat{background:var(--s1);border:1px solid var(--hair);border-radius:16px;padding:20px 20px 18px}
+.stat .v{display:block;font-size:2.05rem;font-weight:700;letter-spacing:-.042em;
+ line-height:1;margin-bottom:9px;color:var(--t1)}
+.stat .k{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+ text-transform:uppercase;color:var(--t3);line-height:1.45}
+.stat.hot{background:var(--blue-b);border-color:rgba(0,102,204,.2)}
+.stat.hot .v{color:var(--blue)}
+
+/* ── callout ──────────────────────────────────────────────────────────────── */
+.note{background:var(--s1);border:1px solid var(--hair);border-radius:16px;
+ padding:22px 26px 24px;margin:30px 0;max-width:900px}
+.note .t{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--blue);font-weight:600;margin-bottom:11px}
+.note p{margin:0 0 10px;font-size:.95rem;line-height:1.62}
 .note p:last-child{margin:0}
 
-.pull{font-family:var(--serif);font-size:clamp(21px,2.7vw,27px);line-height:1.34;
-  font-style:italic;color:var(--ink);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
-  padding:26px 0;margin:38px 0;max-width:30em}
+/* ── citazione (parole sue) ───────────────────────────────────────────────── */
+.quote{border-left:2px solid var(--s4);padding:4px 0 4px 26px;margin:30px 0;max-width:36em;
+ font-size:1.14rem;line-height:1.5;letter-spacing:-.018em;color:var(--t1);font-weight:450}
 
-/* ---------- funnel diagram ---------- */
-.funnel{border:1px solid var(--rule-2);background:#fff;padding:30px 26px;margin:26px 0 32px;
-  overflow-x:auto}
-.frow{display:flex;align-items:stretch;gap:0;min-width:620px}
-.fstage{flex:1;border:1px solid var(--rule);border-right:none;padding:16px 16px 18px;background:var(--paper)}
-.fstage:last-child{border-right:1px solid var(--rule)}
-.fstage .n{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.06em}
-.fstage .h{font-family:var(--sans);font-weight:600;font-size:13px;margin:7px 0 5px;letter-spacing:-.01em}
-.fstage .m{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
-.fstage .s{font-family:var(--sans);font-size:11px;color:var(--ink-3);margin-top:7px;line-height:1.45}
-.fstage.leak{background:var(--accent-soft);border-color:var(--accent)}
-.fstage.leak .h{color:var(--accent)}
-.fcap{font-family:var(--sans);font-size:11.5px;color:var(--ink-3);margin-top:18px;line-height:1.55;
-  max-width:52em}
+/* ── diagramma funnel ─────────────────────────────────────────────────────── */
+.funnel{border:1px solid var(--hair);background:var(--s2);border-radius:18px;
+ padding:24px 22px 26px;margin:26px 0 30px;overflow-x:auto}
+.frow{display:flex;align-items:stretch;gap:8px;min-width:660px}
+.fstage{flex:1;background:var(--s1);border:1px solid var(--hair);border-radius:12px;
+ padding:14px 15px 16px}
+.fstage .n{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--t4)}
+.fstage .h{font-weight:600;font-size:13.4px;letter-spacing:-.018em;color:var(--t1);margin:8px 0 5px}
+.fstage .m{font-family:var(--mono);font-size:11.5px;color:var(--t2);font-variant-numeric:tabular-nums}
+.fstage .s{font-size:11.8px;color:var(--t3);margin-top:8px;line-height:1.5}
+.fstage.leak{background:var(--red-b);border-color:rgba(193,18,31,.24)}
+.fstage.leak .n{color:rgba(193,18,31,.55)}
+.fstage.leak .h{color:var(--red)}
+.fcap{font-size:12.4px;color:var(--t3);margin-top:18px;line-height:1.6;max-width:900px}
 
-/* ---------- tags ---------- */
-.tag{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;padding:2px 7px;border:1px solid var(--rule-2);color:var(--ink-3);
-  border-radius:2px;white-space:nowrap}
-.tag.v{border-color:#2f6b3f;color:#2f6b3f}
-.tag.c{border-color:var(--accent);color:var(--accent)}
-.tag.u{border-color:var(--rule-2);color:var(--ink-3)}
+/* ── pill ─────────────────────────────────────────────────────────────────── */
+.tag{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:600;
+ letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:6px;
+ border:1px solid var(--hair);background:var(--s1);color:var(--t3);white-space:nowrap}
+.tag.v{background:var(--green-b);border-color:rgba(29,122,51,.2);color:var(--green)}
+.tag.c{background:var(--orange-b);border-color:rgba(179,83,9,.2);color:var(--orange)}
+.tag.u{background:var(--s3);border-color:var(--hair);color:var(--t3)}
 
-/* ---------- lists ---------- */
-ul.clean{list-style:none;padding:0;margin:16px 0 24px;max-width:40em}
-ul.clean li{padding:0 0 12px 22px;position:relative;line-height:1.55}
-ul.clean li:before{content:"—";position:absolute;left:0;color:var(--accent);font-family:var(--sans)}
-ol.q{padding-left:20px;margin:16px 0 24px;max-width:38em}
-ol.q li{padding-left:8px;margin-bottom:13px;line-height:1.55}
-ol.q li::marker{font-family:var(--mono);font-size:12px;color:var(--accent)}
+/* ── liste ────────────────────────────────────────────────────────────────── */
+ul.clean{list-style:none;margin:16px 0 26px;max-width:900px}
+ul.clean li{padding:0 0 12px 22px;position:relative;line-height:1.6;color:var(--t2)}
+ul.clean li:before{content:"";position:absolute;left:0;top:11px;width:9px;height:1px;
+ background:var(--blue)}
+ol.q{padding-left:22px;margin:16px 0 26px;max-width:900px}
+ol.q li{padding-left:8px;margin-bottom:14px;line-height:1.6;color:var(--t2)}
+ol.q li::marker{font-family:var(--mono);font-size:11.5px;color:var(--blue)}
 
-/* ---------- timeline ---------- */
-.tl{border-left:1px solid var(--rule-2);margin:24px 0 30px;padding-left:0;max-width:40em}
-.tlrow{position:relative;padding:0 0 26px 26px}
-.tlrow:before{content:"";position:absolute;left:-3.5px;top:7px;width:6px;height:6px;
-  background:var(--accent);border-radius:50%}
-.tlrow .d{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.04em}
-.tlrow .t{font-family:var(--sans);font-size:14px;font-weight:600;margin:4px 0 3px}
-.tlrow .b{font-size:15.5px;color:var(--ink-2);line-height:1.5}
+/* ── timeline ─────────────────────────────────────────────────────────────── */
+.tl{border-left:1px solid var(--s4);margin:26px 0 30px;max-width:900px}
+.tlrow{position:relative;padding:0 0 26px 28px}
+.tlrow:before{content:"";position:absolute;left:-3.5px;top:7px;width:7px;height:7px;
+ background:var(--blue);border-radius:50%}
+.tlrow .d{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--blue)}
+.tlrow .t{font-size:14px;font-weight:600;letter-spacing:-.018em;color:var(--t1);margin:5px 0 4px}
+.tlrow .b{font-size:14.6px;color:var(--t2);line-height:1.55}
 
-footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
-  font-family:var(--sans);font-size:11.5px;color:var(--ink-3);line-height:1.7}
+/* ── footer ───────────────────────────────────────────────────────────────── */
+footer{margin-top:96px;border-top:1px solid var(--sep);background:var(--s1);padding:44px 0 72px}
+footer .wrap{font-family:var(--mono);font-size:11px;line-height:1.9;color:var(--t3);
+ letter-spacing:.02em}
+footer strong{color:var(--t1)}
+footer em{color:var(--t2);font-style:normal}
 
-@media (max-width:640px){
-  body{padding:0 20px 80px;font-size:16.5px}
-  .masthead{padding-top:44px}
-  section{margin-top:56px}
-  .stat{padding:17px 15px}
-  .stat .v{font-size:27px}
-}
-</style>
+
+.power{background:#000;border-radius:20px;padding:34px 38px 36px;margin:48px 0 4px;
+ display:grid;grid-template-columns:132px 1fr;gap:26px;align-items:start}
+.pk{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+ color:#0A84FF;padding-top:10px;line-height:1.5}
+.power p{font-size:clamp(1.12rem,1.72vw,1.42rem);line-height:1.36;letter-spacing:-.026em;
+ font-weight:600;color:rgba(235,235,245,.58);max-width:34em;margin:0}
+.power p b{color:#fff;font-weight:600}
+@media screen and (max-width:1000px){.power{grid-template-columns:1fr;gap:14px}.pk{padding-top:0}}
+
+</style></head><body>
+<div class="mobile-block">
+  <div class="mb-e">Evolv AI · Lead Analysis</div>
+  <div class="mb-t">Open it on <em>desktop</em></div>
+  <div class="mb-s">This document carries wide data tables. Open it on a laptop to read them whole.</div>
+</div>
 
 <div class="wrap">
 
+
 <div class="masthead">
-  <p class="kicker">Evolv AI · Lead Dossier 01 · Section 1 of 5 — Context</p>
+  <p class="kicker">Evolv AI · Lead Analysis · Italiancloser · Document 01 of 06</p>
   <h1>Italiancloser<br><em>Francesco Manara</em></h1>
   <p class="standfirst">A 4-month-old Italian high-ticket-sales brand that has already built an audience, a community, a review base and a two-sided placement product — and is monetising almost none of it.</p>
   <div class="byline">
     <span><b>Compiled</b> 20 Aug 2026</span>
     <span><b>Method</b> Open-source only — no contact made</span>
-    <span><b>Scope</b> Context &amp; asset map</span>
-    <span><b>Next</b> §2 Funnel analysis</span>
+    <span><b>Scope</b> General overview — context &amp; asset map</span>
+    <span><b>Next</b> Document 02 — Funnel analysis</span>
   </div>
 </div>
 
 <!-- ============ 1 ============ -->
 <section>
-<span class="secnum">§ 1.0</span>
+<span class="secnum">01 — Overview</span>
 <h2>At a glance</h2>
 <p class="dek">Everything verified directly from the source on 20 Aug 2026. Figures marked <span class="tag c">claimed</span> come from his own marketing copy and could not be independently checked.</p>
 
@@ -185,17 +259,18 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
   <p>He fails two of the locked Evolv One filters: <strong>he is not paying for Meta ads</strong>, and his business is Italian-language, Italy-based, almost certainly well under the €400K/yr floor. He is a <strong>fit on shape</strong> — info-business, active personal brand, visible funnel, coaching-adjacent — and a <strong>miss on size and buying signal</strong>.</p>
   <p>That does not make him a bad first rep. It makes him a good <em>practice</em> rep and a plausible small-ticket buyer, not a €1,500/mo retainer. Worth knowing before the funnel teardown, not after.</p>
 </div>
+<div class="power"><div class="pk">The point</div><p>3,623 followers, 1,100 community members, 47 reviews and 70+ placements — with <b>zero euros of paid media</b> behind any of it. Everything here was earned, which also means none of it can be bought back if it stops working.</p></div>
 </section>
 
 <!-- ============ 2 ============ -->
 <section>
-<span class="secnum">§ 2.0</span>
+<span class="secnum">02 — The operator</span>
 <h2>Who he is</h2>
 <p class="dek">The story he tells is the product. It is unusually specific, which is why it works.</p>
 
 <p>His own About copy, in full:</p>
 
-<div class="pull">“Nel 2024 sono partito da zero: una mentorship, nessun contatto e non madrelingua inglese. Mi sono ossessionato al processo fino a scalare l'infobusiness americano, diventando top producer su offerte premium nel mercato più competitivo al mondo.”</div>
+<div class="quote">“Nel 2024 sono partito da zero: una mentorship, nessun contatto e non madrelingua inglese. Mi sono ossessionato al processo fino a scalare l'infobusiness americano, diventando top producer su offerte premium nel mercato più competitivo al mondo.”</div>
 
 <p>Three things are load-bearing in that paragraph, and all three are deliberate. <strong>Started 2024</strong> — recent enough to be relatable to a 22-year-old. <strong>Not a native English speaker</strong> — removes the biggest objection his audience has. <strong>Top producer in the US market</strong> — the status claim that makes him worth listening to.</p>
 
@@ -203,7 +278,7 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
 
 <p><em class="q">“Oggi vendo ancora attivamente. Ma parallelamente gestisco team commerciali, lavoro con aziende per trovare e formare nuovi closer, e aiuto chi vuole costruire una carriera seria nelle high ticket sales.”</em></p>
 
-<p>So: still closing himself, <strong>plus</strong> running sales teams, <strong>plus</strong> recruiting and training closers for companies, <strong>plus</strong> coaching aspiring closers. Four jobs. That is a founder-bandwidth story before it is anything else — and it is the single most important line in this whole dossier for what we sell him later.</p>
+<p>So: still closing himself, <strong>plus</strong> running sales teams, <strong>plus</strong> recruiting and training closers for companies, <strong>plus</strong> coaching aspiring closers. Four jobs. That is a founder-bandwidth story before it is anything else — and it is the single most important line in this whole analysis for what we sell him later.</p>
 
 <h3>Personal texture</h3>
 <ul class="clean">
@@ -218,11 +293,12 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
   <div class="t">Signal</div>
   <p>A man who has already paid $497 for a sales community and joined an AI content academy is a man who buys tools and pays for leverage. He is not a hard-sell audience on the concept of paying for systems — only on the price.</p>
 </div>
+<div class="power"><div class="pk">The point</div><p>He still closes, runs sales teams, recruits closers for companies and coaches beginners. <b>Four jobs, one person.</b> That is a bandwidth story before it is a marketing story.</p></div>
 </section>
 
 <!-- ============ 3 ============ -->
 <section>
-<span class="secnum">§ 3.0</span>
+<span class="secnum">03 — The business</span>
 <h2>What the business actually is</h2>
 <p class="dek">On the surface it looks like another closing course. It isn't. There are three distinct businesses stacked on one audience, and only one of them is obviously monetisable.</p>
 
@@ -263,11 +339,12 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
   <p><strong>The paid tiers were found on 21 Aug, inside Skool.</strong> The free course has locked modules gated behind <strong>Premium</strong> (unlocks <em class="q">OBJECTION HANDLING</em>) and <strong>VIP</strong> (unlocks all 10 US modules). So the earlier read — “no monetisation exists” — was wrong. The accurate read is worse: <strong>monetisation exists but is invisible from every public surface.</strong></p>
   <p>No price appears on the site, in the app's public pages, on Discord, on Linktree or in the bio. The only place a visitor can encounter a paid tier is inside the one asset he has personally abandoned — a Skool with 486 members, 0 online and 17 posts in its entire history. The demand side (companies) is still priced nowhere: it goes through a DM and a <span class="mono">mailto:</span>.</p>
 </div>
+<div class="power"><div class="pk">The point</div><p>The money exists. It is priced <b>inside the one asset he stopped showing up to</b> — a Skool with 486 members, zero online and 17 posts in its entire history. The company side isn't priced anywhere at all.</p></div>
 </section>
 
 <!-- ============ 4 ============ -->
 <section>
-<span class="secnum">§ 4.0</span>
+<span class="secnum">04 — The assets</span>
 <h2>The asset map</h2>
 <p class="dek">Every property he owns, with the real number attached. Counts pulled live on 20 Aug 2026 — several are materially lower than what his own site claims.</p>
 
@@ -323,13 +400,14 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
 </tbody>
 </table>
 </div>
+<div class="power"><div class="pk">The point</div><p>Twelve properties, eleven of them live, and <b>not one owned email address</b>. Every person he has ever reached is rented from a platform that can change its mind.</p></div>
 </section>
 
 <!-- ============ 5 ============ -->
 <section>
-<span class="secnum">§ 5.0</span>
+<span class="secnum">05 — The funnel</span>
 <h2>The funnel as it exists today</h2>
-<p class="dek">Not the teardown — that's §2. This is simply the map of every path a stranger can take, with real numbers on the first two steps.</p>
+<p class="dek">Not the teardown — that's Document 02. This is simply the map of every path a stranger can take, with real numbers on the first two steps.</p>
 
 <div class="funnel">
 <div class="frow">
@@ -408,11 +486,12 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
 </div>
 <p class="fcap"><strong>Demand side (companies).</strong> This is where revenue must come from, and it is the thinner of the two funnels: one page, one form, no booking link, no pricing, no self-serve, and a 1–2 day human gap at the exact moment a hiring manager is hottest.</p>
 </div>
+<div class="power"><div class="pk">The point</div><p>Six steps on the closer side, five on the company side, and <b>both are manual from step three onward</b>. Every view he earns is converted by hand.</p></div>
 </section>
 
 <!-- ============ 6 ============ -->
 <section>
-<span class="secnum">§ 6.0</span>
+<span class="secnum">06 — The content</span>
 <h2>The content engine, measured</h2>
 <p class="dek">24 reels scraped. This is the raw material for the funnel analysis — the numbers are worse than the view counts make them look.</p>
 
@@ -499,11 +578,12 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
   <li><strong>Student proof</strong> — “Come Gabriel ha chiuso 3.000€ il primo giorno”. Buried in long-form where nobody sees it. <span class="tag c">Misallocated</span></li>
   <li><strong>Credibility defence</strong> — the scammer video. Rare, and clearly reactive.</li>
 </ul>
+<div class="power"><div class="pk">The number to sit with</div><p>His best reel of the period did 22,638 views and collected <b>3 comments</b>. In April, half that reach collected 152. Reach held up fine — <b>the mechanism broke</b>.</p></div>
 </section>
 
 <!-- ============ 7 ============ -->
 <section>
-<span class="secnum">§ 7.0</span>
+<span class="secnum">07 — The proof</span>
 <h2>Proof inventory</h2>
 <p class="dek">What he can already point at. This is unusually strong for a 4-month-old brand and is the main reason he is worth analysing.</p>
 
@@ -522,14 +602,14 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
 </table>
 </div>
 
-<div class="pull">He has more real proof than most agencies doing €50K/month. It is scattered across five platforms and pointed at a free product.</div>
+<div class="power"><div class="pk">The point</div><p>He has more real proof than most agencies doing €50K/month. It is <b>scattered across five platforms and pointed at a free product</b>.</p></div>
 </section>
 
 <!-- ============ 8 ============ -->
 <section>
-<span class="secnum">§ 8.0</span>
+<span class="secnum">08 — The stack</span>
 <h2>Brand &amp; technology</h2>
-<p class="dek">Bonus section as briefed. Extended into the AIOS angle in §5 of the wider analysis — this is the factual stack only.</p>
+<p class="dek">Bonus section as briefed. Extended into the AIOS angle in Document 05 of the wider analysis — this is the factual stack only.</p>
 
 <div class="scroll">
 <table>
@@ -553,11 +633,12 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
 <h3>Brand read</h3>
 <p>Visually he is already in the right neighbourhood: black-and-white, editorial, photography-led, generous whitespace, no gradient-SaaS clichés. A lifestyle photo marquee, a clean track-record band, restrained type. The Placement Hub page is a step above the homepage — sectioned, tabbed, proof-heavy, with genuine product screenshots.</p>
 <p>The weaknesses are structural rather than aesthetic: the naming is inconsistent across surfaces (<em>Italiancloser</em> / <em>Italian Closer Academy</em> / <em>Italian Closers Academy</em> / <em>Placement Hub</em> / <em>@mannyonjourney</em> — five names for one thing), and the homepage embeds a YouTube player that displays <strong>546 subscribers</strong> as its first piece of social proof.</p>
+<div class="power"><div class="pk">The point</div><p>Five names for one brand, and <b>no CRM, no email tool, no scheduler, no pixel</b> anywhere in the stack. The system is a website, a web app, and him.</p></div>
 </section>
 
 <!-- ============ 9 ============ -->
 <section>
-<span class="secnum">§ 9.0</span>
+<span class="secnum">09 — The timeline</span>
 <h2>Timeline</h2>
 <p class="dek">The compression here is the story. Everything below happened in under nine months.</p>
 
@@ -566,18 +647,19 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
   <div class="tlrow"><div class="d">Sep 2025</div><div class="t">First cohort forming</div><div class="b">Testimonial from Alin references being a closer “dal settembre 2025” — the network predates the brand.</div></div>
   <div class="tlrow"><div class="d">2 Dec 2025</div><div class="t">Joins Skool</div><div class="b">Creates Italian Closers Academy as a free community.</div></div>
   <div class="tlrow"><div class="d">11 Mar 2026</div><div class="t">Earliest surviving reel</div><div class="b">14,881 views, 137 likes. He already had reach.</div></div>
-  <div class="tlrow"><div class="d">10 Apr 2026</div><div class="t">The high-water mark</div><div class="b">10,856 views → <strong>152 comments</strong>. The comment-to-DM funnel worked at 1.40%.</div></div>
   <div class="tlrow"><div class="d">8 Apr 2026</div><div class="t">italiancloser.com registered</div><div class="b">The brand becomes a company. Trustpilot profile claimed the same month.</div></div>
+  <div class="tlrow"><div class="d">10 Apr 2026</div><div class="t">The high-water mark</div><div class="b">10,856 views → <strong>152 comments</strong>. The comment-to-DM funnel worked at 1.40%.</div></div>
   <div class="tlrow"><div class="d">~Jun–Jul 2026</div><div class="t">Placement Hub ships</div><div class="b">A real two-sided web app, Google SSO, company portal, Slack integration. Claims 70+ placements and 20+ partner companies.</div></div>
   <div class="tlrow"><div class="d">20 Jul 2026</div><div class="t">Daily posting begins</div><div class="b">22 reels in the following 31 days. Reach holds. Comments collapse to 3.3 per reel.</div></div>
   <div class="tlrow"><div class="d">19 Aug 2026</div><div class="t">Latest activity</div><div class="b">Still posting daily, still routing to a free course whose paid tiers live only inside the dead Skool.</div></div>
 </div>
+<div class="power"><div class="pk">The point</div><p>Domain registered 8 April. Two-sided product shipped by July. 70+ placements claimed. <b>Everything in this document happened in under nine months</b> — which is the argument for him, and the reason nothing is systematised yet.</p></div>
 </section>
 
 <!-- ============ 10 ============ -->
 <section>
-<span class="secnum">§ 10.0</span>
-<h2>Open questions carried into §2</h2>
+<span class="secnum">10 — The unknowns</span>
+<h2>Open questions carried into Document 02</h2>
 <p class="dek">What the public record cannot answer. These are the hinges the funnel analysis will turn on.</p>
 
 <ol class="q">
@@ -594,11 +676,12 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
   <div class="t">Headline read, one line</div>
   <p>He has built demand-side proof, a working product and a live audience in four months — and has parked the only paid tiers he owns inside the one asset he stopped showing up to. The bottleneck is almost certainly <strong>not traffic</strong>.</p>
 </div>
+<div class="power"><div class="pk">Headline read</div><p>He built demand-side proof, a working product and a live audience in four months — and parked his only paid tiers inside the one asset he abandoned. <b>The bottleneck is almost certainly not traffic.</b></p></div>
 </section>
 
 <!-- ============ 11 ============ -->
 <section>
-<span class="secnum">§ 11.0</span>
+<span class="secnum">11 — The sources</span>
 <h2>Sources</h2>
 <p class="dek">All open-source. No contact was made and nothing gated was accessed. Captured 20 Aug 2026.</p>
 <ul class="clean">
@@ -616,12 +699,16 @@ footer{margin-top:80px;padding-top:22px;border-top:1.5px solid var(--ink);
   <li>WHOIS, DNS, HTTP headers — domain age, hosting, mail stack</li>
   <li>Meta Ad Library + Spyglass ad corpus — both negative for this brand</li>
 </ul>
+<div class="power"><div class="pk">Standard</div><p>Every figure in this document was <b>read live off a public surface on 20 August 2026</b>. Nothing was estimated, nothing was inferred from a competitor, and no contact was made.</p></div>
 </section>
 
-<footer>
-  <strong>Italiancloser — Lead Dossier, Section 1: Context.</strong> Prepared for Evolv AI, 20 August 2026.<br>
-  Every figure marked as verified was pulled live from the named source on that date. Figures marked <em>claimed</em> are his own and are reproduced without endorsement.<br>
-  Next: §2 Funnel analysis · §3 Bottlenecks · §4 Solutions &amp; prioritisation matrix · §5 Execution roadmap.
-</footer>
+
+
 
 </div>
+<footer><div class="wrap">
+  <strong>Italiancloser — General Overview, Document 01 of 06.</strong> Prepared for Evolv AI, 20 August 2026.<br>
+  Every figure marked as verified was pulled live from the named source on that date. Figures marked <em>claimed</em> are his own and are reproduced without endorsement.<br>
+  Next: Document 02 — Funnel analysis · Document 03 — Bottlenecks · Document 04 — Solutions &amp; prioritisation matrix · Document 05 — Execution roadmap.
+</div></footer>
+</body></html>
