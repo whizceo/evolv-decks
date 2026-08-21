@@ -254,72 +254,122 @@ h3{font-weight:650;letter-spacing:-.022em}
 .fitem.q{background:repeating-linear-gradient(135deg,#fff,#fff 10px,var(--s1) 10px,var(--s1) 20px)}
 
 
-.calc{margin-top:30px}
-.cgrid{display:grid;grid-template-columns:1fr 1.15fr;gap:14px}
-.cpanel{background:var(--s1);border:1px solid var(--hair);border-radius:18px;padding:24px 24px 26px}
-.cph{font-size:1.06rem;font-weight:650;letter-spacing:-.02em;margin-bottom:20px;display:flex;flex-direction:column;gap:5px}
-.cph span{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);font-weight:400}
-.cins{display:flex;flex-direction:column;gap:12px}
-.cin{display:block;background:#fff;border:1px solid var(--hair);border-radius:12px;padding:13px 15px}
-.cin:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-b)}
-.cl{font-size:13.2px;font-weight:600;line-height:1.35;letter-spacing:-.012em}
-.ch{font-size:11.6px;color:var(--t3);line-height:1.5;margin-top:4px}
-.cf{display:flex;align-items:center;gap:8px;margin-top:9px}
-.cu{font-family:var(--mono);font-size:11px;color:var(--t3);min-width:44px}
-.cf input{flex:1;font-family:var(--mono);font-size:15px;font-weight:600;color:var(--t1);
- border:none;border-bottom:1.5px solid var(--s4);background:transparent;padding:3px 0;outline:none;width:100%}
-.cf input:focus{border-bottom-color:var(--blue)}
-.crts{display:flex;flex-direction:column;gap:16px}
-.crt{background:#fff;border:1px solid var(--hair);border-radius:12px;padding:14px 16px 16px}
-.crh{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.crl{font-size:13.2px;font-weight:600;line-height:1.35;letter-spacing:-.012em}
-.cro{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--blue);flex:0 0 auto}
-.crs{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:var(--s3);
- margin:13px 0 11px;outline:none}
-.crs::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;
- border:1px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.18);cursor:pointer}
-.crs::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;
- border:1px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.18);cursor:pointer}
-.cre{font-size:11.6px;line-height:1.6;color:var(--t2);border-top:1px solid var(--hair);padding-top:10px}
-.creh{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;
- color:var(--t4);margin-bottom:5px}
-.cout{margin-top:14px}
-.cwf{background:var(--s1);border:1px solid var(--hair);border-radius:18px;padding:24px}
-.cwh{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--t3);margin-bottom:16px}
-.cbar{display:flex;gap:10px}
-.cb{flex:1;background:#fff;border:1px solid var(--hair);border-radius:12px;padding:15px 16px 14px;position:relative;overflow:hidden}
-.cb i{position:absolute;left:0;top:0;bottom:0;width:3px}
-.cb.s1 i{background:var(--orange)}.cb.s2 i{background:var(--red)}.cb.s3 i{background:var(--green)}
-.cb b{display:block;font-size:1.85rem;font-weight:700;letter-spacing:-.04em;line-height:1}
-.cb.s1 b{color:var(--orange)}.cb.s2 b{color:var(--red)}.cb.s3 b{color:var(--green)}
-.cb span{display:block;font-size:12px;color:var(--t2);margin-top:7px;line-height:1.4}
-.cnote{margin-top:14px;font-size:12.6px;color:var(--t2);line-height:1.6}
-.cnote b{color:var(--t1);font-weight:650}
-.cbk{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px;
- background:#fff;border:1px solid var(--hair);border-radius:18px;overflow:hidden}
-.cbk th{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--t3);
- text-align:left;padding:14px 18px;border-bottom:1px solid var(--sep);font-weight:400;background:var(--s1)}
-.cbk td{padding:14px 18px;border-bottom:1px solid var(--hair);vertical-align:top;line-height:1.5}
-.cbk tr:last-child td{border-bottom:none}
-.cbk td.k{font-weight:600;width:32%}
-.cbk td.f{font-family:var(--mono);font-size:11.4px;color:var(--t3);width:34%}
-.cbk .r{text-align:right}
-.cbk td.n{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--t1);white-space:nowrap}
-.ctot{margin-top:14px;background:var(--red-b);border:1px solid rgba(193,18,31,.25);border-radius:18px;
- padding:30px 32px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px}
-.ctl{font-size:1.1rem;font-weight:650;letter-spacing:-.022em;color:#8E0F19;display:flex;flex-direction:column;gap:6px}
-.ctl span{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
- color:rgba(142,15,25,.6);font-weight:400}
-.ctv{text-align:right;display:flex;align-items:baseline;gap:10px;justify-content:flex-end}
-.ctv b{font-size:clamp(2.4rem,5.2vw,3.9rem);font-weight:700;letter-spacing:-.045em;color:var(--red);line-height:1}
-.ctv em{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(142,15,25,.65)}
-.cty{grid-column:1/-1;border-top:1px solid rgba(193,18,31,.2);padding-top:16px;
- font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:rgba(142,15,25,.8)}
-.cty b{font-size:15px;font-weight:700;color:var(--red)}
-.cblind{margin-top:14px;background:var(--s1);border:1px dashed var(--s4);border-radius:18px;padding:22px 24px}
-.cbh{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--t3);margin-bottom:9px}
-.cblind p{font-size:13px;line-height:1.65;color:var(--t2);max-width:92ch}
-.cblind b{color:var(--t1);font-weight:600;font-family:var(--mono);font-size:12.4px}
+.ksec{background:#000;padding:0}
+.ksec .wrap{padding:0 28px}
+.kalc{--kbg:#000;--k1:#0e0e10;--k2:#161618;--kh:rgba(255,255,255,.10);--kh2:rgba(255,255,255,.16);
+ --kt1:#fff;--kt2:rgba(235,235,245,.62);--kt3:rgba(235,235,245,.36);--kt4:rgba(235,235,245,.22);
+ --kblue:#0A84FF;--kred:#FF453A;--kgreen:#30D158;--korange:#FF9F0A;
+ color:var(--kt1);padding:44px 0 44px}
+.khead{margin-bottom:24px;max-width:940px}
+.keb{font-family:var(--mono);font-size:9.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--kblue)}
+.khead h2{font-size:clamp(1.6rem,3vw,2.35rem);font-weight:700;letter-spacing:-.032em;line-height:1.06;
+ margin:10px 0 10px;color:#fff}
+.khead p{font-size:13.4px;line-height:1.6;color:var(--kt2);max-width:820px}
+.khead p b{color:#fff;font-weight:600}
+
+.kgrid{display:grid;grid-template-columns:.94fr 1.06fr 1.18fr;gap:12px;align-items:stretch}
+.kcol{background:var(--k1);border:1px solid var(--kh);border-radius:16px;padding:16px 16px 18px}
+.kch{font-size:13.4px;font-weight:650;letter-spacing:-.015em;color:#fff;margin-bottom:12px;
+ display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.kch span{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--kt3);font-weight:400}
+
+/* colonna 1 — input */
+.kins{display:flex;flex-direction:column;gap:6px}
+.kin{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;
+ background:var(--k2);border:1px solid transparent;border-radius:10px;padding:9px 11px;cursor:text}
+.kin:focus-within{border-color:rgba(10,132,255,.5);background:#1b1b1e}
+.kl{font-size:12.2px;font-weight:600;line-height:1.25;letter-spacing:-.01em;color:#fff;min-width:0}
+.kl em{display:block;font-style:normal;font-size:10.2px;font-weight:400;color:var(--kt3);
+ margin-top:2px;line-height:1.3}
+.kf{display:flex;align-items:baseline;gap:5px;flex:0 0 auto}
+.kf input{font-family:var(--mono);font-size:15px;font-weight:700;color:#fff;background:transparent;
+ border:none;border-bottom:1.5px solid var(--kh2);outline:none;padding:1px 0;width:62px;text-align:right;
+ -moz-appearance:textfield}
+.kf input::-webkit-outer-spin-button,.kf input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.kf input:focus{border-bottom-color:var(--kblue)}
+.kf i{font-style:normal;font-family:var(--mono);font-size:9.5px;color:var(--kt3);width:34px}
+
+/* colonna 2 — cursori */
+.krts{display:flex;flex-direction:column;gap:8px}
+.krt{background:var(--k2);border-radius:10px;padding:10px 12px 9px}
+.krh{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.krl{font-size:12.2px;font-weight:600;line-height:1.25;letter-spacing:-.01em;color:#fff}
+.kro{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--kblue);flex:0 0 auto}
+.krs{-webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:2px;
+ background:rgba(255,255,255,.16);margin:9px 0 6px;outline:none;display:block}
+.krs::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#fff;
+ box-shadow:0 1px 4px rgba(0,0,0,.6);cursor:pointer}
+.krs::-moz-range-thumb{width:15px;height:15px;border:none;border-radius:50%;background:#fff;
+ box-shadow:0 1px 4px rgba(0,0,0,.6);cursor:pointer}
+.kev summary{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--kt4);cursor:pointer;list-style:none;padding:1px 0}
+.kev summary::-webkit-details-marker{display:none}
+.kev summary:before{content:"+ ";color:var(--kblue)}
+.kev[open] summary:before{content:"– "}
+.kev summary:hover{color:var(--kt2)}
+.kev p{font-size:11px;line-height:1.55;color:var(--kt2);margin-top:6px;
+ border-top:1px solid var(--kh);padding-top:7px}
+
+/* colonna 3 — risultato */
+.kres{background:var(--k1)}
+.kwf{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.kb{background:var(--k2);border-radius:10px;padding:10px 11px 11px;border-top:2px solid}
+.kb.s1{border-color:var(--korange)}.kb.s2{border-color:var(--kred)}.kb.s3{border-color:var(--kgreen)}
+.kb b{display:block;font-size:1.5rem;font-weight:700;letter-spacing:-.04em;line-height:1}
+.kb.s1 b{color:var(--korange)}.kb.s2 b{color:var(--kred)}.kb.s3 b{color:var(--kgreen)}
+.kb span{display:block;font-size:10.4px;color:var(--kt2);margin-top:6px;line-height:1.35}
+.knote{font-size:11.6px;line-height:1.6;color:var(--kt2);margin:11px 0 12px}
+.knote b{color:#fff;font-weight:600}
+
+.kbk{width:100%;border-collapse:collapse}
+.kbk td{padding:9px 0;border-top:1px solid var(--kh);vertical-align:baseline}
+.kbk tr:first-child td{border-top:none;padding-top:0}
+.kbk tr.kbh td{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--kt4);font-weight:400;padding-bottom:6px}
+.kbk td.k{font-size:12px;font-weight:600;color:#fff;line-height:1.3}
+.kbk td.k em{display:block;font-style:normal;font-family:var(--mono);font-size:9.5px;
+ color:var(--kt3);font-weight:400;margin-top:3px}
+.kbk td.n{font-family:var(--mono);font-size:13.5px;font-weight:700;color:#fff;
+ text-align:right;white-space:nowrap;width:1%;padding-left:14px}
+.kbk td.y{font-family:var(--mono);font-size:10.5px;color:var(--kt3);
+ text-align:right;white-space:nowrap;width:1%;padding-left:12px}
+
+.ktot{margin-top:12px;background:rgba(255,69,58,.10);border:1px solid rgba(255,69,58,.30);
+ border-radius:14px;padding:15px 17px;display:grid;grid-template-columns:1fr auto;
+ align-items:center;gap:12px}
+.ktl{font-size:12.6px;font-weight:650;letter-spacing:-.015em;color:#fff;display:flex;
+ flex-direction:column;gap:4px}
+.ktl span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;
+ color:rgba(255,69,58,.72);font-weight:400}
+.ktv{display:flex;align-items:baseline;gap:7px;justify-content:flex-end}
+.ktv b{font-size:clamp(1.8rem,2.6vw,2.5rem);font-weight:700;letter-spacing:-.045em;
+ color:var(--kred);line-height:1}
+.ktv em{font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+ text-transform:uppercase;color:rgba(255,69,58,.7)}
+.kty{grid-column:1/-1;border-top:1px solid rgba(255,69,58,.22);padding-top:9px;
+ font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:rgba(255,255,255,.55)}
+.kty b{font-size:13px;font-weight:700;color:var(--kred);margin-left:4px}
+
+.kblind{margin-top:12px;font-size:10.8px;line-height:1.55;color:var(--kt3);
+ border-top:1px dashed var(--kh2);padding-top:10px}
+.kblind i{display:block;font-style:normal;font-family:var(--mono);font-size:8.5px;
+ letter-spacing:.12em;text-transform:uppercase;color:var(--kt4);margin-bottom:5px}
+.kblind b{font-family:var(--mono);font-size:10.4px;color:var(--kt2);font-weight:400}
+
+@media screen and (max-height:900px){
+ .kalc{padding:30px 0 34px}
+ .khead{margin-bottom:16px}
+ .khead h2{font-size:1.7rem;margin:7px 0 7px}
+ .khead p{font-size:12.4px}
+ .kin{padding:7px 11px}
+ .kins,.krts{gap:5px}
+ .kb b{font-size:1.3rem}
+}
+@media screen and (max-width:1180px){
+ .kgrid{grid-template-columns:1fr 1fr}
+ .kres{grid-column:1/-1}
+}
 
 
 footer{margin-top:100px;border-top:1px solid var(--sep);padding:46px 0 74px;background:var(--s1)}
@@ -438,59 +488,59 @@ footer{margin-top:100px;border-top:1px solid var(--sep);padding:46px 0 74px;back
  <div class="fsecs"><div class="fsec"><div class="fsh"><div class="fsn">Sezione 01</div><h3>ARCHITETTURA E INSTRADAMENTO</h3><p>Come il sistema smista chi arriva — e dove smette di farlo.</p><div class="fchips"><span class="fchip h">4 alta</span><span class="fchip m">3 media</span><span class="fchip tot">7 rilievi</span></div></div><div class="fitems"><div class="fitem h"><div class="fcode">A1</div><div class="fbody"><div class="ftit">Due link per due pubblici opposti finiscono sullo stesso URL</div><div class="fdet">Linktree ③ «Cerchi Venditori?» e ④ «Sei un Closer?» → italiancloser.com/placement-hub?utm_source=linktree, identici, senza utm_content.</div></div><div class="fsev h">alta</div></div><div class="fitem h"><div class="fcode">A2</div><div class="fbody"><div class="ftit">La pagina d’ingresso dei closer è etichettata «Accedi»</div><div class="fdet">Il bottone di partenza dice «Per Closers», la destinazione dice «Accedi», e l’unica azione è «Continua con Google». Nessun «Registrati».</div></div><div class="fsev h">alta</div></div><div class="fitem h"><div class="fcode">A3</div><div class="fbody"><div class="ftit">Un CTA pubblico porta dentro la dashboard riservata</div><div class="fdet">«Vedi altri →» sul Placement Hub apre /closer/risultati: barra laterale completa e «Logout» serviti a un visitatore non autenticato, senza alcun punto d’iscrizione.</div></div><div class="fsev h">alta</div></div><div class="fitem h"><div class="fcode">A4</div><div class="fbody"><div class="ftit">La community più grande non ha un ponte verso il prodotto</div><div class="fdet">486 membri Skool, la cui descrizione promette «offerte di lavoro (Italia e USA)» — nessun link osservabile verso il Placement Hub. Stesso vuoto dal Discord da 615 membri.</div></div><div class="fsev h">alta</div></div><div class="fitem m"><div class="fcode">A5</div><div class="fbody"><div class="ftit">La parola chiave vive su un solo post, ma viene scritta ovunque</div><div class="fdet">«sales» digitato due volte sul post di Miami, 18 settimane fa, senza risposta. Nessun sistema di recupero.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">A6</div><div class="fbody"><div class="ftit">Il menu moltiplica le scelte invece di ordinarle</div><div class="fdet">Bio (2 voci) → Linktree (6 voci) = fino a 8 decisioni prima di ricevere una sola informazione utile. Nessuna voce marcata «inizia da qui».</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">A7</div><div class="fbody"><div class="ftit">L’unica cattura di contatto è su una piattaforma terza</div><div class="fdet">Telefono ed email si raccolgono solo nel questionario d’iscrizione a Skool. Il sito del brand non ha alcun form.</div></div><div class="fsev m">media</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 02</div><h3>MISURAZIONE</h3><p>Cosa il sistema può sapere di se stesso.</p><div class="fchips"><span class="fchip h">2 alta</span><span class="fchip m">2 media</span><span class="fchip tot">4 rilievi</span></div></div><div class="fitems"><div class="fitem h"><div class="fcode">B1</div><div class="fbody"><div class="ftit">Le due pagine che convertono non hanno analytics</div><div class="fdet">Nessun tag su app.italiancloser.com: né /login (ramo closer), né /aziende/contatta (ramo azienda). GA4 si ferma sul sito marketing.</div></div><div class="fsev h">alta</div></div><div class="fitem h"><div class="fcode">B2</div><div class="fbody"><div class="ftit">L’invio del form aziende non genera evento</div><div class="fdet">Non è osservabile quante aziende iniziano il modulo, quante lo completano, su quale degli 8 campi si fermano.</div></div><div class="fsev h">alta</div></div><div class="fitem m"><div class="fcode">B3</div><div class="fbody"><div class="ftit">Il traffico dai due link Linktree è indistinguibile</div><div class="fdet">Stesso utm_source, nessun utm_content: non si può separare la domanda del closer da quella dell’azienda nemmeno a posteriori.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">B4</div><div class="fbody"><div class="ftit">Nessun pixel pubblicitario su alcuna superficie</div><div class="fdet">Solo GA4 sul sito. Nessun pubblico riutilizzabile viene costruito dal traffico che già arriva.</div></div><div class="fsev m">media</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 03</div><h3>DOMANDA E CONTENUTO</h3><p>Dove il pubblico si muove davvero, e dove va lo sforzo.</p><div class="fchips"><span class="fchip h">1 alta</span><span class="fchip m">3 media</span><span class="fchip l">1 bassa</span><span class="fchip tot">5 rilievi</span></div></div><div class="fitems"><div class="fitem h"><div class="fcode">C1</div><div class="fbody"><div class="ftit">Lo sforzo è allocato dove la resa è più bassa</div><div class="fdet">460 video YouTube → mediana ≈110 visualizzazioni su 546 iscritti. 5 post Instagram → uno da 857 like e 152 commenti. Il canale più costoso è il meno produttivo.</div></div><div class="fsev h">alta</div></div><div class="fitem m"><div class="fcode">C2</div><div class="fbody"><div class="ftit">La superficie che porta più persone è la meno documentata</div><div class="fdet">5 post in totale, 4 dei quali personali. Chi arriva sul profilo dopo il reel non ha materiale per decidere.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">C3</div><div class="fbody"><div class="ftit">Il video della home ha dieci mesi e 503 visualizzazioni</div><div class="fdet">«La mia esperienza con la Vendita da Remoto», 21 ott 2025, 13:57. Occupa il momento di massima attenzione del sito.</div></div><div class="fsev m">media</div></div><div class="fitem l"><div class="fcode">C4</div><div class="fbody"><div class="ftit">Le richieste dirette del pubblico non vengono raccolte</div><div class="fdet">Almeno una richiesta esplicita di contenuto nei commenti, senza replica visibile. È ricerca di mercato gratuita lasciata cadere.</div></div><div class="fsev l">bassa</div></div><div class="fitem m"><div class="fcode">C5</div><div class="fbody"><div class="ftit">L’H1 della home è il nome del brand</div><div class="fdet">«ITALIANCLOSER» — non una promessa. Il visitatore deve leggere per capire l’offerta invece di riconoscerla subito.</div></div><div class="fsev m">media</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 04</div><h3>PROVA SOCIALE</h3><p>Cosa trova chi va a verificare prima di dare i propri dati.</p><div class="fchips"><span class="fchip h">1 alta</span><span class="fchip m">3 media</span><span class="fchip l">1 bassa</span><span class="fchip tot">5 rilievi</span></div></div><div class="fitems"><div class="fitem h"><div class="fcode">D1</div><div class="fbody"><div class="ftit">Trustpilot avvisa i visitatori che le recensioni potrebbero non essere rappresentative</div><div class="fdet">Banner della piattaforma: «Non risultano inviti alla recensione recenti». Compare sopra le recensioni.</div></div><div class="fsev h">alta</div></div><div class="fitem m"><div class="fcode">D2</div><div class="fbody"><div class="ftit">La raccolta è una campagna, non un’abitudine</div><div class="fdet">Recensioni concentrate 6–17 giugno 2026; risposte dell’azienda tutte il 17 giugno fra le 14:00:07 e le 14:02:05; ultima recensione visibile 13 luglio.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">D3</div><div class="fbody"><div class="ftit">Il sito dichiara più recensioni di quante ne esistano</div><div class="fdet">«50+» dichiarate contro 47 osservate. Verificabile in un click.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">D4</div><div class="fbody"><div class="ftit">Le testimonianze sul login sono rotte a vista</div><div class="fdet">Avatar grigi vuoti e card tagliate dal bordo, nel punto esatto in cui si chiede l’accesso all’account Google.</div></div><div class="fsev m">media</div></div><div class="fitem l"><div class="fcode">D5</div><div class="fbody"><div class="ftit">Il gruppo Skool non ha recensioni interne</div><div class="fdet">0 recensioni su 486 membri, su una piattaforma che le raccoglie nativamente. Prova sociale disponibile e non usata.</div></div><div class="fsev l">bassa</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 05</div><h3>ATTIVAZIONE E RITENZIONE</h3><p>Cosa succede alle persone dopo che sono entrate.</p><div class="fchips"><span class="fchip h">2 alta</span><span class="fchip m">1 media</span><span class="fchip l">1 bassa</span><span class="fchip tot">4 rilievi</span></div></div><div class="fitems"><div class="fitem h"><div class="fcode">E1</div><div class="fbody"><div class="ftit">Il 98% dei membri Skool è fermo al primo livello</div><div class="fdet">486 membri: L1 98% · L2 1% · L3 1% · L4–L9 0%. Quasi nessuno compie un secondo gesto dopo l’ingresso.</div></div><div class="fsev h">alta</div></div><div class="fitem h"><div class="fcode">E2</div><div class="fbody"><div class="ftit">La libreria è grande, la conversazione non esiste</div><div class="fdet">20 corsi e 155 moduli contro 17 post totali nel feed. Nessun canale per sapere dove le persone si bloccano.</div></div><div class="fsev h">alta</div></div><div class="fitem m"><div class="fcode">E3</div><div class="fbody"><div class="ftit">Il Discord accoglie senza contestualizzare</div><div class="fdet">615 membri, atterraggio su 🪧・inizia-qui, descrizione del server vuota. Chi entra da fuori non riceve un inquadramento.</div></div><div class="fsev m">media</div></div><div class="fitem l"><div class="fcode">E4</div><div class="fbody"><div class="ftit">31 online su 615 al momento del rilievo</div><div class="fdet">≈5%. Fotografia singola, non una serie — ma coerente con il quadro di attività bassa.</div></div><div class="fsev l">bassa</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 06</div><h3>COERENZA E ATTRITO</h3><p>Le crepe che il visitatore nota e che costano fiducia.</p><div class="fchips"><span class="fchip m">3 media</span><span class="fchip l">2 bassa</span><span class="fchip tot">5 rilievi</span></div></div><div class="fitems"><div class="fitem m"><div class="fcode">F1</div><div class="fbody"><div class="ftit">Due promesse di tempo diverse a due schermate di distanza</div><div class="fdet">Pagina marketing: «< 48h». Form aziende: «1–2 giorni lavorativi». La velocità è il punto di forza dichiarato.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">F2</div><div class="fbody"><div class="ftit">Otto campi obbligatori per un primo contatto B2B</div><div class="fdet">Tre di essi servono a chi riceve, non a chi compila; il messaggio libero — l’unico campo davvero utile — è limitato a 300 caratteri.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">F3</div><div class="fbody"><div class="ftit">Un requisito operativo compare nel form senza spiegazione</div><div class="fdet">«La tua azienda usa Slack (piano Pro o superiore)?» chiesto al primo contatto, senza una riga sul perché.</div></div><div class="fsev m">media</div></div><div class="fitem l"><div class="fcode">F4</div><div class="fbody"><div class="ftit">Handle e brand non coincidono su YouTube</div><div class="fdet">@mannyonjourney per un canale intitolato «Francesco Manara I Italian Closer».</div></div><div class="fsev l">bassa</div></div><div class="fitem l"><div class="fcode">F5</div><div class="fbody"><div class="ftit">Titolo di pagina duplicato sulla app</div><div class="fdet">«Risultati | Placement Hub | Placement Hub | Italiancloser».</div></div><div class="fsev l">bassa</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 07</div><h3>CIÒ CHE NON SI PUÒ SAPERE DALL’ESTERNO</h3><p>Registrato come ignoto. Nessuna raccomandazione poggia su questi punti.</p><div class="fchips"><span class="fchip q">6 ignoto</span><span class="fchip tot">6 rilievi</span></div></div><div class="fitems"><div class="fitem q"><div class="fcode">G1</div><div class="fbody"><div class="ftit">Come il sistema genera ricavo</div><div class="fdet">Nessun prezzo, checkout, piano a pagamento o termine economico su nessuna delle 8 superfici osservate. Il gruppo Skool non ha prodotti a pagamento; il Placement Hub non espone condizioni. Prima domanda da fare a voce.</div></div><div class="fsev q">ignoto</div></div><div class="fitem q"><div class="fcode">G2</div><div class="fbody"><div class="ftit">Cosa succede davvero dopo il commento «sales»</div><div class="fdet">Se parta un DM, con che ritardo, con che contenuto, se richieda il follow. Non osservabile senza accesso all’account.</div></div><div class="fsev q">ignoto</div></div><div class="fitem q"><div class="fcode">G3</div><div class="fbody"><div class="ftit">Cosa c’è dentro il Discord oltre 🪧・inizia-qui</div><div class="fdet">Struttura dei canali, moderazione, ritmo reale delle conversazioni.</div></div><div class="fsev q">ignoto</div></div><div class="fitem q"><div class="fcode">G4</div><div class="fbody"><div class="ftit">Cosa c’è dentro la Classroom Skool</div><div class="fdet">Se esista un modulo che rimanda al Placement Hub, e come sia sequenziato il percorso.</div></div><div class="fsev q">ignoto</div></div><div class="fitem q"><div class="fcode">G5</div><div class="fbody"><div class="ftit">Cosa succede dopo il login Google</div><div class="fdet">L’onboarding dichiarato in pagina, i suoi passaggi, il suo tasso di completamento.</div></div><div class="fsev q">ignoto</div></div><div class="fitem q"><div class="fcode">G6</div><div class="fbody"><div class="ftit">Se i «70+ placement» siano contrattualizzati</div><div class="fdet">Nessuna superficie pubblica mostra la natura del rapporto con le 20+ aziende partner.</div></div><div class="fsev q">ignoto</div></div></div></div></div>
 </div></section>
 
-<section><div class="wrap">
- <span class="secnum">05 — Il conto</span>
- <h2>Quanto costa lasciare il funnel com’è</h2>
- <p class="dek">I numeri di partenza li metti tu: nessuno di questi valori è un’ipotesi mia sul tuo fatturato.
- Le percentuali di perdita partono da ciò che è stato osservato il 21 agosto 2026, e le puoi cambiare tutte.
- <b>Muovi ogni cursore dove vuoi: il numero in fondo resta rosso.</b></p>
- <div class="calc" id="calc">
- <div class="cgrid">
-  <div class="cpanel">
-   <div class="cph">I tuoi numeri<span>li sai solo tu — cambiali e guarda cosa succede</span></div>
-   <div class="cins"><label class="cin" for="i-A"><div class="cl">Persone nuove che entrano ogni mese nel tuo ecosistema</div><div class="ch">Discord + Skool messi insieme, quelle che arrivano davvero dentro.</div><div class="cf"><span class="cu">persone</span><input id="i-A" type="number" data-k="A" value="60" min="0" max="500" step="5"></div></label><label class="cin" for="i-V"><div class="cl">Quanto vale per te un closer che arriva fino alla collocazione</div><div class="ch">Il tuo numero, non il mio. Se non lo sai ancora, è già un dato.</div><div class="cf"><span class="cu">€</span><input id="i-V" type="number" data-k="V" value="400" min="0" max="5000" step="50"></div></label><label class="cin" for="i-Z"><div class="cl">Aziende che ti contattano ogni mese</div><div class="ch">Da qualunque canale: form, DM, email, passaparola.</div><div class="cf"><span class="cu">aziende</span><input id="i-Z" type="number" data-k="Z" value="4" min="0" max="60" step="1"></div></label><label class="cin" for="i-W"><div class="cl">Quanto vale per te un'azienda che diventa cliente</div><div class="ch">Su tutta la durata del rapporto, non sulla prima collocazione.</div><div class="cf"><span class="cu">€</span><input id="i-W" type="number" data-k="W" value="1500" min="0" max="20000" step="250"></div></label><label class="cin" for="i-O"><div class="cl">Ore a settimana che fai a mano</div><div class="ch">Vetting, matching, presidio dei 19 canali, risposte una per una.</div><div class="cf"><span class="cu">ore</span><input id="i-O" type="number" data-k="O" value="12" min="0" max="60" step="1"></div></label><label class="cin" for="i-E"><div class="cl">Quanto vale un'ora del tuo tempo</div><div class="ch">Se non lo hai mai calcolato: fatturato mensile diviso ore lavorate.</div><div class="cf"><span class="cu">€</span><input id="i-E" type="number" data-k="E" value="60" min="0" max="500" step="5"></div></label></div>
-  </div>
-  <div class="cpanel">
-   <div class="cph">Le perdite osservate<span>partono da ciò che si vede oggi · sono tutte modificabili</span></div>
-   <div class="crts"><div class="crt"><div class="crh"><div class="crl">Quota che si perde nello smistamento</div><output class="cro" id="o-l1">30%</output></div><input class="crs" id="i-l1" type="range" data-k="l1" value="30" min="0" max="90" step="1"><div class="cre"><span class="creh">da cosa viene questo numero</span>Osservato: i link Linktree ③ e ④ parlano a due pubblici opposti e portano allo stesso URL; il menu bio → Linktree chiede fino a 8 decisioni; la porta dei closer si chiama «Accedi» e offre solo «Continua con Google», senza «Registrati».</div></div><div class="crt"><div class="crh"><div class="crl">Quota che entra e non si attiva mai</div><output class="cro" id="o-l2">90%</output></div><input class="crs" id="i-l2" type="range" data-k="l2" value="90" min="0" max="99" step="1"><div class="cre"><span class="creh">da cosa viene questo numero</span>Osservato su Skool: 98% dei 486 membri fermo a Level 1, 1% a L2, 1% a L3, 0% oltre. 17 post in tutta la storia del gruppo. Su Discord, 19 canali e un solo admin a presidiarli.</div></div><div class="crt"><div class="crh"><div class="crl">Dove arriverebbe la stessa gente con un funnel che funziona</div><output class="cro" id="o-t">20%</output></div><input class="crs" id="i-t" type="range" data-k="t" value="20" min="0" max="50" step="1"><div class="cre"><span class="creh">da cosa viene questo numero</span>È l'unico numero di questa pagina che non è osservato: è un'ipotesi, non un dato, e la decidi tu. Oggi, con lo smistamento com'è, di 60 persone ne arrivano in fondo 4. La domanda è quante ne arriverebbero con una sola porta, un solo percorso e un'attivazione guidata. Abbassalo quanto vuoi: il numero rosso resta.</div></div><div class="crt"><div class="crh"><div class="crl">Quota di aziende che si ferma sull'attrito del modulo</div><output class="cro" id="o-l3">40%</output></div><input class="crs" id="i-l3" type="range" data-k="l3" value="40" min="0" max="90" step="1"><div class="cre"><span class="creh">da cosa viene questo numero</span>Osservato: 8 campi obbligatori prima di vedere un solo profilo, la domanda «La tua azienda usa Slack (piano Pro o superiore)?», e due promesse diverse sullo stesso servizio — «< 48h» sul sito, «1–2 giorni lavorativi» nel form.</div></div><div class="crt"><div class="crh"><div class="crl">Quota del tuo lavoro manuale che una macchina potrebbe fare</div><output class="cro" id="o-au">60%</output></div><input class="crs" id="i-au" type="range" data-k="au" value="60" min="0" max="95" step="1"><div class="cre"><span class="creh">da cosa viene questo numero</span>Osservato: nessun punto di cattura contatti sul tuo dominio, nessun analytics sulle due pagine che convertono, nessun instradamento automatico fra le superfici. Oggi il sistema sei tu.</div></div></div>
-  </div>
+<section class="ksec"><div class="wrap">
+<div class="kalc" id="calc">
+ <div class="khead">
+  <span class="keb">05 &mdash; Il conto</span>
+  <h2>Quanto costa lasciare il funnel com&rsquo;&egrave;</h2>
+  <p>I numeri di partenza li metti tu &mdash; nessuno &egrave; un&rsquo;ipotesi mia sul tuo fatturato. Le percentuali
+  partono da ci&ograve; che &egrave; stato osservato il 21 agosto 2026 e le puoi cambiare tutte.
+  <b>Muovi ogni cursore dove vuoi: il numero in fondo resta rosso.</b></p>
  </div>
 
- <div class="cout">
-  <div class="cwf">
-   <div class="cwh">Cosa succede alle persone che entrano, ogni mese</div>
-   <div class="cbar" id="cbar">
-    <div class="cb s1"><i></i><b id="b1">–</b><span>si perdono nello smistamento</span></div>
-    <div class="cb s2"><i></i><b id="b2">–</b><span>entrano e non si attivano</span></div>
-    <div class="cb s3"><i></i><b id="b3">–</b><span>arrivano davvero in fondo</span></div>
+ <div class="kgrid">
+
+  <div class="kcol">
+   <div class="kch">I tuoi numeri<span>li sai solo tu</span></div>
+   <div class="kins"><label class="kin" for="i-A"><span class="kl">Persone nuove ogni mese<em>Discord + Skool, quelle che entrano davvero</em></span><span class="kf"><input id="i-A" type="number" data-k="A" value="60" min="0" max="500" step="5"><i>persone</i></span></label><label class="kin" for="i-V"><span class="kl">Valore di un closer collocato<em>Il tuo numero, non il mio</em></span><span class="kf"><input id="i-V" type="number" data-k="V" value="400" min="0" max="5000" step="50"><i>€</i></span></label><label class="kin" for="i-Z"><span class="kl">Aziende che ti contattano ogni mese<em>Form, DM, email, passaparola</em></span><span class="kf"><input id="i-Z" type="number" data-k="Z" value="4" min="0" max="60" step="1"><i>aziende</i></span></label><label class="kin" for="i-W"><span class="kl">Valore di un'azienda cliente<em>Su tutta la durata del rapporto</em></span><span class="kf"><input id="i-W" type="number" data-k="W" value="1500" min="0" max="20000" step="250"><i>€</i></span></label><label class="kin" for="i-O"><span class="kl">Ore a settimana fatte a mano<em>Vetting, matching, presidio, risposte</em></span><span class="kf"><input id="i-O" type="number" data-k="O" value="12" min="0" max="60" step="1"><i>ore</i></span></label><label class="kin" for="i-E"><span class="kl">Valore di un'ora del tuo tempo<em>Fatturato mensile &divide; ore lavorate</em></span><span class="kf"><input id="i-E" type="number" data-k="E" value="60" min="0" max="500" step="5"><i>€</i></span></label></div>
+  </div>
+
+  <div class="kcol">
+   <div class="kch">Le perdite osservate<span>tutte modificabili</span></div>
+   <div class="krts"><div class="krt"><div class="krh"><span class="krl">Si perde nello smistamento</span><output class="kro" id="o-l1">30%</output></div><input class="krs" id="i-l1" type="range" data-k="l1" value="30" min="0" max="90" step="1"><details class="kev"><summary>da cosa viene</summary><p>Osservato: i link Linktree ③ e ④ parlano a due pubblici opposti e portano allo stesso URL; il menu bio → Linktree chiede fino a 8 decisioni; la porta dei closer si chiama «Accedi» e offre solo «Continua con Google», senza «Registrati».</p></details></div><div class="krt"><div class="krh"><span class="krl">Entra e non si attiva mai</span><output class="kro" id="o-l2">90%</output></div><input class="krs" id="i-l2" type="range" data-k="l2" value="90" min="0" max="99" step="1"><details class="kev"><summary>da cosa viene</summary><p>Osservato su Skool: 98% dei 486 membri fermo a Level 1, 1% a L2, 1% a L3, 0% oltre. 17 post in tutta la storia del gruppo. Su Discord, 19 canali e un solo admin a presidiarli.</p></details></div><div class="krt"><div class="krh"><span class="krl">Dove arriverebbe con un funnel che funziona</span><output class="kro" id="o-t">20%</output></div><input class="krs" id="i-t" type="range" data-k="t" value="20" min="0" max="50" step="1"><details class="kev"><summary>da cosa viene</summary><p>È l'unico numero di questa pagina che non è osservato: è un'ipotesi, non un dato, e la decidi tu. Oggi, con lo smistamento com'è, di 60 persone ne arrivano in fondo 4. La domanda è quante ne arriverebbero con una sola porta, un solo percorso e un'attivazione guidata. Abbassalo quanto vuoi: il numero rosso resta.</p></details></div><div class="krt"><div class="krh"><span class="krl">Aziende ferme sull'attrito del modulo</span><output class="kro" id="o-l3">40%</output></div><input class="krs" id="i-l3" type="range" data-k="l3" value="40" min="0" max="90" step="1"><details class="kev"><summary>da cosa viene</summary><p>Osservato: 8 campi obbligatori prima di vedere un solo profilo, la domanda «La tua azienda usa Slack (piano Pro o superiore)?», e due promesse diverse sullo stesso servizio — «< 48h» sul sito, «1–2 giorni lavorativi» nel form.</p></details></div><div class="krt"><div class="krh"><span class="krl">Lavoro manuale che una macchina farebbe</span><output class="kro" id="o-au">60%</output></div><input class="krs" id="i-au" type="range" data-k="au" value="60" min="0" max="95" step="1"><details class="kev"><summary>da cosa viene</summary><p>Osservato: nessun punto di cattura contatti sul tuo dominio, nessun analytics sulle due pagine che convertono, nessun instradamento automatico fra le superfici. Oggi il sistema sei tu.</p></details></div></div>
+  </div>
+
+  <div class="kcol kres">
+   <div class="kch">Il conto<span>ogni mese, sul funnel di oggi</span></div>
+
+   <div class="kwf" id="cbar">
+    <div class="kb s1"><b id="b1">&ndash;</b><span>si perdono nello smistamento</span></div>
+    <div class="kb s2"><b id="b2">&ndash;</b><span>entrano e non si attivano</span></div>
+    <div class="kb s3"><b id="b3">&ndash;</b><span>arrivano davvero in fondo</span></div>
    </div>
-   <div class="cnote" id="cnote">–</div>
+   <p class="knote" id="cnote">&ndash;</p>
+
+   <table class="kbk">
+    <tr class="kbh"><td></td><td class="n">al mese</td><td class="y">12 mesi</td></tr>
+    <tr><td class="k">Closer che non arrivano in fondo<em id="f1">&ndash;</em></td>
+        <td class="n" id="m1">&ndash;</td><td class="y" id="y1">&ndash;</td></tr>
+    <tr><td class="k">Aziende ferme sul modulo<em id="f2">&ndash;</em></td>
+        <td class="n" id="m2">&ndash;</td><td class="y" id="y2">&ndash;</td></tr>
+    <tr><td class="k">Il tuo tempo su lavoro automatizzabile<em id="f3">&ndash;</em></td>
+        <td class="n" id="m3">&ndash;</td><td class="y" id="y3">&ndash;</td></tr>
+   </table>
+
+   <div class="ktot">
+    <div class="ktl">Costo di non fare niente<span>tenendo il funnel com&rsquo;&egrave; oggi</span></div>
+    <div class="ktv"><b id="tot">&ndash;</b><em>al mese</em></div>
+    <div class="kty">In 12 mesi <b id="toty">&ndash;</b></div>
+   </div>
+
+   <p class="kblind"><i>e questo non &egrave; nel conto</i> Le due pagine che convertono &mdash;
+   <b>/login</b> e <b>/aziende/contatta</b> &mdash; non hanno alcun analytics. Non &egrave; una perdita in euro:
+   &egrave; il motivo per cui questi numeri oggi si stimano invece di misurarli.</p>
   </div>
 
-  <table class="cbk">
-   <thead><tr><th>Dove se ne va</th><th>Come si calcola</th><th class="r">Al mese</th><th class="r">In 12 mesi</th></tr></thead>
-   <tbody>
-    <tr><td class="k">Closer che entrano e non arrivano in fondo</td>
-        <td class="f" id="f1">–</td><td class="r n" id="m1">–</td><td class="r n" id="y1">–</td></tr>
-    <tr><td class="k">Aziende che si fermano sull'attrito del modulo</td>
-        <td class="f" id="f2">–</td><td class="r n" id="m2">–</td><td class="r n" id="y2">–</td></tr>
-    <tr><td class="k">Il tuo tempo speso su cose che una macchina farebbe</td>
-        <td class="f" id="f3">–</td><td class="r n" id="m3">–</td><td class="r n" id="y3">–</td></tr>
-   </tbody>
-  </table>
-
-  <div class="ctot">
-   <div class="ctl">Costo di non fare niente<span>tenendo il funnel esattamente com'è oggi</span></div>
-   <div class="ctv"><b id="tot">–</b><em>al mese</em></div>
-   <div class="cty">In 12 mesi: <b id="toty">–</b></div>
-  </div>
-
-  <div class="cblind">
-   <div class="cbh">E questo non è nel conto</div>
-   <p>Le due pagine che convertono — <b>/login</b> per i closer e <b>/aziende/contatta</b> per le aziende — non hanno
-   alcun analytics installato. Non è una perdita in euro: è il motivo per cui nessuno dei numeri qui sopra
-   può oggi essere misurato invece che stimato. Finchè resta così, ogni decisione sul funnel si prende al buio.</p>
-  </div>
  </div>
 </div>
 </div></section>
