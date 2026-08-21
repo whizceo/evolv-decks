@@ -1127,11 +1127,8 @@ All open-source. No contact was made and nothing gated was accessed. Captured 20
 </script>
 <script>
 (function(){
-  var SEP = '
-
------ THE DOCUMENT STARTS HERE -----
-
-';
+  var NL = String.fromCharCode(10);
+  var SEP = NL + NL + '----- THE DOCUMENT STARTS HERE -----' + NL + NL;
   function put(t, btn, label){
     var done = function(){
       var old = btn.textContent; btn.textContent = label; btn.classList.add('ok');
