@@ -1,15 +1,19 @@
-<title>Mappa Funnel Italiancloser</title>
-<meta charset="utf-8">
+<!doctype html><html lang="it"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Italiancloser — Il Funnel</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
- --bg:#000000;--s1:#0d0d0f;--s2:#1c1c1e;--s3:#2c2c2e;--s4:#3a3a3c;
- --sep:rgba(84,84,88,.55);--hair:rgba(255,255,255,.09);
- --t1:#ffffff;--t2:rgba(235,235,245,.62);--t3:rgba(235,235,245,.32);--t4:rgba(235,235,245,.18);
- --blue:#0A84FF;--green:#30D158;--red:#FF453A;--orange:#FF9F0A;--yellow:#FFD60A;
- --purple:#BF5AF2;--teal:#40C8E0;--pink:#FF375F;--indigo:#5E5CE6;--cyan:#64D2FF;
- --gray:#8E8E93;--mint:#66D4CF;--brown:#AC8E68;
+ --bg:#ffffff;--s1:#f5f5f7;--s2:#ffffff;--s3:#efeff1;--s4:#e3e3e6;
+ --sep:rgba(0,0,0,.13);--hair:rgba(0,0,0,.085);
+ --t1:#1d1d1f;--t2:#515154;--t3:#86868b;--t4:#b4b4b8;
+ --blue:#0066CC;--blue-b:#F0F6FE;
+ --green:#1D7A33;--green-b:#EFF8F1;
+ --red:#C1121F;--red-b:#FDF2F2;
+ --orange:#B35309;--orange-b:#FDF5EC;
+ --purple:#7B3FA0;--purple-b:#F8F2FC;
+ --teal:#0071A4;--teal-b:#EFF7FB;
+ --gray:#86868b;--gray-b:#f5f5f7;
  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Inter,system-ui,sans-serif;
  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,monospace}
 html{-webkit-text-size-adjust:100%;background:var(--bg)}
@@ -18,292 +22,568 @@ body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px
 .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
 a{color:var(--blue);text-decoration:none}
 .mono{font-family:var(--mono)}
-/* ── header ── */
-header{padding:84px 0 40px}
+q{quotes:"\201C" "\201D"}
+/* header */
+header{padding:88px 0 42px}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
  color:var(--t3);margin-bottom:22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .eyebrow b{color:var(--blue);font-weight:600}
-h1{font-weight:700;font-size:clamp(2.3rem,5vw,3.6rem);line-height:1.05;letter-spacing:-.032em;margin-bottom:20px}
+h1{font-weight:700;font-size:clamp(2.3rem,5vw,3.7rem);line-height:1.04;letter-spacing:-.034em;margin-bottom:20px}
 h1 em{font-style:normal;color:var(--blue)}
 .lede{font-size:1.16rem;line-height:1.58;color:var(--t2);max-width:940px;letter-spacing:-.008em}
 .lede b{color:var(--t1);font-weight:600}
-.meta{margin-top:28px;font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.03em;display:flex;gap:22px;flex-wrap:wrap}
-/* ── stat band ── */
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:44px 0 8px}
-.stat{background:var(--s2);border:1px solid var(--hair);border-radius:14px;padding:20px 20px 18px}
-.stat .v{font-size:2.05rem;font-weight:700;letter-spacing:-.04em;line-height:1;margin-bottom:9px}
+.meta{margin-top:28px;font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.03em;
+ display:flex;gap:22px;flex-wrap:wrap}
+/* stat band */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:46px 0 6px}
+.stat{background:var(--s1);border:1px solid var(--hair);border-radius:16px;padding:20px 20px 18px}
+.stat .v{font-size:2.05rem;font-weight:700;letter-spacing:-.042em;line-height:1;margin-bottom:9px}
 .stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
 .stat .d{font-size:12.5px;color:var(--t2);margin-top:7px;line-height:1.4}
-/* ── section headings ── */
-section{padding:66px 0 0}
+.stat.alert{background:var(--red-b);border-color:rgba(193,18,31,.22)}
+.stat.alert .v{color:var(--red)}
+/* sections */
+section{padding:70px 0 0}
 .secnum{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--blue);display:block;margin-bottom:14px}
-h2{font-size:clamp(1.65rem,3vw,2.35rem);font-weight:700;letter-spacing:-.028em;line-height:1.1;margin-bottom:14px}
+h2{font-size:clamp(1.65rem,3vw,2.35rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:14px}
+h3{font-weight:650;letter-spacing:-.022em}
 .dek{color:var(--t2);font-size:1.02rem;max-width:900px;margin-bottom:30px}
-/* ── mobile gate ── */
+.dek b{color:var(--t1);font-weight:600}
+/* method / provenance */
+.method{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:26px}
+.mcard{background:var(--s1);border:1px solid var(--hair);border-radius:14px;padding:18px 20px}
+.mcard .mh{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--blue);margin-bottom:9px}
+.mcard p{font-size:12.8px;line-height:1.6;color:var(--t2)}
+/* table */
+.tbl{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.tbl th{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--t3);
+ text-align:left;padding:11px 14px;border-bottom:1px solid var(--sep);font-weight:400}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--hair);vertical-align:top;line-height:1.45}
+.tbl tr:hover td{background:var(--s1)}
+.tbl td.k{font-weight:550;width:26%}
+.tbl td.n{font-family:var(--mono);font-size:12px;width:22%;color:var(--t1)}
+.tbl td.d{font-family:var(--mono);font-size:12px;width:20%;color:var(--t3)}
+.tbl td.no{font-size:12.4px;color:var(--t2)}
+.tbl td.no.w{color:var(--red)}
+.tbl tr.grp td{background:var(--s3);font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
+ text-transform:uppercase;color:var(--t2);padding:8px 14px}
+/* mobile gate */
 .mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--bg);
  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
 .mobile-block .mb-t{font-size:1.9rem;font-weight:700;letter-spacing:-.03em;margin-bottom:14px}
 .mobile-block .mb-t em{font-style:normal;color:var(--blue)}
 .mobile-block .mb-s{font-size:.95rem;color:var(--t2);max-width:360px;line-height:1.55}
-.mobile-block .mb-e{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:22px}
+.mobile-block .mb-e{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+ color:var(--t3);margin-bottom:22px}
 @media screen and (max-width:900px){.mobile-block{display:flex!important}body>*:not(.mobile-block){display:none!important}}
 
-/* ── board ── */
-.boardwrap{margin:34px 0 0;border-top:1px solid var(--sep);border-bottom:1px solid var(--sep);background:var(--s1)}
-.toolbar{max-width:1240px;margin:0 auto;padding:20px 40px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.legend{display:flex;gap:16px;flex-wrap:wrap;flex:1}
-.lg{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--t3)}
-.lg i{width:11px;height:11px;border-radius:3px;display:inline-block;border:1.5px solid}
-.zoom{display:flex;gap:8px}
-.zb{background:var(--s3);border:1px solid var(--hair);color:var(--t1);font-family:var(--mono);font-size:12px;
- padding:8px 15px;border-radius:9px;cursor:pointer;letter-spacing:.06em;transition:background .15s}
-.zb:hover{background:var(--s4)}
-.board{position:relative;height:80vh;min-height:660px;overflow:hidden;cursor:grab;
- background-image:radial-gradient(circle,rgba(255,255,255,.055) 1px,transparent 1px);background-size:30px 30px}
-.board.drag{cursor:grabbing}
-#cv{position:absolute;transform-origin:0 0;left:0;top:0}
-svg.wires{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
-.ed{fill:none;stroke:rgba(255,255,255,.16);stroke-width:1.6}
-.ed.hot{stroke:var(--blue);stroke-width:2.4;opacity:.9}
-.ed.leak{stroke:var(--red);stroke-width:1.8;stroke-dasharray:7 6;opacity:.75}
-/* stage bands */
-.band{position:absolute;left:0;width:100%;border-top:1px solid rgba(255,255,255,.07)}
-.band.alt{background:rgba(255,255,255,.016)}
-.blab{position:absolute;left:34px;width:150px}
-.blab .bn{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--blue);letter-spacing:-.02em;line-height:1}
-.blab .bt{font-size:15px;font-weight:600;margin-top:7px;letter-spacing:-.01em}
-.blab .bs{font-size:11.5px;color:var(--t3);margin-top:4px;line-height:1.35}
-.lane{position:absolute;top:62px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;
- text-transform:uppercase;color:var(--blue);padding-bottom:9px;border-bottom:1px solid rgba(10,132,255,.3)}
-.lane.b{color:var(--green);border-bottom-color:rgba(48,209,88,.3)}
-.divider{position:absolute;top:0;width:1px;background:rgba(255,255,255,.09)}
-/* nodes */
-.n{position:absolute;background:var(--s2);border:1px solid var(--hair);border-radius:13px;padding:13px 15px 14px}
-.n .tg{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--t3);
- margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.n .bdg{font-size:8.5px;padding:2px 6px;border-radius:5px;background:rgba(255,69,58,.16);color:var(--red);letter-spacing:.08em}
-.n .ti{font-size:14px;font-weight:600;line-height:1.3;letter-spacing:-.012em;margin-bottom:7px}
-.n .l{font-size:11.5px;color:var(--t2);line-height:1.45}
-.n.ok{border-left:3px solid var(--blue)}
-.n.ok .tg{color:var(--blue)}
-.n.weak{border-left:3px solid var(--orange)}
-.n.weak .tg{color:var(--orange)}
-.n.dead{border-left:3px solid var(--gray);background:#131315}
-.n.dead .ti,.n.dead .l{color:var(--t3)}
-.n.dead .tg{color:var(--gray)}
-.n.leak{border-left:3px solid var(--red);background:#2C1F20;border-color:rgba(255,69,58,.24)}
-.n.leak .tg{color:var(--red)}
-.n.gate{border-left:3px solid var(--purple);background:#2B2231;border-color:rgba(191,90,242,.26)}
-.n.gate .tg{color:var(--purple)}
-.n.missing{border:1px dashed rgba(255,55,95,.42);border-left:3px solid var(--pink);background:#0a0a0c}
-.n.missing .tg{color:var(--pink)}
-.n.missing .ti{color:var(--t2)}
-.n.money{border-left:3px solid var(--green);background:#1E2B23;border-color:rgba(48,209,88,.26)}
-.n.money .tg{color:var(--green)}
-.hint{max-width:1240px;margin:0 auto;padding:16px 40px 22px;font-family:var(--mono);font-size:10.5px;
- letter-spacing:.07em;color:var(--t3)}
-/* table */
-table{width:100%;border-collapse:collapse;margin-top:6px}
-th{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--t3);
- text-align:left;padding:0 16px 12px 0;border-bottom:1px solid var(--sep)}
-td{padding:17px 16px 17px 0;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top;font-size:14.5px}
-td.ref{color:var(--blue);font-size:12px;font-weight:600;width:56px}
-td.dim{color:var(--t3);font-size:10px;letter-spacing:.09em;text-transform:uppercase;width:150px;padding-top:20px}
-td .sub{color:var(--t2);font-size:13px;margin-top:5px;line-height:1.5;max-width:720px}
-td strong{font-weight:600}
-.sev{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
- padding:4px 9px;border-radius:6px;white-space:nowrap}
-.s0{background:rgba(255,69,58,.16);color:var(--red)}
-.s1{background:rgba(255,159,10,.16);color:var(--orange)}
-.s2{background:rgba(255,214,10,.14);color:var(--yellow)}
-.s3{background:rgba(142,142,147,.18);color:var(--gray)}
-/* bottlenecks */
-.bt{display:grid;grid-template-columns:96px 1fr;gap:26px;padding:30px 0;border-bottom:1px solid rgba(255,255,255,.07)}
-.bt:last-child{border-bottom:0}
-.bk{font-size:34px;font-weight:600;color:var(--purple);letter-spacing:-.03em;line-height:1}
-.bt h3{font-size:1.32rem;font-weight:650;letter-spacing:-.022em;margin-bottom:9px}
-.bt p{color:var(--t2);font-size:15px;line-height:1.6;max-width:840px}
-.bl{margin-top:12px;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--t3)}
-.crossnav{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
-.cn{background:var(--s2);border:1px solid var(--hair);border-radius:11px;padding:13px 18px;
- font-size:13px;color:var(--t1);display:flex;gap:10px;align-items:center;transition:background .15s}
-.cn:hover{background:var(--s3)}
-.cn span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
 
-footer{margin-top:96px;border-top:1px solid var(--sep);padding:44px 0 70px}
+.vrailwrap{margin:30px 0 0;border-top:1px solid var(--sep);border-bottom:1px solid var(--sep);
+ background:var(--s1);padding:34px 0 30px}
+.vrail{display:flex;gap:16px;overflow-x:auto;padding:0 40px 18px;align-items:flex-start;
+ scrollbar-color:var(--s4) transparent}
+.vrail::-webkit-scrollbar{height:10px}
+.vrail::-webkit-scrollbar-thumb{background:var(--s4);border-radius:6px}
+.vrail::-webkit-scrollbar-track{background:transparent}
+.vf{flex:0 0 392px;background:var(--s2);border:1px solid var(--hair);border-top:3px solid var(--c);
+ border-radius:16px;overflow:hidden;display:flex;flex-direction:column;
+ box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 26px rgba(0,0,0,.045)}
+.vfh{padding:20px 20px 18px;border-bottom:1px solid var(--hair)}
+.vfp{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;
+ padding:4px 9px;border-radius:6px;background:var(--cb);color:var(--c);margin-bottom:13px;font-weight:600}
+.vf h3{font-size:1.14rem;line-height:1.22;margin-bottom:10px;color:var(--t1)}
+.vfw{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+ color:var(--t3);margin-bottom:11px}
+.vfy{font-size:12.6px;color:var(--t2);line-height:1.55}
+.vfc{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+.vc{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);
+ background:var(--s1);border:1px solid var(--hair);border-radius:6px;padding:4px 8px}
+.vc b{color:var(--t1);font-weight:700;font-size:10px}
+.vc.l{background:var(--red-b);border-color:rgba(193,18,31,.2);color:var(--red)}
+.vc.l b{color:var(--red)}
+.vc.b{background:var(--s3);color:var(--t3)}
+.vfs{padding:18px 20px 22px;display:flex;flex-direction:column}
+.vs{display:flex;gap:12px;border:1px solid var(--hair);border-radius:12px;padding:13px 14px 12px;background:var(--s2)}
+.vs.leak{border-color:rgba(193,18,31,.28);background:var(--red-b)}
+.vs.blind{border-style:dashed;border-color:var(--s4);background:var(--s1)}
+.vsn{flex:0 0 auto;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.04em;
+ color:var(--t3);padding-top:2px}
+.vs.leak .vsn{color:var(--red)}
+.vsb{min-width:0}
+.vst{font-size:13.4px;font-weight:600;line-height:1.35;letter-spacing:-.012em;margin-bottom:6px}
+.vs.leak .vst{color:#8E0F19}
+.vsd{font-size:12.2px;line-height:1.58;color:var(--t2)}
+.vsd q{font-style:italic}
+.vn{margin-top:10px;border-radius:9px;padding:10px 12px}
+.vn.leak{background:#fff;border:1px solid rgba(193,18,31,.28)}
+.vn.blind{background:#fff;border:1px dashed var(--s4)}
+.vnh{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;font-weight:600}
+.vn.leak .vnh{color:var(--red)}
+.vn.blind .vnh{color:var(--t3)}
+.vnt{font-size:12.4px;font-weight:600;line-height:1.35;margin-bottom:4px}
+.vnd{font-size:11.8px;line-height:1.55;color:var(--t2)}
+.vsf{margin-top:10px;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;
+ color:var(--t4);display:flex;align-items:center;gap:6px}
+.vsf:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--t4);flex:0 0 auto}
+.vsf.leak{color:var(--red)}.vsf.leak:before{background:var(--red)}
+.vsf.blind{color:var(--t3)}.vsf.blind:before{background:var(--t4);box-shadow:inset 0 0 0 1px #fff}
+.vsf.pass{color:var(--green)}.vsf.pass:before{background:var(--green)}
+.vsa{height:22px;position:relative;flex:0 0 auto}
+.vsa:before{content:"";position:absolute;left:20px;top:0;bottom:6px;width:1.5px;background:var(--s4)}
+.vsa:after{content:"";position:absolute;left:16.5px;bottom:0;width:8px;height:8px;
+ border-right:1.5px solid var(--s4);border-bottom:1.5px solid var(--s4);transform:rotate(45deg)}
+.vhint{margin-top:16px;font-family:var(--mono);font-size:9.5px;line-height:1.7;letter-spacing:.05em;
+ color:var(--t4);max-width:96ch}
+
+
+.fboard{position:relative;height:82vh;min-height:620px;background:#fff;border-top:1px solid var(--sep);
+ border-bottom:1px solid var(--sep);overflow:hidden;cursor:grab;margin-top:16px}
+.fboard:active{cursor:grabbing}
+.fcv{position:absolute;transform-origin:0 0;left:0;top:0}
+.fsvg{position:absolute;left:0;top:0;pointer-events:none;z-index:2}
+.ph{position:absolute;top:0;z-index:1;border-left:1px dashed var(--s4);pointer-events:none}
+.ph:last-of-type{border-right:1px dashed var(--s4)}
+.phl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--t4);
+ padding:18px 0 0 16px;white-space:nowrap}
+.lane{position:absolute;left:0;border-bottom:1px solid var(--hair);z-index:0}
+.lane.alt{background:#FAFAFB}
+.lane.blind{background:repeating-linear-gradient(135deg,#FDF3F3,#FDF3F3 9px,#FAEAEA 9px,#FAEAEA 18px);
+ border-top:1px solid rgba(193,18,31,.3);border-bottom:1px solid rgba(193,18,31,.3)}
+.lanebar{position:absolute;left:0;top:0;bottom:0;width:210px;z-index:14;pointer-events:none;overflow:hidden;
+ border-right:1px solid var(--sep);background:linear-gradient(90deg,rgba(255,255,255,.985) 76%,rgba(255,255,255,.86))}
+.lbr{position:absolute;left:0;width:210px;padding:11px 14px 0 18px;display:flex;flex-direction:column;gap:2px;
+ border-bottom:1px solid var(--hair);overflow:hidden}
+.lbr.tiny .lnote,.lbr.tiny .lflag{display:none}
+.ln{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--t1);font-weight:700;line-height:1.3}
+.lnote{font-family:var(--mono);font-size:8.6px;line-height:1.45;color:var(--t4);letter-spacing:.01em}
+.lflag{margin-top:6px;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;
+ color:#fff;background:var(--red);padding:2px 7px;border-radius:5px;width:fit-content}
+.lflag.ok{background:var(--blue)}
+.fn{position:absolute;z-index:3;background:#fff;border:1px solid var(--hair);border-radius:11px;
+ overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.05),0 4px 12px rgba(0,0,0,.04);display:flex;flex-direction:column}
+.nhd{font-family:var(--mono);font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;
+ padding:4px 11px;flex:0 0 auto;font-weight:600}
+.nbd{padding:9px 12px 10px;overflow:hidden}
+.fn .nt{font-size:12.4px;font-weight:600;color:var(--t1);line-height:1.32;letter-spacing:-.01em;
+ display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fn .nm{font-family:var(--mono);font-size:9.3px;line-height:1.5;color:var(--t3);margin-top:5px;
+ display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.fn.e{border-color:var(--t1);border-width:1.5px}
+.fn.e .nhd{background:var(--t1);color:#fff}
+.fn.x{border-color:rgba(193,18,31,.4);background:var(--red-b)}
+.fn.x .nhd{background:var(--red);color:#fff}
+.fn.x .nt{color:#8E0F19}
+.fn.q{border-style:dashed;border-color:var(--s4);background:var(--s1)}
+.fn.q .nhd{background:var(--s3);color:var(--t3)}
+.fn.q .nt{color:var(--t2)}
+.fn.cap{border-color:var(--blue);background:var(--blue-b)}
+.fn.cap .nhd{background:var(--blue);color:#fff}
+.fn.g{border-color:rgba(123,63,160,.35);background:var(--purple-b)}
+.fn.g .nhd{background:var(--purple);color:#fff}
+.fn.g .nt{color:#5C2C79}
+.fn:hover{box-shadow:0 6px 22px rgba(0,0,0,.13);z-index:9}
+.ed{fill:none;stroke-width:1.4}
+.ed.s{stroke:#B0B0B5}
+.ed.n{stroke:#D2D2D7}
+.ed.c{stroke:var(--t1);stroke-width:1.8}
+.ed.a{stroke:var(--blue);stroke-width:1.8;stroke-dasharray:7 4}
+.ed.x{stroke:var(--red);stroke-width:1.7;stroke-dasharray:5 4}
+.ed.q{stroke:#C7C7CC;stroke-dasharray:2 5}
+.ed.m{stroke:var(--red);stroke-width:1.3;stroke-dasharray:1 6;opacity:.75}
+.ahp{stroke:none}.ahp.s{fill:#B0B0B5}.ahp.n{fill:#D2D2D7}.ahp.c{fill:var(--t1)}.ahp.a{fill:var(--blue)}
+.ahp.x{fill:var(--red)}.ahp.q{fill:#C7C7CC}.ahp.m{fill:var(--red)}
+.elab{position:absolute;z-index:2;transform:translate(-50%,-50%);background:#fff;border:1px solid var(--hair);
+ border-radius:6px;padding:3px 7px;font-family:var(--mono);font-size:8.6px;letter-spacing:.02em;color:var(--t3);
+ max-width:172px;text-align:center;line-height:1.4;pointer-events:none}
+.elab.x,.elab.m{color:var(--red);border-color:rgba(193,18,31,.3);background:var(--red-b)}
+.elab.c{color:var(--t1);border-color:var(--s4)}
+.elab.a{color:var(--blue);border-color:rgba(0,102,204,.28);background:var(--blue-b)}
+.fctl{position:absolute;right:16px;bottom:16px;display:flex;gap:6px;z-index:20}
+.fctl button{font-family:var(--mono);font-size:11px;padding:7px 12px;border:1px solid var(--hair);background:#fff;
+ color:var(--t2);border-radius:8px;cursor:pointer;letter-spacing:.06em;
+ box-shadow:0 1px 2px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.05)}
+.fctl button:hover{border-color:var(--t1);color:var(--t1)}
+.fkey{margin-top:30px;display:flex;gap:16px;row-gap:9px;flex-wrap:wrap;border-top:1px solid var(--sep);
+ border-bottom:1px solid var(--hair);padding:12px 0;font-family:var(--mono);font-size:9px;
+ letter-spacing:.09em;text-transform:uppercase;color:var(--t3)}
+.fkey span{display:flex;align-items:center;gap:6px}
+.fkey i.sq{width:11px;height:11px;border-radius:3px;display:inline-block;border:1.5px solid var(--t1);background:#fff}
+.fkey i.sq.cap{border-color:var(--blue);background:var(--blue-b)}
+.fkey i.sq.x{border-color:var(--red);background:var(--red-b)}
+.fkey i.sq.g{border-color:var(--purple);background:var(--purple-b)}
+.fkey i.k{width:20px;height:0;border-top-width:2px;display:inline-block}
+.fkey i.k.s{border-top:2px solid #B0B0B5}
+.fkey i.k.c{border-top:2px solid var(--t1)}
+.fkey i.k.a{border-top:2px dashed var(--blue)}
+.fkey i.k.x{border-top:2px dashed var(--red)}
+.fkey i.k.q{border-top:2px dotted #C7C7CC}
+.fkey i.k.m{border-top:2px dotted var(--red)}
+.fhint{margin-top:14px;font-family:var(--mono);font-size:9.5px;line-height:1.7;letter-spacing:.05em;color:var(--t4);max-width:92ch}
+.fboard.far .elab{opacity:0}
+.fboard.far .fn .nm{opacity:.55}
+
+
+.fsecs{display:flex;flex-direction:column;gap:14px;margin-top:30px}
+.fsec{background:var(--s1);border:1px solid var(--hair);border-radius:18px;overflow:hidden;
+ display:grid;grid-template-columns:330px 1fr}
+.fsh{padding:26px 26px 26px;border-right:1px solid var(--hair)}
+.fsn{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);margin-bottom:11px}
+.fsh h3{font-size:1.14rem;line-height:1.22;margin-bottom:10px}
+.fsh p{font-size:12.6px;line-height:1.6;color:var(--t2)}
+.fchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}
+.fchip{font-family:var(--mono);font-size:8.8px;letter-spacing:.08em;text-transform:uppercase;
+ padding:4px 8px;border-radius:6px;background:#fff;border:1px solid var(--hair);color:var(--t3);font-weight:600}
+.fchip.h{background:var(--red-b);border-color:rgba(193,18,31,.22);color:var(--red)}
+.fchip.m{background:var(--orange-b);border-color:rgba(179,83,9,.2);color:var(--orange)}
+.fchip.l{background:var(--s3);color:var(--t2)}
+.fchip.q{background:var(--s3);color:var(--t3);border-style:dashed}
+.fchip.tot{background:var(--t1);border-color:var(--t1);color:#fff}
+.fitems{background:#fff;display:flex;flex-direction:column}
+.fitem{display:grid;grid-template-columns:52px 1fr 72px;gap:14px;padding:16px 22px;
+ border-bottom:1px solid var(--hair);align-items:start}
+.fitem:last-child{border-bottom:none}
+.fitem:hover{background:var(--s1)}
+.fcode{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.05em;color:var(--t4);padding-top:2px}
+.fitem.h .fcode{color:var(--red)}
+.ftit{font-size:13.6px;font-weight:600;line-height:1.35;letter-spacing:-.014em;margin-bottom:5px}
+.fdet{font-size:12.4px;line-height:1.6;color:var(--t2)}
+.fsev{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+ text-align:right;padding-top:3px;color:var(--t4);font-weight:600}
+.fsev.h{color:var(--red)}.fsev.m{color:var(--orange)}
+.fitem.q{background:repeating-linear-gradient(135deg,#fff,#fff 10px,var(--s1) 10px,var(--s1) 20px)}
+
+
+.calc{margin-top:30px}
+.cgrid{display:grid;grid-template-columns:1fr 1.15fr;gap:14px}
+.cpanel{background:var(--s1);border:1px solid var(--hair);border-radius:18px;padding:24px 24px 26px}
+.cph{font-size:1.06rem;font-weight:650;letter-spacing:-.02em;margin-bottom:20px;display:flex;flex-direction:column;gap:5px}
+.cph span{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);font-weight:400}
+.cins{display:flex;flex-direction:column;gap:12px}
+.cin{display:block;background:#fff;border:1px solid var(--hair);border-radius:12px;padding:13px 15px}
+.cin:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-b)}
+.cl{font-size:13.2px;font-weight:600;line-height:1.35;letter-spacing:-.012em}
+.ch{font-size:11.6px;color:var(--t3);line-height:1.5;margin-top:4px}
+.cf{display:flex;align-items:center;gap:8px;margin-top:9px}
+.cu{font-family:var(--mono);font-size:11px;color:var(--t3);min-width:44px}
+.cf input{flex:1;font-family:var(--mono);font-size:15px;font-weight:600;color:var(--t1);
+ border:none;border-bottom:1.5px solid var(--s4);background:transparent;padding:3px 0;outline:none;width:100%}
+.cf input:focus{border-bottom-color:var(--blue)}
+.crts{display:flex;flex-direction:column;gap:16px}
+.crt{background:#fff;border:1px solid var(--hair);border-radius:12px;padding:14px 16px 16px}
+.crh{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.crl{font-size:13.2px;font-weight:600;line-height:1.35;letter-spacing:-.012em}
+.cro{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--blue);flex:0 0 auto}
+.crs{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:var(--s3);
+ margin:13px 0 11px;outline:none}
+.crs::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;
+ border:1px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.18);cursor:pointer}
+.crs::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;
+ border:1px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.18);cursor:pointer}
+.cre{font-size:11.6px;line-height:1.6;color:var(--t2);border-top:1px solid var(--hair);padding-top:10px}
+.creh{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--t4);margin-bottom:5px}
+.cout{margin-top:14px}
+.cwf{background:var(--s1);border:1px solid var(--hair);border-radius:18px;padding:24px}
+.cwh{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--t3);margin-bottom:16px}
+.cbar{display:flex;gap:10px}
+.cb{flex:1;background:#fff;border:1px solid var(--hair);border-radius:12px;padding:15px 16px 14px;position:relative;overflow:hidden}
+.cb i{position:absolute;left:0;top:0;bottom:0;width:3px}
+.cb.s1 i{background:var(--orange)}.cb.s2 i{background:var(--red)}.cb.s3 i{background:var(--green)}
+.cb b{display:block;font-size:1.85rem;font-weight:700;letter-spacing:-.04em;line-height:1}
+.cb.s1 b{color:var(--orange)}.cb.s2 b{color:var(--red)}.cb.s3 b{color:var(--green)}
+.cb span{display:block;font-size:12px;color:var(--t2);margin-top:7px;line-height:1.4}
+.cnote{margin-top:14px;font-size:12.6px;color:var(--t2);line-height:1.6}
+.cnote b{color:var(--t1);font-weight:650}
+.cbk{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px;
+ background:#fff;border:1px solid var(--hair);border-radius:18px;overflow:hidden}
+.cbk th{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--t3);
+ text-align:left;padding:14px 18px;border-bottom:1px solid var(--sep);font-weight:400;background:var(--s1)}
+.cbk td{padding:14px 18px;border-bottom:1px solid var(--hair);vertical-align:top;line-height:1.5}
+.cbk tr:last-child td{border-bottom:none}
+.cbk td.k{font-weight:600;width:32%}
+.cbk td.f{font-family:var(--mono);font-size:11.4px;color:var(--t3);width:34%}
+.cbk .r{text-align:right}
+.cbk td.n{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--t1);white-space:nowrap}
+.ctot{margin-top:14px;background:var(--red-b);border:1px solid rgba(193,18,31,.25);border-radius:18px;
+ padding:30px 32px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px}
+.ctl{font-size:1.1rem;font-weight:650;letter-spacing:-.022em;color:#8E0F19;display:flex;flex-direction:column;gap:6px}
+.ctl span{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+ color:rgba(142,15,25,.6);font-weight:400}
+.ctv{text-align:right;display:flex;align-items:baseline;gap:10px;justify-content:flex-end}
+.ctv b{font-size:clamp(2.4rem,5.2vw,3.9rem);font-weight:700;letter-spacing:-.045em;color:var(--red);line-height:1}
+.ctv em{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(142,15,25,.65)}
+.cty{grid-column:1/-1;border-top:1px solid rgba(193,18,31,.2);padding-top:16px;
+ font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:rgba(142,15,25,.8)}
+.cty b{font-size:15px;font-weight:700;color:var(--red)}
+.cblind{margin-top:14px;background:var(--s1);border:1px dashed var(--s4);border-radius:18px;padding:22px 24px}
+.cbh{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--t3);margin-bottom:9px}
+.cblind p{font-size:13px;line-height:1.65;color:var(--t2);max-width:92ch}
+.cblind b{color:var(--t1);font-weight:600;font-family:var(--mono);font-size:12.4px}
+
+
+footer{margin-top:100px;border-top:1px solid var(--sep);padding:46px 0 74px;background:var(--s1)}
 .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
 .fk{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
 .fgrid p{font-size:12.5px;color:var(--t3);line-height:1.65;word-break:break-word}
 .fend{margin-top:38px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--t4)}
-</style>
+
+</style></head><body>
 <div class="mobile-block">
   <div class="mb-e">Evolv AI · Analisi Lead</div>
   <div class="mb-t">Aprilo sul <em>desktop</em></div>
   <div class="mb-s">Questa mappa è costruita per uno schermo grande. Aprila dal laptop per vederla intera.</div>
 </div>
 
-<div class="wrap"><header>
-<div class="eyebrow"><b>Evolv AI</b> · Analisi Lead · Sezione 02 di 06 · 21 agosto 2026</div>
-<h1>Il funnel di Italiancloser,<br>mappato <em>nodo per nodo</em></h1>
-<p class="lede">Quarantadue touchpoint reali, aperti e letti a mano. Il flusso scende dall'alto verso il basso attraverso sette stadi: <b>attenzione → instradamento → comunità → educazione → intake → conversione → denaro</b>. Due corsie parallele — a sinistra l'offerta (i closer), a destra la domanda (le aziende, cioè chi paga). Ogni linea rossa è un punto in cui qualcosa esce dal sistema.</p>
-<div class="meta"><span>42 NODI · 47 CONNESSIONI</span><span>27 PERDITE MISURATE</span><span>5 COLLI DI BOTTIGLIA</span><span>RILEVATO 20–21 AGO 2026</span></div>
-</header>
-<div class="stats">
- <div class="stat"><div class="v">615</div><div class="k">Discord</div><div class="d">l'asset vivo — 17–47 online</div></div>
- <div class="stat"><div class="v">17</div><div class="k">post su Skool</div><div class="d">in tutta la sua storia, 13 suoi</div></div>
- <div class="stat"><div class="v">0</div><div class="k">email possedute</div><div class="d">nessun form, nessun ESP</div></div>
- <div class="stat"><div class="v">0</div><div class="k">prezzi pubblici</div><div class="d">su qualsiasi superficie</div></div>
- <div class="stat"><div class="v">1</div><div class="k">persona</div><div class="d">ogni cancello del sistema</div></div>
-</div></div>
 
-<div class="boardwrap">
-<div class="toolbar">
- <div class="legend">
-  <div class="lg"><i style="border-color:var(--blue);background:rgba(10,132,255,.2)"></i>Attivo</div>
-  <div class="lg"><i style="border-color:var(--orange);background:rgba(255,159,10,.2)"></i>Debole</div>
-  <div class="lg"><i style="border-color:var(--gray);background:rgba(142,142,147,.2)"></i>Morto</div>
-  <div class="lg"><i style="border-color:var(--red);background:rgba(255,69,58,.2)"></i>Perdita</div>
-  <div class="lg"><i style="border-color:var(--purple);background:rgba(191,90,242,.2)"></i>Collo di bottiglia</div>
-  <div class="lg"><i style="border-color:var(--pink);border-style:dashed"></i>Inesistente</div>
-  <div class="lg"><i style="border-color:var(--green);background:rgba(48,209,88,.2)"></i>Ricavo</div>
+<header><div class="wrap">
+ <div class="eyebrow"><b>Evolv AI</b> · Analisi Lead · Italiancloser · Sezione 02 di 06</div>
+ <h1>Il funnel, percorso per percorso<br>e <em>dove perde le persone</em>.</h1>
+ <p class="lede">Ho aperto ogni superficie pubblica di Italiancloser il 21 agosto 2026 e l’ho percorsa come la percorrerebbe
+ una persona vera: un aspirante closer, un closer pronto, un’azienda che cerca venditori, uno scettico che va a
+ verificare. Ogni riquadro qui dentro è qualcosa che ho <b>visto con i miei occhi</b>, con la data accanto.
+ Dove non si può sapere dall’esterno, il documento lo dice invece di indovinare.
+ <b>Ogni touchpoint è un punto in cui una persona può uscire</b> — è così che va letto tutto quello che segue.</p>
+ <div class="meta"><span>Rilevazione 21 agosto 2026</span><span>8 superfici</span>
+  <span>35 touchpoint</span><span>56 nodi · 60 collegamenti</span><span>36 rilievi</span></div>
+
+ <div class="stats">
+  <div class="stat"><div class="v">6</div><div class="k">Percorsi</div>
+   <div class="d">i modi reali in cui si entra nel sistema</div></div>
+  <div class="stat"><div class="v">35</div><div class="k">Touchpoint</div>
+   <div class="d">passaggi osservati, uno per uno</div></div>
+  <div class="stat alert"><div class="v">27</div><div class="k">Punti di perdita</div>
+   <div class="d">dove una persona esce e non torna</div></div>
+  <div class="stat"><div class="v">4</div><div class="k">Zone cieche</div>
+   <div class="d">passaggi che da fuori non si vedono</div></div>
+  <div class="stat"><div class="v">1</div><div class="k">Cattura contatti</div>
+   <div class="d">un solo punto, su piattaforma di terzi</div></div>
  </div>
- <div class="zoom"><button class="zb" id="zo">−</button><button class="zb" id="zf">Adatta</button><button class="zb" id="zi">+</button></div>
-</div>
-<div class="board" id="bd"><div id="cv"><div class="band" style="top:130px;height:426px"></div><div class="blab" style="top:188px"><div class="bn">01</div><div class="bt">Attenzione</div><div class="bs">dove qualcuno lo incontra per la prima volta</div></div><div class="band alt" style="top:556px;height:446px"></div><div class="blab" style="top:614px"><div class="bn">02</div><div class="bt">Instradamento</div><div class="bs">dove quella persona viene mandata</div></div><div class="band" style="top:1002px;height:466px"></div><div class="blab" style="top:1060px"><div class="bn">03</div><div class="bt">Comunità</div><div class="bs">dove atterra e chi la tiene aperta</div></div><div class="band alt" style="top:1468px;height:426px"></div><div class="blab" style="top:1526px"><div class="bn">04</div><div class="bt">Educazione</div><div class="bs">cosa riceve una volta dentro</div></div><div class="band" style="top:1894px;height:266px"></div><div class="blab" style="top:1952px"><div class="bn">05</div><div class="bt">Intake</div><div class="bs">dove alza la mano</div></div><div class="band alt" style="top:2160px;height:246px"></div><div class="blab" style="top:2218px"><div class="bn">06</div><div class="bt">Conversione</div><div class="bs">chi decide, e quanto ci mette</div></div><div class="band" style="top:2406px;height:266px"></div><div class="blab" style="top:2464px"><div class="bn">07</div><div class="bt">Denaro</div><div class="bs">dove esistono i soldi</div></div> <div class="lane" style="left:170px;width:1422px">Corsia A · l'offerta — i closer · tutto costruito qui</div><div class="lane b" style="left:1642px;width:738px">Corsia B · la domanda — le aziende · qui stanno i soldi</div><div class="divider" style="left:1630px;height:2742px"></div>
-<svg class="wires" width="2430" height="2742"><path class="ed hot" d="M526,265 C574,265 504,265 552,265"/>
-<path class="ed hot" d="M710,338 C710,472 368,484 368,618"/>
-<path class="ed n" d="M710,338 C710,472 710,484 710,618"/>
-<path class="ed n" d="M1052,338 C1052,472 1052,484 1052,618"/>
-<path class="ed n" d="M1394,318 C1394,1104 1052,1170 1052,1956"/>
-<path class="ed n" d="M368,498 C368,770 368,792 368,1064"/>
-<path class="ed hot" d="M368,764 C368,908 368,920 368,1064"/>
-<path class="ed leak" d="M526,691 C881,691 881,681 1236,681"/>
-<path class="ed leak" d="M368,764 C368,810 368,752 368,798"/>
-<path class="ed n" d="M868,671 C916,671 846,691 894,691"/>
-<path class="ed n" d="M1052,764 C1052,908 368,920 368,1064"/>
-<path class="ed n" d="M1052,764 C1052,908 1394,920 1394,1064"/>
-<path class="ed n" d="M1052,764 C1052,1336 1052,1384 1052,1956"/>
-<path class="ed leak" d="M1210,691 C1446,691 1446,681 1682,681"/>
-<path class="ed n" d="M526,1137 C574,1137 504,1117 552,1117"/>
-<path class="ed n" d="M868,1117 C916,1117 846,1127 894,1127"/>
-<path class="ed leak" d="M1052,1190 C1052,1353 368,1367 368,1530"/>
-<path class="ed hot" d="M368,1210 C368,1364 368,1376 368,1530"/>
-<path class="ed n" d="M526,1593 C574,1593 504,1603 552,1603"/>
-<path class="ed n" d="M868,1603 C1052,1603 1052,1593 1236,1593"/>
-<path class="ed n" d="M1394,1230 C1394,1276 368,1218 368,1264"/>
-<path class="ed n" d="M526,1327 C574,1327 504,1337 552,1337"/>
-<path class="ed leak" d="M710,1264 C710,1218 368,1256 368,1210"/>
-<path class="ed n" d="M1394,1230 C1394,1374 1052,1386 1052,1530"/>
-<path class="ed leak" d="M1052,1656 C1052,1928 1394,1950 1394,2222"/>
-<path class="ed n" d="M1394,1656 C1394,1702 368,1664 368,1710"/>
-<path class="ed hot" d="M368,1656 C368,1800 368,1812 368,1956"/>
-<path class="ed n" d="M526,2029 C574,2029 504,2029 552,2029"/>
-<path class="ed leak" d="M710,1956 C710,1588 1840,1558 1840,1190"/>
-<path class="ed n" d="M710,2102 C710,2160 368,2164 368,2222"/>
-<path class="ed n" d="M1210,2019 C1258,2019 1188,2029 1236,2029"/>
-<path class="ed n" d="M1394,2102 C1394,2160 1052,2164 1052,2222"/>
-<path class="ed leak" d="M894,2019 C710,2019 710,2029 526,2029"/>
-<path class="ed n" d="M526,2275 C574,2275 504,2275 552,2275"/>
-<path class="ed n" d="M868,2275 C916,2275 846,2275 894,2275"/>
-<path class="ed n" d="M1210,2275 C1258,2275 1188,2285 1236,2285"/>
-<path class="ed hot" d="M1052,1656 C1052,2046 368,2078 368,2468"/>
-<path class="ed hot" d="M1052,1656 C1052,2046 710,2078 710,2468"/>
-<path class="ed n" d="M1394,2348 C1394,2406 1052,2410 1052,2468"/>
-<path class="ed n" d="M1840,338 C1840,472 1840,484 1840,618"/>
-<path class="ed n" d="M1840,744 C1840,898 1840,910 1840,1064"/>
-<path class="ed n" d="M1998,1127 C2046,1127 1976,1117 2024,1117"/>
-<path class="ed n" d="M1840,744 C1840,1121 1840,1153 1840,1530"/>
-<path class="ed n" d="M1840,1656 C1840,1800 1840,1812 1840,1956"/>
-<path class="ed n" d="M1840,2102 C1840,2160 1840,2164 1840,2222"/>
-<path class="ed hot" d="M1840,2328 C1840,2395 1840,2401 1840,2468"/>
-<path class="ed leak" d="M1840,1190 C1840,1685 1840,1727 1840,2222"/></svg>
-<div class="n ok" style="left:210px;top:192px;width:316px;min-height:146px"><div class="tg">sorgente<span class="bdg">L1</span></div><div class="ti">Instagram Reels</div><div class="l">22 reel / 30 gg · 56.520 view totali</div><div class="l">mediana 1.397 · like 1,73%</div><div class="l">commenti 0,127% — l&#x27;unico motore di scoperta</div></div>
-<div class="n ok" style="left:552px;top:192px;width:316px;min-height:146px"><div class="tg">sorgente</div><div class="ti">Profilo @italiancloser</div><div class="l">3.623 follower · 577 seguiti · 5 post in griglia</div><div class="l">8 storie in evidenza · verificato</div><div class="l">categoria: Community</div></div>
-<div class="n weak" style="left:894px;top:192px;width:316px;min-height:146px"><div class="tg">sorgente<span class="bdg">L25</span></div><div class="ti">YouTube @mannyonjourney</div><div class="l">546 iscritti</div><div class="l">long-form: 40 · 91 · 83 view</div><div class="l">short: 200–1.069 view</div></div>
-<div class="n weak" style="left:1236px;top:192px;width:316px;min-height:126px"><div class="tg">prova<span class="bdg">L19</span></div><div class="ti">Trustpilot</div><div class="l">47 recensioni · 4,8★ · rivendicato apr 2026</div><div class="l">il badge sul sito dichiara «50+»</div></div>
-<div class="n weak" style="left:210px;top:372px;width:316px;min-height:126px"><div class="tg">sorgente</div><div class="ti">Passaparola</div><div class="l">canale Discord #porta-un-k1ller</div><div class="l">nessun tracciamento, nessun incentivo</div></div>
-<div class="n missing" style="left:552px;top:372px;width:316px;min-height:126px"><div class="tg">assente<span class="bdg">L21</span></div><div class="ti">Ricerca Google</div><div class="l">0 risultati per «Francesco Manara high ticket closer»</div><div class="l">nessuna superficie indicizzabile</div></div>
-<div class="n missing" style="left:894px;top:372px;width:316px;min-height:126px"><div class="tg">assente<span class="bdg">L22</span></div><div class="ti">LinkedIn</div><div class="l">non esiste</div><div class="l">vende recruiting B2B senza presenza B2B</div></div>
-<div class="n weak" style="left:210px;top:618px;width:316px;min-height:146px"><div class="tg">instradamento<span class="bdg">L2</span></div><div class="ti">Bio link 1 — «Community Discord»</div><div class="l">→ discord.gg/cAWSm5JYXA</div><div class="l">il 100% del traffico primario esce da qui</div><div class="l">salta sito, Skool, email, pixel</div></div>
-<div class="n ok" style="left:552px;top:618px;width:316px;min-height:106px"><div class="tg">instradamento</div><div class="ti">Bio link 2 — «Risorse Gratuite»</div><div class="l">→ linktr.ee/francescomanarabusiness</div></div>
-<div class="n weak" style="left:894px;top:618px;width:316px;min-height:146px"><div class="tg">instradamento<span class="bdg">L23</span></div><div class="ti">Linktree (piano gratuito)</div><div class="l">6 link, 2 puntano alla stessa URL</div><div class="l">card Discord cachata a «579 membri»</div><div class="l">banner che vende Linktree al suo traffico</div></div>
-<div class="n missing" style="left:1236px;top:618px;width:316px;min-height:126px"><div class="tg">assente<span class="bdg">L3</span></div><div class="ti">Cattura email</div><div class="l">0 form · 0 opt-in · 0 ESP · 0 lead magnet</div><div class="l">nessuna lista, in tutto il business</div></div>
-<div class="n missing" style="left:210px;top:798px;width:316px;min-height:146px"><div class="tg">assente<span class="bdg">L4</span></div><div class="ti">Meta Pixel</div><div class="l">non installato — solo GA4 (G-07PW41NQYZ)</div><div class="l">56K view/mese non ritargetizzabili</div><div class="l">GA4 non vede né Instagram né Discord</div></div>
-<div class="n ok" style="left:210px;top:1064px;width:316px;min-height:146px"><div class="tg">community</div><div class="ti">Discord — Italian Closer Academy</div><div class="l">615 membri · 17–47 online · 1 admin</div><div class="l">aperto 23 feb 2026</div><div class="l">L&#x27;ASSET VIVO</div></div>
-<div class="n ok" style="left:552px;top:1064px;width:316px;min-height:106px"><div class="tg">ingresso</div><div class="ti">Invito A → #inizia-qui</div><div class="l">onboarding corretto</div></div>
-<div class="n weak" style="left:894px;top:1064px;width:316px;min-height:126px"><div class="tg">ingresso<span class="bdg">L11</span></div><div class="ti">Invito B → #guest-calls</div><div class="l">salta l&#x27;intero onboarding</div><div class="l">usato nel post Skool del 5 giugno</div></div>
-<div class="n dead" style="left:1236px;top:1064px;width:316px;min-height:166px"><div class="tg">community<span class="bdg">L7</span></div><div class="ti">Skool — Italian Closers Academy</div><div class="l">486 membri · 0 online · 1 admin</div><div class="l">17 post in tutta la storia · 13 sono suoi</div><div class="l">ultimo post di un membro: 31 marzo</div><div class="l">L&#x27;ASSET MORTO</div></div>
-<div class="n gate" style="left:210px;top:1264px;width:316px;min-height:126px"><div class="tg">collo di bottiglia<span class="bdg">L6</span></div><div class="ti">Approvazione manuale</div><div class="l">«Public · Free» ma con cancello umano</div><div class="l">richiesta di Whiz: MEMBERSHIP PENDING</div></div>
-<div class="n leak" style="left:552px;top:1264px;width:316px;min-height:146px"><div class="tg">autolesione<span class="bdg">L8</span></div><div class="ti">Cannibalizzazione — parole sue</div><div class="l">25 feb: «qui su skool è più un corso che altro»</div><div class="l">3 apr, post fissato: «Entra su Discord»</div><div class="l">ha spostato il pubblico lontano dai soldi</div></div>
-<div class="n ok" style="left:210px;top:1530px;width:316px;min-height:126px"><div class="tg">contenuto</div><div class="ti">Albero canali Discord — 17 canali</div><div class="l">BENVENUTO · COMMUNITY · SELF DEVELOPMENT</div><div class="l">ACCOUNTABILITY · HIGH TICKET SALES · CALLS</div></div>
-<div class="n leak" style="left:552px;top:1530px;width:316px;min-height:146px"><div class="tg">contenuto<span class="bdg">L10</span></div><div class="ti">Onboarding #inizia-qui</div><div class="l">3 step (23/02, 20:46) + IL MANIFESTO</div><div class="l">step 2 → «Vai su #presentazioni»</div><div class="l">quel canale si chiama #introductions</div></div>
-<div class="n dead" style="left:894px;top:1530px;width:316px;min-height:126px"><div class="tg">contenuto<span class="bdg">L24</span></div><div class="ti">Skool Classroom — 20 moduli</div><div class="l">9 gratuiti · 1 Premium · 10 VIP</div><div class="l">tutti fermi allo 0% di avanzamento</div></div>
-<div class="n ok" style="left:1236px;top:1530px;width:316px;min-height:126px"><div class="tg">contenuto</div><div class="ti">Call settimanale</div><div class="l">«IC I Coaching Call» · giovedì 17:30 Roma</div><div class="l">1 a settimana, tenuta da lui</div></div>
-<div class="n leak" style="left:210px;top:1710px;width:316px;min-height:126px"><div class="tg">infrastruttura<span class="bdg">L16</span></div><div class="ti">Stanze usate per le call</div><div class="l">Skool Live → Google Meet → Zoom → Discord</div><div class="l">4 piattaforme in 6 mesi, nessuna canonica</div></div>
-<div class="n weak" style="left:210px;top:1956px;width:316px;min-height:146px"><div class="tg">intake<span class="bdg">L27</span></div><div class="ti">Google Form «Candidatura per Venditori»</div><div class="l">8 campi obbligatori + video Loom da 2–3 min</div><div class="l">«Numero di telefono e Email» in UN solo campo</div><div class="l">banner Google: «Questo modulo sembra sospetto?»</div></div>
-<div class="n leak" style="left:552px;top:1956px;width:316px;min-height:146px"><div class="tg">intake<span class="bdg">L13</span></div><div class="ti">Uscita del form</div><div class="l">«Valuterò il tuo profilo… pochi giorni»</div><div class="l">«Se vuoi accelerare i tempi, scrivimi in privato»</div><div class="l">il form dichiara di essere più lento dei DM</div></div>
-<div class="n weak" style="left:894px;top:1956px;width:316px;min-height:126px"><div class="tg">intake<span class="bdg">L5</span></div><div class="ti">italiancloser.com/placement-hub</div><div class="l">seconda intake per lo stesso closer</div><div class="l">copy fermo a «590+ / 450+» (reali: 615 / 486)</div></div>
-<div class="n gate" style="left:1236px;top:1956px;width:316px;min-height:146px"><div class="tg">collo di bottiglia<span class="bdg">L12</span></div><div class="ti">app.italiancloser.com</div><div class="l">/login · /closer/risultati (protetti)</div><div class="l">/registrati → 404 · /signup → 404</div><div class="l">nessuna registrazione self-serve</div></div>
-<div class="n gate" style="left:210px;top:2222px;width:316px;min-height:106px"><div class="tg">collo di bottiglia</div><div class="ti">Vetting manuale</div><div class="l">una persona sola, nessun criterio pubblicato</div></div>
-<div class="n gate" style="left:552px;top:2222px;width:316px;min-height:106px"><div class="tg">collo di bottiglia</div><div class="ti">Matching manuale sul brief</div><div class="l">«selezionati a mano dalla community»</div></div>
-<div class="n gate" style="left:894px;top:2222px;width:316px;min-height:106px"><div class="tg">collo di bottiglia</div><div class="ti">Account creati a mano</div><div class="l">ogni accesso passa fisicamente da lui</div></div>
-<div class="n missing" style="left:1236px;top:2222px;width:316px;min-height:126px"><div class="tg">assente<span class="bdg">L9</span></div><div class="ti">Prezzo pubblico</div><div class="l">nessuna cifra su nessuna superficie</div><div class="l">né Premium, né VIP, né fee aziende</div></div>
-<div class="n money" style="left:210px;top:2468px;width:316px;min-height:146px"><div class="tg">ricavo</div><div class="ti">Skool PREMIUM</div><div class="l">sblocca 1 modulo: OBJECTION HANDLING</div><div class="l">prezzo: invisibile</div><div class="l">parcheggiato nell&#x27;asset morto</div></div>
-<div class="n money" style="left:552px;top:2468px;width:316px;min-height:146px"><div class="tg">ricavo</div><div class="ti">Skool VIP</div><div class="l">sblocca 10 moduli: l&#x27;intero percorso US</div><div class="l">prezzo: invisibile</div><div class="l">parcheggiato nell&#x27;asset morto</div></div>
-<div class="n missing" style="left:894px;top:2468px;width:316px;min-height:126px"><div class="tg">assente<span class="bdg">B4</span></div><div class="ti">Percorso d&#x27;acquisto</div><div class="l">0 checkout · 0 prezzo · 0 link di prenotazione</div><div class="l">non esiste un modo per comprare da solo</div></div>
-<div class="n missing" style="left:1682px;top:192px;width:316px;min-height:146px"><div class="tg">sorgente</div><div class="ti">Come un&#x27;azienda lo trova</div><div class="l">passaparola + 1 post Instagram</div><div class="l">0 SEO · 0 LinkedIn · 0 advertising</div><div class="l">nessun canale costruito per chi paga</div></div>
-<div class="n weak" style="left:1682px;top:618px;width:316px;min-height:126px"><div class="tg">instradamento<span class="bdg">L23</span></div><div class="ti">Linktree — «Cerchi Venditori?»</div><div class="l">punta alla STESSA URL del link per i closer</div><div class="l">nessuna pagina dedicata a chi compra</div></div>
-<div class="n leak" style="left:1682px;top:1064px;width:316px;min-height:126px"><div class="tg">intake<span class="bdg">L14</span></div><div class="ti">DM di Instagram</div><div class="l">«se sei un azienda scrivimi pure in DM»</div><div class="l">il lato che paga passa dalla sua casella personale</div></div>
-<div class="n leak" style="left:2024px;top:1064px;width:316px;min-height:106px"><div class="tg">intake<span class="bdg">L14</span></div><div class="ti">mailto:info@italiancloser.com</div><div class="l">nessuna qualifica, nessun instradamento, nessuno SLA</div></div>
-<div class="n weak" style="left:1682px;top:1530px;width:316px;min-height:126px"><div class="tg">pagina<span class="bdg">L18</span></div><div class="ti">Placement Hub — lato aziende</div><div class="l">0 form sulla pagina · 0 pixel</div><div class="l">«&lt;48h» in home vs «1–2 giorni» nel form</div></div>
-<div class="n leak" style="left:1682px;top:1956px;width:316px;min-height:146px"><div class="tg">intake<span class="bdg">L15</span></div><div class="ti">app/aziende/contatta</div><div class="l">9 campi obbligatori prima di ricevere valore</div><div class="l">«La tua azienda usa Slack (piano Pro o superiore)?»</div><div class="l">consegna dei profili via Slack o WhatsApp</div></div>
-<div class="n gate" style="left:1682px;top:2222px;width:316px;min-height:106px"><div class="tg">collo di bottiglia</div><div class="ti">«Risposta in 1–2 giorni lavorativi»</div><div class="l">manuale, una persona, nessun backup</div></div>
-<div class="n money" style="left:1682px;top:2468px;width:316px;min-height:126px"><div class="tg">ricavo</div><div class="ti">Fee di placement</div><div class="l">nessun prezzo pubblico, nessun contratto visibile</div><div class="l">nessuna prova pubblica di incasso</div></div></div></div>
-<div class="hint">Trascina per spostarti · ⌘/Ctrl + rotella (o i pulsanti) per lo zoom · «Adatta» per vedere l'intera mappa a colpo d'occhio</div>
-</div>
 
-<div class="wrap">
-<section>
-<span class="secnum">§ 2.1 — Il registro delle perdite</span>
-<h2>Ventisette punti in cui l'attenzione, i dati o i soldi escono dal sistema</h2>
-<p class="dek">Ordinate per gravità. Ogni riga corrisponde a un badge sulla mappa. Nessuna è un'ipotesi: ognuna è stata verificata sulla superficie viva il 20 o 21 agosto 2026.</p>
-<table><thead><tr><th>Rif.</th><th>Area</th><th>Cosa perde e perché</th><th>Gravità</th></tr></thead><tbody><tr><td class="mono ref">L1</td><td class="mono dim">Attenzione</td><td><strong>Il motore commenti→DM è collassato 110×</strong><div class="sub">10 apr: 10.856 view → 152 commenti (1,40%). 5 ago: 22.638 view → 3 commenti (0,01%). La portata è intatta, il meccanismo di conversione è morto.</div></td><td><span class="sev s0">Critico</span></td></tr><tr><td class="mono ref">L2</td><td class="mono dim">Instradamento</td><td><strong>Il bio link va dritto su Discord</strong><div class="sub">Il 100% del traffico primario esce dall&#x27;ecosistema al primo clic: nessun pixel, nessuna email, nessun cookie, nessun dato.</div></td><td><span class="sev s0">Critico</span></td></tr><tr><td class="mono ref">L3</td><td class="mono dim">Proprietà</td><td><strong>Nessuna lista email, in tutto il business</strong><div class="sub">0 form, 0 opt-in, 0 ESP, 0 lead magnet. Il rischio piattaforma è totale: se Instagram o Discord chiudono, il business sparisce.</div></td><td><span class="sev s0">Critico</span></td></tr><tr><td class="mono ref">L4</td><td class="mono dim">Misurazione</td><td><strong>Nessun Meta Pixel</strong><div class="sub">Solo GA4, che non vede né Instagram né Discord. 56.520 view al mese impossibili da ritargetizzare.</div></td><td><span class="sev s0">Critico</span></td></tr><tr><td class="mono ref">L7</td><td class="mono dim">Community</td><td><strong>Skool è morto e contiene tutti i soldi</strong><div class="sub">486 membri, 0 online, 17 post in tutta la storia, 13 dei quali suoi. Ultimo post di un membro: 31 marzo. È l&#x27;unico posto dove esistono Premium e VIP.</div></td><td><span class="sev s0">Critico</span></td></tr><tr><td class="mono ref">L8</td><td class="mono dim">Strategia</td><td><strong>Ha cannibalizzato Skool con le proprie mani</strong><div class="sub">25 feb: «qui su skool è più un corso che altro». 3 apr, post fissato: «Entra nella COMMUNITY GRATUITA su Discord». Ha portato il pubblico dove non c&#x27;è nulla da vendere.</div></td><td><span class="sev s0">Critico</span></td></tr><tr><td class="mono ref">L9</td><td class="mono dim">Monetizzazione</td><td><strong>I prezzi non esistono su nessuna superficie</strong><div class="sub">Premium e VIP sono gli unici prodotti confermati e nessuno può scoprirne il costo senza chiederglielo di persona.</div></td><td><span class="sev s0">Critico</span></td></tr><tr><td class="mono ref">L12</td><td class="mono dim">Prodotto</td><td><strong>L&#x27;app non ha registrazione</strong><div class="sub">/registrati e /signup rispondono 404. Ogni singolo account viene creato a mano da lui.</div></td><td><span class="sev s0">Critico</span></td></tr><tr><td class="mono ref">L14</td><td class="mono dim">Domanda</td><td><strong>Il lato che paga passa dai DM e da un mailto</strong><div class="sub">«se sei un azienda scrivimi pure in DM» + mailto:info@italiancloser.com. Nessuna qualifica, nessun instradamento, nessuno SLA.</div></td><td><span class="sev s0">Critico</span></td></tr><tr><td class="mono ref">L26</td><td class="mono dim">Operatività</td><td><strong>Un solo amministratore, ovunque</strong><div class="sub">1 admin su Skool, 1 su Discord. Ogni cancello, ogni approvazione, ogni risposta è la stessa persona.</div></td><td><span class="sev s0">Critico</span></td></tr><tr><td class="mono ref">L5</td><td class="mono dim">Intake</td><td><strong>Due intake in concorrenza per lo stesso closer</strong><div class="sub">Il Google Form (3 mag) e il Placement Hub (16 giu) fanno la stessa cosa. Dati divisi, nessuna fonte di verità.</div></td><td><span class="sev s1">Alto</span></td></tr><tr><td class="mono ref">L6</td><td class="mono dim">Community</td><td><strong>Community «gratuita» con cancello umano</strong><div class="sub">Skool è dichiarato Public + Free ma richiede approvazione manuale. La richiesta di Whiz è ancora MEMBERSHIP PENDING.</div></td><td><span class="sev s1">Alto</span></td></tr><tr><td class="mono ref">L13</td><td class="mono dim">Intake</td><td><strong>Il form dice ai candidati che i DM sono più veloci</strong><div class="sub">«Se vuoi accelerare i tempi, entra nella community su Discord e scrivimi in privato, lì rispondo più velocemente.» Rimanda i candidati qualificati nella sua casella personale.</div></td><td><span class="sev s1">Alto</span></td></tr><tr><td class="mono ref">L15</td><td class="mono dim">Domanda</td><td><strong>Attrito sul lato sbagliato</strong><div class="sub">9 campi obbligatori prima di ricevere qualsiasi valore, incluso «La tua azienda usa Slack (piano Pro o superiore)?». Chi compra viene interrogato, chi vende viene coccolato.</div></td><td><span class="sev s1">Alto</span></td></tr><tr><td class="mono ref">L20</td><td class="mono dim">Brand</td><td><strong>Sette nomi per un solo business</strong><div class="sub">Italiancloser · Italian Closer Academy · Italian Closers Academy · Placement Hub · @mannyonjourney · francescomanarabusiness · Italian Closer Academy I Community.</div></td><td><span class="sev s1">Alto</span></td></tr><tr><td class="mono ref">L21</td><td class="mono dim">Domanda</td><td><strong>Invisibile nella ricerca</strong><div class="sub">«Francesco Manara high ticket closer» non restituisce alcun risultato. Zero intercettazione dell&#x27;intento.</div></td><td><span class="sev s1">Alto</span></td></tr><tr><td class="mono ref">L22</td><td class="mono dim">Domanda</td><td><strong>Nessun LinkedIn</strong><div class="sub">Vende recruiting B2B senza esistere nell&#x27;unico posto dove le aziende cercano recruiting B2B.</div></td><td><span class="sev s1">Alto</span></td></tr><tr><td class="mono ref">L10</td><td class="mono dim">Onboarding</td><td><strong>L&#x27;onboarding Discord punta a un canale inesistente</strong><div class="sub">Il messaggio di #inizia-qui dice «Vai su #presentazioni». Il canale si chiama #introductions. Si rompe allo step 2 di 3.</div></td><td><span class="sev s2">Medio</span></td></tr><tr><td class="mono ref">L11</td><td class="mono dim">Onboarding</td><td><strong>Il secondo invito salta l&#x27;onboarding</strong><div class="sub">discord.gg/4jnPSGskMR atterra su #guest-calls: niente regole, niente manifesto, niente presentazione.</div></td><td><span class="sev s2">Medio</span></td></tr><tr><td class="mono ref">L16</td><td class="mono dim">Infrastruttura</td><td><strong>Quattro stanze per le call in sei mesi</strong><div class="sub">Skool Live, Google Meet, Zoom, Discord. Nessun indirizzo canonico da ricordare, nessuna abitudine possibile.</div></td><td><span class="sev s2">Medio</span></td></tr><tr><td class="mono ref">L18</td><td class="mono dim">Credibilità</td><td><strong>Due promesse di risposta diverse</strong><div class="sub">La home promette «&lt;48h», il form dice «1–2 giorni lavorativi». La prima cosa che un&#x27;azienda impara è che i suoi numeri non coincidono.</div></td><td><span class="sev s2">Medio</span></td></tr><tr><td class="mono ref">L23</td><td class="mono dim">Instradamento</td><td><strong>Linktree gratuito, due link identici</strong><div class="sub">«Per Aziende» e «Per Closers» puntano alla stessa URL. Il piano gratuito vende Linktree al suo pubblico.</div></td><td><span class="sev s2">Medio</span></td></tr><tr><td class="mono ref">L24</td><td class="mono dim">Prodotto</td><td><strong>Tutti i moduli fermi allo 0%</strong><div class="sub">20 moduli, nessun avanzamento visibile, nessun incentivo al completamento, nessun dato su chi arriva alla fine.</div></td><td><span class="sev s2">Medio</span></td></tr><tr><td class="mono ref">L25</td><td class="mono dim">Attenzione</td><td><strong>YouTube long-form è tempo bruciato</strong><div class="sub">40, 91 e 83 view sui video lunghi. Gli short reggono il canale. Lo sforzo maggiore produce il risultato minore.</div></td><td><span class="sev s2">Medio</span></td></tr><tr><td class="mono ref">L27</td><td class="mono dim">Intake</td><td><strong>Il form principale sembra sospetto a Google</strong><div class="sub">«Questo modulo sembra sospetto? Segnala» compare in fondo alla candidatura, ospitata su un dominio Google e non sul suo.</div></td><td><span class="sev s2">Medio</span></td></tr><tr><td class="mono ref">L17</td><td class="mono dim">Credibilità</td><td><strong>Prova sociale ferma nel tempo</strong><div class="sub">Il sito dice 590+ e 450+; i numeri reali sono 615 e 486. Linktree mostra 579. Si sottovaluta e sembra trascurato.</div></td><td><span class="sev s3">Basso</span></td></tr><tr><td class="mono ref">L19</td><td class="mono dim">Credibilità</td><td><strong>Il badge Trustpilot supera il dato reale</strong><div class="sub">Il sito mostra «50+ recensioni». Trustpilot ne conta 47.</div></td><td><span class="sev s3">Basso</span></td></tr></tbody></table>
-</section>
-<section>
-<span class="secnum">§ 2.2 — I colli di bottiglia</span>
-<h2>Cinque strutture che tengono fermo tutto il resto</h2>
-<p class="dek">Le ventisette perdite non sono ventisette problemi. Sono i sintomi di cinque scelte strutturali. Sistemare queste cinque cose disinnesca la maggior parte del registro qui sopra.</p>
-<div class="bt"><div class="bk mono">B1</div><div><h3>Francesco è l&#x27;unico percorso</h3><p>Vetting, approvazione Skool, matching sul brief, creazione degli account, DM aziende, DM closer, call settimanale: una persona sola. Ogni nodo viola sulla mappa è lui. Il business non scala di un cliente in più senza rompersi.</p><div class="bl mono">perdite collegate — L6 · L12 · L13 · L14 · L26</div></div></div><div class="bt"><div class="bk mono">B2</div><div><h3>I soldi sono parcheggiati nell&#x27;asset morto</h3><p>Premium e VIP esistono solo su Skool: 486 membri, 0 online, ultimo post di un membro il 31 marzo. Il pubblico vivo — 615 persone su Discord — sta in un posto dove non c&#x27;è assolutamente nulla in vendita.</p><div class="bl mono">perdite collegate — L7 · L8 · L9</div></div></div><div class="bt"><div class="bk mono">B3</div><div><h3>Non possiede il proprio pubblico</h3><p>Nessuna email, nessun pixel, nessun CRM. 3.623 follower e 615 membri Discord sono in affitto su piattaforme che non controlla, e non può ricontattare nessuno di loro se non pubblicando.</p><div class="bl mono">perdite collegate — L2 · L3 · L4</div></div></div><div class="bt"><div class="bk mono">B4</div><div><h3>Non esiste un modo per comprare</h3><p>Nessun prezzo, nessun checkout, nessun link di prenotazione, nessuna registrazione. Anche una persona completamente convinta non ha un pulsante da premere. Deve scrivergli e aspettare.</p><div class="bl mono">perdite collegate — L9 · L12</div></div></div><div class="bt"><div class="bk mono">B5</div><div><h3>Marketplace a due lati, un lato solo costruito</h3><p>Ai closer dedica reel, Discord, Skool, corso, call settimanale, due form. Alle aziende — che sono quelle che pagano — dedica un mailto, un DM e una domanda su Slack. L&#x27;offerta è satura, la domanda è affamata.</p><div class="bl mono">perdite collegate — L14 · L15 · L21 · L22</div></div></div>
-<div class="crossnav">
- <a class="cn" href="https://whizceo.github.io/evolv-decks/italiancloser-dossier/"><span>§1</span> Dossier di contesto</a>
- <a class="cn" href="https://whizceo.github.io/evolv-decks/italiancloser-touchpoints/"><span>§2b</span> I cinque percorsi, touchpoint per touchpoint</a>
+ <div class="method">
+  <div class="mcard"><div class="mh">Come è stato fatto</div>
+   <p>Nessuna stima, nessuna media di settore. Ogni numero è stato letto sulla pagina o su un endpoint pubblico
+   il 21 agosto 2026. La struttura interna del Discord viene dal server stesso: 6 categorie, 19 canali.</p></div>
+  <div class="mcard"><div class="mh">Cosa non c’è dentro</div>
+   <p>Come Italiancloser incassa non è in questo documento, perché non è osservabile: su nessuna superficie
+   pubblica esistono un prezzo, un checkout o un piano a pagamento. È un rilievo, non un’omissione.</p></div>
+  <div class="mcard"><div class="mh">Come leggerlo</div>
+   <p>Prima i sei percorsi in verticale, uno accanto all’altro. Poi lo stesso sistema in orizzontale, tutto in
+   una vista. Poi i rilievi divisi per sezione. Alla fine, il conto di quanto costa lasciare tutto com’è.</p></div>
+ </div>
+</div></header>
+
+<section><div class="wrap">
+ <span class="secnum">01 — Il terreno</span>
+ <h2>Le otto superfici, e cosa dicono di sé</h2>
+ <p class="dek">Colonna sinistra: cosa ho misurato. Colonna centrale: cosa dice il sito o il profilo.
+ Quando le due non coincidono, la riga lo segnala. <b>Nessuna riga è una stima.</b></p>
+ <table class="tbl"><thead><tr><th>Cosa</th><th>Osservato oggi</th><th>Dichiarato</th><th>Nota</th></tr></thead><tbody><tr class="grp"><td colspan="4">INSTAGRAM · @italiancloser</td></tr><tr><td class="k">Follower</td><td class="n">3.617</td><td class="d">—</td><td class="no"></td></tr><tr><td class="k">Seguiti</td><td class="n">575</td><td class="d">—</td><td class="no"></td></tr><tr><td class="k">Post sul feed</td><td class="n">5</td><td class="d">—</td><td class="no w">l’intero profilo è 5 post: 1 reel-offerta, 4 personali</td></tr><tr><td class="k">Storie in evidenza</td><td class="n">8, di cui 4 chiamate «students»</td><td class="d">—</td><td class="no"></td></tr><tr><td class="k">Reel dell’offerta</td><td class="n">857 like · 152 commenti · 11 condivisioni</td><td class="d">—</td><td class="no">il post più performante del profilo, di gran lunga</td></tr><tr><td class="k">Link in bio</td><td class="n">2 voci etichettate</td><td class="d">—</td><td class="no">«Community Discord» · «Risorse Gratuite»</td></tr><tr class="grp"><td colspan="4">LINKTREE · francescomanarabusiness</td></tr><tr><td class="k">Creato</td><td class="n">≈ 1 aprile 2026</td><td class="d">—</td><td class="no"></td></tr><tr><td class="k">Link in pagina</td><td class="n">6</td><td class="d">—</td><td class="no w">i link ③ e ④ puntano allo STESSO URL con lo stesso utm_source</td></tr><tr class="grp"><td colspan="4">DISCORD · Italian Closer Academy I Community</td></tr><tr><td class="k">Membri</td><td class="n">615</td><td class="d">«590+ members»</td><td class="no">il dato reale supera la promessa</td></tr><tr><td class="k">Online al momento del rilievo</td><td class="n">31</td><td class="d">—</td><td class="no">≈ 5% dei membri</td></tr><tr><td class="k">Atterraggio dell’invito</td><td class="n">canale 🪧・inizia-qui</td><td class="d">—</td><td class="no">invito senza scadenza</td></tr><tr><td class="k">Descrizione del server</td><td class="n">vuota (null)</td><td class="d">—</td><td class="no w">nessuna riga di contesto per chi arriva da fuori</td></tr><tr class="grp"><td colspan="4">SKOOL · italian-closers-academy</td></tr><tr><td class="k">Membri</td><td class="n">486</td><td class="d">«450+ studenti»</td><td class="no"></td></tr><tr><td class="k">Creato</td><td class="n">2 dicembre 2025</td><td class="d">—</td><td class="no"></td></tr><tr><td class="k">Corsi · moduli in Classroom</td><td class="n">20 · 155</td><td class="d">«full academy»</td><td class="no">il materiale esiste ed è abbondante</td></tr><tr><td class="k">Post totali nel feed</td><td class="n">17</td><td class="d">—</td><td class="no w">17 post per 486 membri</td></tr><tr><td class="k">Distribuzione dei livelli</td><td class="n">Level 1 = 98% · L2 1% · L3 1% · L4–L9 0%</td><td class="d">—</td><td class="no w">la progressione non parte</td></tr><tr><td class="k">Recensioni interne al gruppo</td><td class="n">0</td><td class="d">—</td><td class="no"></td></tr><tr><td class="k">Piano del gruppo</td><td class="n">hobby</td><td class="d">—</td><td class="no"></td></tr><tr><td class="k">Prodotti a pagamento nel gruppo</td><td class="n">nessuno</td><td class="d">«Corso Gratuito»</td><td class="no">coerente: il gruppo è gratuito</td></tr><tr class="grp"><td colspan="4">YOUTUBE · @mannyonjourney</td></tr><tr><td class="k">Iscritti</td><td class="n">546</td><td class="d">—</td><td class="no"></td></tr><tr><td class="k">Video pubblicati</td><td class="n">460</td><td class="d">—</td><td class="no"></td></tr><tr><td class="k">Visualizzazioni, ultimi 22 video</td><td class="n">da 42 a 249 · mediana ≈ 110</td><td class="d">—</td><td class="no w">≈ 20% degli iscritti guarda un video nuovo</td></tr><tr><td class="k">Titolo del canale</td><td class="n">«Francesco Manara I Italian Closer»</td><td class="d">—</td><td class="no w">l’handle è @mannyonjourney, un altro nome</td></tr><tr class="grp"><td colspan="4">ITALIANCLOSER.COM</td></tr><tr><td class="k">H1 della home</td><td class="n">«ITALIANCLOSER»</td><td class="d">—</td><td class="no w">il titolo principale è il nome del brand, non una promessa</td></tr><tr><td class="k">Track record dichiarato</td><td class="n">—</td><td class="d">+1M$ · +2000 call · +40% closing rate</td><td class="no">numeri esposti senza fonte in pagina</td></tr><tr><td class="k">Video «About» incorporato</td><td class="n">21 ott 2025 · 13:57 · 503 views</td><td class="d">—</td><td class="no w">un anno d’età, in home, quasi non guardato</td></tr><tr><td class="k">Form o cattura email sul sito</td><td class="n">nessuno</td><td class="d">—</td><td class="no"></td></tr><tr><td class="k">Analytics</td><td class="n">GA4 · G-07PW41NQYZ</td><td class="d">—</td><td class="no">nessun pixel Meta</td></tr><tr><td class="k">Unico CTA di conversione</td><td class="n">link interno «Vai al Placement Hub»</td><td class="d">—</td><td class="no"></td></tr><tr class="grp"><td colspan="4">APP.ITALIANCLOSER.COM · la superficie dove si converte</td></tr><tr><td class="k">Ingresso closer</td><td class="n">/login, etichettato «Accedi»</td><td class="d">—</td><td class="no w">solo «Continua con Google», nessun «Registrati»</td></tr><tr><td class="k">Ingresso azienda</td><td class="n">/aziende/contatta</td><td class="d">—</td><td class="no">8 campi obbligatori + messaggio max 300 caratteri</td></tr><tr><td class="k">Pagina /closer/risultati</td><td class="n">dashboard interna servita a chi non è loggato</td><td class="d">—</td><td class="no w">barra laterale completa, incluso «Logout»</td></tr><tr><td class="k">Analytics</td><td class="n">nessuno, su nessuna delle pagine</td><td class="d">—</td><td class="no w">le due pagine che convertono non sono misurate</td></tr><tr><td class="k">Tempo di risposta promesso</td><td class="n">«1–2 giorni lavorativi» nel form</td><td class="d">«< 48h» sulla pagina marketing</td><td class="no">due promesse diverse a due passi di distanza</td></tr><tr class="grp"><td colspan="4">TRUSTPILOT</td></tr><tr><td class="k">Recensioni</td><td class="n">47</td><td class="d">«50+ recensioni»</td><td class="no w">il sito dichiara più di quante ce ne siano</td></tr><tr><td class="k">Punteggio</td><td class="n">4,8</td><td class="d">4.8</td><td class="no">coerente</td></tr><tr><td class="k">Profilo rivendicato</td><td class="n">aprile 2026</td><td class="d">—</td><td class="no"></td></tr><tr><td class="k">Concentrazione</td><td class="n">quasi tutte fra il 6 e il 17 giugno 2026</td><td class="d">—</td><td class="no">ultima visibile: 13 luglio 2026</td></tr><tr><td class="k">Risposte dell’azienda</td><td class="n">tutte il 17 giu 2026, 14:00:07 → 14:02:05</td><td class="d">—</td><td class="no w">un unico blocco da due minuti</td></tr><tr><td class="k">Banner di Trustpilot sulla scheda</td><td class="n">«Non risultano inviti alla recensione recenti»</td><td class="d">—</td><td class="no w">è Trustpilot stesso a segnalarlo</td></tr></tbody></table>
+</div></section>
+
+<section><div class="wrap">
+ <span class="secnum">02 — I percorsi</span>
+ <h2>I sei modi di entrare, in verticale</h2>
+ <p class="dek">Ogni colonna è un percorso completo, dal primo contatto fino a dove il percorso si ferma.
+ Ogni riquadro è un touchpoint reale. Sotto ogni touchpoint c’è l’esito: passaggio pulito,
+ <b>punto di perdita</b>, o zona cieca. Su 35 touchpoint osservati, <b>27 perdono persone</b>
+ e 4 non sono verificabili dall’esterno.</p>
 </div>
+<div class="vrailwrap"><div class="vrail"><div class="vf" style="--c:var(--blue);--cb:var(--blue-b)"><div class="vfh"><div class="vfp">Percorso A</div><h3>Vedo il reel e commento «sales»</h3><div class="vfw">Aspirante closer · ingresso freddo da Instagram</div><p class="vfy">È il percorso che porta più persone: 152 commenti su un solo post, contro 10 sul secondo migliore. Tutto il resto del sistema dipende da cosa succede qui.</p><div class="vfc"><span class="vc"><b>5</b> touchpoint</span><span class="vc l"><b>3</b> perdita</span><span class="vc b"><b>1</b> zona cieca</span></div></div><div class="vfs"><div class="vs pass"><div class="vsn">01</div><div class="vsb"><div class="vst">Vedo il reel nel feed.</div><div class="vsd">Il testo dice <q>commenta “sales” e ti mando accesso al mio corso gratuito (framework, calls, etc…) 🔥🤝</q>. Pubblicato il 10 aprile, segnato «Elemento modificato». 857 like, 152 commenti, 11 condivisioni. L’unico post del profilo che chieda qualcosa.</div><div class="vsf pass">passaggio pulito</div></div></div><div class="vsa"></div><div class="vs blind"><div class="vsn">02</div><div class="vsb"><div class="vst">Commento «sales».</div><div class="vsd">Nei commenti vedo altri che l’hanno fatto: parole «sales» con 1–3 risposte nel thread, datate 17, 13, 11 e 10 settimane fa. Quindi qualcosa risponde — ma la risposta è dentro un thread pubblico, non un messaggio.</div><div class="vn blind"><div class="vnh">Non verificabile dall’esterno</div><div class="vnt">Non verificabile dall’esterno</div><div class="vnd">Non posso vedere se dopo il commento parte davvero un DM, quanto ci mette, cosa contiene, né se serve seguire il profilo per riceverlo. Da fuori vedo solo il commento e la replica pubblica. <b>Tutto ciò che segue in questo ramo è quindi ipotesi finché non lo si guarda da dentro l’account.</b></div></div><div class="vsf blind">zona cieca</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">03</div><div class="vsb"><div class="vst">Provo a capire cosa succede se commento sul post sbagliato.</div><div class="vsd">Trovato: sul post «miami with the boys», 18 settimane fa, l’utente <b>giovanniscalzolaro</b> ha scritto «sales» <b>due volte</b>. Nessuna risposta, né pubblica né visibile. Il commento è ancora lì.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">La parola chiave è legata a <b>un solo post</b>, ma le persone la scrivono ovunque incontrino il brand. Qui c’è la prova documentata di una persona che ha fatto esattamente ciò che le è stato chiesto, nel posto sbagliato, e non ha ricevuto nulla. <b>Ogni «sales» che cade fuori da quel reel è una persona persa in silenzio, e nessuno lo sta contando.</b></div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">04</div><div class="vsb"><div class="vst">Cerco altre richieste rimaste senza risposta.</div><div class="vsd">Sul reel «mai mollare» (137 like, 10 commenti), l’utente <b>perniolamichelangelo</b> chiede esplicitamente un contenuto — un’opinione su un altro personaggio del settore. Nessuna replica visibile.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Il profilo riceve <b>domande dirette</b> e non le raccoglie. Una richiesta di contenuto è la forma più economica di ricerca di mercato che esista: dice cosa il pubblico vuole vedere, gratis, con nome e cognome allegato.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">05</div><div class="vsb"><div class="vst">Guardo il resto del profilo, per capire dove finisce chi non commenta.</div><div class="vsd">5 post in tutto. 4 sono personali: «amo la mia vita.», «è grato della sua vita.», «miami with the boys». Il quinto è l’offerta. Le 8 storie in evidenza — 4 chiamate «students» — sono l’unico blocco di prova sociale sul profilo.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Con <b>5 post</b>, chi arriva sul profilo dopo aver visto il reel non ha nulla da leggere per decidere. Il brand ha 460 video su YouTube e 155 moduli su Skool: <b>la superficie che porta più persone è la meno documentata di tutte.</b></div></div><div class="vsf leak">qui si perdono persone</div></div></div></div></div><div class="vf" style="--c:var(--purple);--cb:var(--purple-b)"><div class="vfh"><div class="vfp">Percorso B</div><h3>Non commento: apro il link in bio</h3><div class="vfw">Aspirante closer · ingresso auto-diretto</div><p class="vfy">Il ramo di chi non vuole aspettare un DM. È anche l’unico posto dove il sistema mostra tutte le sue porte contemporaneamente.</p><div class="vfc"><span class="vc"><b>4</b> touchpoint</span><span class="vc l"><b>3</b> perdita</span><span class="vc b"><b>0</b> zona cieca</span></div></div><div class="vfs"><div class="vs leak"><div class="vsn">01</div><div class="vsb"><div class="vst">Apro la bio.</div><div class="vsd">Leggo: <q>💰1mln+ Cash Collected / Per Ragazzi che vogliono inseguire l’American Dream diventando High Ticket Closers🇺🇸🇮🇹 / Community Gratuita👇</q>. Sotto, <b>due</b> link etichettati: «Community Discord» e «Risorse Gratuite».</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Due porte, nessuna gerarchia. Nessuna delle due dice «inizia da qui». <b>La prima decisione che il sistema chiede al visitatore è una decisione che il visitatore non ha gli elementi per prendere.</b></div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs pass"><div class="vsn">02</div><div class="vsb"><div class="vst">Scelgo «Risorse Gratuite» → linktr.ee/francescomanarabusiness.</div><div class="vsd">Sei link, in quest’ordine: ① Italian Closer Academy (Discord) · ② Corso Gratuito High Ticket Sales (Skool) · ③ «Cerchi Venditori per la Tua Azienda?» · ④ «Sei un Closer e Cerchi un Azienda Seria?» · ⑤ YouTube · ⑥ il sito. Pagina creata attorno al 1° aprile 2026.</div><div class="vsf pass">passaggio pulito</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">03</div><div class="vsb"><div class="vst">Clicco ③ «Cerchi Venditori per la Tua Azienda?». Poi clicco ④ «Sei un Closer e Cerchi un Azienda Seria?».</div><div class="vsd">Entrambi portano a <b>italiancloser.com/placement-hub?utm_source=linktree</b>. Stesso identico URL. Stesso utm_source. Nessun utm_content, nessun utm_campaign, niente che distingua il click dell’azienda dal click del closer.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Due link scritti per <b>due pubblici opposti</b> — chi compra e chi si offre — collassano sulla stessa pagina e sullo stesso parametro. Conseguenza doppia: <b>(1)</b> chi arriva legge una pagina che parla anche all’altro; <b>(2)</b> non si può sapere quale dei due bisogni sta muovendo il traffico, perché nei dati i due click sono indistinguibili.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">04</div><div class="vsb"><div class="vst">Conto quante decisioni ho preso finora.</div><div class="vsd">Bio (2 opzioni) → Linktree (6 opzioni) = <b>fino a 8 scelte</b> prima di aver ricevuto una singola informazione utile sul percorso.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Il menu non ordina la domanda: la moltiplica. Un aspirante closer, un’azienda e un curioso vedono la <b>stessa identica lista</b>, e nessuno dei tre viene indirizzato.</div></div><div class="vsf leak">qui si perdono persone</div></div></div></div></div><div class="vf" style="--c:var(--teal);--cb:var(--teal-b)"><div class="vfh"><div class="vfp">Percorso C</div><h3>Entro nel «corso gratuito»</h3><div class="vfw">Aspirante closer · il centro dichiarato del sistema</div><p class="vfy">È ciò che il reel promette e ciò che il Linktree mette al secondo posto. È anche l’unico punto di tutto il sistema in cui il brand raccoglie un contatto.</p><div class="vfc"><span class="vc"><b>6</b> touchpoint</span><span class="vc l"><b>4</b> perdita</span><span class="vc b"><b>1</b> zona cieca</span></div></div><div class="vfs"><div class="vs pass"><div class="vsn">01</div><div class="vsb"><div class="vst">Apro la pagina Skool del gruppo.</div><div class="vsd">486 membri, 1 amministratore, gruppo pubblico e gratuito, piano <b>hobby</b>, creato il 2 dicembre 2025. Nessun prodotto a pagamento associato al gruppo. Zero recensioni interne. La descrizione promette analisi di call reali, framework testati, <b>offerte di lavoro in Italia e USA</b> e live settimanali.</div><div class="vsf pass">passaggio pulito</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">02</div><div class="vsb"><div class="vst">Clicco per entrare.</div><div class="vsd">Compare un questionario d’iscrizione, aggiornato il 10 aprile 2026. Tre domande <b>obbligatorie</b>: la mia situazione (studente hustler / dipendente stuck / imprenditore / disoccupato), il mio <b>numero di telefono</b>, la mia <b>email</b>.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Questo è <b>l’unico punto di cattura dati osservabile in tutto il sistema</b> — e sta dietro l’iscrizione a una piattaforma terza, non su una superficie del brand. Il sito non ha alcun form. Vuol dire che chi non entra su Skool non lascia traccia da nessuna parte, e che l’intera lista contatti vive dentro Skool.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs pass"><div class="vsn">03</div><div class="vsb"><div class="vst">Guardo cosa c’è dentro: la Classroom.</div><div class="vsd"><b>20 corsi · 155 moduli.</b> Il materiale non è un pretesto: è una libreria vera, costruita in nove mesi.</div><div class="vsf pass">passaggio pulito</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">04</div><div class="vsb"><div class="vst">Guardo il feed della community.</div><div class="vsd"><b>17 post in totale.</b> Su 486 membri.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Una libreria di 155 moduli e una piazza da 17 post. Il contenuto è stato prodotto; <b>la conversazione attorno al contenuto no</b>. Senza conversazione non ci sono domande, e senza domande non si sa dove le persone si bloccano.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">05</div><div class="vsb"><div class="vst">Guardo la distribuzione dei livelli — è il dato più duro di tutto il rilievo.</div><div class="vsd"><b>Level 1: 98%.</b> Level 2: 1%. Level 3: 1%. Dal 4 al 9: 0%.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">I livelli Skool salgono con l’attività. 98% fermo al primo significa che <b>quasi nessuno dei 486 fa un secondo gesto dopo essere entrato</b>. La promessa del reel viene mantenuta — l’accesso c’è — ma la persona entra, guarda e si ferma. <b>Questo è il vero punto di rottura del sistema: non l’acquisizione, l’attivazione.</b></div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">06</div><div class="vsb"><div class="vst">Cerco l’uscita: dove porta il gruppo chi invece è pronto?</div><div class="vsd">La descrizione promette «offerte di lavoro (Italia e USA)». Nella pagina pubblica del gruppo <b>non trovo alcun link verso il Placement Hub</b>, che è esattamente il prodotto che mantiene quella promessa.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Il bacino più grande e più qualificato del sistema — 486 persone che hanno lasciato telefono ed email — <b>non ha un ponte osservabile verso la superficie che le trasforma in candidati.</b></div></div><div class="vn blind"><div class="vnh">Non verificabile dall’esterno</div><div class="vnt">Non verificabile dall’esterno</div><div class="vnd">Dentro la Classroom potrebbe esistere un modulo che rimanda al Placement Hub. Da fuori non è visibile, quindi non lo do per esistente — ma va controllato da dentro prima di intervenire.</div></div><div class="vsf leak">qui si perdono persone</div></div></div></div></div><div class="vf" style="--c:var(--orange);--cb:var(--orange-b)"><div class="vfh"><div class="vfp">Percorso D</div><h3>Sono un closer e voglio un’azienda</h3><div class="vfw">Closer pronto · il ramo che dovrebbe convertire</div><p class="vfy">Il percorso di chi ha già deciso. Da qui in poi il sistema cambia dominio — e cambia qualità.</p><div class="vfc"><span class="vc"><b>8</b> touchpoint</span><span class="vc l"><b>7</b> perdita</span><span class="vc b"><b>0</b> zona cieca</span></div></div><div class="vfs"><div class="vs leak"><div class="vsn">01</div><div class="vsb"><div class="vst">Arrivo su italiancloser.com.</div><div class="vsd">L’H1 della pagina è <q>ITALIANCLOSER</q>. Track record dichiarato: <b>+1M$ · +2000 call · +40% closing rate</b>. C’è un video «About» incorporato. Nessun form, nessuna cattura email. L’unico CTA di conversione è un link interno: «Vai al Placement Hub».</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Il titolo principale della home è il <b>nome del brand</b>, non una promessa. Chi atterra qui da Linktree o da YouTube deve leggere il resto della pagina per capire cosa gli viene offerto, invece di saperlo in due secondi.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">02</div><div class="vsb"><div class="vst">Apro il video «About» in home.</div><div class="vsd"><q>La mia esperienza con la Vendita da Remoto (Tutta la Verità)</q> — 21 ottobre 2025, <b>13:57 di durata, 503 visualizzazioni</b>.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Un video di quasi 14 minuti e di dieci mesi fa presidia il momento di massima attenzione della home. 503 visualizzazioni in dieci mesi dicono che <b>quasi nessuno lo guarda</b>: lo spazio più prezioso del sito è occupato da un asset che non lavora.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs pass"><div class="vsn">03</div><div class="vsb"><div class="vst">Clicco «Vai al Placement Hub».</div><div class="vsd">Pagina /placement-hub. Promette <b>< 48h</b> per la prima risposta, <b>3 giorni</b> per la shortlist, <b>3–5 profili</b>, e dichiara una rete di <b>70+ placement · 100+ closer attivi · 20+ aziende partner</b>. Bivio esplicito: «Per Closers» | «Per Aziende». C’è GA4.</div><div class="vsf pass">passaggio pulito</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">04</div><div class="vsb"><div class="vst">Clicco «Per Closers».</div><div class="vsd">Vengo portato su <b>app.italiancloser.com/login</b>. Il bottone da cui sono partito diceva «Per Closers»; la pagina dove atterro è etichettata <b>«Accedi»</b>.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">«Accedi» è la parola che si usa con chi <b>ha già un account</b>. Io non ce l’ho — sono arrivato dieci secondi fa da un reel. La pagina d’ingresso di tutto il ramo closer è etichettata per il pubblico sbagliato.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">05</div><div class="vsb"><div class="vst">Cerco come registrarmi.</div><div class="vsd">In pagina c’è <b>un solo bottone: «Continua con Google»</b>. Nessun campo email, nessuna password, <b>nessun «Registrati»</b>. Sotto, una riga: <q>Usa il tuo account Google. Al primo accesso completerai l’onboarding.</q></div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Il fatto che il bottone Google sia anche la registrazione è <b>spiegato in una riga di testo secondario</b>, non nell’etichetta del bottone. Chi non legge quella riga conclude che il posto non è per lui. E chi non ha o non vuole usare un account Google <b>non ha alcuna via alternativa.</b></div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">06</div><div class="vsb"><div class="vst">Guardo la prova sociale su questa pagina.</div><div class="vsd">Ci sono card testimonianza — con i <b>cerchi degli avatar grigi e vuoti</b>, e tagliate dal bordo del pannello.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Nel momento esatto in cui si chiede l’accesso all’account Google, la prova che dovrebbe rassicurare è <b>rotta a vista</b>. È il punto peggiore del sistema in cui mostrare un difetto di rifinitura.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">07</div><div class="vsb"><div class="vst">Torno indietro e clicco «Vedi altri →» sul Placement Hub.</div><div class="vsd">Atterro su <b>app.italiancloser.com/closer/risultati</b> — e <b>mi viene servita la dashboard interna, da non loggato</b>: barra laterale con Home · Offerte · Candidatura · Profilo · Risorse · Processo e stati · Risultati e, in fondo, <b>«Logout»</b>. Il titolo della scheda è duplicato: <q>Risultati | Placement Hub | Placement Hub | Italiancloser</q>.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Due problemi in un colpo solo. <b>(1)</b> Un visitatore anonimo vede l’interfaccia riservata ai membri, con un bottone «Logout» che non ha senso per lui: l’effetto è confusione, e la sensazione che il prodotto sia aperto per sbaglio. <b>(2)</b> Da questa pagina <b>non esiste alcun punto d’ingresso per iscriversi</b>: chi ci arriva cliccando un CTA del sito finisce in un vicolo cieco e deve tornare indietro da solo.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">08</div><div class="vsb"><div class="vst">Controllo se qualcuno sta misurando tutto questo.</div><div class="vsd">Il sito marketing ha GA4. <b>app.italiancloser.com non ha alcun analytics — né su /login, né su /aziende/contatta.</b></div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Il tracciamento si ferma <b>esattamente dove inizia la conversione</b>. Si può sapere quante persone arrivano al Placement Hub e nulla di ciò che succede dopo: quanti aprono il login, quanti completano Google, quanti abbandonano il form aziende, su quale campo. <b>Ogni decisione presa su questo ramo, da qui in avanti, è presa alla cieca.</b></div></div><div class="vsf leak">qui si perdono persone</div></div></div></div></div><div class="vf" style="--c:var(--green);--cb:var(--green-b)"><div class="vfh"><div class="vfp">Percorso E</div><h3>Sono un’azienda e cerco venditori</h3><div class="vfw">Azienda · il ramo dal lato della domanda</div><p class="vfy">L’altro pubblico. Percorso più corto, più curato — e con un attrito concentrato in un punto solo.</p><div class="vfc"><span class="vc"><b>6</b> touchpoint</span><span class="vc l"><b>5</b> perdita</span><span class="vc b"><b>1</b> zona cieca</span></div></div><div class="vfs"><div class="vs leak"><div class="vsn">01</div><div class="vsb"><div class="vst">Arrivo sul Placement Hub, dal Linktree o dal sito.</div><div class="vsd">Se arrivo dal Linktree, il link che ho cliccato («Cerchi Venditori per la Tua Azienda?») <b>è indistinguibile</b>, nei dati, dal link pensato per i closer: stesso URL, stesso utm_source.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">La domanda dal lato azienda — la più preziosa da riconoscere — <b>arriva senza etichetta.</b></div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs blind"><div class="vsn">02</div><div class="vsb"><div class="vst">Leggo la pagina.</div><div class="vsd">Promette prima risposta <b>< 48h</b>, shortlist in <b>3 giorni</b>, <b>3–5 profili</b> selezionati, e cita 70+ placement e 20+ aziende partner. È il messaggio più concreto di tutto il sistema.</div><div class="vn blind"><div class="vnh">Non verificabile dall’esterno</div><div class="vnt">Non verificabile dall’esterno</div><div class="vnd">Non è osservabile se i «70+ placement» siano rapporti contrattualizzati, prove, o inserimenti conclusi. Nessuna superficie pubblica mostra né i termini né la struttura dell’accordo. <b>Lo tratto come una dichiarazione del brand, non come un fatto rilevato.</b></div></div><div class="vsf blind">zona cieca</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">03</div><div class="vsb"><div class="vst">Clicco «Per Aziende» → app.italiancloser.com/aziende/contatta.</div><div class="vsd">Modulo con <b>8 campi obbligatori</b>: azienda, referente, settore, ruolo cercato, email, telefono con prefisso, canale di contatto preferito, come ci hai conosciuto. Più un messaggio facoltativo, <b>massimo 300 caratteri</b>.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Otto campi obbligatori sono tanti per un <b>primo</b> contatto B2B. Tre di questi (settore, canale preferito, come ci hai conosciuto) servono a chi riceve, non a chi compila: si possono chiedere dopo. E il campo dove l’azienda spiegherebbe cosa le serve davvero è quello <b>tagliato a 300 caratteri</b> — l’unico che valga la pena allungare.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">04</div><div class="vsb"><div class="vst">Noto una domanda specifica dentro il form.</div><div class="vsd"><q>La tua azienda usa Slack (piano Pro o superiore)?</q></div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">È un requisito operativo — probabilmente legato a come il servizio viene consegnato — <b>chiesto dentro il modulo di primo contatto, senza una riga che spieghi perché</b>. Un’azienda che non usa Slack, o che non lo sa, si blocca lì e non ha nessuno a cui chiedere.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">05</div><div class="vsb"><div class="vst">Confronto la promessa con quella della pagina precedente.</div><div class="vsd">Il form promette <b>«1–2 giorni lavorativi»</b>. La pagina marketing, un click prima, prometteva <b>«< 48h»</b>.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Due promesse diverse a due schermate di distanza. «1–2 giorni lavorativi» richiesti di venerdì valgono martedì. È una piccola incoerenza che <b>lavora contro la promessa di velocità</b>, che è il punto di forza dichiarato del servizio.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">06</div><div class="vsb"><div class="vst">Verifico se l’invio è misurato.</div><div class="vsd">Nessun analytics sulla pagina. <b>Nemmeno l’evento di invio del form è tracciato.</b></div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Non è osservabile quante aziende arrivano al modulo, quante lo iniziano, quante lo abbandonano e dove. <b>La singola azione più importante del sistema non lascia dato.</b></div></div><div class="vsf leak">qui si perdono persone</div></div></div></div></div><div class="vf" style="--c:var(--gray);--cb:var(--gray-b)"><div class="vfh"><div class="vfp">Percorso F</div><h3>Non mi fido: vado a verificare</h3><div class="vfw">Chiunque · il percorso della prova</div><p class="vfy">Prima di dare telefono, email o accesso Google, la maggior parte delle persone cerca conferme. Ecco cosa trovano.</p><div class="vfc"><span class="vc"><b>6</b> touchpoint</span><span class="vc l"><b>5</b> perdita</span><span class="vc b"><b>1</b> zona cieca</span></div></div><div class="vfs"><div class="vs leak"><div class="vsn">01</div><div class="vsb"><div class="vst">Cerco il canale YouTube.</div><div class="vsd">@mannyonjourney — titolo del canale «Francesco Manara I Italian Closer». <b>546 iscritti, 460 video.</b></div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">L’handle (@mannyonjourney) e il brand (Italian Closer) sono due nomi diversi. Chi cerca «Italian Closer» su YouTube deve fidarsi che sia la persona giusta. <b>È un attrito piccolo ripetuto su ogni ricerca.</b></div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">02</div><div class="vsb"><div class="vst">Guardo come vanno i video.</div><div class="vsd">Ultimi 22 video: da <b>42</b> a <b>249</b> visualizzazioni, mediana attorno a <b>110</b>.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">460 video pubblicati per una mediana di ~110 visualizzazioni su 546 iscritti. Il volume di produzione è enorme e <b>la resa per pezzo è minima</b>: è il canale che costa di più e restituisce di meno. Nel frattempo Instagram, con 5 post, ne ha uno da 857 like. <b>Lo sforzo è allocato dove il risultato non c’è.</b></div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">03</div><div class="vsb"><div class="vst">Cerco recensioni. Trovo Trustpilot.</div><div class="vsd"><b>47 recensioni, 4,8.</b> Profilo rivendicato ad aprile 2026. Quasi tutte 5 stelle. Il sito, però, dichiara <b>«50+ recensioni»</b>.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Il sito dichiara più recensioni di quante ne esistano. È <b>verificabile in un click</b> da chiunque, e su una pagina che vende fiducia una piccola esagerazione controllabile costa più di quanto renda.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">04</div><div class="vsb"><div class="vst">Guardo le date.</div><div class="vsd">Le recensioni si concentrano fra il <b>6 e il 17 giugno 2026</b>. L’ultima visibile è del <b>13 luglio 2026</b>. Le risposte dell’azienda sono <b>tutte del 17 giugno, fra le 14:00:07 e le 14:02:05</b> — un unico blocco da due minuti.</div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Il profilo racconta <b>una campagna, non un’abitudine</b>: una raccolta concentrata a giugno, un batch di risposte in due minuti, poi silenzio. Un visitatore attento legge le date, e le date dicono che il flusso si è fermato.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs leak"><div class="vsn">05</div><div class="vsb"><div class="vst">Leggo il banner che Trustpilot stesso mostra sulla scheda.</div><div class="vsd"><q>Non risultano inviti alla recensione recenti — Questa azienda non ha mandato inviti ai suoi clienti di recente, quindi le recensioni potrebbero non essere rappresentative.</q></div><div class="vn leak"><div class="vnh">Punto di perdita</div><div class="vnt">Collo di bottiglia · osservato</div><div class="vnd">Non è un’osservazione mia: è <b>Trustpilot che avvisa il visitatore</b>, sopra le recensioni, che quelle recensioni potrebbero non essere rappresentative. La prova sociale più forte del sistema porta addosso un’etichetta di dubbio, messa lì dalla piattaforma stessa.</div></div><div class="vsf leak">qui si perdono persone</div></div></div><div class="vsa"></div><div class="vs blind"><div class="vsn">06</div><div class="vsb"><div class="vst">Chiudo il giro: cerco come funziona commercialmente.</div><div class="vsd">Su nessuna superficie pubblica osservata — Instagram, Linktree, Discord, Skool, YouTube, sito, app, Trustpilot — <b>compare un prezzo, un checkout, un piano a pagamento o dei termini economici</b>. Il gruppo Skool non ha prodotti a pagamento associati. Il Placement Hub non espone né condizioni né compensi.</div><div class="vn blind"><div class="vnh">Non verificabile dall’esterno</div><div class="vnt">Non verificabile dall’esterno · e lo lascio tale</div><div class="vnd">Da fuori <b>non si può stabilire come il sistema generi ricavo</b>. Poteva sembrare deducibile, ma dedurlo significherebbe costruire tutta l’analisi su un’ipotesi. Lo registro come <b>ignoto</b> e lo metto come prima domanda da fare a voce. <b>Nessuna raccomandazione di questo documento poggia su un’assunzione economica.</b></div></div><div class="vsf blind">zona cieca</div></div></div></div></div></div><div class="wrap"><div class="vhint">Scorri lateralmente per passare da un percorso all’altro · ogni riquadro è un touchpoint reale, aperto e letto il 21 agosto 2026 · ogni touchpoint è un punto in cui una persona può uscire</div></div></div>
 </section>
+
+<section><div class="wrap">
+ <span class="secnum">03 — Il sistema intero</span>
+ <h2>Gli stessi percorsi, in orizzontale</h2>
+ <p class="dek">La stessa cosa vista da sopra: le otto superfici sono le corsie, la profondità del percorso
+ sono le colonne. 56 nodi, 60 collegamenti. Le linee rosse punteggiate sono i collegamenti che
+ <b>dovrebbero esistere e non esistono</b>: la community più grande che non porta al prodotto, il corso che
+ vive in due posti senza che uno rimandi all’altro, 460 video che non rimandano a niente.</p>
 </div>
+<div class="wrap"><div class="fkey">
+  <span><i class="k s"></i>percorso condiviso</span>
+  <span><i class="k c"></i>ramo closer</span>
+  <span><i class="k a"></i>ramo azienda</span>
+  <span><i class="k x"></i>perdita osservata</span>
+  <span><i class="k q"></i>non verificabile</span>
+  <span><i class="k m"></i>collegamento assente</span>
+  <span><i class="sq e"></i>ingresso</span>
+  <span><i class="sq cap"></i>cattura dati</span>
+  <span><i class="sq x"></i>punto di perdita</span>
+  <span><i class="sq g"></i>gruppo di canali</span>
+ </div></div>
+<div class="fboard" id="fb">
+ <div class="fcv" id="fcv" style="width:3864px;height:3622px">
+  <div class="ph" style="left:168px;width:566px;height:3622px"><div class="phl">① Primo contatto</div></div><div class="ph" style="left:768px;width:866px;height:3622px"><div class="phl">② Menu e smistamento</div></div><div class="ph" style="left:1668px;width:266px;height:3622px"><div class="phl">③ Atterraggio</div></div><div class="ph" style="left:1968px;width:566px;height:3622px"><div class="phl">④ Dentro la community</div></div><div class="ph" style="left:2568px;width:566px;height:3622px"><div class="phl">⑤ Ingresso al prodotto</div></div><div class="ph" style="left:3168px;width:566px;height:3622px"><div class="phl">⑥ Conversione e zona cieca</div></div>
+  <div class="lane" style="top:54px;height:362px;width:3864px"></div><div class="lane alt" style="top:416px;height:586px;width:3864px"></div><div class="lane" style="top:1002px;height:698px;width:3864px"></div><div class="lane alt" style="top:1700px;height:474px;width:3864px"></div><div class="lane" style="top:2174px;height:250px;width:3864px"></div><div class="lane alt" style="top:2424px;height:362px;width:3864px"></div><div class="lane blind" style="top:2786px;height:474px;width:3864px"></div><div class="lane alt" style="top:3260px;height:362px;width:3864px"></div>
+  <svg class="fsvg" width="3864" height="3622" viewBox="0 0 3864 3622"><defs><marker id="ah-s" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="ahp s"/></marker><marker id="ah-c" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="ahp c"/></marker><marker id="ah-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="ahp a"/></marker><marker id="ah-x" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="ahp x"/></marker><marker id="ah-q" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="ahp q"/></marker><marker id="ah-m" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="ahp m"/></marker><marker id="ah-n" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="ahp n"/></marker></defs><path class="ed s" d="M408 124.0 C454 124.0 448 124.0 494 124.0" marker-end="url(#ah-s)"/><path class="ed q" d="M708 124.0 C754 124.0 748 124.0 794 124.0" marker-end="url(#ah-q)"/><path class="ed s" d="M408 124.0 C454 124.0 448 348.0 494 348.0" marker-end="url(#ah-s)"/><path class="ed s" d="M408 348.0 C454 348.0 448 348.0 494 348.0" marker-end="url(#ah-s)"/><path class="ed x" d="M408 236.0 C454 236.0 448 236.0 494 236.0" marker-end="url(#ah-x)"/><path class="ed s" d="M708 348.0 C754 348.0 748 348.0 794 348.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1008 348.0 C1054 348.0 1048 486.0 1094 486.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1008 348.0 C1337.28 348.0 1364.72 1072.0 1694 1072.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1308 486.0 C1354 486.0 1348 486.0 1394 486.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1308 486.0 C1354 486.0 1348 598.0 1394 598.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1308 486.0 C1354 486.0 1348 710.0 1394 710.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1308 486.0 C1354 486.0 1348 822.0 1394 822.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1308 486.0 C1354 486.0 1348 934.0 1394 934.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1608 486.0 C1654 486.0 1648 1072.0 1694 1072.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1608 598.0 C1654 598.0 1648 1770.0 1694 1770.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1608 822.0 C1654 822.0 1648 2244.0 1694 2244.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1608 934.0 C1654 934.0 1648 2494.0 1694 2494.0" marker-end="url(#ah-s)"/><path class="ed x" d="M1608 710.0 C1793.28 710.0 1808.72 2718.0 1994 2718.0" marker-end="url(#ah-x)"/><path class="ed s" d="M1908 1072.0 C1954 1072.0 1948 1072.0 1994 1072.0" marker-end="url(#ah-s)"/><path class="ed x" d="M1801.0 1122 C1801.0 1174 1801.0 1082 1801.0 1134" marker-end="url(#ah-x)"/><path class="ed s" d="M2101.0 1122 C2101.0 1174 2101.0 1082 2101.0 1134" marker-end="url(#ah-s)"/><path class="ed s" d="M2101.0 1234 C2101.0 1286 2101.0 1194 2101.0 1246" marker-end="url(#ah-s)"/><path class="ed s" d="M2101.0 1346 C2101.0 1398 2101.0 1306 2101.0 1358" marker-end="url(#ah-s)"/><path class="ed s" d="M2101.0 1458 C2101.0 1510 2101.0 1418 2101.0 1470" marker-end="url(#ah-s)"/><path class="ed s" d="M2101.0 1570 C2101.0 1622 2101.0 1530 2101.0 1582" marker-end="url(#ah-s)"/><path class="ed s" d="M2208 1520.0 C2254 1520.0 2248 1072.0 2294 1072.0" marker-end="url(#ah-s)"/><path class="ed q" d="M2208 1520.0 C2254 1520.0 2248 1184.0 2294 1184.0" marker-end="url(#ah-q)"/><path class="ed x" d="M2208 1408.0 C2254 1408.0 2248 1296.0 2294 1296.0" marker-end="url(#ah-x)"/><path class="ed x" d="M2208 1184.0 C2254 1184.0 2248 1408.0 2294 1408.0" marker-end="url(#ah-x)"/><path class="ed m" d="M2401.0 1122 C2401.0 1373.16 2401.0 1468.84 2401.0 1720" marker-end="url(#ah-m)"/><path class="ed m" d="M2401.0 1234 C2401.0 1836.28 2101.0 2065.7200000000003 2101.0 2668" marker-end="url(#ah-m)"/><path class="ed s" d="M1908 1770.0 C1954 1770.0 1948 1770.0 1994 1770.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1908 1770.0 C1954 1770.0 1948 1882.0 1994 1882.0" marker-end="url(#ah-s)"/><path class="ed s" d="M2208 1770.0 C2254 1770.0 2248 1770.0 2294 1770.0" marker-end="url(#ah-s)"/><path class="ed s" d="M2208 1882.0 C2254 1882.0 2248 1882.0 2294 1882.0" marker-end="url(#ah-s)"/><path class="ed x" d="M2401.0 1820 C2401.0 1872.08 2401.0 1891.92 2401.0 1944" marker-end="url(#ah-x)"/><path class="ed x" d="M2401.0 1820 C2401.0 1919.12 2401.0 1956.88 2401.0 2056" marker-end="url(#ah-x)"/><path class="ed m" d="M2101.0 1932 C2101.0 2241.12 2101.0 2358.88 2101.0 2668" marker-end="url(#ah-m)"/><path class="ed x" d="M1908 2244.0 C1954 2244.0 1948 2244.0 1994 2244.0" marker-end="url(#ah-x)"/><path class="ed x" d="M1908 2244.0 C1954 2244.0 1948 2356.0 1994 2356.0" marker-end="url(#ah-x)"/><path class="ed m" d="M1801.0 2294 C1801.0 2535.08 1801.0 1478.92 1801.0 1720" marker-end="url(#ah-m)"/><path class="ed s" d="M1908 2494.0 C1954 2494.0 1948 2494.0 1994 2494.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1908 2494.0 C1954 2494.0 1948 2606.0 1994 2606.0" marker-end="url(#ah-s)"/><path class="ed s" d="M1908 2494.0 C1954 2494.0 1948 2718.0 1994 2718.0" marker-end="url(#ah-s)"/><path class="ed s" d="M2208 2718.0 C2254 2718.0 2248 2718.0 2294 2718.0" marker-end="url(#ah-s)"/><path class="ed s" d="M2101.0 2768 C2101.0 2983.04 2101.0 3064.96 2101.0 3280" marker-end="url(#ah-s)"/><path class="ed c" d="M2508 2718.0 C2554 2718.0 2548 2968.0 2594 2968.0" marker-end="url(#ah-c)"/><path class="ed a" d="M2508 2718.0 C2554 2718.0 2548 3192.0 2594 3192.0" marker-end="url(#ah-a)"/><path class="ed x" d="M2208 2718.0 C2393.28 2718.0 2408.72 3080.0 2594 3080.0" marker-end="url(#ah-x)"/><path class="ed n" d="M2701.0 2906 C2701.0 2958 2701.0 2866 2701.0 2918" marker-end="url(#ah-n)"/><path class="ed x" d="M2808 2968.0 C2854 2968.0 2848 2968.0 2894 2968.0" marker-end="url(#ah-x)"/><path class="ed c" d="M2808 2968.0 C2854 2968.0 2848 2856.0 2894 2856.0" marker-end="url(#ah-c)"/><path class="ed a" d="M2808 3192.0 C2854 3192.0 2848 3192.0 2894 3192.0" marker-end="url(#ah-a)"/><path class="ed x" d="M3108 3192.0 C3154 3192.0 3148 3192.0 3194 3192.0" marker-end="url(#ah-x)"/><path class="ed q" d="M3108 2856.0 C3154 2856.0 3148 2968.0 3194 2968.0" marker-end="url(#ah-q)"/><path class="ed a" d="M3301.0 3242 C3301.0 3378.08 3301.0 2781.92 3301.0 2918" marker-end="url(#ah-a)"/><path class="ed q" d="M3408 2968.0 C3454 2968.0 3448 3080.0 3494 3080.0" marker-end="url(#ah-q)"/><path class="ed x" d="M2208 3330.0 C2254 3330.0 2248 3330.0 2294 3330.0" marker-end="url(#ah-x)"/><path class="ed s" d="M2208 3330.0 C2254 3330.0 2248 3442.0 2294 3442.0" marker-end="url(#ah-s)"/><path class="ed x" d="M2208 3330.0 C2254 3330.0 2248 3554.0 2294 3554.0" marker-end="url(#ah-x)"/></svg>
+  <div class="elab s" style="left:451.0px;top:124.0px">la CTA vive nel testo</div><div class="elab q" style="left:751.0px;top:124.0px">consegna non osservabile</div><div class="elab s" style="left:451.0px;top:236.0px">tap sul nome</div><div class="elab x" style="left:451.0px;top:236.0px">la keyword cade dove il trigger non gira</div><div class="elab s" style="left:1051.0px;top:417.0px">voce «Risorse Gratuite»</div><div class="elab s" style="left:1351.0px;top:710.0px">voce «Community Discord»</div><div class="elab x" style="left:1801.0px;top:1714.0px">due pubblici opposti → una sola pagina</div><div class="elab s" style="left:1951.0px;top:1072.0px">primo canale che si apre</div><div class="elab x" style="left:2251.0px;top:1352.0px">4 rituali ricorrenti, un solo presidio</div><div class="elab m" style="left:2401.0px;top:1421.0px">il corso esiste in due posti, nessuno dei due rimanda all’altro</div><div class="elab m" style="left:2251.0px;top:1951.0px">il canale lavoro non risulta collegato al Placement Hub</div><div class="elab s" style="left:1951.0px;top:1770.0px">3 domande obbligatorie</div><div class="elab x" style="left:2401.0px;top:1882.0px">il contenuto c’è, la progressione no</div><div class="elab m" style="left:2101.0px;top:2300.0px">promette «offerte di lavoro» e non linka il Placement Hub</div><div class="elab x" style="left:1951.0px;top:2244.0px">460 video pubblicati</div><div class="elab m" style="left:1801.0px;top:2007.0px">460 video, nessuna scheda o link fissato verso il corso</div><div class="elab s" style="left:1951.0px;top:2606.0px">unico CTA della home</div><div class="elab s" style="left:2101.0px;top:3024.0px">badge 4,8 in pagina</div><div class="elab c" style="left:2551.0px;top:2843.0px">«Per Closers»</div><div class="elab a" style="left:2551.0px;top:2955.0px">«Per Aziende»</div><div class="elab x" style="left:2401.0px;top:2899.0px">«Vedi altri →»</div><div class="elab q" style="left:3451.0px;top:3024.0px">il passaggio che nessuna superficie pubblica mostra</div>
+  <div class="fn e" style="left:194px;top:74px;width:214px;height:100px" title="Reel «commenta “sales”» — 10 apr · 857 like · 152 commenti · 11 condivisioni"><div class="nhd">ingresso</div><div class="nbd"><div class="nt">Reel «commenta “sales”»</div><div class="nm">10 apr · 857 like · 152 commenti · 11 condivisioni</div></div></div><div class="fn n" style="left:194px;top:186px;width:214px;height:100px" title="Gli altri 4 post — «amo la mia vita» · «miami with the boys» · 137 like max"><div class="nbd"><div class="nt">Gli altri 4 post</div><div class="nm">«amo la mia vita» · «miami with the boys» · 137 like max</div></div></div><div class="fn n" style="left:194px;top:298px;width:214px;height:100px" title="La bio — «1mln+ Cash Collected» · nessuna prova pubblica collegata"><div class="nbd"><div class="nt">La bio</div><div class="nm">«1mln+ Cash Collected» · nessuna prova pubblica collegata</div></div></div><div class="fn n" style="left:494px;top:74px;width:214px;height:100px" title="Il commento «sales» — visibile a 17·13·11·10 sett · 1–3 risposte per thread"><div class="nbd"><div class="nt">Il commento «sales»</div><div class="nm">visibile a 17·13·11·10 sett · 1–3 risposte per thread</div></div></div><div class="fn x" style="left:494px;top:186px;width:214px;height:100px" title="«sales» sul post sbagliato — 2 volte, 18 sett fa, sul post di Miami — zero risposte"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">«sales» sul post sbagliato</div><div class="nm">2 volte, 18 sett fa, sul post di Miami — zero risposte</div></div></div><div class="fn n" style="left:494px;top:298px;width:214px;height:100px" title="Profilo + 8 storie in evidenza — 4 delle 8 si chiamano «students»"><div class="nbd"><div class="nt">Profilo + 8 storie in evidenza</div><div class="nm">4 delle 8 si chiamano «students»</div></div></div><div class="fn q" style="left:794px;top:74px;width:214px;height:100px" title="Consegna del corso promesso — non osservabile dall’esterno"><div class="nhd">non verificabile</div><div class="nbd"><div class="nt">Consegna del corso promesso</div><div class="nm">non osservabile dall’esterno</div></div></div><div class="fn x" style="left:794px;top:298px;width:214px;height:100px" title="Menu dei link in bio — 2 voci · nessuna marcata «inizia da qui»"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Menu dei link in bio</div><div class="nm">2 voci · nessuna marcata «inizia da qui»</div></div></div><div class="fn n" style="left:1094px;top:436px;width:214px;height:100px" title="linktr.ee/francescomanarabusiness — 6 link in fila, nessuna gerarchia visiva"><div class="nbd"><div class="nt">linktr.ee/francescomanarabusiness</div><div class="nm">6 link in fila, nessuna gerarchia visiva</div></div></div><div class="fn n" style="left:1094px;top:548px;width:214px;height:100px" title="Pagina creata ≈ 1 aprile 2026 — il menu è più recente del contenuto che smista"><div class="nbd"><div class="nt">Pagina creata ≈ 1 aprile 2026</div><div class="nm">il menu è più recente del contenuto che smista</div></div></div><div class="fn n" style="left:1394px;top:436px;width:214px;height:100px" title="① Italian Closer Academy — → discord.gg/cAWSm5JYXA"><div class="nbd"><div class="nt">① Italian Closer Academy</div><div class="nm">→ discord.gg/cAWSm5JYXA</div></div></div><div class="fn n" style="left:1394px;top:548px;width:214px;height:100px" title="② Corso Gratuito High Ticket Sales — → skool.com/italian-closers-academy-6315"><div class="nbd"><div class="nt">② Corso Gratuito High Ticket Sales</div><div class="nm">→ skool.com/italian-closers-academy-6315</div></div></div><div class="fn x" style="left:1394px;top:660px;width:214px;height:100px" title="③ «Cerchi Venditori?» + ④ «Sei un Closer?» — stesso URL, stesso utm_source, nessun utm_content"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">③ «Cerchi Venditori?» + ④ «Sei un Closer?»</div><div class="nm">stesso URL, stesso utm_source, nessun utm_content</div></div></div><div class="fn n" style="left:1394px;top:772px;width:214px;height:100px" title="⑤ Seguimi su YouTube — → youtube.com/@mannyonjourney"><div class="nbd"><div class="nt">⑤ Seguimi su YouTube</div><div class="nm">→ youtube.com/@mannyonjourney</div></div></div><div class="fn n" style="left:1394px;top:884px;width:214px;height:100px" title="⑥ Italian Closer | High Ticket Sales — → italiancloser.com/#hero"><div class="nbd"><div class="nt">⑥ Italian Closer | High Ticket Sales</div><div class="nm">→ italiancloser.com/#hero</div></div></div><div class="fn n" style="left:1694px;top:1022px;width:214px;height:100px" title="Invito → 🪧・inizia-qui — 615 membri · 31 online · invito senza scadenza"><div class="nbd"><div class="nt">Invito → 🪧・inizia-qui</div><div class="nm">615 membri · 31 online · invito senza scadenza</div></div></div><div class="fn x" style="left:1694px;top:1134px;width:214px;height:100px" title="Descrizione del server — vuota — chi guarda l’anteprima non sa cosa c’è dentro"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Descrizione del server</div><div class="nm">vuota — chi guarda l’anteprima non sa cosa c’è dentro</div></div></div><div class="fn g" style="left:1994px;top:1022px;width:214px;height:100px" title="BENVENUTO — 4 canali — inizia qui · come funzionano i canali · introductions · regole"><div class="nhd">gruppo di canali</div><div class="nbd"><div class="nt">BENVENUTO — 4 canali</div><div class="nm">inizia qui · come funzionano i canali · introductions · regole</div></div></div><div class="fn g" style="left:1994px;top:1134px;width:214px;height:100px" title="COMMUNITY — 4 canali — general · annunci · porta un killer · weekly accountability challenge"><div class="nhd">gruppo di canali</div><div class="nbd"><div class="nt">COMMUNITY — 4 canali</div><div class="nm">general · annunci · porta un killer · weekly accountability challenge</div></div></div><div class="fn g" style="left:1994px;top:1246px;width:214px;height:100px" title="SELF DEVELOPMENT — 2 canali — weekly sales drop · risorse e consigli"><div class="nhd">gruppo di canali</div><div class="nbd"><div class="nt">SELF DEVELOPMENT — 2 canali</div><div class="nm">weekly sales drop · risorse e consigli</div></div></div><div class="fn g" style="left:1994px;top:1358px;width:214px;height:100px" title="ACCOUNTABILITY — 2 canali — weekly check in · check in giornaliero"><div class="nhd">gruppo di canali</div><div class="nbd"><div class="nt">ACCOUNTABILITY — 2 canali</div><div class="nm">weekly check in · check in giornaliero</div></div></div><div class="fn g" style="left:1994px;top:1470px;width:214px;height:100px" title="HIGH TICKET SALES — 5 canali — corso gratuito · sales talk · roleplay partners · wins · opportunità di lavoro"><div class="nhd">gruppo di canali</div><div class="nbd"><div class="nt">HIGH TICKET SALES — 5 canali</div><div class="nm">corso gratuito · sales talk · roleplay partners · wins · opportunità di lavoro</div></div></div><div class="fn g" style="left:1994px;top:1582px;width:214px;height:100px" title="CALLS — 3 canali — the weekly · guest calls · archivio calls"><div class="nhd">gruppo di canali</div><div class="nbd"><div class="nt">CALLS — 3 canali</div><div class="nm">the weekly · guest calls · archivio calls</div></div></div><div class="fn n" style="left:2294px;top:1022px;width:214px;height:100px" title="Canale «corso gratuito» — il corso vive anche qui, oltre che su Skool"><div class="nbd"><div class="nt">Canale «corso gratuito»</div><div class="nm">il corso vive anche qui, oltre che su Skool</div></div></div><div class="fn q" style="left:2294px;top:1134px;width:214px;height:100px" title="Canale «opportunità di lavoro» — esiste — cosa contiene non è nel materiale osservato"><div class="nhd">non verificabile</div><div class="nbd"><div class="nt">Canale «opportunità di lavoro»</div><div class="nm">esiste — cosa contiene non è nel materiale osservato</div></div></div><div class="fn x" style="left:2294px;top:1246px;width:214px;height:100px" title="19 canali, 1 solo admin — check-in giornaliero + settimanale + challenge: tutto da presidiare a mano"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">19 canali, 1 solo admin</div><div class="nm">check-in giornaliero + settimanale + challenge: tutto da presidiare a mano</div></div></div><div class="fn x" style="left:2294px;top:1358px;width:214px;height:100px" title="Canale «porta un killer» — referral senza tracciamento, incentivo o link dedicato osservabile"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Canale «porta un killer»</div><div class="nm">referral senza tracciamento, incentivo o link dedicato osservabile</div></div></div><div class="fn n" style="left:1694px;top:1720px;width:214px;height:100px" title="Pagina About del gruppo — gruppo pubblico · piano «hobby» · 1 solo admin · creato 02-12-2025"><div class="nbd"><div class="nt">Pagina About del gruppo</div><div class="nm">gruppo pubblico · piano «hobby» · 1 solo admin · creato 02-12-2025</div></div></div><div class="fn cap" style="left:1994px;top:1720px;width:214px;height:100px" title="Survey d’iscrizione — situazione + TELEFONO + EMAIL — obbligatori"><div class="nhd">unico punto di cattura dati</div><div class="nbd"><div class="nt">Survey d’iscrizione</div><div class="nm">situazione + TELEFONO + EMAIL — obbligatori</div></div></div><div class="fn n" style="left:1994px;top:1832px;width:214px;height:100px" title="Cosa promette la descrizione — analisi di call reali, framework, «offerte di lavoro Italia e USA»"><div class="nbd"><div class="nt">Cosa promette la descrizione</div><div class="nm">analisi di call reali, framework, «offerte di lavoro Italia e USA»</div></div></div><div class="fn n" style="left:2294px;top:1720px;width:214px;height:100px" title="Classroom — 20 corsi · 155 moduli"><div class="nbd"><div class="nt">Classroom</div><div class="nm">20 corsi · 155 moduli</div></div></div><div class="fn x" style="left:2294px;top:1832px;width:214px;height:100px" title="Feed della community — 17 post in totale su 486 membri"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Feed della community</div><div class="nm">17 post in totale su 486 membri</div></div></div><div class="fn x" style="left:2294px;top:1944px;width:214px;height:100px" title="Livelli dei membri — 98% fermo a Level 1 · 1% L2 · 1% L3 · 0% oltre"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Livelli dei membri</div><div class="nm">98% fermo a Level 1 · 1% L2 · 1% L3 · 0% oltre</div></div></div><div class="fn x" style="left:2294px;top:2056px;width:214px;height:100px" title="Recensioni interne — 0 · nessun prodotto a pagamento pubblicato sul gruppo"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Recensioni interne</div><div class="nm">0 · nessun prodotto a pagamento pubblicato sul gruppo</div></div></div><div class="fn n" style="left:1694px;top:2194px;width:214px;height:100px" title="Canale @mannyonjourney — titolo: «Francesco Manara I Italian Closer»"><div class="nbd"><div class="nt">Canale @mannyonjourney</div><div class="nm">titolo: «Francesco Manara I Italian Closer»</div></div></div><div class="fn x" style="left:1994px;top:2194px;width:214px;height:100px" title="Ultimi 22 video — da 42 a 249 views · mediana ≈ 110 su 546 iscritti"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Ultimi 22 video</div><div class="nm">da 42 a 249 views · mediana ≈ 110 su 546 iscritti</div></div></div><div class="fn x" style="left:1994px;top:2306px;width:214px;height:100px" title="Il canale non porta il nome del brand — chi cerca «Italian Closer» non atterra su @mannyonjourney"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Il canale non porta il nome del brand</div><div class="nm">chi cerca «Italian Closer» non atterra su @mannyonjourney</div></div></div><div class="fn n" style="left:1694px;top:2444px;width:214px;height:100px" title="italiancloser.com — h1 della pagina = «ITALIANCLOSER» · nessun form"><div class="nbd"><div class="nt">italiancloser.com</div><div class="nm">h1 della pagina = «ITALIANCLOSER» · nessun form</div></div></div><div class="fn n" style="left:1994px;top:2444px;width:214px;height:100px" title="Track record dichiarato — +1M$ · +2000 call · +40% closing rate — nessuna fonte in pagina"><div class="nbd"><div class="nt">Track record dichiarato</div><div class="nm">+1M$ · +2000 call · +40% closing rate — nessuna fonte in pagina</div></div></div><div class="fn x" style="left:1994px;top:2556px;width:214px;height:100px" title="Video «About» incorporato — 21 ott 2025 · 13:57 · 503 visualizzazioni"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Video «About» incorporato</div><div class="nm">21 ott 2025 · 13:57 · 503 visualizzazioni</div></div></div><div class="fn n" style="left:1994px;top:2668px;width:214px;height:100px" title="/placement-hub — «&lt; 48h» · «3 gg» · «70+ placement» · «100+ closer» · «20+ aziende»"><div class="nbd"><div class="nt">/placement-hub</div><div class="nm">«&lt; 48h» · «3 gg» · «70+ placement» · «100+ closer» · «20+ aziende»</div></div></div><div class="fn n" style="left:2294px;top:2668px;width:214px;height:100px" title="Bivio «Per Closers» / «Per Aziende» — due bottoni, due destinazioni, un altro dominio"><div class="nbd"><div class="nt">Bivio «Per Closers» / «Per Aziende»</div><div class="nm">due bottoni, due destinazioni, un altro dominio</div></div></div><div class="fn n" style="left:2594px;top:2806px;width:214px;height:100px" title="Guscio unico per tutte le rotte — /login, / e /closer/risultati: identiche, 31.002 byte"><div class="nbd"><div class="nt">Guscio unico per tutte le rotte</div><div class="nm">/login, / e /closer/risultati: identiche, 31.002 byte</div></div></div><div class="fn x" style="left:2594px;top:2918px;width:214px;height:100px" title="/login — etichettata «Accedi» — solo «Continua con Google» · nessun «Registrati»"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">/login — etichettata «Accedi»</div><div class="nm">solo «Continua con Google» · nessun «Registrati»</div></div></div><div class="fn x" style="left:2594px;top:3030px;width:214px;height:100px" title="/closer/risultati — dashboard interna con «Logout» servita a chi non è loggato"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">/closer/risultati</div><div class="nm">dashboard interna con «Logout» servita a chi non è loggato</div></div></div><div class="fn n" style="left:2594px;top:3142px;width:214px;height:100px" title="/aziende/contatta — 8 campi obbligatori · messaggio max 300 caratteri"><div class="nbd"><div class="nt">/aziende/contatta</div><div class="nm">8 campi obbligatori · messaggio max 300 caratteri</div></div></div><div class="fn x" style="left:2894px;top:2918px;width:214px;height:100px" title="Testimonianze senza volto — cerchi grigi vuoti al posto delle foto, tagliati dal bordo"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Testimonianze senza volto</div><div class="nm">cerchi grigi vuoti al posto delle foto, tagliati dal bordo</div></div></div><div class="fn q" style="left:2894px;top:2806px;width:214px;height:100px" title="Onboarding al primo accesso — dichiarato in pagina — richiede un account"><div class="nhd">non verificabile</div><div class="nbd"><div class="nt">Onboarding al primo accesso</div><div class="nm">dichiarato in pagina — richiede un account</div></div></div><div class="fn x" style="left:2894px;top:3142px;width:214px;height:100px" title="«La tua azienda usa Slack (piano Pro)?» — requisito tecnico chiesto prima di mostrare un solo profilo"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">«La tua azienda usa Slack (piano Pro)?»</div><div class="nm">requisito tecnico chiesto prima di mostrare un solo profilo</div></div></div><div class="fn x" style="left:3194px;top:3142px;width:214px;height:100px" title="«1–2 giorni lavorativi» — il sito dice «&lt; 48h»: due promesse diverse sullo stesso servizio"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">«1–2 giorni lavorativi»</div><div class="nm">il sito dice «&lt; 48h»: due promesse diverse sullo stesso servizio</div></div></div><div class="fn q" style="left:3194px;top:2918px;width:214px;height:100px" title="Matching manuale — dichiarato: shortlist di 3–5 profili in 3 giorni"><div class="nhd">non verificabile</div><div class="nbd"><div class="nt">Matching manuale</div><div class="nm">dichiarato: shortlist di 3–5 profili in 3 giorni</div></div></div><div class="fn q" style="left:3494px;top:3030px;width:214px;height:100px" title="Come entra il denaro — nessun prezzo, checkout o piano a pagamento su NESSUNA superficie pubblica"><div class="nhd">non verificabile</div><div class="nbd"><div class="nt">Come entra il denaro</div><div class="nm">nessun prezzo, checkout o piano a pagamento su NESSUNA superficie pubblica</div></div></div><div class="fn n" style="left:1994px;top:3280px;width:214px;height:100px" title="Scheda Trustpilot — 47 recensioni · 4,8 · il sito ne dichiara «50+»"><div class="nbd"><div class="nt">Scheda Trustpilot</div><div class="nm">47 recensioni · 4,8 · il sito ne dichiara «50+»</div></div></div><div class="fn x" style="left:2294px;top:3280px;width:214px;height:100px" title="Quando sono arrivate — raggruppate fra il 6 e il 17 giugno 2026 · ultima visibile 13 luglio"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Quando sono arrivate</div><div class="nm">raggruppate fra il 6 e il 17 giugno 2026 · ultima visibile 13 luglio</div></div></div><div class="fn x" style="left:2294px;top:3392px;width:214px;height:100px" title="Risposte dell’azienda — tutte il 17 giu 2026, fra le 14:00:07 e le 14:02:05"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Risposte dell’azienda</div><div class="nm">tutte il 17 giu 2026, fra le 14:00:07 e le 14:02:05</div></div></div><div class="fn x" style="left:2294px;top:3504px;width:214px;height:100px" title="Banner di Trustpilot — «Non risultano inviti alla recensione recenti»"><div class="nhd">qui si perdono persone</div><div class="nbd"><div class="nt">Banner di Trustpilot</div><div class="nm">«Non risultano inviti alla recensione recenti»</div></div></div>
+ </div>
+ <div class="lanebar" id="lbar"><div class="lbr" data-t="54" data-h="362"><span class="ln">INSTAGRAM</span><span class="lnote">@italiancloser · 3.617 follower · 5 post</span></div><div class="lbr" data-t="416" data-h="586"><span class="ln">LINKTREE</span><span class="lnote">francescomanarabusiness · 6 link</span></div><div class="lbr" data-t="1002" data-h="698"><span class="ln">DISCORD</span><span class="lnote">Italian Closer Academy · 615 membri · 19 canali</span></div><div class="lbr" data-t="1700" data-h="474"><span class="ln">SKOOL</span><span class="lnote">italian-closers-academy · 486 membri</span></div><div class="lbr" data-t="2174" data-h="250"><span class="ln">YOUTUBE</span><span class="lnote">@mannyonjourney · 546 iscritti · 460 video</span></div><div class="lbr" data-t="2424" data-h="362"><span class="ln">ITALIANCLOSER.COM</span><span class="lnote">sito pubblico · GA4 G-07PW41NQYZ attivo</span><span class="lflag ok">GA4 attivo</span></div><div class="lbr" data-t="2786" data-h="474"><span class="ln">APP.ITALIANCLOSER.COM</span><span class="lnote">superficie di conversione · nessun analytics</span><span class="lflag">zona cieca · 0 analytics</span></div><div class="lbr" data-t="3260" data-h="362"><span class="ln">TRUSTPILOT</span><span class="lnote">italiancloser.com · 47 recensioni · 4,8</span></div></div>
+ <div class="fctl">
+  <button data-z="in">+</button><button data-z="out">−</button>
+  <button data-z="fit">Vedi tutto</button><button data-z="one">100%</button>
+ </div>
+</div>
+<div class="wrap"><div class="fhint">Trascina per spostarti · ⌘/Ctrl + rotella per lo zoom ·
+«Vedi tutto» per la forma dell’intero sistema · la colonna di sinistra ti dice sempre su quale superficie ti trovi</div></div>
+</section>
+
+<section><div class="wrap">
+ <span class="secnum">04 — I rilievi</span>
+ <h2>36 rilievi, divisi per sezione</h2>
+ <p class="dek">Non una lista: sette sezioni, ognuna su una cosa sola. 10 sono ad alta severità.
+ 6 sono cose che dall’esterno <b>non si possono sapere</b> — e restano marcate come tali invece di essere riempite.</p>
+ <div class="fsecs"><div class="fsec"><div class="fsh"><div class="fsn">Sezione 01</div><h3>ARCHITETTURA E INSTRADAMENTO</h3><p>Come il sistema smista chi arriva — e dove smette di farlo.</p><div class="fchips"><span class="fchip h">4 alta</span><span class="fchip m">3 media</span><span class="fchip tot">7 rilievi</span></div></div><div class="fitems"><div class="fitem h"><div class="fcode">A1</div><div class="fbody"><div class="ftit">Due link per due pubblici opposti finiscono sullo stesso URL</div><div class="fdet">Linktree ③ «Cerchi Venditori?» e ④ «Sei un Closer?» → italiancloser.com/placement-hub?utm_source=linktree, identici, senza utm_content.</div></div><div class="fsev h">alta</div></div><div class="fitem h"><div class="fcode">A2</div><div class="fbody"><div class="ftit">La pagina d’ingresso dei closer è etichettata «Accedi»</div><div class="fdet">Il bottone di partenza dice «Per Closers», la destinazione dice «Accedi», e l’unica azione è «Continua con Google». Nessun «Registrati».</div></div><div class="fsev h">alta</div></div><div class="fitem h"><div class="fcode">A3</div><div class="fbody"><div class="ftit">Un CTA pubblico porta dentro la dashboard riservata</div><div class="fdet">«Vedi altri →» sul Placement Hub apre /closer/risultati: barra laterale completa e «Logout» serviti a un visitatore non autenticato, senza alcun punto d’iscrizione.</div></div><div class="fsev h">alta</div></div><div class="fitem h"><div class="fcode">A4</div><div class="fbody"><div class="ftit">La community più grande non ha un ponte verso il prodotto</div><div class="fdet">486 membri Skool, la cui descrizione promette «offerte di lavoro (Italia e USA)» — nessun link osservabile verso il Placement Hub. Stesso vuoto dal Discord da 615 membri.</div></div><div class="fsev h">alta</div></div><div class="fitem m"><div class="fcode">A5</div><div class="fbody"><div class="ftit">La parola chiave vive su un solo post, ma viene scritta ovunque</div><div class="fdet">«sales» digitato due volte sul post di Miami, 18 settimane fa, senza risposta. Nessun sistema di recupero.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">A6</div><div class="fbody"><div class="ftit">Il menu moltiplica le scelte invece di ordinarle</div><div class="fdet">Bio (2 voci) → Linktree (6 voci) = fino a 8 decisioni prima di ricevere una sola informazione utile. Nessuna voce marcata «inizia da qui».</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">A7</div><div class="fbody"><div class="ftit">L’unica cattura di contatto è su una piattaforma terza</div><div class="fdet">Telefono ed email si raccolgono solo nel questionario d’iscrizione a Skool. Il sito del brand non ha alcun form.</div></div><div class="fsev m">media</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 02</div><h3>MISURAZIONE</h3><p>Cosa il sistema può sapere di se stesso.</p><div class="fchips"><span class="fchip h">2 alta</span><span class="fchip m">2 media</span><span class="fchip tot">4 rilievi</span></div></div><div class="fitems"><div class="fitem h"><div class="fcode">B1</div><div class="fbody"><div class="ftit">Le due pagine che convertono non hanno analytics</div><div class="fdet">Nessun tag su app.italiancloser.com: né /login (ramo closer), né /aziende/contatta (ramo azienda). GA4 si ferma sul sito marketing.</div></div><div class="fsev h">alta</div></div><div class="fitem h"><div class="fcode">B2</div><div class="fbody"><div class="ftit">L’invio del form aziende non genera evento</div><div class="fdet">Non è osservabile quante aziende iniziano il modulo, quante lo completano, su quale degli 8 campi si fermano.</div></div><div class="fsev h">alta</div></div><div class="fitem m"><div class="fcode">B3</div><div class="fbody"><div class="ftit">Il traffico dai due link Linktree è indistinguibile</div><div class="fdet">Stesso utm_source, nessun utm_content: non si può separare la domanda del closer da quella dell’azienda nemmeno a posteriori.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">B4</div><div class="fbody"><div class="ftit">Nessun pixel pubblicitario su alcuna superficie</div><div class="fdet">Solo GA4 sul sito. Nessun pubblico riutilizzabile viene costruito dal traffico che già arriva.</div></div><div class="fsev m">media</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 03</div><h3>DOMANDA E CONTENUTO</h3><p>Dove il pubblico si muove davvero, e dove va lo sforzo.</p><div class="fchips"><span class="fchip h">1 alta</span><span class="fchip m">3 media</span><span class="fchip l">1 bassa</span><span class="fchip tot">5 rilievi</span></div></div><div class="fitems"><div class="fitem h"><div class="fcode">C1</div><div class="fbody"><div class="ftit">Lo sforzo è allocato dove la resa è più bassa</div><div class="fdet">460 video YouTube → mediana ≈110 visualizzazioni su 546 iscritti. 5 post Instagram → uno da 857 like e 152 commenti. Il canale più costoso è il meno produttivo.</div></div><div class="fsev h">alta</div></div><div class="fitem m"><div class="fcode">C2</div><div class="fbody"><div class="ftit">La superficie che porta più persone è la meno documentata</div><div class="fdet">5 post in totale, 4 dei quali personali. Chi arriva sul profilo dopo il reel non ha materiale per decidere.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">C3</div><div class="fbody"><div class="ftit">Il video della home ha dieci mesi e 503 visualizzazioni</div><div class="fdet">«La mia esperienza con la Vendita da Remoto», 21 ott 2025, 13:57. Occupa il momento di massima attenzione del sito.</div></div><div class="fsev m">media</div></div><div class="fitem l"><div class="fcode">C4</div><div class="fbody"><div class="ftit">Le richieste dirette del pubblico non vengono raccolte</div><div class="fdet">Almeno una richiesta esplicita di contenuto nei commenti, senza replica visibile. È ricerca di mercato gratuita lasciata cadere.</div></div><div class="fsev l">bassa</div></div><div class="fitem m"><div class="fcode">C5</div><div class="fbody"><div class="ftit">L’H1 della home è il nome del brand</div><div class="fdet">«ITALIANCLOSER» — non una promessa. Il visitatore deve leggere per capire l’offerta invece di riconoscerla subito.</div></div><div class="fsev m">media</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 04</div><h3>PROVA SOCIALE</h3><p>Cosa trova chi va a verificare prima di dare i propri dati.</p><div class="fchips"><span class="fchip h">1 alta</span><span class="fchip m">3 media</span><span class="fchip l">1 bassa</span><span class="fchip tot">5 rilievi</span></div></div><div class="fitems"><div class="fitem h"><div class="fcode">D1</div><div class="fbody"><div class="ftit">Trustpilot avvisa i visitatori che le recensioni potrebbero non essere rappresentative</div><div class="fdet">Banner della piattaforma: «Non risultano inviti alla recensione recenti». Compare sopra le recensioni.</div></div><div class="fsev h">alta</div></div><div class="fitem m"><div class="fcode">D2</div><div class="fbody"><div class="ftit">La raccolta è una campagna, non un’abitudine</div><div class="fdet">Recensioni concentrate 6–17 giugno 2026; risposte dell’azienda tutte il 17 giugno fra le 14:00:07 e le 14:02:05; ultima recensione visibile 13 luglio.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">D3</div><div class="fbody"><div class="ftit">Il sito dichiara più recensioni di quante ne esistano</div><div class="fdet">«50+» dichiarate contro 47 osservate. Verificabile in un click.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">D4</div><div class="fbody"><div class="ftit">Le testimonianze sul login sono rotte a vista</div><div class="fdet">Avatar grigi vuoti e card tagliate dal bordo, nel punto esatto in cui si chiede l’accesso all’account Google.</div></div><div class="fsev m">media</div></div><div class="fitem l"><div class="fcode">D5</div><div class="fbody"><div class="ftit">Il gruppo Skool non ha recensioni interne</div><div class="fdet">0 recensioni su 486 membri, su una piattaforma che le raccoglie nativamente. Prova sociale disponibile e non usata.</div></div><div class="fsev l">bassa</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 05</div><h3>ATTIVAZIONE E RITENZIONE</h3><p>Cosa succede alle persone dopo che sono entrate.</p><div class="fchips"><span class="fchip h">2 alta</span><span class="fchip m">1 media</span><span class="fchip l">1 bassa</span><span class="fchip tot">4 rilievi</span></div></div><div class="fitems"><div class="fitem h"><div class="fcode">E1</div><div class="fbody"><div class="ftit">Il 98% dei membri Skool è fermo al primo livello</div><div class="fdet">486 membri: L1 98% · L2 1% · L3 1% · L4–L9 0%. Quasi nessuno compie un secondo gesto dopo l’ingresso.</div></div><div class="fsev h">alta</div></div><div class="fitem h"><div class="fcode">E2</div><div class="fbody"><div class="ftit">La libreria è grande, la conversazione non esiste</div><div class="fdet">20 corsi e 155 moduli contro 17 post totali nel feed. Nessun canale per sapere dove le persone si bloccano.</div></div><div class="fsev h">alta</div></div><div class="fitem m"><div class="fcode">E3</div><div class="fbody"><div class="ftit">Il Discord accoglie senza contestualizzare</div><div class="fdet">615 membri, atterraggio su 🪧・inizia-qui, descrizione del server vuota. Chi entra da fuori non riceve un inquadramento.</div></div><div class="fsev m">media</div></div><div class="fitem l"><div class="fcode">E4</div><div class="fbody"><div class="ftit">31 online su 615 al momento del rilievo</div><div class="fdet">≈5%. Fotografia singola, non una serie — ma coerente con il quadro di attività bassa.</div></div><div class="fsev l">bassa</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 06</div><h3>COERENZA E ATTRITO</h3><p>Le crepe che il visitatore nota e che costano fiducia.</p><div class="fchips"><span class="fchip m">3 media</span><span class="fchip l">2 bassa</span><span class="fchip tot">5 rilievi</span></div></div><div class="fitems"><div class="fitem m"><div class="fcode">F1</div><div class="fbody"><div class="ftit">Due promesse di tempo diverse a due schermate di distanza</div><div class="fdet">Pagina marketing: «< 48h». Form aziende: «1–2 giorni lavorativi». La velocità è il punto di forza dichiarato.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">F2</div><div class="fbody"><div class="ftit">Otto campi obbligatori per un primo contatto B2B</div><div class="fdet">Tre di essi servono a chi riceve, non a chi compila; il messaggio libero — l’unico campo davvero utile — è limitato a 300 caratteri.</div></div><div class="fsev m">media</div></div><div class="fitem m"><div class="fcode">F3</div><div class="fbody"><div class="ftit">Un requisito operativo compare nel form senza spiegazione</div><div class="fdet">«La tua azienda usa Slack (piano Pro o superiore)?» chiesto al primo contatto, senza una riga sul perché.</div></div><div class="fsev m">media</div></div><div class="fitem l"><div class="fcode">F4</div><div class="fbody"><div class="ftit">Handle e brand non coincidono su YouTube</div><div class="fdet">@mannyonjourney per un canale intitolato «Francesco Manara I Italian Closer».</div></div><div class="fsev l">bassa</div></div><div class="fitem l"><div class="fcode">F5</div><div class="fbody"><div class="ftit">Titolo di pagina duplicato sulla app</div><div class="fdet">«Risultati | Placement Hub | Placement Hub | Italiancloser».</div></div><div class="fsev l">bassa</div></div></div></div><div class="fsec"><div class="fsh"><div class="fsn">Sezione 07</div><h3>CIÒ CHE NON SI PUÒ SAPERE DALL’ESTERNO</h3><p>Registrato come ignoto. Nessuna raccomandazione poggia su questi punti.</p><div class="fchips"><span class="fchip q">6 ignoto</span><span class="fchip tot">6 rilievi</span></div></div><div class="fitems"><div class="fitem q"><div class="fcode">G1</div><div class="fbody"><div class="ftit">Come il sistema genera ricavo</div><div class="fdet">Nessun prezzo, checkout, piano a pagamento o termine economico su nessuna delle 8 superfici osservate. Il gruppo Skool non ha prodotti a pagamento; il Placement Hub non espone condizioni. Prima domanda da fare a voce.</div></div><div class="fsev q">ignoto</div></div><div class="fitem q"><div class="fcode">G2</div><div class="fbody"><div class="ftit">Cosa succede davvero dopo il commento «sales»</div><div class="fdet">Se parta un DM, con che ritardo, con che contenuto, se richieda il follow. Non osservabile senza accesso all’account.</div></div><div class="fsev q">ignoto</div></div><div class="fitem q"><div class="fcode">G3</div><div class="fbody"><div class="ftit">Cosa c’è dentro il Discord oltre 🪧・inizia-qui</div><div class="fdet">Struttura dei canali, moderazione, ritmo reale delle conversazioni.</div></div><div class="fsev q">ignoto</div></div><div class="fitem q"><div class="fcode">G4</div><div class="fbody"><div class="ftit">Cosa c’è dentro la Classroom Skool</div><div class="fdet">Se esista un modulo che rimanda al Placement Hub, e come sia sequenziato il percorso.</div></div><div class="fsev q">ignoto</div></div><div class="fitem q"><div class="fcode">G5</div><div class="fbody"><div class="ftit">Cosa succede dopo il login Google</div><div class="fdet">L’onboarding dichiarato in pagina, i suoi passaggi, il suo tasso di completamento.</div></div><div class="fsev q">ignoto</div></div><div class="fitem q"><div class="fcode">G6</div><div class="fbody"><div class="ftit">Se i «70+ placement» siano contrattualizzati</div><div class="fdet">Nessuna superficie pubblica mostra la natura del rapporto con le 20+ aziende partner.</div></div><div class="fsev q">ignoto</div></div></div></div></div>
+</div></section>
+
+<section><div class="wrap">
+ <span class="secnum">05 — Il conto</span>
+ <h2>Quanto costa lasciare il funnel com’è</h2>
+ <p class="dek">I numeri di partenza li metti tu: nessuno di questi valori è un’ipotesi mia sul tuo fatturato.
+ Le percentuali di perdita partono da ciò che è stato osservato il 21 agosto 2026, e le puoi cambiare tutte.
+ <b>Muovi ogni cursore dove vuoi: il numero in fondo resta rosso.</b></p>
+ <div class="calc" id="calc">
+ <div class="cgrid">
+  <div class="cpanel">
+   <div class="cph">I tuoi numeri<span>li sai solo tu — cambiali e guarda cosa succede</span></div>
+   <div class="cins"><label class="cin" for="i-A"><div class="cl">Persone nuove che entrano ogni mese nel tuo ecosistema</div><div class="ch">Discord + Skool messi insieme, quelle che arrivano davvero dentro.</div><div class="cf"><span class="cu">persone</span><input id="i-A" type="number" data-k="A" value="60" min="0" max="500" step="5"></div></label><label class="cin" for="i-V"><div class="cl">Quanto vale per te un closer che arriva fino alla collocazione</div><div class="ch">Il tuo numero, non il mio. Se non lo sai ancora, è già un dato.</div><div class="cf"><span class="cu">€</span><input id="i-V" type="number" data-k="V" value="400" min="0" max="5000" step="50"></div></label><label class="cin" for="i-Z"><div class="cl">Aziende che ti contattano ogni mese</div><div class="ch">Da qualunque canale: form, DM, email, passaparola.</div><div class="cf"><span class="cu">aziende</span><input id="i-Z" type="number" data-k="Z" value="4" min="0" max="60" step="1"></div></label><label class="cin" for="i-W"><div class="cl">Quanto vale per te un'azienda che diventa cliente</div><div class="ch">Su tutta la durata del rapporto, non sulla prima collocazione.</div><div class="cf"><span class="cu">€</span><input id="i-W" type="number" data-k="W" value="1500" min="0" max="20000" step="250"></div></label><label class="cin" for="i-O"><div class="cl">Ore a settimana che fai a mano</div><div class="ch">Vetting, matching, presidio dei 19 canali, risposte una per una.</div><div class="cf"><span class="cu">ore</span><input id="i-O" type="number" data-k="O" value="12" min="0" max="60" step="1"></div></label><label class="cin" for="i-E"><div class="cl">Quanto vale un'ora del tuo tempo</div><div class="ch">Se non lo hai mai calcolato: fatturato mensile diviso ore lavorate.</div><div class="cf"><span class="cu">€</span><input id="i-E" type="number" data-k="E" value="60" min="0" max="500" step="5"></div></label></div>
+  </div>
+  <div class="cpanel">
+   <div class="cph">Le perdite osservate<span>partono da ciò che si vede oggi · sono tutte modificabili</span></div>
+   <div class="crts"><div class="crt"><div class="crh"><div class="crl">Quota che si perde nello smistamento</div><output class="cro" id="o-l1">30%</output></div><input class="crs" id="i-l1" type="range" data-k="l1" value="30" min="0" max="90" step="1"><div class="cre"><span class="creh">da cosa viene questo numero</span>Osservato: i link Linktree ③ e ④ parlano a due pubblici opposti e portano allo stesso URL; il menu bio → Linktree chiede fino a 8 decisioni; la porta dei closer si chiama «Accedi» e offre solo «Continua con Google», senza «Registrati».</div></div><div class="crt"><div class="crh"><div class="crl">Quota che entra e non si attiva mai</div><output class="cro" id="o-l2">90%</output></div><input class="crs" id="i-l2" type="range" data-k="l2" value="90" min="0" max="99" step="1"><div class="cre"><span class="creh">da cosa viene questo numero</span>Osservato su Skool: 98% dei 486 membri fermo a Level 1, 1% a L2, 1% a L3, 0% oltre. 17 post in tutta la storia del gruppo. Su Discord, 19 canali e un solo admin a presidiarli.</div></div><div class="crt"><div class="crh"><div class="crl">Dove arriverebbe la stessa gente con un funnel che funziona</div><output class="cro" id="o-t">20%</output></div><input class="crs" id="i-t" type="range" data-k="t" value="20" min="0" max="50" step="1"><div class="cre"><span class="creh">da cosa viene questo numero</span>È l'unico numero di questa pagina che non è osservato: è un'ipotesi, non un dato, e la decidi tu. Oggi, con lo smistamento com'è, di 60 persone ne arrivano in fondo 4. La domanda è quante ne arriverebbero con una sola porta, un solo percorso e un'attivazione guidata. Abbassalo quanto vuoi: il numero rosso resta.</div></div><div class="crt"><div class="crh"><div class="crl">Quota di aziende che si ferma sull'attrito del modulo</div><output class="cro" id="o-l3">40%</output></div><input class="crs" id="i-l3" type="range" data-k="l3" value="40" min="0" max="90" step="1"><div class="cre"><span class="creh">da cosa viene questo numero</span>Osservato: 8 campi obbligatori prima di vedere un solo profilo, la domanda «La tua azienda usa Slack (piano Pro o superiore)?», e due promesse diverse sullo stesso servizio — «< 48h» sul sito, «1–2 giorni lavorativi» nel form.</div></div><div class="crt"><div class="crh"><div class="crl">Quota del tuo lavoro manuale che una macchina potrebbe fare</div><output class="cro" id="o-au">60%</output></div><input class="crs" id="i-au" type="range" data-k="au" value="60" min="0" max="95" step="1"><div class="cre"><span class="creh">da cosa viene questo numero</span>Osservato: nessun punto di cattura contatti sul tuo dominio, nessun analytics sulle due pagine che convertono, nessun instradamento automatico fra le superfici. Oggi il sistema sei tu.</div></div></div>
+  </div>
+ </div>
+
+ <div class="cout">
+  <div class="cwf">
+   <div class="cwh">Cosa succede alle persone che entrano, ogni mese</div>
+   <div class="cbar" id="cbar">
+    <div class="cb s1"><i></i><b id="b1">–</b><span>si perdono nello smistamento</span></div>
+    <div class="cb s2"><i></i><b id="b2">–</b><span>entrano e non si attivano</span></div>
+    <div class="cb s3"><i></i><b id="b3">–</b><span>arrivano davvero in fondo</span></div>
+   </div>
+   <div class="cnote" id="cnote">–</div>
+  </div>
+
+  <table class="cbk">
+   <thead><tr><th>Dove se ne va</th><th>Come si calcola</th><th class="r">Al mese</th><th class="r">In 12 mesi</th></tr></thead>
+   <tbody>
+    <tr><td class="k">Closer che entrano e non arrivano in fondo</td>
+        <td class="f" id="f1">–</td><td class="r n" id="m1">–</td><td class="r n" id="y1">–</td></tr>
+    <tr><td class="k">Aziende che si fermano sull'attrito del modulo</td>
+        <td class="f" id="f2">–</td><td class="r n" id="m2">–</td><td class="r n" id="y2">–</td></tr>
+    <tr><td class="k">Il tuo tempo speso su cose che una macchina farebbe</td>
+        <td class="f" id="f3">–</td><td class="r n" id="m3">–</td><td class="r n" id="y3">–</td></tr>
+   </tbody>
+  </table>
+
+  <div class="ctot">
+   <div class="ctl">Costo di non fare niente<span>tenendo il funnel esattamente com'è oggi</span></div>
+   <div class="ctv"><b id="tot">–</b><em>al mese</em></div>
+   <div class="cty">In 12 mesi: <b id="toty">–</b></div>
+  </div>
+
+  <div class="cblind">
+   <div class="cbh">E questo non è nel conto</div>
+   <p>Le due pagine che convertono — <b>/login</b> per i closer e <b>/aziende/contatta</b> per le aziende — non hanno
+   alcun analytics installato. Non è una perdita in euro: è il motivo per cui nessuno dei numeri qui sopra
+   può oggi essere misurato invece che stimato. Finchè resta così, ogni decisione sul funnel si prende al buio.</p>
+  </div>
+ </div>
+</div>
+</div></section>
+
 <footer>
 <div class="wrap">
 <div class="fgrid">
- <div><div class="fk mono">Fonti verificate</div><p>instagram.com/italiancloser · youtube.com/@mannyonjourney · discord.gg/cAWSm5JYXA · discord.gg/4jnPSGskMR · skool.com/italian-closers-academy · italiancloser.com · app.italiancloser.com · linktr.ee/francescomanarabusiness · it.trustpilot.com · Google Forms</p></div>
- <div><div class="fk mono">Metodo</div><p>Ogni nodo è stato aperto e letto a mano il 20 e 21 agosto 2026. Nessun numero è stimato: dove un dato non è pubblico, il nodo dice «invisibile» invece di indovinare.</p></div>
- <div><div class="fk mono">Stato</div><p>Sezione 02 di 06 — Funnel. Prossima: §3 colli di bottiglia, §4 soluzioni, §5 matrice di priorità, §6 roadmap.</p></div>
+ <div><div class="fk mono">Fonti aperte a mano</div><p>instagram.com/italiancloser &middot; linktr.ee/francescomanarabusiness &middot; discord.gg/cAWSm5JYXA &middot; skool.com/italian-closers-academy-6315 &middot; youtube.com/@mannyonjourney &middot; italiancloser.com &middot; app.italiancloser.com &middot; it.trustpilot.com</p></div>
+ <div><div class="fk mono">Metodo</div><p>Ogni nodo di questa mappa è stato aperto e letto il 21 agosto 2026. Nessun numero è stimato: dove un dato non è pubblico, il nodo dice &laquo;non verificabile&raquo; invece di indovinare.</p></div>
+ <div><div class="fk mono">Stato</div><p>Sezione 02 di 06 &mdash; Funnel. Prossime: &sect;3 colli di bottiglia, &sect;4 soluzioni, &sect;5 matrice di priorita', &sect;6 roadmap.</p></div>
 </div>
-<div class="fend mono">Evolv AI · Analisi Lead · Italiancloser · 21 agosto 2026 · interno</div>
+<div class="fend mono">Evolv AI &middot; Analisi Lead &middot; Italiancloser &middot; 21 agosto 2026 &middot; documento interno</div>
 </div>
 </footer>
 
-<script>
-var CW=2430,CH=2742;
-var b=document.getElementById('bd'),c=document.getElementById('cv'),s=1,x=0,y=0,dn=false,px=0,py=0;
-function ap(){c.style.transform='translate('+x+'px,'+y+'px) scale('+s+')';}
-function fit(){var r=b.getBoundingClientRect();s=Math.min(r.width/CW,r.height/CH)*0.95;x=(r.width-CW*s)/2;y=(r.height-CH*s)/2;ap();}
-function start(){var r=b.getBoundingClientRect();s=Math.min(1,(r.width-40)/CW*1.0);if(s<0.34)s=0.34;x=8;y=0;ap();}
-b.addEventListener('mousedown',function(e){dn=true;px=e.clientX;py=e.clientY;b.classList.add('drag');});
-window.addEventListener('mouseup',function(){dn=false;b.classList.remove('drag');});
-window.addEventListener('mousemove',function(e){if(!dn)return;x+=e.clientX-px;y+=e.clientY-py;px=e.clientX;py=e.clientY;ap();});
-b.addEventListener('wheel',function(e){if(!(e.ctrlKey||e.metaKey))return;e.preventDefault();var r=b.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
-var ns=Math.min(2.6,Math.max(0.08,s*(e.deltaY>0?0.9:1.1)));x=mx-(mx-x)*(ns/s);y=my-(my-y)*(ns/s);s=ns;ap();},{passive:false});
-document.getElementById('zi').onclick=function(){s=Math.min(2.6,s*1.22);ap();};
-document.getElementById('zo').onclick=function(){s=Math.max(0.08,s/1.22);ap();};
-document.getElementById('zf').onclick=fit;
-start();
-</script>
+<script>(function(){
+var b=document.getElementById('fb'),c=document.getElementById('fcv'),lb=document.getElementById('lbar');
+var rows=[].slice.call(lb.querySelectorAll('.lbr'));
+var s=1,x=0,y=0,dr=false,px=0,py=0;
+function ap(){
+ c.style.transform='translate('+x+'px,'+y+'px) scale('+s+')';
+ for(var i=0;i<rows.length;i++){var r=rows[i],t=+r.dataset.t,h=+r.dataset.h;
+  r.style.top=(y+t*s)+'px';r.style.height=(h*s)+'px';
+  r.classList.toggle('tiny',h*s<66);}
+ b.classList.toggle('far',s<0.5);
+}
+function fit(){var r=b.getBoundingClientRect();
+ s=Math.min((r.width-226)/3864,(r.height-20)/3622);s=Math.min(s,1);
+ x=216;y=(r.height-3622*s)/2;if(y<8)y=8;ap();}
+function one(){s=1;x=216;y=8;ap();}
+b.addEventListener('mousedown',function(e){if(e.target.closest('.fctl'))return;dr=true;px=e.clientX-x;py=e.clientY-y;});
+window.addEventListener('mousemove',function(e){if(!dr)return;x=e.clientX-px;y=e.clientY-py;ap();});
+window.addEventListener('mouseup',function(){dr=false;});
+b.addEventListener('wheel',function(e){if(!(e.ctrlKey||e.metaKey))return;e.preventDefault();
+ var r=b.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+ var ns=Math.min(2.4,Math.max(0.08,s*(e.deltaY>0?0.9:1.1)));
+ x=mx-(mx-x)*(ns/s);y=my-(my-y)*(ns/s);s=ns;ap();},{passive:false});
+b.querySelector('.fctl').addEventListener('click',function(e){
+ var k=e.target.getAttribute('data-z');if(!k)return;
+ if(k==='fit'){fit();return;} if(k==='one'){one();return;}
+ var r=b.getBoundingClientRect(),mx=r.width/2,my=r.height/2;
+ var ns=Math.min(2.4,Math.max(0.08,s*(k==='in'?1.22:0.82)));
+ x=mx-(mx-x)*(ns/s);y=my-(my-y)*(ns/s);s=ns;ap();});
+one();
+})();</script>
+<script>(function(){
+var root=document.getElementById('calc');
+var K={};
+[].slice.call(root.querySelectorAll('input[data-k]')).forEach(function(el){K[el.dataset.k]=el;});
+function v(k){var n=parseFloat(K[k].value);return isNaN(n)?0:n;}
+var eu=new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',useGrouping:'always',maximumFractionDigits:0});
+var nb=new Intl.NumberFormat('it-IT',{maximumFractionDigits:1,useGrouping:'always'});
+function calc(){
+ ['l1','l2','t','l3','au'].forEach(function(k){
+   var o=document.getElementById('o-'+k); if(o) o.textContent=v(k)+'%';});
+ var A=v('A'),V=v('V'),Z=v('Z'),W=v('W'),O=v('O'),E=v('E');
+ var l1=v('l1')/100,l2=v('l2')/100,t=v('t')/100,l3=v('l3')/100,au=v('au')/100;
+
+ var lost1=A*l1;                    // persi nello smistamento
+ var rest=A-lost1;
+ var lost2=rest*l2;                 // entrano e non si attivano
+ var done=rest-lost2;               // arrivano in fondo oggi
+ var target=A*t;                    // arriverebbero in fondo con un funnel pulito
+ var gap=Math.max(0,target-done);
+
+ var m1=gap*V;
+ var m2=Z*l3*W;
+ var m3=O*E*4.33*au;
+ var tot=m1+m2+m3;
+
+ document.getElementById('b1').textContent=nb.format(lost1);
+ document.getElementById('b2').textContent=nb.format(lost2);
+ document.getElementById('b3').textContent=nb.format(done);
+ var cur=A>0?(done/A*100):0;
+ document.getElementById('cnote').innerHTML=
+  'Di <b>'+nb.format(A)+'</b> persone che entrano ogni mese, oggi ne arriva in fondo <b>'+nb.format(done)+
+  '</b> — il <b>'+nb.format(cur)+'%</b>. Con lo stesso traffico e un funnel che smista e attiva, sarebbero <b>'+
+  nb.format(target)+'</b>. La differenza — <b>'+nb.format(gap)+' persone al mese</b> — non è gente che devi ancora trovare: è gente che hai già e che esce.';
+
+ document.getElementById('f1').textContent=nb.format(gap)+' persone × '+eu.format(V);
+ document.getElementById('f2').textContent=nb.format(Z*l3)+' aziende × '+eu.format(W);
+ document.getElementById('f3').textContent=nb.format(O*4.33*au)+' ore × '+eu.format(E);
+ document.getElementById('m1').textContent=eu.format(m1);
+ document.getElementById('m2').textContent=eu.format(m2);
+ document.getElementById('m3').textContent=eu.format(m3);
+ document.getElementById('y1').textContent=eu.format(m1*12);
+ document.getElementById('y2').textContent=eu.format(m2*12);
+ document.getElementById('y3').textContent=eu.format(m3*12);
+ document.getElementById('tot').textContent=eu.format(tot);
+ document.getElementById('toty').textContent=eu.format(tot*12);
+}
+[].slice.call(root.querySelectorAll('input[data-k]')).forEach(function(el){
+ el.addEventListener('input',calc);});
+calc();
+})();</script>
+</body></html>
