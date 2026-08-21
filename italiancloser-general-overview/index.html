@@ -246,12 +246,13 @@ footer em{color:var(--t2);font-style:normal}
 <div class="aib">
   <div class="aib-k">Start here</div>
   <h2 class="aib-h">Don't read all of this. Have an AI read it for you.</h2>
-  <p class="aib-p">Eleven sections, nine data tables, every number sourced. It is built to
-  be read by a machine first and by you second. Two clicks: copy the document, copy the
-  instructions, paste both into ChatGPT or Claude. You get five answers back and it takes a minute.</p>
+  <p class="aib-p">Eleven sections, nine data tables, every number sourced. It is built to be
+  read by a machine first and by you second. One click below copies the whole thing plus the
+  instructions written for it. Paste it into ChatGPT or Claude, once. You get five answers back
+  and it takes a minute.</p>
   <div class="aib-b">
-    <button class="aib-btn pri" data-copy="doc">Copy the document as text</button>
-    <button class="aib-btn" data-copy="prompt">Copy the instructions</button>
+    <button class="aib-btn pri" data-copy="all">Copy everything for the AI</button>
+    <button class="aib-btn" data-copy="doc">Copy the document only</button>
   </div>
   <pre class="aib-pre" id="aib-prompt">Here is a factual analysis of my business, Italiancloser. It was written by someone who never contacted me: every number in it was read off a public page on 20 August 2026.
 
@@ -271,7 +272,8 @@ Give me this and nothing else:
 5. THE THREE FACTS THAT COST THE MOST - the three things the document records as broken, missing or unpriced. Quote each one with its number and stop there. Add no fix of your own.
 
 No preamble, no encouragement, no closing summary. Reply in Italian.</pre>
-  <p class="aib-f">The instructions above are strict on purpose. The model is told to use nothing
+  <p class="aib-f">Those are the instructions the button copies along with the document, shown
+  here so you can see exactly what the model is being told. They are strict on purpose: it is told to use nothing
   but this document, to leave every unverified claim marked unverified, to invent no advice, and to
   quote the eleven conclusions word for word. That way what you read back is this analysis in
   Italian, not a model's opinion of it. Then come back and open the calculator at the end of
@@ -1125,6 +1127,11 @@ All open-source. No contact was made and nothing gated was accessed. Captured 20
 </script>
 <script>
 (function(){
+  var SEP = '
+
+----- THE DOCUMENT STARTS HERE -----
+
+';
   function put(t, btn, label){
     var done = function(){
       var old = btn.textContent; btn.textContent = label; btn.classList.add('ok');
@@ -1144,10 +1151,16 @@ All open-source. No contact was made and nothing gated was accessed. Captured 20
   document.querySelectorAll('.aib-btn').forEach(function(b){
     b.addEventListener('click', function(){
       var which = b.getAttribute('data-copy');
-      var t = which === 'doc'
-        ? document.getElementById('aib-doc').textContent.trim()
-        : document.getElementById('aib-prompt').textContent.trim();
-      put(t, b, which === 'doc' ? 'Document copied' : 'Instructions copied');
+      var doc = document.getElementById('aib-doc').textContent.trim();
+      var pro = document.getElementById('aib-prompt').textContent.trim();
+      // "all" = un solo incolla: prima le istruzioni, poi il documento intero
+      var map = {
+        all: [pro + SEP + doc, 'Copied — now paste it into ChatGPT or Claude'],
+        doc: [doc, 'Document copied'],
+        prompt: [pro, 'Instructions copied']
+      };
+      var m = map[which] || map.doc;
+      put(m[0], b, m[1]);
     });
   });
 })();
