@@ -249,117 +249,91 @@ section{scroll-margin-top:26px}
 @media screen and (max-width:900px){.toc-l{columns:1}}
 
 
-/* ── card collo di bottiglia ──────────────────────────────────────────────── */
-.bnc{border:1px solid var(--hair);border-radius:18px;background:var(--s2);
- padding:26px 28px 24px;margin:0 0 14px;max-width:1000px}
-.bnc.pre{background:var(--blue-b);border-color:rgba(0,102,204,.22)}
-.bnc-h{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:13px}
-.bnc-n{font-family:var(--mono);font-size:11px;letter-spacing:.1em;font-weight:600;
+/* ── i tre livelli: tabella piccola ───────────────────────────────────────── */
+.lv3 td{padding:18px 18px;font-size:.9rem}
+.lv3 .lv3-k{font-family:var(--mono);font-size:14px;font-weight:600;letter-spacing:.04em;
+ width:118px;color:var(--t1)}
+.lv3 .lv3-k .lvk{display:block}
+.lv3 .lv3-k .sub{display:block;font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--t3);font-weight:400;margin-top:6px}
+.lv3 .lv3-k.tof{color:var(--teal)}
+.lv3 .lv3-k.mof{color:var(--purple)}
+.lv3 .lv3-k.bof{color:var(--orange)}
+.lv3 .lv3-v{width:230px;color:var(--t1);font-size:.92rem}
+.lv3 .lv3-v b{font-weight:650}
+
+/* ── LA TABELLA ───────────────────────────────────────────────────────────── */
+/* tre fasce di colonne, separate da una linea verticale: il collo di bottiglia,
+   la correzione (che cosa si fa + il segnale), la priorita'. */
+.mt{margin:24px 0 14px;border:1px solid var(--sep);border-radius:18px;background:var(--bg);
+ overflow-x:auto;-webkit-overflow-scrolling:touch}
+.mt table{border-collapse:collapse;width:100%;min-width:1120px;font-size:13px}
+.mt caption{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
+ text-transform:uppercase;color:var(--t3);padding:18px 20px 13px;border-bottom:1px solid var(--hair)}
+.mt thead th{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--t1);text-align:left;font-weight:600;padding:16px 20px 14px;white-space:normal;
+ vertical-align:bottom;border-bottom:1px solid var(--t1);background:var(--bg)}
+.mt thead th .ths{display:block;font-family:var(--sans);font-size:11px;letter-spacing:0;
+ text-transform:none;color:var(--t3);font-weight:400;margin-top:7px;line-height:1.45}
+.mt td{padding:24px 20px;border-bottom:1px solid var(--hair);vertical-align:top;
+ line-height:1.6;color:var(--t2);white-space:normal}
+.mt tbody tr:last-child td{border-bottom:none}
+.mt tbody tr:nth-child(even) td{background:#fbfbfd}
+.mt tbody tr.pre td{background:var(--blue-b)}
+
+/* larghezze + le due linee che dividono le tre fasce */
+.mt .c-rk{width:64px;text-align:center;padding-left:12px;padding-right:12px}
+.mt .c-bn{width:28%}
+.mt .c-sol{width:28%;border-left:1px solid var(--sep)}
+.mt .c-sig{width:21%}
+.mt .c-pr{width:16%;border-left:1px solid var(--sep)}
+
+/* la colonna dell'ordine */
+.mt .rk{display:block;font-family:var(--mono);font-size:23px;font-weight:600;color:var(--t1);
+ line-height:1;letter-spacing:-.02em}
+.mt tbody tr.pre .rk{color:var(--blue)}
+.mt .rkw{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;
+ text-transform:uppercase;color:var(--t3);margin-top:9px}
+
+/* codici, livello, titolo */
+.mt .cd{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;
  color:var(--blue);background:var(--bg);border:1px solid rgba(0,102,204,.25);
- border-radius:6px;padding:3px 9px}
-.bnc-l{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;
- font-weight:600;border-radius:6px;padding:3px 8px;border:1px solid var(--hair);
+ border-radius:5px;padding:3px 7px}
+.mt .cds{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;
+ color:#fff;background:var(--t1);border-radius:5px;padding:3px 7px}
+.mt .lv{font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.11em;
+ text-transform:uppercase;border-radius:5px;padding:4px 7px;margin-left:7px;
  background:var(--s3);color:var(--t3)}
-.bnc-l.tof{color:var(--teal);border-color:rgba(0,113,164,.22)}
-.bnc-l.mof{color:var(--purple);border-color:rgba(123,63,160,.22)}
-.bnc-l.bof{color:var(--orange);border-color:rgba(179,83,9,.22)}
-.bnc-c{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--t3);
- margin-left:auto;white-space:nowrap}
-.bnc h4{margin:0 0 14px;font-size:1.2rem;letter-spacing:-.024em;font-weight:650;
- color:var(--t1);line-height:1.28}
-.bnc p{font-size:.95rem;line-height:1.63;margin:0 0 11px;max-width:none}
-.bnc p:last-child{margin:0}
-.bnc .lb{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
- color:var(--t3);font-weight:600;display:block;margin-bottom:5px}
-.bnc .blocca{border-top:1px solid var(--hair);padding-top:13px;margin-top:15px;color:var(--t1)}
+.mt .lv.tof{color:var(--teal);background:var(--teal-b)}
+.mt .lv.mof{color:var(--purple);background:var(--purple-b)}
+.mt .lv.bof{color:var(--orange);background:var(--orange-b)}
+.mt .lv.pre{color:var(--blue);background:var(--bg)}
+.mt .tt{display:block;font-size:15px;font-weight:650;letter-spacing:-.022em;color:var(--t1);
+ line-height:1.3;margin:14px 0 4px}
 
-/* ── card soluzione ───────────────────────────────────────────────────────── */
-.slc{border:1px solid var(--hair);border-radius:18px;background:var(--bg);
- padding:26px 28px 24px;margin:0 0 14px;max-width:1000px;
- display:grid;grid-template-columns:1fr;gap:0}
-.slc-h{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:12px}
-.slc-n{font-family:var(--mono);font-size:11px;letter-spacing:.1em;font-weight:600;
- color:var(--bg);background:var(--t1);border-radius:6px;padding:3px 9px}
-.slc-b{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--t3)}
-.slc h4{margin:0 0 13px;font-size:1.2rem;letter-spacing:-.024em;font-weight:650;
- color:var(--t1);line-height:1.28}
-.slc p{font-size:.95rem;line-height:1.63;margin:0 0 12px;max-width:none}
-.slc-meta{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:16px;
- border-top:1px solid var(--hair);padding-top:15px}
-.slc-meta p{margin:0;font-size:.9rem;line-height:1.55;color:var(--t2)}
-.slc-meta .lb{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
- text-transform:uppercase;color:var(--t3);font-weight:600;display:block;margin-bottom:6px}
-.slc-meta .sg .lb{color:var(--green)}
-@media screen and (max-width:900px){.slc-meta{grid-template-columns:1fr;gap:16px}}
+/* le micro-etichette dentro le celle: ogni cella si spiega da sola anche
+   quando l'intestazione e' fuori schermo */
+.mt .lb{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--t3);font-weight:600;margin:16px 0 6px}
+.mt .bd{display:block}
+.mt .bd b{color:var(--t1);font-weight:600}
+.mt .bd .mono{font-size:11.5px}
+.mt .c-bn .bk{color:var(--t1)}
+.mt .c-bn .cds2{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--t3)}
+.mt .c-sol .tool{color:var(--t3);font-size:12.4px}
+.mt .c-sig .lb{color:var(--green);margin-top:0}
+.mt .c-sig .bd{color:var(--t1)}
 
-/* ── mappa dei livelli ────────────────────────────────────────────────────── */
-.lay{border:1px solid var(--hair);border-radius:18px;overflow:hidden;margin:26px 0 14px;
- max-width:1000px}
-.lay-r{display:grid;grid-template-columns:132px 1fr 1fr;gap:0 26px;padding:22px 26px;
- border-bottom:1px solid var(--hair);align-items:start}
-.lay-r:last-child{border-bottom:none}
-.lay-r:nth-child(odd){background:var(--s2)}
-.lay-k{font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:.04em}
-.lay-k .sub{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
- color:var(--t3);font-weight:400;margin-top:5px}
-.lay-r.tof .lay-k{color:var(--teal)}
-.lay-r.mof .lay-k{color:var(--purple)}
-.lay-r.bof .lay-k{color:var(--orange)}
-.lay-r p{margin:0 0 9px;font-size:.9rem;line-height:1.58;max-width:none}
-.lay-r .lb{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
- color:var(--t3);font-weight:600;display:block;margin-bottom:6px}
-.lay-v{grid-column:2 / -1;border-top:1px solid var(--hair);margin-top:6px;padding-top:12px;
- font-size:.95rem;color:var(--t1)}
-@media screen and (max-width:1000px){.lay-r{grid-template-columns:1fr;gap:14px}
- .lay-v{grid-column:1}}
-
-/* ── matrice impatto x sforzo ─────────────────────────────────────────────── */
-.mx{margin:28px 0 10px;max-width:1000px}
-.mx-f{display:grid;grid-template-columns:26px 1fr;gap:0 10px}
-.mx-yl{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;
- font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
- color:var(--t3);padding:6px 0}
-.mx-plot{position:relative;height:380px;border:1px solid var(--sep);border-radius:16px;
- background:var(--bg);overflow:hidden}
-.mx-q{position:absolute}
-.mx-q.q1{left:0;bottom:60%;width:44%;height:40%;background:var(--blue-b)}
-.mx-q.q2{left:44%;bottom:60%;width:56%;height:40%;background:var(--s1)}
-.mx-q.q3{left:0;bottom:0;width:44%;height:60%;background:var(--s2)}
-.mx-q.q4{left:44%;bottom:0;width:56%;height:60%;background:var(--bg)}
-.mx-vl{position:absolute;left:44%;top:0;bottom:0;width:1px;background:var(--sep)}
-.mx-hl{position:absolute;left:0;right:0;bottom:60%;height:1px;background:var(--sep)}
-/* il punto sta sulla coordinata, l'etichetta gli sta accanto. Vicino al bordo
-   destro l'etichetta passa a sinistra, altrimenti esce dal riquadro. */
-.mx-d{position:absolute;transform:translate(-50%,50%);display:flex;align-items:center;gap:9px;
- white-space:nowrap}
-.mx-d .pt{width:11px;height:11px;border-radius:50%;background:var(--blue);flex:none;
- box-shadow:0 0 0 4px var(--bg)}
-.mx-d.dim .pt{background:var(--t4)}
-.mx-d .lb{font-size:12.5px;letter-spacing:-.012em;color:var(--t1);font-weight:550}
-.mx-d .lb b{font-family:var(--mono);font-size:10.5px;color:var(--blue);font-weight:600;
- margin-right:6px;letter-spacing:.06em}
-.mx-d.dim .lb b{color:var(--t4)}
-.mx-d.lft{flex-direction:row-reverse;transform:translate(calc(-100% + 5.5px),50%)}
-/* i nomi dei quadranti vivono qui sotto, non dentro il grafico: dentro
-   finivano sopra ai punti */
-.mx-lg{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin:14px 0 0;
- background:var(--hair);border:1px solid var(--hair);border-radius:14px;overflow:hidden}
-.mx-lgi{background:var(--s2);padding:15px 16px 16px}
-.mx-lgi .sw{display:block;width:22px;height:5px;border-radius:3px;margin-bottom:10px;
- background:var(--s3)}
-.mx-lgi.q1 .sw{background:var(--blue)}
-.mx-lgi.q2 .sw{background:var(--s4)}
-.mx-lgi.q3 .sw{background:var(--s3)}
-.mx-lgi.q4 .sw{background:var(--t4);opacity:.5}
-.mx-lgi .qt{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
- font-weight:600;color:var(--t3);display:block;margin-bottom:7px}
-.mx-lgi.q1 .qt{color:var(--blue)}
-.mx-lgi.q4 .qt{color:var(--t4)}
-.mx-lgi .qd{font-size:11.8px;line-height:1.55;color:var(--t3);display:block}
-.mx-xl{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
- color:var(--t3);text-align:center;padding:11px 0 0;grid-column:2}
-.mx-cap{font-size:12.4px;color:var(--t3);line-height:1.6;max-width:900px;margin:14px 0 0}
-@media screen and (max-width:1000px){.mx-lg{grid-template-columns:repeat(2,1fr)}}
+/* la fascia priorita' */
+.mt .c-pr .lb{margin-top:18px}
+.mt .c-pr .lb:first-child{margin-top:0}
+.mt .bar{display:block;height:4px;border-radius:2px;background:var(--s3);
+ margin:0 0 6px;max-width:110px;overflow:hidden}
+.mt .bar .fill{display:block;height:100%;background:var(--blue);border-radius:2px}
+.mt .bar.sf .fill{background:var(--t4)}
+.mt .nm{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--t3)}
+.mt .c-pr .wvn{color:var(--t1);font-weight:600;font-size:12.4px}
+.mt .c-pr .dep{font-size:12.2px;color:var(--t3);line-height:1.55}
 
 /* ── ondate ───────────────────────────────────────────────────────────────── */
 .wv{border-left:2px solid var(--sep);margin:26px 0 14px;max-width:1000px}
@@ -414,9 +388,10 @@ section{scroll-margin-top:26px}
 <div class="masthead">
 <div class="kicker">Evolv AI &middot; Analisi Indipendente &middot; Italiancloser &middot; Documento 03 di 06</div>
 <h1>I colli di bottiglia,<br>le soluzioni, <em>l&rsquo;ordine</em>.</h1>
-<p class="standfirst">Trentasei rilievi del Documento 02 ridotti a una precondizione e sette colli
-di bottiglia, messi dentro il tuo schema TOF / MOF / BOF, con una correzione ciascuno, una matrice
-a due assi e tre ondate. Nessuno strumento nuovo, nessuna assunzione su quanto costa o quanto rende.</p>
+<p class="standfirst">Trentasei rilievi del Documento 02 ridotti a otto righe: per ognuna il collo
+di bottiglia con i suoi numeri, la correzione che lo chiude con lo strumento che hai gia&rsquo;, il
+segnale che prova se ha funzionato e la posizione che occupa nell&rsquo;ordine. Una tabella sola.
+Nessuno strumento nuovo, nessuna assunzione su quanto costa o quanto rende.</p>
 <div class="byline">
 <span><b>Documento</b> 03 di 06 &mdash; Colli di bottiglia, soluzioni, priorita&rsquo;</span>
 <span><b>Base</b> i 36 rilievi del Documento 02</span>
@@ -427,22 +402,18 @@ a due assi e tre ondate. Nessuno strumento nuovo, nessuna assunzione su quanto c
 <div class="toc">
 <div class="toc-k">Indice</div>
 <ol class="toc-l">
-  <li><a href="#s01"><b>Il metodo</b> <span class="ts">Da trentasei rilievi a otto voci</span></a></li>
-  <li><a href="#s02"><b>La precondizione</b> <span class="ts">Prima dei sette, quello che li rende invisibili</span></a></li>
-  <li><a href="#s03"><b>I colli di bottiglia</b> <span class="ts">Sette voci, in ordine di livello</span></a></li>
-  <li><a href="#s04"><b>I tre livelli</b> <span class="ts">Il sistema messo dentro il tuo schema</span></a></li>
-  <li><a href="#s05"><b>Le soluzioni</b> <span class="ts">Otto correzioni, una per voce</span></a></li>
-  <li><a href="#s06"><b>La matrice</b> <span class="ts">Impatto per sforzo, senza l’asse del denaro</span></a></li>
-  <li><a href="#s07"><b>Le ondate</b> <span class="ts">L’ordine, e perche’ e’ questo</span></a></li>
-  <li><a href="#s08"><b>Cosa non fare</b> <span class="ts">Quattro cose da non fare in questi trenta giorni</span></a></li>
-  <li><a href="#s09"><b>Cosa resta ignoto</b> <span class="ts">Sei domande che questo documento non chiude</span></a></li>
+  <li><a href="#s01"><b>I tre livelli</b> <span class="ts">Il sistema dentro il tuo schema TOF / MOF / BOF</span></a></li>
+  <li><a href="#s02"><b>La tabella</b> <span class="ts">Otto colli di bottiglia, otto correzioni, un ordine</span></a></li>
+  <li><a href="#s03"><b>Le ondate</b> <span class="ts">Le otto righe raggruppate nel tempo</span></a></li>
+  <li><a href="#s04"><b>Cosa non fare</b> <span class="ts">Quattro cose da non fare in questa fase</span></a></li>
+  <li><a href="#s05"><b>Cosa resta ignoto</b> <span class="ts">Sei domande che questo documento non puo&rsquo; chiudere</span></a></li>
 </ol>
 </div>
 
 <div class="aib">
   <div class="aib-k">Parti da qui</div>
   <h2 class="aib-h">Non leggerlo tutto. Fattelo leggere da un’AI.</h2>
-  <p class="aib-p">Questo documento, la panoramica generale e la mappa del funnel, messi insieme, fanno circa 123.000 caratteri. Un clic qui sotto copia <b>tutti e tre i documenti piu’ le istruzioni scritte apposta</b>. Incollalo in ChatGPT o Claude, una volta sola, e ti tornano sette risposte: la precondizione, i sette colli di bottiglia, il verdetto sui tre livelli, le nove conclusioni, la prima settimana, le quattro cose da non fare e le due domande che cambiano il piano.</p>
+  <p class="aib-p">Questo documento, la panoramica generale e la mappa del funnel, messi insieme, fanno circa 118.000 caratteri. Un clic qui sotto copia <b>tutti e tre i documenti piu’ le istruzioni scritte apposta</b>. Incollalo in ChatGPT o Claude, una volta sola, e ti tornano sette risposte: il verdetto sui tre livelli, la cosa piu’ importante, la tabella riga per riga, la precondizione, la prima settimana, le quattro cose da non fare e le due domande che cambiano il piano.</p>
   <div class="aib-b">
     <button class="aib-btn pri" data-copy="all">Copia i tre documenti per l’AI</button>
   </div>
@@ -450,7 +421,7 @@ a due assi e tre ondate. Nessuno strumento nuovo, nessuna assunzione su quanto c
 
 - Documento 01, General Overview: cosa esiste, con tutti i numeri e le fonti.
 - Documento 02, Funnel Overview: i sei percorsi dentro il sistema e 36 rilievi con codice e gravita'.
-- Documento 03, Colli di bottiglia: i 36 rilievi ridotti a una precondizione e sette colli, otto soluzioni, una matrice impatto per sforzo e tre ondate.
+- Documento 03, Colli di bottiglia: una tabella di otto righe. Per ogni riga: il collo di bottiglia, la correzione, il segnale che prova se ha funzionato, la priorita'.
 
 Regole, senza eccezioni:
 - Usa solo quello che c'e' nei tre documenti. Niente benchmark, niente medie di settore, nessun consiglio preso dalla tua memoria.
@@ -458,319 +429,85 @@ Regole, senza eccezioni:
 - Quello che e' marcato come dichiarato, ignoto o non verificabile dall'esterno resta cosi'. Non promuoverlo mai a fatto.
 - Cita ogni numero e ogni codice esattamente come sono scritti.
 - Il Documento 03 dice il che cosa e l'ordine, non il come. Non inventare il come.
-- Non aggiungere una nona soluzione, e non riordinare le ondate.
+- Non aggiungere una nona riga alla tabella, e non cambiare l'ordine.
 
 Dammi questo e nient'altro:
 
-1. LA PRECONDIZIONE - cos'e' B0 in tre righe, con i quattro rilievi che assorbe e il motivo per cui viene prima di tutto.
-2. I SETTE COLLI DI BOTTIGLIA - per ognuno: codice, livello (TOF/MOF/BOF), titolo, i rilievi che assorbe e il numero che lo prova. Nell'ordine in cui stanno nel Documento 03.
-3. IL VERDETTO SUI TRE LIVELLI - una riga per TOF, una per MOF, una per BOF, prese dalla sezione 04.
-4. LE NOVE CONCLUSIONI - il Documento 03 chiude ogni sezione con una riga marcata CONCLUSION. Dammele tutte e nove, in ordine, parola per parola: non riformulare, non accorciare, non fonderne due.
+1. IL VERDETTO SUI TRE LIVELLI - una riga per TOF, una per MOF, una per BOF, prese dalla sezione 01.
+2. LA COSA PIU' IMPORTANTE - il Documento 03 contiene una sola riga marcata CONCLUSION. Riportala parola per parola: non riformulare, non accorciare.
+3. LA TABELLA, RIGA PER RIGA - tutte e otto, nell'ordine in cui stanno. Per ognuna: numero d'ordine, codice del collo di bottiglia, livello (TOF/MOF/BOF), titolo del collo, i rilievi che assorbe, il numero che lo prova, il codice e il titolo della correzione, impatto e sforzo, ondata.
+4. LA PRECONDIZIONE - perche' la riga 1 viene prima di tutte le altre, in tre righe.
 5. LA PRIMA SETTIMANA - solo le correzioni dell'Ondata 1. Per ognuna: cosa si fa, con che strumento gia' in casa, e il segnale che prova se ha funzionato.
-6. LE QUATTRO COSE DA NON FARE - titolo e motivo, presi dalla sezione 08. Non aggiungerne una quinta.
+6. LE QUATTRO COSE DA NON FARE - titolo e motivo, presi dalla sezione 04. Non aggiungerne una quinta.
 7. LE DUE DOMANDE CHE CAMBIANO IL PIANO - quali dei sei punti ignoti, secondo il Documento 03 stesso, cambiano il piano quando trovano risposta, e come lo cambiano.
 
 Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in italiano. Chiudi con questa riga esatta e nient'altro dopo: "La prima cosa da fare non e' costruire: e' mettere una misura dove si converte."</pre>
-  <p class="aib-f">Queste sono le istruzioni che il bottone copia insieme ai documenti, messe in chiaro cosi’ vedi esattamente cosa viene detto al modello. Sono severe apposta: gli si dice di usare solo questi tre documenti, di lasciare marcato come non verificato tutto cio’ che lo e’, di non inventare consigli e di riportare le nove conclusioni parola per parola. Quello che leggi e’ questa analisi, non l’opinione di un modello. Le nove conclusioni che leggerai sono le righe di questo documento, non il riassunto di seconda mano di un modello.</p>
+  <p class="aib-f">Queste sono le istruzioni che il bottone copia insieme ai documenti, messe in chiaro cosi’ vedi esattamente cosa viene detto al modello. Sono severe apposta: gli si dice di usare solo questi tre documenti, di lasciare marcato come non verificato tutto cio’ che lo e’, di non inventare consigli e di riportare parola per parola la riga in nero. Quello che leggi e’ questa analisi, non l’opinione di un modello. La tabella qui sotto e’ il documento: otto righe, tre fasce, un ordine.</p>
 </div>
 
 <section id="s01">
-<span class="secnum">01 — Come si legge</span>
-<h2>Da trentasei rilievi a otto voci</h2>
-<p class="dek">Il Documento 02 ha registrato 36 rilievi su sei percorsi. Trentasei voci non sono un piano: sono un inventario. Questo documento li riduce a una precondizione e sette colli di bottiglia, li mette nell’ordine in cui conviene affrontarli, e si ferma li’.</p>
-
-<h3>Le quattro regole che questo documento rispetta</h3>
-<ul class="clean">
-<li><b>Nessun rilievo nuovo.</b> Ogni collo di bottiglia qui sotto assorbe rilievi gia’
- pubblicati nel Documento 02 e li cita per codice. Se un codice non esiste li’, non entra qui.</li>
-<li><b>Nessuna assunzione economica.</b> G1 dice che dall’esterno non e’ possibile stabilire
- come il sistema generi ricavo. La matrice di priorita’ ha quindi <b>due assi, non tre</b>:
- impatto e sforzo. Nessuna riga di questo documento sa quanto costa o quanto rende una cosa.</li>
-<li><b>Nessuno strumento nuovo.</b> Ogni soluzione usa qualcosa che e’ gia’ nello stack
- rilevato. Sette su otto sono riscritture di superfici che esistono gia’.</li>
-<li><b>Ogni soluzione porta il suo segnale.</b> Insieme al cosa fare c’e’ sempre
- <b>il fatto osservabile che prova se ha funzionato</b>. Se una correzione non ha un segnale,
- non e’ una correzione: e’ un’opinione.</li>
-</ul>
-
-<h3>Che cosa questo documento fa, e che cosa non fa</h3>
-<p>I Documenti 01 e 02 dicevano una cosa sola su se stessi: <b>descrivono, non prescrivono</b>.
-Questo la ribalta — il suo lavoro e’ prescrivere. Per farlo senza sconfinare si tiene dentro
-un limite preciso, e vale la pena dirlo subito: <b>qui trovi il che cosa e l’ordine.
-Non il come e non l’esecuzione.</b></p>
-<p>La differenza e’ concreta. «Riscrivi l’etichetta della pagina d’ingresso» e’ il che cosa,
-ed e’ in questo documento. Quale frase esatta ci vada, come si testa contro quella di adesso,
-in che ordine si tocca il resto della pagina: non c’e’, ed e’ deliberato. Un piano di
-esecuzione scritto da fuori, senza vedere i numeri interni che G1–G6 lasciano aperti,
-sarebbe una supposizione elegante.</p>
-
-<h3>Da dove viene la struttura</h3>
-<p>I sette colli di bottiglia non sono raggruppati per superficie, ma per <b>livello di funnel</b>:
-attenzione, nutrimento, vendita. E’ la stessa struttura a tre strati che usi tu — TOF, MOF, BOF
-— ed e’ la ragione per cui la sezione 04 esiste: messi in quello schema, i trentasei rilievi
-smettono di essere sparsi e si concentrano quasi tutti in un punto solo.</p>
-
-<div class="power"><div class="pk">Il punto</div><p>I Documenti 01 e 02 descrivevano. <b>Questo prescrive</b> — e per farlo si tiene dentro un limite: dice il <b>che cosa</b> e l'<b>ordine</b>, e si ferma prima del come.</p></div>
+<span class="secnum">01 — I tre livelli</span>
+<h2>Il sistema dentro il tuo schema TOF / MOF / BOF</h2>
+<p class="dek">Prima della tabella, la lettura che la ordina. Il metro non e&rsquo; nostro: e&rsquo; il tuo documento di funnel, riga per riga, messo accanto a quello che si osserva su undici superfici pubbliche il 20, 21 e 22 agosto 2026.</p>
+<div class="scroll"><table class="lv3"><thead><tr><th>Livello</th><th>Che cosa dice il tuo schema</th><th>Che cosa si osserva</th><th>Verdetto</th></tr></thead><tbody><tr><td class="lv3-k tof"><span class="lvk">TOF</span><span class="sub">Attenzione</span></td><td>Contenuto = influenza e portata. Cinque punti di contatto, di cui il quarto — la pagina profilo — marcato CRITICO: e' il nodo di decisione e va trattato come una landing page. Regola 7-11-14: sette ore, undici contatti, quattro incontri.</td><td>La portata c'e' e non e' in discussione: 22.638 visualizzazioni sul reel migliore, 3.623 follower, 152 commenti sul post d'offerta, zero euro di pubblicita'. Ma il punto di contatto 4 e' un menu da otto voci (B3) con cinque post dietro (B7), e il livello di fiducia passiva porta un avviso della piattaforma stessa (B6).</td><td class="lv3-v"><b>Funziona, ma scarica su una porta che non regge.</b></td></tr><tr><td class="lv3-k mof"><span class="lvk">MOF</span><span class="sub">Nutrimento</span></td><td>Conversazione &rarr; qualifica &rarr; prenotazione. Cinque punti di contatto. Cinque passaggi di appointment setting: A ambiente caldo, B qualifica, C creare il divario, D transizione alla prenotazione, E rapporto post-prenotazione. Uscita: una call prenotata.</td><td>Nessuno dei cinque passaggi e' osservabile su alcuna superficie pubblica. La parola chiave produce una replica in un thread, non una conversazione (B1). L'unica cattura sta su una piattaforma di terzi (B2). Le 1.100 persone gia' dentro non hanno un'uscita verso il prodotto (B5). Nessuna interfaccia di prenotazione compare da nessuna parte.</td><td class="lv3-v"><b>Assente. E' qui che si perde quasi tutto quello che il TOF produce.</b></td></tr><tr><td class="lv3-k bof"><span class="lvk">BOF</span><span class="sub">Vendita</span></td><td>Otto fasi. La fase 1, STUDY, richiede un riassunto della conversazione MOF prima della call. Il punto di contatto 3 e' il momento della decisione: link di pagamento, termini, inversione del rischio. Ogni attrito qui uccide la chiusura anche dopo una call forte.</td><td>Sul ramo closer il momento della decisione e' un login Google etichettato «Accedi», con testimonianze rotte accanto (B4). Sul ramo azienda e' un modulo da otto campi obbligatori con il messaggio libero tagliato a 300 caratteri, e con due promesse di tempo diverse a due schermate di distanza. La fase STUDY e' <b>impossibile</b>: non esiste una conversazione MOF da riassumere.</td><td class="lv3-v"><b>Esiste come interfaccia, non come processo.</b></td></tr></tbody></table></div>
+<div class="power"><div class="pk">La cosa piu&rsquo; importante</div><p>Secondo il tuo stesso schema: <b>il TOF funziona, il MOF non esiste, il BOF e&rsquo; un&rsquo;interfaccia senza processo.</b> L&rsquo;intero divario del sistema sta in un livello solo, ed e&rsquo; quello di mezzo. E finche&rsquo; la misura si ferma dove comincia la conversione, <b>nessuna delle otto correzioni della tabella si puo&rsquo; dimostrare</b>: per questo la prima non costruisce niente, misura.</p></div>
 </section>
 <section id="s02">
-<span class="secnum">02 — La precondizione</span>
-<h2>Prima dei sette, quello che li rende invisibili</h2>
-<p class="dek">Non e’ un collo di bottiglia: e’ la ragione per cui non si puo’ sapere quanto costano gli altri sette. Per questo viene prima, e per questo e’ anche il gesto piu’ economico dei nove.</p>
+<span class="secnum">02 — La tabella</span>
+<h2>Otto colli di bottiglia, otto correzioni, un ordine</h2>
+<p class="dek">Trentasei rilievi del Documento 02 collassati in otto righe. La riga 1 non e&rsquo; un collo di bottiglia: e&rsquo; la precondizione che rende invisibili gli altri sette. Le tre fasce di colonne si leggono da sinistra a destra &mdash; che cosa non funziona, che cosa si fa, in che ordine e con che prova.</p>
 
-<div class="bnc pre">
-<div class="bnc-h"><span class="bnc-n">B0</span><span class="bnc-l">Precondizione</span><span class="bnc-c">B1 · B2 · B3 · B4</span></div>
-<h4>La misura si ferma esattamente dove comincia la conversione</h4>
-<p><span class="lb">Che cosa si vede</span>GA4 (<span class="mono">G-07PW41NQYZ</span>) e' installato sul sito marketing. Su <b>app.italiancloser.com non c'e' alcun analytics</b>: ne' su <span class="mono">/login</span>, che e' l'ingresso del ramo closer, ne' su <span class="mono">/aziende/contatta</span>, che e' l'unico modulo di tutto il sistema. L'invio del form non genera evento. I due link Linktree per pubblici opposti condividono lo stesso <span class="mono">utm_source</span> e non hanno <span class="mono">utm_content</span>. Nessun pixel pubblicitario su nessuna superficie.</p>
-<p class="blocca"><span class="lb">Che cosa blocca</span>Si puo' sapere quante persone arrivano al Placement Hub e <b>niente di cio' che succede dopo</b>. Quante aprono il login, quante completano Google, quante iniziano il modulo aziende, su quale degli otto campi si fermano: nessuno di questi numeri esiste. Questo e' il motivo per cui B0 viene prima di tutto il resto. <b>Senza misura, ognuna delle sette correzioni che seguono si puo' fare — ma non si puo' dimostrare che abbia funzionato</b>, e la volta dopo si ricomincia a decidere a intuito.</p>
+<div class="note">
+  <div class="t">Come si legge</div>
+  <p><b>Nessun rilievo nuovo.</b> Ogni collo di bottiglia assorbe rilievi gia&rsquo; pubblicati nel
+  Documento 02 e li cita per codice: se un codice non e&rsquo; li&rsquo;, non entra qui.</p>
+  <p><b>Nessuna assunzione economica.</b> G1 dice che da fuori non si puo&rsquo; sapere come il
+  sistema genera ricavo. Quindi niente prezzi, niente ROI, niente moltiplicatori: la priorita&rsquo;
+  ha due assi, impatto e sforzo, e non tre.</p>
+  <p><b>Nessuno strumento nuovo.</b> Ogni correzione usa qualcosa che e&rsquo; gia&rsquo; nello
+  stack rilevato, e porta con se&rsquo; il segnale che prova se ha funzionato.</p>
+  <p><b>Il che cosa e l&rsquo;ordine, non il come.</b> Questo documento prescrive e si ferma
+  li&rsquo;: il come e&rsquo; un lavoro, non una riga di tabella.</p>
 </div>
-<p class="fcap">Un solo rilievo di questo gruppo, B1, e’ marcato gravita’ alta nel Documento 02.
-Messi insieme, i quattro non descrivono un difetto tecnico: descrivono un sistema che non puo’
-sapere niente di se stesso oltre la prima meta’ del percorso.</p>
+<div class="mt"><table><caption>Documento 03 &middot; otto colli di bottiglia, la correzione di ognuno, l&rsquo;ordine in cui affrontarli &middot; 22 agosto 2026</caption><thead><tr><th class="c-rk">Ordine</th><th class="c-bn">Il collo di bottiglia<span class="ths">che cosa si vede, che cosa blocca, quali rilievi assorbe</span></th><th class="c-sol">La correzione<span class="ths">che cosa si fa, con che cosa che hai gia&rsquo;</span></th><th class="c-sig">Il segnale<span class="ths">che cosa prova che ha funzionato</span></th><th class="c-pr">La priorita&rsquo;<span class="ths">impatto, sforzo, ondata, dipendenze</span></th></tr></thead><tbody><tr class="pre"><td class="c-rk"><span class="rk">1</span><span class="rkw">di otto</span></td><td class="c-bn"><span class="cd">B0</span><span class="lv pre">PRE</span><span class="tt">La misura si ferma esattamente dove comincia la conversione</span><span class="lb">Che cosa si vede</span><span class="bd">GA4 (<span class="mono">G-07PW41NQYZ</span>) e' installato sul sito marketing. Su <b>app.italiancloser.com non c'e' alcun analytics</b>: ne' su <span class="mono">/login</span>, che e' l'ingresso del ramo closer, ne' su <span class="mono">/aziende/contatta</span>, che e' l'unico modulo di tutto il sistema. L'invio del form non genera evento. I due link Linktree per pubblici opposti condividono lo stesso <span class="mono">utm_source</span> e non hanno <span class="mono">utm_content</span>. Nessun pixel pubblicitario su nessuna superficie.</span><span class="lb">Che cosa blocca</span><span class="bd bk">Si puo' sapere quante persone arrivano al Placement Hub e <b>niente di cio' che succede dopo</b>. Quante aprono il login, quante completano Google, quante iniziano il modulo aziende, su quale degli otto campi si fermano: nessuno di questi numeri esiste. Questo e' il motivo per cui B0 viene prima di tutto il resto. <b>Senza misura, ognuna delle sette correzioni che seguono si puo' fare — ma non si puo' dimostrare che abbia funzionato</b>, e la volta dopo si ricomincia a decidere a intuito.</span><span class="lb">Rilievi assorbiti dal Documento 02</span><span class="bd cds2">B1 · B2 · B3 · B4</span></td><td class="c-sol"><span class="cds">S0</span><span class="lv">risponde a B0</span><span class="tt">Metti una misura dove si converte</span><span class="lb">Che cosa si fa</span><span class="bd">Estendi il GA4 che gia' esiste a <span class="mono">app.italiancloser.com</span> e definisci quattro eventi, non uno di piu': apertura di <span class="mono">/login</span>, ritorno riuscito da Google, apertura di <span class="mono">/aziende/contatta</span>, invio del modulo. Separa i due link Linktree con <span class="mono">utm_content</span>.</span><span class="lb">Con che cosa, gia&rsquo; in casa</span><span class="bd tool">GA4 <span class="mono">G-07PW41NQYZ</span>, gia' installato. Linktree, gia' in uso.</span></td><td class="c-sig"><span class="lb">Il segnale</span><span class="bd">Entro sette giorni sai <b>quante persone al giorno toccano il login e quante lo superano</b>. Oggi quel numero non esiste in nessun posto.</span></td><td class="c-pr"><span class="lb">Impatto</span><span class="bar"><span class="fill" style="width:100%"></span></span><span class="bd nm">5 su 5</span><span class="lb">Sforzo</span><span class="bar sf"><span class="fill" style="width:20%"></span></span><span class="bd nm">1 su 5</span><span class="lb">Ondata</span><span class="bd wvn">Ondata 1 &mdash; giorni 1–7</span><span class="lb">Non prima di</span><span class="bd dep">Niente. E' il primo gesto possibile.</span></td></tr><tr><td class="c-rk"><span class="rk">2</span><span class="rkw">di otto</span></td><td class="c-bn"><span class="cd">B3</span><span class="lv tof">TOF</span><span class="tt">Otto decisioni prima di una informazione</span><span class="lb">Che cosa si vede</span><span class="bd">Bio (2 voci) &rarr; Linktree (6 voci) = <b>fino a otto scelte</b> prima di ricevere una singola informazione utile. Nessuna voce dice «inizia da qui». I link ③ «Cerchi Venditori per la Tua Azienda?» e ④ «Sei un Closer e Cerchi un Azienda Seria?» — scritti per <b>due pubblici opposti</b> — puntano allo stesso identico URL con lo stesso <span class="mono">utm_source</span>. L'H1 della home e' <span class="mono">ITALIANCLOSER</span>: il nome, non la promessa.</span><span class="lb">Che cosa blocca</span><span class="bd bk">Il tuo stesso documento TOF marca il punto di contatto 4 — la pagina profilo — come <b>CRITICO</b>, ed e' il nodo di decisione: va trattato come una landing page. Oggi e' un menu. Un menu non ordina la domanda, la moltiplica: un aspirante closer, un'azienda e un curioso vedono la stessa lista e nessuno dei tre viene indirizzato. Conseguenza doppia: chi arriva legge una pagina che parla anche all'altro, e nei dati i due click restano indistinguibili.</span><span class="lb">Rilievi assorbiti dal Documento 02</span><span class="bd cds2">A1 · A6 · C5 · B3</span></td><td class="c-sol"><span class="cds">S3</span><span class="lv">risponde a B3</span><span class="tt">Una porta sola, e due strade dichiarate</span><span class="lb">Che cosa si fa</span><span class="bd">La bio punta a <b>una</b> destinazione. Il Linktree apre con una voce «Inizia da qui». I due link per pubblici opposti restano due, ma smettono di essere lo stesso URL: uno per l'azienda, uno per il closer, ognuno con il suo <span class="mono">utm_content</span> e la sua pagina. L'H1 della home diventa la promessa, non il nome.</span><span class="lb">Con che cosa, gia&rsquo; in casa</span><span class="bd tool">Bio Instagram, Linktree, home del sito. Nessuno strumento nuovo.</span></td><td class="c-sig"><span class="lb">Il segnale</span><span class="bd">Da otto decisioni a una. E, nei dati, la domanda dal lato azienda — la piu' preziosa da riconoscere — <b>arriva finalmente con un'etichetta</b>.</span></td><td class="c-pr"><span class="lb">Impatto</span><span class="bar"><span class="fill" style="width:80%"></span></span><span class="bd nm">4 su 5</span><span class="lb">Sforzo</span><span class="bar sf"><span class="fill" style="width:20%"></span></span><span class="bd nm">1 su 5</span><span class="lb">Ondata</span><span class="bd wvn">Ondata 1 &mdash; giorni 1–7</span><span class="lb">Non prima di</span><span class="bd dep">Niente.</span></td></tr><tr><td class="c-rk"><span class="rk">3</span><span class="rkw">di otto</span></td><td class="c-bn"><span class="cd">B4</span><span class="lv bof">BOF</span><span class="tt">La porta d'ingresso parla a chi e' gia' dentro</span><span class="lb">Che cosa si vede</span><span class="bd">Il bottone di partenza dice «Per Closers»; la pagina dove si atterra e' etichettata <b>«Accedi»</b>, e l'unica azione disponibile e' «Continua con Google». Nessun campo email, nessun «Registrati»: che quel bottone sia anche la registrazione e' scritto in una riga di testo secondario. «Vedi altri &rarr;» apre <span class="mono">/closer/risultati</span> e serve <b>la dashboard riservata, con «Logout», a un visitatore non autenticato</b> — e senza alcun punto d'iscrizione. Nello stesso schermo, le card testimonianza hanno gli avatar grigi e vuoti.</span><span class="lb">Che cosa blocca</span><span class="bd bk">E' il punto di massima diffidenza di tutto il percorso: si chiede l'accesso a un account Google. <b>Nel momento esatto in cui il sistema chiede il gesto piu' impegnativo, mostra la parola sbagliata, un vicolo cieco e una prova rotta a vista.</b> Chi non ha o non vuole usare un account Google non ha alcuna via alternativa.</span><span class="lb">Rilievi assorbiti dal Documento 02</span><span class="bd cds2">A2 · A3 · D4 · F5</span></td><td class="c-sol"><span class="cds">S4</span><span class="lv">risponde a B4</span><span class="tt">Riscrivi la porta per chi arriva la prima volta</span><span class="lb">Che cosa si fa</span><span class="bd">«Accedi» diventa la frase di chi entra oggi. Il bottone Google dice che <b>e' anche la registrazione</b>, nell'etichetta e non in una riga sotto. <span class="mono">/closer/risultati</span> smette di servire la dashboard agli anonimi: o chiede l'accesso, o mostra una pagina pubblica con un ingresso. Le testimonianze rotte si riparano o si tolgono — <b>meglio nessuna prova che una prova rotta</b>. Il titolo di pagina duplicato si sistema nello stesso passaggio.</span><span class="lb">Con che cosa, gia&rsquo; in casa</span><span class="bd tool">app.italiancloser.com, gia' costruita. Sono modifiche di copy e di stato, non di prodotto.</span></td><td class="c-sig"><span class="lb">Il segnale</span><span class="bd">Il tasso fra «apertura di /login» e «ritorno riuscito da Google» — che S0 rende visibile per la prima volta — si muove. E' l'unico modo per sapere se questa correzione e' servita.</span></td><td class="c-pr"><span class="lb">Impatto</span><span class="bar"><span class="fill" style="width:100%"></span></span><span class="bd nm">5 su 5</span><span class="lb">Sforzo</span><span class="bar sf"><span class="fill" style="width:40%"></span></span><span class="bd nm">2 su 5</span><span class="lb">Ondata</span><span class="bd wvn">Ondata 1 &mdash; giorni 1–7</span><span class="lb">Non prima di</span><span class="bd dep">S0, per vedere se e' servita.</span></td></tr><tr><td class="c-rk"><span class="rk">4</span><span class="rkw">di otto</span></td><td class="c-bn"><span class="cd">B6</span><span class="lv tof">TOF</span><span class="tt">La prova porta addosso un'etichetta di dubbio</span><span class="lb">Che cosa si vede</span><span class="bd">Sopra le recensioni, Trustpilot mostra un banner suo: <b>«Non risultano inviti alla recensione recenti — le recensioni potrebbero non essere rappresentative»</b>. Le recensioni si concentrano fra il 6 e il 17 giugno 2026; le risposte dell'azienda sono <b>tutte del 17 giugno, fra le 14:00:07 e le 14:02:05</b>. Il sito dichiara «50+» recensioni; ne esistono <b>47</b>. Il gruppo Skool, che le raccoglie nativamente, ne ha <b>0 su 486 membri</b>.</span><span class="lb">Che cosa blocca</span><span class="bd bk">Non e' un'osservazione nostra: e' la piattaforma stessa che avvisa il visitatore. Le date raccontano <b>una campagna, non un'abitudine</b>, e chiunque puo' verificare il «50+» in un click. Hai piu' prova reale di molte agenzie che fatturano dieci volte tanto — e la prova e' sparsa su cinque piattaforme, puntata su un prodotto gratuito, e marcata come sospetta dalla piattaforma che dovrebbe garantirla.</span><span class="lb">Rilievi assorbiti dal Documento 02</span><span class="bd cds2">D1 · D2 · D3 · D4</span></td><td class="c-sol"><span class="cds">S6</span><span class="lv">risponde a B6</span><span class="tt">Rendi la prova un'abitudine invece che una campagna</span><span class="lb">Che cosa si fa</span><span class="bd">Un invito alla recensione dentro il momento in cui il risultato accade — ogni volta, non una volta a giugno. Il numero sul sito allineato a quello vero: 47 verificabile vale piu' di 50+ smentibile. Le recensioni native di Skool, oggi a zero, chieste alle stesse persone.</span><span class="lb">Con che cosa, gia&rsquo; in casa</span><span class="bd tool">Trustpilot, profilo gia' rivendicato. Skool, che le raccoglie nativamente.</span></td><td class="c-sig"><span class="lb">Il segnale</span><span class="bd">Il banner di Trustpilot <b>sparisce</b> — e' la piattaforma stessa a toglierlo quando gli inviti tornano regolari. E' un segnale binario, visibile da chiunque, senza analytics.</span></td><td class="c-pr"><span class="lb">Impatto</span><span class="bar"><span class="fill" style="width:60%"></span></span><span class="bd nm">3 su 5</span><span class="lb">Sforzo</span><span class="bar sf"><span class="fill" style="width:20%"></span></span><span class="bd nm">1 su 5</span><span class="lb">Ondata</span><span class="bd wvn">Ondata 1 &mdash; giorni 1–7</span><span class="lb">Non prima di</span><span class="bd dep">Niente.</span></td></tr><tr><td class="c-rk"><span class="rk">5</span><span class="rkw">di otto</span></td><td class="c-bn"><span class="cd">B5</span><span class="lv mof">MOF</span><span class="tt">Millecento persone senza un ponte</span><span class="lb">Che cosa si vede</span><span class="bd">486 membri su Skool e 615 su Discord: <b>circa 1.100 persone gia' dentro</b>. La descrizione del gruppo Skool promette esplicitamente «offerte di lavoro (Italia e USA)» — e <b>non c'e' alcun link osservabile verso il Placement Hub</b>, che e' il prodotto che mantiene quella promessa. Stesso vuoto dal Discord. Dentro: 20 corsi e 155 moduli contro <b>17 post in tutto il feed</b>, e una distribuzione dei livelli che dice <b>L1 98% · L2 1% · L3 1% · L4–L9 0%</b>.</span><span class="lb">Che cosa blocca</span><span class="bd bk">Il bacino piu' grande e piu' qualificato che hai — persone che hanno gia' lasciato telefono ed email — non ha un'uscita verso la superficie che le trasforma in candidati. E il 98% fermo al primo livello dice che <b>quasi nessuno compie un secondo gesto dopo essere entrato</b>: il punto di rottura non e' l'acquisizione, e' l'attivazione.</span><span class="lb">Rilievi assorbiti dal Documento 02</span><span class="bd cds2">A4 · E1 · E2 · E3 · E4 · D5</span></td><td class="c-sol"><span class="cds">S5</span><span class="lv">risponde a B5</span><span class="tt">Costruisci il ponte dalle 1.100 persone al Placement Hub</span><span class="lb">Che cosa si fa</span><span class="bd">Il gruppo Skool promette offerte di lavoro e non porta a nulla: un post fissato e un modulo in Classroom che finiscono sul Placement Hub chiudono il vuoto. Lo stesso vale per il Discord, dove la descrizione del server e' vuota. Prima di aggiungere un modulo nuovo alla libreria, verifica dall'interno se un ponte esiste gia' (G4).</span><span class="lb">Con che cosa, gia&rsquo; in casa</span><span class="bd tool">Skool e Discord, gia' popolati. Il Placement Hub, gia' costruito.</span></td><td class="c-sig"><span class="lb">Il segnale</span><span class="bd">La prima candidatura che arriva con <span class="mono">utm_source=skool</span>. Oggi non ne puo' arrivare nessuna, perche' non esiste il link che la genererebbe.</span></td><td class="c-pr"><span class="lb">Impatto</span><span class="bar"><span class="fill" style="width:80%"></span></span><span class="bd nm">4 su 5</span><span class="lb">Sforzo</span><span class="bar sf"><span class="fill" style="width:40%"></span></span><span class="bd nm">2 su 5</span><span class="lb">Ondata</span><span class="bd wvn">Ondata 2 &mdash; giorni 8–30</span><span class="lb">Non prima di</span><span class="bd dep">Verifica interna (G4).</span></td></tr><tr><td class="c-rk"><span class="rk">6</span><span class="rkw">di otto</span></td><td class="c-bn"><span class="cd">B2</span><span class="lv mof">MOF</span><span class="tt">Nessun contatto e' tuo</span><span class="lb">Che cosa si vede</span><span class="bd">L'unico punto di cattura osservabile in tutto il sistema e' il questionario d'iscrizione a Skool: situazione, telefono, email. Sta <b>dietro l'iscrizione a una piattaforma di terzi</b>. Il sito del brand non ha alcun form. Il pannello di traffico stimato indica 505 visitatori unici e una permanenza media di 09:21 sul sito: <b>nove minuti di attenzione che non lasciano un indirizzo</b>.</span><span class="lb">Che cosa blocca</span><span class="bd bk">Chi non entra su Skool non lascia traccia da nessuna parte, e l'intera lista contatti vive dentro un sistema che non controlli. Vuol dire due cose insieme: <b>non puoi ricontattare nessuno</b> senza passare da Skool, e <b>non puoi costruire un MOF</b> (B1) perche' un MOF ha bisogno di un punto d'ingresso che sia tuo.</span><span class="lb">Rilievi assorbiti dal Documento 02</span><span class="bd cds2">A7</span></td><td class="c-sol"><span class="cds">S2</span><span class="lv">risponde a B2</span><span class="tt">Porta la cattura dentro casa</span><span class="lb">Che cosa si fa</span><span class="bd">Un punto di raccolta sul dominio del brand, <b>prima</b> di Skool e non dopo. Chi lascia l'indirizzo li' riceve l'accesso a Skool come conseguenza, non come condizione.</span><span class="lb">Con che cosa, gia&rsquo; in casa</span><span class="bd tool">Il sito italiancloser.com, che oggi non ha alcun form. Le tre domande del questionario Skool esistono gia' e sono le stesse.</span></td><td class="c-sig"><span class="lb">Il segnale</span><span class="bd">Il primo indirizzo email che <b>possiedi</b> — che resta tuo anche se domani Skool cambia regole, prezzo o politica.</span></td><td class="c-pr"><span class="lb">Impatto</span><span class="bar"><span class="fill" style="width:80%"></span></span><span class="bd nm">4 su 5</span><span class="lb">Sforzo</span><span class="bar sf"><span class="fill" style="width:60%"></span></span><span class="bd nm">3 su 5</span><span class="lb">Ondata</span><span class="bd wvn">Ondata 2 &mdash; giorni 8–30</span><span class="lb">Non prima di</span><span class="bd dep">S3, altrimenti raccogli traffico non smistato.</span></td></tr><tr><td class="c-rk"><span class="rk">7</span><span class="rkw">di otto</span></td><td class="c-bn"><span class="cd">B1</span><span class="lv mof">MOF</span><span class="tt">Il MOF non esiste</span><span class="lb">Che cosa si vede</span><span class="bd">Il tuo stesso schema descrive il centro del funnel come <b>CONVO &rarr; QUALIFY &rarr; BOOK</b>, con cinque punti di contatto e un'uscita sola: una call prenotata. Su undici superfici pubbliche <b>non se ne osserva nessuno</b>. Non c'e' un punto di conversazione (la parola «sales» produce una replica in un thread pubblico, non un messaggio), non c'e' una domanda di qualifica, non c'e' un'interfaccia di prenotazione. Il ramo closer va dal reel direttamente a una schermata di accesso.</span><span class="lb">Che cosa blocca</span><span class="bd bk">Il TOF funziona: 22.638 visualizzazioni sul reel migliore, 857 like e 152 commenti su quello d'offerta, 3.623 follower senza un euro di pubblicita'. <b>Tutto quel volume viene consegnato a un login.</b> Un login e' un punto di contatto BOF — il momento della decisione — messo dove il tuo schema chiede il passaggio A, l'ambiente caldo. E' il collo di bottiglia piu' costoso del sistema perche' e' l'unico che spreca qualcosa che stai gia' producendo bene.</span><span class="lb">Rilievi assorbiti dal Documento 02</span><span class="bd cds2">A2 · A5 · C2 · E1</span></td><td class="c-sol"><span class="cds">S1</span><span class="lv">risponde a B1</span><span class="tt">Costruisci il passaggio che manca fra il contenuto e il login</span><span class="lb">Che cosa si fa</span><span class="bd">Fra il reel e la schermata d'accesso metti i passaggi che il tuo stesso schema descrive: una risposta che arriva <b>in privato</b> e non in un thread pubblico, <b>una sola</b> domanda di qualifica prima di qualunque link, e una destinazione sola per chi risponde. Vale per ogni superficie dove il brand compare, non per un post solo (A5).</span><span class="lb">Con che cosa, gia&rsquo; in casa</span><span class="bd tool">Instagram DM. Lo schema MOF che hai gia' scritto: A ambiente caldo, B qualifica, C divario, D prenotazione, E post-prenotazione.</span></td><td class="c-sig"><span class="lb">Il segnale</span><span class="bd">La prima conversazione che arriva al login <b>gia' qualificata</b> — e, per la prima volta, un numero di conversazioni al giorno da guardare.</span></td><td class="c-pr"><span class="lb">Impatto</span><span class="bar"><span class="fill" style="width:100%"></span></span><span class="bd nm">5 su 5</span><span class="lb">Sforzo</span><span class="bar sf"><span class="fill" style="width:80%"></span></span><span class="bd nm">4 su 5</span><span class="lb">Ondata</span><span class="bd wvn">Ondata 3 &mdash; dal giorno 31</span><span class="lb">Non prima di</span><span class="bd dep">S0 e S2. Senza misura non si regola, senza cattura non parte.</span></td></tr><tr><td class="c-rk"><span class="rk">8</span><span class="rkw">di otto</span></td><td class="c-bn"><span class="cd">B7</span><span class="lv tof">TOF</span><span class="tt">Lo sforzo va dove il risultato non c'e'</span><span class="lb">Che cosa si vede</span><span class="bd"><b>460 video su YouTube</b> per una mediana di circa <b>110 visualizzazioni</b> su 546 iscritti. <b>5 post su Instagram</b>, di cui uno da 857 like e 152 commenti. Il video che presidia la home ha dieci mesi, dura 13:57 e ha <b>503 visualizzazioni</b>. Nei commenti c'e' almeno una richiesta esplicita di contenuto rimasta senza replica.</span><span class="lb">Che cosa blocca</span><span class="bd bk">Il canale che costa di piu' in ore di produzione e' quello che rende di meno per pezzo, e la superficie che porta piu' persone e' la meno documentata di tutte: cinque post, quattro dei quali personali. <b>La produzione non e' il problema — hai gia' dimostrato di saper produrre volume. L'allocazione lo e'.</b></span><span class="lb">Rilievi assorbiti dal Documento 02</span><span class="bd cds2">C1 · C2 · C3 · C4 · F4</span></td><td class="c-sol"><span class="cds">S7</span><span class="lv">risponde a B7</span><span class="tt">Sposta lo sforzo dove la resa e' gia' misurabilmente piu' alta</span><span class="lb">Che cosa si fa</span><span class="bd">Non chiudere YouTube: 460 video sono un archivio, e un archivio si taglia e si ridistribuisce. Ma il volume nuovo va dove il rapporto e' documentato — cinque post Instagram hanno prodotto piu' domanda di quattrocentosessanta video. E le richieste dirette nei commenti diventano il calendario editoriale: e' ricerca di mercato gratuita, con nome e cognome allegato.</span><span class="lb">Con che cosa, gia&rsquo; in casa</span><span class="bd tool">L'archivio YouTube. Il profilo Instagram, oggi a cinque post.</span></td><td class="c-sig"><span class="lb">Il segnale</span><span class="bd">Va fatto <b>per ultimo</b>, e il motivo e' S0: finche' non si misura, uno spostamento di sforzo non si distingue da un'impressione.</span></td><td class="c-pr"><span class="lb">Impatto</span><span class="bar"><span class="fill" style="width:40%"></span></span><span class="bd nm">2 su 5</span><span class="lb">Sforzo</span><span class="bar sf"><span class="fill" style="width:80%"></span></span><span class="bd nm">4 su 5</span><span class="lb">Ondata</span><span class="bd wvn">Nessuna ondata &mdash; non ora</span><span class="lb">Non prima di</span><span class="bd dep">S0. Prima di spostare lo sforzo bisogna poterlo pesare.</span></td></tr></tbody></table></div>
+<p class="fcap">L&rsquo;ordine della colonna «Ordine» non e&rsquo; l&rsquo;ordine di gravita&rsquo;.
+Il collo di bottiglia piu&rsquo; costoso del sistema e&rsquo; B1, il MOF assente, ed e&rsquo; in
+settima posizione: ha bisogno della misura (S0) per essere regolato e di un punto di cattura tuo
+(S2) per partire. Costruirlo per primo significherebbe costruirlo alla cieca.</p>
 
-<div class="power"><div class="pk">Il punto</div><p>Sette correzioni si possono fare comunque. <b>Nessuna delle sette si puo' dimostrare</b> finche' il tracciamento si ferma dove comincia la conversione.</p></div>
+
 </section>
 <section id="s03">
-<span class="secnum">03 — I colli di bottiglia</span>
-<h2>Sette voci, in ordine di livello</h2>
-<p class="dek">Ognuna assorbe da uno a sei rilievi del Documento 02, citati per codice in alto a destra. L’ordine di questa sezione e’ quello del funnel, non quello di priorita’: la priorita’ arriva alla sezione 06, e non e’ la stessa.</p>
-<div class="bnc">
-<div class="bnc-h"><span class="bnc-n">B1</span><span class="bnc-l mof">Livello MOF</span><span class="bnc-c">A2 · A5 · C2 · E1</span></div>
-<h4>Il MOF non esiste</h4>
-<p><span class="lb">Che cosa si vede</span>Il tuo stesso schema descrive il centro del funnel come <b>CONVO &rarr; QUALIFY &rarr; BOOK</b>, con cinque punti di contatto e un'uscita sola: una call prenotata. Su undici superfici pubbliche <b>non se ne osserva nessuno</b>. Non c'e' un punto di conversazione (la parola «sales» produce una replica in un thread pubblico, non un messaggio), non c'e' una domanda di qualifica, non c'e' un'interfaccia di prenotazione. Il ramo closer va dal reel direttamente a una schermata di accesso.</p>
-<p class="blocca"><span class="lb">Che cosa blocca</span>Il TOF funziona: 22.638 visualizzazioni sul reel migliore, 857 like e 152 commenti su quello d'offerta, 3.623 follower senza un euro di pubblicita'. <b>Tutto quel volume viene consegnato a un login.</b> Un login e' un punto di contatto BOF — il momento della decisione — messo dove il tuo schema chiede il passaggio A, l'ambiente caldo. E' il collo di bottiglia piu' costoso del sistema perche' e' l'unico che spreca qualcosa che stai gia' producendo bene.</p>
-</div>
-<div class="bnc">
-<div class="bnc-h"><span class="bnc-n">B2</span><span class="bnc-l mof">Livello MOF</span><span class="bnc-c">A7</span></div>
-<h4>Nessun contatto e' tuo</h4>
-<p><span class="lb">Che cosa si vede</span>L'unico punto di cattura osservabile in tutto il sistema e' il questionario d'iscrizione a Skool: situazione, telefono, email. Sta <b>dietro l'iscrizione a una piattaforma di terzi</b>. Il sito del brand non ha alcun form. Il pannello di traffico stimato indica 505 visitatori unici e una permanenza media di 09:21 sul sito: <b>nove minuti di attenzione che non lasciano un indirizzo</b>.</p>
-<p class="blocca"><span class="lb">Che cosa blocca</span>Chi non entra su Skool non lascia traccia da nessuna parte, e l'intera lista contatti vive dentro un sistema che non controlli. Vuol dire due cose insieme: <b>non puoi ricontattare nessuno</b> senza passare da Skool, e <b>non puoi costruire un MOF</b> (B1) perche' un MOF ha bisogno di un punto d'ingresso che sia tuo.</p>
-</div>
-<div class="bnc">
-<div class="bnc-h"><span class="bnc-n">B3</span><span class="bnc-l tof">Livello TOF</span><span class="bnc-c">A1 · A6 · C5 · B3</span></div>
-<h4>Otto decisioni prima di una informazione</h4>
-<p><span class="lb">Che cosa si vede</span>Bio (2 voci) &rarr; Linktree (6 voci) = <b>fino a otto scelte</b> prima di ricevere una singola informazione utile. Nessuna voce dice «inizia da qui». I link ③ «Cerchi Venditori per la Tua Azienda?» e ④ «Sei un Closer e Cerchi un Azienda Seria?» — scritti per <b>due pubblici opposti</b> — puntano allo stesso identico URL con lo stesso <span class="mono">utm_source</span>. L'H1 della home e' <span class="mono">ITALIANCLOSER</span>: il nome, non la promessa.</p>
-<p class="blocca"><span class="lb">Che cosa blocca</span>Il tuo stesso documento TOF marca il punto di contatto 4 — la pagina profilo — come <b>CRITICO</b>, ed e' il nodo di decisione: va trattato come una landing page. Oggi e' un menu. Un menu non ordina la domanda, la moltiplica: un aspirante closer, un'azienda e un curioso vedono la stessa lista e nessuno dei tre viene indirizzato. Conseguenza doppia: chi arriva legge una pagina che parla anche all'altro, e nei dati i due click restano indistinguibili.</p>
-</div>
-<div class="bnc">
-<div class="bnc-h"><span class="bnc-n">B4</span><span class="bnc-l bof">Livello BOF</span><span class="bnc-c">A2 · A3 · D4 · F5</span></div>
-<h4>La porta d'ingresso parla a chi e' gia' dentro</h4>
-<p><span class="lb">Che cosa si vede</span>Il bottone di partenza dice «Per Closers»; la pagina dove si atterra e' etichettata <b>«Accedi»</b>, e l'unica azione disponibile e' «Continua con Google». Nessun campo email, nessun «Registrati»: che quel bottone sia anche la registrazione e' scritto in una riga di testo secondario. «Vedi altri &rarr;» apre <span class="mono">/closer/risultati</span> e serve <b>la dashboard riservata, con «Logout», a un visitatore non autenticato</b> — e senza alcun punto d'iscrizione. Nello stesso schermo, le card testimonianza hanno gli avatar grigi e vuoti.</p>
-<p class="blocca"><span class="lb">Che cosa blocca</span>E' il punto di massima diffidenza di tutto il percorso: si chiede l'accesso a un account Google. <b>Nel momento esatto in cui il sistema chiede il gesto piu' impegnativo, mostra la parola sbagliata, un vicolo cieco e una prova rotta a vista.</b> Chi non ha o non vuole usare un account Google non ha alcuna via alternativa.</p>
-</div>
-<div class="bnc">
-<div class="bnc-h"><span class="bnc-n">B5</span><span class="bnc-l mof">Livello MOF</span><span class="bnc-c">A4 · E1 · E2 · E3 · E4 · D5</span></div>
-<h4>Millecento persone senza un ponte</h4>
-<p><span class="lb">Che cosa si vede</span>486 membri su Skool e 615 su Discord: <b>circa 1.100 persone gia' dentro</b>. La descrizione del gruppo Skool promette esplicitamente «offerte di lavoro (Italia e USA)» — e <b>non c'e' alcun link osservabile verso il Placement Hub</b>, che e' il prodotto che mantiene quella promessa. Stesso vuoto dal Discord. Dentro: 20 corsi e 155 moduli contro <b>17 post in tutto il feed</b>, e una distribuzione dei livelli che dice <b>L1 98% · L2 1% · L3 1% · L4–L9 0%</b>.</p>
-<p class="blocca"><span class="lb">Che cosa blocca</span>Il bacino piu' grande e piu' qualificato che hai — persone che hanno gia' lasciato telefono ed email — non ha un'uscita verso la superficie che le trasforma in candidati. E il 98% fermo al primo livello dice che <b>quasi nessuno compie un secondo gesto dopo essere entrato</b>: il punto di rottura non e' l'acquisizione, e' l'attivazione.</p>
-</div>
-<div class="bnc">
-<div class="bnc-h"><span class="bnc-n">B6</span><span class="bnc-l tof">Livello TOF</span><span class="bnc-c">D1 · D2 · D3 · D4</span></div>
-<h4>La prova porta addosso un'etichetta di dubbio</h4>
-<p><span class="lb">Che cosa si vede</span>Sopra le recensioni, Trustpilot mostra un banner suo: <b>«Non risultano inviti alla recensione recenti — le recensioni potrebbero non essere rappresentative»</b>. Le recensioni si concentrano fra il 6 e il 17 giugno 2026; le risposte dell'azienda sono <b>tutte del 17 giugno, fra le 14:00:07 e le 14:02:05</b>. Il sito dichiara «50+» recensioni; ne esistono <b>47</b>. Il gruppo Skool, che le raccoglie nativamente, ne ha <b>0 su 486 membri</b>.</p>
-<p class="blocca"><span class="lb">Che cosa blocca</span>Non e' un'osservazione nostra: e' la piattaforma stessa che avvisa il visitatore. Le date raccontano <b>una campagna, non un'abitudine</b>, e chiunque puo' verificare il «50+» in un click. Hai piu' prova reale di molte agenzie che fatturano dieci volte tanto — e la prova e' sparsa su cinque piattaforme, puntata su un prodotto gratuito, e marcata come sospetta dalla piattaforma che dovrebbe garantirla.</p>
-</div>
-<div class="bnc">
-<div class="bnc-h"><span class="bnc-n">B7</span><span class="bnc-l tof">Livello TOF</span><span class="bnc-c">C1 · C2 · C3 · C4 · F4</span></div>
-<h4>Lo sforzo va dove il risultato non c'e'</h4>
-<p><span class="lb">Che cosa si vede</span><b>460 video su YouTube</b> per una mediana di circa <b>110 visualizzazioni</b> su 546 iscritti. <b>5 post su Instagram</b>, di cui uno da 857 like e 152 commenti. Il video che presidia la home ha dieci mesi, dura 13:57 e ha <b>503 visualizzazioni</b>. Nei commenti c'e' almeno una richiesta esplicita di contenuto rimasta senza replica.</p>
-<p class="blocca"><span class="lb">Che cosa blocca</span>Il canale che costa di piu' in ore di produzione e' quello che rende di meno per pezzo, e la superficie che porta piu' persone e' la meno documentata di tutte: cinque post, quattro dei quali personali. <b>La produzione non e' il problema — hai gia' dimostrato di saper produrre volume. L'allocazione lo e'.</b></p>
-</div>
-<p class="fcap">Due delle sette (B3, B6, B7) stanno nel livello dell’attenzione, tre (B1, B2, B5)
-nel nutrimento, una (B4) nella vendita. Il conteggio non torna a caso: <b>sei delle sette stanno
-a valle del contenuto</b>. Il sistema non ha un problema di quante persone arrivano.</p>
+<span class="secnum">03 — Le ondate</span>
+<h2>Le otto righe raggruppate nel tempo</h2>
+<p class="dek">La stessa tabella, vista dal calendario invece che dalla riga. Sette correzioni su otto stanno dentro trenta giorni; l&rsquo;ottava, S7, non sta in nessuna ondata ed e&rsquo; la sola che questo documento consiglia di non fare adesso.</p>
+<div class="wv"><div class="wv-r"><div class="wv-h"><span class="wv-t">Ondata 1</span><span class="wv-d">Giorni 1–7</span></div><p class="wv-s">Niente si costruisce. Si scrive e si etichetta.</p><div class="wv-l"><span class="wv-p"><b>S0</b>La misura</span><span class="wv-p"><b>S3</b>Lo smistamento</span><span class="wv-p"><b>S4</b>La porta</span><span class="wv-p"><b>S6</b>La prova</span></div><p class="wv-o">Alla fine della settimana esiste, per la prima volta, un numero: quante persone al giorno toccano il login e quante lo superano. <b>Tutto quello che viene dopo si giudica contro quel numero.</b></p></div><div class="wv-r"><div class="wv-h"><span class="wv-t">Ondata 2</span><span class="wv-d">Giorni 8–30</span></div><p class="wv-s">La prima costruzione vera, e la piu' piccola possibile.</p><div class="wv-l"><span class="wv-p"><b>S5</b>Il ponte</span><span class="wv-p"><b>S2</b>La cattura</span></div><p class="wv-o">Il ponte apre l'uscita per le 1.100 persone che sono gia' dentro; la cattura porta in casa il primo indirizzo che sia tuo. Sono i due prerequisiti materiali del passaggio successivo.</p></div><div class="wv-r late"><div class="wv-h"><span class="wv-t">Ondata 3</span><span class="wv-d">Dal giorno 31</span></div><p class="wv-s">Il pezzo grande, costruito per ultimo apposta.</p><div class="wv-l"><span class="wv-p"><b>S1</b>Il MOF</span></div><p class="wv-o">Il MOF e' il collo di bottiglia piu' costoso (B1) e va comunque <b>dopo</b>, perche' ha bisogno di una misura per essere regolato (S0) e di un punto di cattura tuo per partire (S2). Costruirlo per primo significherebbe costruirlo alla cieca.</p></div></div>
+<p class="fcap"><b>S7 non compare in nessuna ondata, ed e&rsquo; voluto.</b> Impatto contenuto nel
+breve, sforzo alto, e soprattutto non dimostrabile finche&rsquo; S0 non esiste: una cosa non
+dimostrabile non si difende alla terza settimana.</p>
 
-<div class="power"><div class="pk">Il punto</div><p>Trentasei rilievi collassano in sette voci, e <b>sei delle sette stanno a valle del contenuto</b>. Il problema non e' quante persone arrivano: e' cosa trovano quando arrivano.</p></div>
+
 </section>
 <section id="s04">
-<span class="secnum">04 — I tre livelli</span>
-<h2>Il sistema messo dentro il tuo schema</h2>
-<p class="dek">Colonna di sinistra: quello che i tuoi tre documenti di strategia definiscono per ogni livello. Colonna di destra: quello che si osserva sulle undici superfici pubbliche. Il confronto e’ il risultato piu’ netto di tutta l’analisi.</p>
-<div class="lay">
-<div class="lay-r tof">
-<div class="lay-k">TOF<span class="sub">Attenzione</span></div>
-<div><p><span class="lb">Che cosa dice il tuo schema</span>Contenuto = influenza e portata. Cinque punti di contatto, di cui il quarto — la pagina profilo — marcato CRITICO: e' il nodo di decisione e va trattato come una landing page. Regola 7-11-14: sette ore, undici contatti, quattro incontri.</p></div>
-<div><p><span class="lb">Che cosa si osserva</span>La portata c'e' e non e' in discussione: 22.638 visualizzazioni sul reel migliore, 3.623 follower, 152 commenti sul post d'offerta, zero euro di pubblicita'. Ma il punto di contatto 4 e' un menu da otto voci (B3) con cinque post dietro (B7), e il livello di fiducia passiva porta un avviso della piattaforma stessa (B6).</p></div>
-<p class="lay-v"><b>Funziona, ma scarica su una porta che non regge.</b></p>
-</div>
-<div class="lay-r mof">
-<div class="lay-k">MOF<span class="sub">Nutrimento</span></div>
-<div><p><span class="lb">Che cosa dice il tuo schema</span>Conversazione &rarr; qualifica &rarr; prenotazione. Cinque punti di contatto. Cinque passaggi di appointment setting: A ambiente caldo, B qualifica, C creare il divario, D transizione alla prenotazione, E rapporto post-prenotazione. Uscita: una call prenotata.</p></div>
-<div><p><span class="lb">Che cosa si osserva</span>Nessuno dei cinque passaggi e' osservabile su alcuna superficie pubblica. La parola chiave produce una replica in un thread, non una conversazione (B1). L'unica cattura sta su una piattaforma di terzi (B2). Le 1.100 persone gia' dentro non hanno un'uscita verso il prodotto (B5). Nessuna interfaccia di prenotazione compare da nessuna parte.</p></div>
-<p class="lay-v"><b>Assente. E' qui che si perde quasi tutto quello che il TOF produce.</b></p>
-</div>
-<div class="lay-r bof">
-<div class="lay-k">BOF<span class="sub">Vendita</span></div>
-<div><p><span class="lb">Che cosa dice il tuo schema</span>Otto fasi. La fase 1, STUDY, richiede un riassunto della conversazione MOF prima della call. Il punto di contatto 3 e' il momento della decisione: link di pagamento, termini, inversione del rischio. Ogni attrito qui uccide la chiusura anche dopo una call forte.</p></div>
-<div><p><span class="lb">Che cosa si osserva</span>Sul ramo closer il momento della decisione e' un login Google etichettato «Accedi», con testimonianze rotte accanto (B4). Sul ramo azienda e' un modulo da otto campi obbligatori con il messaggio libero tagliato a 300 caratteri, e con due promesse di tempo diverse a due schermate di distanza. La fase STUDY e' <b>impossibile</b>: non esiste una conversazione MOF da riassumere.</p></div>
-<p class="lay-v"><b>Esiste come interfaccia, non come processo.</b></p>
-</div>
-</div>
-<p class="fcap">Vale la pena fermarsi su una riga sola. Il tuo schema BOF colloca al punto di
-contatto 3 — il momento della decisione — il link di pagamento, i termini e l’inversione del
-rischio, e avverte che ogni attrito li’ uccide la chiusura anche dopo una call forte.
-Sul ramo closer, oggi, quel punto di contatto e’ la <b>prima</b> cosa che una persona incontra
-dopo il contenuto: una schermata di accesso. <b>Un artefatto di fondo funnel messo dove il tuo
-schema chiede il passaggio A, l’ambiente caldo.</b></p>
+<span class="secnum">04 — Cosa non fare</span>
+<h2>Quattro cose da non fare in questa fase</h2>
+<p class="dek">Tre delle quattro sono cose che un sistema in crescita fa per istinto. Ognuna, fatta adesso, peggiora un problema che la tabella qui sopra sta gia&rsquo; risolvendo.</p>
+<div class="dnt"><div class="dnt-r"><p class="dnt-t"><span class="x">&times;</span>Non aprire una superficie nuova</p><p>Undici superfici, una sola che cattura, e quella e' di terzi (B2). Una dodicesima aggiunge una porta a un sistema il cui problema e' che ha troppe porte (B3).</p></div><div class="dnt-r"><p class="dnt-t"><span class="x">&times;</span>Non comprare traffico</p><p>Finora tutto e' stato guadagnato: zero euro di pubblicita' dietro 3.623 follower, 1.100 membri, 47 recensioni e 70+ placement dichiarati. Mandare traffico a pagamento dentro un sistema senza misura (B0) e senza MOF (B1) significa <b>pagare perche' le persone arrivino al collo di bottiglia piu' in fretta</b>.</p></div><div class="dnt-r"><p class="dnt-t"><span class="x">&times;</span>Non aumentare la produzione di contenuti</p><p>Il rapporto e' gia' documentato: 460 video contro 5 post (B7). Il problema non e' la quantita' prodotta, e finche' B0 non e' a posto un aumento non e' distinguibile da un'impressione.</p></div><div class="dnt-r"><p class="dnt-t"><span class="x">&times;</span>Non toccare il prezzo</p><p>Perche' <b>non e' noto</b>. G1 dice che su otto superfici pubbliche non compare un prezzo, un checkout, un piano a pagamento o un termine economico. Nessuna riga di questo documento assume di sapere come il sistema genera ricavo, e questa e' la prima domanda da fare a voce.</p></div></div>
 
-<div class="power"><div class="pk">Il punto</div><p>Secondo il tuo stesso schema: <b>il TOF funziona, il MOF non esiste, il BOF e' un'interfaccia senza processo.</b> L'intero divario del sistema sta in un livello solo, ed e' quello di mezzo.</p></div>
 </section>
 <section id="s05">
-<span class="secnum">05 — Le soluzioni</span>
-<h2>Otto correzioni, una per voce</h2>
-<p class="dek">Una per ogni collo di bottiglia, piu’ quella della precondizione. Ognuna dice con che cosa si fa — sempre uno strumento che hai gia’ — e il fatto osservabile che prova se ha funzionato. Nessuna dice quanto rende, perche’ G1 e’ ancora aperto.</p>
-<div class="slc">
-<div class="slc-h"><span class="slc-n">S0</span><span class="slc-b">risponde a B0</span></div>
-<h4>Metti una misura dove si converte</h4>
-<p>Estendi il GA4 che gia' esiste a <span class="mono">app.italiancloser.com</span> e definisci quattro eventi, non uno di piu': apertura di <span class="mono">/login</span>, ritorno riuscito da Google, apertura di <span class="mono">/aziende/contatta</span>, invio del modulo. Separa i due link Linktree con <span class="mono">utm_content</span>.</p>
-<div class="slc-meta">
-<div><p><span class="lb">Con che cosa, gia’ in casa</span>GA4 <span class="mono">G-07PW41NQYZ</span>, gia' installato. Linktree, gia' in uso.</p></div>
-<div class="sg"><p><span class="lb">Il segnale che ha funzionato</span>Entro sette giorni sai <b>quante persone al giorno toccano il login e quante lo superano</b>. Oggi quel numero non esiste in nessun posto.</p></div>
-</div>
-</div>
-<div class="slc">
-<div class="slc-h"><span class="slc-n">S1</span><span class="slc-b">risponde a B1</span></div>
-<h4>Costruisci il passaggio che manca fra il contenuto e il login</h4>
-<p>Fra il reel e la schermata d'accesso metti i passaggi che il tuo stesso schema descrive: una risposta che arriva <b>in privato</b> e non in un thread pubblico, <b>una sola</b> domanda di qualifica prima di qualunque link, e una destinazione sola per chi risponde. Vale per ogni superficie dove il brand compare, non per un post solo (A5).</p>
-<div class="slc-meta">
-<div><p><span class="lb">Con che cosa, gia’ in casa</span>Instagram DM. Lo schema MOF che hai gia' scritto: A ambiente caldo, B qualifica, C divario, D prenotazione, E post-prenotazione.</p></div>
-<div class="sg"><p><span class="lb">Il segnale che ha funzionato</span>La prima conversazione che arriva al login <b>gia' qualificata</b> — e, per la prima volta, un numero di conversazioni al giorno da guardare.</p></div>
-</div>
-</div>
-<div class="slc">
-<div class="slc-h"><span class="slc-n">S2</span><span class="slc-b">risponde a B2</span></div>
-<h4>Porta la cattura dentro casa</h4>
-<p>Un punto di raccolta sul dominio del brand, <b>prima</b> di Skool e non dopo. Chi lascia l'indirizzo li' riceve l'accesso a Skool come conseguenza, non come condizione.</p>
-<div class="slc-meta">
-<div><p><span class="lb">Con che cosa, gia’ in casa</span>Il sito italiancloser.com, che oggi non ha alcun form. Le tre domande del questionario Skool esistono gia' e sono le stesse.</p></div>
-<div class="sg"><p><span class="lb">Il segnale che ha funzionato</span>Il primo indirizzo email che <b>possiedi</b> — che resta tuo anche se domani Skool cambia regole, prezzo o politica.</p></div>
-</div>
-</div>
-<div class="slc">
-<div class="slc-h"><span class="slc-n">S3</span><span class="slc-b">risponde a B3</span></div>
-<h4>Una porta sola, e due strade dichiarate</h4>
-<p>La bio punta a <b>una</b> destinazione. Il Linktree apre con una voce «Inizia da qui». I due link per pubblici opposti restano due, ma smettono di essere lo stesso URL: uno per l'azienda, uno per il closer, ognuno con il suo <span class="mono">utm_content</span> e la sua pagina. L'H1 della home diventa la promessa, non il nome.</p>
-<div class="slc-meta">
-<div><p><span class="lb">Con che cosa, gia’ in casa</span>Bio Instagram, Linktree, home del sito. Nessuno strumento nuovo.</p></div>
-<div class="sg"><p><span class="lb">Il segnale che ha funzionato</span>Da otto decisioni a una. E, nei dati, la domanda dal lato azienda — la piu' preziosa da riconoscere — <b>arriva finalmente con un'etichetta</b>.</p></div>
-</div>
-</div>
-<div class="slc">
-<div class="slc-h"><span class="slc-n">S4</span><span class="slc-b">risponde a B4</span></div>
-<h4>Riscrivi la porta per chi arriva la prima volta</h4>
-<p>«Accedi» diventa la frase di chi entra oggi. Il bottone Google dice che <b>e' anche la registrazione</b>, nell'etichetta e non in una riga sotto. <span class="mono">/closer/risultati</span> smette di servire la dashboard agli anonimi: o chiede l'accesso, o mostra una pagina pubblica con un ingresso. Le testimonianze rotte si riparano o si tolgono — <b>meglio nessuna prova che una prova rotta</b>. Il titolo di pagina duplicato si sistema nello stesso passaggio.</p>
-<div class="slc-meta">
-<div><p><span class="lb">Con che cosa, gia’ in casa</span>app.italiancloser.com, gia' costruita. Sono modifiche di copy e di stato, non di prodotto.</p></div>
-<div class="sg"><p><span class="lb">Il segnale che ha funzionato</span>Il tasso fra «apertura di /login» e «ritorno riuscito da Google» — che S0 rende visibile per la prima volta — si muove. E' l'unico modo per sapere se questa correzione e' servita.</p></div>
-</div>
-</div>
-<div class="slc">
-<div class="slc-h"><span class="slc-n">S5</span><span class="slc-b">risponde a B5</span></div>
-<h4>Costruisci il ponte dalle 1.100 persone al Placement Hub</h4>
-<p>Il gruppo Skool promette offerte di lavoro e non porta a nulla: un post fissato e un modulo in Classroom che finiscono sul Placement Hub chiudono il vuoto. Lo stesso vale per il Discord, dove la descrizione del server e' vuota. Prima di aggiungere un modulo nuovo alla libreria, verifica dall'interno se un ponte esiste gia' (G4).</p>
-<div class="slc-meta">
-<div><p><span class="lb">Con che cosa, gia’ in casa</span>Skool e Discord, gia' popolati. Il Placement Hub, gia' costruito.</p></div>
-<div class="sg"><p><span class="lb">Il segnale che ha funzionato</span>La prima candidatura che arriva con <span class="mono">utm_source=skool</span>. Oggi non ne puo' arrivare nessuna, perche' non esiste il link che la genererebbe.</p></div>
-</div>
-</div>
-<div class="slc">
-<div class="slc-h"><span class="slc-n">S6</span><span class="slc-b">risponde a B6</span></div>
-<h4>Rendi la prova un'abitudine invece che una campagna</h4>
-<p>Un invito alla recensione dentro il momento in cui il risultato accade — ogni volta, non una volta a giugno. Il numero sul sito allineato a quello vero: 47 verificabile vale piu' di 50+ smentibile. Le recensioni native di Skool, oggi a zero, chieste alle stesse persone.</p>
-<div class="slc-meta">
-<div><p><span class="lb">Con che cosa, gia’ in casa</span>Trustpilot, profilo gia' rivendicato. Skool, che le raccoglie nativamente.</p></div>
-<div class="sg"><p><span class="lb">Il segnale che ha funzionato</span>Il banner di Trustpilot <b>sparisce</b> — e' la piattaforma stessa a toglierlo quando gli inviti tornano regolari. E' un segnale binario, visibile da chiunque, senza analytics.</p></div>
-</div>
-</div>
-<div class="slc">
-<div class="slc-h"><span class="slc-n">S7</span><span class="slc-b">risponde a B7</span></div>
-<h4>Sposta lo sforzo dove la resa e' gia' misurabilmente piu' alta</h4>
-<p>Non chiudere YouTube: 460 video sono un archivio, e un archivio si taglia e si ridistribuisce. Ma il volume nuovo va dove il rapporto e' documentato — cinque post Instagram hanno prodotto piu' domanda di quattrocentosessanta video. E le richieste dirette nei commenti diventano il calendario editoriale: e' ricerca di mercato gratuita, con nome e cognome allegato.</p>
-<div class="slc-meta">
-<div><p><span class="lb">Con che cosa, gia’ in casa</span>L'archivio YouTube. Il profilo Instagram, oggi a cinque post.</p></div>
-<div class="sg"><p><span class="lb">Il segnale che ha funzionato</span>Va fatto <b>per ultimo</b>, e il motivo e' S0: finche' non si misura, uno spostamento di sforzo non si distingue da un'impressione.</p></div>
-</div>
-</div>
-<div class="power"><div class="pk">Il punto</div><p>Nessuna delle otto soluzioni chiede uno strumento nuovo. <b>Sette su otto sono riscritture di cose che esistono gia'</b> — un'etichetta, un parametro, uno stato, un link.</p></div>
-</section>
-<section id="s06">
-<span class="secnum">06 — La matrice</span>
-<h2>Impatto per sforzo, senza l’asse del denaro</h2>
-<p class="dek">Impatto = quanto si sblocca a valle se la correzione viene fatta. Sforzo = quanto costa muoverla, in tempo e in costruzione. Entrambi su una scala da 1 a 5. Manca il terzo asse, quello del ritorno, e manca apposta.</p>
-
-<div class="mx"><div class="mx-f">
-<div class="mx-yl">Impatto &rarr;</div>
-<div class="mx-plot"><div class="mx-q q1"></div><div class="mx-q q2"></div><div class="mx-q q3"></div><div class="mx-q q4"></div><div class="mx-vl"></div><div class="mx-hl"></div><div class="mx-d" style="left:10%;bottom:90%"><span class="pt"></span><span class="lb"><b>S0</b>La misura</span></div>
-<div class="mx-d" style="left:10%;bottom:70%"><span class="pt"></span><span class="lb"><b>S3</b>Lo smistamento</span></div>
-<div class="mx-d" style="left:30%;bottom:90%"><span class="pt"></span><span class="lb"><b>S4</b>La porta</span></div>
-<div class="mx-d" style="left:30%;bottom:70%"><span class="pt"></span><span class="lb"><b>S5</b>Il ponte</span></div>
-<div class="mx-d" style="left:10%;bottom:50%"><span class="pt"></span><span class="lb"><b>S6</b>La prova</span></div>
-<div class="mx-d" style="left:55%;bottom:70%"><span class="pt"></span><span class="lb"><b>S2</b>La cattura</span></div>
-<div class="mx-d lft" style="left:76%;bottom:90%"><span class="pt"></span><span class="lb"><b>S1</b>Il MOF</span></div>
-<div class="mx-d dim lft" style="left:76%;bottom:30%"><span class="pt"></span><span class="lb"><b>S7</b>L'allocazione</span></div></div>
-<div class="mx-xl">Sforzo &rarr;</div>
-</div>
-<div class="mx-lg"><div class="mx-lgi q1"><span class="sw"></span><span class="qt">Prima ondata</span><span class="qd">Impatto alto, sforzo basso. Nessuna costruzione: sono etichette, parametri, stati e un tag. Si fanno in una settimana.</span></div><div class="mx-lgi q2"><span class="sw"></span><span class="qt">Seconda ondata</span><span class="qd">Impatto alto, sforzo alto. Qui si costruisce qualcosa che prima non c'era. Ha senso solo dopo la prima ondata, perche' ne usa la misura.</span></div><div class="mx-lgi q3"><span class="sw"></span><span class="qt">Quando capita</span><span class="qd">Impatto contenuto, sforzo minimo. Non sposta il sistema, ma toglie una crepa verificabile in un click da chiunque.</span></div><div class="mx-lgi q4"><span class="sw"></span><span class="qt">Non ora</span><span class="qd">Impatto contenuto nel breve, sforzo alto. Non perche' sia sbagliato: perche' oggi non e' dimostrabile, e una cosa non dimostrabile non si difende alla terza settimana.</span></div></div></div>
-<div class="scroll"><table><caption>Gli stessi otto punti, con il punteggio e la dipendenza</caption>
-<thead><tr><th>Codice</th><th>Correzione</th><th class="num">Impatto</th><th class="num">Sforzo</th><th>Non prima di</th></tr></thead>
-<tbody><tr><td class="lab">S0</td><td>La misura</td><td class="num">5</td><td class="num">1</td><td>Niente. E' il primo gesto possibile.</td></tr><tr><td class="lab">S3</td><td>Lo smistamento</td><td class="num">4</td><td class="num">1</td><td>Niente.</td></tr><tr><td class="lab">S4</td><td>La porta</td><td class="num">5</td><td class="num">2</td><td>S0, per vedere se e' servita.</td></tr><tr><td class="lab">S5</td><td>Il ponte</td><td class="num">4</td><td class="num">2</td><td>Verifica interna (G4).</td></tr><tr><td class="lab">S6</td><td>La prova</td><td class="num">3</td><td class="num">1</td><td>Niente.</td></tr><tr><td class="lab">S2</td><td>La cattura</td><td class="num">4</td><td class="num">3</td><td>S3, altrimenti raccogli traffico non smistato.</td></tr><tr><td class="lab">S1</td><td>Il MOF</td><td class="num">5</td><td class="num">4</td><td>S0 e S2. Senza misura non si regola, senza cattura non parte.</td></tr><tr><td class="lab">S7</td><td>L'allocazione</td><td class="num">2</td><td class="num">4</td><td>S0. Prima di spostare lo sforzo bisogna poterlo pesare.</td></tr></tbody></table></div>
-<p class="fcap">La colonna «non prima di» e’ la piu’ importante delle cinque, e non compare nel
-grafico. Due correzioni con lo stesso punteggio non sono intercambiabili se una ha bisogno
-dell’altra: S1 ha impatto 5, ed e’ comunque l’ultima, perche’ senza S0 non si regola e senza S2
-non parte.</p>
-
-<div class="power"><div class="pk">Il punto</div><p>Due assi, non tre. <b>Manca l'asse del denaro perche' G1 e' ancora aperto</b>, e costruire una priorita' su un ricavo ipotizzato sarebbe l'unico errore irreparabile di tutta l'analisi.</p></div>
-</section>
-<section id="s07">
-<span class="secnum">07 — Le ondate</span>
-<h2>L’ordine, e perche’ e’ questo</h2>
-<p class="dek">La matrice dice quali correzioni valgono di piu’. Le dipendenze dicono quali possono partire. Messe insieme danno tre ondate — e una correzione, S7, che resta fuori da tutte e tre.</p>
-<div class="wv">
-<div class="wv-r">
-<div class="wv-h"><span class="wv-t">Ondata 1</span><span class="wv-d">Giorni 1–7</span></div>
-<p class="wv-s">Niente si costruisce. Si scrive e si etichetta.</p>
-<div class="wv-l"><span class="wv-p"><b>S0</b>Metti una misura dove si converte</span><span class="wv-p"><b>S3</b>Una porta sola, e due strade dichiarate</span><span class="wv-p"><b>S4</b>Riscrivi la porta per chi arriva la prima volta</span><span class="wv-p"><b>S6</b>Rendi la prova un'abitudine invece che una campagna</span></div>
-<p class="wv-o">Alla fine della settimana esiste, per la prima volta, un numero: quante persone al giorno toccano il login e quante lo superano. <b>Tutto quello che viene dopo si giudica contro quel numero.</b></p>
-</div>
-<div class="wv-r">
-<div class="wv-h"><span class="wv-t">Ondata 2</span><span class="wv-d">Giorni 8–30</span></div>
-<p class="wv-s">La prima costruzione vera, e la piu' piccola possibile.</p>
-<div class="wv-l"><span class="wv-p"><b>S5</b>Costruisci il ponte dalle 1.100 persone al Placement Hub</span><span class="wv-p"><b>S2</b>Porta la cattura dentro casa</span></div>
-<p class="wv-o">Il ponte apre l'uscita per le 1.100 persone che sono gia' dentro; la cattura porta in casa il primo indirizzo che sia tuo. Sono i due prerequisiti materiali del passaggio successivo.</p>
-</div>
-<div class="wv-r late">
-<div class="wv-h"><span class="wv-t">Ondata 3</span><span class="wv-d">Dal giorno 31</span></div>
-<p class="wv-s">Il pezzo grande, costruito per ultimo apposta.</p>
-<div class="wv-l"><span class="wv-p"><b>S1</b>Costruisci il passaggio che manca fra il contenuto e il login</span></div>
-<p class="wv-o">Il MOF e' il collo di bottiglia piu' costoso (B1) e va comunque <b>dopo</b>, perche' ha bisogno di una misura per essere regolato (S0) e di un punto di cattura tuo per partire (S2). Costruirlo per primo significherebbe costruirlo alla cieca.</p>
-</div>
-</div>
-<p class="fcap"><b>S7, lo spostamento dello sforzo, non ha un’ondata.</b> Non e’ una dimenticanza:
-non e’ una modifica, e’ un cambio di abitudine di produzione, e un cambio di abitudine si tiene
-solo se si vede il risultato. Prima di S0 non si vede. Sta in questo documento perche’ il rilievo
-C1 e’ marcato gravita’ alta e va detto — e sta fuori dalle ondate perche’ metterlo dentro
-significherebbe chiedere di cambiare abitudine alla cieca.</p>
-
-<div class="power"><div class="pk">Il punto</div><p>Il collo di bottiglia piu' costoso viene affrontato <b>per ultimo</b>. Non e' una contraddizione: e' l'unico ordine in cui, quando ci si arriva, si sa gia' se sta funzionando.</p></div>
-</section>
-<section id="s08">
-<span class="secnum">08 — Cosa non fare</span>
-<h2>Quattro cose da non fare in questi trenta giorni</h2>
-<p class="dek">Un piano che dice solo cosa aggiungere e’ meta’ piano. Queste quattro sono le mosse che un sistema in crescita fa d’istinto, e che in questo momento preciso <b>peggiorerebbero i numeri invece di migliorarli</b>.</p>
-<div class="dnt"><div class="dnt-r"><p class="dnt-t"><span class="x">&times;</span>Non aprire una superficie nuova</p><p>Undici superfici, una sola che cattura, e quella e' di terzi (B2). Una dodicesima aggiunge una porta a un sistema il cui problema e' che ha troppe porte (B3).</p></div><div class="dnt-r"><p class="dnt-t"><span class="x">&times;</span>Non comprare traffico</p><p>Finora tutto e' stato guadagnato: zero euro di pubblicita' dietro 3.623 follower, 1.100 membri, 47 recensioni e 70+ placement dichiarati. Mandare traffico a pagamento dentro un sistema senza misura (B0) e senza MOF (B1) significa <b>pagare perche' le persone arrivino al collo di bottiglia piu' in fretta</b>.</p></div><div class="dnt-r"><p class="dnt-t"><span class="x">&times;</span>Non aumentare la produzione di contenuti</p><p>Il rapporto e' gia' documentato: 460 video contro 5 post (B7). Il problema non e' la quantita' prodotta, e finche' B0 non e' a posto un aumento non e' distinguibile da un'impressione.</p></div><div class="dnt-r"><p class="dnt-t"><span class="x">&times;</span>Non toccare il prezzo</p><p>Perche' <b>non e' noto</b>. G1 dice che su otto superfici pubbliche non compare un prezzo, un checkout, un piano a pagamento o un termine economico. Nessuna riga di questo documento assume di sapere come il sistema genera ricavo, e questa e' la prima domanda da fare a voce.</p></div></div>
-<div class="power"><div class="pk">Il punto</div><p>Quattro cose da non fare, e <b>tre delle quattro sono cose che un sistema in crescita fa per istinto</b>: apre un canale, compra traffico, produce di piu'.</p></div>
-</section>
-<section id="s09">
-<span class="secnum">09 — Cosa resta ignoto</span>
-<h2>Sei domande che questo documento non chiude</h2>
-<p class="dek">Il Documento 02 le ha registrate come ignote. Restano ignote qui: nessuna delle otto soluzioni poggia su una risposta ipotizzata a una di queste. Sono, in ordine, le prime sei domande da fare a voce — e la prima vale piu’ delle altre cinque messe insieme.</p>
+<span class="secnum">05 — Cosa resta ignoto</span>
+<h2>Sei domande che questo documento non puo&rsquo; chiudere</h2>
+<p class="dek">Sei cose che nessuna superficie pubblica mostra. Nessuna riga della tabella assume di conoscerne la risposta: dove servivano, il documento si e&rsquo; fermato.</p>
 <div class="unk"><div class="unk-r"><div class="unk-n">G1</div><div><p class="unk-t">Come il sistema genera ricavo</p><p>Nessun prezzo, checkout, piano a pagamento o termine economico su nessuna delle otto superfici osservate. <b>Prima domanda da fare a voce.</b> Finche' resta aperta, la matrice qui sopra ha due assi e non tre.</p></div></div><div class="unk-r"><div class="unk-n">G2</div><div><p class="unk-t">Cosa succede davvero dopo il commento «sales»</p><p>Se parta un DM, con che ritardo, con che contenuto, se richieda il follow. Cambia la forma di S1, non la sua necessita'.</p></div></div><div class="unk-r"><div class="unk-n">G3</div><div><p class="unk-t">Cosa c'e' dentro il Discord oltre il canale d'ingresso</p><p>Struttura dei canali, moderazione, ritmo reale. Cambia dove va agganciato il ponte di S5.</p></div></div><div class="unk-r"><div class="unk-n">G4</div><div><p class="unk-t">Cosa c'e' dentro la Classroom Skool</p><p>Se un modulo rimandi gia' al Placement Hub. <b>Da verificare prima di eseguire S5</b>: se esiste, S5 diventa un ritocco invece che una costruzione.</p></div></div><div class="unk-r"><div class="unk-n">G5</div><div><p class="unk-t">Cosa succede dopo il login Google</p><p>L'onboarding dichiarato in pagina, i suoi passaggi, il suo tasso di completamento. E' il primo tratto che S0 rende visibile.</p></div></div><div class="unk-r"><div class="unk-n">G6</div><div><p class="unk-t">Se i «70+ placement» siano contrattualizzati</p><p>Nessuna superficie pubblica mostra la natura del rapporto con le 20+ aziende partner. Non entra in nessuna delle otto soluzioni.</p></div></div></div>
 <p class="fcap">Due di queste cambiano il piano nel momento in cui trovano risposta. <b>G4</b>:
-se dentro la Classroom esiste gia’ un modulo che rimanda al Placement Hub, S5 scende da
+se dentro la Classroom esiste gia&rsquo; un modulo che rimanda al Placement Hub, S5 scende da
 costruzione a ritocco e la seconda ondata si accorcia. <b>G1</b>: nel momento in cui si sa come il
-sistema genera ricavo, la matrice acquista il terzo asse e l’ordine delle prime quattro correzioni
-va riguardato. Fino ad allora resta quello che e’ qui, che e’ costruito solo su cose osservate.</p>
+sistema genera ricavo, la priorita&rsquo; acquista il terzo asse e l&rsquo;ordine delle prime
+quattro correzioni va riguardato. Fino ad allora resta quello che e&rsquo; qui, che e&rsquo;
+costruito solo su cose osservate.</p>
 
-<div class="power"><div class="pk">Il punto</div><p>Sei domande restano senza risposta, e la prima vale piu' delle altre cinque messe insieme. <b>Nessuna riga di questo documento assume di conoscerne la risposta.</b></p></div>
+
 </section>
 </div>
 <footer><div class="wrap"><div class="fgrid">
@@ -780,11 +517,12 @@ va riguardato. Fino ad allora resta quello che e’ qui, che e’ costruito solo
  skool.com/italian-closers-academy-6315 &middot; youtube.com/@mannyonjourney &middot;
  italiancloser.com &middot; app.italiancloser.com &middot; it.trustpilot.com</p></div>
  <div><div class="fk mono">Metodo</div><p>Nessun rilievo nuovo, nessuno strumento nuovo, nessuna
- assunzione economica. La matrice ha due assi perche&rsquo; G1 &mdash; come il sistema genera
- ricavo &mdash; non e&rsquo; osservabile dall&rsquo;esterno e resta registrato come ignoto.</p></div>
+ assunzione economica. La priorita&rsquo; ha due assi perche&rsquo; G1 &mdash; come il sistema
+ genera ricavo &mdash; non e&rsquo; osservabile dall&rsquo;esterno e resta registrato come
+ ignoto.</p></div>
  <div><div class="fk mono">Stato</div><p>Documento 03 di 06 &mdash; colli di bottiglia, soluzioni,
- matrice di priorita&rsquo;. Il 03 e il 04 previsti in origine sono qui, in un documento solo.
- Prossimi: 04 roadmap di esecuzione, 05 e 06 bonus.</p></div>
+ priorita&rsquo;, in una tabella sola. Il 03 e il 04 previsti in origine sono qui, in un documento
+ solo. Prossimi: 04 roadmap di esecuzione, 05 e 06 bonus.</p></div>
 </div>
 <div class="fend mono">Evolv AI &middot; Analisi Indipendente &middot; Italiancloser &middot; 22 agosto 2026</div>
 </div></footer>
@@ -1775,307 +1513,98 @@ Il numero finale in euro dipende dai valori che mette lui, quindi **non va stima
 QUI FINISCE IL DOCUMENTO 02 E COMINCIA IL DOCUMENTO 03
 ============================================================
 
-ITALIANCLOSER - COLLI DI BOTTIGLIA, SOLUZIONI, MATRICE DI PRIORITA'. Documento 03 di 06, preparato da Evolv AI.
+ITALIANCLOSER - COLLI DI BOTTIGLIA, SOLUZIONI, PRIORITA'. Documento 03 di 06, preparato da Evolv AI.
 
-Nessun rilievo nuovo: ogni collo di bottiglia assorbe rilievi gia' pubblicati nel Documento 02 e li cita per codice. Nessuna assunzione economica: G1 - come il sistema genera ricavo - non e' osservabile dall'esterno, quindi la matrice ha due assi, impatto e sforzo, e non tre.
+Il documento e' una tabella sola: otto righe, e per ognuna il collo di bottiglia, la correzione, il segnale e la priorita'. Nessun rilievo nuovo: ogni collo di bottiglia assorbe rilievi gia' pubblicati nel Documento 02 e li cita per codice. Nessuna assunzione economica: G1 - come il sistema genera ricavo - non e' osservabile dall'esterno, quindi la priorita' ha due assi, impatto e sforzo, e non tre.
 
 Evolv AI · Analisi Indipendente · Italiancloser · Documento 03 di 06
 # I colli di bottiglia, le soluzioni, *l’ordine*.
 
-Trentasei rilievi del Documento 02 ridotti a una precondizione e sette colli di bottiglia, messi dentro il tuo schema TOF / MOF / BOF, con una correzione ciascuno, una matrice a due assi e tre ondate. Nessuno strumento nuovo, nessuna assunzione su quanto costa o quanto rende.
+Trentasei rilievi del Documento 02 ridotti a otto righe: per ognuna il collo di bottiglia con i suoi numeri, la correzione che lo chiude con lo strumento che hai gia’, il segnale che prova se ha funzionato e la posizione che occupa nell’ordine. Una tabella sola. Nessuno strumento nuovo, nessuna assunzione su quanto costa o quanto rende.
 **Documento** 03 di 06 — Colli di bottiglia, soluzioni, priorita’ **Base** i 36 rilievi del Documento 02 **Rilievo** 20, 21 e 22 agosto 2026 **Contatto** nessuno
 Indice
-- **Il metodo** Da trentasei rilievi a otto voci
-- **La precondizione** Prima dei sette, quello che li rende invisibili
-- **I colli di bottiglia** Sette voci, in ordine di livello
-- **I tre livelli** Il sistema messo dentro il tuo schema
-- **Le soluzioni** Otto correzioni, una per voce
-- **La matrice** Impatto per sforzo, senza l’asse del denaro
-- **Le ondate** L’ordine, e perche’ e’ questo
-- **Cosa non fare** Quattro cose da non fare in questi trenta giorni
-- **Cosa resta ignoto** Sei domande che questo documento non chiude
+- **I tre livelli** Il sistema dentro il tuo schema TOF / MOF / BOF
+- **La tabella** Otto colli di bottiglia, otto correzioni, un ordine
+- **Le ondate** Le otto righe raggruppate nel tempo
+- **Cosa non fare** Quattro cose da non fare in questa fase
+- **Cosa resta ignoto** Sei domande che questo documento non puo’ chiudere
 
 ---
 
-## 01 — Come si legge — Da trentasei rilievi a otto voci
+## 01 — I tre livelli — Il sistema dentro il tuo schema TOF / MOF / BOF
 
-Il Documento 02 ha registrato 36 rilievi su sei percorsi. Trentasei voci non sono un piano: sono un inventario. Questo documento li riduce a una precondizione e sette colli di bottiglia, li mette nell’ordine in cui conviene affrontarli, e si ferma li’.
+Prima della tabella, la lettura che la ordina. Il metro non e’ nostro: e’ il tuo documento di funnel, riga per riga, messo accanto a quello che si osserva su undici superfici pubbliche il 20, 21 e 22 agosto 2026.
 
-### Le quattro regole che questo documento rispetta
-- **Nessun rilievo nuovo.** Ogni collo di bottiglia qui sotto assorbe rilievi gia’ pubblicati nel Documento 02 e li cita per codice. Se un codice non esiste li’, non entra qui.
-- **Nessuna assunzione economica.** G1 dice che dall’esterno non e’ possibile stabilire come il sistema generi ricavo. La matrice di priorita’ ha quindi **due assi, non tre**: impatto e sforzo. Nessuna riga di questo documento sa quanto costa o quanto rende una cosa.
-- **Nessuno strumento nuovo.** Ogni soluzione usa qualcosa che e’ gia’ nello stack rilevato. Sette su otto sono riscritture di superfici che esistono gia’.
-- **Ogni soluzione porta il suo segnale.** Insieme al cosa fare c’e’ sempre **il fatto osservabile che prova se ha funzionato**. Se una correzione non ha un segnale, non e’ una correzione: e’ un’opinione.
+| Livello | Che cosa dice il tuo schema | Che cosa si osserva | Verdetto |
+|---|---|---|---|
+| TOF Attenzione | Contenuto = influenza e portata. Cinque punti di contatto, di cui il quarto — la pagina profilo — marcato CRITICO: e' il nodo di decisione e va trattato come una landing page. Regola 7-11-14: sette ore, undici contatti, quattro incontri. | La portata c'e' e non e' in discussione: 22.638 visualizzazioni sul reel migliore, 3.623 follower, 152 commenti sul post d'offerta, zero euro di pubblicita'. Ma il punto di contatto 4 e' un menu da otto voci (B3) con cinque post dietro (B7), e il livello di fiducia passiva porta un avviso della piattaforma stessa (B6). | **Funziona, ma scarica su una porta che non regge.** |
+| MOF Nutrimento | Conversazione → qualifica → prenotazione. Cinque punti di contatto. Cinque passaggi di appointment setting: A ambiente caldo, B qualifica, C creare il divario, D transizione alla prenotazione, E rapporto post-prenotazione. Uscita: una call prenotata. | Nessuno dei cinque passaggi e' osservabile su alcuna superficie pubblica. La parola chiave produce una replica in un thread, non una conversazione (B1). L'unica cattura sta su una piattaforma di terzi (B2). Le 1.100 persone gia' dentro non hanno un'uscita verso il prodotto (B5). Nessuna interfaccia di prenotazione compare da nessuna parte. | **Assente. E' qui che si perde quasi tutto quello che il TOF produce.** |
+| BOF Vendita | Otto fasi. La fase 1, STUDY, richiede un riassunto della conversazione MOF prima della call. Il punto di contatto 3 e' il momento della decisione: link di pagamento, termini, inversione del rischio. Ogni attrito qui uccide la chiusura anche dopo una call forte. | Sul ramo closer il momento della decisione e' un login Google etichettato «Accedi», con testimonianze rotte accanto (B4). Sul ramo azienda e' un modulo da otto campi obbligatori con il messaggio libero tagliato a 300 caratteri, e con due promesse di tempo diverse a due schermate di distanza. La fase STUDY e' **impossibile**: non esiste una conversazione MOF da riassumere. | **Esiste come interfaccia, non come processo.** |
 
-### Che cosa questo documento fa, e che cosa non fa
-
-I Documenti 01 e 02 dicevano una cosa sola su se stessi: **descrivono, non prescrivono**. Questo la ribalta — il suo lavoro e’ prescrivere. Per farlo senza sconfinare si tiene dentro un limite preciso, e vale la pena dirlo subito: **qui trovi il che cosa e l’ordine. Non il come e non l’esecuzione.**
-
-La differenza e’ concreta. «Riscrivi l’etichetta della pagina d’ingresso» e’ il che cosa, ed e’ in questo documento. Quale frase esatta ci vada, come si testa contro quella di adesso, in che ordine si tocca il resto della pagina: non c’e’, ed e’ deliberato. Un piano di esecuzione scritto da fuori, senza vedere i numeri interni che G1–G6 lasciano aperti, sarebbe una supposizione elegante.
-
-### Da dove viene la struttura
-
-I sette colli di bottiglia non sono raggruppati per superficie, ma per **livello di funnel**: attenzione, nutrimento, vendita. E’ la stessa struttura a tre strati che usi tu — TOF, MOF, BOF — ed e’ la ragione per cui la sezione 04 esiste: messi in quello schema, i trentasei rilievi smettono di essere sparsi e si concentrano quasi tutti in un punto solo.
-
-> **CONCLUSION — Il punto:** I Documenti 01 e 02 descrivevano. **Questo prescrive** — e per farlo si tiene dentro un limite: dice il **che cosa** e l'**ordine**, e si ferma prima del come.
+> **CONCLUSION — La cosa piu’ importante:** Secondo il tuo stesso schema: **il TOF funziona, il MOF non esiste, il BOF e’ un’interfaccia senza processo.** L’intero divario del sistema sta in un livello solo, ed e’ quello di mezzo. E finche’ la misura si ferma dove comincia la conversione, **nessuna delle otto correzioni della tabella si puo’ dimostrare**: per questo la prima non costruisce niente, misura.
 
 ---
 
-## 02 — La precondizione — Prima dei sette, quello che li rende invisibili
+## 02 — La tabella — Otto colli di bottiglia, otto correzioni, un ordine
 
-Non e’ un collo di bottiglia: e’ la ragione per cui non si puo’ sapere quanto costano gli altri sette. Per questo viene prima, e per questo e’ anche il gesto piu’ economico dei nove.
-B0 Precondizione B1 · B2 · B3 · B4
+Trentasei rilievi del Documento 02 collassati in otto righe. La riga 1 non e’ un collo di bottiglia: e’ la precondizione che rende invisibili gli altri sette. Le tre fasce di colonne si leggono da sinistra a destra — che cosa non funziona, che cosa si fa, in che ordine e con che prova.
 
-**La misura si ferma esattamente dove comincia la conversione**
+**NOTE — Come si legge**
 
-Che cosa si vede: GA4 (G-07PW41NQYZ ) e' installato sul sito marketing. Su **app.italiancloser.com non c'e' alcun analytics**: ne' su /login , che e' l'ingresso del ramo closer, ne' su /aziende/contatta , che e' l'unico modulo di tutto il sistema. L'invio del form non genera evento. I due link Linktree per pubblici opposti condividono lo stesso utm_source e non hanno utm_content . Nessun pixel pubblicitario su nessuna superficie.
+**Nessun rilievo nuovo.** Ogni collo di bottiglia assorbe rilievi gia’ pubblicati nel Documento 02 e li cita per codice: se un codice non e’ li’, non entra qui.
 
-Che cosa blocca: Si puo' sapere quante persone arrivano al Placement Hub e **niente di cio' che succede dopo**. Quante aprono il login, quante completano Google, quante iniziano il modulo aziende, su quale degli otto campi si fermano: nessuno di questi numeri esiste. Questo e' il motivo per cui B0 viene prima di tutto il resto. **Senza misura, ognuna delle sette correzioni che seguono si puo' fare — ma non si puo' dimostrare che abbia funzionato**, e la volta dopo si ricomincia a decidere a intuito.
+**Nessuna assunzione economica.** G1 dice che da fuori non si puo’ sapere come il sistema genera ricavo. Quindi niente prezzi, niente ROI, niente moltiplicatori: la priorita’ ha due assi, impatto e sforzo, e non tre.
 
-Un solo rilievo di questo gruppo, B1, e’ marcato gravita’ alta nel Documento 02. Messi insieme, i quattro non descrivono un difetto tecnico: descrivono un sistema che non puo’ sapere niente di se stesso oltre la prima meta’ del percorso.
+**Nessuno strumento nuovo.** Ogni correzione usa qualcosa che e’ gia’ nello stack rilevato, e porta con se’ il segnale che prova se ha funzionato.
 
-> **CONCLUSION — Il punto:** Sette correzioni si possono fare comunque. **Nessuna delle sette si puo' dimostrare** finche' il tracciamento si ferma dove comincia la conversione.
+**Il che cosa e l’ordine, non il come.** Questo documento prescrive e si ferma li’: il come e’ un lavoro, non una riga di tabella.
 
----
+**Documento 03 · otto colli di bottiglia, la correzione di ognuno, l’ordine in cui affrontarli · 22 agosto 2026**
 
-## 03 — I colli di bottiglia — Sette voci, in ordine di livello
-
-Ognuna assorbe da uno a sei rilievi del Documento 02, citati per codice in alto a destra. L’ordine di questa sezione e’ quello del funnel, non quello di priorita’: la priorita’ arriva alla sezione 06, e non e’ la stessa.
-B1 Livello MOF A2 · A5 · C2 · E1
-
-**Il MOF non esiste**
-
-Che cosa si vede: Il tuo stesso schema descrive il centro del funnel come **CONVO → QUALIFY → BOOK**, con cinque punti di contatto e un'uscita sola: una call prenotata. Su undici superfici pubbliche **non se ne osserva nessuno**. Non c'e' un punto di conversazione (la parola «sales» produce una replica in un thread pubblico, non un messaggio), non c'e' una domanda di qualifica, non c'e' un'interfaccia di prenotazione. Il ramo closer va dal reel direttamente a una schermata di accesso.
-
-Che cosa blocca: Il TOF funziona: 22.638 visualizzazioni sul reel migliore, 857 like e 152 commenti su quello d'offerta, 3.623 follower senza un euro di pubblicita'. **Tutto quel volume viene consegnato a un login.** Un login e' un punto di contatto BOF — il momento della decisione — messo dove il tuo schema chiede il passaggio A, l'ambiente caldo. E' il collo di bottiglia piu' costoso del sistema perche' e' l'unico che spreca qualcosa che stai gia' producendo bene.
-B2 Livello MOF A7
-
-**Nessun contatto e' tuo**
-
-Che cosa si vede: L'unico punto di cattura osservabile in tutto il sistema e' il questionario d'iscrizione a Skool: situazione, telefono, email. Sta **dietro l'iscrizione a una piattaforma di terzi**. Il sito del brand non ha alcun form. Il pannello di traffico stimato indica 505 visitatori unici e una permanenza media di 09:21 sul sito: **nove minuti di attenzione che non lasciano un indirizzo**.
-
-Che cosa blocca: Chi non entra su Skool non lascia traccia da nessuna parte, e l'intera lista contatti vive dentro un sistema che non controlli. Vuol dire due cose insieme: **non puoi ricontattare nessuno** senza passare da Skool, e **non puoi costruire un MOF** (B1) perche' un MOF ha bisogno di un punto d'ingresso che sia tuo.
-B3 Livello TOF A1 · A6 · C5 · B3
-
-**Otto decisioni prima di una informazione**
-
-Che cosa si vede: Bio (2 voci) → Linktree (6 voci) = **fino a otto scelte** prima di ricevere una singola informazione utile. Nessuna voce dice «inizia da qui». I link ③ «Cerchi Venditori per la Tua Azienda?» e ④ «Sei un Closer e Cerchi un Azienda Seria?» — scritti per **due pubblici opposti** — puntano allo stesso identico URL con lo stesso utm_source . L'H1 della home e' ITALIANCLOSER : il nome, non la promessa.
-
-Che cosa blocca: Il tuo stesso documento TOF marca il punto di contatto 4 — la pagina profilo — come **CRITICO**, ed e' il nodo di decisione: va trattato come una landing page. Oggi e' un menu. Un menu non ordina la domanda, la moltiplica: un aspirante closer, un'azienda e un curioso vedono la stessa lista e nessuno dei tre viene indirizzato. Conseguenza doppia: chi arriva legge una pagina che parla anche all'altro, e nei dati i due click restano indistinguibili.
-B4 Livello BOF A2 · A3 · D4 · F5
-
-**La porta d'ingresso parla a chi e' gia' dentro**
-
-Che cosa si vede: Il bottone di partenza dice «Per Closers»; la pagina dove si atterra e' etichettata **«Accedi»**, e l'unica azione disponibile e' «Continua con Google». Nessun campo email, nessun «Registrati»: che quel bottone sia anche la registrazione e' scritto in una riga di testo secondario. «Vedi altri →» apre /closer/risultati e serve **la dashboard riservata, con «Logout», a un visitatore non autenticato** — e senza alcun punto d'iscrizione. Nello stesso schermo, le card testimonianza hanno gli avatar grigi e vuoti.
-
-Che cosa blocca: E' il punto di massima diffidenza di tutto il percorso: si chiede l'accesso a un account Google. **Nel momento esatto in cui il sistema chiede il gesto piu' impegnativo, mostra la parola sbagliata, un vicolo cieco e una prova rotta a vista.** Chi non ha o non vuole usare un account Google non ha alcuna via alternativa.
-B5 Livello MOF A4 · E1 · E2 · E3 · E4 · D5
-
-**Millecento persone senza un ponte**
-
-Che cosa si vede: 486 membri su Skool e 615 su Discord: **circa 1.100 persone gia' dentro**. La descrizione del gruppo Skool promette esplicitamente «offerte di lavoro (Italia e USA)» — e **non c'e' alcun link osservabile verso il Placement Hub**, che e' il prodotto che mantiene quella promessa. Stesso vuoto dal Discord. Dentro: 20 corsi e 155 moduli contro **17 post in tutto il feed**, e una distribuzione dei livelli che dice **L1 98% · L2 1% · L3 1% · L4–L9 0%**.
-
-Che cosa blocca: Il bacino piu' grande e piu' qualificato che hai — persone che hanno gia' lasciato telefono ed email — non ha un'uscita verso la superficie che le trasforma in candidati. E il 98% fermo al primo livello dice che **quasi nessuno compie un secondo gesto dopo essere entrato**: il punto di rottura non e' l'acquisizione, e' l'attivazione.
-B6 Livello TOF D1 · D2 · D3 · D4
-
-**La prova porta addosso un'etichetta di dubbio**
-
-Che cosa si vede: Sopra le recensioni, Trustpilot mostra un banner suo: **«Non risultano inviti alla recensione recenti — le recensioni potrebbero non essere rappresentative»**. Le recensioni si concentrano fra il 6 e il 17 giugno 2026; le risposte dell'azienda sono **tutte del 17 giugno, fra le 14:00:07 e le 14:02:05**. Il sito dichiara «50+» recensioni; ne esistono **47**. Il gruppo Skool, che le raccoglie nativamente, ne ha **0 su 486 membri**.
-
-Che cosa blocca: Non e' un'osservazione nostra: e' la piattaforma stessa che avvisa il visitatore. Le date raccontano **una campagna, non un'abitudine**, e chiunque puo' verificare il «50+» in un click. Hai piu' prova reale di molte agenzie che fatturano dieci volte tanto — e la prova e' sparsa su cinque piattaforme, puntata su un prodotto gratuito, e marcata come sospetta dalla piattaforma che dovrebbe garantirla.
-B7 Livello TOF C1 · C2 · C3 · C4 · F4
-
-**Lo sforzo va dove il risultato non c'e'**
-
-Che cosa si vede: **460 video su YouTube** per una mediana di circa **110 visualizzazioni** su 546 iscritti. **5 post su Instagram**, di cui uno da 857 like e 152 commenti. Il video che presidia la home ha dieci mesi, dura 13:57 e ha **503 visualizzazioni**. Nei commenti c'e' almeno una richiesta esplicita di contenuto rimasta senza replica.
-
-Che cosa blocca: Il canale che costa di piu' in ore di produzione e' quello che rende di meno per pezzo, e la superficie che porta piu' persone e' la meno documentata di tutte: cinque post, quattro dei quali personali. **La produzione non e' il problema — hai gia' dimostrato di saper produrre volume. L'allocazione lo e'.**
-
-Due delle sette (B3, B6, B7) stanno nel livello dell’attenzione, tre (B1, B2, B5) nel nutrimento, una (B4) nella vendita. Il conteggio non torna a caso: **sei delle sette stanno a valle del contenuto**. Il sistema non ha un problema di quante persone arrivano.
-
-> **CONCLUSION — Il punto:** Trentasei rilievi collassano in sette voci, e **sei delle sette stanno a valle del contenuto**. Il problema non e' quante persone arrivano: e' cosa trovano quando arrivano.
-
----
-
-## 04 — I tre livelli — Il sistema messo dentro il tuo schema
-
-Colonna di sinistra: quello che i tuoi tre documenti di strategia definiscono per ogni livello. Colonna di destra: quello che si osserva sulle undici superfici pubbliche. Il confronto e’ il risultato piu’ netto di tutta l’analisi.
-TOFAttenzione
-
-Che cosa dice il tuo schema: Contenuto = influenza e portata. Cinque punti di contatto, di cui il quarto — la pagina profilo — marcato CRITICO: e' il nodo di decisione e va trattato come una landing page. Regola 7-11-14: sette ore, undici contatti, quattro incontri.
-
-Che cosa si osserva: La portata c'e' e non e' in discussione: 22.638 visualizzazioni sul reel migliore, 3.623 follower, 152 commenti sul post d'offerta, zero euro di pubblicita'. Ma il punto di contatto 4 e' un menu da otto voci (B3) con cinque post dietro (B7), e il livello di fiducia passiva porta un avviso della piattaforma stessa (B6).
-
-**Funziona, ma scarica su una porta che non regge.**
-MOFNutrimento
-
-Che cosa dice il tuo schema: Conversazione → qualifica → prenotazione. Cinque punti di contatto. Cinque passaggi di appointment setting: A ambiente caldo, B qualifica, C creare il divario, D transizione alla prenotazione, E rapporto post-prenotazione. Uscita: una call prenotata.
-
-Che cosa si osserva: Nessuno dei cinque passaggi e' osservabile su alcuna superficie pubblica. La parola chiave produce una replica in un thread, non una conversazione (B1). L'unica cattura sta su una piattaforma di terzi (B2). Le 1.100 persone gia' dentro non hanno un'uscita verso il prodotto (B5). Nessuna interfaccia di prenotazione compare da nessuna parte.
-
-**Assente. E' qui che si perde quasi tutto quello che il TOF produce.**
-BOFVendita
-
-Che cosa dice il tuo schema: Otto fasi. La fase 1, STUDY, richiede un riassunto della conversazione MOF prima della call. Il punto di contatto 3 e' il momento della decisione: link di pagamento, termini, inversione del rischio. Ogni attrito qui uccide la chiusura anche dopo una call forte.
-
-Che cosa si osserva: Sul ramo closer il momento della decisione e' un login Google etichettato «Accedi», con testimonianze rotte accanto (B4). Sul ramo azienda e' un modulo da otto campi obbligatori con il messaggio libero tagliato a 300 caratteri, e con due promesse di tempo diverse a due schermate di distanza. La fase STUDY e' **impossibile**: non esiste una conversazione MOF da riassumere.
-
-**Esiste come interfaccia, non come processo.**
-
-Vale la pena fermarsi su una riga sola. Il tuo schema BOF colloca al punto di contatto 3 — il momento della decisione — il link di pagamento, i termini e l’inversione del rischio, e avverte che ogni attrito li’ uccide la chiusura anche dopo una call forte. Sul ramo closer, oggi, quel punto di contatto e’ la **prima** cosa che una persona incontra dopo il contenuto: una schermata di accesso. **Un artefatto di fondo funnel messo dove il tuo schema chiede il passaggio A, l’ambiente caldo.**
-
-> **CONCLUSION — Il punto:** Secondo il tuo stesso schema: **il TOF funziona, il MOF non esiste, il BOF e' un'interfaccia senza processo.** L'intero divario del sistema sta in un livello solo, ed e' quello di mezzo.
-
----
-
-## 05 — Le soluzioni — Otto correzioni, una per voce
-
-Una per ogni collo di bottiglia, piu’ quella della precondizione. Ognuna dice con che cosa si fa — sempre uno strumento che hai gia’ — e il fatto osservabile che prova se ha funzionato. Nessuna dice quanto rende, perche’ G1 e’ ancora aperto.
-S0 risponde a B0
-
-**Metti una misura dove si converte**
-
-Estendi il GA4 che gia' esiste a app.italiancloser.com e definisci quattro eventi, non uno di piu': apertura di /login , ritorno riuscito da Google, apertura di /aziende/contatta , invio del modulo. Separa i due link Linktree con utm_content .
-
-Con che cosa, gia’ in casa: GA4 G-07PW41NQYZ , gia' installato. Linktree, gia' in uso.
-
-Il segnale che ha funzionato: Entro sette giorni sai **quante persone al giorno toccano il login e quante lo superano**. Oggi quel numero non esiste in nessun posto.
-S1 risponde a B1
-
-**Costruisci il passaggio che manca fra il contenuto e il login**
-
-Fra il reel e la schermata d'accesso metti i passaggi che il tuo stesso schema descrive: una risposta che arriva **in privato** e non in un thread pubblico, **una sola** domanda di qualifica prima di qualunque link, e una destinazione sola per chi risponde. Vale per ogni superficie dove il brand compare, non per un post solo (A5).
-
-Con che cosa, gia’ in casa: Instagram DM. Lo schema MOF che hai gia' scritto: A ambiente caldo, B qualifica, C divario, D prenotazione, E post-prenotazione.
-
-Il segnale che ha funzionato: La prima conversazione che arriva al login **gia' qualificata** — e, per la prima volta, un numero di conversazioni al giorno da guardare.
-S2 risponde a B2
-
-**Porta la cattura dentro casa**
-
-Un punto di raccolta sul dominio del brand, **prima** di Skool e non dopo. Chi lascia l'indirizzo li' riceve l'accesso a Skool come conseguenza, non come condizione.
-
-Con che cosa, gia’ in casa: Il sito italiancloser.com, che oggi non ha alcun form. Le tre domande del questionario Skool esistono gia' e sono le stesse.
-
-Il segnale che ha funzionato: Il primo indirizzo email che **possiedi** — che resta tuo anche se domani Skool cambia regole, prezzo o politica.
-S3 risponde a B3
-
-**Una porta sola, e due strade dichiarate**
-
-La bio punta a **una** destinazione. Il Linktree apre con una voce «Inizia da qui». I due link per pubblici opposti restano due, ma smettono di essere lo stesso URL: uno per l'azienda, uno per il closer, ognuno con il suo utm_content e la sua pagina. L'H1 della home diventa la promessa, non il nome.
-
-Con che cosa, gia’ in casa: Bio Instagram, Linktree, home del sito. Nessuno strumento nuovo.
-
-Il segnale che ha funzionato: Da otto decisioni a una. E, nei dati, la domanda dal lato azienda — la piu' preziosa da riconoscere — **arriva finalmente con un'etichetta**.
-S4 risponde a B4
-
-**Riscrivi la porta per chi arriva la prima volta**
-
-«Accedi» diventa la frase di chi entra oggi. Il bottone Google dice che **e' anche la registrazione**, nell'etichetta e non in una riga sotto. /closer/risultati smette di servire la dashboard agli anonimi: o chiede l'accesso, o mostra una pagina pubblica con un ingresso. Le testimonianze rotte si riparano o si tolgono — **meglio nessuna prova che una prova rotta**. Il titolo di pagina duplicato si sistema nello stesso passaggio.
-
-Con che cosa, gia’ in casa: app.italiancloser.com, gia' costruita. Sono modifiche di copy e di stato, non di prodotto.
-
-Il segnale che ha funzionato: Il tasso fra «apertura di /login» e «ritorno riuscito da Google» — che S0 rende visibile per la prima volta — si muove. E' l'unico modo per sapere se questa correzione e' servita.
-S5 risponde a B5
-
-**Costruisci il ponte dalle 1.100 persone al Placement Hub**
-
-Il gruppo Skool promette offerte di lavoro e non porta a nulla: un post fissato e un modulo in Classroom che finiscono sul Placement Hub chiudono il vuoto. Lo stesso vale per il Discord, dove la descrizione del server e' vuota. Prima di aggiungere un modulo nuovo alla libreria, verifica dall'interno se un ponte esiste gia' (G4).
-
-Con che cosa, gia’ in casa: Skool e Discord, gia' popolati. Il Placement Hub, gia' costruito.
-
-Il segnale che ha funzionato: La prima candidatura che arriva con utm_source=skool . Oggi non ne puo' arrivare nessuna, perche' non esiste il link che la genererebbe.
-S6 risponde a B6
-
-**Rendi la prova un'abitudine invece che una campagna**
-
-Un invito alla recensione dentro il momento in cui il risultato accade — ogni volta, non una volta a giugno. Il numero sul sito allineato a quello vero: 47 verificabile vale piu' di 50+ smentibile. Le recensioni native di Skool, oggi a zero, chieste alle stesse persone.
-
-Con che cosa, gia’ in casa: Trustpilot, profilo gia' rivendicato. Skool, che le raccoglie nativamente.
-
-Il segnale che ha funzionato: Il banner di Trustpilot **sparisce** — e' la piattaforma stessa a toglierlo quando gli inviti tornano regolari. E' un segnale binario, visibile da chiunque, senza analytics.
-S7 risponde a B7
-
-**Sposta lo sforzo dove la resa e' gia' misurabilmente piu' alta**
-
-Non chiudere YouTube: 460 video sono un archivio, e un archivio si taglia e si ridistribuisce. Ma il volume nuovo va dove il rapporto e' documentato — cinque post Instagram hanno prodotto piu' domanda di quattrocentosessanta video. E le richieste dirette nei commenti diventano il calendario editoriale: e' ricerca di mercato gratuita, con nome e cognome allegato.
-
-Con che cosa, gia’ in casa: L'archivio YouTube. Il profilo Instagram, oggi a cinque post.
-
-Il segnale che ha funzionato: Va fatto **per ultimo**, e il motivo e' S0: finche' non si misura, uno spostamento di sforzo non si distingue da un'impressione.
-
-> **CONCLUSION — Il punto:** Nessuna delle otto soluzioni chiede uno strumento nuovo. **Sette su otto sono riscritture di cose che esistono gia'** — un'etichetta, un parametro, uno stato, un link.
-
----
-
-## 06 — La matrice — Impatto per sforzo, senza l’asse del denaro
-
-Impatto = quanto si sblocca a valle se la correzione viene fatta. Sforzo = quanto costa muoverla, in tempo e in costruzione. Entrambi su una scala da 1 a 5. Manca il terzo asse, quello del ritorno, e manca apposta.
-Impatto →
-**S0**La misura:
-**S3**Lo smistamento:
-**S4**La porta:
-**S5**Il ponte:
-**S6**La prova:
-**S2**La cattura:
-**S1**Il MOF:
-**S7**L'allocazione:
-Sforzo →
-Prima ondata Impatto alto, sforzo basso. Nessuna costruzione: sono etichette, parametri, stati e un tag. Si fanno in una settimana.
-Seconda ondata Impatto alto, sforzo alto. Qui si costruisce qualcosa che prima non c'era. Ha senso solo dopo la prima ondata, perche' ne usa la misura.
-Quando capita Impatto contenuto, sforzo minimo. Non sposta il sistema, ma toglie una crepa verificabile in un click da chiunque.
-Non ora Impatto contenuto nel breve, sforzo alto. Non perche' sia sbagliato: perche' oggi non e' dimostrabile, e una cosa non dimostrabile non si difende alla terza settimana.
-
-**Gli stessi otto punti, con il punteggio e la dipendenza**
-
-| Codice | Correzione | Impatto | Sforzo | Non prima di |
+| Ordine | Il collo di bottigliache cosa si vede, che cosa blocca, quali rilievi assorbe | La correzioneche cosa si fa, con che cosa che hai gia’ | Il segnaleche cosa prova che ha funzionato | La priorita’impatto, sforzo, ondata, dipendenze |
 |---|---|---|---|---|
-| S0 | La misura | 5 | 1 | Niente. E' il primo gesto possibile. |
-| S3 | Lo smistamento | 4 | 1 | Niente. |
-| S4 | La porta | 5 | 2 | S0, per vedere se e' servita. |
-| S5 | Il ponte | 4 | 2 | Verifica interna (G4). |
-| S6 | La prova | 3 | 1 | Niente. |
-| S2 | La cattura | 4 | 3 | S3, altrimenti raccogli traffico non smistato. |
-| S1 | Il MOF | 5 | 4 | S0 e S2. Senza misura non si regola, senza cattura non parte. |
-| S7 | L'allocazione | 2 | 4 | S0. Prima di spostare lo sforzo bisogna poterlo pesare. |
+| 1 di otto | B0 PRE La misura si ferma esattamente dove comincia la conversione Che cosa si vede: GA4 (G-07PW41NQYZ ) e' installato sul sito marketing. Su **app.italiancloser.com non c'e' alcun analytics**: ne' su /login , che e' l'ingresso del ramo closer, ne' su /aziende/contatta , che e' l'unico modulo di tutto il sistema. L'invio del form non genera evento. I due link Linktree per pubblici opposti condividono lo stesso utm_source e non hanno utm_content . Nessun pixel pubblicitario su nessuna superficie. Che cosa blocca: Si puo' sapere quante persone arrivano al Placement Hub e **niente di cio' che succede dopo**. Quante aprono il login, quante completano Google, quante iniziano il modulo aziende, su quale degli otto campi si fermano: nessuno di questi numeri esiste. Questo e' il motivo per cui B0 viene prima di tutto il resto. **Senza misura, ognuna delle sette correzioni che seguono si puo' fare — ma non si puo' dimostrare che abbia funzionato**, e la volta dopo si ricomincia a decidere a intuito. Rilievi assorbiti dal Documento 02: B1 · B2 · B3 · B4 | S0 risponde a B0 Metti una misura dove si converte Che cosa si fa: Estendi il GA4 che gia' esiste a app.italiancloser.com e definisci quattro eventi, non uno di piu': apertura di /login , ritorno riuscito da Google, apertura di /aziende/contatta , invio del modulo. Separa i due link Linktree con utm_content . Con che cosa, gia’ in casa: GA4 G-07PW41NQYZ , gia' installato. Linktree, gia' in uso. | Il segnale: Entro sette giorni sai **quante persone al giorno toccano il login e quante lo superano**. Oggi quel numero non esiste in nessun posto. | Impatto: 5 su 5 Sforzo: 1 su 5 Ondata: Ondata 1 — giorni 1–7 Non prima di: Niente. E' il primo gesto possibile. |
+| 2 di otto | B3 TOF Otto decisioni prima di una informazione Che cosa si vede: Bio (2 voci) → Linktree (6 voci) = **fino a otto scelte** prima di ricevere una singola informazione utile. Nessuna voce dice «inizia da qui». I link ③ «Cerchi Venditori per la Tua Azienda?» e ④ «Sei un Closer e Cerchi un Azienda Seria?» — scritti per **due pubblici opposti** — puntano allo stesso identico URL con lo stesso utm_source . L'H1 della home e' ITALIANCLOSER : il nome, non la promessa. Che cosa blocca: Il tuo stesso documento TOF marca il punto di contatto 4 — la pagina profilo — come **CRITICO**, ed e' il nodo di decisione: va trattato come una landing page. Oggi e' un menu. Un menu non ordina la domanda, la moltiplica: un aspirante closer, un'azienda e un curioso vedono la stessa lista e nessuno dei tre viene indirizzato. Conseguenza doppia: chi arriva legge una pagina che parla anche all'altro, e nei dati i due click restano indistinguibili. Rilievi assorbiti dal Documento 02: A1 · A6 · C5 · B3 | S3 risponde a B3 Una porta sola, e due strade dichiarate Che cosa si fa: La bio punta a **una** destinazione. Il Linktree apre con una voce «Inizia da qui». I due link per pubblici opposti restano due, ma smettono di essere lo stesso URL: uno per l'azienda, uno per il closer, ognuno con il suo utm_content e la sua pagina. L'H1 della home diventa la promessa, non il nome. Con che cosa, gia’ in casa: Bio Instagram, Linktree, home del sito. Nessuno strumento nuovo. | Il segnale: Da otto decisioni a una. E, nei dati, la domanda dal lato azienda — la piu' preziosa da riconoscere — **arriva finalmente con un'etichetta**. | Impatto: 4 su 5 Sforzo: 1 su 5 Ondata: Ondata 1 — giorni 1–7 Non prima di: Niente. |
+| 3 di otto | B4 BOF La porta d'ingresso parla a chi e' gia' dentro Che cosa si vede: Il bottone di partenza dice «Per Closers»; la pagina dove si atterra e' etichettata **«Accedi»**, e l'unica azione disponibile e' «Continua con Google». Nessun campo email, nessun «Registrati»: che quel bottone sia anche la registrazione e' scritto in una riga di testo secondario. «Vedi altri →» apre /closer/risultati e serve **la dashboard riservata, con «Logout», a un visitatore non autenticato** — e senza alcun punto d'iscrizione. Nello stesso schermo, le card testimonianza hanno gli avatar grigi e vuoti. Che cosa blocca: E' il punto di massima diffidenza di tutto il percorso: si chiede l'accesso a un account Google. **Nel momento esatto in cui il sistema chiede il gesto piu' impegnativo, mostra la parola sbagliata, un vicolo cieco e una prova rotta a vista.** Chi non ha o non vuole usare un account Google non ha alcuna via alternativa. Rilievi assorbiti dal Documento 02: A2 · A3 · D4 · F5 | S4 risponde a B4 Riscrivi la porta per chi arriva la prima volta Che cosa si fa: «Accedi» diventa la frase di chi entra oggi. Il bottone Google dice che **e' anche la registrazione**, nell'etichetta e non in una riga sotto. /closer/risultati smette di servire la dashboard agli anonimi: o chiede l'accesso, o mostra una pagina pubblica con un ingresso. Le testimonianze rotte si riparano o si tolgono — **meglio nessuna prova che una prova rotta**. Il titolo di pagina duplicato si sistema nello stesso passaggio. Con che cosa, gia’ in casa: app.italiancloser.com, gia' costruita. Sono modifiche di copy e di stato, non di prodotto. | Il segnale: Il tasso fra «apertura di /login» e «ritorno riuscito da Google» — che S0 rende visibile per la prima volta — si muove. E' l'unico modo per sapere se questa correzione e' servita. | Impatto: 5 su 5 Sforzo: 2 su 5 Ondata: Ondata 1 — giorni 1–7 Non prima di: S0, per vedere se e' servita. |
+| 4 di otto | B6 TOF La prova porta addosso un'etichetta di dubbio Che cosa si vede: Sopra le recensioni, Trustpilot mostra un banner suo: **«Non risultano inviti alla recensione recenti — le recensioni potrebbero non essere rappresentative»**. Le recensioni si concentrano fra il 6 e il 17 giugno 2026; le risposte dell'azienda sono **tutte del 17 giugno, fra le 14:00:07 e le 14:02:05**. Il sito dichiara «50+» recensioni; ne esistono **47**. Il gruppo Skool, che le raccoglie nativamente, ne ha **0 su 486 membri**. Che cosa blocca: Non e' un'osservazione nostra: e' la piattaforma stessa che avvisa il visitatore. Le date raccontano **una campagna, non un'abitudine**, e chiunque puo' verificare il «50+» in un click. Hai piu' prova reale di molte agenzie che fatturano dieci volte tanto — e la prova e' sparsa su cinque piattaforme, puntata su un prodotto gratuito, e marcata come sospetta dalla piattaforma che dovrebbe garantirla. Rilievi assorbiti dal Documento 02: D1 · D2 · D3 · D4 | S6 risponde a B6 Rendi la prova un'abitudine invece che una campagna Che cosa si fa: Un invito alla recensione dentro il momento in cui il risultato accade — ogni volta, non una volta a giugno. Il numero sul sito allineato a quello vero: 47 verificabile vale piu' di 50+ smentibile. Le recensioni native di Skool, oggi a zero, chieste alle stesse persone. Con che cosa, gia’ in casa: Trustpilot, profilo gia' rivendicato. Skool, che le raccoglie nativamente. | Il segnale: Il banner di Trustpilot **sparisce** — e' la piattaforma stessa a toglierlo quando gli inviti tornano regolari. E' un segnale binario, visibile da chiunque, senza analytics. | Impatto: 3 su 5 Sforzo: 1 su 5 Ondata: Ondata 1 — giorni 1–7 Non prima di: Niente. |
+| 5 di otto | B5 MOF Millecento persone senza un ponte Che cosa si vede: 486 membri su Skool e 615 su Discord: **circa 1.100 persone gia' dentro**. La descrizione del gruppo Skool promette esplicitamente «offerte di lavoro (Italia e USA)» — e **non c'e' alcun link osservabile verso il Placement Hub**, che e' il prodotto che mantiene quella promessa. Stesso vuoto dal Discord. Dentro: 20 corsi e 155 moduli contro **17 post in tutto il feed**, e una distribuzione dei livelli che dice **L1 98% · L2 1% · L3 1% · L4–L9 0%**. Che cosa blocca: Il bacino piu' grande e piu' qualificato che hai — persone che hanno gia' lasciato telefono ed email — non ha un'uscita verso la superficie che le trasforma in candidati. E il 98% fermo al primo livello dice che **quasi nessuno compie un secondo gesto dopo essere entrato**: il punto di rottura non e' l'acquisizione, e' l'attivazione. Rilievi assorbiti dal Documento 02: A4 · E1 · E2 · E3 · E4 · D5 | S5 risponde a B5 Costruisci il ponte dalle 1.100 persone al Placement Hub Che cosa si fa: Il gruppo Skool promette offerte di lavoro e non porta a nulla: un post fissato e un modulo in Classroom che finiscono sul Placement Hub chiudono il vuoto. Lo stesso vale per il Discord, dove la descrizione del server e' vuota. Prima di aggiungere un modulo nuovo alla libreria, verifica dall'interno se un ponte esiste gia' (G4). Con che cosa, gia’ in casa: Skool e Discord, gia' popolati. Il Placement Hub, gia' costruito. | Il segnale: La prima candidatura che arriva con utm_source=skool . Oggi non ne puo' arrivare nessuna, perche' non esiste il link che la genererebbe. | Impatto: 4 su 5 Sforzo: 2 su 5 Ondata: Ondata 2 — giorni 8–30 Non prima di: Verifica interna (G4). |
+| 6 di otto | B2 MOF Nessun contatto e' tuo Che cosa si vede: L'unico punto di cattura osservabile in tutto il sistema e' il questionario d'iscrizione a Skool: situazione, telefono, email. Sta **dietro l'iscrizione a una piattaforma di terzi**. Il sito del brand non ha alcun form. Il pannello di traffico stimato indica 505 visitatori unici e una permanenza media di 09:21 sul sito: **nove minuti di attenzione che non lasciano un indirizzo**. Che cosa blocca: Chi non entra su Skool non lascia traccia da nessuna parte, e l'intera lista contatti vive dentro un sistema che non controlli. Vuol dire due cose insieme: **non puoi ricontattare nessuno** senza passare da Skool, e **non puoi costruire un MOF** (B1) perche' un MOF ha bisogno di un punto d'ingresso che sia tuo. Rilievi assorbiti dal Documento 02: A7 | S2 risponde a B2 Porta la cattura dentro casa Che cosa si fa: Un punto di raccolta sul dominio del brand, **prima** di Skool e non dopo. Chi lascia l'indirizzo li' riceve l'accesso a Skool come conseguenza, non come condizione. Con che cosa, gia’ in casa: Il sito italiancloser.com, che oggi non ha alcun form. Le tre domande del questionario Skool esistono gia' e sono le stesse. | Il segnale: Il primo indirizzo email che **possiedi** — che resta tuo anche se domani Skool cambia regole, prezzo o politica. | Impatto: 4 su 5 Sforzo: 3 su 5 Ondata: Ondata 2 — giorni 8–30 Non prima di: S3, altrimenti raccogli traffico non smistato. |
+| 7 di otto | B1 MOF Il MOF non esiste Che cosa si vede: Il tuo stesso schema descrive il centro del funnel come **CONVO → QUALIFY → BOOK**, con cinque punti di contatto e un'uscita sola: una call prenotata. Su undici superfici pubbliche **non se ne osserva nessuno**. Non c'e' un punto di conversazione (la parola «sales» produce una replica in un thread pubblico, non un messaggio), non c'e' una domanda di qualifica, non c'e' un'interfaccia di prenotazione. Il ramo closer va dal reel direttamente a una schermata di accesso. Che cosa blocca: Il TOF funziona: 22.638 visualizzazioni sul reel migliore, 857 like e 152 commenti su quello d'offerta, 3.623 follower senza un euro di pubblicita'. **Tutto quel volume viene consegnato a un login.** Un login e' un punto di contatto BOF — il momento della decisione — messo dove il tuo schema chiede il passaggio A, l'ambiente caldo. E' il collo di bottiglia piu' costoso del sistema perche' e' l'unico che spreca qualcosa che stai gia' producendo bene. Rilievi assorbiti dal Documento 02: A2 · A5 · C2 · E1 | S1 risponde a B1 Costruisci il passaggio che manca fra il contenuto e il login Che cosa si fa: Fra il reel e la schermata d'accesso metti i passaggi che il tuo stesso schema descrive: una risposta che arriva **in privato** e non in un thread pubblico, **una sola** domanda di qualifica prima di qualunque link, e una destinazione sola per chi risponde. Vale per ogni superficie dove il brand compare, non per un post solo (A5). Con che cosa, gia’ in casa: Instagram DM. Lo schema MOF che hai gia' scritto: A ambiente caldo, B qualifica, C divario, D prenotazione, E post-prenotazione. | Il segnale: La prima conversazione che arriva al login **gia' qualificata** — e, per la prima volta, un numero di conversazioni al giorno da guardare. | Impatto: 5 su 5 Sforzo: 4 su 5 Ondata: Ondata 3 — dal giorno 31 Non prima di: S0 e S2. Senza misura non si regola, senza cattura non parte. |
+| 8 di otto | B7 TOF Lo sforzo va dove il risultato non c'e' Che cosa si vede: **460 video su YouTube** per una mediana di circa **110 visualizzazioni** su 546 iscritti. **5 post su Instagram**, di cui uno da 857 like e 152 commenti. Il video che presidia la home ha dieci mesi, dura 13:57 e ha **503 visualizzazioni**. Nei commenti c'e' almeno una richiesta esplicita di contenuto rimasta senza replica. Che cosa blocca: Il canale che costa di piu' in ore di produzione e' quello che rende di meno per pezzo, e la superficie che porta piu' persone e' la meno documentata di tutte: cinque post, quattro dei quali personali. **La produzione non e' il problema — hai gia' dimostrato di saper produrre volume. L'allocazione lo e'.** Rilievi assorbiti dal Documento 02: C1 · C2 · C3 · C4 · F4 | S7 risponde a B7 Sposta lo sforzo dove la resa e' gia' misurabilmente piu' alta Che cosa si fa: Non chiudere YouTube: 460 video sono un archivio, e un archivio si taglia e si ridistribuisce. Ma il volume nuovo va dove il rapporto e' documentato — cinque post Instagram hanno prodotto piu' domanda di quattrocentosessanta video. E le richieste dirette nei commenti diventano il calendario editoriale: e' ricerca di mercato gratuita, con nome e cognome allegato. Con che cosa, gia’ in casa: L'archivio YouTube. Il profilo Instagram, oggi a cinque post. | Il segnale: Va fatto **per ultimo**, e il motivo e' S0: finche' non si misura, uno spostamento di sforzo non si distingue da un'impressione. | Impatto: 2 su 5 Sforzo: 4 su 5 Ondata: Nessuna ondata — non ora Non prima di: S0. Prima di spostare lo sforzo bisogna poterlo pesare. |
 
-La colonna «non prima di» e’ la piu’ importante delle cinque, e non compare nel grafico. Due correzioni con lo stesso punteggio non sono intercambiabili se una ha bisogno dell’altra: S1 ha impatto 5, ed e’ comunque l’ultima, perche’ senza S0 non si regola e senza S2 non parte.
-
-> **CONCLUSION — Il punto:** Due assi, non tre. **Manca l'asse del denaro perche' G1 e' ancora aperto**, e costruire una priorita' su un ricavo ipotizzato sarebbe l'unico errore irreparabile di tutta l'analisi.
+L’ordine della colonna «Ordine» non e’ l’ordine di gravita’. Il collo di bottiglia piu’ costoso del sistema e’ B1, il MOF assente, ed e’ in settima posizione: ha bisogno della misura (S0) per essere regolato e di un punto di cattura tuo (S2) per partire. Costruirlo per primo significherebbe costruirlo alla cieca.
 
 ---
 
-## 07 — Le ondate — L’ordine, e perche’ e’ questo
+## 03 — Le ondate — Le otto righe raggruppate nel tempo
 
-La matrice dice quali correzioni valgono di piu’. Le dipendenze dicono quali possono partire. Messe insieme danno tre ondate — e una correzione, S7, che resta fuori da tutte e tre.
+La stessa tabella, vista dal calendario invece che dalla riga. Sette correzioni su otto stanno dentro trenta giorni; l’ottava, S7, non sta in nessuna ondata ed e’ la sola che questo documento consiglia di non fare adesso.
 Ondata 1 Giorni 1–7
 
 Niente si costruisce. Si scrive e si etichetta.
-**S0**Metti una misura dove si converte **S3**Una porta sola, e due strade dichiarate **S4**Riscrivi la porta per chi arriva la prima volta **S6**Rendi la prova un'abitudine invece che una campagna
+**S0**La misura **S3**Lo smistamento **S4**La porta **S6**La prova
 
 Alla fine della settimana esiste, per la prima volta, un numero: quante persone al giorno toccano il login e quante lo superano. **Tutto quello che viene dopo si giudica contro quel numero.**
 Ondata 2 Giorni 8–30
 
 La prima costruzione vera, e la piu' piccola possibile.
-**S5**Costruisci il ponte dalle 1.100 persone al Placement Hub **S2**Porta la cattura dentro casa
+**S5**Il ponte **S2**La cattura
 
 Il ponte apre l'uscita per le 1.100 persone che sono gia' dentro; la cattura porta in casa il primo indirizzo che sia tuo. Sono i due prerequisiti materiali del passaggio successivo.
 Ondata 3 Dal giorno 31
 
 Il pezzo grande, costruito per ultimo apposta.
-**S1**Costruisci il passaggio che manca fra il contenuto e il login
+**S1**Il MOF
 
 Il MOF e' il collo di bottiglia piu' costoso (B1) e va comunque **dopo**, perche' ha bisogno di una misura per essere regolato (S0) e di un punto di cattura tuo per partire (S2). Costruirlo per primo significherebbe costruirlo alla cieca.
 
-**S7, lo spostamento dello sforzo, non ha un’ondata.** Non e’ una dimenticanza: non e’ una modifica, e’ un cambio di abitudine di produzione, e un cambio di abitudine si tiene solo se si vede il risultato. Prima di S0 non si vede. Sta in questo documento perche’ il rilievo C1 e’ marcato gravita’ alta e va detto — e sta fuori dalle ondate perche’ metterlo dentro significherebbe chiedere di cambiare abitudine alla cieca.
-
-> **CONCLUSION — Il punto:** Il collo di bottiglia piu' costoso viene affrontato **per ultimo**. Non e' una contraddizione: e' l'unico ordine in cui, quando ci si arriva, si sa gia' se sta funzionando.
+**S7 non compare in nessuna ondata, ed e’ voluto.** Impatto contenuto nel breve, sforzo alto, e soprattutto non dimostrabile finche’ S0 non esiste: una cosa non dimostrabile non si difende alla terza settimana.
 
 ---
 
-## 08 — Cosa non fare — Quattro cose da non fare in questi trenta giorni
+## 04 — Cosa non fare — Quattro cose da non fare in questa fase
 
-Un piano che dice solo cosa aggiungere e’ meta’ piano. Queste quattro sono le mosse che un sistema in crescita fa d’istinto, e che in questo momento preciso **peggiorerebbero i numeri invece di migliorarli**.
+Tre delle quattro sono cose che un sistema in crescita fa per istinto. Ognuna, fatta adesso, peggiora un problema che la tabella qui sopra sta gia’ risolvendo.
 
 × Non aprire una superficie nuova
 
@@ -2093,13 +1622,11 @@ Il rapporto e' gia' documentato: 460 video contro 5 post (B7). Il problema non e
 
 Perche' **non e' noto**. G1 dice che su otto superfici pubbliche non compare un prezzo, un checkout, un piano a pagamento o un termine economico. Nessuna riga di questo documento assume di sapere come il sistema genera ricavo, e questa e' la prima domanda da fare a voce.
 
-> **CONCLUSION — Il punto:** Quattro cose da non fare, e **tre delle quattro sono cose che un sistema in crescita fa per istinto**: apre un canale, compra traffico, produce di piu'.
-
 ---
 
-## 09 — Cosa resta ignoto — Sei domande che questo documento non chiude
+## 05 — Cosa resta ignoto — Sei domande che questo documento non puo’ chiudere
 
-Il Documento 02 le ha registrate come ignote. Restano ignote qui: nessuna delle otto soluzioni poggia su una risposta ipotizzata a una di queste. Sono, in ordine, le prime sei domande da fare a voce — e la prima vale piu’ delle altre cinque messe insieme.
+Sei cose che nessuna superficie pubblica mostra. Nessuna riga della tabella assume di conoscerne la risposta: dove servivano, il documento si e’ fermato.
 G1
 
 Come il sistema genera ricavo
@@ -2131,18 +1658,16 @@ Se i «70+ placement» siano contrattualizzati
 
 Nessuna superficie pubblica mostra la natura del rapporto con le 20+ aziende partner. Non entra in nessuna delle otto soluzioni.
 
-Due di queste cambiano il piano nel momento in cui trovano risposta. **G4**: se dentro la Classroom esiste gia’ un modulo che rimanda al Placement Hub, S5 scende da costruzione a ritocco e la seconda ondata si accorcia. **G1**: nel momento in cui si sa come il sistema genera ricavo, la matrice acquista il terzo asse e l’ordine delle prime quattro correzioni va riguardato. Fino ad allora resta quello che e’ qui, che e’ costruito solo su cose osservate.
-
-> **CONCLUSION — Il punto:** Sei domande restano senza risposta, e la prima vale piu' delle altre cinque messe insieme. **Nessuna riga di questo documento assume di conoscerne la risposta.**
+Due di queste cambiano il piano nel momento in cui trovano risposta. **G4**: se dentro la Classroom esiste gia’ un modulo che rimanda al Placement Hub, S5 scende da costruzione a ritocco e la seconda ondata si accorcia. **G1**: nel momento in cui si sa come il sistema genera ricavo, la priorita’ acquista il terzo asse e l’ordine delle prime quattro correzioni va riguardato. Fino ad allora resta quello che e’ qui, che e’ costruito solo su cose osservate.
 Da dove viene ogni riga
 
 Ogni collo di bottiglia cita per codice i rilievi del Documento 02, letti a mano su instagram.com/italiancloser · linktr.ee/francescomanarabusiness · discord.gg/cAWSm5JYXA · skool.com/italian-closers-academy-6315 · youtube.com/@mannyonjourney · italiancloser.com · app.italiancloser.com · it.trustpilot.com
 Metodo
 
-Nessun rilievo nuovo, nessuno strumento nuovo, nessuna assunzione economica. La matrice ha due assi perche’ G1 — come il sistema genera ricavo — non e’ osservabile dall’esterno e resta registrato come ignoto.
+Nessun rilievo nuovo, nessuno strumento nuovo, nessuna assunzione economica. La priorita’ ha due assi perche’ G1 — come il sistema genera ricavo — non e’ osservabile dall’esterno e resta registrato come ignoto.
 Stato
 
-Documento 03 di 06 — colli di bottiglia, soluzioni, matrice di priorita’. Il 03 e il 04 previsti in origine sono qui, in un documento solo. Prossimi: 04 roadmap di esecuzione, 05 e 06 bonus.
+Documento 03 di 06 — colli di bottiglia, soluzioni, priorita’, in una tabella sola. Il 03 e il 04 previsti in origine sono qui, in un documento solo. Prossimi: 04 roadmap di esecuzione, 05 e 06 bonus.
 Evolv AI · Analisi Indipendente · Italiancloser · 22 agosto 2026
 </script>
 <script>
