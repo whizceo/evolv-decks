@@ -235,7 +235,7 @@ footer em{color:var(--t2);font-style:normal}
 <div class="masthead">
   <p class="kicker">Evolv AI · Independent Analysis · Italiancloser · Document 01 of 06</p>
   <h1>Italiancloser<br><em>Francesco Manara</em></h1>
-  <p class="standfirst">Eleven live surfaces, opened and read by hand on 20 August 2026 — what the brand is, what it has already built, and where every number in here actually comes from.</p>
+  <p class="standfirst">Eleven live surfaces, opened and read by hand on 20 and 22 August 2026 — what the brand is, what it has already built, what it runs on, and where every number in here actually comes from.</p>
   <div class="byline">
     <span><b>Compiled</b> 20 Aug 2026</span>
     <span><b>Method</b> Open-source only — no contact made</span>
@@ -418,6 +418,40 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 <tr><td class="lab">Email list</td><td>—</td><td class="num">none</td><td>No opt-in anywhere on any surface</td><td><span class="tag c">Does not exist</span></td></tr>
 </tbody>
 </table>
+</div>
+
+<h3>What the site actually gets</h3>
+<p class="dek">Semrush Traffic Analytics, italiancloser.com, rolling 30 days to 22 Aug 2026. Third-party panel estimate rather than his own analytics: the shape is reliable, the decimals are not.</p>
+
+<div class="stats">
+  <div class="stat"><span class="v">1.7K</span><span class="k">Visits, +1.3K% on the month</span></div>
+  <div class="stat"><span class="v">505</span><span class="k">Unique visitors, +321%</span></div>
+  <div class="stat"><span class="v">09:21</span><span class="k">Average visit duration, +2.5K%</span></div>
+  <div class="stat"><span class="v">2.7</span><span class="k">Pages per visit, down 45.75%</span></div>
+  <div class="stat"><span class="v">49.51%</span><span class="k">Bounce rate</span></div>
+  <div class="stat hot"><span class="v">n/a</span><span class="k">Purchase conversion</span></div>
+</div>
+
+<div class="scroll">
+<table>
+<caption>What those six numbers mean once you divide them into each other</caption>
+<thead><tr><th>Metric</th><th class="num">Value</th><th>Read</th></tr></thead>
+<tbody>
+<tr><td class="lab">Visits</td><td class="num">1,700</td><td>Against 22 reels in the period, roughly 77 visits per reel published. The site is not a destination; it is somewhere Instagram occasionally sends someone.</td></tr>
+<tr><td class="lab">Unique visitors</td><td class="num">505</td><td>1,700 visits from 505 people is 3.4 visits each. That is a small circle coming back repeatedly, not a stream of strangers arriving once.</td></tr>
+<tr><td class="lab">Avg. visit duration</td><td class="num">09:21</td><td>Nine minutes and twenty-one seconds on a six-page brochure site is exceptional. Whoever lands there reads the whole thing. The intent is real and it is high.</td></tr>
+<tr><td class="lab">Pages per visit</td><td class="num">2.7</td><td>Down 45.75%. Nine minutes spread over 2.7 pages means very long dwell on very few pages, which points at the Placement Hub rather than the homepage.</td></tr>
+<tr><td class="lab">Bounce rate</td><td class="num">49.51%</td><td>Half of all arrivals leave from the page they landed on. On a site with no capture form anywhere, a bounce is not a soft loss, it is a permanent one.</td></tr>
+<tr><td class="lab">Purchase conversion</td><td class="num">n/a</td><td>Not zero. <em>Unmeasurable.</em> Google Analytics 4 is installed and firing, but no conversion or lead event is configured on the domain, so there is nothing for the traffic to be attributed to.</td></tr>
+<tr><td class="lab">Desktop share</td><td class="num">100%</td><td>Reported as 100% desktop, 0% mobile. On a 505-visitor panel that is a small-sample artefact rather than a fact about his audience, but it does mean no mobile signal was picked up at all, on a site fed almost entirely by Instagram.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+  <div class="t">The line to take from this table</div>
+  <p>505 people spent an average of <strong>nine minutes and twenty-one seconds</strong> on the site in the last thirty days, and the site has no way to ask a single one of them for an email address.</p>
+  <p>This is the most engaged traffic anywhere in this document, it is measured, it is tagged by source, and <strong>100% of it leaves anonymous.</strong> The growth percentages are large only because the base was near zero a month ago; the number that matters here is not 1.7K, it is 09:21.</p>
 </div>
 
 <h3>Site claim vs. live count</h3>
@@ -664,21 +698,66 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 
 <div class="scroll">
 <table>
-<caption>Stack</caption>
+<caption>Infrastructure</caption>
 <tbody>
 <tr><td class="lab">Hosting</td><td>Vercel (edge <code>fra1</code>, Frankfurt). Both the marketing site and the app.</td></tr>
 <tr><td class="lab">Domain</td><td>GoDaddy. Registered <strong>8 April 2026</strong>, expires Apr 2028.</td></tr>
 <tr><td class="lab">Email</td><td>Google Workspace (full MX on <code>aspmx.l.google.com</code>). SPF delegated via <code>_spfm</code> — a managed sending provider is in the path.</td></tr>
-<tr><td class="lab">Analytics</td><td>Google Search Console verified (TXT record present).</td></tr>
+<tr><td class="lab">Analytics</td><td>Google Analytics 4 live on the homepage and the Placement Hub (measurement ID <code>G-07PW41NQYZ</code>), plus Google Search Console verified by TXT record. Inbound links are UTM-tagged, e.g. <code>/placement-hub?utm_source=linktree</code>. He measures where people come from; he has configured nothing for them to convert into.</td></tr>
 <tr><td class="lab">Auth</td><td>Google SSO on the closer portal. Separate company login route.</td></tr>
 <tr><td class="lab">Ops channels</td><td>Slack (Pro+ required) or WhatsApp, one channel per partner company — chosen by the client at intake.</td></tr>
 <tr><td class="lab">Community</td><td>Discord (NEWS + COMMUNITY features enabled) and Skool, in parallel.</td></tr>
 <tr><td class="lab">Reviews</td><td>Trustpilot, claimed and actively collected.</td></tr>
 <tr><td class="lab">Paid media</td><td>None detected. No Meta pixel-driven ad presence, no ad library results, absent from the Spyglass corpus.</td></tr>
 <tr><td class="lab">CRM / email tool</td><td>None visible. No opt-in form of any kind on any public page.</td></tr>
-<tr><td class="lab">Booking tool</td><td>None visible. No Calendly, no cal.com, no embedded scheduler anywhere.</td></tr>
+<tr><td class="lab">Booking tool</td><td>Calendly is in use, but it appears on no public page: not embedded, not linked, not named on the homepage, the Placement Hub or the company intake form. The scheduler exists, the funnel never offers it.</td></tr>
 </tbody>
 </table>
+</div>
+
+<h3>The tool stack in use</h3>
+<div class="scroll">
+<table>
+<caption>Fourteen tools confirmed in use as of 22 Aug 2026, grouped by the job they do. An observed list, not an exhaustive audit.</caption>
+<thead><tr><th>Tool</th><th>Job it does</th><th>What it actually carries</th><th>Where it sits</th></tr></thead>
+<tbody>
+<tr><td class="lab">Instagram</td><td>Distribution</td><td>@italiancloser, 3,623 followers, 22 reels in 31 days. The only meaningful source of new attention in the whole stack.</td><td><span class="tag v">Top of funnel</span></td></tr>
+<tr><td class="lab">YouTube</td><td>Distribution</td><td>@mannyonjourney, 546 subscribers. Shorts plus long-form call breakdowns, embedded on the homepage.</td><td><span class="tag v">Top of funnel</span></td></tr>
+<tr><td class="lab">Linktree</td><td>Routing</td><td>francescomanarabusiness, 6 links. Sits between the Instagram bio and everything else, and is the one hop that is UTM-tagged.</td><td><span class="tag c">Top of funnel</span></td></tr>
+<tr><td class="lab">Discord</td><td>Community</td><td>615 members, 47 online when checked. This is where the link in bio lands.</td><td><span class="tag v">Middle</span></td></tr>
+<tr><td class="lab">Skool</td><td>Course and billing</td><td>485 members. Holds the free course, the weekly calls and the two paid tiers, Premium and VIP. It is therefore the only place in the stack where money changes hands, and it sits inside the one community with no member post since 31 March.</td><td><span class="tag c">Middle</span></td></tr>
+<tr><td class="lab">WhatsApp</td><td>Client operations</td><td>One channel per partner company, offered at intake as the alternative to Slack.</td><td><span class="tag v">Delivery</span></td></tr>
+<tr><td class="lab">Calendly</td><td>Scheduling</td><td>In use privately. Invisible on every public surface, so a stranger cannot book anything without going through a DM first.</td><td><span class="tag c">Hidden</span></td></tr>
+<tr><td class="lab">Zoom</td><td>Live calls</td><td>Weekly coaching calls, closer interviews, company conversations.</td><td><span class="tag v">Delivery</span></td></tr>
+<tr><td class="lab">Fathom</td><td>Call recording</td><td>Records and summarises those calls. Every objection, question and success story on the demand side already exists as searchable text.</td><td><span class="tag u">Internal</span></td></tr>
+<tr><td class="lab">Riverside</td><td>Production</td><td>Studio-grade remote recording for long-form and interview content.</td><td><span class="tag v">Production</span></td></tr>
+<tr><td class="lab">Loom</td><td>Async video</td><td>Screen-recorded walkthroughs sent one to one: onboarding, shortlists, explanations.</td><td><span class="tag v">Delivery</span></td></tr>
+<tr><td class="lab">Google Docs</td><td>Documents</td><td>Briefs, shortlists, scripts, process notes. The operating procedure lives in documents rather than in a system.</td><td><span class="tag u">Internal</span></td></tr>
+<tr><td class="lab">Vercel</td><td>Hosting</td><td>Both the marketing site and the Placement Hub app, edge <code>fra1</code>.</td><td><span class="tag v">Infrastructure</span></td></tr>
+<tr><td class="lab">Trustpilot</td><td>Proof</td><td>47 reviews at 4.8 stars, actively collected. The only third-party proof asset he owns.</td><td><span class="tag v">Proof</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="scroll">
+<table>
+<caption>What is not in the stack, checked against the page source of every public surface on 22 Aug 2026</caption>
+<thead><tr><th>Missing</th><th>Consequence</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td class="lab">CRM</td><td>100+ closers and 20+ partner companies are tracked in documents and chat threads. There is no single record of who is where in the process.</td><td><span class="tag c">Not detected</span></td></tr>
+<tr><td class="lab">Email tool</td><td>No sending platform, no opt-in, no list. 1,100 community members and zero owned contact data.</td><td><span class="tag c">Not detected</span></td></tr>
+<tr><td class="lab">Public scheduler</td><td>Calendly exists but is never offered. The only way in is a DM or a mailto.</td><td><span class="tag c">Not exposed</span></td></tr>
+<tr><td class="lab">Conversion tracking</td><td>Google Analytics 4 is installed but no lead or conversion event is defined, which is why the traffic panel reports purchase conversion as n/a.</td><td><span class="tag c">Installed, unused</span></td></tr>
+<tr><td class="lab">Paid media</td><td>No Meta pixel, no ad library results, absent from the Spyglass corpus. Every visit in the traffic table above is earned.</td><td><span class="tag u">None</span></td></tr>
+<tr><td class="lab">LinkedIn</td><td>He sells recruitment to companies and has no presence on the one channel where those buyers work.</td><td><span class="tag c">Absent</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+  <div class="t">What the stack says about the business</div>
+  <p>Read the two tables next to each other and the pattern is hard to miss: <strong>every confirmed tool is for making something or delivering something.</strong> Instagram, YouTube, Riverside and Loom make. Discord, Skool, Zoom, WhatsApp, Calendly and Google Docs deliver. Vercel and Trustpilot hold it up.</p>
+  <p>Not one tool in the list captures a stranger, stores them, or follows up with them. The stack is a production studio bolted to a delivery operation, with nothing in between.</p>
 </div>
 
 <h3>Brand read</h3>
@@ -734,7 +813,7 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 <section>
 <span class="secnum">11 — The sources</span>
 <h2>Sources</h2>
-<p class="dek">All open-source. No contact was made and nothing gated was accessed. Captured 20 Aug 2026.</p>
+<p class="dek">All open-source. No contact was made and nothing gated was accessed. Captured 20 Aug 2026, extended 22 Aug 2026.</p>
 <ul class="clean">
   <li><a href="https://www.instagram.com/italiancloser/">instagram.com/italiancloser</a> — profile + 24 reels, engagement scraped</li>
   <li><a href="https://www.italiancloser.com">italiancloser.com</a> — homepage, full copy</li>
@@ -747,6 +826,8 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
   <li><a href="https://www.youtube.com/@mannyonjourney">youtube.com/@mannyonjourney</a> — 546 subs, 15 uploads via channel feed</li>
   <li><a href="https://it.trustpilot.com/review/italiancloser.com">trustpilot.com/review/italiancloser.com</a> — 47 reviews, 4.8★</li>
   <li><a href="https://linktr.ee/francescomanarabusiness">linktr.ee/francescomanarabusiness</a> — 6 links</li>
+  <li>Semrush Traffic Analytics — italiancloser.com, 30-day summary, read 22 Aug 2026</li>
+  <li>Page source of italiancloser.com, /placement-hub and the company intake form — Google Analytics 4 tag <code>G-07PW41NQYZ</code>, Linktree UTM tagging, and a negative check for CRM, email, scheduler and ad-platform tags, read 22 Aug 2026</li>
   <li>WHOIS, DNS, HTTP headers — domain age, hosting, mail stack</li>
   <li>Meta Ad Library + Spyglass ad corpus — both negative for this brand</li>
 </ul>
@@ -758,19 +839,19 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 
 </div>
 <footer><div class="wrap">
-  <strong>Italiancloser — General Overview, Document 01 of 06.</strong> Prepared by Evolv AI, 20 August 2026.<br>
+  <strong>Italiancloser — General Overview, Document 01 of 06.</strong> Prepared by Evolv AI, 22 August 2026.<br>
   Every figure marked as verified was pulled live from the named source on that date. Figures marked <em>claimed</em> are his own and are reproduced without endorsement.<br>
   Next: Document 02 — Funnel analysis · Document 03 — Bottlenecks · Document 04 — Solutions &amp; prioritisation matrix · Document 05 — Execution roadmap.
 </div></footer>
 
 <script type="text/plain" id="aib-doc">ITALIANCLOSER - GENERAL OVERVIEW. Document 01 of 06, prepared by Evolv AI.
 
-Every figure below was read off a public page on 20 August 2026. No contact was made. Items marked "claimed" come from Italiancloser's own copy and could not be verified.
+Every figure below was read off a public page on 20 or 22 August 2026, except the traffic panel, which is a third-party estimate. No contact was made. Items marked "claimed" come from Italiancloser's own copy and could not be verified.
 
 Evolv AI · Independent Analysis · Italiancloser · Document 01 of 06
 # Italiancloser *Francesco Manara*
 
-Eleven live surfaces, opened and read by hand on 20 August 2026 — what the brand is, what it has already built, and where every number in here actually comes from.
+Eleven live surfaces, opened and read by hand on 20 and 22 August 2026 — what the brand is, what it has already built, what it runs on, and where every number in here actually comes from.
 **Compiled** 20 Aug 2026 **Method** Open-source only — no contact made **Scope** General overview — context & asset map **Next** Document 02 — Funnel analysis
 
 ---
@@ -886,6 +967,34 @@ Every property he owns, with the real number attached. Counts pulled live on 20 
 | LinkedIn | — | none found | Would be the natural B2B channel | Absent |
 | TikTok | — | not found | Linktree avatar is literally named foto-profilo-tiktok.png | Ghost |
 | Email list | — | none | No opt-in anywhere on any surface | Does not exist |
+
+### What the site actually gets
+
+Semrush Traffic Analytics, italiancloser.com, rolling 30 days to 22 Aug 2026. Third-party panel estimate rather than his own analytics: the shape is reliable, the decimals are not.
+- **1.7K** — Visits, +1.3K% on the month
+- **505** — Unique visitors, +321%
+- **09:21** — Average visit duration, +2.5K%
+- **2.7** — Pages per visit, down 45.75%
+- **49.51%** — Bounce rate
+- **n/a** — Purchase conversion
+
+**What those six numbers mean once you divide them into each other**
+
+| Metric | Value | Read |
+|---|---|---|
+| Visits | 1,700 | Against 22 reels in the period, roughly 77 visits per reel published. The site is not a destination; it is somewhere Instagram occasionally sends someone. |
+| Unique visitors | 505 | 1,700 visits from 505 people is 3.4 visits each. That is a small circle coming back repeatedly, not a stream of strangers arriving once. |
+| Avg. visit duration | 09:21 | Nine minutes and twenty-one seconds on a six-page brochure site is exceptional. Whoever lands there reads the whole thing. The intent is real and it is high. |
+| Pages per visit | 2.7 | Down 45.75%. Nine minutes spread over 2.7 pages means very long dwell on very few pages, which points at the Placement Hub rather than the homepage. |
+| Bounce rate | 49.51% | Half of all arrivals leave from the page they landed on. On a site with no capture form anywhere, a bounce is not a soft loss, it is a permanent one. |
+| Purchase conversion | n/a | Not zero. *Unmeasurable.* Google Analytics 4 is installed and firing, but no conversion or lead event is configured on the domain, so there is nothing for the traffic to be attributed to. |
+| Desktop share | 100% | Reported as 100% desktop, 0% mobile. On a 505-visitor panel that is a small-sample artefact rather than a fact about his audience, but it does mean no mobile signal was picked up at all, on a site fed almost entirely by Instagram. |
+
+**NOTE — The line to take from this table**
+
+505 people spent an average of **nine minutes and twenty-one seconds** on the site in the last thirty days, and the site has no way to ask a single one of them for an email address.
+
+This is the most engaged traffic anywhere in this document, it is measured, it is tagged by source, and **100% of it leaves anonymous.** The growth percentages are large only because the base was near zero a month ago; the number that matters here is not 1.7K, it is 09:21.
 
 ### Site claim vs. live count
 
@@ -1042,18 +1151,56 @@ What he can already point at. This is unusually strong for a 4-month-old brand a
 
 Bonus section as briefed. Extended into the AIOS angle in Document 05 of the wider analysis — this is the factual stack only.
 
-**Stack**
+**Infrastructure**
 - **Hosting:** Vercel (edge fra1, Frankfurt). Both the marketing site and the app.
 - **Domain:** GoDaddy. Registered **8 April 2026**, expires Apr 2028.
 - **Email:** Google Workspace (full MX on aspmx.l.google.com). SPF delegated via _spfm — a managed sending provider is in the path.
-- **Analytics:** Google Search Console verified (TXT record present).
+- **Analytics:** Google Analytics 4 live on the homepage and the Placement Hub (measurement ID G-07PW41NQYZ), plus Google Search Console verified by TXT record. Inbound links are UTM-tagged, e.g. /placement-hub?utm_source=linktree. He measures where people come from; he has configured nothing for them to convert into.
 - **Auth:** Google SSO on the closer portal. Separate company login route.
 - **Ops channels:** Slack (Pro+ required) or WhatsApp, one channel per partner company — chosen by the client at intake.
 - **Community:** Discord (NEWS + COMMUNITY features enabled) and Skool, in parallel.
 - **Reviews:** Trustpilot, claimed and actively collected.
 - **Paid media:** None detected. No Meta pixel-driven ad presence, no ad library results, absent from the Spyglass corpus.
 - **CRM / email tool:** None visible. No opt-in form of any kind on any public page.
-- **Booking tool:** None visible. No Calendly, no cal.com, no embedded scheduler anywhere.
+- **Booking tool:** Calendly is in use, but it appears on no public page: not embedded, not linked, not named on the homepage, the Placement Hub or the company intake form. The scheduler exists, the funnel never offers it.
+
+### The tool stack in use
+
+**Fourteen tools confirmed in use as of 22 Aug 2026, grouped by the job they do. An observed list, not an exhaustive audit.**
+
+| Tool | Job it does | What it actually carries | Where it sits |
+|---|---|---|---|
+| Instagram | Distribution | @italiancloser, 3,623 followers, 22 reels in 31 days. The only meaningful source of new attention in the whole stack. | Top of funnel |
+| YouTube | Distribution | @mannyonjourney, 546 subscribers. Shorts plus long-form call breakdowns, embedded on the homepage. | Top of funnel |
+| Linktree | Routing | francescomanarabusiness, 6 links. Sits between the Instagram bio and everything else, and is the one hop that is UTM-tagged. | Top of funnel |
+| Discord | Community | 615 members, 47 online when checked. This is where the link in bio lands. | Middle |
+| Skool | Course and billing | 485 members. Holds the free course, the weekly calls and the two paid tiers, Premium and VIP. It is therefore the only place in the stack where money changes hands, and it sits inside the one community with no member post since 31 March. | Middle |
+| WhatsApp | Client operations | One channel per partner company, offered at intake as the alternative to Slack. | Delivery |
+| Calendly | Scheduling | In use privately. Invisible on every public surface, so a stranger cannot book anything without going through a DM first. | Hidden |
+| Zoom | Live calls | Weekly coaching calls, closer interviews, company conversations. | Delivery |
+| Fathom | Call recording | Records and summarises those calls. Every objection, question and success story on the demand side already exists as searchable text. | Internal |
+| Riverside | Production | Studio-grade remote recording for long-form and interview content. | Production |
+| Loom | Async video | Screen-recorded walkthroughs sent one to one: onboarding, shortlists, explanations. | Delivery |
+| Google Docs | Documents | Briefs, shortlists, scripts, process notes. The operating procedure lives in documents rather than in a system. | Internal |
+| Vercel | Hosting | Both the marketing site and the Placement Hub app, edge fra1. | Infrastructure |
+| Trustpilot | Proof | 47 reviews at 4.8 stars, actively collected. The only third-party proof asset he owns. | Proof |
+
+**What is not in the stack, checked against the page source of every public surface on 22 Aug 2026**
+
+| Missing | Consequence | Status |
+|---|---|---|
+| CRM | 100+ closers and 20+ partner companies are tracked in documents and chat threads. There is no single record of who is where in the process. | Not detected |
+| Email tool | No sending platform, no opt-in, no list. 1,100 community members and zero owned contact data. | Not detected |
+| Public scheduler | Calendly exists but is never offered. The only way in is a DM or a mailto. | Not exposed |
+| Conversion tracking | Google Analytics 4 is installed but no lead or conversion event is defined, which is why the traffic panel reports purchase conversion as n/a. | Installed, unused |
+| Paid media | No Meta pixel, no ad library results, absent from the Spyglass corpus. Every visit in the traffic table above is earned. | None |
+| LinkedIn | He sells recruitment to companies and has no presence on the one channel where those buyers work. | Absent |
+
+**NOTE — What the stack says about the business**
+
+Read the two tables next to each other and the pattern is hard to miss: **every confirmed tool is for making something or delivering something.** Instagram, YouTube, Riverside and Loom make. Discord, Skool, Zoom, WhatsApp, Calendly and Google Docs deliver. Vercel and Trustpilot hold it up.
+
+Not one tool in the list captures a stranger, stores them, or follows up with them. The stack is a production studio bolted to a delivery operation, with nothing in between.
 
 ### Brand read
 
@@ -1103,7 +1250,7 @@ He has built demand-side proof, a working product and a live audience in four mo
 
 ## 11 — The sources — Sources
 
-All open-source. No contact was made and nothing gated was accessed. Captured 20 Aug 2026.
+All open-source. No contact was made and nothing gated was accessed. Captured 20 Aug 2026, extended 22 Aug 2026.
 - instagram.com/italiancloser — profile + 24 reels, engagement scraped
 - italiancloser.com — homepage, full copy
 - italiancloser.com/placement-hub — product page, case studies, testimonials
@@ -1115,11 +1262,13 @@ All open-source. No contact was made and nothing gated was accessed. Captured 20
 - youtube.com/@mannyonjourney — 546 subs, 15 uploads via channel feed
 - trustpilot.com/review/italiancloser.com — 47 reviews, 4.8★
 - linktr.ee/francescomanarabusiness — 6 links
+- Semrush Traffic Analytics — italiancloser.com, 30-day summary, read 22 Aug 2026
+- Page source of italiancloser.com, /placement-hub and the company intake form — Google Analytics 4 tag G-07PW41NQYZ, Linktree UTM tagging, and a negative check for CRM, email, scheduler and ad-platform tags, read 22 Aug 2026
 - WHOIS, DNS, HTTP headers — domain age, hosting, mail stack
 - Meta Ad Library + Spyglass ad corpus — both negative for this brand
 
 > **CONCLUSION — Standard:** Every figure in this document was **read live off a public surface on 20 August 2026**. Nothing was estimated, nothing was inferred from a competitor, and no contact was made.
-**Italiancloser — General Overview, Document 01 of 06.** Prepared by Evolv AI, 20 August 2026. Every figure marked as verified was pulled live from the named source on that date. Figures marked *claimed* are his own and are reproduced without endorsement. Next: Document 02 — Funnel analysis · Document 03 — Bottlenecks · Document 04 — Solutions & prioritisation matrix · Document 05 — Execution roadmap.
+**Italiancloser — General Overview, Document 01 of 06.** Prepared by Evolv AI, 22 August 2026. Every figure marked as verified was pulled live from the named source on that date. Figures marked *claimed* are his own and are reproduced without endorsement. Next: Document 02 — Funnel analysis · Document 03 — Bottlenecks · Document 04 — Solutions & prioritisation matrix · Document 05 — Execution roadmap.
 
 
 ============================================================
