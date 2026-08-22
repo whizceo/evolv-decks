@@ -227,6 +227,27 @@ footer em{color:var(--t2);font-style:normal}
 .aib-f{font-size:12.6px;line-height:1.6;color:var(--t3);margin:0;max-width:62ch}
 @media screen and (max-width:1000px){.aib{padding:26px 22px}}
 
+
+/* ── indice ───────────────────────────────────────────────────────────────── */
+.toc{margin:30px 0 4px;padding-top:22px;border-top:1px solid var(--sep)}
+.toc-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+ text-transform:uppercase;color:var(--t3);margin:0 0 14px}
+.toc-l{list-style:none;margin:0;padding:0;counter-reset:toc;
+ columns:2;column-gap:54px}
+.toc-l li{counter-increment:toc;break-inside:avoid;-webkit-column-break-inside:avoid}
+.toc-l a{display:grid;grid-template-columns:30px 1fr;align-items:baseline;
+ gap:0 12px;padding:11px 0;border-bottom:1px solid var(--hair);
+ text-decoration:none;color:inherit}
+.toc-l a::before{content:counter(toc,decimal-leading-zero);font-family:var(--mono);
+ font-size:10.5px;letter-spacing:.06em;color:var(--t3);font-variant-numeric:tabular-nums}
+.toc-l b{font-weight:600;font-size:.97rem;letter-spacing:-.016em;color:var(--t1)}
+.toc-l .ts{display:block;grid-column:2;font-size:.845rem;line-height:1.4;
+ color:var(--t3);margin-top:2px}
+.toc-l a:hover b{color:var(--blue)}
+.toc-l a:hover::before{color:var(--blue)}
+section{scroll-margin-top:26px}
+@media screen and (max-width:900px){.toc-l{columns:1}}
+
 </style></head><body>
 <div class="mobile-block">
   <div class="mb-e">Evolv AI · Independent Analysis</div>
@@ -281,9 +302,25 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
   <p class="aib-f">Those are the instructions the button copies along with the documents, shown here so you can see exactly what the model is being told. They are strict on purpose: it is told to use nothing but these two documents, to leave every unverified claim marked unverified, to invent no advice, and to translate the eleven conclusions word for word. What you read back is this analysis in Italian, not a model's opinion of it. Then open the calculator at the end of Document 02 and put your own numbers in it.</p>
 </div>
 
+<div class="toc">
+<div class="toc-k">Contents</div>
+<ol class="toc-l">
+  <li><a href="#s01"><b>Overview</b> <span class="ts">At a glance</span></a></li>
+  <li><a href="#s02"><b>The operator</b> <span class="ts">The story you tell</span></a></li>
+  <li><a href="#s03"><b>The business</b> <span class="ts">What the business actually is</span></a></li>
+  <li><a href="#s04"><b>The assets</b> <span class="ts">The asset map</span></a></li>
+  <li><a href="#s05"><b>The funnel</b> <span class="ts">The funnel as it exists today</span></a></li>
+  <li><a href="#s06"><b>The content</b> <span class="ts">The content engine, measured</span></a></li>
+  <li><a href="#s07"><b>The proof</b> <span class="ts">Proof inventory</span></a></li>
+  <li><a href="#s08"><b>The stack</b> <span class="ts">Brand &amp; technology</span></a></li>
+  <li><a href="#s09"><b>The timeline</b> </a></li>
+  <li><a href="#s10"><b>The unknowns</b> <span class="ts">Open questions carried into Document 02</span></a></li>
+  <li><a href="#s11"><b>The sources</b> </a></li>
+</ol>
+</div>
 
 <!-- ============ 1 ============ -->
-<section>
+<section id="s01">
 <span class="secnum">01 — Overview</span>
 <h2>At a glance</h2>
 <p class="dek">Everything verified directly from the source on 20 Aug 2026. Figures marked <span class="tag c">claimed</span> come from your own marketing copy and could not be independently checked.</p>
@@ -319,7 +356,7 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 </section>
 
 <!-- ============ 2 ============ -->
-<section>
+<section id="s02">
 <span class="secnum">02 — The operator</span>
 <h2>The story you tell</h2>
 <p class="dek">The story you tell is the product. It is unusually specific, which is why it works.</p>
@@ -353,7 +390,7 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 </section>
 
 <!-- ============ 3 ============ -->
-<section>
+<section id="s03">
 <span class="secnum">03 — The business</span>
 <h2>What the business actually is</h2>
 <p class="dek">On the surface it looks like another closing course. It isn't. There are three distinct businesses stacked on one audience, and only one of them is obviously monetisable.</p>
@@ -399,7 +436,7 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 </section>
 
 <!-- ============ 4 ============ -->
-<section>
+<section id="s04">
 <span class="secnum">04 — The assets</span>
 <h2>The asset map</h2>
 <p class="dek">Every property you own, with the real number attached. Counts pulled live on 20 Aug 2026 — several of them are materially different from what your own site claims.</p>
@@ -494,7 +531,7 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 </section>
 
 <!-- ============ 5 ============ -->
-<section>
+<section id="s05">
 <span class="secnum">05 — The funnel</span>
 <h2>The funnel as it exists today</h2>
 <p class="dek">Not the diagnosis — that's Document 02. This is simply the map of every path a stranger can take, with real numbers on the first two steps.</p>
@@ -580,7 +617,7 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 </section>
 
 <!-- ============ 6 ============ -->
-<section>
+<section id="s06">
 <span class="secnum">06 — The content</span>
 <h2>The content engine, measured</h2>
 <p class="dek">24 reels scraped. This is the raw material for the funnel analysis — the numbers are worse than the view counts make them look.</p>
@@ -672,7 +709,7 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 </section>
 
 <!-- ============ 7 ============ -->
-<section>
+<section id="s07">
 <span class="secnum">07 — The proof</span>
 <h2>Proof inventory</h2>
 <p class="dek">What you can already point at. For a brand that is four months old, this is an unusually strong shelf — and it is the reason the rest of this analysis is worth reading.</p>
@@ -697,7 +734,7 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 </section>
 
 <!-- ============ 8 ============ -->
-<section>
+<section id="s08">
 <span class="secnum">08 — The stack</span>
 <h2>Brand &amp; technology</h2>
 <p class="dek">Every tool that runs the business, in one list, grouped by the part of the business it serves. Read live off your public surfaces on 20 and 22 Aug 2026, plus the fourteen tools confirmed in use as of 22 Aug. Where a row says nothing was found, it means nothing was found on any public surface — not that nothing exists.</p>
@@ -768,7 +805,7 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 </section>
 
 <!-- ============ 9 ============ -->
-<section>
+<section id="s09">
 <span class="secnum">09 — The timeline</span>
 <h2>Timeline</h2>
 <p class="dek">The compression here is the story. Everything below happened in under nine months.</p>
@@ -788,7 +825,7 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 </section>
 
 <!-- ============ 10 ============ -->
-<section>
+<section id="s10">
 <span class="secnum">10 — The unknowns</span>
 <h2>Open questions carried into Document 02</h2>
 <p class="dek">What the public record cannot answer. These are the hinges the funnel analysis will turn on.</p>
@@ -811,7 +848,7 @@ Niente premessa, niente incoraggiamento, niente riassunto finale. Rispondi in it
 </section>
 
 <!-- ============ 11 ============ -->
-<section>
+<section id="s11">
 <span class="secnum">11 — The sources</span>
 <h2>Sources</h2>
 <p class="dek">All open-source. No contact was made and nothing gated was accessed. Captured 20 Aug 2026, extended 22 Aug 2026.</p>
@@ -854,6 +891,18 @@ Evolv AI · Independent Analysis · Italiancloser · Document 01 of 06
 
 Eleven live surfaces, opened and read by hand on 20 and 22 August 2026 — what the brand is, what it has already built, what it runs on, and where every number in here actually comes from.
 **Compiled** 20 Aug 2026 **Method** Open-source only — no contact made **Scope** General overview — context & asset map **Next** Document 02 — Funnel analysis
+Contents
+- **Overview** At a glance
+- **The operator** The story you tell
+- **The business** What the business actually is
+- **The assets** The asset map
+- **The funnel** The funnel as it exists today
+- **The content** The content engine, measured
+- **The proof** Proof inventory
+- **The stack** Brand & technology
+- **The timeline**
+- **The unknowns** Open questions carried into Document 02
+- **The sources**
 
 ---
 
