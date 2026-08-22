@@ -1,0 +1,554 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Italiancloser — Sala di controllo</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+ --w:#ffffff; --w2:#f5f5f7; --w3:#efeff1; --line:#d2d2d7; --hair:rgba(0,0,0,.09);
+ --ink:#1d1d1f; --ink2:#515154; --ink3:#86868b; --ink4:#b4b4b8;
+ --k:#000000; --k2:#0b0b0c; --konline:rgba(255,255,255,.13); --khair:rgba(255,255,255,.08);
+ --on-k:#f5f5f7; --on-k2:#a1a1a6; --on-k3:#6e6e73;
+ --blue:#0066cc; --blue-lt:#2997ff; --blue-t:rgba(0,102,204,.07); --blue-l:rgba(0,102,204,.28);
+ --grn:#1d7a33; --grn-t:#eff8f1; --grn-l:rgba(29,122,51,.26);
+ --red:#c1121f; --red-t:#fdf2f2; --red-l:rgba(193,18,31,.26);
+ --amb:#b35309; --amb-t:#fdf5ec; --amb-l:rgba(179,83,9,.26);
+ --pur:#7b3fa0; --pur-t:#f8f2fc; --pur-l:rgba(123,63,160,.26);
+ --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+ --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter",Helvetica,Arial,sans-serif;
+}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{background:var(--w);color:var(--ink);font-family:var(--sans);
+ font-size:17px;line-height:1.47;letter-spacing:-.012em}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+section{padding:78px 0;border-top:1px solid var(--line)}
+section.alt{background:var(--w2)}
+section:first-of-type{border-top:0}
+
+/* ---------- masthead ---------- */
+.mast{padding:76px 0 60px}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.20em;text-transform:uppercase;
+ color:var(--ink3);margin-bottom:26px}
+.mast h1{font-size:62px;line-height:1.03;letter-spacing:-.032em;font-weight:600;max-width:16ch}
+.mast .sf{margin-top:26px;font-size:21px;line-height:1.5;color:var(--ink2);max-width:62ch;letter-spacing:-.014em}
+.mast .meta{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);
+ display:flex;gap:44px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;
+ letter-spacing:.05em;color:var(--ink3);text-transform:uppercase}
+.mast .meta b{display:block;color:var(--ink);font-weight:600;margin-top:5px;letter-spacing:.02em;font-size:12px}
+
+/* ---------- section heads ---------- */
+.sh{display:grid;grid-template-columns:78px 1fr;gap:0;margin-bottom:40px}
+.sh .rk{font-family:var(--mono);font-size:12px;color:var(--ink4);padding-top:9px;letter-spacing:.06em}
+.sh h2{font-size:34px;line-height:1.12;letter-spacing:-.024em;font-weight:600;max-width:22ch}
+.sh .dek{margin-top:13px;font-size:17px;color:var(--ink2);max-width:64ch;line-height:1.52}
+
+/* ---------- le tre cifre ---------- */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+ border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.three .c{background:var(--w);padding:38px 32px 34px}
+.three .c.hi{background:var(--red-t)}
+.three .n{font-size:76px;line-height:.94;letter-spacing:-.045em;font-weight:600}
+.three .c.hi .n{color:var(--red)}
+.three .l{margin-top:16px;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.three .s{margin-top:7px;font-size:14px;color:var(--ink2);line-height:1.5}
+
+/* ---------- legenda provenienza ---------- */
+.leg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:8px}
+.leg .li{border:1px solid var(--line);border-radius:14px;padding:20px 20px 18px;background:var(--w)}
+.leg .li .b{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+ padding:4px 8px;border-radius:5px;font-weight:600;margin-bottom:12px}
+.leg .li .t{font-size:14px;color:var(--ink2);line-height:1.5}
+.leg .li .ct{margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--ink)}
+.b-M{background:var(--grn-t);color:var(--grn);border:1px solid var(--grn-l)}
+.b-L{background:var(--amb-t);color:var(--amb);border:1px solid var(--amb-l)}
+.b-S{background:var(--pur-t);color:var(--pur);border:1px solid var(--pur-l)}
+.b-N{background:var(--red-t);color:var(--red);border:1px solid var(--red-l)}
+
+/* ---------- la catena ---------- */
+.chain{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.chain .st{flex:1 1 150px;border:1px solid var(--line);border-radius:13px;padding:17px 16px;background:var(--w)}
+.chain .st.blind{border-color:var(--red-l);background:var(--red-t)}
+.chain .st .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;color:var(--ink3);text-transform:uppercase}
+.chain .st.blind .k{color:var(--red)}
+.chain .st .v{margin-top:9px;font-size:26px;font-weight:600;letter-spacing:-.028em}
+.chain .st .d{margin-top:6px;font-size:12.5px;color:var(--ink2);line-height:1.45}
+
+/* ---------- leve ---------- */
+.lg{margin-top:52px;padding-top:34px;border-top:1px solid var(--line)}
+.lg:first-of-type{margin-top:0;padding-top:0;border-top:0}
+.lgh{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.lgh h3{font-size:22px;letter-spacing:-.018em;font-weight:600}
+.lgh .cnt{font-family:var(--mono);font-size:11px;color:var(--ink4);letter-spacing:.06em}
+.lgs{font-size:15px;color:var(--ink2);max-width:70ch;margin-bottom:26px;line-height:1.5}
+.lgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.lv{border:1px solid var(--line);border-radius:14px;padding:16px 18px 15px;background:var(--w)}
+section.alt .lv{background:var(--w)}
+.lv.n{border-color:var(--red-l)}
+.lv .lh{display:flex;align-items:center;gap:9px;margin-bottom:2px}
+.lv .ln{font-size:14.5px;font-weight:600;letter-spacing:-.008em;flex:1;line-height:1.32}
+.lv .sb{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;padding:3px 6px;border-radius:4px;
+ font-weight:600;cursor:help;flex:0 0 auto}
+.lv .lval{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--blue);
+ flex:0 0 auto;min-width:74px;text-align:right;font-variant-numeric:tabular-nums}
+.lv.n .lval{color:var(--red)}
+.lv input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:22px;background:transparent;
+ margin:9px 0 0;cursor:pointer;display:block}
+.lv input[type=range]::-webkit-slider-runnable-track{height:3px;background:var(--line);border-radius:3px}
+.lv input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:19px;height:19px;border-radius:50%;
+ background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 4px rgba(0,0,0,.22);margin-top:-8px}
+.lv.n input[type=range]::-webkit-slider-runnable-track{background:var(--red-l)}
+.lv input[type=range]::-moz-range-track{height:3px;background:var(--line);border-radius:3px}
+.lv input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;
+ border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 4px rgba(0,0,0,.22)}
+.lv .lnote{margin-top:7px;font-size:12px;color:var(--ink3);line-height:1.45}
+.lv.n .lnote{color:var(--red)}
+
+/* ---------- barra viva ---------- */
+.lp{position:relative}
+.bar{position:sticky;bottom:0;z-index:60;background:rgba(0,0,0,.94);
+ -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+ border-top:1px solid var(--konline)}
+.bar .in{max-width:1240px;margin:0 auto;padding:13px 40px;display:flex;gap:34px;align-items:center;
+ flex-wrap:wrap;justify-content:space-between}
+.bar .g{display:flex;gap:30px;flex-wrap:wrap}
+.bar .i .k{font-family:var(--mono);font-size:9px;letter-spacing:.13em;color:var(--on-k3);text-transform:uppercase}
+.bar .i .v{font-size:19px;font-weight:600;color:var(--on-k);letter-spacing:-.02em;margin-top:2px}
+.bar .i .v.red{color:#ff6961}
+.bar .rs{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;color:var(--on-k2);
+ background:transparent;border:1px solid var(--konline);border-radius:999px;padding:8px 15px;
+ cursor:pointer;text-transform:uppercase}
+.bar .rs:hover{color:var(--on-k);border-color:rgba(255,255,255,.3)}
+
+/* ---------- il nero ---------- */
+.dark{background:var(--k);color:var(--on-k);border-top:0}
+.dark.alt{background:var(--k2)}
+.dark .sh .rk{color:var(--on-k3)}
+.dark .sh .dek{color:var(--on-k2)}
+.dark h2,.dark h3{color:var(--on-k)}
+.darklead{padding:96px 0 84px;background:var(--k);color:var(--on-k)}
+.darklead .eyebrow{color:var(--on-k3)}
+.darklead h2{font-size:48px;line-height:1.06;letter-spacing:-.03em;font-weight:600;max-width:19ch}
+.darklead .sf{margin-top:24px;font-size:20px;color:var(--on-k2);max-width:60ch;line-height:1.55}
+
+.res{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--konline);
+ border:1px solid var(--konline);border-radius:20px;overflow:hidden}
+.res .t{background:var(--k);padding:34px 28px 30px;min-height:170px}
+.res .t.w2{grid-column:span 2}
+.res .t .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--on-k3);text-transform:uppercase}
+.res .t .v{margin-top:16px;font-size:52px;line-height:.98;letter-spacing:-.042em;font-weight:600}
+.res .t .v.sm{font-size:34px;letter-spacing:-.03em}
+.res .t .v.dim{color:var(--on-k3)}
+.res .t .d{margin-top:13px;font-size:13.5px;color:var(--on-k2);line-height:1.5}
+.res .t .dl{margin-top:11px;font-family:var(--mono);font-size:11px;letter-spacing:.05em}
+.dl.up{color:#30d158}.dl.dn{color:#ff6961}.dl.fl{color:var(--on-k3)}
+
+.io{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--konline);
+ border:1px solid var(--konline);border-radius:20px;overflow:hidden;margin-top:16px}
+.io .s{background:var(--k);padding:32px 30px}
+.io .s .hd{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--on-k3);
+ text-transform:uppercase;padding-bottom:16px;border-bottom:1px solid var(--khair)}
+.io .r{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+ padding:14px 0;border-bottom:1px solid var(--khair)}
+.io .r:last-child{border-bottom:0}
+.io .r .rl{font-size:14.5px;color:var(--on-k2)}
+.io .r .rv{font-family:var(--mono);font-size:16px;font-weight:600;color:var(--on-k);white-space:nowrap}
+.io .r.tot{border-top:1px solid var(--konline);border-bottom:0;margin-top:6px;padding-top:18px}
+.io .r.tot .rl{color:var(--on-k);font-weight:600;font-size:15.5px}
+.io .r.tot .rv{font-size:24px;letter-spacing:-.02em}
+
+.wall{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--konline);
+ border:1px solid var(--konline);border-radius:18px;overflow:hidden}
+.wall .i{background:var(--k);padding:22px 24px 20px}
+.wall .i .n{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.wall .i .w{margin-top:7px;font-size:13px;color:var(--on-k2);line-height:1.5}
+.wall .i .g{margin-top:10px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:#ff6961}
+
+.unk{border:1px solid var(--konline);border-radius:18px;overflow:hidden}
+.unk .u{display:grid;grid-template-columns:64px 1fr;gap:0;border-bottom:1px solid var(--khair)}
+.unk .u:last-child{border-bottom:0}
+.unk .u .c{font-family:var(--mono);font-size:12px;color:var(--on-k3);padding:22px 0 22px 24px;letter-spacing:.06em}
+.unk .u .x{padding:22px 26px 22px 0}
+.unk .u .x .t{font-size:15.5px;font-weight:600;letter-spacing:-.01em}
+.unk .u .x .s{margin-top:6px;font-size:13.5px;color:var(--on-k2);line-height:1.5}
+
+.close{padding:104px 0 116px;background:var(--k)}
+.close .q{font-size:38px;line-height:1.22;letter-spacing:-.026em;font-weight:600;color:var(--on-k);max-width:24ch}
+.close .a{margin-top:28px;font-size:19px;line-height:1.6;color:var(--on-k2);max-width:60ch}
+.close .sig{margin-top:44px;padding-top:22px;border-top:1px solid var(--konline);
+ font-family:var(--mono);font-size:11px;letter-spacing:.11em;color:var(--on-k3);text-transform:uppercase}
+
+/* ---------- note ---------- */
+.note{border:1px solid var(--line);border-left:3px solid var(--ink);border-radius:0 14px 14px 0;
+ padding:22px 26px;background:var(--w);margin-top:34px}
+.note .t{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+ color:var(--ink3);margin-bottom:11px}
+.note p{font-size:15px;color:var(--ink2);line-height:1.6;max-width:78ch}
+.note p+p{margin-top:11px}
+
+/* ---------- scoreboard contenuto ---------- */
+.sc{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--w)}
+.sc table{width:100%;border-collapse:collapse;min-width:760px;font-size:13.5px}
+.sc th{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--ink3);font-weight:600;padding:15px 18px;border-bottom:1px solid var(--line);white-space:nowrap}
+.sc td{padding:13px 18px;border-bottom:1px solid var(--hair);vertical-align:top;line-height:1.45}
+.sc tr:last-child td{border-bottom:0}
+.sc td.nm{font-weight:600;letter-spacing:-.008em;width:36%}
+.sc td.vl{font-family:var(--mono);font-weight:600;white-space:nowrap;width:16%}
+.sc td.sr{width:15%;white-space:nowrap}
+.sc td.wh{color:var(--ink2);font-size:12.5px}
+.sc .sb2{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;padding:3px 7px;border-radius:4px;font-weight:600}
+
+@media(max-width:1080px){.lgrid{grid-template-columns:1fr}.three,.res{grid-template-columns:1fr}
+ .leg,.wall,.io{grid-template-columns:1fr}}
+
+/* ---------- gate ---------- */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:#000;color:#f5f5f7;
+ flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+ font-family:var(--sans)}
+.mobile-block .e{font-size:44px;margin-bottom:22px}
+.mobile-block .t{font-size:27px;font-weight:600;letter-spacing:-.02em;margin-bottom:13px}
+.mobile-block .s{font-size:15px;color:#a1a1a6;max-width:340px;line-height:1.6}
+@media screen and (max-width:900px){.mobile-block{display:flex!important}
+ body>*:not(.mobile-block){display:none!important}}
+</style></head><body><div class="mobile-block"><div class="e">&#128421;&#65039;</div>
+<div class="t">Aprilo sul desktop</div>
+<div class="s">Questa e&rsquo; una sala di controllo con 62 cursori da trascinare. Su un telefono non si
+puo&rsquo; usare. Aprila dal computer.</div></div>
+<div class="wrap mast">
+ <div class="eyebrow">Italiancloser &middot; Documento 04 &middot; 22 agosto 2026</div>
+ <h1>La sala di controllo che non hai.</h1>
+ <p class="sf">Questa pagina e&rsquo; la tua macchina messa su un cruscotto. 62 leve, una per ogni cosa
+ che oggi decide quanto produce. Puoi muoverle tutte e guardare cosa succede in fondo alla catena.
+ Poi guarda i colori accanto ai nomi: sono la parte che conta.</p>
+ <div class="meta">
+  <div>Leve<b>62</b></div>
+  <div>Solo sul contenuto<b>28</b></div>
+  <div>Che puoi rileggere oggi<b>20</b></div>
+  <div>Che nessun sistema produce<b>14</b></div>
+  <div>Superfici osservate<b>8</b></div>
+ </div>
+</div>
+<section class="alt"><div class="wrap">
+<div class="sh"><div class="rk">01</div><div><h2>Tre cifre, prima di toccare qualsiasi cosa</h2><p class="dek">Sono il documento intero. Il resto e&rsquo; la dimostrazione.</p></div></div>
+<div class="three">
+ <div class="c"><div class="n num">62</div><div class="l">Leve che muovono la macchina</div>
+  <div class="s">Contenuto, instradamento, funnel, community, prova sociale, economia.
+  Nessuna e&rsquo; inventata: ognuna nasce da una cosa vista su una delle otto superfici.</div></div>
+ <div class="c"><div class="n num">20</div><div class="l">Le puoi rileggere oggi</div>
+  <div class="s">Numeri pubblici, contabili in un click. Sono quasi tutti a monte:
+  quante persone ti seguono, quanti moduli hai scritto, quante recensioni hai.</div></div>
+ <div class="c hi"><div class="n num">14</div><div class="l">Non le vede nessun sistema</div>
+  <div class="s">Le puoi muovere qui dentro. Nella realta&rsquo; le muovi e non sapresti dire
+  se e&rsquo; servito. Sono quasi tutte a valle: esattamente dove si converte.</div></div>
+</div>
+<div class="note"><div class="t">Il punto della pagina</div>
+<p>Non e&rsquo; interessante quanto fa la macchina oggi: quel numero dipende da un prezzo che tu conosci
+e io no. E&rsquo; interessante <b>dove</b> stanno le leve che non vedi. Sono tutte nello stesso posto:
+fra il momento in cui una persona lascia il contenuto e il momento in cui diventa un piazzamento.</p>
+<p>Le cose che sai contare sono quelle che hai gia&rsquo; fatto. Le cose che non sai contare sono
+quelle che decidono il risultato.</p></div>
+</div></section>
+<section><div class="wrap">
+<div class="sh"><div class="rk">02</div><div><h2>Quattro sigle, e sono quello che vale la pena guardare</h2><p class="dek">Ogni leva porta un&rsquo;etichetta sulla provenienza del suo numero. Non sul numero: sulla sua provenienza.</p></div></div>
+<div class="leg"><div class="li"><span class="b b-M">MISURATO</span><div class="t">Lo puoi rileggere oggi, quando vuoi.</div><div class="ct num">20 leve</div></div><div class="li"><span class="b b-L">LETTO UNA VOLTA</span><div class="t">Visto in una finestra sola, il 20 agosto 2026. Gia&rsquo; vecchio.</div><div class="ct num">13 leve</div></div><div class="li"><span class="b b-S">STIMATO</span><div class="t">Numero mio, non tuo. Correggilo.</div><div class="ct num">15 leve</div></div><div class="li"><span class="b b-N">NON TRACCIATO</span><div class="t">Nessun sistema lo produce. Muovi la leva: non vedrai mai se e&rsquo; servito.</div><div class="ct num">14 leve</div></div></div>
+<div class="note"><div class="t">Come leggerlo</div>
+<p>Passa il mouse su una sigla accanto a una leva: ti dice da dove viene quel numero e in che data
+l&rsquo;ho visto. Le leve marcate <b>N</b> hanno il bordo rosso. Sono quelle che puoi trascinare qui
+dentro e che nella tua giornata vera non producono nessun segnale.</p>
+<p>Un esempio, per capirci: trascina <b>&laquo;Chi arriva alla pagina di accesso&raquo;</b> dal 45% al 75%.
+Il risultato in fondo si muove. Ma non c&rsquo;e&rsquo; nessun tag su <span class="num">app.italiancloser.com</span>:
+se domani facessi quella correzione davvero, non avresti modo di sapere se ha funzionato.</p></div>
+</div></section><div class="lp">
+<section class="alt"><div class="wrap">
+<div class="sh"><div class="rk">03</div><div><h2>La catena, dal video al piazzamento</h2><p class="dek">Sei passaggi. Il primo lo vedi. Gli altri cinque li stiamo indovinando insieme, adesso, con i cursori.</p></div></div>
+<div class="chain" id="chain"></div>
+<div class="note"><div class="t">Quattro riquadri su sei sono rossi</div>
+<p>Il primo passaggio &mdash; quanta attenzione produci &mdash; lo sai. Sono visualizzazioni, sono pubbliche.
+Da li&rsquo; in poi ogni singolo passaggio e&rsquo; una stima: quante persone lasciano il contenuto per
+cercare la porta, quante superano il menu, quante arrivano al Placement Hub, quante capiscono di potersi
+registrare.</p>
+<p>Non e&rsquo; che quei numeri siano brutti. E&rsquo; che non esistono. E una cosa che non esiste non
+si puo&rsquo; migliorare: si puo&rsquo; solo sperare.</p></div>
+</div></section>
+<section><div class="wrap">
+<div class="sh"><div class="rk">04</div><div><h2>Le leve</h2><p class="dek">Undici gruppi. Ventotto solo sul contenuto. Trascina: la barra nera in fondo allo schermo resta sempre visibile e si muove insieme a te.</p></div></div>
+<div id="levers"></div>
+</div></section>
+<section class="alt"><div class="wrap">
+<div class="sh"><div class="rk">05</div><div><h2>Il tabellone del contenuto</h2><p class="dek">Tutti e ventotto gli indicatori del contenuto, in fila, con la loro provenienza. 6 li puoi rileggere quando vuoi. 7 non esistono da nessuna parte.</p></div></div>
+<div class="sc"><table>
+<thead><tr><th>Indicatore</th><th>Oggi</th><th>Provenienza</th><th>Da dove viene questo numero</th></tr></thead>
+<tbody><tr><td class="nm">Video pubblicati al mese</td><td class="vl">8</td><td class="sr"><span class="sb2 b-S">S</span></td><td class="wh">460 video sul canale. Il ritmo mensile non e&rsquo; osservabile da fuori: 8 e&rsquo; una stima prudente.</td></tr><tr><td class="nm">Visualizzazioni mediane per video</td><td class="vl">110</td><td class="sr"><span class="sb2 b-L">L</span></td><td class="wh">Mediana ~110 visualizzazioni, rilevata in una sola finestra.</td></tr><tr><td class="nm">Iscritti al canale</td><td class="vl">546</td><td class="sr"><span class="sb2 b-M">M</span></td><td class="wh">546 iscritti, pubblici sulla pagina del canale.</td></tr><tr><td class="nm">Click alla descrizione per 100 visualizzazioni</td><td class="vl">0.4%</td><td class="sr"><span class="sb2 b-N">N</span></td><td class="wh">Nessun sistema misura quante persone passano dal video al sito.</td></tr><tr><td class="nm">Video con una chiamata all&rsquo;azione in descrizione</td><td class="vl">20%</td><td class="sr"><span class="sb2 b-S">S</span></td><td class="wh">Non verificabile su 460 video senza accesso. Stima prudente.</td></tr><tr><td class="nm">Ritenzione media</td><td class="vl">35%</td><td class="sr"><span class="sb2 b-N">N</span></td><td class="wh">Visibile solo dentro YouTube Studio.</td></tr><tr><td class="nm">Riconoscibilita&rsquo; del canale</td><td class="vl">50%</td><td class="sr"><span class="sb2 b-L">L</span></td><td class="wh">@mannyonjourney per un canale intitolato &laquo;Francesco Manara I Italian Closer&raquo;.</td></tr><tr><td class="nm">Post pubblicati al mese</td><td class="vl">5</td><td class="sr"><span class="sb2 b-L">L</span></td><td class="wh">5 post in totale sul profilo al momento del rilievo.</td></tr><tr><td class="nm">Post che spiegano il lavoro</td><td class="vl">20%</td><td class="sr"><span class="sb2 b-L">L</span></td><td class="wh">4 post su 5 sono personali. Chi arriva dopo il reel non ha materiale per decidere.</td></tr><tr><td class="nm">Visualizzazioni per reel</td><td class="vl">25000</td><td class="sr"><span class="sb2 b-S">S</span></td><td class="wh">Non pubbliche. Stimate al ribasso dal post con 857 like.</td></tr><tr><td class="nm">Like sul post migliore</td><td class="vl">857</td><td class="sr"><span class="sb2 b-M">M</span></td><td class="wh">857 like, pubblici.</td></tr><tr><td class="nm">Commenti sul post migliore</td><td class="vl">152</td><td class="sr"><span class="sb2 b-M">M</span></td><td class="wh">152 commenti, pubblici.</td></tr><tr><td class="nm">Commenti a cui viene risposto</td><td class="vl">0%</td><td class="sr"><span class="sb2 b-L">L</span></td><td class="wh">Almeno una richiesta esplicita di contenuto nei commenti, senza replica visibile.</td></tr><tr><td class="nm">Commenti che diventano una conversazione</td><td class="vl">0%</td><td class="sr"><span class="sb2 b-N">N</span></td><td class="wh">Cosa succede dopo il commento &laquo;sales&raquo; non e&rsquo; osservabile senza accesso (G2).</td></tr><tr><td class="nm">Click in bio per 100 visualizzazioni</td><td class="vl">0.6%</td><td class="sr"><span class="sb2 b-N">N</span></td><td class="wh">Nessun tag separa il traffico Instagram da tutto il resto.</td></tr><tr><td class="nm">Visite mensili alla home</td><td class="vl">3000</td><td class="sr"><span class="sb2 b-S">S</span></td><td class="wh">GA4 esiste sul sito marketing ma il dato non e&rsquo; pubblico. Stima prudente.</td></tr><tr><td class="nm">Eta&rsquo; del video in home</td><td class="vl">10 mesi</td><td class="sr"><span class="sb2 b-M">M</span></td><td class="wh">Pubblicato il 21 ott 2025. Dieci mesi al rilievo.</td></tr><tr><td class="nm">Visualizzazioni del video in home</td><td class="vl">503</td><td class="sr"><span class="sb2 b-M">M</span></td><td class="wh">503 visualizzazioni, pubbliche.</td></tr><tr><td class="nm">Chi guarda il video oltre 30 secondi</td><td class="vl">15%</td><td class="sr"><span class="sb2 b-N">N</span></td><td class="wh">Nessun evento video sul sito.</td></tr><tr><td class="nm">Chiarezza della promessa in prima riga</td><td class="vl">25%</td><td class="sr"><span class="sb2 b-L">L</span></td><td class="wh">L&rsquo;H1 e&rsquo; &laquo;ITALIANCLOSER&raquo;: il nome del brand, non una promessa.</td></tr><tr><td class="nm">Post nel feed al mese</td><td class="vl">2</td><td class="sr"><span class="sb2 b-L">L</span></td><td class="wh">17 post totali nel feed contro 20 corsi e 155 moduli.</td></tr><tr><td class="nm">Moduli pubblicati</td><td class="vl">155</td><td class="sr"><span class="sb2 b-M">M</span></td><td class="wh">155 moduli in 20 corsi, contati nella classroom.</td></tr><tr><td class="nm">Membri che aprono almeno un modulo</td><td class="vl">2%</td><td class="sr"><span class="sb2 b-N">N</span></td><td class="wh">Il 98% e&rsquo; fermo a L1: e&rsquo; il piu&rsquo; vicino che si arriva da fuori (G4).</td></tr><tr><td class="nm">Commenti per post nel feed</td><td class="vl">1</td><td class="sr"><span class="sb2 b-S">S</span></td><td class="wh">Non contati uno per uno. Stima prudente sul volume osservato.</td></tr><tr><td class="nm">Parole chiave digitate al mese</td><td class="vl">2</td><td class="sr"><span class="sb2 b-L">L</span></td><td class="wh">&laquo;sales&raquo; digitato due volte sul post di Miami, 18 settimane fa.</td></tr><tr><td class="nm">Parole chiave che ricevono una risposta</td><td class="vl">0%</td><td class="sr"><span class="sb2 b-L">L</span></td><td class="wh">Nessuna risposta visibile. Nessun sistema di recupero.</td></tr><tr><td class="nm">Ore prima della risposta</td><td class="vl">168 h</td><td class="sr"><span class="sb2 b-N">N</span></td><td class="wh">Non osservabile. 168 ore = una settimana, messo come tetto.</td></tr><tr><td class="nm">Richieste di contenuto raccolte al mese</td><td class="vl">0</td><td class="sr"><span class="sb2 b-L">L</span></td><td class="wh">Almeno una richiesta esplicita lasciata cadere. E&rsquo; ricerca di mercato gratuita.</td></tr></tbody></table></div>
+<div class="note"><div class="t">Ventotto indicatori, e la forma che hanno</div>
+<p>Guarda dove sono i verdi: iscritti, membri, moduli, like, commenti, eta&rsquo; del video.
+Sono tutti <b>inventario</b> &mdash; cose che hai gia&rsquo; prodotto e che qualcuno ha contato per te.</p>
+<p>Guarda dove sono i rossi: click alla descrizione, ritenzione, click in bio, commenti che diventano
+conversazioni, membri che aprono un modulo, ore prima della risposta. Sono tutti <b>comportamento</b>
+&mdash; cioe&rsquo; l&rsquo;unica cosa che dice se il contenuto sta facendo il suo lavoro.</p>
+<p>Quattrocentosessanta video e centocinquantacinque moduli sono un patrimonio. Il problema non e&rsquo;
+la quantita&rsquo;: e&rsquo; che dopo averli pubblicati non arriva indietro niente che ti dica quali
+tenere e quali smettere di fare.</p></div>
+</div></section><div class="bar"><div class="in" id="bar"></div></div></div>
+<div class="darklead"><div class="wrap">
+ <div class="eyebrow">Da qui in poi &middot; il risultato</div>
+ <h2>Adesso guarda cosa producono, tutte insieme.</h2>
+ <p class="sf">I numeri qui sotto si muovono con le leve di sopra. Sono approssimativi per costruzione:
+ poggiano su prezzi che ho messo io, al minimo, perche&rsquo; da fuori non ne esiste nemmeno uno.
+ Non servono a dirti quanto guadagni. Servono a farti vedere di quanto si spostano quando muovi
+ una cosa sola.</p>
+</div></div>
+<section class="dark"><div class="wrap">
+<div class="sh"><div class="rk">06</div><div><h2>Il risultato</h2><p class="dek">Quattro numeri, un vincolo, un reso per ora. Se cambi un cursore di sopra, cambiano tutti insieme.</p></div></div>
+<div class="res" id="res"></div>
+<div class="io" id="io"></div>
+</div></section>
+<section class="dark alt"><div class="wrap">
+<div class="sh"><div class="rk">07</div><div><h2>Le 14 leve che stai muovendo al buio</h2><p class="dek">Ognuna di queste ha cambiato il risultato mentre la trascinavi. Nessuna di queste, oggi, ti manderebbe indietro un segnale.</p></div></div>
+<div class="wall"><div class="i"><div class="n">Click alla descrizione per 100 visualizzazioni</div><div class="w">Nessun sistema misura quante persone passano dal video al sito.</div><div class="g">YT</div></div><div class="i"><div class="n">Ritenzione media</div><div class="w">Visibile solo dentro YouTube Studio.</div><div class="g">YT</div></div><div class="i"><div class="n">Commenti che diventano una conversazione</div><div class="w">Cosa succede dopo il commento &laquo;sales&raquo; non e&rsquo; osservabile senza accesso (G2).</div><div class="g">IG</div></div><div class="i"><div class="n">Click in bio per 100 visualizzazioni</div><div class="w">Nessun tag separa il traffico Instagram da tutto il resto.</div><div class="g">IG</div></div><div class="i"><div class="n">Chi guarda il video oltre 30 secondi</div><div class="w">Nessun evento video sul sito.</div><div class="g">WEB</div></div><div class="i"><div class="n">Membri che aprono almeno un modulo</div><div class="w">Il 98% e&rsquo; fermo a L1: e&rsquo; il piu&rsquo; vicino che si arriva da fuori (G4).</div><div class="g">SKO</div></div><div class="i"><div class="n">Ore prima della risposta</div><div class="w">Non osservabile. 168 ore = una settimana, messo come tetto.</div><div class="g">REC</div></div><div class="i"><div class="n">Chi arriva sul Placement Hub</div><div class="w">Nessun tag su app.italiancloser.com. GA4 si ferma sul sito marketing.</div><div class="g">ROU</div></div><div class="i"><div class="n">Chi arriva alla pagina di accesso</div><div class="w">Nessun tag su /login. Non e&rsquo; osservabile.</div><div class="g">CLO</div></div><div class="i"><div class="n">Chi completa l&rsquo;accesso Google</div><div class="w">Cosa succede dopo il login non e&rsquo; osservabile dall&rsquo;esterno (G5).</div><div class="g">CLO</div></div><div class="i"><div class="n">Chi completa l&rsquo;onboarding</div><div class="w">L&rsquo;onboarding e&rsquo; dichiarato in pagina. I suoi passaggi e il suo tasso no (G5).</div><div class="g">CLO</div></div><div class="i"><div class="n">Closer pronti per un piazzamento al mese</div><div class="w">Nessun sistema pubblico mostra lo stato del pool.</div><div class="g">CLO</div></div><div class="i"><div class="n">Aziende che iniziano il modulo</div><div class="w">L&rsquo;invio del form non genera evento. Non e&rsquo; osservabile.</div><div class="g">AZI</div></div><div class="i"><div class="n">Aziende che completano il modulo</div><div class="w">Non si sa su quale degli 8 campi si fermano.</div><div class="g">AZI</div></div></div>
+</div></section>
+<section class="dark"><div class="wrap">
+<div class="sh"><div class="rk">08</div><div><h2>Sei cose che da fuori non si possono sapere</h2><p class="dek">Le porto avanti dal primo documento senza averle riempite. Sono le domande da farti a voce, in quest&rsquo;ordine.</p></div></div>
+<div class="unk"><div class="u"><div class="c">G1</div><div class="x"><div class="t">Come genera ricavi il sistema</div><div class="s">Nessun prezzo, nessun checkout, nessun piano a pagamento, nessun termine economico su nessuna delle otto superfici osservate. E&rsquo; il motivo per cui i due prezzi qui sopra li ho messi io, e li ho messi bassi: qualunque numero avessi scelto sarebbe stato inventato.</div></div></div><div class="u"><div class="c">G2</div><div class="x"><div class="t">Cosa succede dopo il commento &laquo;sales&raquo;</div><div class="s">Digitato due volte, diciotto settimane fa, senza risposta visibile. Se parta un messaggio privato o non parta niente, da fuori e&rsquo; identico.</div></div></div><div class="u"><div class="c">G3</div><div class="x"><div class="t">Cosa c&rsquo;e&rsquo; dentro Discord oltre al canale di benvenuto</div><div class="s">615 membri, 31 online al momento del rilievo, descrizione del server vuota.</div></div></div><div class="u"><div class="c">G4</div><div class="x"><div class="t">Cosa c&rsquo;e&rsquo; dentro la classroom di Skool</div><div class="s">Venti corsi e centocinquantacinque moduli. Se uno solo di quei moduli porti al Placement Hub non e&rsquo; osservabile: e la descrizione del gruppo promette &laquo;offerte di lavoro&raquo;.</div></div></div><div class="u"><div class="c">G5</div><div class="x"><div class="t">Cosa succede dopo l&rsquo;accesso Google</div><div class="s">L&rsquo;onboarding e&rsquo; dichiarato in pagina. I suoi passaggi, la sua lunghezza e il suo tasso di completamento no.</div></div></div><div class="u"><div class="c">G6</div><div class="x"><div class="t">Se i &laquo;70+ placement&raquo; sono contrattualizzati</div><div class="s">Niente di pubblico mostra la natura del rapporto con le venti e piu&rsquo; aziende partner.</div></div></div></div>
+</div></section>
+<div class="close"><div class="wrap">
+ <p class="q">Il numero in fondo non e&rsquo; il punto. Il punto e&rsquo; che per ottenerlo hai dovuto
+ indovinare 14 volte.</p>
+ <p class="a">Una sala di controllo non serve a farti vedere quanto guadagni: quello lo sai gia&rsquo;,
+ guardando il conto. Serve a farti sapere <b>quale gesto</b> ha prodotto quel guadagno, cosi&rsquo; da poterlo
+ rifare. Oggi hai quattrocentosessanta video, centocinquantacinque moduli, millecentouno persone in due
+ community e settanta piazzamenti dichiarati &mdash; e nessuna riga da nessuna parte che colleghi una di
+ queste cose all&rsquo;altra.</p>
+ <p class="a">Non e&rsquo; un problema di volume. Hai gia&rsquo; costruito piu&rsquo; di quello che serve.
+ E&rsquo; che la macchina gira senza strumenti a bordo, e ogni decisione che prendi la prendi con la stessa
+ informazione che ho io: guardandola da fuori.</p>
+ <p class="a">La prima correzione, quella che rende tutto il resto misurabile, e&rsquo; una sola:
+ <b>mettere una misura dove si converte.</b> E&rsquo; il collo di bottiglia B0 del Documento 03, ed e&rsquo;
+ l&rsquo;unico che non dipende da nessun altro.</p>
+ <div class="sig">Italiancloser &middot; Documento 04 &middot; Sala di controllo &middot; 22 agosto 2026</div>
+</div></div><script>const GROUPS=[{"id": "yt", "t": "Contenuto &middot; YouTube", "s": "Quattrocentosessanta video. Il canale piu&rsquo; costoso della macchina e il meno produttivo."}, {"id": "ig", "t": "Contenuto &middot; Instagram", "s": "Cinque post in tutto, quattro personali. La superficie che porta piu&rsquo; persone e&rsquo; la meno documentata."}, {"id": "web", "t": "Contenuto &middot; il sito", "s": "Il momento di massima attenzione del sito e&rsquo; occupato da un video di dieci mesi fa."}, {"id": "sko", "t": "Contenuto &middot; dentro Skool", "s": "Venti corsi, centocinquantacinque moduli, diciassette post nel feed. Libreria grande, conversazione assente."}, {"id": "rec", "t": "Contenuto &middot; recupero della domanda", "s": "Le persone chiedono. Nessun sistema raccoglie quello che chiedono."}, {"id": "rou", "t": "Instradamento &middot; dal menu alla porta", "s": "Fino a otto decisioni prima di ricevere una sola informazione utile."}, {"id": "clo", "t": "Funnel &middot; ramo closer", "s": "Il bottone dice &laquo;Per Closers&raquo;, la destinazione dice &laquo;Accedi&raquo;. Chi non ha un account non sa di poterlo fare."}, {"id": "azi", "t": "Funnel &middot; ramo azienda", "s": "Otto campi obbligatori per un primo contatto, e il campo utile limitato a 300 caratteri."}, {"id": "com", "t": "Community &middot; le 1.101 persone", "s": "486 su Skool, 615 su Discord. Nessun ponte osservabile verso il prodotto."}, {"id": "pro", "t": "Prova sociale", "s": "Quarantasette recensioni raccolte in undici giorni, e nessuna da allora."}, {"id": "eco", "t": "Economia &middot; entrate e uscite", "s": "L&rsquo;unica parte che da fuori non si vede. I numeri qui sotto sono miei, messi al minimo: correggili."}];const L=[{"id": "ytpub", "g": "yt", "n": "Video pubblicati al mese", "u": "", "min": 0, "max": 40, "step": 1, "d": 0, "v": 8, "src": "S", "why": "460 video sul canale. Il ritmo mensile non e&rsquo; osservabile da fuori: 8 e&rsquo; una stima prudente.", "note": ""}, {"id": "ytmed", "g": "yt", "n": "Visualizzazioni mediane per video", "u": "", "min": 0, "max": 2000, "step": 10, "d": 0, "v": 110, "src": "L", "why": "Mediana ~110 visualizzazioni, rilevata in una sola finestra.", "note": "Una mediana, non una media: i picchi non contano."}, {"id": "ytsub", "g": "yt", "n": "Iscritti al canale", "u": "", "min": 0, "max": 5000, "step": 10, "d": 0, "v": 546, "src": "M", "why": "546 iscritti, pubblici sulla pagina del canale.", "note": ""}, {"id": "ytctr", "g": "yt", "n": "Click alla descrizione per 100 visualizzazioni", "u": "%", "min": 0, "max": 10, "step": 0.1, "d": 1, "v": 0.4, "src": "N", "why": "Nessun sistema misura quante persone passano dal video al sito.", "note": "Muovi questa leva. Oggi non vedresti niente cambiare."}, {"id": "ytcta", "g": "yt", "n": "Video con una chiamata all&rsquo;azione in descrizione", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 20, "src": "S", "why": "Non verificabile su 460 video senza accesso. Stima prudente.", "note": ""}, {"id": "ytret", "g": "yt", "n": "Ritenzione media", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 35, "src": "N", "why": "Visibile solo dentro YouTube Studio.", "note": ""}, {"id": "ythan", "g": "yt", "n": "Riconoscibilita&rsquo; del canale", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 50, "src": "L", "why": "@mannyonjourney per un canale intitolato &laquo;Francesco Manara I Italian Closer&raquo;.", "note": "Chi cerca il brand non trova la maniglia."}, {"id": "igpub", "g": "ig", "n": "Post pubblicati al mese", "u": "", "min": 0, "max": 60, "step": 1, "d": 0, "v": 5, "src": "L", "why": "5 post in totale sul profilo al momento del rilievo.", "note": ""}, {"id": "igedu", "g": "ig", "n": "Post che spiegano il lavoro", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 20, "src": "L", "why": "4 post su 5 sono personali. Chi arriva dopo il reel non ha materiale per decidere.", "note": ""}, {"id": "igview", "g": "ig", "n": "Visualizzazioni per reel", "u": "", "min": 0, "max": 300000, "step": 500, "d": 0, "v": 25000, "src": "S", "why": "Non pubbliche. Stimate al ribasso dal post con 857 like.", "note": ""}, {"id": "iglike", "g": "ig", "n": "Like sul post migliore", "u": "", "min": 0, "max": 5000, "step": 10, "d": 0, "v": 857, "src": "M", "why": "857 like, pubblici.", "note": ""}, {"id": "igcom", "g": "ig", "n": "Commenti sul post migliore", "u": "", "min": 0, "max": 1000, "step": 5, "d": 0, "v": 152, "src": "M", "why": "152 commenti, pubblici.", "note": ""}, {"id": "igrep", "g": "ig", "n": "Commenti a cui viene risposto", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 0, "src": "L", "why": "Almeno una richiesta esplicita di contenuto nei commenti, senza replica visibile.", "note": "Parte da zero perche&rsquo; zero e&rsquo; quello che si vede."}, {"id": "igdm", "g": "ig", "n": "Commenti che diventano una conversazione", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 0, "src": "N", "why": "Cosa succede dopo il commento &laquo;sales&raquo; non e&rsquo; osservabile senza accesso (G2).", "note": "Il DM potrebbe partire o no. Da fuori e&rsquo; identico."}, {"id": "igbio", "g": "ig", "n": "Click in bio per 100 visualizzazioni", "u": "%", "min": 0, "max": 10, "step": 0.1, "d": 1, "v": 0.6, "src": "N", "why": "Nessun tag separa il traffico Instagram da tutto il resto.", "note": ""}, {"id": "webv", "g": "web", "n": "Visite mensili alla home", "u": "", "min": 0, "max": 50000, "step": 100, "d": 0, "v": 3000, "src": "S", "why": "GA4 esiste sul sito marketing ma il dato non e&rsquo; pubblico. Stima prudente.", "note": ""}, {"id": "vidage", "g": "web", "n": "Eta&rsquo; del video in home", "u": "mesi", "min": 0, "max": 36, "step": 1, "d": 0, "v": 10, "src": "M", "why": "Pubblicato il 21 ott 2025. Dieci mesi al rilievo.", "note": "Occupa il momento di massima attenzione del sito."}, {"id": "vidview", "g": "web", "n": "Visualizzazioni del video in home", "u": "", "min": 0, "max": 20000, "step": 50, "d": 0, "v": 503, "src": "M", "why": "503 visualizzazioni, pubbliche.", "note": ""}, {"id": "vidwatch", "g": "web", "n": "Chi guarda il video oltre 30 secondi", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 15, "src": "N", "why": "Nessun evento video sul sito.", "note": ""}, {"id": "h1", "g": "web", "n": "Chiarezza della promessa in prima riga", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 25, "src": "L", "why": "L&rsquo;H1 e&rsquo; &laquo;ITALIANCLOSER&raquo;: il nome del brand, non una promessa.", "note": "Il visitatore deve leggere per capire invece di riconoscere."}, {"id": "skpost", "g": "sko", "n": "Post nel feed al mese", "u": "", "min": 0, "max": 100, "step": 1, "d": 0, "v": 2, "src": "L", "why": "17 post totali nel feed contro 20 corsi e 155 moduli.", "note": ""}, {"id": "skmod", "g": "sko", "n": "Moduli pubblicati", "u": "", "min": 0, "max": 400, "step": 5, "d": 0, "v": 155, "src": "M", "why": "155 moduli in 20 corsi, contati nella classroom.", "note": ""}, {"id": "skopen", "g": "sko", "n": "Membri che aprono almeno un modulo", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 2, "src": "N", "why": "Il 98% e&rsquo; fermo a L1: e&rsquo; il piu&rsquo; vicino che si arriva da fuori (G4).", "note": "Il dato vero e&rsquo; dentro Skool. Nessuno lo guarda."}, {"id": "skcom", "g": "sko", "n": "Commenti per post nel feed", "u": "", "min": 0, "max": 100, "step": 1, "d": 0, "v": 1, "src": "S", "why": "Non contati uno per uno. Stima prudente sul volume osservato.", "note": ""}, {"id": "kwm", "g": "rec", "n": "Parole chiave digitate al mese", "u": "", "min": 0, "max": 500, "step": 1, "d": 0, "v": 2, "src": "L", "why": "&laquo;sales&raquo; digitato due volte sul post di Miami, 18 settimane fa.", "note": ""}, {"id": "kwrep", "g": "rec", "n": "Parole chiave che ricevono una risposta", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 0, "src": "L", "why": "Nessuna risposta visibile. Nessun sistema di recupero.", "note": "Zero non e&rsquo; una stima: e&rsquo; quello che si vede."}, {"id": "kwlag", "g": "rec", "n": "Ore prima della risposta", "u": "h", "min": 0, "max": 168, "step": 1, "d": 0, "v": 168, "src": "N", "why": "Non osservabile. 168 ore = una settimana, messo come tetto.", "note": "La domanda ha una scadenza. Nessuno la cronometra."}, {"id": "reqs", "g": "rec", "n": "Richieste di contenuto raccolte al mese", "u": "", "min": 0, "max": 100, "step": 1, "d": 0, "v": 0, "src": "L", "why": "Almeno una richiesta esplicita lasciata cadere. E&rsquo; ricerca di mercato gratuita.", "note": ""}, {"id": "dec", "g": "rou", "n": "Decisioni prima della prima informazione utile", "u": "", "min": 1, "max": 10, "step": 1, "d": 0, "v": 8, "src": "M", "why": "Bio (2 voci) + Linktree (6 voci) = fino a 8 decisioni.", "note": "Ogni decisione in piu&rsquo; costa persone. Nessuna voce dice &laquo;inizia da qui&raquo;."}, {"id": "lkclick", "g": "rou", "n": "Arrivi al menu da fonti non attribuibili", "u": "", "min": 0, "max": 20000, "step": 50, "d": 0, "v": 1200, "src": "S", "why": "Storie, DM, passaparola, ricerca diretta del nome. Stesso utm_source per tutto: nessun sistema li separa.", "note": "Sono persone che gia&rsquo; ti cercano. Oggi non sai da dove arrivano."}, {"id": "splitc", "g": "rou", "n": "Quota che cerca lavoro come closer", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 70, "src": "S", "why": "I due link portano allo stesso URL con lo stesso utm_source: la separazione non esiste nemmeno a posteriori.", "note": "Questa quota e&rsquo; un&rsquo;ipotesi. Un utm_content la renderebbe un fatto."}, {"id": "utm", "g": "rou", "n": "Traffico separabile per intento", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 0, "src": "M", "why": "Stesso utm_source, nessun utm_content: due pubblici opposti, un solo segnale.", "note": "Zero. Ed e&rsquo; una correzione da dieci minuti."}, {"id": "hub", "g": "rou", "n": "Chi arriva sul Placement Hub", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 60, "src": "N", "why": "Nessun tag su app.italiancloser.com. GA4 si ferma sul sito marketing.", "note": ""}, {"id": "login", "g": "clo", "n": "Chi arriva alla pagina di accesso", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 45, "src": "N", "why": "Nessun tag su /login. Non e&rsquo; osservabile.", "note": "La pagina che converte e&rsquo; l&rsquo;unica senza analytics."}, {"id": "signup", "g": "clo", "n": "Chi capisce di potersi registrare", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 35, "src": "L", "why": "La destinazione dice &laquo;Accedi&raquo; e l&rsquo;unica azione e&rsquo; &laquo;Continua con Google&raquo;. Nessun &laquo;Registrati&raquo;.", "note": "Chi non ha un account non sa che puo&rsquo; averne uno."}, {"id": "gauth", "g": "clo", "n": "Chi completa l&rsquo;accesso Google", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 70, "src": "N", "why": "Cosa succede dopo il login non e&rsquo; osservabile dall&rsquo;esterno (G5).", "note": ""}, {"id": "onbo", "g": "clo", "n": "Chi completa l&rsquo;onboarding", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 50, "src": "N", "why": "L&rsquo;onboarding e&rsquo; dichiarato in pagina. I suoi passaggi e il suo tasso no (G5).", "note": ""}, {"id": "cready", "g": "clo", "n": "Closer pronti per un piazzamento al mese", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 20, "src": "N", "why": "Nessun sistema pubblico mostra lo stato del pool.", "note": ""}, {"id": "fstart", "g": "azi", "n": "Aziende che iniziano il modulo", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 25, "src": "N", "why": "L&rsquo;invio del form non genera evento. Non e&rsquo; osservabile.", "note": ""}, {"id": "fields", "g": "azi", "n": "Campi obbligatori", "u": "", "min": 1, "max": 15, "step": 1, "d": 0, "v": 8, "src": "M", "why": "Otto campi obbligatori, tre dei quali servono a chi riceve, non a chi compila.", "note": "Ogni campo in piu&rsquo; costa completamenti."}, {"id": "fdone", "g": "azi", "n": "Aziende che completano il modulo", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 40, "src": "N", "why": "Non si sa su quale degli 8 campi si fermano.", "note": "Non e&rsquo; una stima difficile: e&rsquo; una stima cieca."}, {"id": "chars", "g": "azi", "n": "Caratteri concessi al messaggio libero", "u": "", "min": 100, "max": 3000, "step": 50, "d": 0, "v": 300, "src": "M", "why": "300 caratteri sull&rsquo;unico campo davvero utile.", "note": ""}, {"id": "slack", "g": "azi", "n": "Aziende che hanno Slack Pro", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 45, "src": "S", "why": "Requisito chiesto al primo contatto senza una riga sul perche&rsquo;.", "note": "Un filtro invisibile messo prima della conversazione."}, {"id": "sla", "g": "azi", "n": "Coerenza della promessa di tempo", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 50, "src": "M", "why": "Pagina marketing: &laquo;&lt; 48h&raquo;. Form aziende: &laquo;1&ndash;2 giorni lavorativi&raquo;.", "note": "La velocita&rsquo; e&rsquo; il punto di forza dichiarato, ed e&rsquo; dichiarata due volte in modo diverso."}, {"id": "skm", "g": "com", "n": "Membri Skool", "u": "", "min": 0, "max": 5000, "step": 10, "d": 0, "v": 486, "src": "M", "why": "486 membri, pubblici.", "note": ""}, {"id": "dcm", "g": "com", "n": "Membri Discord", "u": "", "min": 0, "max": 5000, "step": 10, "d": 0, "v": 615, "src": "M", "why": "615 membri, pubblici.", "note": ""}, {"id": "l1", "g": "com", "n": "Membri fermi al primo livello", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 98, "src": "M", "why": "L1 98% &middot; L2 1% &middot; L3 1% &middot; L4&ndash;L9 0%.", "note": "Quasi nessuno compie un secondo gesto dopo l&rsquo;ingresso."}, {"id": "online", "g": "com", "n": "Quota online al momento del rilievo", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 5, "src": "L", "why": "31 online su 615. Fotografia singola, non una serie.", "note": ""}, {"id": "brs", "g": "com", "n": "Ponte Skool &rarr; Placement Hub", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 0, "src": "M", "why": "Nessun link osservabile dalla community piu&rsquo; grande verso il prodotto.", "note": "Zero. La descrizione promette &laquo;offerte di lavoro&raquo; e non porta da nessuna parte."}, {"id": "brd", "g": "com", "n": "Ponte Discord &rarr; Placement Hub", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 0, "src": "M", "why": "Stesso vuoto dal Discord.", "note": "Zero."}, {"id": "ctx", "g": "com", "n": "Chi entra e riceve un inquadramento", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 10, "src": "L", "why": "Atterraggio su un canale di benvenuto con descrizione del server vuota.", "note": ""}, {"id": "rev", "g": "pro", "n": "Recensioni Trustpilot", "u": "", "min": 0, "max": 500, "step": 1, "d": 0, "v": 47, "src": "M", "why": "47 osservate contro &laquo;50+&raquo; dichiarate sul sito.", "note": "Uno scarto verificabile in un click."}, {"id": "revm", "g": "pro", "n": "Recensioni raccolte al mese", "u": "", "min": 0, "max": 100, "step": 1, "d": 0, "v": 0, "src": "M", "why": "Concentrate fra il 6 e il 17 giugno 2026. Ultima visibile il 13 luglio.", "note": "Una campagna, non un&rsquo;abitudine. Trustpilot lo dice ai visitatori."}, {"id": "revask", "g": "pro", "n": "Persone a cui viene chiesta", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 10, "src": "S", "why": "Non osservabile. Stima coerente con la concentrazione delle date.", "note": ""}, {"id": "skrev", "g": "pro", "n": "Recensioni dentro Skool", "u": "", "min": 0, "max": 500, "step": 1, "d": 0, "v": 0, "src": "M", "why": "0 recensioni su 486 membri, su una piattaforma che le raccoglie nativamente.", "note": ""}, {"id": "testi", "g": "pro", "n": "Testimonianze integre sulla pagina di accesso", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 0, "src": "M", "why": "Avatar grigi vuoti e card tagliate dal bordo, nel punto esatto in cui si chiede l&rsquo;accesso.", "note": ""}, {"id": "pclo", "g": "eco", "n": "Quanto incassi per un closer piazzato", "u": "&euro;", "min": 0, "max": 10000, "step": 50, "d": 0, "v": 500, "src": "S", "why": "Nessun prezzo su nessuna delle 8 superfici osservate (G1). 500 e&rsquo; il mio numero, messo basso apposta.", "note": "Questa e&rsquo; la leva che vale piu&rsquo; di tutte le altre messe insieme. Ed e&rsquo; l&rsquo;unica che da fuori non si vede."}, {"id": "pazi", "g": "eco", "n": "Quanto incassi dal lato azienda", "u": "&euro;", "min": 0, "max": 10000, "step": 50, "d": 0, "v": 0, "src": "S", "why": "Nessun termine economico osservabile (G1). Lasciata a zero finche&rsquo; non lo dici tu.", "note": ""}, {"id": "recur", "g": "eco", "n": "Quota ricorrente sul piazzamento", "u": "%", "min": 0, "max": 100, "step": 1, "d": 0, "v": 0, "src": "S", "why": "Se il rapporto con le 20+ aziende sia contrattualizzato non e&rsquo; osservabile (G6).", "note": ""}, {"id": "cap", "g": "eco", "n": "Piazzamenti che riesci a seguire al mese", "u": "", "min": 0, "max": 200, "step": 1, "d": 0, "v": 10, "src": "S", "why": "&laquo;70+ placement&raquo; dichiarati. Il ritmo mensile no.", "note": "Il tetto vero della macchina potrebbe essere qui, non nel traffico."}, {"id": "tools", "g": "eco", "n": "Costo mensile degli strumenti", "u": "&euro;", "min": 0, "max": 5000, "step": 25, "d": 0, "v": 300, "src": "S", "why": "Skool, Discord, hosting, la app. Nessun numero pubblico.", "note": ""}, {"id": "hrs", "g": "eco", "n": "Ore a settimana dentro la macchina", "u": "h", "min": 0, "max": 80, "step": 1, "d": 0, "v": 35, "src": "S", "why": "460 video e 155 moduli non si producono da soli.", "note": "Le uscite non sono solo in euro."}];const SRC={"M": ["MISURATO", "Lo puoi rileggere oggi, quando vuoi."], "L": ["LETTO UNA VOLTA", "Visto in una finestra sola, il 20 agosto 2026. Gia&rsquo; vecchio."], "S": ["STIMATO", "Numero mio, non tuo. Correggilo."], "N": ["NON TRACCIATO", "Nessun sistema lo produce. Muovi la leva: non vedrai mai se e&rsquo; servito."]};const OBS=20;
+
+const CL=(x,a,b)=>Math.max(a,Math.min(b,x));
+const GR={useGrouping:true};
+const n0=x=>Math.round(x).toLocaleString('it-IT',GR);
+const n1=x=>x.toLocaleString('it-IT',{minimumFractionDigits:1,maximumFractionDigits:1,useGrouping:true});
+const m0=x=>'\u20ac'+Math.round(x).toLocaleString('it-IT',GR);
+const BASE={}; L.forEach(l=>BASE[l.id]=l.v);
+const V=Object.assign({},BASE);
+
+function model(v){
+  // ---- attenzione prodotta ----
+  const ytViews = v.ytpub*v.ytmed;
+  const igBoost = 0.8+0.4*CL(v.iglike/1000,0,1);
+  const igViews = v.igpub*v.igview*igBoost;
+  const webViews= v.webv;
+  const attention = ytViews+igViews+webViews;
+
+  // ---- da attenzione a menu ----
+  const ytQ = 0.7+0.3*(v.ytret/100);
+  const ytClicks = ytViews*(v.ytctr/100)*(v.ytcta/100)*(0.6+0.4*(v.ythan/100))*ytQ;
+  const igQ = 0.6+0.4*(v.igedu/100);
+  const igClicks = igViews*(v.igbio/100)*igQ;
+  const fresh = CL(1-v.vidage/24,.4,1);
+  const siteQ = 0.40+0.25*(v.h1/100)+0.20*(v.vidwatch/100)
+              + 0.15*CL(v.vidview/Math.max(1,v.webv),0,1);
+  const webClicks = webViews*0.06*siteQ*fresh;
+  const owned = v.ytsub+v.skm+v.dcm;
+  const direct = owned*0.015;
+  const menuIn = ytClicks+igClicks+webClicks+direct+v.lkclick;
+
+  // ---- il costo del menu ----
+  const menuEff = Math.pow(0.88, Math.max(0,v.dec-1));
+  const routed = menuIn*menuEff;
+  const lostMenu = menuIn-routed;
+
+  // ---- prova sociale: moltiplicatore di fiducia ----
+  const proof = CL(0.40*CL(v.rev/50,0,1)+0.30*CL(v.revm/8,0,1)
+                  +0.20*(v.testi/100)+0.10*CL(v.skrev/20,0,1)
+                  +0.10*CL(v.revask/60,0,1),0,1);
+  const trust = 0.70+0.35*proof;
+
+  // ---- recupero della domanda ----
+  const commentsM = v.igcom*Math.max(1,v.igpub)*0.35;
+  const speed = CL(1-v.kwlag/336,.15,1);
+  const recovered = commentsM*(v.igrep/100)*(v.igdm/100)
+                  + v.kwm*(v.kwrep/100)*speed + v.reqs*0.5;
+
+  // ---- ponti dalla community ----
+  const classUse = CL((v.skopen/100)*(0.5+0.5*CL(v.skmod/100,0,1)),0,1);
+  const feedLife = CL(v.skpost*v.skcom/40,0,1);
+  const escal    = 1-v.l1/100;
+  const commHealth = CL(0.35*classUse+0.35*feedLife+0.30*escal,0,1);
+  const bridge = (v.skm*(v.brs/100)+v.dcm*(v.brd/100))
+               * (0.5+0.5*(v.ctx/100)) * (0.55+0.45*commHealth);
+
+  // ---- smistamento ----
+  // freddi: passano dal menu, poi dall'hub, poi dalla pagina di accesso.
+  // caldi: arrivano da un ponte o da una risposta, con un link diretto e con contesto.
+  const cold = routed*(v.splitc/100);
+  const warm = recovered+bridge;
+  const closerSide = cold+warm;
+  const aziSide    = routed*(1-v.splitc/100);
+
+  // ---- ramo closer ----
+  const coldLogin = cold*(v.hub/100)*(v.login/100);
+  const warmLogin = warm*0.85;
+  const hubArr  = cold*(v.hub/100)+warm;
+  const loginArr= coldLogin+warmLogin;
+  const warmSignup = Math.min(1,(v.signup/100)*1.6);
+  const signups = (coldLogin*(v.signup/100)+warmLogin*warmSignup)*(v.gauth/100)*trust;
+  const onboard = signups*(v.onbo/100);
+  const closersReady = onboard*(v.cready/100);
+
+  // ---- ramo azienda ----
+  const fieldPen = Math.pow(0.94,Math.max(0,v.fields-4));
+  const charPen  = 0.85+0.15*CL(v.chars/1000,0,1);
+  const slaPen   = 0.90+0.10*(v.sla/100);
+  const fStart   = aziSide*(v.fstart/100)*trust;
+  const fDone    = fStart*(v.fdone/100)*fieldPen*charPen*slaPen;
+  const qualified= fDone*(v.slack/100);
+  const mandates = qualified*1.5;
+
+  // ---- mercato a due lati ----
+  const placements = Math.min(closersReady,mandates,v.cap);
+  let bindK='closer', bindT='Il lato closer';
+  if(mandates<=closersReady&&mandates<=v.cap){bindK='azienda';bindT='Il lato azienda';}
+  if(v.cap<=closersReady&&v.cap<=mandates){bindK='cap';bindT='La tua capacita\u2019';}
+
+  // ---- economia ----
+  const perPl   = v.pclo+v.pazi;
+  const oneOff  = placements*perPl;
+  const recurr  = oneOff*(v.recur/100);
+  const inflow  = oneOff+recurr;
+  const outflow = v.tools;
+  const net     = inflow-outflow;
+  const hoursM  = v.hrs*4.33;
+  const perHour = hoursM>0? net/hoursM : null;
+  const perPlac = placements>0? outflow/placements : null;
+
+  // ---- osservabilita\u2019 ----
+  const sep = v.utm;
+
+  return {ytViews,igViews,webViews,attention,menuIn,routed,lostMenu,menuEff,cold,warm,
+    proof,trust,recovered,bridge,commHealth,closerSide,aziSide,hubArr,loginArr,
+    signups,onboard,closersReady,fStart,fDone,qualified,mandates,
+    placements,bindK,bindT,perPl,oneOff,recurr,inflow,outflow,net,hoursM,perHour,perPlac,sep};
+}
+
+/* ---------------- leve ---------------- */
+function renderLevers(){
+  const root=document.getElementById('levers');
+  root.innerHTML=GROUPS.map(g=>{
+    const mine=L.filter(l=>l.g===g.id);
+    const nblind=mine.filter(l=>l.src==='N').length;
+    const cnt=mine.length+' leve'+(nblind?' \u00b7 '+nblind+' cieche':'');
+    return '<div class="lg" id="g-'+g.id+'">'
+      +'<div class="lgh"><h3>'+g.t+'</h3><span class="cnt">'+cnt+'</span></div>'
+      +'<p class="lgs">'+g.s+'</p><div class="lgrid">'
+      + mine.map(l=>
+        '<div class="lv'+(l.src==='N'?' n':'')+'" data-lv="'+l.id+'">'
+        +'<div class="lh"><span class="ln">'+l.n+'</span>'
+        +'<span class="sb b-'+l.src+'" title="'+SRC[l.src][0]+' \u2014 '+SRC[l.src][1].replace(/"/g,'&quot;')+'\n\n'+l.why.replace(/"/g,'&quot;')+'">'+l.src+'</span>'
+        +'<span class="lval num" id="v-'+l.id+'">'+fmt(l,l.v)+'</span></div>'
+        +'<input type="range" min="'+l.min+'" max="'+l.max+'" step="'+l.step+'" value="'+l.v+'" data-id="'+l.id+'">'
+        +(l.note?'<div class="lnote">'+l.note+'</div>':'')
+        +'</div>').join('')
+      +'</div></div>';
+  }).join('');
+  root.querySelectorAll('input[type=range]').forEach(inp=>{
+    inp.addEventListener('input',e=>{
+      const id=e.target.dataset.id;
+      V[id]=parseFloat(e.target.value);
+      const l=L.find(x=>x.id===id);
+      document.getElementById('v-'+id).textContent=fmt(l,V[id]);
+      update();
+    });
+  });
+}
+function fmt(l,x){
+  const s=l.d>0?n1(x):n0(x);
+  if(l.u==='%')return s+'%';
+  if(l.u==='\u20ac')return '\u20ac'+s;
+  if(l.u)return s+' '+l.u;
+  return s;
+}
+
+/* ---------------- uscite ---------------- */
+function chip(now,base,inv){
+  if(Math.abs(now-base)<Math.max(.5,Math.abs(base)*0.005))
+    return '<div class="dl fl">invariato</div>';
+  const up=now>base, good=inv?!up:up;
+  const d=Math.abs(now-base);
+  const pct=base>0?' \u00b7 '+(d/base*100).toFixed(0)+'%':'';
+  return '<div class="dl '+(good?'up':'dn')+'">'+(up?'+':'\u2212')+n0(d)+pct+' rispetto a oggi</div>';
+}
+function update(){
+  const m=model(V), b=model(BASE);
+
+  // barra viva
+  document.getElementById('bar').innerHTML=
+    '<div class="g">'
+    +'<div class="i"><div class="k">Attenzione / mese</div><div class="v num">'+n0(m.attention)+'</div></div>'
+    +'<div class="i"><div class="k">Arrivano alla porta</div><div class="v num">'+n0(m.routed)+'</div></div>'
+    +'<div class="i"><div class="k">Piazzamenti / mese</div><div class="v num">'+n1(m.placements)+'</div></div>'
+    +'<div class="i"><div class="k">Entrate / mese</div><div class="v num">'+m0(m.inflow)+'</div></div>'
+    +'<div class="i"><div class="k">Leve che vedi</div><div class="v num red">'+OBS+' su '+L.length+'</div></div>'
+    +'</div><button class="rs" id="reset">Riporta tutto a oggi</button>';
+  document.getElementById('reset').onclick=()=>{
+    Object.assign(V,BASE);
+    L.forEach(l=>{const i=document.querySelector('input[data-id="'+l.id+'"]');
+      if(i){i.value=l.v;document.getElementById('v-'+l.id).textContent=fmt(l,l.v);}});
+    update();
+  };
+
+  // catena
+  const ch=[
+    ['Attenzione',n0(m.attention),'Visualizzazioni prodotte in un mese su YouTube, Instagram e sito.',0],
+    ['Al menu',n0(m.menuIn),'Chi lascia il contenuto per andare a cercare la porta.',1],
+    ['Superano il menu',n0(m.routed),'Dopo '+V.dec+' decisioni ne perdi '+n0(m.lostMenu)+'.',1],
+    ['Closer',n0(m.closerSide),'Ramo lavoro, piu\u2019 '+n0(m.recovered)+' recuperati e '+n0(m.bridge)+' dai ponti.',1],
+    ['Aziende',n0(m.aziSide),'Ramo mandato, prima degli otto campi.',1],
+    ['Piazzamenti',n1(m.placements),m.bindT+' e\u2019 il vincolo.',1]];
+  document.getElementById('chain').innerHTML=ch.map(c=>
+    '<div class="st'+(c[3]?' blind':'')+'"><div class="k">'+c[0]+(c[3]?' \u2014 cieco':'')+'</div>'
+    +'<div class="v num">'+c[1]+'</div><div class="d">'+c[2]+'</div></div>').join('');
+
+  // risultato (nero)
+  document.getElementById('res').innerHTML=
+     tile('Piazzamenti al mese',n1(m.placements),'Il minimo fra closer pronti, mandati aziendali e la tua capacita\u2019.',chip(m.placements,b.placements),'')
+    +tile('Entrate stimate',m0(m.inflow),'Con i prezzi che hai messo tu. Se sono sbagliati, e\u2019 sbagliato tutto il riquadro.',chip(m.inflow,b.inflow),'')
+    +tile('Uscite in euro',m0(m.outflow),'Solo strumenti. Non include il tuo tempo.',chip(m.outflow,b.outflow,true),'')
+    +tile('Uscite in ore',n0(m.hoursM)+' h','Il costo che non compare in nessun estratto conto.',chip(m.hoursM,b.hoursM,true),'')
+    +tile('Il vincolo, adesso',m.bindT,vincolo(m),'','w2 sm')
+    +tile('Reso per ora',m.perHour!==null?m0(m.perHour):'\u2014','Entrate meno strumenti, diviso le ore che ci metti dentro.',chip(m.perHour||0,b.perHour||0),'w2 sm');
+
+  // entrate / uscite
+  document.getElementById('io').innerHTML=
+    '<div class="s"><div class="hd">Entrate \u00b7 stimate, al mese</div>'
+    + row('Closer pronti',n1(m.closersReady))
+    + row('Mandati dalle aziende',n1(m.mandates))
+    + row('Piazzamenti',n1(m.placements))
+    + row('Per piazzamento',m0(m.perPl))
+    + row('Una tantum',m0(m.oneOff))
+    + row('Ricorrente ('+n0(V.recur)+'%)',m0(m.recurr))
+    + row('Totale entrate',m0(m.inflow),1)
+    +'</div><div class="s"><div class="hd">Uscite \u00b7 stimate, al mese</div>'
+    + row('Strumenti',m0(m.outflow))
+    + row('Ore dentro la macchina',n0(m.hoursM)+' h')
+    + row('Costo per piazzamento',m.perPlac!==null?m0(m.perPlac):'\u2014')
+    + row('Ore per piazzamento',m.placements>0?n0(m.hoursM/m.placements)+' h':'\u2014')
+    + row('Differenza',m0(m.net),1)
+    +'</div>';
+}
+function vincolo(m){
+  if(m.bindK==='closer')return 'Ti mancano closer pronti prima che ti manchino aziende. Ogni euro speso per portare aziende non produce un piazzamento in piu\u2019.';
+  if(m.bindK==='azienda')return 'Ti mancano mandati prima che ti manchino closer. Il pool aspetta.';
+  return 'Non e\u2019 il traffico a fermarti: e\u2019 quanti piazzamenti riesci a seguire. Il collo di bottiglia sei tu.';
+}
+function tile(k,v,d,dl,cls){
+  return '<div class="t '+(cls||'')+'"><div class="k">'+k+'</div>'
+   +'<div class="v num'+(cls&&cls.indexOf('sm')>=0?' sm':'')+'">'+v+'</div>'
+   +'<div class="d">'+d+'</div>'+(dl||'')+'</div>';
+}
+function row(l,v,tot){
+  return '<div class="r'+(tot?' tot':'')+'"><span class="rl">'+l+'</span><span class="rv num">'+v+'</span></div>';
+}
+renderLevers();
+update();
+</script></body></html>
