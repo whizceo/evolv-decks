@@ -1,0 +1,1665 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Italiancloser — Funnel Architecture</title>
+<meta property="og:title" content="Italiancloser — Funnel Architecture">
+<meta property="og:description" content="Documento 05 — una porta sola, due percorsi asimmetrici: l’architettura della pagina, dei touchpoint e del Placement Hub.">
+<meta property="og:type" content="article">
+<meta name="description" content="Documento 05 — una porta sola, due percorsi asimmetrici: l’architettura della pagina, dei touchpoint e del Placement Hub.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+ --bg:#ffffff;--s1:#f5f5f7;--s2:#ffffff;--s3:#efeff1;--s4:#e3e3e6;
+ --sep:rgba(0,0,0,.13);--hair:rgba(0,0,0,.085);
+ --t1:#1d1d1f;--t2:#515154;--t3:#86868b;--t4:#b4b4b8;
+ --blue:#0066CC;--blue-b:#F0F6FE;
+ --green:#1D7A33;--green-b:#EFF8F1;
+ --red:#C1121F;--red-b:#FDF2F2;
+ --orange:#B35309;--orange-b:#FDF5EC;
+ --purple:#7B3FA0;--purple-b:#F8F2FC;
+ --teal:#0071A4;--teal-b:#EFF7FB;
+ --gray:#86868b;--gray-b:#f5f5f7;
+ --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Inter,system-ui,sans-serif;
+ --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,monospace}
+html{-webkit-text-size-adjust:100%;background:var(--bg)}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.55;
+ -webkit-font-smoothing:antialiased;letter-spacing:-.011em}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+a{color:var(--blue);text-decoration:none}
+.mono{font-family:var(--mono)}
+q{quotes:"\201C" "\201D"}
+/* header */
+header{padding:88px 0 42px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+ color:var(--t3);margin-bottom:22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.eyebrow b{color:var(--blue);font-weight:600}
+h1{font-weight:700;font-size:clamp(2.3rem,5vw,3.7rem);line-height:1.04;letter-spacing:-.034em;margin-bottom:20px}
+h1 em{font-style:normal;color:var(--blue)}
+.lede{font-size:1.16rem;line-height:1.58;color:var(--t2);max-width:940px;letter-spacing:-.008em}
+.lede b{color:var(--t1);font-weight:600}
+.meta{margin-top:28px;font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.03em;
+ display:flex;gap:22px;flex-wrap:wrap}
+/* stat band */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:46px 0 6px}
+.stat{background:var(--s1);border:1px solid var(--hair);border-radius:16px;padding:20px 20px 18px}
+.stat .v{font-size:2.05rem;font-weight:700;letter-spacing:-.042em;line-height:1;margin-bottom:9px}
+.stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.stat .d{font-size:12.5px;color:var(--t2);margin-top:7px;line-height:1.4}
+.stat.alert{background:var(--red-b);border-color:rgba(193,18,31,.22)}
+.stat.alert .v{color:var(--red)}
+/* sections */
+section{padding:70px 0 0}
+.secnum{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--blue);display:block;margin-bottom:14px}
+h2{font-size:clamp(1.65rem,3vw,2.35rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:14px}
+h3{font-weight:650;letter-spacing:-.022em}
+.dek{color:var(--t2);font-size:1.02rem;max-width:900px;margin-bottom:30px}
+.dek b{color:var(--t1);font-weight:600}
+/* method / provenance */
+.method{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:26px}
+.mcard{background:var(--s1);border:1px solid var(--hair);border-radius:14px;padding:18px 20px}
+.mcard .mh{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--blue);margin-bottom:9px}
+.mcard p{font-size:12.8px;line-height:1.6;color:var(--t2)}
+/* table */
+.tbl{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.tbl th{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--t3);
+ text-align:left;padding:11px 14px;border-bottom:1px solid var(--sep);font-weight:400}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--hair);vertical-align:top;line-height:1.45}
+.tbl tr:hover td{background:var(--s1)}
+.tbl td.k{font-weight:550;width:26%}
+.tbl td.n{font-family:var(--mono);font-size:12px;width:22%;color:var(--t1)}
+.tbl td.d{font-family:var(--mono);font-size:12px;width:20%;color:var(--t3)}
+.tbl td.no{font-size:12.4px;color:var(--t2)}
+.tbl td.no.w{color:var(--red)}
+.tbl tr.grp td{background:var(--s3);font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
+ text-transform:uppercase;color:var(--t2);padding:8px 14px}
+/* mobile gate */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--bg);
+ flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+.mobile-block .mb-t{font-size:1.9rem;font-weight:700;letter-spacing:-.03em;margin-bottom:14px}
+.mobile-block .mb-t em{font-style:normal;color:var(--blue)}
+.mobile-block .mb-s{font-size:.95rem;color:var(--t2);max-width:360px;line-height:1.55}
+.mobile-block .mb-e{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+ color:var(--t3);margin-bottom:22px}
+@media screen and (max-width:900px){.mobile-block{display:flex!important}body>*:not(.mobile-block){display:none!important}}
+
+
+/* ── masthead ─────────────────────────────────────────────────────────────── */
+.masthead{padding:88px 0 6px}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+ color:var(--t3);margin:0 0 22px}
+.masthead h1{font-weight:700;font-size:clamp(2.3rem,5vw,3.7rem);line-height:1.04;
+ letter-spacing:-.034em;margin:0 0 20px}
+.masthead h1 em{font-style:normal;color:var(--blue)}
+.standfirst{font-size:1.16rem;line-height:1.58;color:var(--t2);max-width:940px;
+ letter-spacing:-.008em;margin:0 0 30px;font-weight:400}
+.byline{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.03em;
+ border-top:1px solid var(--sep);padding-top:16px;display:flex;flex-wrap:wrap;gap:8px 26px}
+.byline b{color:var(--blue);font-weight:600}
+
+/* ── testo corrente ───────────────────────────────────────────────────────── */
+p{margin:0 0 16px;max-width:900px;color:var(--t2);font-size:1rem;line-height:1.62}
+p:last-child{margin-bottom:0}
+strong{font-weight:600;color:var(--t1)}
+em.q{font-style:italic;color:var(--t1)}
+h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--blue);font-weight:600;margin:46px 0 14px}
+h4{font-size:1.06rem;font-weight:650;letter-spacing:-.022em;color:var(--t1);margin:30px 0 8px}
+.dek{color:var(--t2);font-size:1.02rem;max-width:900px;margin:0 0 30px}
+
+/* ── tabelle ──────────────────────────────────────────────────────────────── */
+.scroll{overflow-x:auto;margin:22px 0 32px;-webkit-overflow-scrolling:touch;
+ border:1px solid var(--hair);border-radius:16px;background:var(--s2)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:13px}
+caption{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
+ text-transform:uppercase;color:var(--t3);padding:15px 18px 11px}
+th{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+ color:var(--t3);text-align:left;font-weight:400;padding:10px 16px;
+ border-bottom:1px solid var(--sep);white-space:nowrap}
+td{padding:11px 16px;border-bottom:1px solid var(--hair);vertical-align:top;
+ line-height:1.5;color:var(--t2)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--s1)}
+td.lab{font-weight:550;color:var(--t1);white-space:nowrap}
+tbody tr.grp td{background:var(--s2);font-family:var(--mono);font-size:9.5px;
+ letter-spacing:.14em;text-transform:uppercase;color:var(--t3);font-weight:600;
+ padding:13px 16px;border-bottom:1px solid var(--hair);white-space:normal}
+tbody tr.grp:hover td{background:var(--s2)}
+
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:12px;
+ font-variant-numeric:tabular-nums;color:var(--t1)}
+
+/* ── banda numeri ─────────────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;
+ margin:30px 0 34px;background:none;border:none}
+.stat{background:var(--s1);border:1px solid var(--hair);border-radius:16px;padding:20px 20px 18px}
+.stat .v{display:block;font-size:2.05rem;font-weight:700;letter-spacing:-.042em;
+ line-height:1;margin-bottom:9px;color:var(--t1)}
+.stat .k{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+ text-transform:uppercase;color:var(--t3);line-height:1.45}
+.stat.hot{background:var(--blue-b);border-color:rgba(0,102,204,.2)}
+.stat.hot .v{color:var(--blue)}
+
+/* ── callout ──────────────────────────────────────────────────────────────── */
+.note{background:var(--s1);border:1px solid var(--hair);border-radius:16px;
+ padding:22px 26px 24px;margin:30px 0;max-width:900px}
+.note .t{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--blue);font-weight:600;margin-bottom:11px}
+.note p{margin:0 0 10px;font-size:.95rem;line-height:1.62}
+.note p:last-child{margin:0}
+
+/* ── citazione (parole sue) ───────────────────────────────────────────────── */
+.quote{border-left:2px solid var(--s4);padding:4px 0 4px 26px;margin:30px 0;max-width:36em;
+ font-size:1.14rem;line-height:1.5;letter-spacing:-.018em;color:var(--t1);font-weight:450}
+
+/* ── diagramma funnel ─────────────────────────────────────────────────────── */
+.funnel{border:1px solid var(--hair);background:var(--s2);border-radius:18px;
+ padding:24px 22px 26px;margin:26px 0 30px;overflow-x:auto}
+.frow{display:flex;align-items:stretch;gap:8px;min-width:660px}
+.fstage{flex:1;background:var(--s1);border:1px solid var(--hair);border-radius:12px;
+ padding:14px 15px 16px}
+.fstage .n{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--t4)}
+.fstage .h{font-weight:600;font-size:13.4px;letter-spacing:-.018em;color:var(--t1);margin:8px 0 5px}
+.fstage .m{font-family:var(--mono);font-size:11.5px;color:var(--t2);font-variant-numeric:tabular-nums}
+.fstage .s{font-size:11.8px;color:var(--t3);margin-top:8px;line-height:1.5}
+.fstage.leak{background:var(--red-b);border-color:rgba(193,18,31,.24)}
+.fstage.leak .n{color:rgba(193,18,31,.55)}
+.fstage.leak .h{color:var(--red)}
+.fcap{font-size:12.4px;color:var(--t3);margin-top:18px;line-height:1.6;max-width:900px}
+
+/* ── pill ─────────────────────────────────────────────────────────────────── */
+.tag{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:600;
+ letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:6px;
+ border:1px solid var(--hair);background:var(--s1);color:var(--t3);white-space:nowrap}
+.tag.v{background:var(--green-b);border-color:rgba(29,122,51,.2);color:var(--green)}
+.tag.c{background:var(--orange-b);border-color:rgba(179,83,9,.2);color:var(--orange)}
+.tag.u{background:var(--s3);border-color:var(--hair);color:var(--t3)}
+
+/* ── liste ────────────────────────────────────────────────────────────────── */
+ul.clean{list-style:none;margin:16px 0 26px;max-width:900px}
+ul.clean li{padding:0 0 12px 22px;position:relative;line-height:1.6;color:var(--t2)}
+ul.clean li:before{content:"";position:absolute;left:0;top:11px;width:9px;height:1px;
+ background:var(--blue)}
+ol.q{padding-left:22px;margin:16px 0 26px;max-width:900px}
+ol.q li{padding-left:8px;margin-bottom:14px;line-height:1.6;color:var(--t2)}
+ol.q li::marker{font-family:var(--mono);font-size:11.5px;color:var(--blue)}
+
+/* ── timeline ─────────────────────────────────────────────────────────────── */
+.tl{border-left:1px solid var(--s4);margin:26px 0 30px;max-width:900px}
+.tlrow{position:relative;padding:0 0 26px 28px}
+.tlrow:before{content:"";position:absolute;left:-3.5px;top:7px;width:7px;height:7px;
+ background:var(--blue);border-radius:50%}
+.tlrow .d{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--blue)}
+.tlrow .t{font-size:14px;font-weight:600;letter-spacing:-.018em;color:var(--t1);margin:5px 0 4px}
+.tlrow .b{font-size:14.6px;color:var(--t2);line-height:1.55}
+
+/* ── footer ───────────────────────────────────────────────────────────────── */
+footer{margin-top:96px;border-top:1px solid var(--sep);background:var(--s1);padding:44px 0 72px}
+footer .wrap{font-family:var(--mono);font-size:11px;line-height:1.9;color:var(--t3);
+ letter-spacing:.02em}
+footer strong{color:var(--t1)}
+footer em{color:var(--t2);font-style:normal}
+
+
+.power{background:#000;border-radius:20px;padding:34px 38px 36px;margin:48px 0 4px;
+ display:grid;grid-template-columns:132px 1fr;gap:26px;align-items:start}
+.pk{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+ color:#0A84FF;padding-top:10px;line-height:1.5}
+.power p{font-size:clamp(1.12rem,1.72vw,1.42rem);line-height:1.36;letter-spacing:-.026em;
+ font-weight:600;color:rgba(235,235,245,.58);max-width:34em;margin:0}
+.power p b{color:#fff;font-weight:600}
+@media screen and (max-width:1000px){.power{grid-template-columns:1fr;gap:14px}.pk{padding-top:0}}
+
+
+.aib{background:var(--s1);border:1px solid var(--hair);border-radius:20px;
+ padding:34px 38px 32px;margin:44px 0 8px;max-width:900px}
+.aib-k{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+ color:var(--blue);margin-bottom:14px}
+.aib-h{font-size:1.42rem;font-weight:650;letter-spacing:-.028em;color:var(--t1);margin:0 0 12px}
+.aib-p{font-size:.97rem;line-height:1.62;color:var(--t2);margin:0 0 22px;max-width:62ch}
+.aib-p b{color:var(--t1);font-weight:600}
+.aib-b{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.aib-btn{font-family:inherit;font-size:13.5px;font-weight:550;letter-spacing:-.012em;
+ padding:11px 20px;border-radius:980px;border:1px solid var(--sep);background:#fff;
+ color:var(--t1);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.aib-btn:hover{background:var(--s3)}
+.aib-btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.aib-btn.pri:hover{background:#0055ad}
+.aib-btn.ok{background:var(--green,#1d7a33);border-color:var(--green,#1d7a33);color:#fff}
+.aib-pre{font-family:var(--mono);font-size:11.5px;line-height:1.72;color:var(--t2);
+ background:#fff;border:1px solid var(--hair);border-radius:14px;padding:20px 22px;
+ white-space:pre-wrap;margin:0 0 18px;max-height:290px;overflow-y:auto}
+.aib-f{font-size:12.6px;line-height:1.6;color:var(--t3);margin:0;max-width:62ch}
+@media screen and (max-width:1000px){.aib{padding:26px 22px}}
+
+
+/* ── indice ───────────────────────────────────────────────────────────────── */
+.toc{margin:34px 0 30px;padding-top:24px;border-top:1px solid var(--sep)}
+.toc-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+ text-transform:uppercase;color:var(--t3);margin:0 0 14px}
+.toc-l{list-style:none;margin:0;padding:0;counter-reset:toc;
+ columns:2;column-gap:54px}
+.toc-l li{counter-increment:toc;break-inside:avoid;-webkit-column-break-inside:avoid}
+.toc-l a{display:grid;grid-template-columns:30px 1fr;align-items:baseline;
+ gap:0 12px;padding:11px 0;border-bottom:1px solid var(--hair);
+ text-decoration:none;color:inherit}
+.toc-l a::before{content:counter(toc,decimal-leading-zero);font-family:var(--mono);
+ font-size:10.5px;letter-spacing:.06em;color:var(--t3);font-variant-numeric:tabular-nums}
+.toc-l b{font-weight:600;font-size:.97rem;letter-spacing:-.016em;color:var(--t1)}
+.toc-l .ts{display:block;grid-column:2;font-size:.845rem;line-height:1.4;
+ color:var(--t3);margin-top:2px}
+.toc-l a:hover b{color:var(--blue)}
+.toc-l a:hover::before{color:var(--blue)}
+section{scroll-margin-top:26px}
+@media screen and (max-width:900px){.toc-l{columns:1}}
+
+
+/* ── i due lati ───────────────────────────────────────────────────────────── */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.side{border:1px solid var(--hair);border-radius:16px;padding:19px 21px 17px;background:var(--s1)}
+.side.dem{background:var(--orange-b);border-color:rgba(179,83,9,.2)}
+.side-k{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--t3);margin-bottom:7px}
+.side.dem .side-k{color:var(--orange)}
+.side-t{font-size:1.04rem;font-weight:650;letter-spacing:-.024em;line-height:1.25;margin-bottom:11px}
+.side-n{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.side-n span{font-family:var(--mono);font-size:10.5px;background:#fff;border:1px solid var(--hair);
+ border-radius:7px;padding:4px 8px;color:var(--t2);white-space:nowrap}
+.side dl{margin:0}
+.side dt{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--t3);margin-top:10px}
+.side dd{font-size:12.7px;line-height:1.5;color:var(--t2);margin:3px 0 0}
+.side dd b{color:var(--t1);font-weight:600}
+
+/* ── prima / dopo ─────────────────────────────────────────────────────────── */
+.abk{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--blue);margin:26px 0 8px}
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+.abc{border:1px solid var(--hair);border-radius:16px;padding:15px 18px 13px;background:var(--s1)}
+.abc.now{background:var(--red-b);border-color:rgba(193,18,31,.16)}
+.abc.next{background:var(--green-b);border-color:rgba(29,122,51,.18)}
+.abh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+ margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--hair)}
+.abh b{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+ font-weight:400;color:var(--t3)}
+.abc.now .abh b{color:var(--red)}
+.abc.next .abh b{color:var(--green)}
+.abh i{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--t2)}
+.ch{list-style:none;counter-reset:ch;margin:0;padding:0}
+.ch li{counter-increment:ch;display:grid;grid-template-columns:19px 1fr;gap:9px;
+ padding:6px 0;border-bottom:1px solid var(--hair);font-size:12.6px;line-height:1.42;color:var(--t1)}
+.ch li:last-child{border-bottom:0}
+.ch li::before{content:counter(ch);font-family:var(--mono);font-size:10px;color:var(--t3);padding-top:2px}
+.abc.now .ch li::before{color:var(--red)}
+.abc.next .ch li::before{color:var(--green)}
+.ch li>span{display:block;min-width:0}
+.ch li em{font-style:normal;display:block;font-size:11.3px;color:var(--t3);margin-top:2px;line-height:1.4}
+.abf{margin-top:9px;padding-top:8px;border-top:1px solid var(--hair);
+ font-family:var(--mono);font-size:10.5px;color:var(--t2)}
+
+/* ── pastiglia del verdetto ───────────────────────────────────────────────── */
+.vd{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.1em;
+ text-transform:uppercase;padding:3px 7px;border-radius:6px;white-space:nowrap}
+.vd.k{background:var(--green-b);color:var(--green)}
+.vd.c{background:var(--red-b);color:var(--red)}
+.vd.m{background:var(--orange-b);color:var(--orange)}
+.tbl td.vc{width:11%}
+
+/* ── domande aperte ───────────────────────────────────────────────────────── */
+.qs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.q{border:1px solid var(--hair);border-radius:16px;padding:18px 20px 16px;background:var(--s1)}
+.q.blk{background:var(--red-b);border-color:rgba(193,18,31,.2)}
+.q-k{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--t3);margin-bottom:7px}
+.q.blk .q-k{color:var(--red)}
+.q-t{font-size:1rem;font-weight:650;letter-spacing:-.022em;line-height:1.25;margin-bottom:8px}
+.q p{font-size:12.6px;line-height:1.55;color:var(--t2);margin:0}
+.q p b{color:var(--t1);font-weight:600}
+
+@media screen and (max-width:1000px){
+ .two,.ab,.qs{grid-template-columns:1fr}
+}
+
+
+footer{margin-top:100px;border-top:1px solid var(--sep);padding:46px 0 74px;background:var(--s1)}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.fk{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.fgrid p{font-size:12.5px;color:var(--t3);line-height:1.65;word-break:break-word}
+.fend{margin-top:38px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--t4)}
+</style></head><body>
+<div class="mobile-block">
+  <div class="mb-e">Evolv AI · Analisi Indipendente</div>
+  <div class="mb-t">Aprilo sul <em>desktop</em></div>
+  <div class="mb-s">Questa mappa è costruita per uno schermo grande. Aprila dal laptop per vederla intera.</div>
+</div>
+
+<div class="wrap">
+<div class="masthead">
+<div class="kicker">Evolv AI &middot; Analisi Indipendente &middot; Italiancloser &middot; Documento 05 di 06</div>
+<h1>Una porta sola,<br>due percorsi <em>asimmetrici</em>.</h1>
+<p class="standfirst">I documenti 01&ndash;04 descrivono quello che c&rsquo;e&rsquo;. Questo propone
+quello che ci metterei al posto: una pagina sola che si dirama in base a chi arriva, con il lato
+azienda sul primo schermo e il lato closer su una rotta parallela; un modulo da tre campi invece di
+otto; i mandati fuori da dietro il login; e un Placement Hub con tre voci di menu invece di sei.
+Nessun numero nuovo, nessuno strumento nuovo, nessuna assunzione su quanto costa o quanto rende.</p>
+<div class="byline">
+<span><b>Documento</b> 05 di 06 &mdash; Architettura del funnel</span>
+<span><b>Base</b> i 6 percorsi del Documento 02 e gli 8 colli di bottiglia del Documento 03</span>
+<span><b>Rilievo</b> 20, 21 e 22 agosto 2026</span>
+<span><b>Contatto</b> nessuno</span>
+</div>
+</div>
+<div class="stats">
+<div class="stat"><div class="v">3 &rarr; 1</div><div class="k">Domini nel percorso</div>
+ <div class="d">italiancloser.com, /placement-hub e app.italiancloser.com diventano una porta sola.</div></div>
+<div class="stat"><div class="v">8 &rarr; 3</div><div class="k">Passaggi &middot; lato closer</div>
+ <div class="d">Percorso D del Documento 02: oggi otto tappe, sette punti di perdita.</div></div>
+<div class="stat"><div class="v">6 &rarr; 3</div><div class="k">Passaggi &middot; lato azienda</div>
+ <div class="d">Percorso E: oggi sei tappe, cinque punti di perdita, una zona cieca.</div></div>
+<div class="stat"><div class="v">8 &rarr; 3</div><div class="k">Campi obbligatori</div>
+ <div class="d">Il modulo aziende: cinque campi escono dal primo contatto e tornano in call.</div></div>
+<div class="stat"><div class="v">6 &rarr; 3</div><div class="k">Voci nel Placement Hub</div>
+ <div class="d">Tre restano, una viene assorbita, una va in linea, una torna sulla pagina pubblica.</div></div>
+</div>
+<div class="toc">
+<div class="toc-k">Indice</div>
+<ol class="toc-l">
+  <li><a href="#s01"><b>Due business</b> <span class="ts">Due business, una porta sola</span></a></li>
+  <li><a href="#s02"><b>Il principio</b> <span class="ts">Funnel asimmetrico, non bivio simmetrico</span></a></li>
+  <li><a href="#s03"><b>L&rsquo;architettura</b> <span class="ts">Un dominio, una pagina, due rotte</span></a></li>
+  <li><a href="#s04"><b>Ramo azienda</b> <span class="ts">Otto campi obbligatori diventano tre</span></a></li>
+  <li><a href="#s05"><b>Ramo closer</b> <span class="ts">La prova esce da dietro il login</span></a></li>
+  <li><a href="#s06"><b>Il software</b> <span class="ts">Sei voci di menu diventano tre</span></a></li>
+  <li><a href="#s07"><b>La misura</b> <span class="ts">Otto eventi, e vengono prima di tutto</span></a></li>
+  <li><a href="#s08"><b>Il punto scomodo</b> <span class="ts">Tutto il contenuto costruisce supply</span></a></li>
+  <li><a href="#s09"><b>Domande aperte</b> <span class="ts">Tre domande, una sola bloccante</span></a></li>
+</ol>
+</div>
+
+<div class="aib">
+  <div class="aib-k">Parti da qui</div>
+  <h2 class="aib-h">Non leggerlo tutto. Fattelo leggere da un’AI.</h2>
+  <p class="aib-p">Questo documento, la mappa dei percorsi e i colli di bottiglia, messi insieme, sono lunghi. Un clic qui sotto copia <b>tutti e tre i documenti piu’ le istruzioni scritte apposta</b>. Incollalo in ChatGPT o Claude, una volta sola, e ti tornano sei risposte: il confronto tappa per tappa tra il percorso di oggi e quello proposto, il criterio che assegna il primo schermo, i dieci campi del modulo aziende con il verdetto, le sei voci del Placement Hub con il destino, gli otto eventi di misura e le tre domande ancora aperte.</p>
+  <div class="aib-b">
+    <button class="aib-btn pri" data-copy="all">Copia i tre documenti per l’AI</button>
+  </div>
+  <pre class="aib-pre" id="aib-prompt">Qui sotto trovi tre documenti sulla mia azienda, Italiancloser, uno dopo l'altro. Li ha scritti qualcuno che non mi ha mai contattato: ogni numero e' stato letto a mano su una pagina pubblica il 20, 21 e 22 agosto 2026.
+
+- Documento 02, Funnel Map: i sei percorsi dentro il sistema, tappa per tappa, e 36 rilievi con codice e gravita'.
+- Documento 03, Audit Results: gli stessi 36 rilievi raggruppati in 8 colli di bottiglia, ognuno con la correzione e l'ordine di esecuzione.
+- Documento 05, Funnel Architecture: l'architettura proposta. Una pagina sola con due rotte asimmetriche, il modulo aziende da 8 campi a 3, i mandati fuori da dietro il login, il Placement Hub da 6 voci a 3, e 8 eventi di misura.
+
+Regole, senza eccezioni:
+- Usa solo quello che c'e' nei tre documenti. Niente benchmark, niente medie di settore, nessun consiglio preso dalla tua memoria.
+- Se una cosa non c'e', scrivi "non e' nei documenti".
+- Quello che e' marcato come dichiarato, ignoto o non verificabile dall'esterno resta cosi'. Non promuoverlo mai a fatto.
+- Cita ogni numero, ogni codice e ogni nome di evento esattamente come sono scritti.
+- Non aggiungere passaggi, campi o voci di menu che i documenti non nominano.
+- G1 - come il sistema genera ricavo - e' ignoto. Non ricostruirlo, non stimarlo, non proporre un prezzo.
+
+Dammi questo e nient'altro:
+
+1. IL CONFRONTO DEI DUE PERCORSI - lato closer e lato azienda, la catena delle tappe di oggi contro quella proposta, una riga per tappa. Segna quali tappe spariscono.
+2. IL PRINCIPIO - perche' la pagina e' asimmetrica invece che un bivio 50/50, in tre righe, con il criterio che assegna il primo schermo.
+3. IL MODULO AZIENDE - tutti e dieci i campi osservati, con il verdetto (tieni / togli / sposta / alza) e il motivo. Non saltarne nessuno.
+4. IL PLACEMENT HUB - tutte e sei le voci di menu, con il destino e il motivo. Poi le tre che restano, in ordine.
+5. LO STRATO DI MISURA - gli otto eventi con il nome esatto, il lato e cosa sblocca ognuno. Poi le due condizioni tecniche.
+6. LE TRE DOMANDE APERTE - quale delle tre e' bloccante e perche', e cosa resta comunque costruibile senza la risposta.</pre>
+  <p class="aib-f">Queste sono le istruzioni che il bottone copia insieme ai documenti, messe in chiaro cosi’ vedi esattamente cosa viene detto al modello. Sono severe apposta: gli si dice di usare solo questi tre documenti, di lasciare marcato come non verificato tutto cio’ che lo e’, di non inventare consigli e di non aggiungere un solo passaggio che i documenti non nominano. Quello che leggi e’ questa analisi, non l’opinione di un modello. Poi torna alla Control Room del Documento 04 e muovi i cursori che questa architettura tocca.</p>
+</div>
+
+<section id="s01">
+<span class="secnum">01 &mdash; Il punto di partenza</span>
+<h2>Due business, una porta sola</h2>
+<p class="dek">Prima dell&rsquo;architettura, la lettura che la ordina. I due lati del sistema non hanno lo stesso problema, non hanno la stessa abbondanza e non meritano lo stesso spazio. Oggi passano dalla stessa porta con lo stesso peso.</p>
+<div class="two">
+<div class="side">
+ <div class="side-k">Supply &middot; lato closer</div>
+ <div class="side-t">Abbondante, gratis, e alimentato da tutto quello che pubblichi</div>
+ <div class="side-n"><span>3.623 follower IG</span><span>1.101 membri Skool</span>
+  <span>615 Discord</span><span>546 iscritti YouTube</span><span>100+ closer attivi &middot; dichiarato</span></div>
+ <dl>
+ <dt>La porta</dt><dd>Un bottone <b>&laquo;Per Closers&raquo;</b> che atterra su una pagina
+  intitolata <b>&laquo;Accedi&raquo;</b>. Un visitatore anonimo vede l&rsquo;interfaccia da
+  membro, <b>bottone Logout compreso</b>.</dd>
+ <dt>Il costo</dt><dd>Otto tappe, sette punti di perdita. Il valore &mdash; i mandati veri &mdash;
+  compare solo alla tappa otto.</dd>
+ </dl>
+</div>
+<div class="side dem">
+ <div class="side-k">Demand &middot; lato azienda</div>
+ <div class="side-t">Scarso, e non alimentato da nessuna superficie osservata</div>
+ <div class="side-n"><span>20+ aziende partner &middot; dichiarato</span>
+  <span>70+ placement &middot; dichiarato</span><span>0 superfici di contenuto dedicate</span></div>
+ <dl>
+ <dt>La porta</dt><dd><b>Otto campi obbligatori</b>, una domanda su <b>Slack piano Pro</b> senza
+  una riga che la spieghi, e due SLA in conflitto a una schermata di distanza:
+  <b>&laquo;&lt; 48h&raquo;</b> sulla pagina, <b>&laquo;1&ndash;2 giorni lavorativi&raquo;</b> sul modulo.</dd>
+ <dt>Il costo</dt><dd>Sei tappe, cinque punti di perdita, e una zona cieca:
+  <b>l&rsquo;invio del modulo non lascia dato</b>.</dd>
+ </dl>
+</div>
+</div>
+<div class="power"><div class="pk">Il punto</div><p>Non hai un funnel con due rami. Hai <b>due business che condividono una porta</b> &mdash; e il lato che ti serve di piu&rsquo; e&rsquo; quello che riceve l&rsquo;esperienza peggiore.</p></div>
+</section>
+<section id="s02">
+<span class="secnum">02 &mdash; Il principio</span>
+<h2>Funnel asimmetrico, non bivio simmetrico</h2>
+<p class="dek">Una porta sola non vuol dire due rami uguali. Vuol dire <b>una gerarchia dichiarata</b>: chi prende il primo schermo, chi prende la rotta secondaria, e in base a quale criterio.</p>
+<div class="note">
+<div class="t">Perche&rsquo; non un bivio 50/50</div>
+<p><b>Una landing sola si&rsquo;, ma non con due bottoni gemelli al centro.</b> Quello e&rsquo;
+gia&rsquo; quello che c&rsquo;e&rsquo;, ed e&rsquo; il motivo per cui non ottimizza per nessuno dei
+due: una pagina che deve convincere due persone opposte nello stesso schermo finisce per non
+parlare a nessuna delle due.</p>
+<p><b>L&rsquo;asimmetria e&rsquo; il progetto, non un effetto collaterale.</b> Il traffico che
+arriva dal contenuto e&rsquo; quasi tutto lato closer: non hanno bisogno di essere convinti, hanno
+bisogno di essere <em>processati</em>. Le aziende si&rsquo;. Quindi il primo schermo e&rsquo; loro,
+e il lato closer prende una rotta parallela &mdash; sempre visibile, mai in competizione con
+l&rsquo;hero.</p>
+</div>
+<div class="scroll"><table class="tbl"><thead><tr><th>Superficie</th><th>A chi va</th>
+<th>Perche&rsquo;</th></tr></thead><tbody>
+<tr><td class="k">Hero e primo schermo</td><td class="n">Azienda</td>
+ <td class="no">E&rsquo; il lato scarso, ed e&rsquo; quello che decide se il sistema gira. Un
+ mandato in piu&rsquo; muove il numero; un closer in piu&rsquo; no.</td></tr>
+<tr><td class="k">Rotta secondaria fissa in alto</td><td class="n">Closer</td>
+ <td class="no">Arrivano gia&rsquo; motivati e in volume. Serve una porta larga e veloce, non un
+ argomento di vendita.</td></tr>
+<tr><td class="k">Prova sociale &mdash; i sette video Risultati</td><td class="n">Entrambi</td>
+ <td class="no">Oggi vive <b>dentro</b> il Placement Hub, dove convince chi ha gia&rsquo; deciso.
+ Sulla pagina pubblica lavora su chi deve ancora decidere.</td></tr>
+<tr><td class="k">Track record &mdash; +1M$, +2000 call, +40% closing rate</td><td class="n">Azienda</td>
+ <td class="no">E&rsquo; una prova di competenza commerciale: parla a chi compra un venditore,
+ non a chi vuole diventarlo.</td></tr>
+</tbody></table></div>
+
+</section>
+<section id="s03">
+<span class="secnum">03 &mdash; L&rsquo;architettura</span>
+<h2>Un dominio, una pagina, due rotte</h2>
+<p class="dek">Le due catene di tappe del Documento 02, messe accanto a quelle che propongo. A sinistra quello che si osserva oggi, con il punto di perdita sotto ogni tappa; a destra la stessa strada, piu&rsquo; corta.</p>
+<p class="abk">Ramo closer &mdash; dalla prima impressione alla prima offerta vista</p><div class="ab"><div class="abc now"><div class="abh"><b>Oggi</b><i>8 tappe &middot; 7 perdite</i></div><ol class="ch"><li><span>Instagram o YouTube<em>il contenuto fa il suo lavoro: qui non si perde quasi niente</em></span></li><li><span>Link in bio &mdash; Linktree<em>due link diversi, stesso utm_source: da qui in poi i due lati sono indistinguibili in dato</em></span></li><li><span>italiancloser.com<em>l&rsquo;H1 e&rsquo; <b>ITALIANCLOSER</b>: il nome del brand, non una promessa</em></span></li><li><span>Video About 13:57<em>21 ottobre 2025, 503 visualizzazioni in dieci mesi, nello slot di massima attenzione</em></span></li><li><span>Bottone &laquo;Per Closers&raquo;</span></li><li><span>app.italiancloser.com &mdash; pagina &laquo;Accedi&raquo;<em>una porta che chiede di rientrare a chi non e&rsquo; mai entrato</em></span></li><li><span>Registrazione<em>nessun analytics su questo dominio: da qui in poi non si misura piu&rsquo; niente</em></span></li><li><span>Prima offerta visibile<em>il valore arriva alla tappa otto</em></span></li></ol><div class="abf">Valore alla tappa 8 &middot; 3 domini</div></div><div class="abc next"><div class="abh"><b>Proposto</b><i>3 tappe &middot; valore alla prima</i></div><ol class="ch"><li><span>italiancloser.com/closer &mdash; il muro delle offerte, pubblico<em>OPT-960, OPT-938, OPT-103, OPT-102, OPT-100: mandati veri con ruolo, ticket, tipo di vendita ed esperienza minima</em></span></li><li><span>&laquo;Esprimi interesse&raquo; su un&rsquo;offerta precisa<em>la registrazione avviene al picco di intento, agganciata a un mandato, non prima di sapere se ne vale la pena</em></span></li><li><span>Account + profilo in un passaggio<em>il wizard che c&rsquo;e&rsquo; gia&rsquo;, con il tier calcolato in fondo</em></span></li></ol><div class="abf">Valore alla tappa 1 &middot; 1 dominio</div></div></div><p class="abk">Ramo azienda &mdash; dalla prima impressione alla conversazione</p><div class="ab"><div class="abc now"><div class="abh"><b>Oggi</b><i>6 tappe &middot; 5 perdite &middot; 1 zona cieca</i></div><ol class="ch"><li><span>Link in bio &mdash; Linktree<em>&laquo;Cerchi Venditori per la Tua Azienda?&raquo;: stessa URL e stesso utm_source del link closer</em></span></li><li><span>/placement-hub<em>la pagina migliore del sistema: numeri, SLA, prova, e un GA4 che gira</em></span></li><li><span>Bottone &laquo;Per Aziende&raquo;</span></li><li><span>Modulo: 8 campi obbligatori<em>piu&rsquo; una domanda su Slack piano Pro e un messaggio libero tagliato a 300 caratteri</em></span></li><li><span>Invio<em><b>non tracciato</b>: l&rsquo;azione piu&rsquo; importante del sistema non lascia dato</em></span></li><li><span>Attesa<em>&laquo;&lt; 48h&raquo; una schermata prima, &laquo;1&ndash;2 giorni lavorativi&raquo; qui</em></span></li></ol><div class="abf">Prima conversazione: non misurabile</div></div><div class="abc next"><div class="abh"><b>Proposto</b><i>3 tappe &middot; 0 zone cieche</i></div><ol class="ch"><li><span>italiancloser.com &mdash; hero lato azienda<em>la promessa che oggi vive su /placement-hub, portata al primo schermo</em></span></li><li><span>3 campi + calendario nella stessa schermata<em>azienda, email, che ruolo cerchi</em></span></li><li><span>Conversazione prenotata<em>con un evento a fianco, quindi con un tasso di conversione che esiste</em></span></li></ol><div class="abf">Prima conversazione: misurata</div></div></div><div class="note">
+<div class="t">Perche&rsquo; la home e /placement-hub diventano una pagina sola</div>
+<p><b>La home attuale costa un passaggio e non ne aggiunge uno.</b> Il suo H1 e&rsquo; il nome del
+brand invece di una promessa, e lo slot di massima attenzione &mdash; il primo schermo &mdash; e&rsquo;
+occupato da un video di <b>13:57</b> pubblicato il <b>21 ottobre 2025</b> che in dieci mesi ha fatto
+<b>503 visualizzazioni</b>. E&rsquo; lo spazio piu&rsquo; prezioso del sito, ed e&rsquo; affidato
+all&rsquo;asset che si e&rsquo; dimostrato meno capace di trattenere.</p>
+<p><b>/placement-hub e&rsquo; gia&rsquo; la pagina che serve.</b> Ha la promessa
+(&laquo;&lt; 48h&raquo; alla prima risposta, <b>3 giorni</b> alla shortlist, <b>3&ndash;5 profili</b>),
+ha i numeri (<b>70+ placement</b>, <b>100+ closer attivi</b>, <b>20+ aziende partner</b>) e ha un
+GA4 che gira. Fondendo le due pagine togli una tappa e un punto di uscita, <b>e non perdi niente</b>:
+sposti il contenuto migliore un click piu&rsquo; avanti, non lo elimini.</p>
+</div>
+
+</section>
+<section id="s04">
+<span class="secnum">04 &mdash; Il ramo azienda</span>
+<h2>Otto campi obbligatori diventano tre</h2>
+<p class="dek">Il modulo aziende e&rsquo; la porta del lato scarso. Ogni campo che non serve <em>prima</em> della conversazione e&rsquo; un motivo in piu&rsquo; per non compilarlo. Qui c&rsquo;e&rsquo; ogni campo osservato, con che cosa gli farei e perche&rsquo;.</p>
+<div class="scroll"><table class="tbl"><thead><tr><th>Campo</th><th>Oggi</th><th>Verdetto</th><th>Perche&rsquo;</th></tr></thead><tbody><tr><td class="k">Azienda</td><td class="d">obbligatorio</td><td class="vc"><span class="vd k">Tieni</span></td><td class="no">Serve per sapere con chi stai parlando.</td></tr><tr><td class="k">Email</td><td class="d">obbligatorio</td><td class="vc"><span class="vd k">Tieni</span></td><td class="no">E&rsquo; il canale, ed e&rsquo; l&rsquo;unico contatto che ti resta comunque.</td></tr><tr><td class="k">Ruolo cercato</td><td class="d">obbligatorio</td><td class="vc"><span class="vd k">Tieni</span></td><td class="no">L&rsquo;unico dato che serve davvero prima della conversazione: dice se hai il profilo in casa oppure no.</td></tr><tr><td class="k">Referente</td><td class="d">obbligatorio</td><td class="vc"><span class="vd c">Togli</span></td><td class="no">Arriva da solo con la firma della mail o con la prenotazione a calendario.</td></tr><tr><td class="k">Settore</td><td class="d">obbligatorio</td><td class="vc"><span class="vd c">Togli</span></td><td class="no">E&rsquo; materiale da conversazione, non da primo contatto. Chiederlo prima allunga il modulo e non cambia la risposta che dai.</td></tr><tr><td class="k">Telefono con prefisso</td><td class="d">obbligatorio</td><td class="vc"><span class="vd c">Togli</span></td><td class="no">Si chiede quando serve chiamare. In un modulo di primo contatto e&rsquo; il campo che fa abbandonare di piu&rsquo;.</td></tr><tr><td class="k">Canale di contatto preferito</td><td class="d">obbligatorio</td><td class="vc"><span class="vd c">Togli</span></td><td class="no">Stai chiedendo al visitatore di progettare il tuo processo. Il canale lo decidi tu, e lo dici.</td></tr><tr><td class="k">Come ci hai conosciuto</td><td class="d">obbligatorio</td><td class="vc"><span class="vd c">Togli</span></td><td class="no">E&rsquo; una domanda che si fa quando l&rsquo;analytics non risponde. Con lo strato di misura della sezione 07 la risposta ce l&rsquo;hai gia&rsquo;, piu&rsquo; precisa e senza chiederla.</td></tr><tr><td class="k">Slack piano Pro o superiore</td><td class="d">obbligatorio, senza spiegazione</td><td class="vc"><span class="vd m">Sposta</span></td><td class="no">Se e&rsquo; un requisito reale di delivery, vive nell&rsquo;onboarding. Se serve solo a sapere come consegnare la shortlist, diventa una domanda dopo la firma. Squalificare qualcuno <b>prima</b> che sappia da cosa viene squalificato e&rsquo; il modo piu&rsquo; costoso di perdere un mandato.</td></tr><tr><td class="k">Messaggio libero</td><td class="d">opzionale &middot; 300 caratteri</td><td class="vc"><span class="vd m">Alza</span></td><td class="no">E&rsquo; il campo dove l&rsquo;azienda ti spiega cosa le serve davvero: l&rsquo;input piu&rsquo; prezioso di tutto il sistema, tarato piu&rsquo; corto di un SMS. O si alza, o si toglie del tutto.</td></tr></tbody></table></div><div class="note">
+<div class="t">E poi un numero solo</div>
+<p>La pagina promette <b>&laquo;&lt; 48h&raquo;</b>. Il modulo, un click dopo, promette
+<b>&laquo;1&ndash;2 giorni lavorativi&raquo;</b>. Non sono la stessa cosa, e chi legge se ne accorge
+nel momento esatto in cui sta decidendo se fidarsi. Non e&rsquo; un problema di copy: e&rsquo; una
+perdita di credibilita&rsquo; autoinflitta, a costo zero da chiudere. <b>Si sceglie quello vero e si
+ripete identico su ogni superficie</b>, modulo, pagina, mail di conferma.</p>
+</div>
+
+</section>
+<section id="s05">
+<span class="secnum">05 &mdash; Il ramo closer</span>
+<h2>La prova esce da dietro il login</h2>
+<p class="dek">Il lato abbondante non va convinto, va filtrato. E il filtro esiste gia&rsquo;: sono i quattro step del profilo, che oggi raccolgono i dati giusti e non ne fanno niente.</p>
+<div class="note">
+<div class="t">La mossa: togli il muro davanti alle offerte</div>
+<p><b>Oggi i mandati stanno dietro il login.</b> Sono l&rsquo;asset piu&rsquo; persuasivo che hai
+&mdash; posizioni vere, con badge <b>B2B</b>, <b>B2C</b> e <b>INFOBUSINESS</b>, codice, ruolo,
+ticket, tipo di vendita, esperienza minima &mdash; e sono <b>invisibili a chiunque non si sia
+gia&rsquo; convertito</b>. Stai usando la prova per convincere gente che ha gia&rsquo; deciso.</p>
+<p><b>Inverti: muro pubblico, cancello sull&rsquo;azione.</b> Chiunque scorre le offerte; il
+gate scatta su <b>&laquo;Esprimi interesse&raquo;</b>. La registrazione smette di essere un pedaggio
+all&rsquo;ingresso e diventa il gesto che uno fa <em>perche&rsquo; vuole quel mandato li&rsquo;</em>.</p>
+<p><b>La porta si chiama &laquo;Crea il tuo profilo closer&raquo;, non &laquo;Accedi&raquo;.</b>
+Il login resta, piccolo, sotto. E il bottone <b>Logout</b> visibile a un visitatore anonimo sparisce
+da solo nel momento in cui quella pagina smette di essere una pagina di login.</p>
+</div>
+<div class="scroll"><table class="tbl"><thead><tr><th>Il wizard, oggi</th><th>Che cosa raccoglie</th>
+<th>A cosa lo userei</th></tr></thead><tbody>
+<tr><td class="k">Step 1 di 4 &mdash; Info</td><td class="d">nome, cognome, email, telefono, disponibilita&rsquo;, anni di esperienza</td>
+ <td class="no">Anagrafica e <b>anni di esperienza</b>: primo ingresso del punteggio.</td></tr>
+<tr><td class="k">Step 2 di 4 &mdash; Specializzazione</td><td class="d">ticket medio, cash collected, competenze</td>
+ <td class="no">I tre ingressi che contano. <b>Ticket medio</b> e <b>cash collected</b> sono gia&rsquo; la scala; <b>competenze</b> e&rsquo; gia&rsquo; il match con i badge B2B / B2C / INFOBUSINESS delle offerte.</td></tr>
+<tr><td class="k">Step 3 e 4 di 4 &mdash; Esperienza</td><td class="d">storico</td>
+ <td class="no">Contesto per l&rsquo;azienda al momento della shortlist. Non entra nel punteggio.</td></tr>
+</tbody></table></div>
+<p class="fcap"><b>Il wizard e&rsquo; gia&rsquo; una funzione di punteggio: semplicemente non la
+stai usando.</b> Alla fine dei quattro step, un tier calcolato &mdash; e ogni closer vede solo le
+offerte del suo tier. Chi ha zero cash collected non vede il mandato da 5.000&euro;+, e non ci
+prova nemmeno. Due effetti, tutti e due misurabili: <b>lo screening manuale del team sparisce</b>,
+e <b>&laquo;quanti closer sono pronti&raquo; smette di essere una stima e diventa un numero
+calcolato</b> &mdash; lo stesso cursore che nella Control Room del Documento 04 e&rsquo; marcato
+come stimato.</p>
+
+</section>
+<section id="s06">
+<span class="secnum">06 &mdash; Il Placement Hub</span>
+<h2>Sei voci di menu diventano tre</h2>
+<p class="dek">Il Placement Hub non ha bisogno di funzioni nuove. Ha bisogno di essere piu&rsquo; corto, e di restituire alla pagina pubblica la cosa che oggi tiene chiusa dentro.</p>
+<div class="scroll"><table class="tbl"><thead><tr><th>Voce</th><th>Che cosa contiene oggi</th><th>Destino</th><th>Perche&rsquo;</th></tr></thead><tbody><tr><td class="k">Offerte</td><td class="no">Carosello in Home + lista completa con filtri INFOBUSINESS / B2C / B2B / TUTTE</td><td class="vc"><span class="vd k">Resta</span></td><td class="no">E&rsquo; l&rsquo;unico motivo per cui qualcuno apre l&rsquo;app. Diventa la schermata d&rsquo;ingresso al posto di Home.</td></tr><tr><td class="k">Profilo</td><td class="no">Wizard in 4 step, con stato modificabile</td><td class="vc"><span class="vd k">Resta</span></td><td class="no">E&rsquo; la cosa che ti fa matchare &mdash; e nella sezione 05 diventa anche il filtro.</td></tr><tr><td class="k">Candidatura</td><td class="no">&laquo;Nessuna candidatura attiva al momento&raquo; + Storico (0)</td><td class="vc"><span class="vd k">Resta</span></td><td class="no">E&rsquo; lo stato del gioco. E&rsquo; l&rsquo;unica pagina che ha senso aprire quando qualcosa e&rsquo; in corso.</td></tr><tr><td class="k">Home</td><td class="no">Saluto, card profilo, stato candidatura, carosello offerte</td><td class="vc"><span class="vd c">Assorbita</span></td><td class="no">E&rsquo; un riassunto delle altre tre. Ogni riga che contiene esiste gia&rsquo; altrove, una schermata piu&rsquo; in la&rsquo;.</td></tr><tr><td class="k">Processo e stati</td><td class="no">Due step ad accordion + i quattro stati</td><td class="vc"><span class="vd m">In linea</span></td><td class="no">E&rsquo; un documento di aiuto, non una destinazione. Va dietro un &laquo;?&raquo; accanto al chip di stato, dove la domanda nasce.</td></tr><tr><td class="k">Risultati</td><td class="no">Un video in evidenza + sette testimonianze</td><td class="vc"><span class="vd m">Sulla landing</span></td><td class="no">E&rsquo; prova sociale. Dentro l&rsquo;app persuade chi ha gia&rsquo; deciso; sulla pagina pubblica lavora su chi deve ancora decidere.</td></tr></tbody></table></div><p class="fcap">I quattro stati &mdash; <b>In cerca di un&rsquo;offerta</b>, <b>In selezione</b>, <b>Piazzato</b>, <b>Non disponibile</b> &mdash; restano esattamente come sono: sono l&rsquo;unica cosa in tutto il prodotto che dice a un closer dove si trova, e sono gia&rsquo; scritti bene.</p>
+<div class="power"><div class="pk">Il punto</div><p>Per un closer senza candidatura attiva &mdash; che dagli schermi osservati e&rsquo; lo stato di partenza &mdash; <b>quattro voci su sei sono vuote o informative</b>. Il software non e&rsquo; troppo poco: e&rsquo; troppo, e nel posto sbagliato.</p></div>
+</section>
+<section id="s07">
+<span class="secnum">07 &mdash; Lo strato di misura</span>
+<h2>Otto eventi, e vengono prima di tutto</h2>
+<p class="dek">Questa e&rsquo; la sezione che si esegue per prima, non per ultima. <b>app.italiancloser.com non ha alcun analytics</b>: ne&rsquo; sulla pagina di accesso, ne&rsquo; sul modulo aziende. Finche&rsquo; resta cosi&rsquo;, ogni numero della meta&rsquo; bassa del funnel e&rsquo; una stima.</p>
+<div class="scroll"><table class="tbl"><thead><tr><th>Evento</th><th>Lato</th><th>Dove</th><th>Che cosa sblocca</th></tr></thead><tbody><tr><td class="k mono">landing_view</td><td class="d">Entrambi</td><td class="d">italiancloser.com</td><td class="no">Separa il traffico dei due lati dal primo istante. Oggi i due link Linktree portano lo stesso utm_source e sono indistinguibili.</td></tr><tr><td class="k mono">company_cta_click</td><td class="d">Azienda</td><td class="d">italiancloser.com</td><td class="no">Dice quanta parte dell&rsquo;hero funziona, prima ancora del modulo.</td></tr><tr><td class="k mono">company_form_submit</td><td class="d">Azienda</td><td class="d">modulo aziende</td><td class="no">Chiude la zona cieca del Percorso E: oggi l&rsquo;azione piu&rsquo; importante del sistema non lascia dato.</td></tr><tr><td class="k mono">call_booked</td><td class="d">Azienda</td><td class="d">calendario</td><td class="no">Il primo tasso di conversione lato domanda che avresti mai avuto.</td></tr><tr><td class="k mono">offer_view</td><td class="d">Closer</td><td class="d">muro delle offerte</td><td class="no">Quale mandato attira e quale no &mdash; per ruolo, ticket e badge. E&rsquo; anche il dato che serve all&rsquo;azienda.</td></tr><tr><td class="k mono">interest_expressed</td><td class="d">Closer</td><td class="d">muro delle offerte</td><td class="no">Intento reale su un mandato preciso, prima ancora della registrazione.</td></tr><tr><td class="k mono">signup_start / oauth_complete</td><td class="d">Closer</td><td class="d">app</td><td class="no">Il tasso di registrazione. Oggi su questo dominio non c&rsquo;e&rsquo; alcun analytics: non e&rsquo; basso, e&rsquo; ignoto.</td></tr><tr><td class="k mono">profile_complete</td><td class="d">Closer</td><td class="d">wizard</td><td class="no">Quanti arrivano in fondo ai quattro step. E&rsquo; il numero che nel Documento 04 e&rsquo; marcato come stimato.</td></tr></tbody></table></div><div class="note"><div class="t">Due condizioni tecniche, non negoziabili</div>
+<p><b>Stessa proprieta&rsquo; di misura sul sito e sull&rsquo;app.</b> Se restano due proprieta&rsquo;
+separate, la sessione si spezza esattamente al salto di dominio &mdash; cioe&rsquo; nel punto in cui
+comincia la conversione. Con la pagina unica della sezione 03 il salto sparisce quasi del tutto, ma
+il pezzo applicativo resta e va agganciato.</p>
+<p><b>utm_content distinto sui due link in bio.</b> E&rsquo; una modifica di trenta secondi su
+Linktree, e da sola trasforma &laquo;quanto traffico arriva&raquo; in &laquo;quanto traffico
+arriva da che lato&raquo;. Senza, l&rsquo;asimmetria della sezione 02 non e&rsquo; verificabile.</p>
+</div>
+<div class="power"><div class="pk">Perche&rsquo; viene prima</div><p>Senza questo strato il redesign e&rsquo; <b>infalsificabile</b>: lo rifai e non hai modo di sapere se ha funzionato. E&rsquo; la ragione per cui nel Documento 03 la prima correzione <b>non costruisce niente, misura</b>.</p></div>
+</section>
+<section id="s08">
+<span class="secnum">08 &mdash; Il limite di questo documento</span>
+<h2>Tutto il contenuto costruisce supply</h2>
+<p class="dek">Una cosa che va detta prima di costruire, perche&rsquo; cambia che cosa ci si puo&rsquo; aspettare dal risultato. Ogni superficie pubblica osservata parla allo stesso lato del marketplace.</p>
+<div class="scroll"><table class="tbl"><thead><tr><th>Superficie</th>
+<th>Volume</th><th>A chi parla</th></tr></thead><tbody>
+<tr><td class="k">Instagram &mdash; @italiancloser</td><td class="n">3.623 follower</td>
+ <td class="no">A chi vuole diventare closer</td></tr>
+<tr><td class="k">YouTube &mdash; @mannyonjourney</td><td class="n">546 iscritti &middot; 460 video</td>
+ <td class="no">A chi vuole diventare closer</td></tr>
+<tr><td class="k">Skool &mdash; Italian Closers Academy</td><td class="n">1.101 membri</td>
+ <td class="no">A chi vuole diventare closer</td></tr>
+<tr><td class="k">Discord</td><td class="n">615 membri</td>
+ <td class="no">A chi vuole diventare closer</td></tr>
+<tr><td class="k">La parola chiave &laquo;sales&raquo; sotto i post</td><td class="n">meccanismo di ingresso</td>
+ <td class="no">A chi vuole diventare closer</td></tr>
+<tr><td class="k">Trustpilot</td><td class="n">47 recensioni &middot; 4,8</td>
+ <td class="no">A chi vuole diventare closer</td></tr>
+<tr><td class="k">Qualsiasi superficie rivolta a un imprenditore</td><td class="n">nessuna osservata</td>
+ <td class="no w">&mdash;</td></tr>
+</tbody></table></div><p class="fcap"><b>Non e&rsquo; un motivo per non rifare la pagina.</b> Le sei
+correzioni delle sezioni 03&ndash;07 chiudono perdite reali su traffico che gia&rsquo; arriva, e si
+ripagano da sole. E&rsquo; un motivo per non aspettarsi che la pagina, da sola, muova il numero
+delle aziende: quel lavoro e&rsquo; parallelo, e non e&rsquo; contenuto.</p>
+<div class="power"><div class="pk">La cosa da dire</div><p>Se il vincolo del sistema e&rsquo; la domanda, <b>nessuna landing page lo risolve</b>: il canale che alimenta la domanda non esiste ancora. Questa pagina converte meglio un traffico che oggi arriva quasi tutto dall&rsquo;altro lato.</p></div>
+</section>
+<section id="s09">
+<span class="secnum">09 &mdash; Prima di costruire</span>
+<h2>Tre domande, una sola bloccante</h2>
+<p class="dek">Questo documento e&rsquo; costruito interamente su cose osservabili dall&rsquo;esterno. Tre cose non lo sono, e solo una ferma il lavoro.</p>
+<div class="qs">
+<div class="q blk">
+ <div class="q-k">Bloccante &middot; 1 di 3</div>
+ <div class="q-t">Chi paga, e come</div>
+ <p>Non e&rsquo; deducibile da fuori: e&rsquo; <b>G1</b>, il primo degli ignoti del Documento 03.
+ Nessun prezzo, nessun checkout, nessun piano e nessun termine economico compare su alcuna
+ superficie pubblica osservata. <b>L&rsquo;hero del ramo azienda cambia interamente</b> a seconda
+ della risposta. Tutto il resto di questo documento regge senza saperlo; l&rsquo;hero no.</p>
+</div>
+<div class="q">
+ <div class="q-k">Non bloccante &middot; 2 di 3</div>
+ <div class="q-t">Slack Pro: requisito o residuo</div>
+ <p>Se e&rsquo; un vincolo reale di consegna, si sposta nell&rsquo;onboarding e si spiega. Se serve
+ solo a sapere <em>come</em> mandare la shortlist, diventa una domanda dopo la firma e sparisce dal
+ modulo. <b>Nel frattempo esce dal primo contatto in ogni caso.</b></p>
+</div>
+<div class="q">
+ <div class="q-k">Non bloccante &middot; 3 di 3</div>
+ <div class="q-t">Quale SLA e&rsquo; quello vero</div>
+ <p><b>&laquo;&lt; 48h&raquo;</b> o <b>&laquo;1&ndash;2 giorni lavorativi&raquo;</b>. Uno dei due
+ va tolto da ogni superficie. Nel dubbio si tiene quello che riesci a rispettare sempre: una
+ promessa piu&rsquo; lenta e mantenuta vale piu&rsquo; di una veloce e disattesa.</p>
+</div>
+</div><p class="fcap">Nessuna delle tre riguarda lo stile. L&rsquo;architettura di questo
+documento non cambia in base a come sara&rsquo; disegnata la pagina: cambia il numero di tappe, il
+numero di campi e il numero di voci di menu, e quelli sono decisi qui.</p>
+
+</section>
+</div>
+<footer><div class="wrap"><div class="fgrid">
+ <div><div class="fk mono">Da dove viene ogni riga</div><p>Nessun rilievo nuovo. Ogni numero e ogni
+ schermata citati qui sono gia&rsquo; nei Documenti 01, 02 e 03, letti a mano su
+ instagram.com/italiancloser &middot; linktr.ee/francescomanarabusiness &middot;
+ discord.gg/cAWSm5JYXA &middot; skool.com/italian-closers-academy-6315 &middot;
+ youtube.com/@mannyonjourney &middot; italiancloser.com &middot; app.italiancloser.com &middot;
+ it.trustpilot.com il 20, 21 e 22 agosto 2026.</p></div>
+ <div><div class="fk mono">Che cosa questo documento non decide</div><p>Niente che dipenda da un
+ prezzo. G1 &mdash; come il sistema genera ricavo &mdash; non e&rsquo; osservabile
+ dall&rsquo;esterno e resta ignoto: per questo la sezione 09 lo segna come l&rsquo;unica domanda
+ bloccante, e per questo l&rsquo;hero del ramo azienda e&rsquo; l&rsquo;unica cosa qui dentro
+ lasciata aperta.</p></div>
+ <div><div class="fk mono">Stato</div><p>Documento 05 di 06 &mdash; architettura del funnel, dei
+ touchpoint e del Placement Hub. Il 04 e&rsquo; la Control Room, il modello parametrico che si
+ muove. Prossimo: 06.</p></div>
+</div>
+<div class="fend mono">Evolv AI &middot; Analisi Indipendente &middot; Italiancloser &middot; 23 agosto 2026</div>
+</div></footer>
+
+<script type="text/plain" id="aib-doc">ITALIANCLOSER - FUNNEL OVERVIEW. Documento 02 di 06, preparato da Evolv AI.
+Evolv AI - Analisi Indipendente - Italiancloser - Documento 02 di 06
+
+# Il funnel, percorso per percorso e dove perde le persone.
+
+Ho aperto ogni superficie pubblica di Italiancloser il 21 agosto 2026 e l'ho percorsa come la percorrerebbe una persona vera: un aspirante closer, un closer pronto, un'azienda che cerca venditori, uno scettico che va a verificare. Ogni riquadro qui dentro e' qualcosa che ho **visto con i miei occhi**, con la data accanto. Dove non si puo' sapere dall'esterno, il documento lo dice invece di indovinare. **Ogni touchpoint e' un punto in cui una persona puo' uscire** - e' cosi' che va letto tutto quello che segue.
+
+Rilevazione 21 agosto 2026 - 8 superfici - 35 touchpoint - 56 nodi - 60 collegamenti - 36 rilievi
+
+- 6 - Percorsi - i modi reali in cui si entra nel sistema
+- 35 - Touchpoint - passaggi osservati, uno per uno
+- 27 - Punti di perdita - dove una persona esce e non torna
+- 4 - Zone cieche - passaggi che da fuori non si vedono
+- 1 - Cattura contatti - un solo punto, su piattaforma di terzi
+
+**Come e' stato fatto.** Nessuna stima, nessuna media di settore. Ogni numero e' stato letto sulla pagina o su un endpoint pubblico il 21 agosto 2026. La struttura interna del Discord viene dal server stesso: 6 categorie, 19 canali.
+
+**Cosa non c'e' dentro.** Come Italiancloser incassa non e' in questo documento, perche' non e' osservabile: su nessuna superficie pubblica esistono un prezzo, un checkout o un piano a pagamento. E' un rilievo, non un'omissione.
+
+**Come leggerlo.** Prima i sei percorsi in verticale, uno accanto all'altro. Poi lo stesso sistema in orizzontale, tutto in una vista. Poi i rilievi divisi per sezione. Alla fine, il conto di quanto costa lasciare tutto com'e'.
+
+## 01 - IL TERRENO: LE OTTO SUPERFICI, E COSA DICONO DI SE'
+
+Colonna sinistra: cosa ho misurato. Colonna centrale: cosa dice il sito o il profilo. Quando le due non coincidono, la riga lo segnala. **Nessuna riga e' una stima.** La colonna "dichiarato" e' quello che dice la sua copy e non e' stato verificato.
+
+**INSTAGRAM · @italiancloser**
+- **Follower:** 3.617
+- **Seguiti:** 575
+- **Post sul feed:** 5 - l’intero profilo è 5 post: 1 reel-offerta, 4 personali
+- **Storie in evidenza:** 8, di cui 4 chiamate «students»
+- **Reel dell’offerta:** 857 like · 152 commenti · 11 condivisioni - il post più performante del profilo, di gran lunga
+- **Link in bio:** 2 voci etichettate - «Community Discord» · «Risorse Gratuite»
+
+**LINKTREE · francescomanarabusiness**
+- **Creato:** ≈ 1 aprile 2026
+- **Link in pagina:** 6 - i link ③ e ④ puntano allo STESSO URL con lo stesso utm_source
+
+**DISCORD · Italian Closer Academy I Community**
+- **Membri:** 615 (dichiarato: «590+ members») - il dato reale supera la promessa
+- **Online al momento del rilievo:** 31 - ≈ 5% dei membri
+- **Atterraggio dell’invito:** canale 🪧・inizia-qui - invito senza scadenza
+- **Descrizione del server:** vuota (null) - nessuna riga di contesto per chi arriva da fuori
+
+**SKOOL · italian-closers-academy**
+- **Membri:** 486 (dichiarato: «450+ studenti»)
+- **Creato:** 2 dicembre 2025
+- **Corsi · moduli in Classroom:** 20 · 155 (dichiarato: «full academy») - il materiale esiste ed è abbondante
+- **Post totali nel feed:** 17 - 17 post per 486 membri
+- **Distribuzione dei livelli:** Level 1 = 98% · L2 1% · L3 1% · L4–L9 0% - la progressione non parte
+- **Recensioni interne al gruppo:** 0
+- **Piano del gruppo:** hobby
+- **Prodotti a pagamento nel gruppo:** nessuno (dichiarato: «Corso Gratuito») - coerente: il gruppo è gratuito
+
+**YOUTUBE · @mannyonjourney**
+- **Iscritti:** 546
+- **Video pubblicati:** 460
+- **Visualizzazioni, ultimi 22 video:** da 42 a 249 · mediana ≈ 110 - ≈ 20% degli iscritti guarda un video nuovo
+- **Titolo del canale:** «Francesco Manara I Italian Closer» - l’handle è @mannyonjourney, un altro nome
+
+**ITALIANCLOSER.COM**
+- **H1 della home:** «ITALIANCLOSER» - il titolo principale è il nome del brand, non una promessa
+- **Track record dichiarato:** — (dichiarato: +1M$ · +2000 call · +40% closing rate) - numeri esposti senza fonte in pagina
+- **Video «About» incorporato:** 21 ott 2025 · 13:57 · 503 views - un anno d’età, in home, quasi non guardato
+- **Form o cattura email sul sito:** nessuno
+- **Analytics:** GA4 · G-07PW41NQYZ - nessun pixel Meta
+- **Unico CTA di conversione:** link interno «Vai al Placement Hub»
+
+**APP.ITALIANCLOSER.COM · la superficie dove si converte**
+- **Ingresso closer:** /login, etichettato «Accedi» - solo «Continua con Google», nessun «Registrati»
+- **Ingresso azienda:** /aziende/contatta - 8 campi obbligatori + messaggio max 300 caratteri
+- **Pagina /closer/risultati:** dashboard interna servita a chi non è loggato - barra laterale completa, incluso «Logout»
+- **Analytics:** nessuno, su nessuna delle pagine - le due pagine che convertono non sono misurate
+- **Tempo di risposta promesso:** «1–2 giorni lavorativi» nel form (dichiarato: «< 48h» sulla pagina marketing) - due promesse diverse a due passi di distanza
+
+**TRUSTPILOT**
+- **Recensioni:** 47 (dichiarato: «50+ recensioni») - il sito dichiara più di quante ce ne siano
+- **Punteggio:** 4,8 (dichiarato: 4.8) - coerente
+- **Profilo rivendicato:** aprile 2026
+- **Concentrazione:** quasi tutte fra il 6 e il 17 giugno 2026 - ultima visibile: 13 luglio 2026
+- **Risposte dell’azienda:** tutte il 17 giu 2026, 14:00:07 → 14:02:05 - un unico blocco da due minuti
+- **Banner di Trustpilot sulla scheda:** «Non risultano inviti alla recensione recenti» - è Trustpilot stesso a segnalarlo
+
+## 02 - I PERCORSI: I SEI MODI DI ENTRARE, IN VERTICALE
+
+Ogni colonna e' un percorso completo, dal primo contatto fino a dove il percorso si ferma. Ogni riquadro e' un touchpoint reale. Sotto ogni touchpoint c'e' l'esito: passaggio pulito, **punto di perdita**, o zona cieca. Su 35 touchpoint osservati, **27 perdono persone** e 4 non sono verificabili dall'esterno. Ogni touchpoint e' un punto in cui una persona puo' uscire.
+
+### Percorso A - Vedo il reel e commento «sales»
+_Aspirante closer · ingresso freddo da Instagram_
+5 touchpoint - 3 perdita - 1 zona cieca
+
+È il percorso che porta più persone: 152 commenti su un solo post, contro 10 sul secondo migliore. Tutto il resto del sistema dipende da cosa succede qui.
+
+1. **Vedo il reel nel feed.** Il testo dice "commenta “sales” e ti mando accesso al mio corso gratuito (framework, calls, etc…) 🔥🤝". Pubblicato il 10 aprile, segnato «Elemento modificato». 857 like, 152 commenti, 11 condivisioni. L’unico post del profilo che chieda qualcosa.
+   - _Esito del passaggio: passaggio pulito._
+2. **Commento «sales».** Nei commenti vedo altri che l’hanno fatto: parole «sales» con 1–3 risposte nel thread, datate 17, 13, 11 e 10 settimane fa. Quindi qualcosa risponde — ma la risposta è dentro un thread pubblico, non un messaggio.
+   - **NON VERIFICABILE DALL'ESTERNO** (Non verificabile dall’esterno): Non posso vedere se dopo il commento parte davvero un DM, quanto ci mette, cosa contiene, né se serve seguire il profilo per riceverlo. Da fuori vedo solo il commento e la replica pubblica. **Tutto ciò che segue in questo ramo è quindi ipotesi finché non lo si guarda da dentro l’account.**
+   - _Esito del passaggio: zona cieca._
+3. **Provo a capire cosa succede se commento sul post sbagliato.** Trovato: sul post «miami with the boys», 18 settimane fa, l’utente **giovanniscalzolaro** ha scritto «sales» **due volte**. Nessuna risposta, né pubblica né visibile. Il commento è ancora lì.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): La parola chiave è legata a **un solo post**, ma le persone la scrivono ovunque incontrino il brand. Qui c’è la prova documentata di una persona che ha fatto esattamente ciò che le è stato chiesto, nel posto sbagliato, e non ha ricevuto nulla. **Ogni «sales» che cade fuori da quel reel è una persona persa in silenzio, e nessuno lo sta contando.**
+   - _Esito del passaggio: qui si perdono persone._
+4. **Cerco altre richieste rimaste senza risposta.** Sul reel «mai mollare» (137 like, 10 commenti), l’utente **perniolamichelangelo** chiede esplicitamente un contenuto — un’opinione su un altro personaggio del settore. Nessuna replica visibile.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Il profilo riceve **domande dirette** e non le raccoglie. Una richiesta di contenuto è la forma più economica di ricerca di mercato che esista: dice cosa il pubblico vuole vedere, gratis, con nome e cognome allegato.
+   - _Esito del passaggio: qui si perdono persone._
+5. **Guardo il resto del profilo, per capire dove finisce chi non commenta.** 5 post in tutto. 4 sono personali: «amo la mia vita.», «è grato della sua vita.», «miami with the boys». Il quinto è l’offerta. Le 8 storie in evidenza — 4 chiamate «students» — sono l’unico blocco di prova sociale sul profilo.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Con **5 post**, chi arriva sul profilo dopo aver visto il reel non ha nulla da leggere per decidere. Il brand ha 460 video su YouTube e 155 moduli su Skool: **la superficie che porta più persone è la meno documentata di tutte.**
+   - _Esito del passaggio: qui si perdono persone._
+
+### Percorso B - Non commento: apro il link in bio
+_Aspirante closer · ingresso auto-diretto_
+4 touchpoint - 3 perdita - 0 zona cieca
+
+Il ramo di chi non vuole aspettare un DM. È anche l’unico posto dove il sistema mostra tutte le sue porte contemporaneamente.
+
+1. **Apro la bio.** Leggo: "💰1mln+ Cash Collected / Per Ragazzi che vogliono inseguire l’American Dream diventando High Ticket Closers🇺🇸🇮🇹 / Community Gratuita👇". Sotto, **due** link etichettati: «Community Discord» e «Risorse Gratuite».
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Due porte, nessuna gerarchia. Nessuna delle due dice «inizia da qui». **La prima decisione che il sistema chiede al visitatore è una decisione che il visitatore non ha gli elementi per prendere.**
+   - _Esito del passaggio: qui si perdono persone._
+2. **Scelgo «Risorse Gratuite» → linktr.ee/francescomanarabusiness.** Sei link, in quest’ordine: ① Italian Closer Academy (Discord) · ② Corso Gratuito High Ticket Sales (Skool) · ③ «Cerchi Venditori per la Tua Azienda?» · ④ «Sei un Closer e Cerchi un Azienda Seria?» · ⑤ YouTube · ⑥ il sito. Pagina creata attorno al 1° aprile 2026.
+   - _Esito del passaggio: passaggio pulito._
+3. **Clicco ③ «Cerchi Venditori per la Tua Azienda?». Poi clicco ④ «Sei un Closer e Cerchi un Azienda Seria?».** Entrambi portano a **italiancloser.com/placement-hub?utm_source=linktree**. Stesso identico URL. Stesso utm_source. Nessun utm_content, nessun utm_campaign, niente che distingua il click dell’azienda dal click del closer.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Due link scritti per **due pubblici opposti** — chi compra e chi si offre — collassano sulla stessa pagina e sullo stesso parametro. Conseguenza doppia: **(1)** chi arriva legge una pagina che parla anche all’altro; **(2)** non si può sapere quale dei due bisogni sta muovendo il traffico, perché nei dati i due click sono indistinguibili.
+   - _Esito del passaggio: qui si perdono persone._
+4. **Conto quante decisioni ho preso finora.** Bio (2 opzioni) → Linktree (6 opzioni) = **fino a 8 scelte** prima di aver ricevuto una singola informazione utile sul percorso.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Il menu non ordina la domanda: la moltiplica. Un aspirante closer, un’azienda e un curioso vedono la **stessa identica lista**, e nessuno dei tre viene indirizzato.
+   - _Esito del passaggio: qui si perdono persone._
+
+### Percorso C - Entro nel «corso gratuito»
+_Aspirante closer · il centro dichiarato del sistema_
+6 touchpoint - 4 perdita - 1 zona cieca
+
+È ciò che il reel promette e ciò che il Linktree mette al secondo posto. È anche l’unico punto di tutto il sistema in cui il brand raccoglie un contatto.
+
+1. **Apro la pagina Skool del gruppo.** 486 membri, 1 amministratore, gruppo pubblico e gratuito, piano **hobby**, creato il 2 dicembre 2025. Nessun prodotto a pagamento associato al gruppo. Zero recensioni interne. La descrizione promette analisi di call reali, framework testati, **offerte di lavoro in Italia e USA** e live settimanali.
+   - _Esito del passaggio: passaggio pulito._
+2. **Clicco per entrare.** Compare un questionario d’iscrizione, aggiornato il 10 aprile 2026. Tre domande **obbligatorie**: la mia situazione (studente hustler / dipendente stuck / imprenditore / disoccupato), il mio **numero di telefono**, la mia **email**.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Questo è **l’unico punto di cattura dati osservabile in tutto il sistema** — e sta dietro l’iscrizione a una piattaforma terza, non su una superficie del brand. Il sito non ha alcun form. Vuol dire che chi non entra su Skool non lascia traccia da nessuna parte, e che l’intera lista contatti vive dentro Skool.
+   - _Esito del passaggio: qui si perdono persone._
+3. **Guardo cosa c’è dentro: la Classroom.** **20 corsi · 155 moduli.** Il materiale non è un pretesto: è una libreria vera, costruita in nove mesi.
+   - _Esito del passaggio: passaggio pulito._
+4. **Guardo il feed della community.** **17 post in totale.** Su 486 membri.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Una libreria di 155 moduli e una piazza da 17 post. Il contenuto è stato prodotto; **la conversazione attorno al contenuto no**. Senza conversazione non ci sono domande, e senza domande non si sa dove le persone si bloccano.
+   - _Esito del passaggio: qui si perdono persone._
+5. **Guardo la distribuzione dei livelli — è il dato più duro di tutto il rilievo.** **Level 1: 98%.** Level 2: 1%. Level 3: 1%. Dal 4 al 9: 0%.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): I livelli Skool salgono con l’attività. 98% fermo al primo significa che **quasi nessuno dei 486 fa un secondo gesto dopo essere entrato**. La promessa del reel viene mantenuta — l’accesso c’è — ma la persona entra, guarda e si ferma. **Questo è il vero punto di rottura del sistema: non l’acquisizione, l’attivazione.**
+   - _Esito del passaggio: qui si perdono persone._
+6. **Cerco l’uscita: dove porta il gruppo chi invece è pronto?** La descrizione promette «offerte di lavoro (Italia e USA)». Nella pagina pubblica del gruppo **non trovo alcun link verso il Placement Hub**, che è esattamente il prodotto che mantiene quella promessa.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Il bacino più grande e più qualificato del sistema — 486 persone che hanno lasciato telefono ed email — **non ha un ponte osservabile verso la superficie che le trasforma in candidati.**
+   - **NON VERIFICABILE DALL'ESTERNO** (Non verificabile dall’esterno): Dentro la Classroom potrebbe esistere un modulo che rimanda al Placement Hub. Da fuori non è visibile, quindi non lo do per esistente — ma va controllato da dentro prima di intervenire.
+   - _Esito del passaggio: qui si perdono persone._
+
+### Percorso D - Sono un closer e voglio un’azienda
+_Closer pronto · il ramo che dovrebbe convertire_
+8 touchpoint - 7 perdita - 0 zona cieca
+
+Il percorso di chi ha già deciso. Da qui in poi il sistema cambia dominio — e cambia qualità.
+
+1. **Arrivo su italiancloser.com.** L’H1 della pagina è "ITALIANCLOSER". Track record dichiarato: **+1M$ · +2000 call · +40% closing rate**. C’è un video «About» incorporato. Nessun form, nessuna cattura email. L’unico CTA di conversione è un link interno: «Vai al Placement Hub».
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Il titolo principale della home è il **nome del brand**, non una promessa. Chi atterra qui da Linktree o da YouTube deve leggere il resto della pagina per capire cosa gli viene offerto, invece di saperlo in due secondi.
+   - _Esito del passaggio: qui si perdono persone._
+2. **Apro il video «About» in home.** "La mia esperienza con la Vendita da Remoto (Tutta la Verità)" — 21 ottobre 2025, **13:57 di durata, 503 visualizzazioni**.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Un video di quasi 14 minuti e di dieci mesi fa presidia il momento di massima attenzione della home. 503 visualizzazioni in dieci mesi dicono che **quasi nessuno lo guarda**: lo spazio più prezioso del sito è occupato da un asset che non lavora.
+   - _Esito del passaggio: qui si perdono persone._
+3. **Clicco «Vai al Placement Hub».** Pagina /placement-hub. Promette **< 48h** per la prima risposta, **3 giorni** per la shortlist, **3–5 profili**, e dichiara una rete di **70+ placement · 100+ closer attivi · 20+ aziende partner**. Bivio esplicito: «Per Closers» | «Per Aziende». C’è GA4.
+   - _Esito del passaggio: passaggio pulito._
+4. **Clicco «Per Closers».** Vengo portato su **app.italiancloser.com/login**. Il bottone da cui sono partito diceva «Per Closers»; la pagina dove atterro è etichettata **«Accedi»**.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): «Accedi» è la parola che si usa con chi **ha già un account**. Io non ce l’ho — sono arrivato dieci secondi fa da un reel. La pagina d’ingresso di tutto il ramo closer è etichettata per il pubblico sbagliato.
+   - _Esito del passaggio: qui si perdono persone._
+5. **Cerco come registrarmi.** In pagina c’è **un solo bottone: «Continua con Google»**. Nessun campo email, nessuna password, **nessun «Registrati»**. Sotto, una riga: "Usa il tuo account Google. Al primo accesso completerai l’onboarding."
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Il fatto che il bottone Google sia anche la registrazione è **spiegato in una riga di testo secondario**, non nell’etichetta del bottone. Chi non legge quella riga conclude che il posto non è per lui. E chi non ha o non vuole usare un account Google **non ha alcuna via alternativa.**
+   - _Esito del passaggio: qui si perdono persone._
+6. **Guardo la prova sociale su questa pagina.** Ci sono card testimonianza — con i **cerchi degli avatar grigi e vuoti**, e tagliate dal bordo del pannello.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Nel momento esatto in cui si chiede l’accesso all’account Google, la prova che dovrebbe rassicurare è **rotta a vista**. È il punto peggiore del sistema in cui mostrare un difetto di rifinitura.
+   - _Esito del passaggio: qui si perdono persone._
+7. **Torno indietro e clicco «Vedi altri →» sul Placement Hub.** Atterro su **app.italiancloser.com/closer/risultati** — e **mi viene servita la dashboard interna, da non loggato**: barra laterale con Home · Offerte · Candidatura · Profilo · Risorse · Processo e stati · Risultati e, in fondo, **«Logout»**. Il titolo della scheda è duplicato: "Risultati | Placement Hub | Placement Hub | Italiancloser".
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Due problemi in un colpo solo. **(1)** Un visitatore anonimo vede l’interfaccia riservata ai membri, con un bottone «Logout» che non ha senso per lui: l’effetto è confusione, e la sensazione che il prodotto sia aperto per sbaglio. **(2)** Da questa pagina **non esiste alcun punto d’ingresso per iscriversi**: chi ci arriva cliccando un CTA del sito finisce in un vicolo cieco e deve tornare indietro da solo.
+   - _Esito del passaggio: qui si perdono persone._
+8. **Controllo se qualcuno sta misurando tutto questo.** Il sito marketing ha GA4. **app.italiancloser.com non ha alcun analytics — né su /login, né su /aziende/contatta.**
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Il tracciamento si ferma **esattamente dove inizia la conversione**. Si può sapere quante persone arrivano al Placement Hub e nulla di ciò che succede dopo: quanti aprono il login, quanti completano Google, quanti abbandonano il form aziende, su quale campo. **Ogni decisione presa su questo ramo, da qui in avanti, è presa alla cieca.**
+   - _Esito del passaggio: qui si perdono persone._
+
+### Percorso E - Sono un’azienda e cerco venditori
+_Azienda · il ramo dal lato della domanda_
+6 touchpoint - 5 perdita - 1 zona cieca
+
+L’altro pubblico. Percorso più corto, più curato — e con un attrito concentrato in un punto solo.
+
+1. **Arrivo sul Placement Hub, dal Linktree o dal sito.** Se arrivo dal Linktree, il link che ho cliccato («Cerchi Venditori per la Tua Azienda?») **è indistinguibile**, nei dati, dal link pensato per i closer: stesso URL, stesso utm_source.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): La domanda dal lato azienda — la più preziosa da riconoscere — **arriva senza etichetta.**
+   - _Esito del passaggio: qui si perdono persone._
+2. **Leggo la pagina.** Promette prima risposta **< 48h**, shortlist in **3 giorni**, **3–5 profili** selezionati, e cita 70+ placement e 20+ aziende partner. È il messaggio più concreto di tutto il sistema.
+   - **NON VERIFICABILE DALL'ESTERNO** (Non verificabile dall’esterno): Non è osservabile se i «70+ placement» siano rapporti contrattualizzati, prove, o inserimenti conclusi. Nessuna superficie pubblica mostra né i termini né la struttura dell’accordo. **Lo tratto come una dichiarazione del brand, non come un fatto rilevato.**
+   - _Esito del passaggio: zona cieca._
+3. **Clicco «Per Aziende» → app.italiancloser.com/aziende/contatta.** Modulo con **8 campi obbligatori**: azienda, referente, settore, ruolo cercato, email, telefono con prefisso, canale di contatto preferito, come ci hai conosciuto. Più un messaggio facoltativo, **massimo 300 caratteri**.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Otto campi obbligatori sono tanti per un **primo** contatto B2B. Tre di questi (settore, canale preferito, come ci hai conosciuto) servono a chi riceve, non a chi compila: si possono chiedere dopo. E il campo dove l’azienda spiegherebbe cosa le serve davvero è quello **tagliato a 300 caratteri** — l’unico che valga la pena allungare.
+   - _Esito del passaggio: qui si perdono persone._
+4. **Noto una domanda specifica dentro il form.** "La tua azienda usa Slack (piano Pro o superiore)?"
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): È un requisito operativo — probabilmente legato a come il servizio viene consegnato — **chiesto dentro il modulo di primo contatto, senza una riga che spieghi perché**. Un’azienda che non usa Slack, o che non lo sa, si blocca lì e non ha nessuno a cui chiedere.
+   - _Esito del passaggio: qui si perdono persone._
+5. **Confronto la promessa con quella della pagina precedente.** Il form promette **«1–2 giorni lavorativi»**. La pagina marketing, un click prima, prometteva **«< 48h»**.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Due promesse diverse a due schermate di distanza. «1–2 giorni lavorativi» richiesti di venerdì valgono martedì. È una piccola incoerenza che **lavora contro la promessa di velocità**, che è il punto di forza dichiarato del servizio.
+   - _Esito del passaggio: qui si perdono persone._
+6. **Verifico se l’invio è misurato.** Nessun analytics sulla pagina. **Nemmeno l’evento di invio del form è tracciato.**
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Non è osservabile quante aziende arrivano al modulo, quante lo iniziano, quante lo abbandonano e dove. **La singola azione più importante del sistema non lascia dato.**
+   - _Esito del passaggio: qui si perdono persone._
+
+### Percorso F - Non mi fido: vado a verificare
+_Chiunque · il percorso della prova_
+6 touchpoint - 5 perdita - 1 zona cieca
+
+Prima di dare telefono, email o accesso Google, la maggior parte delle persone cerca conferme. Ecco cosa trovano.
+
+1. **Cerco il canale YouTube.** @mannyonjourney — titolo del canale «Francesco Manara I Italian Closer». **546 iscritti, 460 video.**
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): L’handle (@mannyonjourney) e il brand (Italian Closer) sono due nomi diversi. Chi cerca «Italian Closer» su YouTube deve fidarsi che sia la persona giusta. **È un attrito piccolo ripetuto su ogni ricerca.**
+   - _Esito del passaggio: qui si perdono persone._
+2. **Guardo come vanno i video.** Ultimi 22 video: da **42** a **249** visualizzazioni, mediana attorno a **110**.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): 460 video pubblicati per una mediana di ~110 visualizzazioni su 546 iscritti. Il volume di produzione è enorme e **la resa per pezzo è minima**: è il canale che costa di più e restituisce di meno. Nel frattempo Instagram, con 5 post, ne ha uno da 857 like. **Lo sforzo è allocato dove il risultato non c’è.**
+   - _Esito del passaggio: qui si perdono persone._
+3. **Cerco recensioni. Trovo Trustpilot.** **47 recensioni, 4,8.** Profilo rivendicato ad aprile 2026. Quasi tutte 5 stelle. Il sito, però, dichiara **«50+ recensioni»**.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Il sito dichiara più recensioni di quante ne esistano. È **verificabile in un click** da chiunque, e su una pagina che vende fiducia una piccola esagerazione controllabile costa più di quanto renda.
+   - _Esito del passaggio: qui si perdono persone._
+4. **Guardo le date.** Le recensioni si concentrano fra il **6 e il 17 giugno 2026**. L’ultima visibile è del **13 luglio 2026**. Le risposte dell’azienda sono **tutte del 17 giugno, fra le 14:00:07 e le 14:02:05** — un unico blocco da due minuti.
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Il profilo racconta **una campagna, non un’abitudine**: una raccolta concentrata a giugno, un batch di risposte in due minuti, poi silenzio. Un visitatore attento legge le date, e le date dicono che il flusso si è fermato.
+   - _Esito del passaggio: qui si perdono persone._
+5. **Leggo il banner che Trustpilot stesso mostra sulla scheda.** "Non risultano inviti alla recensione recenti — Questa azienda non ha mandato inviti ai suoi clienti di recente, quindi le recensioni potrebbero non essere rappresentative."
+   - **COLLO DI BOTTIGLIA** (Collo di bottiglia · osservato): Non è un’osservazione mia: è **Trustpilot che avvisa il visitatore**, sopra le recensioni, che quelle recensioni potrebbero non essere rappresentative. La prova sociale più forte del sistema porta addosso un’etichetta di dubbio, messa lì dalla piattaforma stessa.
+   - _Esito del passaggio: qui si perdono persone._
+6. **Chiudo il giro: cerco come funziona commercialmente.** Su nessuna superficie pubblica osservata — Instagram, Linktree, Discord, Skool, YouTube, sito, app, Trustpilot — **compare un prezzo, un checkout, un piano a pagamento o dei termini economici**. Il gruppo Skool non ha prodotti a pagamento associati. Il Placement Hub non espone né condizioni né compensi.
+   - **NON VERIFICABILE DALL'ESTERNO** (Non verificabile dall’esterno · e lo lascio tale): Da fuori **non si può stabilire come il sistema generi ricavo**. Poteva sembrare deducibile, ma dedurlo significherebbe costruire tutta l’analisi su un’ipotesi. Lo registro come **ignoto** e lo metto come prima domanda da fare a voce. **Nessuna raccomandazione di questo documento poggia su un’assunzione economica.**
+   - _Esito del passaggio: zona cieca._
+
+_Scorri lateralmente per passare da un percorso all'altro - ogni riquadro e' un touchpoint reale, aperto e letto il 21 agosto 2026 - ogni touchpoint e' un punto in cui una persona puo' uscire._
+
+## 03 - IL SISTEMA INTERO: GLI STESSI PERCORSI, IN ORIZZONTALE
+
+La stessa cosa vista da sopra: le otto superfici sono le corsie, la profondita' del percorso sono le colonne. 56 nodi, 60 collegamenti. Le linee rosse punteggiate sono i collegamenti che **dovrebbero esistere e non esistono**: la community piu' grande che non porta al prodotto, il corso che vive in due posti senza che uno rimandi all'altro, 460 video che non rimandano a niente.
+
+Sulla pagina questo e' un diagramma. Qui sotto lo stesso diagramma e' scritto per esteso, nodo per nodo e collegamento per collegamento, in modo che la logica del flusso sia leggibile senza vedere il disegno. Non e' un riassunto della mappa: e' la mappa.
+
+**Legenda dei collegamenti:** percorso condiviso - ramo closer - ramo azienda - perdita osservata - non verificabile - collegamento assente.
+**Legenda dei nodi:** ingresso - cattura dati - punto di perdita - gruppo di canali.
+
+**Le fasi (la profondita' del percorso, da sinistra a destra):**
+- ① Primo contatto (colonne 0-1)
+- ② Menu e smistamento (colonne 2-4)
+- ③ Atterraggio (colonne 5-5)
+- ④ Dentro la community (colonne 6-7)
+- ⑤ Ingresso al prodotto (colonne 8-9)
+- ⑥ Conversione e zona cieca (colonne 10-11)
+
+**Le corsie (una per superficie):**
+- **INSTAGRAM** [IG] - @italiancloser · 3.617 follower · 5 post
+- **LINKTREE** [LT] - francescomanarabusiness · 6 link
+- **DISCORD** [DC] - Italian Closer Academy · 615 membri · 19 canali
+- **SKOOL** [SK] - italian-closers-academy · 486 membri
+- **YOUTUBE** [YT] - @mannyonjourney · 546 iscritti · 460 video
+- **ITALIANCLOSER.COM** [WW] - sito pubblico · GA4 G-07PW41NQYZ attivo
+- **APP.ITALIANCLOSER.COM** [AP] - superficie di conversione · nessun analytics
+- **TRUSTPILOT** [TP] - italiancloser.com · 47 recensioni · 4,8
+
+**I 56 nodi, corsia per corsia.** Ogni nodo porta il suo identificativo fra parentesi quadre: e' quello usato nei collegamenti qui sotto.
+
+_INSTAGRAM_
+- [ig.reel] **Reel «commenta “sales”»** - 10 apr · 857 like · 152 commenti · 11 condivisioni _(ingresso - ① Primo contatto)_
+- [ig.post] **Gli altri 4 post** - «amo la mia vita» · «miami with the boys» · 137 like max _(passaggio normale - ① Primo contatto)_
+- [ig.bion] **La bio** - «1mln+ Cash Collected» · nessuna prova pubblica collegata _(passaggio normale - ① Primo contatto)_
+- [ig.cmt] **Il commento «sales»** - visibile a 17·13·11·10 sett · 1–3 risposte per thread _(passaggio normale - ① Primo contatto)_
+- [ig.wrong] **«sales» sul post sbagliato** - 2 volte, 18 sett fa, sul post di Miami — zero risposte _(punto di perdita - ① Primo contatto)_
+- [ig.prof] **Profilo + 8 storie in evidenza** - 4 delle 8 si chiamano «students» _(passaggio normale - ① Primo contatto)_
+- [ig.dm] **Consegna del corso promesso** - non osservabile dall’esterno _(non verificabile dall'esterno - ② Menu e smistamento)_
+- [ig.bio] **Menu dei link in bio** - 2 voci · nessuna marcata «inizia da qui» _(punto di perdita - ② Menu e smistamento)_
+
+_LINKTREE_
+- [lt.page] **linktr.ee/francescomanarabusiness** - 6 link in fila, nessuna gerarchia visiva _(passaggio normale - ② Menu e smistamento)_
+- [lt.age] **Pagina creata ≈ 1 aprile 2026** - il menu è più recente del contenuto che smista _(passaggio normale - ② Menu e smistamento)_
+- [lt.dc] **① Italian Closer Academy** - → discord.gg/cAWSm5JYXA _(passaggio normale - ② Menu e smistamento)_
+- [lt.sk] **② Corso Gratuito High Ticket Sales** - → skool.com/italian-closers-academy-6315 _(passaggio normale - ② Menu e smistamento)_
+- [lt.col] **③ «Cerchi Venditori?» + ④ «Sei un Closer?»** - stesso URL, stesso utm_source, nessun utm_content _(punto di perdita - ② Menu e smistamento)_
+- [lt.yt] **⑤ Seguimi su YouTube** - → youtube.com/@mannyonjourney _(passaggio normale - ② Menu e smistamento)_
+- [lt.ww] **⑥ Italian Closer | High Ticket Sales** - → italiancloser.com/#hero _(passaggio normale - ② Menu e smistamento)_
+
+_DISCORD_
+- [dc.land] **Invito → 🪧・inizia-qui** - 615 membri · 31 online · invito senza scadenza _(passaggio normale - ③ Atterraggio)_
+- [dc.desc] **Descrizione del server** - vuota — chi guarda l’anteprima non sa cosa c’è dentro _(punto di perdita - ③ Atterraggio)_
+- [dc.c1] **BENVENUTO — 4 canali** - inizia qui · come funzionano i canali · introductions · regole _(gruppo di canali - ④ Dentro la community)_
+- [dc.c2] **COMMUNITY — 4 canali** - general · annunci · porta un killer · weekly accountability challenge _(gruppo di canali - ④ Dentro la community)_
+- [dc.c3] **SELF DEVELOPMENT — 2 canali** - weekly sales drop · risorse e consigli _(gruppo di canali - ④ Dentro la community)_
+- [dc.c4] **ACCOUNTABILITY — 2 canali** - weekly check in · check in giornaliero _(gruppo di canali - ④ Dentro la community)_
+- [dc.c5] **HIGH TICKET SALES — 5 canali** - corso gratuito · sales talk · roleplay partners · wins · opportunità di lavoro _(gruppo di canali - ④ Dentro la community)_
+- [dc.c6] **CALLS — 3 canali** - the weekly · guest calls · archivio calls _(gruppo di canali - ④ Dentro la community)_
+- [dc.corso] **Canale «corso gratuito»** - il corso vive anche qui, oltre che su Skool _(passaggio normale - ④ Dentro la community)_
+- [dc.job] **Canale «opportunità di lavoro»** - esiste — cosa contiene non è nel materiale osservato _(non verificabile dall'esterno - ④ Dentro la community)_
+- [dc.act] **19 canali, 1 solo admin** - check-in giornaliero + settimanale + challenge: tutto da presidiare a mano _(punto di perdita - ④ Dentro la community)_
+- [dc.ref] **Canale «porta un killer»** - referral senza tracciamento, incentivo o link dedicato osservabile _(punto di perdita - ④ Dentro la community)_
+
+_SKOOL_
+- [sk.about] **Pagina About del gruppo** - gruppo pubblico · piano «hobby» · 1 solo admin · creato 02-12-2025 _(passaggio normale - ③ Atterraggio)_
+- [sk.join] **Survey d’iscrizione** - situazione + TELEFONO + EMAIL — obbligatori _(CATTURA DATI - ④ Dentro la community)_
+- [sk.promise] **Cosa promette la descrizione** - analisi di call reali, framework, «offerte di lavoro Italia e USA» _(passaggio normale - ④ Dentro la community)_
+- [sk.class] **Classroom** - 20 corsi · 155 moduli _(passaggio normale - ④ Dentro la community)_
+- [sk.feed] **Feed della community** - 17 post in totale su 486 membri _(punto di perdita - ④ Dentro la community)_
+- [sk.lvl] **Livelli dei membri** - 98% fermo a Level 1 · 1% L2 · 1% L3 · 0% oltre _(punto di perdita - ④ Dentro la community)_
+- [sk.rev] **Recensioni interne** - 0 · nessun prodotto a pagamento pubblicato sul gruppo _(punto di perdita - ④ Dentro la community)_
+
+_YOUTUBE_
+- [yt.ch] **Canale @mannyonjourney** - titolo: «Francesco Manara I Italian Closer» _(passaggio normale - ③ Atterraggio)_
+- [yt.perf] **Ultimi 22 video** - da 42 a 249 views · mediana ≈ 110 su 546 iscritti _(punto di perdita - ④ Dentro la community)_
+- [yt.name] **Il canale non porta il nome del brand** - chi cerca «Italian Closer» non atterra su @mannyonjourney _(punto di perdita - ④ Dentro la community)_
+
+_ITALIANCLOSER.COM_
+- [ww.home] **italiancloser.com** - h1 della pagina = «ITALIANCLOSER» · nessun form _(passaggio normale - ③ Atterraggio)_
+- [ww.claim] **Track record dichiarato** - +1M$ · +2000 call · +40% closing rate — nessuna fonte in pagina _(passaggio normale - ④ Dentro la community)_
+- [ww.vid] **Video «About» incorporato** - 21 ott 2025 · 13:57 · 503 visualizzazioni _(punto di perdita - ④ Dentro la community)_
+- [ww.ph] **/placement-hub** - «< 48h» · «3 gg» · «70+ placement» · «100+ closer» · «20+ aziende» _(passaggio normale - ④ Dentro la community)_
+- [ww.fork] **Bivio «Per Closers» / «Per Aziende»** - due bottoni, due destinazioni, un altro dominio _(passaggio normale - ④ Dentro la community)_
+
+_APP.ITALIANCLOSER.COM_
+- [ap.shell] **Guscio unico per tutte le rotte** - /login, / e /closer/risultati: identiche, 31.002 byte _(passaggio normale - ⑤ Ingresso al prodotto)_
+- [ap.login] **/login — etichettata «Accedi»** - solo «Continua con Google» · nessun «Registrati» _(punto di perdita - ⑤ Ingresso al prodotto)_
+- [ap.res] **/closer/risultati** - dashboard interna con «Logout» servita a chi non è loggato _(punto di perdita - ⑤ Ingresso al prodotto)_
+- [ap.az] **/aziende/contatta** - 8 campi obbligatori · messaggio max 300 caratteri _(passaggio normale - ⑤ Ingresso al prodotto)_
+- [ap.av] **Testimonianze senza volto** - cerchi grigi vuoti al posto delle foto, tagliati dal bordo _(punto di perdita - ⑤ Ingresso al prodotto)_
+- [ap.on] **Onboarding al primo accesso** - dichiarato in pagina — richiede un account _(non verificabile dall'esterno - ⑤ Ingresso al prodotto)_
+- [ap.slack] **«La tua azienda usa Slack (piano Pro)?»** - requisito tecnico chiesto prima di mostrare un solo profilo _(punto di perdita - ⑤ Ingresso al prodotto)_
+- [ap.sla] **«1–2 giorni lavorativi»** - il sito dice «< 48h»: due promesse diverse sullo stesso servizio _(punto di perdita - ⑥ Conversione e zona cieca)_
+- [ap.match] **Matching manuale** - dichiarato: shortlist di 3–5 profili in 3 giorni _(non verificabile dall'esterno - ⑥ Conversione e zona cieca)_
+- [ap.mon] **Come entra il denaro** - nessun prezzo, checkout o piano a pagamento su NESSUNA superficie pubblica _(non verificabile dall'esterno - ⑥ Conversione e zona cieca)_
+
+_TRUSTPILOT_
+- [tp.pg] **Scheda Trustpilot** - 47 recensioni · 4,8 · il sito ne dichiara «50+» _(passaggio normale - ④ Dentro la community)_
+- [tp.clu] **Quando sono arrivate** - raggruppate fra il 6 e il 17 giugno 2026 · ultima visibile 13 luglio _(punto di perdita - ④ Dentro la community)_
+- [tp.rep] **Risposte dell’azienda** - tutte il 17 giu 2026, fra le 14:00:07 e le 14:02:05 _(punto di perdita - ④ Dentro la community)_
+- [tp.inv] **Banner di Trustpilot** - «Non risultano inviti alla recensione recenti» _(punto di perdita - ④ Dentro la community)_
+
+**I 60 collegamenti, uno per uno.** Si leggono cosi': nodo di partenza -> nodo di arrivo, poi il tipo di collegamento, poi cosa lo fa scattare.
+
+- [ig.reel] Reel «commenta “sales”» -> [ig.cmt] Il commento «sales» _(percorso condiviso)_: la CTA vive nel testo
+- [ig.cmt] Il commento «sales» -> [ig.dm] Consegna del corso promesso _(non verificabile)_: consegna non osservabile
+- [ig.reel] Reel «commenta “sales”» -> [ig.prof] Profilo + 8 storie in evidenza _(percorso condiviso)_: tap sul nome
+- [ig.bion] La bio -> [ig.prof] Profilo + 8 storie in evidenza _(percorso condiviso)_
+- [ig.post] Gli altri 4 post -> [ig.wrong] «sales» sul post sbagliato _(perdita osservata)_: la keyword cade dove il trigger non gira
+- [ig.prof] Profilo + 8 storie in evidenza -> [ig.bio] Menu dei link in bio _(percorso condiviso)_
+- [ig.bio] Menu dei link in bio -> [lt.page] linktr.ee/francescomanarabusiness _(percorso condiviso)_: voce «Risorse Gratuite»
+- [ig.bio] Menu dei link in bio -> [dc.land] Invito → 🪧・inizia-qui _(percorso condiviso)_: voce «Community Discord»
+- [lt.page] linktr.ee/francescomanarabusiness -> [lt.dc] ① Italian Closer Academy _(percorso condiviso)_
+- [lt.page] linktr.ee/francescomanarabusiness -> [lt.sk] ② Corso Gratuito High Ticket Sales _(percorso condiviso)_
+- [lt.page] linktr.ee/francescomanarabusiness -> [lt.col] ③ «Cerchi Venditori?» + ④ «Sei un Closer?» _(percorso condiviso)_
+- [lt.page] linktr.ee/francescomanarabusiness -> [lt.yt] ⑤ Seguimi su YouTube _(percorso condiviso)_
+- [lt.page] linktr.ee/francescomanarabusiness -> [lt.ww] ⑥ Italian Closer | High Ticket Sales _(percorso condiviso)_
+- [lt.dc] ① Italian Closer Academy -> [dc.land] Invito → 🪧・inizia-qui _(percorso condiviso)_
+- [lt.sk] ② Corso Gratuito High Ticket Sales -> [sk.about] Pagina About del gruppo _(percorso condiviso)_
+- [lt.yt] ⑤ Seguimi su YouTube -> [yt.ch] Canale @mannyonjourney _(percorso condiviso)_
+- [lt.ww] ⑥ Italian Closer | High Ticket Sales -> [ww.home] italiancloser.com _(percorso condiviso)_
+- [lt.col] ③ «Cerchi Venditori?» + ④ «Sei un Closer?» -> [ww.ph] /placement-hub _(perdita osservata)_: due pubblici opposti → una sola pagina
+- [dc.land] Invito → 🪧・inizia-qui -> [dc.c1] BENVENUTO — 4 canali _(percorso condiviso)_: primo canale che si apre
+- [dc.land] Invito → 🪧・inizia-qui -> [dc.desc] Descrizione del server _(perdita osservata)_
+- [dc.c1] BENVENUTO — 4 canali -> [dc.c2] COMMUNITY — 4 canali _(percorso condiviso)_
+- [dc.c2] COMMUNITY — 4 canali -> [dc.c3] SELF DEVELOPMENT — 2 canali _(percorso condiviso)_
+- [dc.c3] SELF DEVELOPMENT — 2 canali -> [dc.c4] ACCOUNTABILITY — 2 canali _(percorso condiviso)_
+- [dc.c4] ACCOUNTABILITY — 2 canali -> [dc.c5] HIGH TICKET SALES — 5 canali _(percorso condiviso)_
+- [dc.c5] HIGH TICKET SALES — 5 canali -> [dc.c6] CALLS — 3 canali _(percorso condiviso)_
+- [dc.c5] HIGH TICKET SALES — 5 canali -> [dc.corso] Canale «corso gratuito» _(percorso condiviso)_
+- [dc.c5] HIGH TICKET SALES — 5 canali -> [dc.job] Canale «opportunità di lavoro» _(non verificabile)_
+- [dc.c4] ACCOUNTABILITY — 2 canali -> [dc.act] 19 canali, 1 solo admin _(perdita osservata)_: 4 rituali ricorrenti, un solo presidio
+- [dc.c2] COMMUNITY — 4 canali -> [dc.ref] Canale «porta un killer» _(perdita osservata)_
+- [dc.corso] Canale «corso gratuito» -> [sk.class] Classroom _(COLLEGAMENTO ASSENTE (dovrebbe esistere e non esiste))_: il corso esiste in due posti, nessuno dei due rimanda all’altro
+- [dc.job] Canale «opportunità di lavoro» -> [ww.ph] /placement-hub _(COLLEGAMENTO ASSENTE (dovrebbe esistere e non esiste))_: il canale lavoro non risulta collegato al Placement Hub
+- [sk.about] Pagina About del gruppo -> [sk.join] Survey d’iscrizione _(percorso condiviso)_: 3 domande obbligatorie
+- [sk.about] Pagina About del gruppo -> [sk.promise] Cosa promette la descrizione _(percorso condiviso)_
+- [sk.join] Survey d’iscrizione -> [sk.class] Classroom _(percorso condiviso)_
+- [sk.promise] Cosa promette la descrizione -> [sk.feed] Feed della community _(percorso condiviso)_
+- [sk.class] Classroom -> [sk.lvl] Livelli dei membri _(perdita osservata)_: il contenuto c’è, la progressione no
+- [sk.class] Classroom -> [sk.rev] Recensioni interne _(perdita osservata)_
+- [sk.promise] Cosa promette la descrizione -> [ww.ph] /placement-hub _(COLLEGAMENTO ASSENTE (dovrebbe esistere e non esiste))_: promette «offerte di lavoro» e non linka il Placement Hub
+- [yt.ch] Canale @mannyonjourney -> [yt.perf] Ultimi 22 video _(perdita osservata)_: 460 video pubblicati
+- [yt.ch] Canale @mannyonjourney -> [yt.name] Il canale non porta il nome del brand _(perdita osservata)_
+- [yt.ch] Canale @mannyonjourney -> [sk.about] Pagina About del gruppo _(COLLEGAMENTO ASSENTE (dovrebbe esistere e non esiste))_: 460 video, nessuna scheda o link fissato verso il corso
+- [ww.home] italiancloser.com -> [ww.claim] Track record dichiarato _(percorso condiviso)_
+- [ww.home] italiancloser.com -> [ww.vid] Video «About» incorporato _(percorso condiviso)_
+- [ww.home] italiancloser.com -> [ww.ph] /placement-hub _(percorso condiviso)_: unico CTA della home
+- [ww.ph] /placement-hub -> [ww.fork] Bivio «Per Closers» / «Per Aziende» _(percorso condiviso)_
+- [ww.ph] /placement-hub -> [tp.pg] Scheda Trustpilot _(percorso condiviso)_: badge 4,8 in pagina
+- [ww.fork] Bivio «Per Closers» / «Per Aziende» -> [ap.login] /login — etichettata «Accedi» _(ramo closer)_: «Per Closers»
+- [ww.fork] Bivio «Per Closers» / «Per Aziende» -> [ap.az] /aziende/contatta _(ramo azienda)_: «Per Aziende»
+- [ww.ph] /placement-hub -> [ap.res] /closer/risultati _(perdita osservata)_: «Vedi altri →»
+- [ap.shell] Guscio unico per tutte le rotte -> [ap.login] /login — etichettata «Accedi» _(passaggio interno)_
+- [ap.login] /login — etichettata «Accedi» -> [ap.av] Testimonianze senza volto _(perdita osservata)_
+- [ap.login] /login — etichettata «Accedi» -> [ap.on] Onboarding al primo accesso _(ramo closer)_
+- [ap.az] /aziende/contatta -> [ap.slack] «La tua azienda usa Slack (piano Pro)?» _(ramo azienda)_
+- [ap.slack] «La tua azienda usa Slack (piano Pro)?» -> [ap.sla] «1–2 giorni lavorativi» _(perdita osservata)_
+- [ap.on] Onboarding al primo accesso -> [ap.match] Matching manuale _(non verificabile)_
+- [ap.sla] «1–2 giorni lavorativi» -> [ap.match] Matching manuale _(ramo azienda)_
+- [ap.match] Matching manuale -> [ap.mon] Come entra il denaro _(non verificabile)_: il passaggio che nessuna superficie pubblica mostra
+- [tp.pg] Scheda Trustpilot -> [tp.clu] Quando sono arrivate _(perdita osservata)_
+- [tp.pg] Scheda Trustpilot -> [tp.rep] Risposte dell’azienda _(percorso condiviso)_
+- [tp.pg] Scheda Trustpilot -> [tp.inv] Banner di Trustpilot _(perdita osservata)_
+
+_Sulla pagina la mappa si naviga cosi': Trascina per spostarti - Cmd/Ctrl + rotella per lo zoom - i comandi sono +, -, "Vedi tutto" e "100%" - "Vedi tutto" per la forma dell'intero sistema - la colonna di sinistra ti dice sempre su quale superficie ti trovi._
+
+Di questi, **4 sono collegamenti che non esistono** e che il documento segnala come mancanti: il corso esiste in due posti, nessuno dei due rimanda all’altro; il canale lavoro non risulta collegato al Placement Hub; promette «offerte di lavoro» e non linka il Placement Hub; 460 video, nessuna scheda o link fissato verso il corso.
+
+## 04 - I RILIEVI: 36 RILIEVI, DIVISI PER SEZIONE
+
+Non una lista: sette sezioni, ognuna su una cosa sola. 10 sono ad alta severita'. 6 sono cose che dall'esterno **non si possono sapere** - e restano marcate come tali invece di essere riempite. Ogni rilievo ha un codice, e il codice e' quello usato nei documenti successivi.
+
+### 01 - ARCHITETTURA E INSTRADAMENTO
+Come il sistema smista chi arriva — e dove smette di farlo.
+
+- **[A1] Due link per due pubblici opposti finiscono sullo stesso URL** _(gravita': ALTA)_ Linktree ③ «Cerchi Venditori?» e ④ «Sei un Closer?» → italiancloser.com/placement-hub?utm_source=linktree, identici, senza utm_content.
+- **[A2] La pagina d’ingresso dei closer è etichettata «Accedi»** _(gravita': ALTA)_ Il bottone di partenza dice «Per Closers», la destinazione dice «Accedi», e l’unica azione è «Continua con Google». Nessun «Registrati».
+- **[A3] Un CTA pubblico porta dentro la dashboard riservata** _(gravita': ALTA)_ «Vedi altri →» sul Placement Hub apre /closer/risultati: barra laterale completa e «Logout» serviti a un visitatore non autenticato, senza alcun punto d’iscrizione.
+- **[A4] La community più grande non ha un ponte verso il prodotto** _(gravita': ALTA)_ 486 membri Skool, la cui descrizione promette «offerte di lavoro (Italia e USA)» — nessun link osservabile verso il Placement Hub. Stesso vuoto dal Discord da 615 membri.
+- **[A5] La parola chiave vive su un solo post, ma viene scritta ovunque** _(gravita': MEDIA)_ «sales» digitato due volte sul post di Miami, 18 settimane fa, senza risposta. Nessun sistema di recupero.
+- **[A6] Il menu moltiplica le scelte invece di ordinarle** _(gravita': MEDIA)_ Bio (2 voci) → Linktree (6 voci) = fino a 8 decisioni prima di ricevere una sola informazione utile. Nessuna voce marcata «inizia da qui».
+- **[A7] L’unica cattura di contatto è su una piattaforma terza** _(gravita': MEDIA)_ Telefono ed email si raccolgono solo nel questionario d’iscrizione a Skool. Il sito del brand non ha alcun form.
+
+### 02 - MISURAZIONE
+Cosa il sistema può sapere di se stesso.
+
+- **[B1] Le due pagine che convertono non hanno analytics** _(gravita': ALTA)_ Nessun tag su app.italiancloser.com: né /login (ramo closer), né /aziende/contatta (ramo azienda). GA4 si ferma sul sito marketing.
+- **[B2] L’invio del form aziende non genera evento** _(gravita': ALTA)_ Non è osservabile quante aziende iniziano il modulo, quante lo completano, su quale degli 8 campi si fermano.
+- **[B3] Il traffico dai due link Linktree è indistinguibile** _(gravita': MEDIA)_ Stesso utm_source, nessun utm_content: non si può separare la domanda del closer da quella dell’azienda nemmeno a posteriori.
+- **[B4] Nessun pixel pubblicitario su alcuna superficie** _(gravita': MEDIA)_ Solo GA4 sul sito. Nessun pubblico riutilizzabile viene costruito dal traffico che già arriva.
+
+### 03 - DOMANDA E CONTENUTO
+Dove il pubblico si muove davvero, e dove va lo sforzo.
+
+- **[C1] Lo sforzo è allocato dove la resa è più bassa** _(gravita': ALTA)_ 460 video YouTube → mediana ≈110 visualizzazioni su 546 iscritti. 5 post Instagram → uno da 857 like e 152 commenti. Il canale più costoso è il meno produttivo.
+- **[C2] La superficie che porta più persone è la meno documentata** _(gravita': MEDIA)_ 5 post in totale, 4 dei quali personali. Chi arriva sul profilo dopo il reel non ha materiale per decidere.
+- **[C3] Il video della home ha dieci mesi e 503 visualizzazioni** _(gravita': MEDIA)_ «La mia esperienza con la Vendita da Remoto», 21 ott 2025, 13:57. Occupa il momento di massima attenzione del sito.
+- **[C4] Le richieste dirette del pubblico non vengono raccolte** _(gravita': BASSA)_ Almeno una richiesta esplicita di contenuto nei commenti, senza replica visibile. È ricerca di mercato gratuita lasciata cadere.
+- **[C5] L’H1 della home è il nome del brand** _(gravita': MEDIA)_ «ITALIANCLOSER» — non una promessa. Il visitatore deve leggere per capire l’offerta invece di riconoscerla subito.
+
+### 04 - PROVA SOCIALE
+Cosa trova chi va a verificare prima di dare i propri dati.
+
+- **[D1] Trustpilot avvisa i visitatori che le recensioni potrebbero non essere rappresentative** _(gravita': ALTA)_ Banner della piattaforma: «Non risultano inviti alla recensione recenti». Compare sopra le recensioni.
+- **[D2] La raccolta è una campagna, non un’abitudine** _(gravita': MEDIA)_ Recensioni concentrate 6–17 giugno 2026; risposte dell’azienda tutte il 17 giugno fra le 14:00:07 e le 14:02:05; ultima recensione visibile 13 luglio.
+- **[D3] Il sito dichiara più recensioni di quante ne esistano** _(gravita': MEDIA)_ «50+» dichiarate contro 47 osservate. Verificabile in un click.
+- **[D4] Le testimonianze sul login sono rotte a vista** _(gravita': MEDIA)_ Avatar grigi vuoti e card tagliate dal bordo, nel punto esatto in cui si chiede l’accesso all’account Google.
+- **[D5] Il gruppo Skool non ha recensioni interne** _(gravita': BASSA)_ 0 recensioni su 486 membri, su una piattaforma che le raccoglie nativamente. Prova sociale disponibile e non usata.
+
+### 05 - ATTIVAZIONE E RITENZIONE
+Cosa succede alle persone dopo che sono entrate.
+
+- **[E1] Il 98% dei membri Skool è fermo al primo livello** _(gravita': ALTA)_ 486 membri: L1 98% · L2 1% · L3 1% · L4–L9 0%. Quasi nessuno compie un secondo gesto dopo l’ingresso.
+- **[E2] La libreria è grande, la conversazione non esiste** _(gravita': ALTA)_ 20 corsi e 155 moduli contro 17 post totali nel feed. Nessun canale per sapere dove le persone si bloccano.
+- **[E3] Il Discord accoglie senza contestualizzare** _(gravita': MEDIA)_ 615 membri, atterraggio su 🪧・inizia-qui, descrizione del server vuota. Chi entra da fuori non riceve un inquadramento.
+- **[E4] 31 online su 615 al momento del rilievo** _(gravita': BASSA)_ ≈5%. Fotografia singola, non una serie — ma coerente con il quadro di attività bassa.
+
+### 06 - COERENZA E ATTRITO
+Le crepe che il visitatore nota e che costano fiducia.
+
+- **[F1] Due promesse di tempo diverse a due schermate di distanza** _(gravita': MEDIA)_ Pagina marketing: «< 48h». Form aziende: «1–2 giorni lavorativi». La velocità è il punto di forza dichiarato.
+- **[F2] Otto campi obbligatori per un primo contatto B2B** _(gravita': MEDIA)_ Tre di essi servono a chi riceve, non a chi compila; il messaggio libero — l’unico campo davvero utile — è limitato a 300 caratteri.
+- **[F3] Un requisito operativo compare nel form senza spiegazione** _(gravita': MEDIA)_ «La tua azienda usa Slack (piano Pro o superiore)?» chiesto al primo contatto, senza una riga sul perché.
+- **[F4] Handle e brand non coincidono su YouTube** _(gravita': BASSA)_ @mannyonjourney per un canale intitolato «Francesco Manara I Italian Closer».
+- **[F5] Titolo di pagina duplicato sulla app** _(gravita': BASSA)_ «Risultati | Placement Hub | Placement Hub | Italiancloser».
+
+### 07 - CIÒ CHE NON SI PUÒ SAPERE DALL’ESTERNO
+Registrato come ignoto. Nessuna raccomandazione poggia su questi punti.
+
+- **[G1] Come il sistema genera ricavo** _(gravita': IGNOTO)_ Nessun prezzo, checkout, piano a pagamento o termine economico su nessuna delle 8 superfici osservate. Il gruppo Skool non ha prodotti a pagamento; il Placement Hub non espone condizioni. Prima domanda da fare a voce.
+- **[G2] Cosa succede davvero dopo il commento «sales»** _(gravita': IGNOTO)_ Se parta un DM, con che ritardo, con che contenuto, se richieda il follow. Non osservabile senza accesso all’account.
+- **[G3] Cosa c’è dentro il Discord oltre 🪧・inizia-qui** _(gravita': IGNOTO)_ Struttura dei canali, moderazione, ritmo reale delle conversazioni.
+- **[G4] Cosa c’è dentro la Classroom Skool** _(gravita': IGNOTO)_ Se esista un modulo che rimanda al Placement Hub, e come sia sequenziato il percorso.
+- **[G5] Cosa succede dopo il login Google** _(gravita': IGNOTO)_ L’onboarding dichiarato in pagina, i suoi passaggi, il suo tasso di completamento.
+- **[G6] Se i «70+ placement» siano contrattualizzati** _(gravita': IGNOTO)_ Nessuna superficie pubblica mostra la natura del rapporto con le 20+ aziende partner.
+
+Totale rilievi: 36. Alta: 10. Ignoto: 6.
+
+## 05 - IL CONTO: QUANTO COSTA LASCIARE IL FUNNEL COM'E'
+
+I numeri di partenza li metti tu - nessuno e' un'ipotesi mia sul tuo fatturato. Le percentuali partono da cio' che e' stato osservato il 21 agosto 2026 e le puoi cambiare tutte. **Muovi ogni cursore dove vuoi: il numero in fondo resta rosso.**
+
+Sulla pagina questa e' una calcolatrice interattiva a tre colonne. Qui sotto ci sono i suoi ingressi, i valori di partenza, l'evidenza dietro ogni percentuale e la formula esatta, cosi' la logica del conto resta leggibile anche senza toccare i cursori.
+
+**I TUOI NUMERI** - li sai solo tu.
+- **Persone nuove ogni mese** [A] = 60 persone (da 0 a 500, passo 5) - Discord + Skool, quelle che entrano davvero
+  _Per esteso:_ Persone nuove che entrano ogni mese nel tuo ecosistema - Discord + Skool messi insieme, quelle che arrivano davvero dentro.
+- **Valore di un closer collocato** [V] = 400 € (da 0 a 5000, passo 50) - Il tuo numero, non il mio
+  _Per esteso:_ Quanto vale per te un closer che arriva fino alla collocazione - Il tuo numero, non il mio. Se non lo sai ancora, è già un dato.
+- **Aziende che ti contattano ogni mese** [Z] = 4 aziende (da 0 a 60, passo 1) - Form, DM, email, passaparola
+  _Per esteso:_ Aziende che ti contattano ogni mese - Da qualunque canale: form, DM, email, passaparola.
+- **Valore di un'azienda cliente** [W] = 1500 € (da 0 a 20000, passo 250) - Su tutta la durata del rapporto
+  _Per esteso:_ Quanto vale per te un'azienda che diventa cliente - Su tutta la durata del rapporto, non sulla prima collocazione.
+- **Ore a settimana fatte a mano** [O] = 12 ore (da 0 a 60, passo 1) - Vetting, matching, presidio, risposte
+  _Per esteso:_ Ore a settimana che fai a mano - Vetting, matching, presidio dei 19 canali, risposte una per una.
+- **Valore di un'ora del tuo tempo** [E] = 60 € (da 0 a 500, passo 5) - Fatturato mensile ÷ ore lavorate
+  _Per esteso:_ Quanto vale un'ora del tuo tempo - Se non lo hai mai calcolato: fatturato mensile diviso ore lavorate.
+
+**LE PERDITE OSSERVATE** - tutte modificabili.
+- **Si perde nello smistamento** [l1] = 30% (da 0 a 90)
+  _Per esteso:_ Quota che si perde nello smistamento
+  _Da cosa viene:_ Osservato: i link Linktree ③ e ④ parlano a due pubblici opposti e portano allo stesso URL; il menu bio → Linktree chiede fino a 8 decisioni; la porta dei closer si chiama «Accedi» e offre solo «Continua con Google», senza «Registrati».
+- **Entra e non si attiva mai** [l2] = 90% (da 0 a 99)
+  _Per esteso:_ Quota che entra e non si attiva mai
+  _Da cosa viene:_ Osservato su Skool: 98% dei 486 membri fermo a Level 1, 1% a L2, 1% a L3, 0% oltre. 17 post in tutta la storia del gruppo. Su Discord, 19 canali e un solo admin a presidiarli.
+- **Dove arriverebbe con un funnel che funziona** [t] = 20% (da 0 a 50)
+  _Per esteso:_ Dove arriverebbe la stessa gente con un funnel che funziona
+  _Da cosa viene:_ È l'unico numero di questa pagina che non è osservato: è un'ipotesi, non un dato, e la decidi tu. Oggi, con lo smistamento com'è, di 60 persone ne arrivano in fondo 4. La domanda è quante ne arriverebbero con una sola porta, un solo percorso e un'attivazione guidata. Abbassalo quanto vuoi: il numero rosso resta.
+- **Aziende ferme sull'attrito del modulo** [l3] = 40% (da 0 a 90)
+  _Per esteso:_ Quota di aziende che si ferma sull'attrito del modulo
+  _Da cosa viene:_ Osservato: 8 campi obbligatori prima di vedere un solo profilo, la domanda «La tua azienda usa Slack (piano Pro o superiore)?», e due promesse diverse sullo stesso servizio — «< 48h» sul sito, «1–2 giorni lavorativi» nel form.
+- **Lavoro manuale che una macchina farebbe** [au] = 60% (da 0 a 95)
+  _Per esteso:_ Quota del tuo lavoro manuale che una macchina potrebbe fare
+  _Da cosa viene:_ Osservato: nessun punto di cattura contatti sul tuo dominio, nessun analytics sulle due pagine che convertono, nessun instradamento automatico fra le superfici. Oggi il sistema sei tu.
+
+**IL CONTO** - ogni mese, sul funnel di oggi.
+
+Le tre barre, in ordine: si perdono nello smistamento - entrano e non si attivano - arrivano davvero in fondo.
+
+La tabella ha una colonna "al mese" e una colonna "12 mesi", su tre righe: Closer che non arrivano in fondo - Aziende ferme sul modulo - Il tuo tempo su lavoro automatizzabile. Il totale si chiama **Costo di non fare niente**, tenendo il funnel com'e' oggi, con la riga "In 12 mesi" sotto.
+
+**La formula esatta, come la calcola la pagina:**
+```
+persi_nello_smistamento   = A * l1
+restano                   = A - persi_nello_smistamento
+entrano_e_non_si_attivano = restano * l2
+arrivano_in_fondo_oggi    = restano - entrano_e_non_si_attivano
+arriverebbero_in_fondo    = A * t
+divario                   = max(0, arriverebbero_in_fondo - arrivano_in_fondo_oggi)
+
+Closer che non arrivano in fondo      = divario * V
+Aziende ferme sul modulo              = Z * l3 * W
+Il tuo tempo su lavoro automatizzabile = O * E * 4,33 * au   (4,33 = settimane in un mese)
+
+Costo di non fare niente, al mese = somma delle tre righe
+In 12 mesi                        = costo al mese * 12
+```
+
+Sotto le barre la pagina scrive, con i numeri messi da te: "Di [A] persone che entrano ogni mese, oggi ne arriva in fondo [tot], il [x]%. Con lo stesso traffico e un funnel che smista e attiva, sarebbero [target]. La differenza, [divario] persone al mese, non e' gente che devi ancora trovare: e' gente che hai gia' e che esce."
+
+**E questo non e' nel conto.** Le due pagine che convertono - **/login** e **/aziende/contatta** - non hanno alcun analytics. Non e' una perdita in euro: e' il motivo per cui questi numeri oggi si stimano invece di misurarli.
+
+Il numero finale in euro dipende dai valori che mette lui, quindi **non va stimato ne' inventato**: se qualcuno lo chiede, la risposta e' che va aperta la calcolatrice in fondo al documento 02 e vanno messi i propri numeri.
+
+## FONTI E METODO
+
+**Fonti aperte a mano:** instagram.com/italiancloser - linktr.ee/francescomanarabusiness - discord.gg/cAWSm5JYXA - skool.com/italian-closers-academy-6315 - youtube.com/@mannyonjourney - italiancloser.com - app.italiancloser.com - it.trustpilot.com
+
+**Metodo:** ogni nodo di questa mappa e' stato aperto e letto il 21 agosto 2026. Nessun numero e' stimato: dove un dato non e' pubblico, il nodo dice "non verificabile" invece di indovinare.
+
+**Stato:** documento 02 di 06 - Funnel. Prossimi: documento 03 colli di bottiglia, 04 soluzioni e matrice di priorita', 05 roadmap di esecuzione, 06 bonus.
+
+============================================================
+QUI FINISCE IL DOCUMENTO 02 E COMINCIA IL DOCUMENTO 03
+============================================================
+
+ITALIANCLOSER - COLLI DI BOTTIGLIA, SOLUZIONI, PRIORITA'. Documento 03 di 06, preparato da Evolv AI.
+
+Il documento e' un inventario solo: 36 righe, una per ogni rilievo del Documento 02, e per ognuna il collo di bottiglia che la raccoglie, la correzione, il segnale e la priorita'. Nessun rilievo nuovo: ogni collo di bottiglia assorbe rilievi gia' pubblicati nel Documento 02 e li cita per codice. Nessuna assunzione economica: G1 - come il sistema genera ricavo - non e' osservabile dall'esterno, quindi la priorita' ha due assi, impatto e sforzo, e non tre.
+
+Evolv AI · Analisi Indipendente · Italiancloser · Documento 03 di 06
+# I colli di bottiglia, le soluzioni, *l’ordine*.
+
+L’inventario completo: tutti e trentasei i rilievi del Documento 02, uno per riga, ognuno con che cosa si osserva, la gravita’, il collo di bottiglia che lo raccoglie, la correzione che lo chiude con lo strumento che hai gia’ e il segnale che prova se ha funzionato. Trentasei righe, otto colli di bottiglia, un ordine. Nessuno strumento nuovo, nessuna assunzione su quanto costa o quanto rende.
+**Documento** 03 di 06 — Colli di bottiglia, soluzioni, priorita’ **Base** i 36 rilievi del Documento 02 **Rilievo** 20, 21 e 22 agosto 2026 **Contatto** nessuno
+Indice
+- **I tre livelli** Il sistema dentro il tuo schema TOF / MOF / BOF
+- **L’inventario** Tutti e trentasei i rilievi, uno per riga
+- **Le ondate** Le otto righe raggruppate nel tempo
+- **Cosa non fare** Quattro cose da non fare in questa fase
+- **Cosa resta ignoto** Sei domande che questo documento non puo’ chiudere
+
+---
+
+## 01 — I tre livelli — Il sistema dentro il tuo schema TOF / MOF / BOF
+
+Prima della tabella, la lettura che la ordina. Il metro non e’ nostro: e’ il tuo documento di funnel, riga per riga, messo accanto a quello che si osserva su undici superfici pubbliche il 20, 21 e 22 agosto 2026.
+
+| Livello | Che cosa dice il tuo schema | Che cosa si osserva | Verdetto |
+|---|---|---|---|
+| TOF Attenzione | Contenuto = influenza e portata. Cinque punti di contatto, di cui il quarto — la pagina profilo — marcato CRITICO: e' il nodo di decisione e va trattato come una landing page. Regola 7-11-14: sette ore, undici contatti, quattro incontri. | La portata c'e' e non e' in discussione: 22.638 visualizzazioni sul reel migliore, 3.623 follower, 152 commenti sul post d'offerta, zero euro di pubblicita'. Ma il punto di contatto 4 e' un menu da otto voci (B3) con cinque post dietro (B7), e il livello di fiducia passiva porta un avviso della piattaforma stessa (B6). | **Funziona, ma scarica su una porta che non regge.** |
+| MOF Nutrimento | Conversazione → qualifica → prenotazione. Cinque punti di contatto. Cinque passaggi di appointment setting: A ambiente caldo, B qualifica, C creare il divario, D transizione alla prenotazione, E rapporto post-prenotazione. Uscita: una call prenotata. | Nessuno dei cinque passaggi e' osservabile su alcuna superficie pubblica. La parola chiave produce una replica in un thread, non una conversazione (B1). L'unica cattura sta su una piattaforma di terzi (B2). Le 1.100 persone gia' dentro non hanno un'uscita verso il prodotto (B5). Nessuna interfaccia di prenotazione compare da nessuna parte. | **Assente. E' qui che si perde quasi tutto quello che il TOF produce.** |
+| BOF Vendita | Otto fasi. La fase 1, STUDY, richiede un riassunto della conversazione MOF prima della call. Il punto di contatto 3 e' il momento della decisione: link di pagamento, termini, inversione del rischio. Ogni attrito qui uccide la chiusura anche dopo una call forte. | Sul ramo closer il momento della decisione e' un login Google etichettato «Accedi», con testimonianze rotte accanto (B4). Sul ramo azienda e' un modulo da otto campi obbligatori con il messaggio libero tagliato a 300 caratteri, e con due promesse di tempo diverse a due schermate di distanza. La fase STUDY e' **impossibile**: non esiste una conversazione MOF da riassumere. | **Esiste come interfaccia, non come processo.** |
+
+> **CONCLUSION — La cosa piu’ importante:** Secondo il tuo stesso schema: **il TOF funziona, il MOF non esiste, il BOF e’ un’interfaccia senza processo.** L’intero divario del sistema sta in un livello solo, ed e’ quello di mezzo. E finche’ la misura si ferma dove comincia la conversione, **nessuna delle otto correzioni di questa tabella si puo’ dimostrare**: per questo la prima non costruisce niente, misura.
+
+---
+
+## 02 — L’inventario — Tutti e trentasei i rilievi, uno per riga
+
+Otto colli di bottiglia non sono otto problemi: sono il modo in cui i trentasei rilievi del Documento 02 si raggruppano. Qui ci sono tutti e trentasei, uno per riga, con la correzione che li chiude e la posizione che occupano nell’ordine di esecuzione. La tabella si scorre in orizzontale: le prime due colonne restano ferme.
+
+**NOTE — Come si legge**
+
+**Tre fasce di colonne.** Le prime cinque sono il registro: numero d’ordine, il rilievo con il suo codice, che cosa si osserva, la gravita’, e il collo di bottiglia che lo raccoglie. Le quattro centrali sono la correzione. Le ultime due sono la priorita’.
+
+**Le celle unite non sono un vezzo.** Dove piu’ righe condividono una cella, vuol dire che quei rilievi sono lo stesso collo di bottiglia visto da angoli diversi, e che si chiudono con un gesto solo. Sette rilievi contro una correzione e’ la cosa piu’ utile che questa tabella dice.
+
+**Due alfabeti che si somigliano.** I codici dei rilievi — da **A1** a **G6** — vengono dal Documento 02. I codici dei colli di bottiglia — da **B0** a **B7** — sono di questo documento. Dove la lettera coincide, e’ la colonna a dire quale dei due si sta leggendo.
+
+**Un criterio solo per l’ordine:** quando la correzione si puo’ eseguire *e* dimostrare. Non c’e’ un criterio economico, perche’ G1 dice che da fuori non si sa come il sistema genera ricavo: la priorita’ ha due assi, impatto e sforzo, e non tre.
+
+**Inventario completo dei colli di bottiglia · 36 rilievi · 10 alta · 15 media · 5 bassa · 6 ignoto · otto colli di bottiglia · 22 agosto 2026**
+
+| # | Il rilievocodice del Documento 02 | Che cosa si osservail numero, la pagina, la data | Gravita’ | Il collo di bottiglia che lo raccogliee che cosa blocca | La correzione | Che cosa si fa | Con che cosa, gia’ in casa | Il segnaleche prova se ha funzionato | Impatto e sforzo | Non prima di |
+|---|---|---|---|---|---|---|---|---|---|---|
+| L’inventario · 36 rilievi | La correzione · 8 colli di bottiglia | La priorita’ |  |  |  |  |  |  |  |  |
+| Ondata 1 · giorni 1–7 Si possono fare subito, con quello che e’ gia’ in casa, e ognuna porta con se’ il numero che prova se ha funzionato. |  |  |  |  |  |  |  |  |  |  |
+| 1 | B1 sezione 02 Le due pagine che convertono non hanno analytics | Nessun tag su app.italiancloser.com: né /login (ramo closer), né /aziende/contatta (ramo azienda). GA4 si ferma sul sito marketing. | alta | B0 PRE La misura si ferma esattamente dove comincia la conversione Si puo' sapere quante persone arrivano al Placement Hub e **niente di cio' che succede dopo**. Quante aprono il login, quante completano Google, quante iniziano il modulo aziende, su quale degli otto campi si fermano: nessuno di questi numeri esiste. Questo e' il motivo per cui B0 viene prima di tutto il resto. **Senza misura, ognuna delle sette correzioni che seguono si puo' fare — ma non si puo' dimostrare che abbia funzionato**, e la volta dopo si ricomincia a decidere a intuito. | S0 Metti una misura dove si converte | Estendi il GA4 che gia' esiste a app.italiancloser.com e definisci quattro eventi, non uno di piu': apertura di /login , ritorno riuscito da Google, apertura di /aziende/contatta , invio del modulo. Separa i due link Linktree con utm_content . | GA4 G-07PW41NQYZ , gia' installato. Linktree, gia' in uso. | Entro sette giorni sai **quante persone al giorno toccano il login e quante lo superano**. Oggi quel numero non esiste in nessun posto. | Impatto 5 su 5 Sforzo 1 su 5 | Niente. E' il primo gesto possibile. |
+| 2 | B2 sezione 02 L’invio del form aziende non genera evento | Non è osservabile quante aziende iniziano il modulo, quante lo completano, su quale degli 8 campi si fermano. | alta |  |  |  |  |  |  |  |
+| 3 | B3 sezione 02 Il traffico dai due link Linktree è indistinguibile anche il collo B3 | Stesso utm_source, nessun utm_content: non si può separare la domanda del closer da quella dell’azienda nemmeno a posteriori. | media |  |  |  |  |  |  |  |
+| 4 | B4 sezione 02 Nessun pixel pubblicitario su alcuna superficie | Solo GA4 sul sito. Nessun pubblico riutilizzabile viene costruito dal traffico che già arriva. | media |  |  |  |  |  |  |  |
+| 5 | A1 sezione 01 Due link per due pubblici opposti finiscono sullo stesso URL | Linktree ③ «Cerchi Venditori?» e ④ «Sei un Closer?» → italiancloser.com/placement-hub?utm_source=linktree, identici, senza utm_content. | alta | B3 TOF Otto decisioni prima di una informazione Il tuo stesso documento TOF marca il punto di contatto 4 — la pagina profilo — come **CRITICO**, ed e' il nodo di decisione: va trattato come una landing page. Oggi e' un menu. Un menu non ordina la domanda, la moltiplica: un aspirante closer, un'azienda e un curioso vedono la stessa lista e nessuno dei tre viene indirizzato. Conseguenza doppia: chi arriva legge una pagina che parla anche all'altro, e nei dati i due click restano indistinguibili. | S3 Una porta sola, e due strade dichiarate | La bio punta a **una** destinazione. Il Linktree apre con una voce «Inizia da qui». I due link per pubblici opposti restano due, ma smettono di essere lo stesso URL: uno per l'azienda, uno per il closer, ognuno con il suo utm_content e la sua pagina. L'H1 della home diventa la promessa, non il nome. | Bio Instagram, Linktree, home del sito. Nessuno strumento nuovo. | Da otto decisioni a una. E, nei dati, la domanda dal lato azienda — la piu' preziosa da riconoscere — **arriva finalmente con un'etichetta**. | Impatto 4 su 5 Sforzo 1 su 5 | Niente. |
+| 6 | A6 sezione 01 Il menu moltiplica le scelte invece di ordinarle | Bio (2 voci) → Linktree (6 voci) = fino a 8 decisioni prima di ricevere una sola informazione utile. Nessuna voce marcata «inizia da qui». | media |  |  |  |  |  |  |  |
+| 7 | C5 sezione 03 L’H1 della home è il nome del brand | «ITALIANCLOSER» — non una promessa. Il visitatore deve leggere per capire l’offerta invece di riconoscerla subito. | media |  |  |  |  |  |  |  |
+| 8 | A2 sezione 01 La pagina d’ingresso dei closer è etichettata «Accedi» anche il collo B1 | Il bottone di partenza dice «Per Closers», la destinazione dice «Accedi», e l’unica azione è «Continua con Google». Nessun «Registrati». | alta | B4 BOF La porta d'ingresso parla a chi e' gia' dentro E' il punto di massima diffidenza di tutto il percorso: si chiede l'accesso a un account Google. **Nel momento esatto in cui il sistema chiede il gesto piu' impegnativo, mostra la parola sbagliata, un vicolo cieco e una prova rotta a vista.** Chi non ha o non vuole usare un account Google non ha alcuna via alternativa. | S4 Riscrivi la porta per chi arriva la prima volta | «Accedi» diventa la frase di chi entra oggi. Il bottone Google dice che **e' anche la registrazione**, nell'etichetta e non in una riga sotto. /closer/risultati smette di servire la dashboard agli anonimi: o chiede l'accesso, o mostra una pagina pubblica con un ingresso. Le testimonianze rotte si riparano o si tolgono — **meglio nessuna prova che una prova rotta**. Il titolo di pagina duplicato si sistema nello stesso passaggio. | app.italiancloser.com, gia' costruita. Sono modifiche di copy e di stato, non di prodotto. | Il tasso fra «apertura di /login» e «ritorno riuscito da Google» — che S0 rende visibile per la prima volta — si muove. E' l'unico modo per sapere se questa correzione e' servita. | Impatto 5 su 5 Sforzo 2 su 5 | S0, per vedere se e' servita. |
+| 9 | A3 sezione 01 Un CTA pubblico porta dentro la dashboard riservata | «Vedi altri →» sul Placement Hub apre /closer/risultati: barra laterale completa e «Logout» serviti a un visitatore non autenticato, senza alcun punto d’iscrizione. | alta |  |  |  |  |  |  |  |
+| 10 | D4 sezione 04 Le testimonianze sul login sono rotte a vista anche il collo B6 | Avatar grigi vuoti e card tagliate dal bordo, nel punto esatto in cui si chiede l’accesso all’account Google. | media |  |  |  |  |  |  |  |
+| 11 | F1 sezione 06 Due promesse di tempo diverse a due schermate di distanza | Pagina marketing: «< 48h». Form aziende: «1–2 giorni lavorativi». La velocità è il punto di forza dichiarato. | media |  |  |  |  |  |  |  |
+| 12 | F2 sezione 06 Otto campi obbligatori per un primo contatto B2B | Tre di essi servono a chi riceve, non a chi compila; il messaggio libero — l’unico campo davvero utile — è limitato a 300 caratteri. | media |  |  |  |  |  |  |  |
+| 13 | F3 sezione 06 Un requisito operativo compare nel form senza spiegazione | «La tua azienda usa Slack (piano Pro o superiore)?» chiesto al primo contatto, senza una riga sul perché. | media |  |  |  |  |  |  |  |
+| 14 | F5 sezione 06 Titolo di pagina duplicato sulla app | «Risultati / Placement Hub / Placement Hub / Italiancloser». | bassa |  |  |  |  |  |  |  |
+| 15 | D1 sezione 04 Trustpilot avvisa i visitatori che le recensioni potrebbero non essere rappresentative | Banner della piattaforma: «Non risultano inviti alla recensione recenti». Compare sopra le recensioni. | alta | B6 TOF La prova porta addosso un'etichetta di dubbio Non e' un'osservazione nostra: e' la piattaforma stessa che avvisa il visitatore. Le date raccontano **una campagna, non un'abitudine**, e chiunque puo' verificare il «50+» in un click. Hai piu' prova reale di molte agenzie che fatturano dieci volte tanto — e la prova e' sparsa su cinque piattaforme, puntata su un prodotto gratuito, e marcata come sospetta dalla piattaforma che dovrebbe garantirla. | S6 Rendi la prova un'abitudine invece che una campagna | Un invito alla recensione dentro il momento in cui il risultato accade — ogni volta, non una volta a giugno. Il numero sul sito allineato a quello vero: 47 verificabile vale piu' di 50+ smentibile. Le recensioni native di Skool, oggi a zero, chieste alle stesse persone. | Trustpilot, profilo gia' rivendicato. Skool, che le raccoglie nativamente. | Il banner di Trustpilot **sparisce** — e' la piattaforma stessa a toglierlo quando gli inviti tornano regolari. E' un segnale binario, visibile da chiunque, senza analytics. | Impatto 3 su 5 Sforzo 1 su 5 | Niente. |
+| 16 | D2 sezione 04 La raccolta è una campagna, non un’abitudine | Recensioni concentrate 6–17 giugno 2026; risposte dell’azienda tutte il 17 giugno fra le 14:00:07 e le 14:02:05; ultima recensione visibile 13 luglio. | media |  |  |  |  |  |  |  |
+| 17 | D3 sezione 04 Il sito dichiara più recensioni di quante ne esistano | «50+» dichiarate contro 47 osservate. Verificabile in un click. | media |  |  |  |  |  |  |  |
+| Ondata 2 · giorni 8–30 Hanno bisogno che la prima ondata esista: o della misura, o dello smistamento. |  |  |  |  |  |  |  |  |  |  |
+| 18 | A4 sezione 01 La community più grande non ha un ponte verso il prodotto | 486 membri Skool, la cui descrizione promette «offerte di lavoro (Italia e USA)» — nessun link osservabile verso il Placement Hub. Stesso vuoto dal Discord da 615 membri. | alta | B5 MOF Millecento persone senza un ponte Il bacino piu' grande e piu' qualificato che hai — persone che hanno gia' lasciato telefono ed email — non ha un'uscita verso la superficie che le trasforma in candidati. E il 98% fermo al primo livello dice che **quasi nessuno compie un secondo gesto dopo essere entrato**: il punto di rottura non e' l'acquisizione, e' l'attivazione. | S5 Costruisci il ponte dalle 1.100 persone al Placement Hub | Il gruppo Skool promette offerte di lavoro e non porta a nulla: un post fissato e un modulo in Classroom che finiscono sul Placement Hub chiudono il vuoto. Lo stesso vale per il Discord, dove la descrizione del server e' vuota. Prima di aggiungere un modulo nuovo alla libreria, verifica dall'interno se un ponte esiste gia' (G4). | Skool e Discord, gia' popolati. Il Placement Hub, gia' costruito. | La prima candidatura che arriva con utm_source=skool . Oggi non ne puo' arrivare nessuna, perche' non esiste il link che la genererebbe. | Impatto 4 su 5 Sforzo 2 su 5 | Verifica interna (G4). |
+| 19 | E1 sezione 05 Il 98% dei membri Skool è fermo al primo livello anche il collo B1 | 486 membri: L1 98% · L2 1% · L3 1% · L4–L9 0%. Quasi nessuno compie un secondo gesto dopo l’ingresso. | alta |  |  |  |  |  |  |  |
+| 20 | E2 sezione 05 La libreria è grande, la conversazione non esiste | 20 corsi e 155 moduli contro 17 post totali nel feed. Nessun canale per sapere dove le persone si bloccano. | alta |  |  |  |  |  |  |  |
+| 21 | E3 sezione 05 Il Discord accoglie senza contestualizzare | 615 membri, atterraggio su 🪧・inizia-qui, descrizione del server vuota. Chi entra da fuori non riceve un inquadramento. | media |  |  |  |  |  |  |  |
+| 22 | D5 sezione 04 Il gruppo Skool non ha recensioni interne | 0 recensioni su 486 membri, su una piattaforma che le raccoglie nativamente. Prova sociale disponibile e non usata. | bassa |  |  |  |  |  |  |  |
+| 23 | E4 sezione 05 31 online su 615 al momento del rilievo | ≈5%. Fotografia singola, non una serie — ma coerente con il quadro di attività bassa. | bassa |  |  |  |  |  |  |  |
+| 24 | A7 sezione 01 L’unica cattura di contatto è su una piattaforma terza | Telefono ed email si raccolgono solo nel questionario d’iscrizione a Skool. Il sito del brand non ha alcun form. | media | B2 MOF Nessun contatto e' tuo Chi non entra su Skool non lascia traccia da nessuna parte, e l'intera lista contatti vive dentro un sistema che non controlli. Vuol dire due cose insieme: **non puoi ricontattare nessuno** senza passare da Skool, e **non puoi costruire un MOF** (B1) perche' un MOF ha bisogno di un punto d'ingresso che sia tuo. | S2 Porta la cattura dentro casa | Un punto di raccolta sul dominio del brand, **prima** di Skool e non dopo. Chi lascia l'indirizzo li' riceve l'accesso a Skool come conseguenza, non come condizione. | Il sito italiancloser.com, che oggi non ha alcun form. Le tre domande del questionario Skool esistono gia' e sono le stesse. | Il primo indirizzo email che **possiedi** — che resta tuo anche se domani Skool cambia regole, prezzo o politica. | Impatto 4 su 5 Sforzo 3 su 5 | S3, altrimenti raccogli traffico non smistato. |
+| Ondata 3 · dal giorno 31 Il pezzo piu’ grande del sistema. Si costruisce per ultimo perche’ senza misura non si regola e senza cattura non parte. |  |  |  |  |  |  |  |  |  |  |
+| 25 | A5 sezione 01 La parola chiave vive su un solo post, ma viene scritta ovunque | «sales» digitato due volte sul post di Miami, 18 settimane fa, senza risposta. Nessun sistema di recupero. | media | B1 MOF Il MOF non esiste Il TOF funziona: 22.638 visualizzazioni sul reel migliore, 857 like e 152 commenti su quello d'offerta, 3.623 follower senza un euro di pubblicita'. **Tutto quel volume viene consegnato a un login.** Un login e' un punto di contatto BOF — il momento della decisione — messo dove il tuo schema chiede il passaggio A, l'ambiente caldo. E' il collo di bottiglia piu' costoso del sistema perche' e' l'unico che spreca qualcosa che stai gia' producendo bene. | S1 Costruisci il passaggio che manca fra il contenuto e il login | Fra il reel e la schermata d'accesso metti i passaggi che il tuo stesso schema descrive: una risposta che arriva **in privato** e non in un thread pubblico, **una sola** domanda di qualifica prima di qualunque link, e una destinazione sola per chi risponde. Vale per ogni superficie dove il brand compare, non per un post solo (A5). | Instagram DM. Lo schema MOF che hai gia' scritto: A ambiente caldo, B qualifica, C divario, D prenotazione, E post-prenotazione. | La prima conversazione che arriva al login **gia' qualificata** — e, per la prima volta, un numero di conversazioni al giorno da guardare. | Impatto 5 su 5 Sforzo 4 su 5 | S0 e S2. Senza misura non si regola, senza cattura non parte. |
+| Fuori ondata · non ora Impatto contenuto nel breve, sforzo alto, e non dimostrabile finche’ la misura non esiste. Resta nel registro, non nel piano. |  |  |  |  |  |  |  |  |  |  |
+| 26 | C1 sezione 03 Lo sforzo è allocato dove la resa è più bassa | 460 video YouTube → mediana ≈110 visualizzazioni su 546 iscritti. 5 post Instagram → uno da 857 like e 152 commenti. Il canale più costoso è il meno produttivo. | alta | B7 TOF Lo sforzo va dove il risultato non c'e' Il canale che costa di piu' in ore di produzione e' quello che rende di meno per pezzo, e la superficie che porta piu' persone e' la meno documentata di tutte: cinque post, quattro dei quali personali. **La produzione non e' il problema — hai gia' dimostrato di saper produrre volume. L'allocazione lo e'.** | S7 Sposta lo sforzo dove la resa e' gia' misurabilmente piu' alta | Non chiudere YouTube: 460 video sono un archivio, e un archivio si taglia e si ridistribuisce. Ma il volume nuovo va dove il rapporto e' documentato — cinque post Instagram hanno prodotto piu' domanda di quattrocentosessanta video. E le richieste dirette nei commenti diventano il calendario editoriale: e' ricerca di mercato gratuita, con nome e cognome allegato. | L'archivio YouTube. Il profilo Instagram, oggi a cinque post. | Va fatto **per ultimo**, e il motivo e' S0: finche' non si misura, uno spostamento di sforzo non si distingue da un'impressione. | Impatto 2 su 5 Sforzo 4 su 5 | S0. Prima di spostare lo sforzo bisogna poterlo pesare. |
+| 27 | C2 sezione 03 La superficie che porta più persone è la meno documentata anche il collo B1 | 5 post in totale, 4 dei quali personali. Chi arriva sul profilo dopo il reel non ha materiale per decidere. | media |  |  |  |  |  |  |  |
+| 28 | C3 sezione 03 Il video della home ha dieci mesi e 503 visualizzazioni | «La mia esperienza con la Vendita da Remoto», 21 ott 2025, 13:57. Occupa il momento di massima attenzione del sito. | media |  |  |  |  |  |  |  |
+| 29 | C4 sezione 03 Le richieste dirette del pubblico non vengono raccolte | Almeno una richiesta esplicita di contenuto nei commenti, senza replica visibile. È ricerca di mercato gratuita lasciata cadere. | bassa |  |  |  |  |  |  |  |
+| 30 | F4 sezione 06 Handle e brand non coincidono su YouTube | @mannyonjourney per un canale intitolato «Francesco Manara I Italian Closer». | bassa |  |  |  |  |  |  |  |
+| Non sono colli di bottiglia · sono domande Sei cose che nessuna superficie pubblica mostra. Non hanno una correzione: hanno una risposta, e la risposta si chiede a voce. |  |  |  |  |  |  |  |  |  |  |
+| 31 | G1 sezione 07 Come il sistema genera ricavo | Nessun prezzo, checkout, piano a pagamento o termine economico su nessuna delle 8 superfici osservate. Il gruppo Skool non ha prodotti a pagamento; il Placement Hub non espone condizioni. Prima domanda da fare a voce. | ignoto | — Nessun collo di bottiglia Un ignoto non e’ un difetto: e’ una cosa che da fuori non si vede. Trattarlo come un problema significherebbe inventare la diagnosi. | G Nessuna correzione | Si chiede a voce. G1 e’ la prima domanda della prima chiamata: finche’ non ha risposta, la priorita’ di questo documento resta a due assi e non a tre. | Una conversazione. Nessuno strumento. | La risposta stessa. Due di queste sei — **G1** e **G4** — cambiano il piano nel momento in cui arrivano. | — | Prima chiamata. |
+| 32 | G2 sezione 07 Cosa succede davvero dopo il commento «sales» | Se parta un DM, con che ritardo, con che contenuto, se richieda il follow. Non osservabile senza accesso all’account. | ignoto |  |  |  |  |  |  |  |
+| 33 | G3 sezione 07 Cosa c’è dentro il Discord oltre 🪧・inizia-qui | Struttura dei canali, moderazione, ritmo reale delle conversazioni. | ignoto |  |  |  |  |  |  |  |
+| 34 | G4 sezione 07 Cosa c’è dentro la Classroom Skool | Se esista un modulo che rimanda al Placement Hub, e come sia sequenziato il percorso. | ignoto |  |  |  |  |  |  |  |
+| 35 | G5 sezione 07 Cosa succede dopo il login Google | L’onboarding dichiarato in pagina, i suoi passaggi, il suo tasso di completamento. | ignoto |  |  |  |  |  |  |  |
+| 36 | G6 sezione 07 Se i «70+ placement» siano contrattualizzati | Nessuna superficie pubblica mostra la natura del rapporto con le 20+ aziende partner. | ignoto |  |  |  |  |  |  |  |
+
+Le fasce orizzontali sono le ondate, e non sono la gravita’. Il collo di bottiglia piu’ costoso del sistema e’ **B1**, il MOF assente, e sta nella terza ondata: ha bisogno della misura per essere regolato e di un punto di cattura tuo per partire. Costruirlo per primo significherebbe costruirlo alla cieca. Le ultime sei righe non sono problemi: sono le sei cose che da fuori non si vedono, e restano registrate come ignote.
+
+---
+
+## 03 — Le ondate — Le otto righe raggruppate nel tempo
+
+Lo stesso inventario, visto dal calendario invece che dalla riga. Sette correzioni su otto stanno dentro trenta giorni; l’ottava, S7, non sta in nessuna ondata ed e’ la sola che questo documento consiglia di non fare adesso.
+Ondata 1 Giorni 1–7
+
+Niente si costruisce. Si scrive e si etichetta.
+**S0**La misura **S3**Lo smistamento **S4**La porta **S6**La prova
+
+Alla fine della settimana esiste, per la prima volta, un numero: quante persone al giorno toccano il login e quante lo superano. **Tutto quello che viene dopo si giudica contro quel numero.**
+Ondata 2 Giorni 8–30
+
+La prima costruzione vera, e la piu' piccola possibile.
+**S5**Il ponte **S2**La cattura
+
+Il ponte apre l'uscita per le 1.100 persone che sono gia' dentro; la cattura porta in casa il primo indirizzo che sia tuo. Sono i due prerequisiti materiali del passaggio successivo.
+Ondata 3 Dal giorno 31
+
+Il pezzo grande, costruito per ultimo apposta.
+**S1**Il MOF
+
+Il MOF e' il collo di bottiglia piu' costoso (B1) e va comunque **dopo**, perche' ha bisogno di una misura per essere regolato (S0) e di un punto di cattura tuo per partire (S2). Costruirlo per primo significherebbe costruirlo alla cieca.
+
+**S7 non compare in nessuna ondata, ed e’ voluto.** Impatto contenuto nel breve, sforzo alto, e soprattutto non dimostrabile finche’ S0 non esiste: una cosa non dimostrabile non si difende alla terza settimana.
+
+---
+
+## 04 — Cosa non fare — Quattro cose da non fare in questa fase
+
+Tre delle quattro sono cose che un sistema in crescita fa per istinto. Ognuna, fatta adesso, peggiora un problema che la tabella qui sopra sta gia’ risolvendo.
+
+× Non aprire una superficie nuova
+
+Undici superfici, una sola che cattura, e quella e' di terzi (B2). Una dodicesima aggiunge una porta a un sistema il cui problema e' che ha troppe porte (B3).
+
+× Non comprare traffico
+
+Finora tutto e' stato guadagnato: zero euro di pubblicita' dietro 3.623 follower, 1.100 membri, 47 recensioni e 70+ placement dichiarati. Mandare traffico a pagamento dentro un sistema senza misura (B0) e senza MOF (B1) significa **pagare perche' le persone arrivino al collo di bottiglia piu' in fretta**.
+
+× Non aumentare la produzione di contenuti
+
+Il rapporto e' gia' documentato: 460 video contro 5 post (B7). Il problema non e' la quantita' prodotta, e finche' B0 non e' a posto un aumento non e' distinguibile da un'impressione.
+
+× Non toccare il prezzo
+
+Perche' **non e' noto**. G1 dice che su otto superfici pubbliche non compare un prezzo, un checkout, un piano a pagamento o un termine economico. Nessuna riga di questo documento assume di sapere come il sistema genera ricavo, e questa e' la prima domanda da fare a voce.
+
+---
+
+## 05 — Cosa resta ignoto — Sei domande che questo documento non puo’ chiudere
+
+Sei cose che nessuna superficie pubblica mostra. Nessuna riga della tabella assume di conoscerne la risposta: dove servivano, il documento si e’ fermato.
+G1
+
+Come il sistema genera ricavo
+
+Nessun prezzo, checkout, piano a pagamento o termine economico su nessuna delle otto superfici osservate. **Prima domanda da fare a voce.** Finche' resta aperta, la matrice qui sopra ha due assi e non tre.
+G2
+
+Cosa succede davvero dopo il commento «sales»
+
+Se parta un DM, con che ritardo, con che contenuto, se richieda il follow. Cambia la forma di S1, non la sua necessita'.
+G3
+
+Cosa c'e' dentro il Discord oltre il canale d'ingresso
+
+Struttura dei canali, moderazione, ritmo reale. Cambia dove va agganciato il ponte di S5.
+G4
+
+Cosa c'e' dentro la Classroom Skool
+
+Se un modulo rimandi gia' al Placement Hub. **Da verificare prima di eseguire S5**: se esiste, S5 diventa un ritocco invece che una costruzione.
+G5
+
+Cosa succede dopo il login Google
+
+L'onboarding dichiarato in pagina, i suoi passaggi, il suo tasso di completamento. E' il primo tratto che S0 rende visibile.
+G6
+
+Se i «70+ placement» siano contrattualizzati
+
+Nessuna superficie pubblica mostra la natura del rapporto con le 20+ aziende partner. Non entra in nessuna delle otto soluzioni.
+
+Due di queste cambiano il piano nel momento in cui trovano risposta. **G4**: se dentro la Classroom esiste gia’ un modulo che rimanda al Placement Hub, S5 scende da costruzione a ritocco e la seconda ondata si accorcia. **G1**: nel momento in cui si sa come il sistema genera ricavo, la priorita’ acquista il terzo asse e l’ordine delle prime quattro correzioni va riguardato. Fino ad allora resta quello che e’ qui, che e’ costruito solo su cose osservate.
+Da dove viene ogni riga
+
+Ogni collo di bottiglia cita per codice i rilievi del Documento 02, letti a mano su instagram.com/italiancloser · linktr.ee/francescomanarabusiness · discord.gg/cAWSm5JYXA · skool.com/italian-closers-academy-6315 · youtube.com/@mannyonjourney · italiancloser.com · app.italiancloser.com · it.trustpilot.com
+Metodo
+
+Nessun rilievo nuovo, nessuno strumento nuovo, nessuna assunzione economica. La priorita’ ha due assi perche’ G1 — come il sistema genera ricavo — non e’ osservabile dall’esterno e resta registrato come ignoto.
+Stato
+
+Documento 03 di 06 — colli di bottiglia, soluzioni, priorita’, in un inventario solo di 36 righe. Il 03 e il 04 previsti in origine sono qui, in un documento solo. Prossimi: 04 roadmap di esecuzione, 05 e 06 bonus.
+Evolv AI · Analisi Indipendente · Italiancloser · 22 agosto 2026
+
+============================================================
+QUI FINISCE IL DOCUMENTO 03 E COMINCIA IL DOCUMENTO 05
+============================================================
+
+ITALIANCLOSER - ARCHITETTURA DEL FUNNEL. Documento 05 di 06, preparato da Evolv AI.
+
+Il documento propone: una pagina sola che si dirama per lato del marketplace, con il lato azienda sul primo schermo e il lato closer su una rotta parallela; il percorso closer da 8 tappe a 3 e quello azienda da 6 a 3; il modulo aziende da 8 campi obbligatori a 3; i mandati spostati fuori da dietro il login; il wizard del profilo usato come punteggio; il Placement Hub da 6 voci di menu a 3; e uno strato di misura di 8 eventi che viene prima di tutto il resto. Nessun rilievo nuovo rispetto ai Documenti 02 e 03. Nessuna assunzione economica: G1 - come il sistema genera ricavo - resta ignoto, ed e' l'unica domanda segnata come bloccante.
+
+Evolv AI · Analisi Indipendente · Italiancloser · Documento 05 di 06
+# Una porta sola, due percorsi *asimmetrici*.
+
+I documenti 01–04 descrivono quello che c’e’. Questo propone quello che ci metterei al posto: una pagina sola che si dirama in base a chi arriva, con il lato azienda sul primo schermo e il lato closer su una rotta parallela; un modulo da tre campi invece di otto; i mandati fuori da dietro il login; e un Placement Hub con tre voci di menu invece di sei. Nessun numero nuovo, nessuno strumento nuovo, nessuna assunzione su quanto costa o quanto rende.
+**Documento** 05 di 06 — Architettura del funnel **Base** i 6 percorsi del Documento 02 e gli 8 colli di bottiglia del Documento 03 **Rilievo** 20, 21 e 22 agosto 2026 **Contatto** nessuno
+- **3 → 1** — Domini nel percorso
+italiancloser.com, /placement-hub e app.italiancloser.com diventano una porta sola.
+- **8 → 3** — Passaggi · lato closer
+Percorso D del Documento 02: oggi otto tappe, sette punti di perdita.
+- **6 → 3** — Passaggi · lato azienda
+Percorso E: oggi sei tappe, cinque punti di perdita, una zona cieca.
+- **8 → 3** — Campi obbligatori
+Il modulo aziende: cinque campi escono dal primo contatto e tornano in call.
+- **6 → 3** — Voci nel Placement Hub
+Tre restano, una viene assorbita, una va in linea, una torna sulla pagina pubblica.
+Indice
+- **Due business** Due business, una porta sola
+- **Il principio** Funnel asimmetrico, non bivio simmetrico
+- **L’architettura** Un dominio, una pagina, due rotte
+- **Ramo azienda** Otto campi obbligatori diventano tre
+- **Ramo closer** La prova esce da dietro il login
+- **Il software** Sei voci di menu diventano tre
+- **La misura** Otto eventi, e vengono prima di tutto
+- **Il punto scomodo** Tutto il contenuto costruisce supply
+- **Domande aperte** Tre domande, una sola bloccante
+
+---
+
+## 01 — Il punto di partenza — Due business, una porta sola
+
+Prima dell’architettura, la lettura che la ordina. I due lati del sistema non hanno lo stesso problema, non hanno la stessa abbondanza e non meritano lo stesso spazio. Oggi passano dalla stessa porta con lo stesso peso.
+Supply · lato closer
+Abbondante, gratis, e alimentato da tutto quello che pubblichi
+3.623 follower IG1.101 membri Skool 615 Discord546 iscritti YouTube100+ closer attivi · dichiarato
+La portaUn bottone **«Per Closers»** che atterra su una pagina intitolata **«Accedi»**. Un visitatore anonimo vede l’interfaccia da membro, **bottone Logout compreso**. Il costoOtto tappe, sette punti di perdita. Il valore — i mandati veri — compare solo alla tappa otto.
+Demand · lato azienda
+Scarso, e non alimentato da nessuna superficie osservata
+20+ aziende partner · dichiarato 70+ placement · dichiarato0 superfici di contenuto dedicate
+La porta**Otto campi obbligatori**, una domanda su **Slack piano Pro** senza una riga che la spieghi, e due SLA in conflitto a una schermata di distanza: **«< 48h»** sulla pagina, **«1–2 giorni lavorativi»** sul modulo. Il costoSei tappe, cinque punti di perdita, e una zona cieca: **l’invio del modulo non lascia dato**.
+
+> **CONCLUSION — Il punto:** Non hai un funnel con due rami. Hai **due business che condividono una porta** — e il lato che ti serve di piu’ e’ quello che riceve l’esperienza peggiore.
+
+---
+
+## 02 — Il principio — Funnel asimmetrico, non bivio simmetrico
+
+Una porta sola non vuol dire due rami uguali. Vuol dire **una gerarchia dichiarata**: chi prende il primo schermo, chi prende la rotta secondaria, e in base a quale criterio.
+
+**NOTE — Perche’ non un bivio 50/50**
+
+**Una landing sola si’, ma non con due bottoni gemelli al centro.** Quello e’ gia’ quello che c’e’, ed e’ il motivo per cui non ottimizza per nessuno dei due: una pagina che deve convincere due persone opposte nello stesso schermo finisce per non parlare a nessuna delle due.
+
+**L’asimmetria e’ il progetto, non un effetto collaterale.** Il traffico che arriva dal contenuto e’ quasi tutto lato closer: non hanno bisogno di essere convinti, hanno bisogno di essere *processati*. Le aziende si’. Quindi il primo schermo e’ loro, e il lato closer prende una rotta parallela — sempre visibile, mai in competizione con l’hero.
+
+| Superficie | A chi va | Perche’ |
+|---|---|---|
+| Hero e primo schermo | Azienda | E’ il lato scarso, ed e’ quello che decide se il sistema gira. Un mandato in piu’ muove il numero; un closer in piu’ no. |
+| Rotta secondaria fissa in alto | Closer | Arrivano gia’ motivati e in volume. Serve una porta larga e veloce, non un argomento di vendita. |
+| Prova sociale — i sette video Risultati | Entrambi | Oggi vive **dentro** il Placement Hub, dove convince chi ha gia’ deciso. Sulla pagina pubblica lavora su chi deve ancora decidere. |
+| Track record — +1M$, +2000 call, +40% closing rate | Azienda | E’ una prova di competenza commerciale: parla a chi compra un venditore, non a chi vuole diventarlo. |
+
+---
+
+## 03 — L’architettura — Un dominio, una pagina, due rotte
+
+Le due catene di tappe del Documento 02, messe accanto a quelle che propongo. A sinistra quello che si osserva oggi, con il punto di perdita sotto ogni tappa; a destra la stessa strada, piu’ corta.
+
+Ramo closer — dalla prima impressione alla prima offerta vista
+**Oggi***8 tappe · 7 perdite*
+- Instagram o YouTube*il contenuto fa il suo lavoro: qui non si perde quasi niente*
+- Link in bio — Linktree*due link diversi, stesso utm_source: da qui in poi i due lati sono indistinguibili in dato*
+- italiancloser.com*l’H1 e’ **ITALIANCLOSER**: il nome del brand, non una promessa*
+- Video About 13:57*21 ottobre 2025, 503 visualizzazioni in dieci mesi, nello slot di massima attenzione*
+- Bottone «Per Closers»
+- app.italiancloser.com — pagina «Accedi»*una porta che chiede di rientrare a chi non e’ mai entrato*
+- Registrazione*nessun analytics su questo dominio: da qui in poi non si misura piu’ niente*
+- Prima offerta visibile*il valore arriva alla tappa otto*
+Valore alla tappa 8 · 3 domini
+**Proposto***3 tappe · valore alla prima*
+- italiancloser.com/closer — il muro delle offerte, pubblico*OPT-960, OPT-938, OPT-103, OPT-102, OPT-100: mandati veri con ruolo, ticket, tipo di vendita ed esperienza minima*
+- «Esprimi interesse» su un’offerta precisa*la registrazione avviene al picco di intento, agganciata a un mandato, non prima di sapere se ne vale la pena*
+- Account + profilo in un passaggio*il wizard che c’e’ gia’, con il tier calcolato in fondo*
+Valore alla tappa 1 · 1 dominio
+
+Ramo azienda — dalla prima impressione alla conversazione
+**Oggi***6 tappe · 5 perdite · 1 zona cieca*
+- Link in bio — Linktree*«Cerchi Venditori per la Tua Azienda?»: stessa URL e stesso utm_source del link closer*
+- /placement-hub*la pagina migliore del sistema: numeri, SLA, prova, e un GA4 che gira*
+- Bottone «Per Aziende»
+- Modulo: 8 campi obbligatori*piu’ una domanda su Slack piano Pro e un messaggio libero tagliato a 300 caratteri*
+- Invio***non tracciato**: l’azione piu’ importante del sistema non lascia dato*
+- Attesa*«< 48h» una schermata prima, «1–2 giorni lavorativi» qui*
+Prima conversazione: non misurabile
+**Proposto***3 tappe · 0 zone cieche*
+- italiancloser.com — hero lato azienda*la promessa che oggi vive su /placement-hub, portata al primo schermo*
+- 3 campi + calendario nella stessa schermata*azienda, email, che ruolo cerchi*
+- Conversazione prenotata*con un evento a fianco, quindi con un tasso di conversione che esiste*
+Prima conversazione: misurata
+
+**NOTE — Perche’ la home e /placement-hub diventano una pagina sola**
+
+**La home attuale costa un passaggio e non ne aggiunge uno.** Il suo H1 e’ il nome del brand invece di una promessa, e lo slot di massima attenzione — il primo schermo — e’ occupato da un video di **13:57** pubblicato il **21 ottobre 2025** che in dieci mesi ha fatto **503 visualizzazioni**. E’ lo spazio piu’ prezioso del sito, ed e’ affidato all’asset che si e’ dimostrato meno capace di trattenere.
+
+**/placement-hub e’ gia’ la pagina che serve.** Ha la promessa («< 48h» alla prima risposta, **3 giorni** alla shortlist, **3–5 profili**), ha i numeri (**70+ placement**, **100+ closer attivi**, **20+ aziende partner**) e ha un GA4 che gira. Fondendo le due pagine togli una tappa e un punto di uscita, **e non perdi niente**: sposti il contenuto migliore un click piu’ avanti, non lo elimini.
+
+---
+
+## 04 — Il ramo azienda — Otto campi obbligatori diventano tre
+
+Il modulo aziende e’ la porta del lato scarso. Ogni campo che non serve *prima* della conversazione e’ un motivo in piu’ per non compilarlo. Qui c’e’ ogni campo osservato, con che cosa gli farei e perche’.
+
+| Campo | Oggi | Verdetto | Perche’ |
+|---|---|---|---|
+| Azienda | obbligatorio | Tieni | Serve per sapere con chi stai parlando. |
+| Email | obbligatorio | Tieni | E’ il canale, ed e’ l’unico contatto che ti resta comunque. |
+| Ruolo cercato | obbligatorio | Tieni | L’unico dato che serve davvero prima della conversazione: dice se hai il profilo in casa oppure no. |
+| Referente | obbligatorio | Togli | Arriva da solo con la firma della mail o con la prenotazione a calendario. |
+| Settore | obbligatorio | Togli | E’ materiale da conversazione, non da primo contatto. Chiederlo prima allunga il modulo e non cambia la risposta che dai. |
+| Telefono con prefisso | obbligatorio | Togli | Si chiede quando serve chiamare. In un modulo di primo contatto e’ il campo che fa abbandonare di piu’. |
+| Canale di contatto preferito | obbligatorio | Togli | Stai chiedendo al visitatore di progettare il tuo processo. Il canale lo decidi tu, e lo dici. |
+| Come ci hai conosciuto | obbligatorio | Togli | E’ una domanda che si fa quando l’analytics non risponde. Con lo strato di misura della sezione 07 la risposta ce l’hai gia’, piu’ precisa e senza chiederla. |
+| Slack piano Pro o superiore | obbligatorio, senza spiegazione | Sposta | Se e’ un requisito reale di delivery, vive nell’onboarding. Se serve solo a sapere come consegnare la shortlist, diventa una domanda dopo la firma. Squalificare qualcuno **prima** che sappia da cosa viene squalificato e’ il modo piu’ costoso di perdere un mandato. |
+| Messaggio libero | opzionale · 300 caratteri | Alza | E’ il campo dove l’azienda ti spiega cosa le serve davvero: l’input piu’ prezioso di tutto il sistema, tarato piu’ corto di un SMS. O si alza, o si toglie del tutto. |
+
+**NOTE — E poi un numero solo**
+
+La pagina promette **«< 48h»**. Il modulo, un click dopo, promette **«1–2 giorni lavorativi»**. Non sono la stessa cosa, e chi legge se ne accorge nel momento esatto in cui sta decidendo se fidarsi. Non e’ un problema di copy: e’ una perdita di credibilita’ autoinflitta, a costo zero da chiudere. **Si sceglie quello vero e si ripete identico su ogni superficie**, modulo, pagina, mail di conferma.
+
+---
+
+## 05 — Il ramo closer — La prova esce da dietro il login
+
+Il lato abbondante non va convinto, va filtrato. E il filtro esiste gia’: sono i quattro step del profilo, che oggi raccolgono i dati giusti e non ne fanno niente.
+
+**NOTE — La mossa: togli il muro davanti alle offerte**
+
+**Oggi i mandati stanno dietro il login.** Sono l’asset piu’ persuasivo che hai — posizioni vere, con badge **B2B**, **B2C** e **INFOBUSINESS**, codice, ruolo, ticket, tipo di vendita, esperienza minima — e sono **invisibili a chiunque non si sia gia’ convertito**. Stai usando la prova per convincere gente che ha gia’ deciso.
+
+**Inverti: muro pubblico, cancello sull’azione.** Chiunque scorre le offerte; il gate scatta su **«Esprimi interesse»**. La registrazione smette di essere un pedaggio all’ingresso e diventa il gesto che uno fa *perche’ vuole quel mandato li’*.
+
+**La porta si chiama «Crea il tuo profilo closer», non «Accedi».** Il login resta, piccolo, sotto. E il bottone **Logout** visibile a un visitatore anonimo sparisce da solo nel momento in cui quella pagina smette di essere una pagina di login.
+
+| Il wizard, oggi | Che cosa raccoglie | A cosa lo userei |
+|---|---|---|
+| Step 1 di 4 — Info | nome, cognome, email, telefono, disponibilita’, anni di esperienza | Anagrafica e **anni di esperienza**: primo ingresso del punteggio. |
+| Step 2 di 4 — Specializzazione | ticket medio, cash collected, competenze | I tre ingressi che contano. **Ticket medio** e **cash collected** sono gia’ la scala; **competenze** e’ gia’ il match con i badge B2B / B2C / INFOBUSINESS delle offerte. |
+| Step 3 e 4 di 4 — Esperienza | storico | Contesto per l’azienda al momento della shortlist. Non entra nel punteggio. |
+
+**Il wizard e’ gia’ una funzione di punteggio: semplicemente non la stai usando.** Alla fine dei quattro step, un tier calcolato — e ogni closer vede solo le offerte del suo tier. Chi ha zero cash collected non vede il mandato da 5.000€+, e non ci prova nemmeno. Due effetti, tutti e due misurabili: **lo screening manuale del team sparisce**, e **«quanti closer sono pronti» smette di essere una stima e diventa un numero calcolato** — lo stesso cursore che nella Control Room del Documento 04 e’ marcato come stimato.
+
+---
+
+## 06 — Il Placement Hub — Sei voci di menu diventano tre
+
+Il Placement Hub non ha bisogno di funzioni nuove. Ha bisogno di essere piu’ corto, e di restituire alla pagina pubblica la cosa che oggi tiene chiusa dentro.
+
+| Voce | Che cosa contiene oggi | Destino | Perche’ |
+|---|---|---|---|
+| Offerte | Carosello in Home + lista completa con filtri INFOBUSINESS / B2C / B2B / TUTTE | Resta | E’ l’unico motivo per cui qualcuno apre l’app. Diventa la schermata d’ingresso al posto di Home. |
+| Profilo | Wizard in 4 step, con stato modificabile | Resta | E’ la cosa che ti fa matchare — e nella sezione 05 diventa anche il filtro. |
+| Candidatura | «Nessuna candidatura attiva al momento» + Storico (0) | Resta | E’ lo stato del gioco. E’ l’unica pagina che ha senso aprire quando qualcosa e’ in corso. |
+| Home | Saluto, card profilo, stato candidatura, carosello offerte | Assorbita | E’ un riassunto delle altre tre. Ogni riga che contiene esiste gia’ altrove, una schermata piu’ in la’. |
+| Processo e stati | Due step ad accordion + i quattro stati | In linea | E’ un documento di aiuto, non una destinazione. Va dietro un «?» accanto al chip di stato, dove la domanda nasce. |
+| Risultati | Un video in evidenza + sette testimonianze | Sulla landing | E’ prova sociale. Dentro l’app persuade chi ha gia’ deciso; sulla pagina pubblica lavora su chi deve ancora decidere. |
+
+I quattro stati — **In cerca di un’offerta**, **In selezione**, **Piazzato**, **Non disponibile** — restano esattamente come sono: sono l’unica cosa in tutto il prodotto che dice a un closer dove si trova, e sono gia’ scritti bene.
+
+> **CONCLUSION — Il punto:** Per un closer senza candidatura attiva — che dagli schermi osservati e’ lo stato di partenza — **quattro voci su sei sono vuote o informative**. Il software non e’ troppo poco: e’ troppo, e nel posto sbagliato.
+
+---
+
+## 07 — Lo strato di misura — Otto eventi, e vengono prima di tutto
+
+Questa e’ la sezione che si esegue per prima, non per ultima. **app.italiancloser.com non ha alcun analytics**: ne’ sulla pagina di accesso, ne’ sul modulo aziende. Finche’ resta cosi’, ogni numero della meta’ bassa del funnel e’ una stima.
+
+| Evento | Lato | Dove | Che cosa sblocca |
+|---|---|---|---|
+| landing_view | Entrambi | italiancloser.com | Separa il traffico dei due lati dal primo istante. Oggi i due link Linktree portano lo stesso utm_source e sono indistinguibili. |
+| company_cta_click | Azienda | italiancloser.com | Dice quanta parte dell’hero funziona, prima ancora del modulo. |
+| company_form_submit | Azienda | modulo aziende | Chiude la zona cieca del Percorso E: oggi l’azione piu’ importante del sistema non lascia dato. |
+| call_booked | Azienda | calendario | Il primo tasso di conversione lato domanda che avresti mai avuto. |
+| offer_view | Closer | muro delle offerte | Quale mandato attira e quale no — per ruolo, ticket e badge. E’ anche il dato che serve all’azienda. |
+| interest_expressed | Closer | muro delle offerte | Intento reale su un mandato preciso, prima ancora della registrazione. |
+| signup_start / oauth_complete | Closer | app | Il tasso di registrazione. Oggi su questo dominio non c’e’ alcun analytics: non e’ basso, e’ ignoto. |
+| profile_complete | Closer | wizard | Quanti arrivano in fondo ai quattro step. E’ il numero che nel Documento 04 e’ marcato come stimato. |
+
+**NOTE — Due condizioni tecniche, non negoziabili**
+
+**Stessa proprieta’ di misura sul sito e sull’app.** Se restano due proprieta’ separate, la sessione si spezza esattamente al salto di dominio — cioe’ nel punto in cui comincia la conversione. Con la pagina unica della sezione 03 il salto sparisce quasi del tutto, ma il pezzo applicativo resta e va agganciato.
+
+**utm_content distinto sui due link in bio.** E’ una modifica di trenta secondi su Linktree, e da sola trasforma «quanto traffico arriva» in «quanto traffico arriva da che lato». Senza, l’asimmetria della sezione 02 non e’ verificabile.
+
+> **CONCLUSION — Perche’ viene prima:** Senza questo strato il redesign e’ **infalsificabile**: lo rifai e non hai modo di sapere se ha funzionato. E’ la ragione per cui nel Documento 03 la prima correzione **non costruisce niente, misura**.
+
+---
+
+## 08 — Il limite di questo documento — Tutto il contenuto costruisce supply
+
+Una cosa che va detta prima di costruire, perche’ cambia che cosa ci si puo’ aspettare dal risultato. Ogni superficie pubblica osservata parla allo stesso lato del marketplace.
+
+| Superficie | Volume | A chi parla |
+|---|---|---|
+| Instagram — @italiancloser | 3.623 follower | A chi vuole diventare closer |
+| YouTube — @mannyonjourney | 546 iscritti · 460 video | A chi vuole diventare closer |
+| Skool — Italian Closers Academy | 1.101 membri | A chi vuole diventare closer |
+| Discord | 615 membri | A chi vuole diventare closer |
+| La parola chiave «sales» sotto i post | meccanismo di ingresso | A chi vuole diventare closer |
+| Trustpilot | 47 recensioni · 4,8 | A chi vuole diventare closer |
+| Qualsiasi superficie rivolta a un imprenditore | nessuna osservata | — |
+
+**Non e’ un motivo per non rifare la pagina.** Le sei correzioni delle sezioni 03–07 chiudono perdite reali su traffico che gia’ arriva, e si ripagano da sole. E’ un motivo per non aspettarsi che la pagina, da sola, muova il numero delle aziende: quel lavoro e’ parallelo, e non e’ contenuto.
+
+> **CONCLUSION — La cosa da dire:** Se il vincolo del sistema e’ la domanda, **nessuna landing page lo risolve**: il canale che alimenta la domanda non esiste ancora. Questa pagina converte meglio un traffico che oggi arriva quasi tutto dall’altro lato.
+
+---
+
+## 09 — Prima di costruire — Tre domande, una sola bloccante
+
+Questo documento e’ costruito interamente su cose osservabili dall’esterno. Tre cose non lo sono, e solo una ferma il lavoro.
+Bloccante · 1 di 3
+Chi paga, e come
+
+Non e’ deducibile da fuori: e’ **G1**, il primo degli ignoti del Documento 03. Nessun prezzo, nessun checkout, nessun piano e nessun termine economico compare su alcuna superficie pubblica osservata. **L’hero del ramo azienda cambia interamente** a seconda della risposta. Tutto il resto di questo documento regge senza saperlo; l’hero no.
+Non bloccante · 2 di 3
+Slack Pro: requisito o residuo
+
+Se e’ un vincolo reale di consegna, si sposta nell’onboarding e si spiega. Se serve solo a sapere *come* mandare la shortlist, diventa una domanda dopo la firma e sparisce dal modulo. **Nel frattempo esce dal primo contatto in ogni caso.**
+Non bloccante · 3 di 3
+Quale SLA e’ quello vero
+
+**«< 48h»** o **«1–2 giorni lavorativi»**. Uno dei due va tolto da ogni superficie. Nel dubbio si tiene quello che riesci a rispettare sempre: una promessa piu’ lenta e mantenuta vale piu’ di una veloce e disattesa.
+
+Nessuna delle tre riguarda lo stile. L’architettura di questo documento non cambia in base a come sara’ disegnata la pagina: cambia il numero di tappe, il numero di campi e il numero di voci di menu, e quelli sono decisi qui.
+Da dove viene ogni riga
+
+Nessun rilievo nuovo. Ogni numero e ogni schermata citati qui sono gia’ nei Documenti 01, 02 e 03, letti a mano su instagram.com/italiancloser · linktr.ee/francescomanarabusiness · discord.gg/cAWSm5JYXA · skool.com/italian-closers-academy-6315 · youtube.com/@mannyonjourney · italiancloser.com · app.italiancloser.com · it.trustpilot.com il 20, 21 e 22 agosto 2026.
+Che cosa questo documento non decide
+
+Niente che dipenda da un prezzo. G1 — come il sistema genera ricavo — non e’ osservabile dall’esterno e resta ignoto: per questo la sezione 09 lo segna come l’unica domanda bloccante, e per questo l’hero del ramo azienda e’ l’unica cosa qui dentro lasciata aperta.
+Stato
+
+Documento 05 di 06 — architettura del funnel, dei touchpoint e del Placement Hub. Il 04 e’ la Control Room, il modello parametrico che si muove. Prossimo: 06.
+Evolv AI · Analisi Indipendente · Italiancloser · 23 agosto 2026
+</script>
+<script>
+(function(){
+  var NL = String.fromCharCode(10);
+  var SEP = NL + NL;
+  function put(t, btn, label){
+    var done = function(){
+      var old = btn.textContent; btn.textContent = label; btn.classList.add('ok');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('ok'); }, 2600);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(t).then(done, function(){ fallback(t, done); });
+    } else { fallback(t, done); }
+  }
+  function fallback(t, done){
+    var a = document.createElement('textarea');
+    a.value = t; a.style.position='fixed'; a.style.opacity='0';
+    document.body.appendChild(a); a.select();
+    try { document.execCommand('copy'); done(); } catch(e){ a.style.opacity='1'; }
+    document.body.removeChild(a);
+  }
+  document.querySelectorAll('.aib-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var doc = document.getElementById('aib-doc').textContent.trim();
+      var pro = document.getElementById('aib-prompt').textContent.trim();
+      // un solo incolla, sempre completo: prima le istruzioni, poi i due documenti
+      put(pro + SEP + doc, b, 'Copiato — ora incollalo in ChatGPT o Claude');
+    });
+  });
+})();
+</script>
+</body></html>
