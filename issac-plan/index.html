@@ -4,116 +4,254 @@
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
-:root{--ink:#000;--mid:#555;--line:#d8d8d8;--paper:#fff}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
-.wrap{max-width:860px;margin:0 auto;padding:72px 40px 120px}
+:root{--ink:#000;--mid:#555;--soft:#767676;--line:#ddd;--paper:#fff}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,sans-serif;font-size:14.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:72px 40px 120px}
 .kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mid)}
-h1{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:44px;line-height:1.08;margin:14px 0 10px;letter-spacing:-.01em}
-.sub{font-family:Newsreader,Georgia,serif;font-style:italic;font-size:19px;color:var(--mid);margin:0 0 34px}
-hr{border:0;border-top:1px solid var(--ink);margin:0 0 34px}
-h2{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin:52px 0 4px;padding-bottom:8px;border-bottom:1px solid var(--ink)}
-h3{font-family:Newsreader,Georgia,serif;font-size:24px;font-weight:600;margin:30px 0 2px}
-.when{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:12px}
-p{margin:0 0 12px;max-width:66ch}
+h1{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:46px;line-height:1.06;margin:14px 0 10px;letter-spacing:-.01em}
+.sub{font-family:Newsreader,Georgia,serif;font-style:italic;font-size:19px;color:var(--mid);margin:0 0 30px;max-width:62ch}
+hr{border:0;border-top:1px solid var(--ink);margin:0 0 32px}
+h2{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:12.5px;letter-spacing:.15em;text-transform:uppercase;margin:58px 0 4px;padding-bottom:8px;border-bottom:1px solid var(--ink)}
+h3{font-family:Newsreader,Georgia,serif;font-size:27px;font-weight:600;margin:34px 0 2px;letter-spacing:-.01em}
+h4{font-family:Newsreader,Georgia,serif;font-size:18px;font-weight:600;margin:30px 0 6px}
+.when{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:14px}
+p{margin:0 0 12px;max-width:70ch}
 .lead{font-size:16.5px}
-ul{margin:0 0 14px;padding-left:18px;max-width:68ch}
+ul{margin:0 0 14px;padding-left:18px;max-width:72ch}
 li{margin:0 0 7px}
-table{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:14px}
-th{text-align:left;font-weight:600;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--ink);padding:0 12px 7px 0}
-td{padding:11px 12px 11px 0;border-bottom:1px solid var(--line);vertical-align:top}
-td:first-child{width:34px;font-family:Newsreader,serif;font-size:17px}
-.tw{width:132px;white-space:nowrap;color:var(--mid);font-size:13px}
-.box{border:1px solid var(--ink);padding:20px 22px;margin:22px 0}
-.box p:last-child{margin-bottom:0}
-.box .t{font-family:Newsreader,serif;font-size:18px;font-weight:600;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:13.5px}
+th{text-align:left;font-weight:600;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--soft);border-bottom:1px solid var(--ink);padding:0 14px 7px 0;vertical-align:bottom}
+td{padding:11px 14px 11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:last-child,th:last-child{padding-right:0}
+.d{width:50px;font-family:Newsreader,serif;font-size:15px;white-space:nowrap;color:var(--mid)}
+.o{width:72px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);white-space:nowrap;padding-top:13px}
+.done{width:30%;color:var(--mid);font-style:italic;font-family:Newsreader,serif;font-size:14.5px}
+.n{width:34px;font-family:Newsreader,serif;font-size:17px}
+.tw{width:118px;white-space:nowrap;color:var(--mid);font-size:13px}
+.box{border:1px solid var(--ink);padding:20px 24px;margin:24px 0}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .t{font-family:Newsreader,serif;font-size:19px;font-weight:600;margin-bottom:7px}
+.rule{border-left:3px solid var(--ink);padding:2px 0 2px 18px;margin:22px 0;font-family:Newsreader,serif;font-size:17px;line-height:1.5;max-width:64ch}
 .scroll{overflow-x:auto}
-footer{margin-top:70px;padding-top:16px;border-top:1px solid var(--ink);font-size:12px;color:var(--mid);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.legend{display:flex;flex-wrap:wrap;gap:2px 30px;font-size:12.5px;color:var(--mid);margin:8px 0 26px}
+.legend b{color:var(--ink);font-weight:600}
+footer{margin-top:76px;padding-top:16px;border-top:1px solid var(--ink);font-size:12px;color:var(--soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 strong{font-weight:600}
-@media(max-width:640px){.wrap{padding:44px 22px 80px}h1{font-size:32px}}
+@media(max-width:700px){.wrap{padding:44px 22px 80px}h1{font-size:32px}table{font-size:12.5px}.done{width:auto}}
 </style></head><body><div class="wrap">
 
 <div class="kicker">Broker Social Solutions &times; Evolv AI &mdash; Phase 1</div>
 <h1>The 30-Day Build</h1>
-<p class="sub">Action plan. Signed and paid 24 August 2026. Day 1 is Tuesday 25 August. Day 30 is Wednesday 23 September.</p>
+<p class="sub">Every task, who owns it, and what makes it finished. Signed and paid 24 August 2026. Day 1 is Tuesday 25 August. Day 30 is Wednesday 23 September.</p>
 <hr>
 
-<p class="lead">Phase 1 builds the system. It does not run a campaign &mdash; volume starts after the Day-30 confirmation. Everything below exists to make the seven completion points true, on the record, by 23 September.</p>
+<p class="lead">Phase 1 builds the system. It does not run a campaign &mdash; volume starts after the Day-30 confirmation, on infrastructure that has been warm for a week by then. Everything below exists to make the seven completion points true, on the record, by 23 September.</p>
+
+<div class="legend">
+<span><b>WHIZ</b> &mdash; owner, client-facing</span>
+<span><b>DATA</b> &mdash; sourcing, enrichment, scoring</span>
+<span><b>INFRA</b> &mdash; domains, mailboxes, deliverability</span>
+<span><b>COPY</b> &mdash; sequences, content</span>
+<span><b>CRM</b> &mdash; pipeline, attribution, dashboard</span>
+<span><b>ISSAC</b> &mdash; client input</span>
+</div>
 
 <h2>The seven completion points</h2>
 <div class="scroll"><table>
-<tr><th></th><th>What has to be true on Day 30</th><th class="tw">Delivered by</th></tr>
-<tr><td>1</td><td><strong>The profile is locked.</strong> Ideal customer profile written down and confirmed in writing. Issac's existing contacts, CRM records, prior prospects and referral sources permanently excluded from all outreach.</td><td class="tw">Day 5</td></tr>
-<tr><td>2</td><td><strong>The sourcing layer is built.</strong> Pipeline runs against the target counties, pulls owner records from the agreed public and licensed sources, deduplicates and scores against the confirmed profile. First scored owner list delivered.</td><td class="tw">Day 12</td></tr>
-<tr><td>3</td><td><strong>The enrichment and verification layer is built.</strong> Owner identity, contact details, business attributes and property ownership appended. Every contact verified before use. Anyone who should not be contacted removed automatically.</td><td class="tw">Day 17</td></tr>
-<tr><td>4</td><td><strong>The sending infrastructure is built.</strong> Dedicated domains and mailboxes acquired and authenticated (SPF, DKIM, DMARC), warm-up running on every mailbox, sending platform configured with volume pacing, LinkedIn seat connected on Issac's identity.</td><td class="tw">Day 3 &rarr; 24</td></tr>
-<tr><td>5</td><td><strong>The sequences are written and loaded.</strong> Email and LinkedIn sequences written in Issac's voice, approved by Issac, loaded ready to run.</td><td class="tw">Day 21</td></tr>
-<tr><td>6</td><td><strong>The CRM and reporting layer is built.</strong> CRM rebuilt seller-side &mdash; pipeline, stages, routing, follow-up &mdash; First Contact and attribution recording configured, dashboard built and connected.</td><td class="tw">Day 26</td></tr>
-<tr><td>7</td><td><strong>The AIOS instance and content foundation are delivered.</strong> Client-specific AIOS instance handed over. Content foundation delivered: positioning, pillars and formats agreed, with the frameworks and publishing tools that go with them.</td><td class="tw">Day 29</td></tr>
+<tr><th class="n"></th><th>What has to be true on Day 30</th><th class="tw">Closes</th></tr>
+<tr><td class="n">1</td><td><strong>The profile is locked.</strong> Ideal customer profile defined, written down and confirmed by Issac. His own existing contacts, CRM records, prior prospects and referral sources permanently excluded from all outreach.</td><td class="tw">Day 5</td></tr>
+<tr><td class="n">2</td><td><strong>The sourcing layer is built.</strong> Pipeline runs against the target counties, pulling owner records from the agreed public and licensed sources, deduplicating and scoring them against the confirmed profile. First scored owner list delivered.</td><td class="tw">Day 12</td></tr>
+<tr><td class="n">3</td><td><strong>The enrichment and verification layer is built.</strong> Owner identity, contact details, business attributes and property ownership appended, every contact verified before it can be used, anyone who should not be contacted removed automatically.</td><td class="tw">Day 17</td></tr>
+<tr><td class="n">4</td><td><strong>The sending infrastructure is built.</strong> Dedicated domains and mailboxes acquired and authenticated with SPF, DKIM and DMARC, warm-up running on every mailbox, sending platform configured with volume pacing, LinkedIn seat connected on Issac's identity.</td><td class="tw">Day 3 &rarr; 24</td></tr>
+<tr><td class="n">5</td><td><strong>The sequences are written and loaded.</strong> Email and LinkedIn sequences written in Issac's voice, approved by Issac, loaded ready to run.</td><td class="tw">Day 21</td></tr>
+<tr><td class="n">6</td><td><strong>The CRM and reporting layer is built.</strong> CRM rebuilt seller-side &mdash; pipeline, stages, routing and follow-up &mdash; with First Contact and attribution recording configured, and the dashboard built and connected.</td><td class="tw">Day 26</td></tr>
+<tr><td class="n">7</td><td><strong>The AIOS instance and content foundation are delivered.</strong> Client-specific AIOS instance handed over. Content foundation delivered: positioning, pillars and formats agreed, with the frameworks and publishing tools that go with them.</td><td class="tw">Day 29</td></tr>
 </table></div>
 
 <div class="box">
 <div class="t">The one thing that cannot slip</div>
-<p>Mailbox warm-up takes three full weeks and cannot be compressed. Domains must be bought and authenticated on <strong>Day 3 at the latest</strong>, or Day 30 arrives with cold mailboxes and point 4 is not true. Every other task has slack. This one has none.</p>
+<p>Mailbox warm-up takes three full weeks and cannot be compressed, bought or faked. Domains must be purchased and authenticated on <strong>Day 3 at the latest</strong>, or Day 30 arrives with cold mailboxes and point 4 is not true. Every other task in this plan has slack. This one has none &mdash; which is why Day 2 carries a hard approval deadline on Issac's side and nothing else does.</p>
 </div>
+
+<h2>Day 0 &mdash; before the clock starts</h2>
+<h3>Pre-flight</h3>
+<div class="when">Mon 24 Aug &middot; today</div>
+<div class="scroll"><table>
+<tr><th class="d"></th><th class="o">Owner</th><th>Task</th><th class="done">Done when</th></tr>
+<tr><td class="d">0</td><td class="o">Whiz</td><td>Send the countersigned agreement and the paid invoice receipt in one email, with the onboarding booking link inside it. He books himself &mdash; no chasing.</td><td class="done">Email sent, link live</td></tr>
+<tr><td class="d">0</td><td class="o">Whiz</td><td>Send the pre-call intake: target counties, CRM export request, exclusion sources, brand assets, who administers his domain and his LinkedIn.</td><td class="done">Intake sent 24h before the call</td></tr>
+<tr><td class="d">0</td><td class="o">Ops</td><td>Stand up the client workspace: shared folder, project board with all thirty days loaded as tasks, credentials vault, recordings folder.</td><td class="done">Board live, every task has an owner</td></tr>
+<tr><td class="d">0</td><td class="o">Ops</td><td>Open one shared channel with Issac. One channel only &mdash; not email and text and two other places.</td><td class="done">Channel created, he is in it</td></tr>
+<tr><td class="d">0</td><td class="o">Team</td><td>Internal kickoff, thirty minutes. Read the seven points out loud. Assign an owner to each. Agree what counts as blocked and who unblocks it.</td><td class="done">Owners assigned on the board</td></tr>
+<tr><td class="d">0</td><td class="o">Issac</td><td>Book the onboarding call for Day 1. Return the intake. Pull the CRM export.</td><td class="done">Call on the calendar</td></tr>
+</table></div>
 
 <h2>Week 1 &mdash; Foundation</h2>
 <h3>Lock the profile, buy the infrastructure</h3>
 <div class="when">Day 1&ndash;7 &middot; Tue 25 Aug &ndash; Mon 31 Aug</div>
-<ul>
-<li><strong>Day 1.</strong> Onboarding call. Issac books it himself. Output: target counties, seller-side profile in his words, the exclusion list (his contacts, CRM, prior prospects, referral sources).</li>
-<li><strong>Day 2&ndash;3.</strong> Profile written up and sent back for written confirmation. Nothing is treated as approved because he did not reply &mdash; it gets confirmed or it waits.</li>
-<li><strong>Day 3.</strong> Buy dedicated domains. Create mailboxes. SPF, DKIM, DMARC set and verified. <strong>Warm-up starts the same day.</strong></li>
-<li><strong>Day 4&ndash;7.</strong> Source selection: which public and licensed owner records cover the target counties, at what refresh, at what cost. Sourcing pipeline scaffolded.</li>
-</ul>
-<p><strong>Point 1 closes Day 5.</strong> Warm-up clock starts Day 3 and runs to Day 24.</p>
+
+<h4>Day 1 &middot; Tue 25 Aug &middot; Onboarding call, 90 minutes</h4>
+<div class="scroll"><table>
+<tr><th class="d"></th><th class="o">Owner</th><th>Task</th><th class="done">Done when</th></tr>
+<tr><td class="d">1</td><td class="o">Whiz</td><td><strong>Block 1 &mdash; territory.</strong> The exact county list, in priority order, and why each one. Which he already works, which he wants, which he would never take.</td><td class="done">Named list, ranked, on the recording</td></tr>
+<tr><td class="d">1</td><td class="o">Whiz</td><td><strong>Block 2 &mdash; the profile.</strong> What makes an owner worth approaching: property type, holding period, equity position, portfolio size, entity or individual, local or absentee, condition and use. Push until every rule is testable, not an adjective.</td><td class="done">Each rule can be written as a filter</td></tr>
+<tr><td class="d">1</td><td class="o">Whiz</td><td><strong>Block 3 &mdash; the exclusions.</strong> Every source of someone we must never touch: CRM, prior prospects, referral partners, current clients, live negotiations, family, competitors.</td><td class="done">Sources named, exports promised</td></tr>
+<tr><td class="d">1</td><td class="o">Whiz</td><td><strong>Block 4 &mdash; his voice.</strong> How he introduces himself in one line, what he actually does for a seller, the words he uses, the words he will not say. Record it &mdash; the sequences get written from this transcript, not from agency language.</td><td class="done">Transcript captured</td></tr>
+<tr><td class="d">1</td><td class="o">Whiz</td><td><strong>Block 5 &mdash; brand and access.</strong> Which brand the sending domains carry, what the root domain is, who administers DNS, who administers LinkedIn, which CRM he is on today and who owns that account.</td><td class="done">Access inventory written</td></tr>
+<tr><td class="d">1</td><td class="o">Ops</td><td>Record, transcribe and write the call summary into the shared folder the same day.</td><td class="done">Summary filed by end of day</td></tr>
+<tr><td class="d">1</td><td class="o">Issac</td><td>Arrive with the county list decided and the CRM export already pulled.</td><td class="done">Export in the shared folder</td></tr>
+</table></div>
+
+<h4>Day 2 &middot; Wed 26 Aug &middot; Write it down, choose the domains</h4>
+<div class="scroll"><table>
+<tr><th class="d"></th><th class="o">Owner</th><th>Task</th><th class="done">Done when</th></tr>
+<tr><td class="d">2</td><td class="o">Data</td><td>Write the profile document: inclusion rules, exclusion rules, and a first scoring model with a weight per rule. Anything ambiguous goes into an open-questions list instead of being guessed.</td><td class="done">Document drafted, questions listed</td></tr>
+<tr><td class="d">2</td><td class="o">Whiz</td><td>Send the profile document to Issac for written confirmation, open questions at the top so he answers them in one pass.</td><td class="done">Sent with a single clear ask</td></tr>
+<tr><td class="d">2</td><td class="o">Infra</td><td>Shortlist three to four sending domains &mdash; close variants of his brand, never the root domain, nothing that reads as spam. Check availability and registrar pricing.</td><td class="done">Shortlist ready with prices</td></tr>
+<tr><td class="d">2</td><td class="o">Issac</td><td><strong>Approve the sending domain names. Hard deadline, same day.</strong> The only approval in the build that cannot wait, because everything behind it sits on three weeks of warm-up.</td><td class="done">Written approval, same day</td></tr>
+</table></div>
+
+<h4>Day 3 &middot; Thu 27 Aug &middot; Infrastructure day</h4>
+<div class="scroll"><table>
+<tr><th class="d"></th><th class="o">Owner</th><th>Task</th><th class="done">Done when</th></tr>
+<tr><td class="d">3</td><td class="o">Infra</td><td>Buy the approved domains. Registrar locked, auto-renew on, ownership in Issac's name or cleanly transferable to it.</td><td class="done">Domains owned</td></tr>
+<tr><td class="d">3</td><td class="o">Infra</td><td>Provision a mail tenant per domain and create the mailboxes &mdash; a small number per domain, each with a real human name, a real signature and a photo.</td><td class="done">Mailboxes created and reachable</td></tr>
+<tr><td class="d">3</td><td class="o">Infra</td><td>Publish SPF, DKIM and DMARC on every domain. Verify each against an external checker, not against the dashboard that wrote them.</td><td class="done">All three pass externally, evidence filed</td></tr>
+<tr><td class="d">3</td><td class="o">Infra</td><td>Point every sending domain at the main site with a permanent redirect, so a curious owner who types it in lands somewhere real.</td><td class="done">Redirects resolve</td></tr>
+<tr><td class="d">3</td><td class="o">Infra</td><td>Set up a custom tracking domain per sending domain. Shared tracking domains carry other people's reputation.</td><td class="done">Tracking domains verified</td></tr>
+<tr><td class="d">3</td><td class="o">Infra</td><td><strong>Start warm-up on every mailbox.</strong> Ramp schedule set to reach target volume by Day 24. The clock starts now.</td><td class="done">Warm-up green on every box</td></tr>
+<tr><td class="d">3</td><td class="o">Whiz</td><td>Post the warm-up start date in the shared channel. From here it is a visible countdown, not an assumption.</td><td class="done">Posted</td></tr>
+</table></div>
+
+<h4>Day 4 &middot; Fri 28 Aug &middot; Choose the data sources</h4>
+<div class="scroll"><table>
+<tr><th class="d"></th><th class="o">Owner</th><th>Task</th><th class="done">Done when</th></tr>
+<tr><td class="d">4</td><td class="o">Data</td><td>Map what owner data actually exists for the named counties: assessor and recorder records, licensed property data, business registries, entity filings. Coverage differs county by county &mdash; find the thin ones now, not on Day 20.</td><td class="done">Coverage table per county</td></tr>
+<tr><td class="d">4</td><td class="o">Data</td><td>Cost and refresh model per source: what it costs, how often it updates, how records arrive, what the licence permits us to do with them.</td><td class="done">Stack chosen, budget set</td></tr>
+<tr><td class="d">4</td><td class="o">Data</td><td>Compliance pass on the chosen stack: what each touch must carry, and how a single opt-out is honoured everywhere at once.</td><td class="done">Written and filed</td></tr>
+<tr><td class="d">4</td><td class="o">Whiz</td><td>Approve the data budget. Anything that changes the running cost of Phase 2 gets flagged to Issac now, not in Phase 2.</td><td class="done">Approved, Issac told if it moves</td></tr>
+</table></div>
+
+<h4>Day 5 &middot; Mon 31 Aug &middot; Point 1 closes</h4>
+<div class="scroll"><table>
+<tr><th class="d"></th><th class="o">Owner</th><th>Task</th><th class="done">Done when</th></tr>
+<tr><td class="d">5</td><td class="o">Issac</td><td><strong>Confirm the profile in writing.</strong> One line in the channel is enough. Silence is not approval &mdash; if he needs longer, Phase 1 extends by exactly that long, at no cost.</td><td class="done">Written confirmation on the record</td></tr>
+<tr><td class="d">5</td><td class="o">Data</td><td>Ingest the exclusion universe: normalise his CRM export and every other excluded source, match on entity, address, email and phone, load it all into a permanent suppression table.</td><td class="done">Suppression table live, count logged</td></tr>
+<tr><td class="d">5</td><td class="o">Data</td><td>Test the suppression: take a hundred known records from his own list, run them through the pipeline, confirm every single one is blocked.</td><td class="done">100 of 100 blocked, test filed</td></tr>
+<tr><td class="d">5</td><td class="o">Whiz</td><td>Mark point 1 complete in the channel with the evidence attached.</td><td class="done">Point 1 signed off</td></tr>
+</table></div>
+
+<h4>Day 6&ndash;7 &middot; Sat 29 &ndash; Mon 31 Aug &middot; Build the pipeline</h4>
+<div class="scroll"><table>
+<tr><th class="d"></th><th class="o">Owner</th><th>Task</th><th class="done">Done when</th></tr>
+<tr><td class="d">6</td><td class="o">Data</td><td>Define the record schema and build an ingestion job per source, with logging, retries and a failure alert that reaches a human.</td><td class="done">Jobs run unattended</td></tr>
+<tr><td class="d">6</td><td class="o">Data</td><td>Build deduplication: same property, same owner entity, same person under two spellings, same household. Ownership held through entities has to collapse back to one human.</td><td class="done">Duplicate rate measured on a test county</td></tr>
+<tr><td class="d">7</td><td class="o">Data</td><td>Code the scoring model from the confirmed profile. Every rule maps to a field and a weight, and the reason a record scored what it scored is stored with the record.</td><td class="done">Scores explainable per record</td></tr>
+<tr><td class="d">7</td><td class="o">Data</td><td>Test run on one county end to end. Read the output by hand. Fix what the model gets wrong before running everything.</td><td class="done">One county clean</td></tr>
+<tr><td class="d">7</td><td class="o">Infra</td><td>Week 1 deliverability check: warm-up progressing, no mailbox flagged, authentication still passing.</td><td class="done">All green</td></tr>
+</table></div>
 
 <h2>Week 2 &mdash; Data</h2>
-<h3>Sourcing and enrichment</h3>
+<h3>Source it, score it, enrich it</h3>
 <div class="when">Day 8&ndash;14 &middot; Tue 1 Sep &ndash; Mon 7 Sep</div>
-<ul>
-<li><strong>Day 8&ndash;11.</strong> Sourcing pipeline runs live against the counties. Deduplication and scoring built against the confirmed profile. Exclusion list wired in at the source, not at send time.</li>
-<li><strong>Day 12.</strong> <strong>First scored owner list delivered to Issac.</strong> This is the first thing he can hold. Point 2 closes here.</li>
-<li><strong>Day 13&ndash;14.</strong> Enrichment layer: owner identity, contact details, business attributes, property ownership. Verification step in front of every contact, suppression automatic.</li>
-</ul>
-<p>Parallel, low intensity: LinkedIn seat connected on Issac's identity. Mailboxes continue warming.</p>
+<div class="scroll"><table>
+<tr><th class="d"></th><th class="o">Owner</th><th>Task</th><th class="done">Done when</th></tr>
+<tr><td class="d">8</td><td class="o">Issac</td><td>Grant the LinkedIn seat on his own identity, sales seat active. This is his face and his account &mdash; it does not get delegated to a team profile.</td><td class="done">Access granted</td></tr>
+<tr><td class="d">8</td><td class="o">Infra</td><td>Connect the seat from a stable location, set conservative daily action limits, and start warming the account activity so it does not look like it woke up on the first day of Phase 2.</td><td class="done">Seat connected, limits set</td></tr>
+<tr><td class="d">8</td><td class="o">Data</td><td>Run ingestion across every target county. Watch for source failures and coverage gaps as they happen.</td><td class="done">All counties ingested</td></tr>
+<tr><td class="d">9</td><td class="o">Data</td><td>Run deduplication across the full set, then apply the suppression table before anything else touches the records.</td><td class="done">Suppression applied first, logged</td></tr>
+<tr><td class="d">10</td><td class="o">Data</td><td>Score the full set and produce the distribution: how many records at each tier, per county.</td><td class="done">Distribution table</td></tr>
+<tr><td class="d">10</td><td class="o">Data</td><td>Hand-review a random sample of one hundred scored records against the profile. Measure how many are genuinely a fit. Retune the weights, rerun, re-measure.</td><td class="done">Sample precision recorded</td></tr>
+<tr><td class="d">11</td><td class="o">Whiz</td><td>Read the top of the list personally. If the best records do not look like the people Issac described on Day 1, the model is wrong and it gets fixed before delivery.</td><td class="done">Whiz signs off on the top tier</td></tr>
+<tr><td class="d">12</td><td class="o">Whiz</td><td><strong>Deliver the first scored owner list.</strong> The sheet plus a one-page read: how many records, how they scored, what was excluded and why, which counties came back thin. <strong>Point 2 closes.</strong></td><td class="done">Delivered in the channel, point 2 signed off</td></tr>
+<tr><td class="d">12</td><td class="o">Issac</td><td>Review the list and flag anything that should not be there. His corrections are data &mdash; they go back into the scoring, not into a comment thread.</td><td class="done">Feedback returned within 48h</td></tr>
+<tr><td class="d">13</td><td class="o">Data</td><td>Build the enrichment waterfall: owner identity first, then contact details, then business attributes, then property ownership. Several providers in a fallback order so one gap does not empty a record.</td><td class="done">Waterfall runs, coverage measured per step</td></tr>
+<tr><td class="d">13</td><td class="o">Data</td><td>Build verification in front of every contact: real-time checks, catch-all domains handled explicitly, anything risky quarantined rather than used.</td><td class="done">No unverified contact can pass</td></tr>
+<tr><td class="d">14</td><td class="o">Data</td><td>Build automatic removal: bounces, complaints, opt-outs, role and generic addresses, competitors, and everything already in the suppression table. It runs on a schedule, not when somebody remembers.</td><td class="done">Removal job scheduled and tested</td></tr>
+<tr><td class="d">14</td><td class="o">Infra</td><td>Week 2 deliverability check. Read the first DMARC reports for anything sending as the domain that should not be.</td><td class="done">Reports clean</td></tr>
+</table></div>
 
 <h2>Week 3 &mdash; Voice</h2>
-<h3>Sequences and platform</h3>
+<h3>Finish the data layer, write in his words</h3>
 <div class="when">Day 15&ndash;21 &middot; Tue 8 Sep &ndash; Mon 14 Sep</div>
-<ul>
-<li><strong>Day 15&ndash;17.</strong> Enrichment and verification finished end to end on the real list. Point 3 closes Day 17.</li>
-<li><strong>Day 16&ndash;19.</strong> Email and LinkedIn sequences drafted in Issac's voice &mdash; his language, his positioning, seller-side.</li>
-<li><strong>Day 19.</strong> Sequences sent to Issac for approval. Revision round built into the week.</li>
-<li><strong>Day 20&ndash;21.</strong> Approved sequences loaded into the sending platform. Volume pacing configured. Point 5 closes Day 21.</li>
-</ul>
+<div class="scroll"><table>
+<tr><th class="d"></th><th class="o">Owner</th><th>Task</th><th class="done">Done when</th></tr>
+<tr><td class="d">15</td><td class="o">Data</td><td>Run enrichment and verification across the full scored set, in tiers, best first.</td><td class="done">Full set processed</td></tr>
+<tr><td class="d">16</td><td class="o">Data</td><td>Produce the coverage report: what share has a verified email, a LinkedIn profile, a phone, confirmed property ownership. Coverage decides how much of the list is reachable, which decides Phase 2 volume.</td><td class="done">Coverage report delivered to Issac</td></tr>
+<tr><td class="d">17</td><td class="o">Data</td><td>Enforce the rule in the system rather than the process: a record without a verified contact cannot enter a sequence. Test it by trying to push one through. <strong>Point 3 closes.</strong></td><td class="done">Attempt blocked, point 3 signed off</td></tr>
+<tr><td class="d">16</td><td class="o">Copy</td><td>Pull his language out of the Day 1 transcript &mdash; how he opens, what he claims, what he never says. Build the voice sheet the sequences are written against.</td><td class="done">Voice sheet agreed internally</td></tr>
+<tr><td class="d">17</td><td class="o">Copy</td><td>Write the email sequence: a short opener that earns a reply, then follow-ups that add something instead of repeating. Written for one owner, not for a segment.</td><td class="done">Full sequence drafted</td></tr>
+<tr><td class="d">18</td><td class="o">Copy</td><td>Write the LinkedIn sequence in the same voice, timed so the two channels never arrive the same day saying the same thing.</td><td class="done">Drafted and timed against email</td></tr>
+<tr><td class="d">18</td><td class="o">Copy</td><td>Write the reply handling: what a yes gets, what a not-now gets, what a referral to somebody else gets, what a hostile reply gets. Every one of these happens in week one of Phase 2.</td><td class="done">Reply playbook written</td></tr>
+<tr><td class="d">19</td><td class="o">Whiz</td><td>Send the sequences to Issac with the reasoning under each step, so he reviews the logic and not only the wording.</td><td class="done">Sent</td></tr>
+<tr><td class="d">19</td><td class="o">Issac</td><td><strong>Approve or edit the sequences.</strong> Read them out loud. If a line is not something he would say to an owner's face, it gets cut. One revision round is already inside the plan.</td><td class="done">Approval or edits returned</td></tr>
+<tr><td class="d">20</td><td class="o">Infra</td><td>Load the approved sequences into the sending platform. Map every personalisation variable to a real enrichment field and give each a fallback, so a missing field never sends a blank.</td><td class="done">No variable can render empty</td></tr>
+<tr><td class="d">20</td><td class="o">Infra</td><td>Configure pacing: daily volume per mailbox, ramp curve, gaps between sends, sending windows in the owner's timezone, weekend rules.</td><td class="done">Pacing rules saved</td></tr>
+<tr><td class="d">21</td><td class="o">Infra</td><td>Configure reply detection and automatic pause: any human reply stops that record's sequence immediately, across both channels. Test it with a real reply. <strong>Point 5 closes.</strong></td><td class="done">Test reply pauses the sequence, point 5 signed off</td></tr>
+<tr><td class="d">21</td><td class="o">Infra</td><td>Week 3 deliverability check. Warm-up on schedule for Day 24.</td><td class="done">On schedule</td></tr>
+</table></div>
 
 <h2>Week 4 &mdash; Handover</h2>
-<h3>CRM, AIOS, confirmation</h3>
+<h3>CRM, attribution, AIOS, confirmation</h3>
 <div class="when">Day 22&ndash;30 &middot; Tue 15 Sep &ndash; Wed 23 Sep</div>
+<div class="scroll"><table>
+<tr><th class="d"></th><th class="o">Owner</th><th>Task</th><th class="done">Done when</th></tr>
+<tr><td class="d">22</td><td class="o">CRM</td><td>Rebuild the pipeline seller-side. Stages named for what actually happens with an owner, each with an entry and an exit condition, so nothing can sit in a stage that means nothing.</td><td class="done">Stages defined and documented</td></tr>
+<tr><td class="d">22</td><td class="o">Issac</td><td>Confirm the stages match how he really works. If his team already has habits, the pipeline bends to them, not the other way round.</td><td class="done">Stages confirmed</td></tr>
+<tr><td class="d">23</td><td class="o">CRM</td><td>Build routing and follow-up: who a reply goes to, how fast it must be answered, what task is created automatically, what happens when nobody answers it.</td><td class="done">Rules live, tested with a dummy record</td></tr>
+<tr><td class="d">24</td><td class="o">CRM</td><td><strong>Configure First Contact and attribution recording.</strong> Every record carries who touched it first, through which channel, on which date, and that stamp cannot be edited afterwards. Build it as if it will one day be argued over, because it will.</td><td class="done">Stamp written automatically, immutable</td></tr>
+<tr><td class="d">24</td><td class="o">Infra</td><td><strong>Warm-up complete on every mailbox.</strong> Re-check authentication, read the DMARC reports, run an inbox placement test across the major providers, confirm the platform enforces pacing. <strong>Point 4 closes.</strong></td><td class="done">Placement test passed, point 4 signed off</td></tr>
+<tr><td class="d">25</td><td class="o">CRM</td><td>Wire two-way sync between the sending platform and the CRM, so a reply creates the record and a stage change is visible in one place. Test the round trip in both directions.</td><td class="done">Round trip verified</td></tr>
+<tr><td class="d">26</td><td class="o">CRM</td><td>Build and connect the dashboard: activity, deliverability, replies, real conversations, appointments, and the attribution view. One screen he can open on a Monday and understand without a call. <strong>Point 6 closes.</strong></td><td class="done">Dashboard live on real data, point 6 signed off</td></tr>
+<tr><td class="d">27</td><td class="o">Whiz</td><td>Provision the AIOS instance for Broker Social Solutions: his context loaded &mdash; counties, profile, voice &mdash; and the modules he will actually use.</td><td class="done">Instance live and reachable</td></tr>
+<tr><td class="d">27</td><td class="o">Copy</td><td>Deliver the content foundation: positioning statement, the pillars he speaks on, the formats, plus the frameworks and publishing tools that go with them.</td><td class="done">Foundation delivered</td></tr>
+<tr><td class="d">28</td><td class="o">Issac</td><td>Agree the positioning and pillars. Last approval before Day 30.</td><td class="done">Agreed in writing</td></tr>
+<tr><td class="d">28</td><td class="o">Whiz</td><td>Write the operating manual: how the system runs day to day, what his team touches, what they must never touch, who to call when something breaks.</td><td class="done">Manual in the shared folder</td></tr>
+<tr><td class="d">29</td><td class="o">Whiz</td><td>Training session with Issac and anyone on his side who will use it &mdash; AIOS, CRM, dashboard, reply handling. Recorded, so a new hire can be trained without a second live session. <strong>Point 7 closes.</strong></td><td class="done">Recording filed, point 7 signed off</td></tr>
+<tr><td class="d">30</td><td class="o">Whiz</td><td><strong>Day 30 walkthrough.</strong> The seven points one at a time, with the evidence for each on screen. Nothing is claimed without something to show.</td><td class="done">Walkthrough held</td></tr>
+<tr><td class="d">30</td><td class="o">Issac</td><td><strong>Confirm the seven points in writing.</strong> He decides whether they are true, and no other standard applies to either side.</td><td class="done">Written confirmation</td></tr>
+<tr><td class="d">30</td><td class="o">Whiz</td><td>Agree the Phase 2 start: first send date, opening volume, ramp, reporting cadence, and who answers replies in week one.</td><td class="done">Phase 2 dated</td></tr>
+</table></div>
+
+<h2>Everything Issac has to do</h2>
+<div class="scroll"><table>
+<tr><th class="tw">By</th><th>What he does</th><th>What it blocks if it slips</th></tr>
+<tr><td class="tw">Day 0</td><td>Book the onboarding call, return the intake, pull the CRM export</td><td>Day 1 &mdash; the whole clock</td></tr>
+<tr><td class="tw">Day 1</td><td>Target counties, in priority order, in writing</td><td>Points 1 and 2</td></tr>
+<tr><td class="tw">Day 1</td><td>The profile in his own words, pushed until every rule is testable</td><td>Points 1, 2 and 3</td></tr>
+<tr><td class="tw">Day 1</td><td>Every exclusion source named: CRM, prior prospects, referral partners, current clients, live negotiations</td><td>Points 1 and 3</td></tr>
+<tr><td class="tw">Day 1</td><td>Brand and DNS access, and who administers what</td><td>Point 4</td></tr>
+<tr><td class="tw">Day 2</td><td><strong>Approve the sending domain names &mdash; hard deadline, same day</strong></td><td>Point 4, and it cannot be recovered later</td></tr>
+<tr><td class="tw">Day 5</td><td>Written confirmation of the profile document</td><td>Point 1 and the whole data build behind it</td></tr>
+<tr><td class="tw">Day 8</td><td>LinkedIn seat granted on his own identity</td><td>Point 4</td></tr>
+<tr><td class="tw">Day 12</td><td>Review the first scored owner list, flag what should not be there</td><td>The quality of everything sent in Phase 2</td></tr>
+<tr><td class="tw">Day 19</td><td>Approve or edit the sequences &mdash; read aloud, cut anything he would not say</td><td>Point 5</td></tr>
+<tr><td class="tw">Day 22</td><td>Confirm the CRM stages match how he really works</td><td>Point 6</td></tr>
+<tr><td class="tw">Day 28</td><td>Agree the positioning and pillars</td><td>Point 7</td></tr>
+<tr><td class="tw">Day 30</td><td>Confirm the seven points in writing</td><td>Phase 2 start</td></tr>
+</table></div>
+<p>If he needs more time on any review, Phase 1 extends by exactly the time taken, at no cost. Nothing is ever treated as approved because he did not reply.</p>
+
+<h2>What could break this</h2>
+<div class="scroll"><table>
+<tr><th>Risk</th><th>What it costs</th><th class="done">How it is handled</th></tr>
+<tr><td>Domain approval slips past Day 2</td><td>Warm-up finishes after Day 30, point 4 is not true, the date moves</td><td class="done">Flagged as the only hard deadline, on Day 0 and again on Day 1</td></tr>
+<tr><td>A county has thin ownership data</td><td>Fewer reachable records than expected, discovered late</td><td class="done">Coverage mapped on Day 4 and reported honestly on Day 12 rather than padded</td></tr>
+<tr><td>The exclusion export is incomplete</td><td>Someone he knows gets a cold email &mdash; the most expensive failure in the build</td><td class="done">Suppression tested on 100 known records on Day 5, rerun on every refresh</td></tr>
+<tr><td>Sequences come back heavily rewritten</td><td>Loading slips past Day 21</td><td class="done">One revision round is already inside week 3, and the voice sheet comes from his own transcript</td></tr>
+<tr><td>A mailbox gets flagged during warm-up</td><td>Reduced capacity at Phase 2 start</td><td class="done">Deliverability check every Friday; a flagged box is replaced and rewarmed against the spare capacity in the domain set</td></tr>
+<tr><td>Issac goes quiet for a week</td><td>The dependent points stall</td><td class="done">Phase 1 extends by the time taken, at no cost, and the reason is written down when it happens rather than reconstructed later</td></tr>
+</table></div>
+
+<h2>How this is run</h2>
 <ul>
-<li><strong>Day 22&ndash;26.</strong> CRM rebuilt seller-side: pipeline, stages, routing, follow-up. First Contact and attribution recording configured. Dashboard built and connected. Point 6 closes Day 26.</li>
-<li><strong>Day 24.</strong> Warm-up complete on every mailbox. Sending infrastructure verified end to end. Point 4 closes.</li>
-<li><strong>Day 27&ndash;29.</strong> AIOS instance handed over. Content foundation delivered: positioning, pillars, formats, plus the frameworks and publishing tools. Point 7 closes Day 29.</li>
-<li><strong>Day 30 &mdash; Wed 23 Sep.</strong> Walkthrough call. Issac confirms the seven points in writing.</li>
+<li><strong>One channel.</strong> Everything about this build happens in the shared channel. A decision made anywhere else gets written back into it the same day.</li>
+<li><strong>Friday update, every Friday.</strong> What closed, what is next, what is waiting on him, and whether the Day 30 date still holds. Sent whether or not there is good news.</li>
+<li><strong>Points close in public.</strong> Each of the seven is marked complete in the channel with its evidence attached, not silently on a project board.</li>
+<li><strong>The plan is the record.</strong> If a date moves, this page changes and the change is announced. No quiet reslotting.</li>
 </ul>
 
-<h2>What is needed from Issac</h2>
-<div class="scroll"><table>
-<tr><th class="tw">By</th><th>Input</th><th>Blocks</th></tr>
-<tr><td class="tw">Day 1</td><td>Onboarding call booked and held</td><td>Everything</td></tr>
-<tr><td class="tw">Day 1</td><td>Target counties, in writing</td><td>Points 1, 2</td></tr>
-<tr><td class="tw">Day 1</td><td>Exclusion list: existing contacts, CRM export, prior prospects, referral sources</td><td>Points 1, 3</td></tr>
-<tr><td class="tw">Day 2</td><td>Domain and brand approval for the sending domains</td><td>Point 4 &mdash; hard deadline</td></tr>
-<tr><td class="tw">Day 5</td><td>Written confirmation of the profile</td><td>Point 1</td></tr>
-<tr><td class="tw">Day 8</td><td>LinkedIn seat access on his identity</td><td>Point 4</td></tr>
-<tr><td class="tw">Day 19</td><td>Sequence approval or edits</td><td>Point 5</td></tr>
-<tr><td class="tw">Day 30</td><td>Written confirmation of the seven points</td><td>Phase 2</td></tr>
-</table></div>
-<p>If he needs more time on any review, Phase 1 extends by the time taken, at no cost. Silence is never approval.</p>
-
-<h2>Day 30 and after</h2>
-<p>Issac decides whether the seven points are true. No other standard applies, and neither side may introduce one. On his written confirmation, <strong>Phase 2 starts automatically</strong> &mdash; the retainer plus the agreed share of net commission, no second signature. Either side can leave on thirty days' notice.</p>
-<p>Volume begins in Phase 2, on infrastructure that has been warm for a week by then. That is the whole point of building it this way.</p>
+<div class="rule">Issac decides whether the seven points are true. No other standard may be introduced by either Party. On his written confirmation, Phase 2 starts automatically &mdash; the retainer plus the agreed share of net commission, with no second signature. Either side can leave on thirty days' notice.</div>
 
 <footer><span>Evolv AI &mdash; Phase 1 action plan</span><span>Prepared 24 August 2026</span></footer>
 </div></body></html>
