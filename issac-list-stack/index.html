@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The List Stack — Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--paper:#fdfdfb;--ink:#16181a;--ink2:#454b51;--ink3:#7b828a;--rule:#e3e1db;--rule2:#f1f0ea;
+--accent:#1c5d43;--bad:#8c2f2f;--warn:#8a4b1c;
+--serif:'Newsreader',Georgia,serif;--sans:'Inter',-apple-system,sans-serif;--mono:'JetBrains Mono',Menlo,monospace}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 36px 70px}
+.bar{background:var(--ink);color:#fff;padding:9px 0;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
+.bar .wrap{padding-bottom:0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.bar b{color:#9aa2a9;font-weight:400;text-transform:none;letter-spacing:.04em}
+header{padding:44px 0 0}
+h1{font-family:var(--serif);font-size:clamp(32px,4.6vw,44px);line-height:1.05;font-weight:400;letter-spacing:-.022em}
+h1 em{font-style:italic;color:var(--accent)}
+.sub{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.05em;margin-top:14px}
+h2{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:500;
+  margin:52px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--ink)}
+h3{font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--ink);margin:26px 0 9px}
+h3 span{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--ink3);letter-spacing:.1em;margin-left:8px;text-transform:uppercase}
+p{color:var(--ink2);margin:0 0 12px;max-width:74ch}
+p b{color:var(--ink);font-weight:600}
+ul{list-style:none;max-width:80ch}
+li{position:relative;padding-left:17px;margin-bottom:7px;color:var(--ink2)}
+li::before{content:"";position:absolute;left:1px;top:9px;width:5px;height:1.5px;background:var(--ink3)}
+li b{color:var(--ink);font-weight:600}
+li ul{margin-top:6px}
+code{font-family:var(--mono);font-size:12.5px;background:#f2f1eb;padding:1px 5px;color:var(--ink)}
+.tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+  border:1px solid var(--rule);padding:2px 6px;margin-right:7px;color:var(--ink3);white-space:nowrap}
+.t-chase{color:var(--accent);border-color:#bcd4c8}
+.t-drop{color:var(--bad);border-color:#dcc0c0}
+.t-price{color:var(--warn);border-color:#e0cdb6}
+.t-open{color:#2b4a70;border-color:#c2cfdd}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+th{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);
+  font-weight:500;padding:0 12px 8px 0;border-bottom:1px solid var(--rule)}
+td{padding:11px 12px 11px 0;border-bottom:1px solid var(--rule2);vertical-align:top;color:var(--ink2)}
+td:first-child,th:first-child{padding-left:0}
+tr:last-child td{border-bottom:1px solid var(--ink)}
+td.n{font-family:var(--mono);font-size:11px;color:var(--ink3);width:1%;white-space:nowrap;padding-top:13px}
+td.w{color:var(--ink);font-weight:600;white-space:nowrap}
+.box{border:1px solid var(--ink);padding:20px 24px;margin:18px 0 0}
+.box.red{border-color:#d9bcbc;background:#fbeeee}
+.box .t{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--bad);margin-bottom:9px}
+.box p:last-child{margin-bottom:0}
+.funnel{font-family:var(--mono);font-size:12.5px;line-height:2;color:var(--ink2);margin:4px 0 8px}
+.funnel b{color:var(--ink)}
+@media(max-width:700px){.wrap{padding:0 20px 50px}body{font-size:15.5px}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap"><span>Internal &mdash; Evolv AI</span><b>Do not send to Issac</b></div></div>
+
+<div class="wrap">
+
+<header>
+  <h1>How the five were built &mdash;<br>and <em>what to add next.</em></h1>
+  <div class="sub">Broker Social Solutions &middot; the list stack, in full &middot; 26 Aug 2026</div>
+</header>
+
+<h2>Part 1 &mdash; What actually built the list</h2>
+
+<p><b>No scraper was used. Nothing was bought.</b> Six data sources, all public, all free, read directly. That is why the list beat ColdIQ's paid agent 37,182 rows to 20.</p>
+
+<h3>The six sources <span>in the order they ran</span></h3>
+<ul>
+  <li><b>1 &middot; Texas Comptroller open data</b> &mdash; Socrata API on <code>data.texas.gov</code>, datasets <code>jrea-zgmq</code> (sales-tax permits) + <code>9cir-efmm</code> (active franchise tax). One API call, ~90 seconds, <b>$0</b>. Gives: legal name, NAICS, county, street address, org type, <b>year first traded</b>, number of locations, taxpayer number.</li>
+  <li><b>2 &middot; Dallas Central Appraisal District</b> (<code>dallascad.org</code>) &mdash; read account by account, by hand. Gives: <b>owner of record</b>, deed date, land value, improvements value, BPP value, exemptions, tax agent, annual tax bill. This is the layer that produced the five.</li>
+  <li><b>3 &middot; The companies' own websites</b> &mdash; history page, About page, officer names, phone, published email.</li>
+  <li><b>4 &middot; Better Business Bureau + Dun &amp; Bradstreet</b> &mdash; principal names and titles, cross-check only.</li>
+  <li><b>5 &middot; RocketReach</b> &mdash; email <em>pattern</em> inference only. Produced the Garland Steel guess at 68.6% confidence, which was flagged and <b>not</b> sent.</li>
+  <li><b>6 &middot; Web search + news</b> &mdash; founding stories, generations, acquisitions, obituary-free background. This is what caught Dymatize being sold to Post Holdings for $400M in 2014 while ColdIQ ranked it Priority A.</li>
+</ul>
+
+<h3>The funnel <span>239 to 5</span></h3>
+<div class="funnel">
+885,461 TX sales-tax outlets<br>
+&rarr; <b>37,182</b> &nbsp;in 27 counties, in-ICP industry, 20+ years trading, single location<br>
+&rarr; <b>13,293</b> &nbsp;at 30+ years &nbsp;&middot;&nbsp; <b>5,201</b> &nbsp;tier-A industry (the A-list)<br>
+&rarr; <b>239</b> &nbsp;narrowed to Dallas County only<br>
+&rarr; <b>17</b> &nbsp;taken to the county property record one at a time<br>
+&rarr; <b>5</b> &nbsp;the operating company is the recorded owner of its own building
+</div>
+<p>Twelve failed. Ten own the machines but rent the dirt <em>(Manda Machine &mdash; the parents own the land personally)</em>. Two have no DCAD record at all. <b>Roughly 1 in 5 passes.</b></p>
+
+<h3>The scoring model <span>max 85 &middot; automated</span></h3>
+<ul>
+  <li>Trading age &mdash; 10 to 30 pts &nbsp;&middot;&nbsp; Sector tier &mdash; 5 to 20 &nbsp;&middot;&nbsp; County tier &mdash; 7 to 10</li>
+  <li>Single location &mdash; 15 <em>(94% of the file; single location = owner-operated)</em> &nbsp;&middot;&nbsp; Has a corporate entity &mdash; 8 to 10</li>
+  <li><b>Everything after scoring was done by hand.</b> The property check, the officer names, the emails &mdash; none of it is automated yet.</li>
+</ul>
+
+<div class="box red">
+  <div class="t">The one real problem &mdash; read this</div>
+  <p><b>The pipeline was never saved as a script.</b> The Comptroller pull was written inline and thrown away. The CSVs exist; the code that made them does not. Right now the list cannot be re-run, re-filtered, or pointed at Tarrant or Collin County without rebuilding it from scratch.</p>
+  <p style="margin-top:9px"><b>Fix before Day 12 (Sourcing Layer):</b> one file, <code>scripts/issac/build_registry.py</code> &mdash; pull, filter, score, write CSV. Half a day. Everything below is worthless until this exists, because every new signal has to run over 5,201 rows, not 5.</p>
+</div>
+
+<h3>Paid layers considered, not yet bought</h3>
+<ul>
+  <li><b>Texas SOS "Master Unload"</b> &mdash; $1,350 one-time. The state sells the officer/director database. For a business trading since 1985 the <em>initial</em> director is the founder. This is the single highest-leverage purchase available and it is still unbought.</li>
+  <li><b>ColdIQ</b> &mdash; enrichment only (employee count, revenue band, verified email, kills subsidiaries). Good at layers 2 and 5, useless at discovery. Handoff file <code>coldiq-handoff-100.csv</code> is already built and never sent.</li>
+  <li><b>Contact append</b> (Clay waterfall &gt; Apollo for these SMBs) &mdash; ~$0.10&ndash;0.50/record.</li>
+</ul>
+
+<h2>Part 2 &mdash; The signals to layer on</h2>
+
+<p>Industry, county and revenue are what everyone filters on. They tell you a business <em>exists</em>. None of them tell you the owner is <b>ready</b>. These do &mdash; and every one is readable from the sources already in Part 1.</p>
+
+<h3>A &middot; The disengagement clock <span>when did he stop caring</span></h3>
+<ul>
+  <li><span class="tag t-chase">Chase</span><b>BPP value falling year over year.</b> DCAD publishes multiple years. Machines depreciating with no new purchases = the owner stopped reinvesting. This is the financial fingerprint of <em>"I'm done"</em> and almost nobody looks at it.</li>
+  <li><span class="tag t-chase">Chase</span><b>He stopped protesting his property tax.</b> DCAD shows the appointed tax agent. An owner who fought the valuation for 15 years and quit has checked out.</li>
+  <li><span class="tag t-chase">Chase</span><b>Review replies stopped in year X.</b> Google Business Profile timestamps it exactly. So does the last Facebook post and the copyright year in the website footer.</li>
+  <li><span class="tag t-chase">Chase</span><b>Hiring stopped.</b> No careers page, no posting in 18 months. Harvesting, not growing.</li>
+  <li><span class="tag t-open">Opener</span><b>A recent review saying "not what it used to be" or complaining about lead times.</b> Decline is when owners sell.</li>
+</ul>
+
+<h3>B &middot; The succession vacuum <span>sharpened version of the fix</span></h3>
+<ul>
+  <li><span class="tag t-drop">Drop</span><b>A new officer with the same surname.</b> Heir seated. Out.</li>
+  <li><span class="tag t-chase">Chase</span><b>A new officer with a <em>different</em> surname.</b> He hired a professional manager instead of a son. Owner stepping back, no family heir &mdash; <b>this is the perfect seller</b>, and it is the exact inverse of the signal above from the same field.</li>
+  <li><span class="tag t-chase">Chase</span><b>The kids are on LinkedIn doing something else.</b> Doctor in Houston, dev in Austin. No heir, confirmed from a public profile.</li>
+  <li><span class="tag t-chase">Chase</span><b>His own LinkedIn title changed to Chairman, Advisor or Consultant.</b> The step-back already started.</li>
+  <li><span class="tag t-chase">Chase</span><b>His home address moved out of county.</b> Public record. Running it remotely from the lake = semi-retired already.</li>
+  <li><span class="tag t-chase">Chase</span><b>Over-65 exemption on his home.</b> Confirms owner age 65+ from a record instead of guessing off the company's founding year.</li>
+  <li><span class="tag t-chase">Chase</span><b>The 30-year office manager or controller is retiring.</b> Losing the person who knows where everything is, is what actually forces a lot of these sales.</li>
+</ul>
+
+<h3>C &middot; Paperwork that only moves before a transaction</h3>
+<ul>
+  <li><span class="tag t-chase">Chase</span><b>Registered agent changed recently</b> &mdash; often the first thing a lawyer does when prepping a deal or an estate plan.</li>
+  <li><span class="tag t-chase">Chase</span><b>A second entity registered at the same address by the same officer</b> &mdash; usually a holding co or a real-estate LLC formed ahead of a sale.</li>
+  <li><span class="tag t-chase">Chase</span><b>Franchise-tax forfeiture then reinstatement.</b> Nobody is minding the back office. Also means the books need cleaning before sale &mdash; which is work Issac can charge for.</li>
+  <li><span class="tag t-price">Verify</span><b>Registered agent is a law firm, not the owner.</b> Someone is already advising him. Could be a competing broker. Owner-as-agent = open field.</li>
+  <li><span class="tag t-price">Verify</span><b>The property already sits in a family trust or a separate LLC.</b> Estate planning is done &mdash; but the dirt may not come with the business. Check before promising a double commission.</li>
+</ul>
+
+<h3>D &middot; The dirt <span>where the money actually is</span></h3>
+<ul>
+  <li><span class="tag t-chase">Chase</span><b>Land worth more than the buildings.</b> The building is obsolete, the dirt is the asset, and the owner usually doesn't know it. Cary Products is exactly this &mdash; $1.4M of land under $931K of buildings.</li>
+  <li><span class="tag t-chase">Chase</span><b>40,000 sq ft, 12 employees.</b> Over-housed = the operation shrank. Sell the business, sell the excess dirt.</li>
+  <li><span class="tag t-open">Opener</span><b>Deed held 30+ years.</b> Fully depreciated, huge capital-gains overhang. He needs someone who understands a 1031 or an installment sale &mdash; that is Issac's credibility line in sentence one.</li>
+  <li><span class="tag t-chase">Chase</span><b>Rezoning, opportunity zone, or a new highway/DART line adjacent.</b> The dirt reprices without him doing anything.</li>
+  <li><span class="tag t-drop">Careful</span><b>Plating, metal finishing, foundry, dry cleaner.</b> Environmental liability. A Phase II ESA can make that property a <em>cost</em>, not an asset &mdash; this inverts the whole double-commission thesis on specific NAICS codes. Bass &amp; Hays Foundry is on our failed list already; know this before pitching one.</li>
+</ul>
+
+<h3>E &middot; Human, and legal to use</h3>
+<ul>
+  <li><span class="tag t-open">Opener</span><b>The anniversary year.</b> A 50th or 75th is a natural moment to think about what comes next, and a warm, non-creepy reason to write. Southern Maid is 89 years old. <b>Timing beats copy.</b></li>
+  <li><span class="tag t-open">Opener</span><b>Rotary, church board, trade-association past-president.</b> He has already moved his identity out of the business &mdash; and it is a warm-intro path, which beats any cold email we can write.</li>
+  <li><span class="tag t-price">Angle</span><b>The building carries the family name, or the About page is written in first person.</b> He will only sell to someone who keeps the name. Changes the pitch, not the score.</li>
+  <li><span class="tag t-chase">Chase</span><b>Company equipment listed on used-machinery marketplaces.</b> Liquidation already started.</li>
+  <li><span class="tag t-chase">Chase</span><b>Dropped off the trade-show exhibitor list after year X.</b> Same clock as the reviews.</li>
+</ul>
+
+<h3>F &middot; Deal quality &mdash; know before he walks in</h3>
+<ul>
+  <li><span class="tag t-price">Price it</span><b>Under ~$5M is SBA 7(a)-financeable.</b> That means individual buyers, a deep pool, a fast close. Above it you are bidding against private equity. <b>This is why Republic at $11M+ is a two-year name and Thermo Sensors is a 30-day one.</b></li>
+  <li><span class="tag t-price">Price it</span><b>One logo on the homepage.</b> Customer concentration destroys the multiple. Better to know before the valuation conversation.</li>
+  <li><span class="tag t-price">Price it</span><b>Union vs non-union.</b> Changes the buyer pool completely.</li>
+  <li><span class="tag t-open">Opener</span><b>The annual property tax bill.</b> Public, exact, and something he feels every January. Garland Steel pays $85K a year. That is a first line no list broker can write.</li>
+</ul>
+
+<div class="box">
+  <p><b>Off limits, permanently.</b> No obituary data, no health records, no divorce filings as targeting inputs. It is written into Issac's own file. It stays &mdash; it is the difference between research and something that gets a licensed broker in trouble.</p>
+</div>
+
+<h2>What I need from you</h2>
+<ul>
+  <li><b>Green-light the build script</b> so every signal above runs over 5,201 rows instead of five.</li>
+  <li><b>Decide on the $1,350 SOS purchase.</b> Half of Section B and all of Section C are locked behind it &mdash; officer names, surnames, dates added, agent changes. It is the cheapest unlock on the page.</li>
+  <li><b>Add your layers.</b> Then I fold them in and we score the whole A-list, not a sample.</li>
+</ul>
+
+</div>
+</body>
+</html>
