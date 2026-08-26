@@ -3,520 +3,149 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Five, Scored — Internal — Evolv AI / Broker Social Solutions</title>
+<title>The Five, Scored — Internal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --paper:#fdfdfb; --ink:#16181a; --ink-2:#41474d; --ink-3:#767d85;
-  --rule:#e3e1db; --rule-2:#f0efe9;
-  --accent:#1c5d43; --accent-soft:#eef3f0;
-  --warn:#8a4b1c; --warn-soft:#faf2e9;
-  --bad:#8c2f2f; --bad-soft:#fbeeee;
-  --serif:'Newsreader',Georgia,serif;
-  --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
-}
-html{-webkit-text-size-adjust:100%}
-body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
-.wrap{max-width:920px;margin:0 auto;padding:0 40px}
+:root{--paper:#fdfdfb;--ink:#16181a;--ink2:#454b51;--ink3:#7b828a;--rule:#e3e1db;--rule2:#f1f0ea;
+--accent:#1c5d43;--bad:#8c2f2f;--warn:#8a4b1c;
+--serif:'Newsreader',Georgia,serif;--sans:'Inter',-apple-system,sans-serif;--mono:'JetBrains Mono',Menlo,monospace}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding:0 36px 70px}
+.bar{background:var(--ink);color:#fff;padding:9px 0;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
+.bar .wrap{padding-bottom:0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.bar b{color:#9aa2a9;font-weight:400;text-transform:none;letter-spacing:.04em}
 
-/* ---------- masthead ---------- */
-.internal-bar{background:var(--ink);color:#fff;padding:11px 0;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
-.internal-bar .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.internal-bar span:last-child{color:#a8b0b6;letter-spacing:.06em;font-weight:400;text-transform:none}
-
-header.mast{padding:78px 0 0}
-.kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:500}
-h1{font-family:var(--serif);font-size:clamp(42px,6.2vw,64px);line-height:1.04;font-weight:400;letter-spacing:-.022em;margin:20px 0 0}
+header{padding:44px 0 0}
+h1{font-family:var(--serif);font-size:clamp(34px,5vw,46px);line-height:1.05;font-weight:400;letter-spacing:-.022em}
 h1 em{font-style:italic;color:var(--accent)}
-.standfirst{font-family:var(--serif);font-size:21px;line-height:1.52;color:var(--ink-2);max-width:640px;margin-top:26px;font-weight:300}
-.mast-meta{margin-top:34px;padding-top:18px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:11.5px;color:var(--ink-3);letter-spacing:.04em;display:flex;gap:26px;flex-wrap:wrap}
+.sub{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.05em;margin-top:14px}
 
-/* ---------- structure ---------- */
-section{padding:72px 0 0}
-.sec-num{font-family:var(--mono);font-size:11.5px;color:var(--accent);letter-spacing:.16em;font-weight:500}
-h2{font-family:var(--serif);font-size:clamp(30px,4vw,40px);line-height:1.12;font-weight:400;letter-spacing:-.018em;margin:12px 0 0}
-.sec-sub{font-family:var(--serif);font-size:19px;color:var(--ink-3);font-style:italic;font-weight:300;margin-top:8px}
-.rule{height:1px;background:var(--rule);margin:26px 0 34px}
+h2{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:500;
+  margin:52px 0 16px;padding-bottom:9px;border-bottom:1px solid var(--ink)}
+p{color:var(--ink2);margin:0 0 13px;max-width:70ch}
+p b,li b{color:var(--ink);font-weight:600}
+.big{font-family:var(--serif);font-size:22px;line-height:1.45;color:var(--ink);font-weight:300;max-width:64ch;margin-bottom:16px}
 
-h3{font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:-.005em;margin:38px 0 10px}
-h3.first{margin-top:0}
-p{margin:0 0 17px;color:var(--ink-2);max-width:66ch}
-p strong{color:var(--ink);font-weight:600}
-.lede{font-size:17.5px;color:var(--ink)}
-em.i{font-style:italic}
-
-/* plain-english blocks */
-.plain{border-left:2px solid var(--accent);padding:2px 0 2px 22px;margin:0 0 30px}
-.plain h4{font-family:var(--sans);font-size:14px;font-weight:700;margin:0 0 7px;letter-spacing:-.005em}
-.plain p{margin:0 0 12px}
-.plain p:last-child{margin-bottom:0}
-
-/* callouts */
-.note{background:var(--accent-soft);border:1px solid #d6e3dc;padding:22px 26px;margin:0 0 28px;border-radius:2px}
-.note.warn{background:var(--warn-soft);border-color:#ecdcc6}
-.note.bad{background:var(--bad-soft);border-color:#eed6d6}
-.note .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--accent);display:block;margin-bottom:9px}
-.note.warn .tag{color:var(--warn)}
-.note.bad .tag{color:var(--bad)}
-.note p{max-width:none;margin-bottom:12px}
-.note p:last-child{margin-bottom:0}
-
-/* tables */
-.tw{overflow-x:auto;margin:0 0 30px;-webkit-overflow-scrolling:touch}
-table{border-collapse:collapse;width:100%;font-size:14px;min-width:600px}
-th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:500;padding:0 14px 9px 0;border-bottom:1px solid var(--ink);vertical-align:bottom}
-td{padding:13px 14px 13px 0;border-bottom:1px solid var(--rule-2);vertical-align:top;color:var(--ink-2)}
+.tw{overflow-x:auto;margin-bottom:6px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:620px}
+th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);
+  font-weight:500;padding:0 12px 8px 0;border-bottom:1px solid var(--rule)}
+td{padding:14px 12px 14px 0;border-bottom:1px solid var(--rule2);vertical-align:top;color:var(--ink2)}
 td:first-child,th:first-child{padding-left:0}
 tr:last-child td{border-bottom:1px solid var(--ink)}
-td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;padding-right:0}
-td.nm{color:var(--ink);font-weight:600}
+.sc{font-family:var(--serif);font-size:30px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.03em;width:1%;white-space:nowrap}
+.nm{color:var(--ink);font-weight:600;white-space:nowrap}
+.hi{color:var(--accent)}.md{color:var(--warn)}.lo{color:var(--bad)}
+.flag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:5px;color:var(--ink3)}
 
-/* rank cards */
-.rank{border-top:1px solid var(--ink);padding:32px 0 4px;margin-top:34px}
-.rank-head{display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap;justify-content:space-between}
-.rank-id{flex:1 1 320px;min-width:0}
-.rank-pos{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--ink-3);font-weight:500}
-.rank-name{font-family:var(--serif);font-size:31px;line-height:1.14;font-weight:400;letter-spacing:-.015em;margin-top:5px}
-.rank-where{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);margin-top:7px;letter-spacing:.03em}
-.score{text-align:right;flex:0 0 auto}
-.score-n{font-family:var(--serif);font-size:66px;line-height:.9;font-weight:400;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.score-l{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:8px}
-.s-hi{color:var(--accent)} .s-mid{color:var(--warn)} .s-lo{color:var(--bad)}
+.box{border:1px solid var(--ink);padding:24px 26px;margin:18px 0 0}
+.box.red{border-color:#d9bcbc;background:#fbeeee}
+.box.grn{border-color:#cfe0d8;background:#eff4f1}
+.box .t{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--bad);margin-bottom:10px}
+.box.grn .t{color:var(--accent)}
+.box p:last-child{margin-bottom:0}
+.q{font-family:var(--serif);font-size:26px;font-style:italic;line-height:1.35;color:var(--ink);margin:6px 0 12px}
 
-.bd{margin-top:26px}
-.bd-row{display:flex;gap:18px;padding:9px 0;border-bottom:1px solid var(--rule-2);align-items:baseline;font-size:13.5px}
-.bd-row:last-of-type{border-bottom:1px solid var(--rule)}
-.bd-k{flex:0 0 210px;color:var(--ink-3);font-size:12.5px}
-.bd-v{flex:1;color:var(--ink-2);min-width:0}
-.bd-s{flex:0 0 62px;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:500;color:var(--ink)}
-.bd-tot{display:flex;gap:18px;padding:12px 0 0;font-size:13.5px;font-weight:600}
-.bd-tot .bd-k{color:var(--ink);font-weight:600;font-size:13px}
+ol.act{list-style:none;counter-reset:a;margin-top:4px}
+ol.act li{counter-increment:a;position:relative;padding-left:38px;margin-bottom:17px;max-width:70ch;color:var(--ink2)}
+ol.act li::before{content:counter(a);position:absolute;left:0;top:0;font-family:var(--mono);font-size:11px;font-weight:500;
+  color:#fff;background:var(--ink);width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+ol.act li b{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
 
-.care{margin-top:30px;background:#f7f6f2;padding:24px 26px;border-radius:2px}
-.care h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:11px}
-.care p{margin:0;max-width:none;color:var(--ink-2)}
-.watch{margin-top:22px}
-.watch h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:12px}
-.watch ol{list-style:none;counter-reset:w}
-.watch li{counter-increment:w;position:relative;padding-left:32px;margin-bottom:13px;color:var(--ink-2);font-size:14.5px;max-width:66ch}
-.watch li::before{content:counter(w);position:absolute;left:0;top:1px;font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:600;border:1px solid var(--rule);width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%}
-.watch li b{color:var(--ink);font-weight:600}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:9px 20px;max-width:70ch}
+.kv dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding-top:4px;white-space:nowrap}
+.kv dd{color:var(--ink2)}
+.kv dd b{color:var(--ink);font-weight:600}
 
-.verdict{margin-top:24px;padding-top:18px;border-top:1px solid var(--rule);font-family:var(--serif);font-size:18px;font-style:italic;color:var(--ink);line-height:1.5}
-
-ul.plainlist{list-style:none;margin:0 0 24px}
-ul.plainlist li{position:relative;padding-left:20px;margin-bottom:11px;color:var(--ink-2);max-width:66ch}
-ul.plainlist li::before{content:'';position:absolute;left:2px;top:11px;width:5px;height:1px;background:var(--accent)}
-ul.plainlist li b{color:var(--ink);font-weight:600}
-
-.qbox{border:1px solid var(--ink);padding:28px 30px;margin:0 0 32px}
-.qbox .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);font-weight:600;display:block;margin-bottom:12px}
-.qbox p{font-family:var(--serif);font-size:20px;line-height:1.5;color:var(--ink);margin:0;font-style:italic}
-
-footer{margin-top:86px;padding:30px 0 60px;border-top:1px solid var(--ink);font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.04em;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-
-@media (max-width:720px){
-  .wrap{padding:0 22px}
-  .bd-row{flex-wrap:wrap;gap:6px}
-  .bd-k{flex:0 0 100%}
-  .bd-v{flex:1 1 auto}
-  .score{text-align:left;margin-top:14px}
-  .score-n{font-size:52px}
-}
+@media(max-width:700px){.wrap{padding:0 20px 50px}.kv{grid-template-columns:1fr;gap:2px 0}.kv dt{padding-top:10px}}
 </style>
 </head>
 <body>
 
-<div class="internal-bar"><div class="wrap">
-  <span>Internal &middot; Evolv AI only</span>
-  <span>Not for Issac. Not for the client channel.</span>
-</div></div>
+<div class="bar"><div class="wrap"><span>Internal &mdash; Evolv AI</span><b>Do not send to Issac</b></div></div>
 
 <div class="wrap">
 
-<header class="mast">
-  <div class="kicker">Broker Social Solutions &nbsp;/&nbsp; The ready list, audited</div>
-  <h1>Five owners,<br>scored against <em>his own ICP</em></h1>
-  <p class="standfirst">What each one is worth to Issac, what the industry words actually mean, and the one thing on this list that the deck currently reads backwards.</p>
-  <div class="mast-meta">
-    <span>26 August 2026</span>
-    <span>Written for Whiz</span>
-    <span>Source: ICP_Texas Business Owners &amp; Commercial Property Owners.pdf, 19pp</span>
-  </div>
+<header>
+  <h1>Five owners, scored.<br>One of them is <em>actually sellable.</em></h1>
+  <div class="sub">Broker Social Solutions &middot; scored against his own 19-page ICP &middot; 26 Aug 2026</div>
 </header>
 
-<!-- ============ 00 PRIMER ============ -->
-<section>
-  <div class="sec-num">00</div>
-  <h2>What Issac actually does</h2>
-  <div class="sec-sub">Read this first. Everything else depends on it.</div>
-  <div class="rule"></div>
+<h2>The ranking</h2>
+<div class="tw">
+<table>
+<thead><tr><th>Score</th><th>Business</th><th>The one thing that decides it</th></tr></thead>
+<tbody>
+<tr>
+  <td class="sc hi">89</td>
+  <td class="nm">Thermo Sensors<span class="flag">Open first</span></td>
+  <td><b>Nobody is in line to inherit it.</b> One named principal, no family on any record. Two adjoining lots, one signature. ~$2&ndash;4M &mdash; the only one sized like the deals he has actually closed.</td>
+</tr>
+<tr>
+  <td class="sc md">74</td>
+  <td class="nm">Garland Steel<span class="flag">Phone only</span></td>
+  <td><b>The owner's name is printed on the county deed.</b> You already know who signs. $85K/yr tax bill is a free opening line. But no email is published anywhere &mdash; never send to the guessed address.</td>
+</tr>
+<tr>
+  <td class="sc md">73</td>
+  <td class="nm">Cary Products<span class="flag">Long game</span></td>
+  <td><b>Best asset, worst odds.</b> 16 acres of industrial land worth more than the buildings on it. But Earl Armstrong III is Chairman and Earl Armstrong IV is COO &mdash; the handover is already happening.</td>
+</tr>
+<tr>
+  <td class="sc md">71</td>
+  <td class="nm">Republic Sheet Metal<span class="flag">Too big, too slow</span></td>
+  <td><b>$11.4M of machines, 3.6&times; the building.</b> The biggest commission on the page &mdash; and ~10&times; his average deal, which means bidding against PE and regional M&amp;A houses. Two-year name, not a 30-day one.</td>
+</tr>
+<tr>
+  <td class="sc lo">64</td>
+  <td class="nm">Southern Maid<span class="flag">Last</span></td>
+  <td><b>Two live generations in the building.</b> Value sits in the licence book (100+ stores), not the warehouse &mdash; interesting, but the hardest close and the most family in the room.</td>
+</tr>
+</tbody>
+</table>
+</div>
 
-  <p class="lede">Issac is a <strong>business broker</strong>. Somebody owns a company and wants out — they are old, tired, sick, or their kids do not want it. Issac takes that company to market, finds a buyer, and gets paid a percentage when the sale closes. Roughly <strong>10% on the business</strong> and <strong>3&ndash;6% on the property</strong>.</p>
+<h2>The correction &mdash; you spotted it</h2>
 
-  <div class="plain">
-    <h4>The only thing that counts as a win: a signed listing agreement</h4>
-    <p>Until an owner signs a <em class="i">listing agreement</em>, Issac has nothing. A friendly conversation is worth zero. A listing agreement is an exclusive right to sell that company for a fixed period &mdash; it is the moment the deal becomes his.</p>
-    <p><strong>That signature is the product we are manufacturing.</strong> The list, the domains, the sequences, the CRM &mdash; all of it exists to produce signatures on that one page. This is why "we sent 4,000 emails" is not a result and "he signed" is.</p>
-  </div>
+<p class="big">The deck treats <em>"the son already runs it"</em> as a reason to <b>chase</b> a lead. His own ICP says it is a reason to <b>drop</b> one.</p>
 
-  <div class="plain">
-    <h4>Why an owner who owns his own building is worth double</h4>
-    <p>Two things get sold, not one: <strong>the company</strong> (customers, contracts, staff, machines, the name) and <strong>the dirt</strong> (the land and the building). If the operating company owns its own building, one person signs for both and Issac earns a fee on each.</p>
-    <p>If the family holds the land personally and the company just rents it, you need two agreements, two sets of expectations, and eventually two sets of heirs. Those deals take about a year longer, and often never happen. <strong>This is the single filter that took the candidate pool from 17 down to 5.</strong></p>
-  </div>
+<p>His written exclusion rule: <b>"a family succession plan in place = not a seller."</b> His written buying signal: <b>"limited or no succession plan."</b> The ready list currently argues the opposite on Republic and Cary. Fix that copy before the list gets referenced again.</p>
 
-  <div class="plain">
-    <h4>The two county files: COMMERCIAL and BPP</h4>
-    <p>Dallas County keeps two separate records on a business. <strong>COMMERCIAL</strong> is the real property &mdash; the land and the buildings. <strong>BPP</strong> is Business Personal Property &mdash; the machines, tooling, racking and inventory bolted to the floor.</p>
-    <p>A company with a BPP account and no commercial account is <strong>a tenant in its own factory</strong>. All five names here hold both accounts, in the operating company's own name. That is what "verified" means on this list.</p>
-  </div>
+<div class="box red">
+  <div class="t">And you aimed at the wrong lead</div>
+  <p>Generation count is not the signal &mdash; almost every 60-year-old industrial business in Dallas is family-owned. The signal is <b>whether a named next-generation family member works there right now.</b></p>
+  <p style="margin-top:10px"><b>Cary is the softest name on the list, not the prize.</b> Father is Chairman, son is COO. That is a handover mid-execution.<br>
+  <b>Republic is genuinely unknown</b> &mdash; gen 4, no gen 5 named anywhere. Only ~3% of family firms even reach a fourth generation, so the heirs are running out. Zach Goff came in in 1992: he is right inside the 55&ndash;72 sweet spot now.</p>
+</div>
 
-  <div class="plain">
-    <h4>Why a 60-year-old business is the target and a 5-year-old one is not</h4>
-    <p>Age is a proxy for four things at once: the owner is old, the customer list is real, the machinery is paid for, and the question <em class="i">"what happens to this when I stop"</em> is live in the owner's head right now. A young business has no answer to sell.</p>
-  </div>
+<h2>The fix &mdash; one question, ten seconds</h2>
 
-  <div class="plain">
-    <h4>Why the equipment number matters more than it looks</h4>
-    <p>$11.4M of machines is not just a big number. It is (a) the reason a buyer buys the whole company instead of starting his own, because replacing that is slower and more expensive than buying it, and (b) a <strong>floor under the price</strong> &mdash; nobody sells a company for less than the resale value of what is bolted to the floor.</p>
-  </div>
+<div class="box grn">
+  <div class="t">Question one on every call. Before financials. Before timeline.</div>
+  <div class="q">"Who takes over when you step back?"</div>
+  <p>Names a son or daughter &rarr; thank him, move on. Pauses, or says <em>"that's the problem"</em> &rarr; you have a listing agreement inside the year. <b>It is nowhere in his current 8-step process.</b> Add it as step zero.</p>
+</div>
 
-  <div class="plain">
-    <h4>Why the land can be worth more than the business sitting on it</h4>
-    <p>At Cary Products, 16 acres of light industrial ground is assessed at $1,395,924 and every building on it together is worth $931,430. The buildings are almost noise. Somebody buying that site may not want a plastics company at all &mdash; they want a distribution site eleven miles from downtown Dallas.</p>
-    <p><strong>Two different buyers, two different prices.</strong> A broker who prices it as "a plastics company" leaves the bigger number on the table.</p>
-  </div>
+<h2>Do this</h2>
+<ol class="act">
+  <li><b>Add a succession column to the scoring system due 31 Aug.</b> Three states: heir seated / unknown / no heir on record. Built from officer names and matching surnames. Highest-value field on the record, costs nothing to populate.</li>
+  <li><b>Put the question into the qualification script.</b> Step zero. Send it to Issac as a recommendation &mdash; it makes him sound like a broker who has done this before.</li>
+  <li><b>Build a phone-first lane in the CRM.</b> Roughly one in five owner-operators publishes no email at all. That is a segment, not a dead row. Garland Steel is the template.</li>
+  <li><b>Flag anything above ~$10M as long-cycle.</b> Different competitors, different conversation. Do not drop it into the same sequence as a $2M shop.</li>
+</ol>
 
-  <div class="plain">
-    <h4>The property tax bill is a free opening line</h4>
-    <p>Garland Steel pays <strong>$85,455.62 a year</strong> in property tax whether they have a good year or a terrible one. The owner feels that number every year, and it is public record. "You're carrying eighty-five thousand a year on that building" is an opening that is about <em class="i">his</em> money, not ours.</p>
-  </div>
-
-  <div class="note">
-    <span class="tag">The timing reality</span>
-    <p>Issac's own cycle is <strong>two to ten months</strong> from first contact to close. The 30-day build cannot produce a closing &mdash; it produces <strong>conversations and signed listing agreements</strong>. First realistic money from work started today lands around <strong>February 2027</strong>. Say that out loud to him before Day 30, not after.</p>
-  </div>
-</section>
-
-<!-- ============ 01 THE SCORECARD ============ -->
-<section>
-  <div class="sec-num">01</div>
-  <h2>What we are scoring against</h2>
-  <div class="sec-sub">His 19-page ICP document, turned into a 100-point test.</div>
-  <div class="rule"></div>
-
-  <p>These weights come from his own written priorities, not mine. Two of them carry the most weight because he named them himself: <strong>"Commercial Real Estate Ownership &mdash; High Priority"</strong>, and the exclusion rule <strong>"a family succession plan in place = not a seller."</strong></p>
-
-  <div class="tw">
-  <table>
-    <thead><tr><th>Criterion</th><th>What it tests</th><th class="num">Weight</th></tr></thead>
-    <tbody>
-      <tr><td class="nm">Owns its own real estate</td><td>Land and building recorded under the operating company name &mdash; the double-commission play</td><td class="num">20</td></tr>
-      <tr><td class="nm">Succession is open</td><td>No named next-generation family member currently seated in the business</td><td class="num">25</td></tr>
-      <tr><td class="nm">Deal size fits</td><td>Inside his ideal $500K&ndash;$5M transaction band <em class="i">and</em> inside his proven ~$1.5M average</td><td class="num">20</td></tr>
-      <tr><td class="nm">Tenure and owner age</td><td>10+ years trading, owner 55&ndash;72 sweet spot</td><td class="num">15</td></tr>
-      <tr><td class="nm">Geography and sector</td><td>One of 27 priority counties, one of ~150 named industries</td><td class="num">10</td></tr>
-      <tr><td class="nm">Reachable and clean</td><td>A real contact route, one signature, no partners on the deed</td><td class="num">10</td></tr>
-    </tbody>
-  </table>
-  </div>
-
-  <div class="note warn">
-    <span class="tag">A number worth knowing before you read the scores</span>
-    <p>His stated ICP says transactions of <strong>$250K&ndash;$10M+, ideal $500K&ndash;$5M</strong>. But his own 2025 figures &mdash; twelve closings, $58,000 average commission, ~$1.5M average deal &mdash; say his <strong>demonstrated</strong> zone is around $1.5M.</p>
-    <p>Every one of these five is bigger than his historical average. Republic is roughly <strong>ten times</strong> it. That is upside, not a mistake &mdash; but bigger deals attract bigger competitors, take longer, and close less often. It is the reason the scores below are not simply "biggest asset base wins."</p>
-  </div>
-</section>
-
-<!-- ============ 02 THE SCORES ============ -->
-<section>
-  <div class="sec-num">02</div>
-  <h2>The five, ranked</h2>
-  <div class="sec-sub">Same five names. Very different odds.</div>
-  <div class="rule"></div>
-
-  <div class="tw">
-  <table>
-    <thead><tr><th class="num">#</th><th>Business</th><th>Sector</th><th class="num">Yrs</th><th class="num">Property</th><th class="num">Equipment</th><th class="num">ICP score</th></tr></thead>
-    <tbody>
-      <tr><td class="num">1</td><td class="nm">Thermo Sensors Corp</td><td>Process instruments</td><td class="num">54</td><td class="num">$1,665,920</td><td class="num">$244,080</td><td class="num" style="font-weight:700;color:#1c5d43">89</td></tr>
-      <tr><td class="num">2</td><td class="nm">Garland Steel Inc</td><td>Steel service centre</td><td class="num">55</td><td class="num">$3,568,500</td><td class="num">$4,566,670</td><td class="num" style="font-weight:700;color:#8a4b1c">74</td></tr>
-      <tr><td class="num">3</td><td class="nm">Cary Products Company</td><td>Injection moulding</td><td class="num">80</td><td class="num">$2,386,680</td><td class="num">$2,800,000</td><td class="num" style="font-weight:700;color:#8a4b1c">73</td></tr>
-      <tr><td class="num">4</td><td class="nm">Republic Sheet Metal</td><td>Sheet metal fabrication</td><td class="num">64</td><td class="num">$3,161,990</td><td class="num">$11,401,620</td><td class="num" style="font-weight:700;color:#8a4b1c">71</td></tr>
-      <tr><td class="num">5</td><td class="nm">Southern Maid Donut</td><td>Franchisor / food mfg</td><td class="num">89</td><td class="num">$1,391,600</td><td class="num">$228,850</td><td class="num" style="font-weight:700;color:#8c2f2f">64</td></tr>
-    </tbody>
-  </table>
-  </div>
-
-  <p><strong>The ranking is almost the inverse of asset size</strong> &mdash; and that is the point. The biggest asset bases on this list belong to the families least likely to sell. All five pass the property test, which is why they are here at all. What separates them is succession and deal fit.</p>
-
-
-  <!-- ===== 1 THERMO ===== -->
-  <div class="rank">
-    <div class="rank-head">
-      <div class="rank-id">
-        <div class="rank-pos">Rank 01 &middot; open this one first</div>
-        <div class="rank-name">Thermo Sensors Corp</div>
-        <div class="rank-where">405 Gautney St, Garland TX &middot; founded 1972 &middot; CAD 262355000B0030000</div>
-      </div>
-      <div class="score"><div class="score-n s-hi">89</div><div class="score-l">ICP fit</div></div>
-    </div>
-
-    <div class="bd">
-      <div class="bd-row"><div class="bd-k">Owns its real estate</div><div class="bd-v">Two <em class="i">contiguous</em> lots, 403 and 405 Gautney, one owner, one signature</div><div class="bd-s">18/20</div></div>
-      <div class="bd-row"><div class="bd-k">Succession is open</div><div class="bd-v">One named principal, Mark M. Medcalf. No family names anywhere on the record</div><div class="bd-s">20/25</div></div>
-      <div class="bd-row"><div class="bd-k">Deal size fits</div><div class="bd-v">~$1.9M of hard assets, likely a $2&ndash;4M transaction &mdash; centre of his ideal band</div><div class="bd-s">19/20</div></div>
-      <div class="bd-row"><div class="bd-k">Tenure and age</div><div class="bd-v">54 years trading, single site, built to order</div><div class="bd-s">15/15</div></div>
-      <div class="bd-row"><div class="bd-k">Geography and sector</div><div class="bd-v">Dallas County, industrial manufacturing &mdash; both on the list</div><div class="bd-s">10/10</div></div>
-      <div class="bd-row"><div class="bd-k">Reachable and clean</div><div class="bd-v">No owner mailbox published; three named desk addresses and a main line</div><div class="bd-s">7/10</div></div>
-      <div class="bd-tot"><div class="bd-k">Total</div><div class="bd-v"></div><div class="bd-s">89/100</div></div>
-    </div>
-
-    <div class="care">
-      <h4>Why you should care</h4>
-      <p>This is the only one of the five where <strong>nobody is standing in line to inherit it.</strong> One man, one company, two lots, no partners on the deed, no exemptions, no complications. It is also the only one sized like the deals Issac has actually closed before. If you want a signature inside this engagement rather than a nice conversation, this is the name.</p>
-    </div>
-
-    <div class="watch">
-      <h4>What else to watch</h4>
-      <ol>
-        <li><b>The two adjoining lots are the hidden value.</b> Contiguous parcels under one owner sell for more than the same land split &mdash; a buyer gets room to expand without negotiating with a neighbour. Price them together, never separately.</li>
-        <li><b>Small equipment number, and that is fine here.</b> $244K of BPP means the value sits in the customer relationships and the know-how, not the machines. That makes it a cleaner, faster sale &mdash; but it also means the buyer will care intensely about whether the principal stays on for a transition. Ask about that early.</li>
-        <li><b>No owner email is a feature, not a bug.</b> In a 54-year-old shop this size, the technical sales desk sits within earshot of the principal. Route through <span style="font-family:var(--mono);font-size:13px">andy@thermosensors.com</span> or the main line and ask for him by name. Do not guess a mailbox.</li>
-      </ol>
-    </div>
-    <div class="verdict">Cleanest structure, right size, no visible heir. Start here and learn on it.</div>
-  </div>
-
-
-  <!-- ===== 2 GARLAND STEEL ===== -->
-  <div class="rank">
-    <div class="rank-head">
-      <div class="rank-id">
-        <div class="rank-pos">Rank 02 &middot; phone only</div>
-        <div class="rank-name">Garland Steel Inc</div>
-        <div class="rank-where">312 S International Rd, Garland TX &middot; established 1971 &middot; CAD 26099500010020000</div>
-      </div>
-      <div class="score"><div class="score-n s-mid">74</div><div class="score-l">ICP fit</div></div>
-    </div>
-
-    <div class="bd">
-      <div class="bd-row"><div class="bd-k">Owns its real estate</div><div class="bd-v">Best deed on the list &mdash; carries a <em class="i">person's</em> name, William Z Becker, not just an entity</div><div class="bd-s">20/20</div></div>
-      <div class="bd-row"><div class="bd-k">Succession is open</div><div class="bd-v">Josh Becker also holds a role at the company. Probable heir, role unconfirmed</div><div class="bd-s">10/25</div></div>
-      <div class="bd-row"><div class="bd-k">Deal size fits</div><div class="bd-v">~$8.1M of hard assets &mdash; above the ideal band, still inside his stated ceiling</div><div class="bd-s">14/20</div></div>
-      <div class="bd-row"><div class="bd-k">Tenure and age</div><div class="bd-v">55 years, family owned throughout, deed held 34 years</div><div class="bd-s">15/15</div></div>
-      <div class="bd-row"><div class="bd-k">Geography and sector</div><div class="bd-v">Dallas County, steel service &mdash; core ICP industry</div><div class="bd-s">10/10</div></div>
-      <div class="bd-row"><div class="bd-k">Reachable and clean</div><div class="bd-v">No published email anywhere on the site. Phone only. Pattern address unverified</div><div class="bd-s">5/10</div></div>
-      <div class="bd-tot"><div class="bd-k">Total</div><div class="bd-v"></div><div class="bd-s">74/100</div></div>
-    </div>
-
-    <div class="care">
-      <h4>Why you should care</h4>
-      <p>The decision-maker's own name is <strong>printed on the county deed.</strong> That is rare and it removes the hardest part of the job &mdash; you already know exactly who signs. Add an $85,455 annual tax bill on a single building and you have an owner who thinks about what that site is worth at least once a year, on a schedule, without you prompting him.</p>
-    </div>
-
-    <div class="watch">
-      <h4>What else to watch</h4>
-      <ol>
-        <li><b>Do not send this one an email.</b> There is no published address. The 68.6%-confidence guess is on the record only so you know it exists. Sending to an unverified guessed mailbox on brand-new warmed domains is how you damage deliverability for the other 4,000 names. <b>Phone first, take the address from him.</b></li>
-        <li><b>Steel inventory is not the same as steel equipment.</b> The $4.57M BPP figure mixes saws and shears with <em class="i">stock on the floor</em>. Inventory gets negotiated separately at close and moves with steel prices. Do not quote that number as if it were all machinery.</li>
-        <li><b>Confirm the title before you ever use one.</b> Filings record William Becker as President, Treasurer and CFO in different places. Family control is certain; his exact title is not. Address him by name only.</li>
-      </ol>
-    </div>
-    <div class="verdict">Best-identified decision-maker on the list, worst contact route. One phone call fixes the only real problem.</div>
-  </div>
-
-
-  <!-- ===== 3 CARY ===== -->
-  <div class="rank">
-    <div class="rank-head">
-      <div class="rank-id">
-        <div class="rank-pos">Rank 03 &middot; handle with care</div>
-        <div class="rank-name">Cary Products Company</div>
-        <div class="rank-where">101 Lancaster-Hutchins Rd, Hutchins TX &middot; founded 1946 &middot; CAD 30009500050130000</div>
-      </div>
-      <div class="score"><div class="score-n s-mid">73</div><div class="score-l">ICP fit</div></div>
-    </div>
-
-    <div class="bd">
-      <div class="bd-row"><div class="bd-k">Owns its real estate</div><div class="bd-v">16 acres, five parcels, one name since 1969. The land outvalues every building on it</div><div class="bd-s">20/20</div></div>
-      <div class="bd-row"><div class="bd-k">Succession is open</div><div class="bd-v"><strong>Earl Armstrong III, Chairman. Earl Armstrong IV, COO.</strong> A handover already in motion</div><div class="bd-s">5/25</div></div>
-      <div class="bd-row"><div class="bd-k">Deal size fits</div><div class="bd-v">~$5.2M of assets plus a redevelopment premium on the ground</div><div class="bd-s">16/20</div></div>
-      <div class="bd-row"><div class="bd-k">Tenure and age</div><div class="bd-v">80 years trading, same land held 57 years</div><div class="bd-s">15/15</div></div>
-      <div class="bd-row"><div class="bd-k">Geography and sector</div><div class="bd-v">Dallas County, custom plastics &mdash; both on the list</div><div class="bd-s">10/10</div></div>
-      <div class="bd-row"><div class="bd-k">Reachable and clean</div><div class="bd-v">Published address and two phones, but mail routes c/o accounts payable at a PO Box</div><div class="bd-s">7/10</div></div>
-      <div class="bd-tot"><div class="bd-k">Total</div><div class="bd-v"></div><div class="bd-s">73/100</div></div>
-    </div>
-
-    <div class="care">
-      <h4>Why you should care</h4>
-      <p>Sixteen acres of light industrial ground eleven miles from downtown Dallas, in a corridor that has been absorbing distribution demand for a decade. <strong>If this ever comes to market it is not a plastics deal, it is a land deal</strong> &mdash; and land deals price higher and close faster than operating companies.</p>
-    </div>
-
-    <div class="watch">
-      <h4>What else to watch</h4>
-      <ol>
-        <li><b>This is the softest name on the list, and the deck says the opposite.</b> A chairman and a chief operating officer with the same name, one generation apart, is not "a family business" &mdash; it is a documented succession plan already executing. Under Issac's own written exclusion rule, that is a disqualifier. See section 03.</li>
-        <li><b>Mail goes to accounts payable at a PO Box.</b> That is a deliberate wall between the outside world and the family. Anything addressed to the company gets opened by a clerk. If you approach at all, it has to be by name and by phone.</li>
-        <li><b>If you do open it, open it as a land conversation.</b> "What would you do with the sixteen acres if you weren't manufacturing on it" is a question a chairman will answer. "Have you thought about selling the business" is a question he will not.</li>
-      </ol>
-    </div>
-    <div class="verdict">Best asset on the list. Second-worst odds of ever signing. Long game, not a 30-day name.</div>
-  </div>
-
-
-  <!-- ===== 4 REPUBLIC ===== -->
-  <div class="rank">
-    <div class="rank-head">
-      <div class="rank-id">
-        <div class="rank-pos">Rank 04 &middot; the big one, and the slow one</div>
-        <div class="rank-name">Republic Sheet Metal &amp; Mfg</div>
-        <div class="rank-where">5131 Cash Rd, Dallas TX &middot; founded 1962 &middot; CAD 007700000203B0000</div>
-      </div>
-      <div class="score"><div class="score-n s-mid">71</div><div class="score-l">ICP fit</div></div>
-    </div>
-
-    <div class="bd">
-      <div class="bd-row"><div class="bd-k">Owns its real estate</div><div class="bd-v">One entity holds the land, seven buildings and $11.4M of machines. Best structure here</div><div class="bd-s">20/20</div></div>
-      <div class="bd-row"><div class="bd-k">Succession is open</div><div class="bd-v">Fourth generation. Zach Goff installed by his father in 1992. No gen-5 name on record</div><div class="bd-s">12/25</div></div>
-      <div class="bd-row"><div class="bd-k">Deal size fits</div><div class="bd-v">$14.6M of hard assets &mdash; above his stated ceiling, ~10&times; his proven average</div><div class="bd-s">8/20</div></div>
-      <div class="bd-row"><div class="bd-k">Tenure and age</div><div class="bd-v">64 years, ISO 9001:2015, three sites, sales offices in two states</div><div class="bd-s">15/15</div></div>
-      <div class="bd-row"><div class="bd-k">Geography and sector</div><div class="bd-v">Dallas County, sheet metal fabrication &mdash; core ICP industry</div><div class="bd-s">10/10</div></div>
-      <div class="bd-row"><div class="bd-k">Reachable and clean</div><div class="bd-v">Generic <span style="font-family:var(--mono);font-size:12.5px">info@</span> box and an 800 number. No route to a named person</div><div class="bd-s">6/10</div></div>
-      <div class="bd-tot"><div class="bd-k">Total</div><div class="bd-v"></div><div class="bd-s">71/100</div></div>
-    </div>
-
-    <div class="care">
-      <h4>Why you should care</h4>
-      <p>$11.4M of equipment is <strong>3.6&times; the value of the building it sits in</strong> &mdash; the single heaviest asset base on the list. Nobody rebuilds that from scratch, which means any serious buyer in sheet metal fabrication has to buy this company rather than compete with it. If it ever sells, it is the biggest commission event on the page by a distance.</p>
-    </div>
-
-    <div class="watch">
-      <h4>What else to watch</h4>
-      <ol>
-        <li><b>It is too big for Issac's demonstrated lane.</b> A $15M+ transaction is roughly ten times his average deal. At that size he is bidding against regional M&amp;A houses and private equity intermediaries with credentials he does not yet have. Winning it would be transformational; expecting it inside six months would not be honest.</li>
-        <li><b>Three sites, not one.</b> A second Dallas plant plus sales offices in Denver and Salt Lake City means multiple leases or deeds, multi-state employment, and a far longer diligence. The county record covers Cash Rd only &mdash; there is more property in this deal than the $3.16M shown.</li>
-        <li><b>ISO 9001:2015 is a price signal.</b> Certification means audited processes and documented quality systems. It raises the multiple, and it means the buyer will be an industrial acquirer who knows exactly what that is worth. Do not let it be priced as a job shop.</li>
-      </ol>
-    </div>
-    <div class="verdict">The prize, and the one most likely to take two years. Open it properly or not at all.</div>
-  </div>
-
-
-  <!-- ===== 5 SOUTHERN MAID ===== -->
-  <div class="rank">
-    <div class="rank-head">
-      <div class="rank-id">
-        <div class="rank-pos">Rank 05 &middot; specialist deal</div>
-        <div class="rank-name">Southern Maid Donut Flour Co</div>
-        <div class="rank-where">3615 Cavalier Dr, Garland TX &middot; established 1937 &middot; CAD 26210500020340000</div>
-      </div>
-      <div class="score"><div class="score-n s-lo">64</div><div class="score-l">ICP fit</div></div>
-    </div>
-
-    <div class="bd">
-      <div class="bd-row"><div class="bd-k">Owns its real estate</div><div class="bd-v">Owns the plant, but the plant is the least valuable part of the company</div><div class="bd-s">14/20</div></div>
-      <div class="bd-row"><div class="bd-k">Succession is open</div><div class="bd-v">Company-published: second <em class="i">and</em> third generations, in ownership <em class="i">and</em> management</div><div class="bd-s">6/25</div></div>
-      <div class="bd-row"><div class="bd-k">Deal size fits</div><div class="bd-v">Assets only $1.6M, but the licence book carries the value. In band, hard to price</div><div class="bd-s">15/20</div></div>
-      <div class="bd-row"><div class="bd-k">Tenure and age</div><div class="bd-v">89 years, the oldest name here</div><div class="bd-s">15/15</div></div>
-      <div class="bd-row"><div class="bd-k">Geography and sector</div><div class="bd-v">Dallas County, food manufacturing &mdash; but a franchisor is an unusual asset class</div><div class="bd-s">8/10</div></div>
-      <div class="bd-row"><div class="bd-k">Reachable and clean</div><div class="bd-v">Published contact, mailing address is the plant itself</div><div class="bd-s">6/10</div></div>
-      <div class="bd-tot"><div class="bd-k">Total</div><div class="bd-v"></div><div class="bd-s">64/100</div></div>
-    </div>
-
-    <div class="care">
-      <h4>Why you should care</h4>
-      <p>This company does not just make donut mix &mdash; it <strong>licenses its name to more than 100 stores</strong> and collects from them. That is recurring income, and recurring income sells for a multiple of itself, completely independent of the warehouse. On paper it is the smallest name here. In practice it may not be.</p>
-    </div>
-
-    <div class="watch">
-      <h4>What else to watch</h4>
-      <ol>
-        <li><b>Value the licence book, not the building.</b> Price this on the county record and you quote $1.39M. Price the trademark, the 89-year-old brand and 100+ licence agreements and the number is several times that. <b>The wrong broker treats this like a warehouse</b> &mdash; and that is the argument for why Issac should be the one holding it.</li>
-        <li><b>Two live generations is the deepest entrenchment on the list.</b> Their own history page says second <em class="i">and</em> third generation, in both ownership and management. That is more family in the building than anyone else here.</li>
-        <li><b>Franchisor sales carry legal weight most brokers underestimate.</b> Transferring a franchise system means franchise disclosure obligations and consent from existing licensees. It is a longer, more technical close. Do not open it unless he wants that kind of deal.</li>
-      </ol>
-    </div>
-    <div class="verdict">Most interesting story, hardest close, most family in the room. Last on the list.</div>
-  </div>
-</section>
-
-<!-- ============ 03 THE SUCCESSION QUESTION ============ -->
-<section>
-  <div class="sec-num">03</div>
-  <h2>Your succession question</h2>
-  <div class="sec-sub">You were right, and the deck currently argues the opposite.</div>
-  <div class="rule"></div>
-
-  <div class="qbox">
-    <span class="tag">What you asked</span>
-    <p>"There has been a succession &mdash; the father gave it to the son, and now the son is the CEO. What stops the same thing happening again? Nothing tells us this guy will not hand the company to his own son."</p>
-  </div>
-
-  <p class="lede">Nothing does stop it. And the ready list reads that fact backwards.</p>
-
-  <p>The deck's line on Republic is that the succession question <em class="i">"has already been answered once in this family, and everyone knows what it looked like"</em> &mdash; written as a point in its favour. Your instinct is the correct one: <strong>a family that has transferred four times has demonstrated that its answer to "what happens next" is transfer, not sale.</strong> That is a pattern, not a one-off event.</p>
-
-  <p>His own ICP document already says this in plain language. The exclusion criterion is <strong>"a family succession plan in place = not a seller"</strong>, and one of his named sale-readiness signals is <strong>"limited or no succession plan."</strong> The deck's copy contradicts the client's own written brief. If he reads it closely he will notice.</p>
-
-  <div class="note bad">
-    <span class="tag">Fix before this list is referenced again</span>
-    <p>Rewrite the "why it scores" lines for Republic and Cary. Right now both use <em class="i">the next generation already being seated</em> as evidence of readiness. Under his ICP, that is the disqualifier &mdash; not the qualifier. Everything else on the page is verified public record and stands.</p>
-  </div>
-
-  <h3>The distinction that actually predicts a sale</h3>
-
-  <p>It is not how many generations there have been. Almost every 60-year-old industrial business in Dallas County is a family business &mdash; if generation count were the filter, there would be no list. <strong>The number that predicts a sale is whether there is a named next-generation family member employed in the business right now.</strong></p>
-
-  <ul class="plainlist">
-    <li><b>Cary Products &mdash; closed.</b> Earl Armstrong III is Chairman. Earl Armstrong IV is Chief Operating Officer. The father has moved up and the son is running operations. That is a handover mid-execution.</li>
-    <li><b>Southern Maid &mdash; closed.</b> Second and third generations, in ownership and in management, published by the company itself.</li>
-    <li><b>Garland Steel &mdash; probably closed.</b> William Becker is President; Josh Becker "also holds a role." Same surname, same building. Unconfirmed but likely.</li>
-    <li><b>Republic Sheet Metal &mdash; unknown, and leaning open.</b> Zach Goff is generation four. There is no generation five named anywhere &mdash; and a 64-year-old company that publishes its own history page would almost certainly say so if there were.</li>
-    <li><b>Thermo Sensors &mdash; open.</b> One named principal. No family names on any record. The only clean one.</li>
-  </ul>
-
-  <p>There is also a real argument in Republic's favour, and it is worth knowing because it is the counter to your own question: <strong>family businesses run out of heirs.</strong> Roughly a third reach a second generation, around one in eight reach a third, and only a few percent reach a fourth. Republic is already in that last group. Reaching a fifth is rare enough that the base rate now works <em class="i">for</em> a sale rather than against it. Zach Goff came into the business in 1992, which puts him somewhere in his fifties or sixties &mdash; squarely inside Issac's 55&ndash;72 sweet spot, and squarely in the years when this decision gets made.</p>
-
-  <p>So Republic is not disqualified. It is <strong>unresolved</strong> &mdash; which is exactly why it scores 12 out of 25 there and not 5 or 20.</p>
-
-  <div class="note">
-    <span class="tag">The cheapest fix in the whole build</span>
-    <p>None of this can be settled from a database. It is settled by <strong>one question on the first call</strong>, and it should be the first question, before financials and before timeline:</p>
-    <p style="font-family:var(--serif);font-size:19px;font-style:italic;color:var(--ink);margin:14px 0"> "Who takes over when you step back?"</p>
-    <p>The answer sorts the list in ten seconds. If he names a son or a daughter, thank him and move on. If he pauses, or says "that's the problem," you have a listing agreement in front of you within the year. <strong>Issac's 8-step sales process currently opens with SDE, timeline and goals &mdash; this question is nowhere in it.</strong> Add it as step zero.</p>
-  </div>
-</section>
-
-<!-- ============ 04 SO WHAT ============ -->
-<section>
-  <div class="sec-num">04</div>
-  <h2>What this changes in the build</h2>
-  <div class="sec-sub">Four things, all cheap.</div>
-  <div class="rule"></div>
-
-  <ul class="plainlist">
-    <li><b>Succession becomes a scored field, not a note.</b> The sourcing and scoring system due for approval on 31 August should carry a succession column with three states &mdash; heir seated / unknown / no heir on record &mdash; built from officer names, company history pages and matching surnames. It is the highest-value field on the whole record and it costs nothing extra to populate.</li>
-    <li><b>"Who takes over when you step back?" goes into the qualification script as question one.</b> It is a ten-second disqualifier that saves months of pipeline. It also happens to be the question that makes Issac sound like a broker who has done this before.</li>
-    <li><b>Deal-size banding gets scored too.</b> Anything above roughly $10M should be flagged as a long-cycle name and worked separately, not dropped into the same sequence as a $2M shop. They are different conversations with different competitors.</li>
-    <li><b>Garland Steel is the template for a phone lane.</b> Roughly one in five of these owner-operator companies publishes no email at all. That is not a gap in the data &mdash; it is a segment. Build the CRM so a "no verified email, phone-first" record is a routing decision, not a dead row.</li>
-  </ul>
-
-  <div class="note">
-    <span class="tag">One line to keep in your head</span>
-    <p>The property filter tells you <strong>whether he can sign</strong>. The succession answer tells you <strong>whether he ever will</strong>. The list so far has been built entirely on the first one.</p>
-  </div>
-</section>
-
-<footer>
-  <span>Evolv AI &middot; internal working document</span>
-  <span>26 August 2026 &middot; not for the client channel</span>
-</footer>
+<h2>Three things about his business you need to know</h2>
+<dl class="kv">
+  <dt>The product</dt>
+  <dd>A <b>signed listing agreement</b> &mdash; the exclusive right to sell that company. Not a lead, not a call. Everything we build exists to produce that one signature.</dd>
+  <dt>The double fee</dt>
+  <dd>If the company owns its own building, one person sells <b>both</b> and Issac earns on each &mdash; ~10% on the business, 3&ndash;6% on the property. That filter is what cut 17 candidates to 5.</dd>
+  <dt>The clock</dt>
+  <dd>His cycle is <b>2&ndash;10 months</b>. The 30-day build produces signatures, not closings. First realistic money lands around <b>Feb 2027</b>. Say that to him before Day 30, not after.</dd>
+</dl>
 
 </div>
 </body>
