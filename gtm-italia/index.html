@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evolv One Italia — Il modello di business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16181a; --ink-2:#3d4145; --ink-3:#6b6b66;
+  --paper:#fdfdfb; --paper-2:#f6f6f2; --rule:#e3e1db;
+  --acc:#1c5d43; --acc-soft:#eff4f1;
+  --serif:'Newsreader',Georgia,serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--paper);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;font-family:var(--sans)}
+.mobile-block .mb-rule{width:34px;height:1px;background:var(--acc);margin-bottom:26px}
+.mobile-block .mb-title{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.15;
+  letter-spacing:-.015em;margin-bottom:16px;color:var(--ink)}
+.mobile-block .mb-title em{font-style:italic;color:var(--acc)}
+.mobile-block .mb-sub{font-size:14.5px;color:var(--ink-3);max-width:330px;line-height:1.6}
+.mobile-block .mb-foot{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:32px}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 28px}
+
+/* ---------- masthead ---------- */
+header{padding:96px 0 0}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--acc);font-weight:500;margin:0 0 22px}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(40px,7vw,68px);line-height:1.04;
+  letter-spacing:-.02em;margin:0 0 20px}
+h1 em{font-style:italic;color:var(--acc)}
+.standfirst{font-family:var(--serif);font-size:clamp(19px,2.4vw,23px);line-height:1.5;
+  color:var(--ink-2);max-width:640px;margin:0 0 34px}
+.meta{display:flex;flex-wrap:wrap;gap:0 30px;font-family:var(--mono);font-size:11.5px;
+  color:var(--ink-3);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:14px 0;margin-bottom:8px}
+.meta b{color:var(--ink);font-weight:500}
+.notice{margin:26px 0 0;padding:14px 18px;background:var(--acc-soft);
+  border-left:2px solid var(--acc);font-size:14px;color:var(--ink-2)}
+
+/* ---------- sections ---------- */
+section{padding:66px 0 0}
+.num{font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:.1em;
+  font-weight:500;margin:0 0 10px}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4vw,38px);line-height:1.12;
+  letter-spacing:-.015em;margin:0 0 8px}
+.sub{font-size:15px;color:var(--ink-3);margin:0 0 28px;max-width:600px}
+h3{font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;
+  margin:38px 0 12px;color:var(--ink)}
+p{margin:0 0 17px;max-width:680px}
+p.lead{font-family:var(--serif);font-size:20px;line-height:1.5;color:var(--ink-2)}
+strong{font-weight:600}
+hr{border:0;border-top:1px solid var(--rule);margin:0}
+
+/* ---------- pull ---------- */
+.pull{font-family:var(--serif);font-size:clamp(24px,3.6vw,32px);line-height:1.25;
+  letter-spacing:-.012em;color:var(--ink);margin:34px 0;padding:0 0 0 26px;
+  border-left:2px solid var(--acc);max-width:680px}
+.pull small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:14px;font-weight:400}
+
+/* ---------- tables ---------- */
+.scroll{overflow-x:auto;margin:24px 0 8px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:0 14px 9px 0;
+  border-bottom:1px solid var(--ink);white-space:nowrap}
+td{padding:13px 14px 13px 0;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+td:first-child{color:var(--ink);font-weight:500}
+td.n{font-family:var(--mono);font-size:13px;white-space:nowrap}
+tr.out td{color:var(--ink-3)}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;padding:3px 7px;
+  border-radius:2px;white-space:nowrap;display:inline-block}
+.t-yes{background:var(--acc-soft);color:var(--acc)}
+.t-no{background:#f7dede;color:#8c2f2f}
+.t-maybe{background:#faf0dc;color:#7a5a1e}
+.t-open{background:#edede9;color:var(--ink-3)}
+
+/* ---------- cards ---------- */
+.grid{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:26px 0}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--paper);padding:22px 20px}
+.card .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--acc);margin:0 0 9px}
+.card .v{font-family:var(--serif);font-size:26px;line-height:1.15;margin:0 0 7px}
+.card p{font-size:13.5px;color:var(--ink-3);margin:0;line-height:1.55}
+
+/* ---------- funnel ---------- */
+.funnel{margin:28px 0;border:1px solid var(--rule)}
+.step{display:grid;grid-template-columns:52px 1fr;border-bottom:1px solid var(--rule)}
+.step:last-child{border-bottom:0}
+.step .i{font-family:var(--mono);font-size:12px;color:var(--acc);background:var(--paper-2);
+  display:flex;align-items:center;justify-content:center;border-right:1px solid var(--rule)}
+.step .b{padding:18px 20px}
+.step .b h4{margin:0 0 5px;font-size:15px;font-weight:600}
+.step .b p{margin:0;font-size:13.5px;color:var(--ink-3);max-width:none}
+
+/* ---------- lists ---------- */
+ul.clean{list-style:none;padding:0;margin:20px 0;max-width:680px}
+ul.clean li{padding:12px 0 12px 26px;border-bottom:1px solid var(--rule);position:relative;
+  font-size:15px;color:var(--ink-2)}
+ul.clean li:before{content:"";position:absolute;left:4px;top:21px;width:8px;height:1px;background:var(--acc)}
+ul.clean li b{color:var(--ink)}
+
+footer{margin-top:80px;border-top:1px solid var(--ink);padding:26px 0 70px;
+  font-family:var(--mono);font-size:11px;color:var(--ink-3);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+@media(max-width:680px){
+  header{padding-top:56px}
+  section{padding-top:48px}
+  .g2,.g3{grid-template-columns:1fr}
+  .meta{gap:0 18px}
+}
+</style>
+</head>
+<body>
+<div class="mobile-block">
+  <div class="mb-rule"></div>
+  <div class="mb-title">Aprilo da <em>desktop</em></div>
+  <div class="mb-sub">Questo documento è fatto per uno schermo grande. Aprilo dal computer per leggerlo come va letto.</div>
+  <div class="mb-foot">Evolv One Italia</div>
+</div>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Evolv One Italia · documento interno · Whiz × Raymond</p>
+  <h1>Gli imprenditori<br>comprano <em>ROI.</em></h1>
+  <p class="standfirst">Non comprano intelligenza artificiale, non comprano automazioni, non comprano un'agenzia. Comprano più fatturato, dimostrabile, entro un mese. Tutto il resto di questo documento è la conseguenza di questa frase.</p>
+  <div class="meta">
+    <span><b>Lancio</b> 1 settembre 2026</span>
+    <span><b>Validazione</b> 3–4 mesi</span>
+    <span><b>Verticale</b> Medicina estetica</span>
+    <span><b>Split</b> 50 / 50</span>
+    <span><b>v1</b> 28 ago 2026</span>
+  </div>
+  <div class="notice"><strong>Nota.</strong> Questo è un documento di allineamento tra soci, non un materiale da mandare a un cliente. I prezzi non ci sono: si decidono insieme.</div>
+</header>
+
+<!-- 01 -->
+<section>
+  <p class="num">01</p>
+  <h2>Che cosa vendiamo davvero</h2>
+  <p class="sub">Il posizionamento è la decisione più importante del progetto, ed è già presa.</p>
+
+  <p class="lead">Novanta per cento go-to-market. Dieci per cento sistema interno.</p>
+
+  <p>Vendiamo la parte alta e centrale dell'imbuto: far arrivare richieste, risponderci in meno di un minuto, seguirle finché non diventano appuntamenti, riprendere i preventivi rimasti aperti, riattivare i contatti già in casa. È questo che fa muovere il fatturato di un imprenditore, ed è questo che entra nel messaggio commerciale.</p>
+
+  <p>Le automazioni, gli agenti, l'infrastruttura interna — tutto quello che chiamiamo AIOS — vengono consegnati dentro il servizio, ma non sono il modo in cui ci presentiamo. <strong>Non sono il cavallo di Troia.</strong> Sono il motivo per cui il servizio regge quando cresce, e nessun imprenditore si sveglia la mattina volendoli comprare.</p>
+
+  <div class="grid g2">
+    <div class="card">
+      <p class="k">Quello che diciamo — 90%</p>
+      <p class="v">Go-to-market</p>
+      <p>Generazione richieste · risposta sotto i 60 secondi · follow-up multi-contatto · recupero preventivi · riattivazione database · gestione delle campagne Meta.</p>
+    </div>
+    <div class="card">
+      <p class="k">Quello che consegniamo dentro — 10%</p>
+      <p class="v">Sistema</p>
+      <p>Agenti su WhatsApp · automazioni sui processi ripetitivi · recall automatici · reportistica · l'infrastruttura che regge tutto senza aggiungere persone.</p>
+    </div>
+  </div>
+
+  <div class="pull">Aiutiamo le aziende a fare più soldi. Il come è un dettaglio tecnico che interessa solo a noi.</div>
+</section>
+
+<hr>
+
+<!-- 02 -->
+<section>
+  <p class="num">02</p>
+  <h2>Le quattro promesse</h2>
+  <p class="sub">Tenute dal documento originale di Raymond, validate senza modifiche.</p>
+  <ul class="clean">
+    <li><b>Ridurre le attività ripetitive</b> — la segreteria smette di fare il centralino e torna a chiudere appuntamenti.</li>
+    <li><b>Recuperare i contatti persi</b> — quelli già pagati e mai richiamati, che sono il primo fatturato che restituiamo.</li>
+    <li><b>Automatizzare i processi</b> — quello che oggi dipende dal fatto che qualcuno si ricordi.</li>
+    <li><b>Sistemi che lavorano ventiquattro ore</b> — perché le richieste arrivano alle undici di sera e la domenica.</li>
+  </ul>
+</section>
+
+<hr>
+
+<!-- 03 -->
+<section>
+  <p class="num">03</p>
+  <h2>La verticale</h2>
+  <p class="sub">Una sola, scelta con i numeri e non con l'intuito.</p>
+
+  <p class="lead">Medicina estetica. Studi e poliambulatori italiani, titolare medico, una o tre sedi.</p>
+
+  <p>Il criterio non è stato quale settore ci piace. È stato uno solo: <strong>a quale imprenditore possiamo restituire tre volte il retainer in modo dimostrabile, e in quante unità di prodotto si traduce.</strong> Se il ROI richiede decine o centinaia di clienti in più al mese, il modello non regge e la promessa diventa una bugia.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Candidato</th><th>Ticket tipico</th><th>Cosa serve per un 3× dimostrabile</th><th>Esito</th></tr></thead>
+    <tbody>
+      <tr><td>Medicina estetica</td><td class="n">€400 – 1.500</td><td>Pochi pazienti in più al mese, su percorsi ricorrenti già a listino</td><td><span class="tag t-yes">scelta</span></td></tr>
+      <tr><td>Odontoiatria</td><td class="n">€1.500 – 4.000</td><td>Un paio di preventivi accettati in più</td><td><span class="tag t-maybe">la seconda</span></td></tr>
+      <tr><td>Serramenti / infissi</td><td class="n">€3.000 – 8.000</td><td>Un lavoro in più al mese</td><td><span class="tag t-maybe">piano B</span></td></tr>
+      <tr class="out"><td>Palestre</td><td class="n">€40 – 70 / mese</td><td>Decine di iscritti nuovi ogni mese, per sempre</td><td><span class="tag t-no">scartata</span></td></tr>
+      <tr class="out"><td>Ristorazione</td><td class="n">€25 – 45</td><td>Centinaia di coperti in più al mese</td><td><span class="tag t-no">scartata</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Il brick and mortar è morto sull'aritmetica, non sul gusto. L'odontoiatria è la seconda verticale, dopo la validazione: stessa macchina, stesso funnel, ticket ancora più alto — ma una alla volta, altrimenti non standardizziamo niente.</p>
+
+  <h3>Perché proprio questa nicchia funziona</h3>
+  <ul class="clean">
+    <li><b>Il ticket è alto e ricorrente.</b> Tossina ogni quattro-sei mesi, filler ogni sei-dodici, percorsi corpo a pacchetto. Il valore di un paziente non finisce alla prima visita.</li>
+    <li><b>Il titolare è un medico, non un manager.</b> Decide da solo, decide in fretta, e non ha nessuna voglia di occuparsi di marketing.</li>
+    <li><b>La perdita è a valle, non a monte.</b> Quasi tutti fanno già pubblicità. Quasi nessuno richiama in tempo. È esattamente il pezzo che vendiamo.</li>
+    <li><b>C'è un vincolo normativo che spaventa le agenzie generaliste.</b> La pubblicità sanitaria è regolata: chi la sa gestire ha un fossato, chi non la conosce fa bloccare l'account del cliente.</li>
+  </ul>
+</section>
+
+<hr>
+
+<!-- 04 -->
+<section>
+  <p class="num">04</p>
+  <h2>Il cliente, in cinque cerchi</h2>
+  <p class="sub">Non un filtro passa / non passa. Un cerchio dice quanto sappiamo prima di parlarci e quanto vale lavorarlo adesso.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Cerchio</th><th>Chi è</th><th>Il segnale che lo definisce</th><th>Stima Italia</th></tr></thead>
+    <tbody>
+      <tr><td>C1 · 100%</td><td>Studio medico estetico, titolare identificato</td><td>Ads Meta attive adesso <em>e</em> un buco visibile: nessuno risponde al form, recensioni che lo dicono</td><td class="n">300 – 600</td></tr>
+      <tr><td>C2 · 90%</td><td>Stesso profilo, un segnale su due</td><td>O il budget acceso, o il ticket alto con i pacchetti</td><td class="n">1.500 – 3.000</td></tr>
+      <tr><td>C3 · 80%</td><td>Mercato core, nessun segnale rilevato</td><td>Medicina estetica confermata, titolare decisore. È qui che vive il volume delle campagne</td><td class="n">3.000 – 6.000</td></tr>
+      <tr><td>C4 · 70%</td><td>Estetica avanzata non medicale</td><td>Macchinari e pacchetti, ticket più basso — ma nessun vincolo sulla pubblicità sanitaria</td><td class="n">5.000 – 9.000</td></tr>
+      <tr><td>C5 · 60%</td><td>Chirurgia plastica, tricologia</td><td>Ticket altissimo, ciclo di vendita diverso. Non ci facciamo campagne sopra durante la validazione</td><td class="n">800 – 1.500</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink-3)">Le dimensioni sono ordini di grandezza da verificare, non dati. Il dettaglio operativo completo — punteggi, segnali, targeting, compliance, schema CRM — è nel file <span style="font-family:var(--mono);font-size:12.5px">ESTETICA-ICP-MATCH-MODEL.xlsx</span>, tredici fogli.</p>
+
+  <h3>I tre segnali che valgono più di tutti gli altri</h3>
+  <ul class="clean">
+    <li><b>Ha appena comprato un macchinario.</b> Ha finanziato decine di migliaia di euro, ha una rata e una scadenza per riempirlo — e lo annuncia da solo sui suoi canali. Nessuno lo usa come apertura.</li>
+    <li><b>Ha una recensione Google che dice «non mi hanno mai richiamato».</b> È la descrizione del nostro prodotto, scritta dai suoi pazienti, con nome e data. Si cita testuale e non serve altro.</li>
+    <li><b>Il suo form non risponde.</b> Si compila, si segna l'ora, si aspetta. Sessanta secondi di lavoro per la prova più difficile da contestare che esista.</li>
+  </ul>
+</section>
+
+<hr>
+
+<!-- 05 -->
+<section>
+  <p class="num">05</p>
+  <h2>Dove scappano i soldi</h2>
+  <p class="sub">Il servizio non è una lista di funzionalità. È la chiusura di otto buchi, ognuno con un numero e un tempo.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Il buco</th><th>Cosa lo chiude</th><th>Si vede in</th></tr></thead>
+    <tbody>
+      <tr><td>Richiesta mai richiamata</td><td>Risposta automatica sotto i 60 secondi, poi chiamata</td><td class="n">7 giorni</td></tr>
+      <tr><td>Richiamata una volta sola</td><td>Sequenza di cinque tentativi su otto giorni</td><td class="n">14 giorni</td></tr>
+      <tr><td>No-show alla prima visita</td><td>Reminder a 48h, 24h, 2h + lista d'attesa che riempie il buco</td><td class="n">14 giorni</td></tr>
+      <tr><td>Preventivo mai ripreso</td><td>Follow-up a 3, 7, 14, 30 giorni + opzione rate</td><td class="n">30 giorni</td></tr>
+      <tr><td>Mantenimento mai richiamato</td><td>Recall automatico sulla data dell'ultimo trattamento</td><td class="n">60 giorni</td></tr>
+      <tr><td>Database morto</td><td>Campagna di riattivazione, zero euro di pubblicità</td><td class="n">14 giorni</td></tr>
+      <tr><td>Campagne che portano il pubblico sbagliato</td><td>Creative su percorsi, mai su sconti + pre-qualifica nel form</td><td class="n">30 giorni</td></tr>
+      <tr><td>Segreteria intasata dalle domande base</td><td>Agente su WhatsApp che filtra e passa in mano umana solo chi è pronto</td><td class="n">21 giorni</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="pull">Il primo fatturato che restituiamo non lo generiamo: lo recuperiamo. È già suo, l'ha già pagato, e lo sta regalando.<small>È anche il motivo per cui il risultato arriva in due settimane e non in sei mesi</small></div>
+</section>
+
+<hr>
+
+<!-- 06 -->
+<section>
+  <p class="num">06</p>
+  <h2>La macchina di acquisizione</h2>
+  <p class="sub">Un solo canale. Nessuna call di scoperta. Il form fa il lavoro che di solito fa una prima chiamata.</p>
+
+  <div class="funnel">
+    <div class="step"><div class="i">01</div><div class="b"><h4>Meta ads</h4><p>L'unico canale. Niente LinkedIn, niente cold email, niente cold calling. Il contenuto organico non è una priorità finché non decidiamo chi ci mette la faccia.</p></div></div>
+    <div class="step"><div class="i">02</div><div class="b"><h4>Form di qualifica — otto domande</h4><p>Chiede volume di richieste, budget pubblicitario, chi risponde oggi, valore di un paziente, se chi compila è il titolare. Chi non ha budget o non decide non arriva mai in calendario.</p></div></div>
+    <div class="step"><div class="i">03</div><div class="b"><h4>Dieci minuti di ricerca</h4><p>Prima della call si aprono Ad Library, Google Maps e il suo sito. Si guarda se le campagne girano, cosa dicono le recensioni, se il form risponde. Si calcola quanto sta perdendo.</p></div></div>
+    <div class="step"><div class="i">04</div><div class="b"><h4>Close call diretta</h4><p>Nessuna presentazione, nessuna scoperta. Si apre sul suo numero e con le sue parole — quelle che ha scritto nell'ultima domanda del form. Si chiude nella stessa call.</p></div></div>
+  </div>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Canale</th><th>Decisione</th><th>Perché</th></tr></thead>
+    <tbody>
+      <tr><td>Meta ads</td><td><span class="tag t-yes">unico canale</span></td><td>Budget nostro per il prospecting. Il budget delle campagne del cliente lo paga il cliente.</td></tr>
+      <tr><td>Call di scoperta</td><td><span class="tag t-no">eliminata</span></td><td>Il form la sostituisce. Raddoppiare le call dimezza le chiusure per ora di lavoro.</td></tr>
+      <tr><td>LinkedIn</td><td><span class="tag t-no">no</span></td><td>Il titolare medico non ci vive.</td></tr>
+      <tr><td>Cold email</td><td><span class="tag t-no">no</span></td><td>Diluisce il focus e allunga i tempi di validazione.</td></tr>
+      <tr><td>Contenuto organico</td><td><span class="tag t-maybe">non ora</span></td><td>Solo se decidiamo chi va in camera. Senza una faccia non ha senso.</td></tr>
+      <tr><td>Partnership con agenzie</td><td><span class="tag t-maybe">opportunistico</span></td><td>Benvenute se arrivano. Non è dove mettiamo il tempo.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<hr>
+
+<!-- 07 -->
+<section>
+  <p class="num">07</p>
+  <h2>L'offerta</h2>
+  <p class="sub">Tre fasce, di cui una sola reale.</p>
+
+  <div class="grid g3">
+    <div class="card"><p class="k">Fascia 1</p><p class="v">Starter</p><p>Esiste per rendere Growth la scelta ovvia. Serve anche a non perdere chi ha meno di venti richieste al mese.</p></div>
+    <div class="card" style="background:var(--acc-soft)"><p class="k">Fascia 2 — la vera</p><p class="v">Growth</p><p>È qui che chiudiamo. Tutta la macchina: campagne, risposta immediata, follow-up, recupero preventivi, riattivazione database.</p></div>
+    <div class="card"><p class="k">Fascia 3</p><p class="v">Enterprise</p><p>Ancora l'alto. Più sedi, più volume, integrazione con il gestionale. Se qualcuno la compra, meglio così.</p></div>
+  </div>
+
+  <p><strong>I prezzi non sono in questo documento e non lo saranno finché non li decidiamo insieme.</strong> Quello che è già deciso è come si costruiscono: sul risultato misurabile, mai sull'elenco delle funzionalità tecniche. Il cliente non paga per un agente WhatsApp, paga per i preventivi che smette di perdere.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Da decidere insieme</th><th>Stato</th></tr></thead>
+    <tbody>
+      <tr><td>Prezzo delle tre fasce</td><td><span class="tag t-open">aperto</span></td></tr>
+      <tr><td>Setup una tantum oppure solo canone</td><td><span class="tag t-open">aperto</span></td></tr>
+      <tr><td>Cosa sta dentro Growth e cosa no</td><td><span class="tag t-open">aperto</span></td></tr>
+      <tr><td>Durata minima e condizioni di uscita</td><td><span class="tag t-open">aperto</span></td></tr>
+      <tr><td>Garanzia — se c'è, su quale numero</td><td><span class="tag t-open">aperto</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<hr>
+
+<!-- 08 -->
+<section>
+  <p class="num">08</p>
+  <h2>Come stiamo insieme</h2>
+  <p class="sub">Split, soldi, e chi tiene cosa.</p>
+
+  <div class="grid g3">
+    <div class="card"><p class="k">Ricavi</p><p class="v">50 / 50</p><p>Deciso. Nessun'altra struttura in discussione.</p></div>
+    <div class="card"><p class="k">Budget campagne cliente</p><p class="v">Suo</p><p>Non finanziamo mai la pubblicità di un cliente. La gestiamo, non la paghiamo.</p></div>
+    <div class="card"><p class="k">Budget prospecting</p><p class="v">Nostro</p><p>L'unico media che ci carichiamo addosso. Importo mensile da fissare.</p></div>
+  </div>
+
+  <p>La divisione che aveva scritto Raymond — sviluppo tecnico, delivery, sviluppo commerciale — è giusta ma incompleta. Ne servono di più, e serve soprattutto una cosa che nel documento originale non c'era.</p>
+
+  <h3>La Control Room</h3>
+  <p>Una dashboard sola, aggiornata, che tiene: spesa pubblicitaria e costo per form, stato della pipeline, stato di consegna di ogni cliente, e il ROI dichiarabile di ciascuno. Non è un vezzo tecnico. È l'unico modo per accorgersi che un cliente sta per disdire <em>prima</em> che disdica, e per sapere se la macchina regge senza doverlo chiedere all'altro.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Corsia</th><th>Chi</th><th>Nota</th></tr></thead>
+    <tbody>
+      <tr><td>Verticale, offerta, business plan</td><td>Whiz</td><td>Fatto</td></tr>
+      <tr><td>Sistema, delivery, Control Room</td><td>Whiz</td><td>Da costruire</td></tr>
+      <tr><td>Account Meta e creative</td><td>Raymond</td><td></td></tr>
+      <tr><td>Close call</td><td>Raymond</td><td></td></tr>
+      <tr><td>Prezzi</td><td>Insieme</td><td><span class="tag t-open">da fare</span></td></tr>
+      <tr><td>Divisione operativa quotidiana</td><td>Insieme</td><td><span class="tag t-open">da fare</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<hr>
+
+<!-- 09 -->
+<section>
+  <p class="num">09</p>
+  <h2>I numeri che guardiamo</h2>
+  <p class="sub">Otto, ogni settimana. Se non sono su una dashboard, non esistono.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Numero</th><th>Target validazione</th><th>Cosa ci dice</th></tr></thead>
+    <tbody>
+      <tr><td>Costo per form qualificato</td><td class="n">da fissare in sett. 2</td><td>Se la macchina di acquisizione sta in piedi</td></tr>
+      <tr><td>Show rate alle close call</td><td class="n">≥ 65%</td><td>Se scende, il problema è il form o il tempo di attesa, non la creative</td></tr>
+      <tr><td>Chiusura in call</td><td class="n">≥ 20%</td><td>Sotto, è sbagliata l'offerta — non il venditore</td></tr>
+      <tr><td>Costo di acquisizione cliente</td><td class="n">&lt; 1 mese di canone</td><td>Sopra, si ferma tutto e si ripensa</td></tr>
+      <tr><td>Tempo al primo risultato</td><td class="n">≤ 14 giorni</td><td>La metrica della retention. Chi non vede niente in due settimane disdice al terzo mese</td></tr>
+      <tr><td>ROI dichiarabile del cliente</td><td class="n">≥ 3×</td><td>Senza questo non esiste il case study, e senza case study non esiste il mese quattro</td></tr>
+      <tr><td>Churn</td><td class="n">&lt; 10% mensile</td><td>In una nicchia piccola il churn diventa passaparola negativo</td></tr>
+      <tr><td>MRR</td><td class="n">da fissare insieme</td><td>L'obiettivo finale della validazione</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<hr>
+
+<!-- 10 -->
+<section>
+  <p class="num">10</p>
+  <h2>Roadmap</h2>
+  <p class="sub">Una verticale fino in fondo prima di toccarne un'altra.</p>
+
+  <div class="funnel">
+    <div class="step"><div class="i">I</div><div class="b"><h4>Settembre → dicembre 2026 · Validazione</h4><p>Una sola verticale. Primi clienti, primo fatturato ricorrente, prime prove che i buchi si chiudono davvero. Nessuna estensione, nessun secondo settore, nessuna eccezione.</p></div></div>
+    <div class="step"><div class="i">II</div><div class="b"><h4>Fine 2026 · Consolidamento</h4><p>Case study veri con numeri veri. Processo commerciale e di consegna standardizzati e scritti. La macchina deve funzionare senza che nessuno dei due la tenga in piedi a mano.</p></div></div>
+    <div class="step"><div class="i">III</div><div class="b"><h4>2027 · Replica</h4><p>Stessa macchina sulla seconda verticale — con ogni probabilità odontoiatria. Si replica solo quello che è già standardizzato.</p></div></div>
+  </div>
+
+  <div class="pull">Il piano non si tocca per tre mesi. Al mese quattro si decide sui dati, non sulle sensazioni.</div>
+</section>
+
+<hr>
+
+<!-- 11 -->
+<section>
+  <p class="num">11</p>
+  <h2>Cosa manca</h2>
+  <p class="sub">Onestà sui buchi, in ordine di urgenza.</p>
+  <ul class="clean">
+    <li><b>I prezzi delle tre fasce.</b> Blocca il lancio del 1 settembre. È la prima conversazione da fare.</li>
+    <li><b>Il budget mensile di prospecting</b> e come lo mettiamo dentro.</li>
+    <li><b>La divisione operativa quotidiana</b> — chi risponde di cosa quando qualcosa non funziona.</li>
+    <li><b>Le dimensioni reali del mercato.</b> Ogni numero marcato «stima» va verificato su Registro Imprese e associazioni di categoria prima di finire davanti a un cliente.</li>
+    <li><b>I limiti esatti della pubblicità sanitaria</b> da tradurre in modelli di creative già conformi. È una dipendenza di consegna, non una nota legale.</li>
+    <li><b>Chi ci mette la faccia</b>, se e quando decidiamo di fare contenuto.</li>
+  </ul>
+</section>
+
+<footer>
+  <span>Evolv One Italia · Whiz × Raymond</span>
+  <span>v1 · 28 agosto 2026 · documento interno</span>
+</footer>
+
+</div>
+</body>
+</html>
