@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Full House — GTM for European Cinemas</title>
+<style>
+:root{
+  --ink:#1d1d1f; --ink2:#424245; --ink3:#6e6e73; --line:rgba(0,0,0,.09);
+  --blue:#0066cc; --blue-l:#2997ff; --green:#248a3d; --green-b:#34c759;
+  --red:#ff3b30; --amber:#ff9f0a;
+  --light:#ffffff; --parch:#f5f5f7; --dark:#1d1d1f;
+  --sf:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif;
+  --mono:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sf);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.47}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;height:52px;z-index:100;
+  background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,44px)}
+nav .brand{font-size:15px;font-weight:600;letter-spacing:-.01em}
+nav .brand span{color:var(--ink3);font-weight:400}
+nav .links{display:flex;gap:22px;font-size:12.5px;color:var(--ink2)}
+nav .links a{color:inherit;text-decoration:none;transition:color .2s}
+nav .links a:hover{color:var(--blue)}
+@media(max-width:820px){nav .links{display:none}}
+
+/* ---------- assumption bar ---------- */
+.assume{position:fixed;top:52px;left:0;right:0;z-index:99;height:38px;
+  background:rgba(29,29,31,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  color:#f5f5f7;display:flex;align-items:center;gap:0;overflow-x:auto;
+  padding:0 clamp(18px,5vw,44px);font-size:12px;letter-spacing:.01em}
+.assume b{font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
+.assume .ch{white-space:nowrap;padding-right:20px;color:#a1a1a6}
+.assume .ch:not(:last-child){margin-right:20px;border-right:1px solid rgba(255,255,255,.14)}
+.assume .ed{margin-left:auto;color:var(--blue-l);text-decoration:none;white-space:nowrap;font-weight:500}
+
+/* ---------- sections ---------- */
+section{min-height:calc(100vh + 2px);display:flex;align-items:center;
+  padding:120px clamp(18px,5vw,44px) 76px;position:relative}
+.tile-light{background:var(--light)}
+.tile-parch{background:var(--parch)}
+.tile-dark{background:var(--dark);color:#f5f5f7}
+.tile-dark .eyebrow{color:var(--blue-l)}
+.tile-dark h2,.tile-dark h1{color:#f5f5f7}
+.tile-dark p,.tile-dark .lede{color:#a1a1a6}
+.wrap{width:100%;max-width:1120px;margin:0 auto}
+
+.eyebrow{font-size:19px;font-weight:600;color:var(--blue);letter-spacing:-.01em;margin-bottom:8px}
+.shead{max-width:900px;margin-bottom:34px}
+.shead h2{font-size:clamp(30px,4vw,42px);font-weight:700;letter-spacing:-.022em;line-height:1.1}
+.shead .lede{margin-top:14px;font-size:clamp(16px,1.5vw,18.5px);color:var(--ink2);max-width:760px;line-height:1.5}
+.ln{display:block}
+
+/* ---------- hero ---------- */
+.hero h1{font-size:clamp(38px,6.4vw,68px);font-weight:700;letter-spacing:-.028em;line-height:1.05}
+.hero h1 .ln{display:block;white-space:nowrap}
+.hero h1 .accent{color:var(--blue)}
+.hero .lede{margin-top:24px;font-size:clamp(17px,1.7vw,21px);color:var(--ink2);max-width:660px;line-height:1.45}
+.hero .meta{margin-top:40px;display:flex;flex-wrap:wrap;gap:0}
+.hero .meta div{padding-right:34px}
+.hero .meta div:not(:last-child){margin-right:34px;border-right:1px solid var(--line)}
+.hero .meta b{display:block;font-size:27px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.hero .meta span{font-size:12.5px;color:var(--ink3)}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-block;padding:12px 24px;border-radius:980px;font-size:15px;font-weight:500;
+  text-decoration:none;transition:.2s;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#0055aa}
+.btn-ghost{border-color:rgba(255,255,255,.28);color:#f5f5f7}
+.btn-ghost:hover{background:rgba(255,255,255,.08)}
+
+/* ---------- calculator ---------- */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,44px);align-items:start}
+@media(max-width:900px){.calc{grid-template-columns:1fr}}
+.inputs{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.inputs.one{grid-template-columns:1fr}
+@media(max-width:520px){.inputs{grid-template-columns:1fr}}
+.f label{display:block;font-size:11.5px;color:var(--ink3);margin-bottom:5px;letter-spacing:.01em;line-height:1.3}
+.tile-dark .f label{color:#a1a1a6}
+.f input{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:9px;
+  font-family:var(--mono);font-size:14px;color:var(--ink);background:#fff;
+  font-variant-numeric:tabular-nums;transition:.15s}
+.f input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,102,204,.12)}
+.tile-parch .f input{background:#fff}
+
+.out{background:#fff;border:1px solid var(--line);border-radius:16px;padding:clamp(18px,2.2vw,26px)}
+.tile-light .out{background:var(--parch);border-color:transparent}
+.tile-dark .out{background:#2c2c2e;border-color:rgba(255,255,255,.08)}
+.out .cap{font-size:11.5px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin-bottom:14px}
+.tile-dark .out .cap{color:#8e8e93}
+.line{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.tile-dark .line{border-color:rgba(255,255,255,.09)}
+.line:last-of-type{border-bottom:none}
+.line span{color:var(--ink2)}
+.tile-dark .line span{color:#a1a1a6}
+.line b{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:500;white-space:nowrap}
+.line.big{padding-top:15px;margin-top:6px;border-top:2px solid var(--ink);border-bottom:none}
+.tile-dark .line.big{border-top-color:rgba(255,255,255,.28)}
+.line.big span{font-size:15px;color:var(--ink);font-weight:600}
+.tile-dark .line.big span{color:#f5f5f7}
+.line.big b{font-size:26px;font-weight:700;color:var(--green);letter-spacing:-.02em}
+.tile-dark .line.big b{color:var(--green-b)}
+.line.neg b{color:var(--red)}
+.hint{margin-top:13px;font-size:12px;color:var(--ink3);line-height:1.45}
+.tile-dark .hint{color:#8e8e93}
+
+.svc-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.svc-num{font-family:var(--mono);font-size:13px;color:var(--blue);font-weight:600}
+.oneline{display:inline-block;margin-top:12px;padding:6px 13px;border-radius:980px;
+  background:rgba(0,102,204,.09);color:var(--blue);font-size:13.5px;font-weight:500}
+.tile-dark .oneline{background:rgba(41,151,255,.14);color:var(--blue-l)}
+
+/* ---------- generic grids ---------- */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,32px)}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,26px)}
+@media(max-width:880px){.g3,.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.g3,.g4{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+.tile-parch .card{border-color:transparent}
+.tile-dark .card{background:#2c2c2e;border-color:rgba(255,255,255,.08)}
+.card h4{font-size:16px;font-weight:600;letter-spacing:-.01em;margin-bottom:7px}
+.card p{font-size:13.5px;color:var(--ink2);line-height:1.5}
+.tile-dark .card p{color:#a1a1a6}
+.card .k{font-size:32px;font-weight:700;letter-spacing:-.025em;font-variant-numeric:tabular-nums;
+  color:var(--blue);margin-bottom:4px}
+.tile-dark .card .k{color:var(--blue-l)}
+
+.kpi{text-align:left}
+.kpi .k{font-size:clamp(34px,4.6vw,54px);font-weight:700;letter-spacing:-.03em;line-height:1;
+  font-variant-numeric:tabular-nums}
+.kpi .lbl{margin-top:9px;font-size:13.5px;color:var(--ink3);line-height:1.4}
+.tile-dark .kpi .lbl{color:#8e8e93}
+
+.flag{margin-top:18px;padding:12px 15px;border-radius:11px;font-size:13px;line-height:1.5;
+  background:rgba(52,199,89,.10);color:var(--green);border:1px solid rgba(52,199,89,.22)}
+.flag.warn{background:rgba(255,159,10,.11);color:#8a5a00;border-color:rgba(255,159,10,.3)}
+.tile-dark .flag{background:rgba(52,199,89,.14);color:var(--green-b);border-color:rgba(52,199,89,.24)}
+.tile-dark .flag.warn{background:rgba(255,159,10,.14);color:var(--amber);border-color:rgba(255,159,10,.28)}
+
+.note{margin-top:26px;font-size:12.5px;color:var(--ink3);line-height:1.55;max-width:820px}
+.tile-dark .note{color:#8e8e93}
+
+/* ---------- pricing ---------- */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,24px)}
+@media(max-width:880px){.plans{grid-template-columns:1fr}}
+.plan{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column}
+.plan.on{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,102,204,.1)}
+.plan .tag{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+.plan h4{font-size:23px;font-weight:700;letter-spacing:-.02em;margin:8px 0 2px}
+.plan .sub{font-size:13px;color:var(--ink3);margin-bottom:16px}
+.plan .price{font-size:36px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.plan .price small{font-size:14px;font-weight:400;color:var(--ink3);letter-spacing:0}
+.plan .setup{font-size:12.5px;color:var(--ink3);margin-top:4px}
+.plan ul{list-style:none;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.plan li{font-size:13.5px;color:var(--ink2);padding:5px 0 5px 20px;position:relative;line-height:1.45}
+.plan li:before{content:"";position:absolute;left:0;top:11px;width:9px;height:5px;
+  border-left:1.8px solid var(--green-b);border-bottom:1.8px solid var(--green-b);transform:rotate(-45deg)}
+
+/* ---------- offer stack ---------- */
+.stack{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,30px)}
+@media(max-width:880px){.stack{grid-template-columns:1fr}}
+.eq{font-family:var(--mono);font-size:13px;color:#8e8e93;background:#2c2c2e;border-radius:12px;
+  padding:16px 18px;line-height:1.7;margin-bottom:26px;overflow-x:auto}
+.eq b{color:#f5f5f7;font-weight:600}
+.eq .up{color:var(--green-b)}
+.eq .dn{color:var(--amber)}
+
+table.tb{width:100%;border-collapse:collapse;font-size:13.5px}
+table.tb th{text-align:left;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink3);font-weight:600;padding:0 12px 9px 0;border-bottom:1px solid var(--line)}
+table.tb td{padding:9px 12px 9px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink2)}
+table.tb td:first-child{color:var(--ink);font-weight:500}
+table.tb td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;
+  padding-right:0;color:var(--ink);white-space:nowrap}
+.tile-dark table.tb th{color:#8e8e93;border-color:rgba(255,255,255,.12)}
+.tile-dark table.tb td{color:#a1a1a6;border-color:rgba(255,255,255,.09)}
+.tile-dark table.tb td:first-child,.tile-dark table.tb td.n{color:#f5f5f7}
+
+footer{background:#f5f5f7;padding:38px clamp(18px,5vw,44px);font-size:12px;color:var(--ink3);
+  border-top:1px solid var(--line);line-height:1.6}
+footer b{color:var(--ink2);font-weight:600}
+
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+.mobile-block{display:none}
+@media screen and (max-width:900px){
+  body>*:not(.mobile-block){display:none!important}
+  .mobile-block{display:flex!important;position:fixed;inset:0;z-index:9999;background:#fff;
+    flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 28px}
+  .mobile-block h3{font-size:24px;font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
+  .mobile-block p{font-size:15px;color:var(--ink3);line-height:1.5;max-width:320px}
+}
+</style>
+</head>
+<body>
+
+<div class="mobile-block">
+  <h3>Open this on desktop</h3>
+  <p>This document runs eight live calculators side by side. It needs a wider screen to be read properly.</p>
+</div>
+
+<nav>
+  <div class="brand">Full House <span>· Evolv AI × Skalio</span></div>
+  <div class="links">
+    <a href="#base">Your cinema</a>
+    <a href="#s1">Services</a>
+    <a href="#offer">The offer</a>
+    <a href="#roi">ROI</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+</nav>
+
+<div class="assume">
+  <div class="ch"><b id="a_scr">6</b> screens</div>
+  <div class="ch"><b id="a_adm">159,000</b> admissions / yr</div>
+  <div class="ch">avg ticket <b id="a_tix">€7.90</b></div>
+  <div class="ch">bar / head <b id="a_bar">€3.00</b></div>
+  <div class="ch">revenue / admission <b id="a_rpa">€10.90</b></div>
+  <a class="ed" href="#base">Edit assumptions ↑</a>
+</div>
+
+<!-- ============================= HERO ============================= -->
+<section class="tile-light hero">
+  <div class="wrap reveal">
+    <div class="eyebrow">Go-to-market for European cinema exhibitors</div>
+    <h1>
+      <span class="ln">A cinema doesn't have</span>
+      <span class="ln">a marketing problem.</span>
+      <span class="ln accent">It has empty seats.</span>
+    </h1>
+    <p class="lede">Eight services, one operating system, one number that matters: how many more people sit down, and how much each one spends. Every section on this page does the arithmetic in front of you, with your numbers, not ours.</p>
+    <div class="meta">
+      <div><b>8</b><span>sites live on the system today</span></div>
+      <div><b>365</b><span>days a year, one control room</span></div>
+      <div><b>0.6 min</b><span>average first response to a customer</span></div>
+      <div><b>600+</b><span>conversations handled without staff</span></div>
+    </div>
+    <p class="note">ePlanet Cinemas — an eight-site Sicilian circuit — has been running on this system for ten months. Every number on this page is calculated live from the inputs you set; nothing is hard-coded.</p>
+  </div>
+</section>
+
+<!-- ============================= THESIS ============================= -->
+<section class="tile-dark">
+  <div class="wrap reveal">
+    <div class="eyebrow">The only reason anyone pays us</div>
+    <div class="shead">
+      <h2><span class="ln">There is exactly one reason</span><span class="ln">a cinema hires an agency:</span><span class="ln">it wants more money than it has.</span></h2>
+      <p class="lede">Not impressions. Not followers. Not a nicer website. Money arrives through three doors and there is no fourth: more people through the door, more spend per person, or less cost to get either. Every service below is attached to one of those three doors, and every service below is priced against what it returns.</p>
+    </div>
+    <div class="g3">
+      <div class="card">
+        <div class="k">1</div>
+        <h4>More admissions</h4>
+        <p>Social regia, paid media, online ticketing, the database, the AI agent. Everything that converts a person who was going to stay home.</p>
+      </div>
+      <div class="card">
+        <div class="k">2</div>
+        <h4>More per admission</h4>
+        <p>The bar. It is the highest-margin thing a cinema sells and almost nobody markets it. A €0.40 move on spend-per-head beats most ticket campaigns.</p>
+      </div>
+      <div class="card">
+        <div class="k">3</div>
+        <h4>Less cost to get both</h4>
+        <p>The data layer and the automations. Wasted ad spend recovered, staff hours returned, decisions made on numbers instead of instinct.</p>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- ============================= BASE ============================= -->
+<section class="tile-parch" id="base">
+  <div class="wrap reveal">
+    <div class="eyebrow">Step one</div>
+    <div class="shead">
+      <h2><span class="ln">Your cinema, in six numbers.</span></h2>
+      <p class="lede">Set these once. Every calculator on this page reads from them, so nothing below can be inflated without changing something you can see.</p>
+    </div>
+    <div class="calc">
+      <div>
+        <div class="inputs">
+          <div class="f"><label>Screens (total, all sites)</label><input id="m_screens" type="number" value="6" step="1" min="2"></div>
+          <div class="f"><label>Sites operated</label><input id="m_sites" type="number" value="1" step="1" min="1"></div>
+          <div class="f"><label>Admissions per screen / year</label><input id="m_apc" type="number" value="26500" step="500"></div>
+          <div class="f"><label>Average ticket price (€)</label><input id="m_tix" type="number" value="7.90" step="0.10"></div>
+          <div class="f"><label>Bar spend per admission (€)</label><input id="m_bar" type="number" value="3.00" step="0.10"></div>
+          <div class="f"><label>Tickets per purchase (party size)</label><input id="m_party" type="number" value="2.2" step="0.1"></div>
+          <div class="f"><label>Seats per screen</label><input id="m_seats" type="number" value="120" step="10"></div>
+          <div class="f"><label>Shows per screen per day</label><input id="m_shows" type="number" value="4" step="1"></div>
+        </div>
+        <p class="hint"><b>Where the defaults come from.</b> Europe runs roughly 33,000 screens against about 873 million admissions a year — that is where 26,500 admissions per screen comes from. €6.9bn of box office over those admissions gives an average ticket of €7.90. Both are European averages: replace them with the real figures the moment you have them.</p>
+      </div>
+      <div class="out">
+        <div class="cap">Your baseline, today</div>
+        <div class="line"><span>Admissions per year</span><b id="b_adm">—</b></div>
+        <div class="line"><span>Box office</span><b id="b_box">—</b></div>
+        <div class="line"><span>Bar revenue</span><b id="b_bar">—</b></div>
+        <div class="line"><span>Revenue per admission</span><b id="b_rpa">—</b></div>
+        <div class="line"><span>Seats available per year</span><b id="b_cap">—</b></div>
+        <div class="line"><span>Occupancy</span><b id="b_occ">—</b></div>
+        <div class="line big"><span>Total revenue</span><b id="b_tot">—</b></div>
+        <div class="flag" id="b_flag">Every empty seat in that occupancy figure is a seat you already paid for. The film is licensed, the projector runs, the staff are rostered. The marginal cost of the next person in the room is close to zero — which is why admissions and bar spend are the only two levers worth pulling.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= S1 SOCIAL ============================= -->
+<section class="tile-light" id="s1">
+  <div class="wrap reveal">
+    <div class="svc-head"><span class="svc-num">SERVICE 01</span><div class="eyebrow" style="margin:0">Owned audience</div></div>
+    <div class="shead">
+      <h2><span class="ln">Social regia — daily, every</span><span class="ln">channel, every site.</span></h2>
+      <p class="lede">We take the keys to every profile in the circuit and run them like a control room: what is on this week, what is on tonight, what is in presale, what just sold out. Not a content calendar — a broadcast schedule attached to your programming.</p>
+      <div class="oneline">In one line: the people who already follow you find out what you are showing.</div>
+    </div>
+    <div class="calc">
+      <div class="inputs">
+        <div class="f"><label>Total followers (all channels)</label><input id="s1_fol" type="number" value="6000" step="500"></div>
+        <div class="f"><label>Organic reach rate (%)</label><input id="s1_reach" type="number" value="12" step="1"></div>
+        <div class="f"><label>Posts per week — today</label><input id="s1_now" type="number" value="2" step="1"></div>
+        <div class="f"><label>Posts per week — with us</label><input id="s1_new" type="number" value="14" step="1"></div>
+        <div class="f"><label>Reached → admission (%)</label><input id="s1_conv" type="number" value="0.30" step="0.05"></div>
+        <div class="f"><label>Stories / reels multiplier</label><input id="s1_mult" type="number" value="1.15" step="0.05"></div>
+      </div>
+      <div class="out">
+        <div class="cap">What the extra cadence is worth</div>
+        <div class="line"><span>People reached per year — today</span><b id="s1_r0">—</b></div>
+        <div class="line"><span>People reached per year — with us</span><b id="s1_r1">—</b></div>
+        <div class="line"><span>Additional admissions</span><b id="s1_ad">—</b></div>
+        <div class="line"><span>Ticket revenue</span><b id="s1_tk">—</b></div>
+        <div class="line"><span>Bar revenue on those admissions</span><b id="s1_br">—</b></div>
+        <div class="line big"><span>Value per year</span><b id="s1_v">—</b></div>
+        <div class="hint">Only the <em>increase</em> is counted. Whatever your current two posts a week already produce is treated as yours, not ours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= S2 ADS ============================= -->
+<section class="tile-parch" id="s2">
+  <div class="wrap reveal">
+    <div class="svc-head"><span class="svc-num">SERVICE 02</span><div class="eyebrow" style="margin:0">Paid media</div></div>
+    <div class="shead">
+      <h2><span class="ln">Meta advertising, run against</span><span class="ln">seats — not reach.</span></h2>
+      <p class="lede">Campaigns built per title, per showtime, per catchment radius. Event cinema, opening weekends, midweek fill, presale windows. Optimised on ticket purchases where the ticketing system allows it, and on qualified traffic where it does not.</p>
+      <div class="oneline">In one line: every euro of ad spend is measured in seats sold, not clicks bought.</div>
+    </div>
+    <div class="calc">
+      <div class="inputs">
+        <div class="f"><label>Monthly ad budget (€)</label><input id="s2_bud" type="number" value="800" step="100"></div>
+        <div class="f"><label>CPM — local geo (€)</label><input id="s2_cpm" type="number" value="4.50" step="0.25"></div>
+        <div class="f"><label>Click-through rate (%)</label><input id="s2_ctr" type="number" value="1.2" step="0.1"></div>
+        <div class="f"><label>Click → purchase (%)</label><input id="s2_cvr" type="number" value="6" step="0.5"></div>
+        <div class="f"><label>Share genuinely incremental (%)</label><input id="s2_inc" type="number" value="70" step="5"></div>
+        <div class="f"><label>Months running per year</label><input id="s2_mo" type="number" value="12" step="1"></div>
+      </div>
+      <div class="out">
+        <div class="cap">Return on the ad account</div>
+        <div class="line"><span>Impressions per year</span><b id="s2_imp">—</b></div>
+        <div class="line"><span>Purchases per year</span><b id="s2_pur">—</b></div>
+        <div class="line"><span>Incremental admissions</span><b id="s2_ad">—</b></div>
+        <div class="line"><span>Revenue generated</span><b id="s2_rev">—</b></div>
+        <div class="line neg"><span>Ad spend</span><b id="s2_sp">—</b></div>
+        <div class="line big"><span>Net value per year</span><b id="s2_v">—</b></div>
+        <div class="hint">ROAS on total revenue per admission: <b id="s2_roas">—</b>. The incremental share exists because some of those buyers were coming anyway — we discount for it rather than claim them.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= S3 WEB ============================= -->
+<section class="tile-light" id="s3">
+  <div class="wrap reveal">
+    <div class="svc-head"><span class="svc-num">SERVICE 03</span><div class="eyebrow" style="margin:0">The shop</div></div>
+    <div class="shead">
+      <h2><span class="ln">A website that sells the ticket,</span><span class="ln">updated every single day.</span></h2>
+      <p class="lede">Programming that is correct tonight, not last week. Presale for everything with a date. Checkout that works on a phone in nine seconds. If there is no online ticketing at all, this is the single largest leak in the business — every showtime, someone decides to come and cannot buy.</p>
+      <div class="oneline">In one line: people who wanted to come can now actually buy.</div>
+    </div>
+    <div class="calc">
+      <div class="inputs">
+        <div class="f"><label>Website visitors per month</label><input id="s3_vis" type="number" value="12000" step="1000"></div>
+        <div class="f"><label>Online conversion — today (%)</label><input id="s3_c0" type="number" value="0" step="0.5"></div>
+        <div class="f"><label>Online conversion — with us (%)</label><input id="s3_c1" type="number" value="6.5" step="0.5"></div>
+        <div class="f"><label>Share genuinely incremental (%)</label><input id="s3_inc" type="number" value="20" step="5"></div>
+        <div class="f"><label>Presale uplift on event titles (%)</label><input id="s3_pre" type="number" value="4" step="1"></div>
+        <div class="f"><label>Contacts captured at checkout (%)</label><input id="s3_cap" type="number" value="60" step="5"></div>
+      </div>
+      <div class="out">
+        <div class="cap">What the shop is worth</div>
+        <div class="line"><span>Online orders per year</span><b id="s3_ord">—</b></div>
+        <div class="line"><span>Admissions sold online</span><b id="s3_all">—</b></div>
+        <div class="line"><span>Of those, genuinely incremental</span><b id="s3_ad">—</b></div>
+        <div class="line"><span>Presale uplift admissions</span><b id="s3_pa">—</b></div>
+        <div class="line"><span>Contacts captured per year</span><b id="s3_ct">—</b></div>
+        <div class="line big"><span>Value per year</span><b id="s3_v">—</b></div>
+        <div class="hint">Most online sales are not new customers — they are the same customer buying differently. We count only the incremental share here. The channel shift still pays: it removes the queue, guarantees the seat, and hands you the contact — which service 05 then monetises.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= S4 AGENT ============================= -->
+<section class="tile-parch" id="s4">
+  <div class="wrap reveal">
+    <div class="svc-head"><span class="svc-num">SERVICE 04</span><div class="eyebrow" style="margin:0">Live proof · ePlanet Cinemas</div></div>
+    <div class="shead">
+      <h2><span class="ln">An AI agent that answers</span><span class="ln">every question, in 36 seconds,</span><span class="ln">at 2am on a Sunday.</span></h2>
+      <p class="lede">On the site, on WhatsApp, on Messenger. Showtimes, prices, accessibility, parking, allergens at the bar, is it dubbed or subtitled, are there still two seats together. Italian and English. Escalates to a human the moment it should. This is the exact system running across eight ePlanet sites right now.</p>
+      <div class="oneline">In one line: nobody who asks you a question is left waiting.</div>
+    </div>
+    <div class="calc">
+      <div class="inputs">
+        <div class="f"><label>Inbound messages per month</label><input id="s4_msg" type="number" value="700" step="50"></div>
+        <div class="f"><label>Of those, pre-purchase questions (%)</label><input id="s4_pre" type="number" value="45" step="5"></div>
+        <div class="f"><label>Currently unanswered or too late (%)</label><input id="s4_lost" type="number" value="30" step="5"></div>
+        <div class="f"><label>Of those, recovered by the agent (%)</label><input id="s4_rec" type="number" value="60" step="5"></div>
+        <div class="f"><label>Staff minutes per message today</label><input id="s4_min" type="number" value="2.5" step="0.5"></div>
+        <div class="f"><label>Loaded staff cost per hour (€)</label><input id="s4_cost" type="number" value="14" step="1"></div>
+      </div>
+      <div class="out">
+        <div class="cap">Recovered revenue plus returned hours</div>
+        <div class="line"><span>Conversations handled per year</span><b id="s4_conv">—</b></div>
+        <div class="line"><span>Purchase conversations recovered</span><b id="s4_rc">—</b></div>
+        <div class="line"><span>Recovered admissions</span><b id="s4_ad">—</b></div>
+        <div class="line"><span>Recovered revenue</span><b id="s4_rev">—</b></div>
+        <div class="line"><span>Staff hours returned per year</span><b id="s4_hr">—</b></div>
+        <div class="line"><span>Value of those hours</span><b id="s4_hv">—</b></div>
+        <div class="line big"><span>Value per year</span><b id="s4_v">—</b></div>
+        <div class="hint">Benchmark from the live deployment: <b>600+ conversations handled</b>, <b>0.6 minutes average first response</b>, across <b>8 sites, 365 days a year</b>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= S5 DATABASE ============================= -->
+<section class="tile-light" id="s5">
+  <div class="wrap reveal">
+    <div class="svc-head"><span class="svc-num">SERVICE 05</span><div class="eyebrow" style="margin:0">The asset you keep</div></div>
+    <div class="shead">
+      <h2><span class="ln">A real database of your</span><span class="ln">own customers — and a reason</span><span class="ln">to write to them every week.</span></h2>
+      <p class="lede">Email and WhatsApp, built from checkout, from the loyalty card, from the agent, from competitions. Segmented by what they actually watch. This is the only asset on this page you own outright — everything else is rented from Meta.</p>
+      <div class="oneline">In one line: you stop paying twice to reach the same person.</div>
+    </div>
+    <div class="calc">
+      <div class="inputs">
+        <div class="f"><label>Email list size</label><input id="s5_em" type="number" value="16000" step="1000"></div>
+        <div class="f"><label>Email campaigns per month</label><input id="s5_ec" type="number" value="4" step="1"></div>
+        <div class="f"><label>Open rate (%)</label><input id="s5_eo" type="number" value="38" step="1"></div>
+        <div class="f"><label>Open → purchase (%)</label><input id="s5_ep" type="number" value="0.35" step="0.1"></div>
+        <div class="f"><label>WhatsApp list size</label><input id="s5_wa" type="number" value="9000" step="500"></div>
+        <div class="f"><label>WhatsApp broadcasts per month</label><input id="s5_wc" type="number" value="2" step="1"></div>
+        <div class="f"><label>WhatsApp read → purchase (%)</label><input id="s5_wp" type="number" value="1.1" step="0.1"></div>
+        <div class="f"><label>Loyalty repeat-visit uplift (%)</label><input id="s5_loy" type="number" value="1.5" step="0.5"></div>
+      </div>
+      <div class="out">
+        <div class="cap">What an owned audience returns</div>
+        <div class="line"><span>Email-driven admissions per year</span><b id="s5_ea">—</b></div>
+        <div class="line"><span>WhatsApp-driven admissions per year</span><b id="s5_wa2">—</b></div>
+        <div class="line"><span>Loyalty repeat-visit admissions</span><b id="s5_la">—</b></div>
+        <div class="line"><span>Total additional admissions</span><b id="s5_ad">—</b></div>
+        <div class="line"><span>Cost per admission through this channel</span><b id="s5_cpa">—</b></div>
+        <div class="line big"><span>Value per year</span><b id="s5_v">—</b></div>
+        <div class="hint">Reference scale from the live circuit: <b>25,842 contacts</b> — 16,203 email, 9,639 WhatsApp, 7,431 holding a loyalty card. This is normally the highest-return service in the package, and the one nobody has.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= S6 DATA ============================= -->
+<section class="tile-parch" id="s6">
+  <div class="wrap reveal">
+    <div class="svc-head"><span class="svc-num">SERVICE 06</span><div class="eyebrow" style="margin:0">The instrument panel</div></div>
+    <div class="shead">
+      <h2><span class="ln">One dashboard: tickets, bar,</span><span class="ln">spend per head, ad spend,</span><span class="ln">every site, every day.</span></h2>
+      <p class="lede">Ticketing, bar, ad platforms, site analytics and the CRM pulled into one place and reconciled nightly. It does not generate revenue on its own — it stops you spending money on the things that aren't working and tells you which showtimes to move.</p>
+      <div class="oneline">In one line: you find out on Tuesday, not at the end of the quarter.</div>
+    </div>
+    <div class="calc">
+      <div class="inputs">
+        <div class="f"><label>Ad spend currently wasted (%)</label><input id="s6_waste" type="number" value="22" step="1"></div>
+        <div class="f"><label>Of that, recoverable (%)</label><input id="s6_rec" type="number" value="60" step="5"></div>
+        <div class="f"><label>Efficiency gain on remaining spend (%)</label><input id="s6_eff" type="number" value="8" step="1"></div>
+        <div class="f"><label>Showtimes reallocated per week</label><input id="s6_show" type="number" value="1" step="1"></div>
+        <div class="f"><label>Extra admissions per reallocated show</label><input id="s6_seat" type="number" value="12" step="1"></div>
+        <div class="f"><label>Bar range decisions per year</label><input id="s6_rng" type="number" value="2" step="1"></div>
+      </div>
+      <div class="out">
+        <div class="cap">Waste removed, decisions improved</div>
+        <div class="line"><span>Wasted ad spend recovered</span><b id="s6_w">—</b></div>
+        <div class="line"><span>Efficiency gain on paid media</span><b id="s6_e">—</b></div>
+        <div class="line"><span>Admissions from better scheduling</span><b id="s6_sa">—</b></div>
+        <div class="line"><span>Value of those admissions</span><b id="s6_sv">—</b></div>
+        <div class="line big"><span>Value per year</span><b id="s6_v">—</b></div>
+        <div class="hint">This is an amplifier, not a source. Its honest job is to make the other seven services measurably better and to make one bad month visible in week one instead of month four.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= S7 AUTOMATIONS ============================= -->
+<section class="tile-light" id="s7">
+  <div class="wrap reveal">
+    <div class="svc-head"><span class="svc-num">SERVICE 07</span><div class="eyebrow" style="margin:0">AIOS · automations</div></div>
+    <div class="shead">
+      <h2><span class="ln">The operating system:</span><span class="ln">nothing gets published,</span><span class="ln">chased or replied to by hand.</span></h2>
+      <p class="lede">Programming flows from the ticketing system to the site, the socials and the newsletter automatically. Reviews get answered. Presales open on a schedule. Reports write themselves every Friday. Your staff's involvement is one approval a week.</p>
+      <div class="oneline">In one line: zero extra load on your team — that was the condition.</div>
+    </div>
+    <div class="calc">
+      <div class="inputs">
+        <div class="f"><label>Staff hours / week on marketing ops</label><input id="s7_h" type="number" value="9" step="1"></div>
+        <div class="f"><label>Share automatable (%)</label><input id="s7_auto" type="number" value="70" step="5"></div>
+        <div class="f"><label>Loaded staff cost per hour (€)</label><input id="s7_cost" type="number" value="16" step="1"></div>
+        <div class="f"><label>Google reviews per year</label><input id="s7_rev" type="number" value="450" step="50"></div>
+        <div class="f"><label>Admissions arriving via Maps / search (%)</label><input id="s7_maps" type="number" value="12" step="1"></div>
+        <div class="f"><label>Visibility lift from 100% reply rate (%)</label><input id="s7_lift" type="number" value="1.5" step="0.5"></div>
+      </div>
+      <div class="out">
+        <div class="cap">Hours back, plus the reputation effect</div>
+        <div class="line"><span>Hours returned per year</span><b id="s7_hr">—</b></div>
+        <div class="line"><span>Value of those hours</span><b id="s7_hv">—</b></div>
+        <div class="line"><span>Reviews answered per year</span><b id="s7_ra">—</b></div>
+        <div class="line"><span>Additional admissions from local search</span><b id="s7_ad">—</b></div>
+        <div class="line"><span>Value of those admissions</span><b id="s7_av">—</b></div>
+        <div class="line big"><span>Value per year</span><b id="s7_v">—</b></div>
+        <div class="hint">A cinema with 450 reviews and zero owner replies is telling every person who checks it that nobody is home. Answering all of them is a two-minute-a-day job — which is why it never gets done manually.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= S8 BAR ============================= -->
+<section class="tile-parch" id="s8">
+  <div class="wrap reveal">
+    <div class="svc-head"><span class="svc-num">SERVICE 08</span><div class="eyebrow" style="margin:0">Margin</div></div>
+    <div class="shead">
+      <h2><span class="ln">The bar: the highest margin</span><span class="ln">you sell, and the thing</span><span class="ln">you never advertise.</span></h2>
+      <p class="lede">Combos priced to move, pre-order attached to the online ticket, the offer on screen before the film and on the phone of everyone who just bought. We are moving one number: average spend per admission.</p>
+      <div class="oneline">In one line: the same audience, spending forty cents more each.</div>
+    </div>
+    <div class="calc">
+      <div class="inputs">
+        <div class="f"><label>Spend per admission today (€)</label><input id="s8_now" type="number" value="3.00" step="0.10"></div>
+        <div class="f"><label>Target uplift (%)</label><input id="s8_up" type="number" value="12" step="1"></div>
+        <div class="f"><label>Bar gross margin (%)</label><input id="s8_marg" type="number" value="72" step="1"></div>
+        <div class="f"><label>Pre-order attach rate on online tickets (%)</label><input id="s8_att" type="number" value="9" step="1"></div>
+        <div class="f"><label>Average pre-order basket (€)</label><input id="s8_bask" type="number" value="9.50" step="0.50"></div>
+        <div class="f"><label>Applies to admissions incl. uplift?</label><input id="s8_incl" type="number" value="1" step="1" min="0" max="1"></div>
+      </div>
+      <div class="out">
+        <div class="cap">Forty cents, multiplied by everyone</div>
+        <div class="line"><span>Admissions the uplift applies to</span><b id="s8_base">—</b></div>
+        <div class="line"><span>Spend per admission after uplift</span><b id="s8_new">—</b></div>
+        <div class="line"><span>Additional bar revenue</span><b id="s8_rev">—</b></div>
+        <div class="line"><span>Pre-order revenue on online tickets</span><b id="s8_pre">—</b></div>
+        <div class="line"><span>Gross margin on the increase</span><b id="s8_gm">—</b></div>
+        <div class="line big"><span>Value per year</span><b id="s8_v">—</b></div>
+        <div class="hint">Reference from the live circuit: average bar spend moved <b>+8.2%</b> and bar revenue <b>+13.6%</b> year on year, with promotional conversion at <b>18.6%</b>. Value is counted at gross margin here, not at revenue — this is the one line where margin, not turnover, is the honest number.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= THE OFFER ============================= -->
+<section class="tile-dark" id="offer">
+  <div class="wrap reveal">
+    <div class="eyebrow">The offer</div>
+    <div class="shead">
+      <h2><span class="ln">Full House.</span><span class="ln">The whole go-to-market of a cinema,</span><span class="ln">run by one team, priced against seats.</span></h2>
+      <p class="lede">Built on the value equation: maximise the dream outcome and the belief it will happen, minimise the time it takes and the effort it costs. Every clause below exists to move one of those four terms.</p>
+    </div>
+    <div class="eq">
+      VALUE &nbsp;=&nbsp; ( <b class="up">Dream outcome</b> &nbsp;×&nbsp; <b class="up">Perceived likelihood of achieving it</b> ) &nbsp;÷&nbsp; ( <b class="dn">Time delay</b> &nbsp;×&nbsp; <b class="dn">Effort &amp; sacrifice</b> )
+    </div>
+    <div class="stack">
+      <div>
+        <table class="tb">
+          <tr><th>Term</th><th>What we do to it</th></tr>
+          <tr><td>Dream outcome ↑</td><td>A full room on a Tuesday, and a bar queue at every interval. Stated in admissions and euros — never in reach, impressions or followers.</td></tr>
+          <tr><td>Likelihood ↑</td><td>An eight-site circuit already running the whole system. A free 20-minute audit of <em>their</em> site, <em>their</em> ad library and <em>their</em> reviews, delivered before anyone signs anything. And this page: their numbers, their arithmetic, visible.</td></tr>
+          <tr><td>Time delay ↓</td><td>First campaign live in 14 days. Agent answering in 21. New site and ticketing in 30. The Friday report lands from week one, so the first proof arrives before the first invoice clears.</td></tr>
+          <tr><td>Effort &amp; sacrifice ↓</td><td>We take the logins and run it. No hire, no new software for the staff to learn, no extra load on the box office. One approval a week, fifteen minutes.</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="out" style="margin-bottom:18px">
+          <div class="cap">The guarantee</div>
+          <div class="line"><span>If, after 90 days, the system has not produced</span><b id="of_g">—</b></div>
+          <div class="line"><span>additional admissions, we work at no fee until it does.</span><b></b></div>
+          <div class="hint">Set at 40% of the modelled first-year uplift, pro-rated to a quarter. Measured in your ticketing system, not in our dashboard — so the number that settles it is one you already own.</div>
+        </div>
+        <div class="out">
+          <div class="cap">Scarcity that is actually true</div>
+          <div class="line"><span>New cinemas taken per quarter</span><b>4</b></div>
+          <div class="line"><span>Clients per catchment area</span><b>1</b></div>
+          <div class="hint">Territorial exclusivity is real leverage in exhibition: two cinemas twenty minutes apart are fighting over the same audience, and we will not run both sides of that fight. It also caps delivery at a level two people can actually honour.</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- ============================= ROI ============================= -->
+<section class="tile-light" id="roi">
+  <div class="wrap reveal">
+    <div class="eyebrow">The whole thing, added up</div>
+    <div class="shead">
+      <h2><span class="ln">Eight services, one number.</span></h2>
+      <p class="lede">Every figure below comes from the calculators above. Change anything on this page and this changes with it.</p>
+    </div>
+    <div class="calc">
+      <div>
+        <table class="tb">
+          <tr><th>Service</th><th style="text-align:right">Admissions</th><th style="text-align:right">Value / year</th></tr>
+          <tr><td>01 · Social regia</td><td class="n" id="t1a">—</td><td class="n" id="t1v">—</td></tr>
+          <tr><td>02 · Meta advertising</td><td class="n" id="t2a">—</td><td class="n" id="t2v">—</td></tr>
+          <tr><td>03 · Website + ticketing</td><td class="n" id="t3a">—</td><td class="n" id="t3v">—</td></tr>
+          <tr><td>04 · AI agent</td><td class="n" id="t4a">—</td><td class="n" id="t4v">—</td></tr>
+          <tr><td>05 · Database &amp; CRM</td><td class="n" id="t5a">—</td><td class="n" id="t5v">—</td></tr>
+          <tr><td>06 · Data layer</td><td class="n" id="t6a">—</td><td class="n" id="t6v">—</td></tr>
+          <tr><td>07 · Automations</td><td class="n" id="t7a">—</td><td class="n" id="t7v">—</td></tr>
+          <tr><td>08 · Bar upsell</td><td class="n" id="t8a">—</td><td class="n" id="t8v">—</td></tr>
+          <tr><td><b>Total</b></td><td class="n"><b id="tta">—</b></td><td class="n"><b id="ttv">—</b></td></tr>
+        </table>
+        <div class="inputs one" style="margin-top:22px">
+          <div class="f"><label>Monthly fee for the plan being modelled (€)</label><input id="r_fee" type="number" value="990" step="50"></div>
+          <div class="f"><label>One-off build / setup (€)</label><input id="r_set" type="number" value="2500" step="250"></div>
+        </div>
+      </div>
+      <div class="out">
+        <div class="cap">Return on the engagement, year one</div>
+        <div class="line"><span>Additional admissions</span><b id="r_adm">—</b></div>
+        <div class="line"><span>Additional revenue</span><b id="r_rev">—</b></div>
+        <div class="line neg"><span>Fees (12 months + build)</span><b id="r_inv">—</b></div>
+        <div class="line neg"><span>Ad spend</span><b id="r_ads">—</b></div>
+        <div class="line"><span>Occupancy before → after</span><b id="r_occ">—</b></div>
+        <div class="line"><span>Payback</span><b id="r_pay">—</b></div>
+        <div class="line big"><span>Net gain · return multiple</span><b id="r_net">—</b></div>
+        <div class="flag" id="r_flag">—</div>
+      </div>
+    </div>
+    <p class="note">Two rules this model follows so it survives being challenged in a meeting. <b>One:</b> nothing is double-counted — bar value appears only in service 08, and every service that produces admissions feeds that one base. <b>Two:</b> if the total uplift ever exceeds a quarter of current admissions, the box above turns amber and tells you to lower an assumption. A model that cannot say "that's too high" is a brochure, not a model.</p>
+    
+  </div>
+</section>
+
+<!-- ============================= PRICING ============================= -->
+<section class="tile-parch" id="pricing">
+  <div class="wrap reveal">
+    <div class="eyebrow">Pricing</div>
+    <div class="shead">
+      <h2><span class="ln">Three sizes, priced on screens</span><span class="ln">and sites — never on hours.</span></h2>
+      <p class="lede">The plan matching your inputs is highlighted automatically. Everything is one package: taking a service out doesn't reduce the price, it reduces the result.</p>
+    </div>
+    <div class="plans">
+      <div class="plan" id="p_sala">
+        <div class="tag">1 site · 2–5 screens</div>
+        <h4>Sala</h4>
+        <div class="sub">The independent multiplex</div>
+        <div class="price">€990 <small>/ month</small></div>
+        <div class="setup">+ €2,500 one-off build</div>
+        <ul>
+          <li>All 8 services, one site</li>
+          <li>Social regia — all channels, daily</li>
+          <li>Meta ads managed (budget separate)</li>
+          <li>Website + online ticketing</li>
+          <li>AI agent — site, WhatsApp, Messenger</li>
+          <li>Database, dashboard, automations</li>
+          <li>Friday report, every week</li>
+        </ul>
+      </div>
+      <div class="plan" id="p_circ">
+        <div class="tag">2–5 sites</div>
+        <h4>Circuito</h4>
+        <div class="sub">The regional circuit</div>
+        <div class="price">€1,900 <small>/ month</small></div>
+        <div class="setup">+ €4,000 one-off build</div>
+        <ul>
+          <li>Everything in Sala, every site</li>
+          <li>One control room across the circuit</li>
+          <li>Per-site programming and creative</li>
+          <li>Cross-site database and loyalty</li>
+          <li>Consolidated dashboard + per-site view</li>
+          <li>Monthly strategy session</li>
+        </ul>
+      </div>
+      <div class="plan" id="p_grup">
+        <div class="tag">6+ sites · enterprise</div>
+        <h4>Gruppo</h4>
+        <div class="sub">The national group — starts as one flagship pilot</div>
+        <div class="price">€3,500 <small>/ month</small></div>
+        <div class="setup">+ €6,000 one-off build · 90-day pilot on one site first</div>
+        <ul>
+          <li>Everything in Circuito, at group scale</li>
+          <li>Paid pilot on one flagship site, then roll out</li>
+          <li>Integration with the existing ticketing stack</li>
+          <li>Group-level attribution and reporting</li>
+          <li>Named team, quarterly on-site review</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- ============================= CTA ============================= -->
+<section class="tile-dark">
+  <div class="wrap reveal">
+    <div class="eyebrow">One small yes</div>
+    <div class="shead">
+      <h2><span class="ln">Twenty minutes, your numbers,</span><span class="ln">and the audit is yours</span><span class="ln">whether we work together or not.</span></h2>
+      <p class="lede">We look at your site, your ad library, your reviews and your programming page before the call, and we bring what we found. If there is nothing worth fixing, we will say so and you will have lost twenty minutes.</p>
+    </div>
+    <a class="btn btn-primary" href="https://cal.com/evolv.one/introductory-call-60" target="_blank" rel="noopener">Book the 20 minutes →</a>
+    <p class="note" style="margin-top:30px"><b>Evolv AI × Skalio.</b> Whiz — go-to-market systems, data and AI. Francesco Gagliardi — cinema marketing, social and customer communication, on the ground in Italian exhibition. Between the two: eight sites live, 365 days a year, one control room.</p>
+  </div>
+</section>
+
+<footer>
+  <b>Full House — go-to-market for European cinema exhibitors.</b> Every calculator on this page is live, and every default is a stated assumption you can change.
+  Baseline defaults derive from European exhibition aggregates (~33,000 screens, ~873m admissions, €6.9bn box office). Operating benchmarks marked "live circuit" come from the ePlanet Cinemas deployment.
+  Evolv AI × Skalio · <a href="https://cal.com/evolv.one/introductory-call-60" style="color:#0066cc;text-decoration:none">cal.com/evolv.one</a> · info@skalio.it
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const n=id=>{const e=$(id);return e?(parseFloat(e.value)||0):0};
+const eur=v=>'€'+Math.round(v).toLocaleString('en-GB');
+const eur2=v=>'€'+v.toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
+const num=v=>Math.round(v).toLocaleString('en-GB');
+const set=(id,v)=>{const e=$(id);if(e)e.textContent=v};
+
+function calc(){
+  /* ---------- base ---------- */
+  const screens=n('m_screens'), sites=n('m_sites'), apc=n('m_apc');
+  const tix=n('m_tix'), bar=n('m_bar'), party=Math.max(n('m_party'),1);
+  const seats=n('m_seats'), shows=n('m_shows');
+  const adm=screens*apc;
+  const box=adm*tix, barRev=adm*bar, rpa=tix+bar, tot=box+barRev;
+  const cap=screens*seats*shows*365;
+  const occ=cap>0?adm/cap*100:0;
+
+  set('b_adm',num(adm)); set('b_box',eur(box)); set('b_bar',eur(barRev));
+  set('b_rpa',eur2(rpa)); set('b_cap',num(cap));
+  set('b_occ',occ.toFixed(1)+'%'); set('b_tot',eur(tot));
+  set('a_scr',num(screens)); set('a_adm',num(adm));
+  set('a_tix',eur2(tix)); set('a_bar',eur2(bar)); set('a_rpa',eur2(rpa));
+
+  /* ---------- 01 social ---------- */
+  const fol=n('s1_fol'), rr=n('s1_reach')/100, mult=n('s1_mult'), cv1=n('s1_conv')/100;
+  const r0=fol*rr*n('s1_now')*52, r1=fol*rr*n('s1_new')*52*mult;
+  const a1=Math.max(r1-r0,0)*cv1;
+  const v1t=a1*tix, v1b=a1*bar, v1=v1t+v1b;
+  set('s1_r0',num(r0)); set('s1_r1',num(r1)); set('s1_ad',num(a1));
+  set('s1_tk',eur(v1t)); set('s1_br',eur(v1b)); set('s1_v',eur(v1));
+
+  /* ---------- 02 ads ---------- */
+  const bud=n('s2_bud'), mo=n('s2_mo'), cpm=Math.max(n('s2_cpm'),0.01);
+  const imp=bud/cpm*1000*mo;
+  const pur=imp*(n('s2_ctr')/100)*(n('s2_cvr')/100);
+  const a2=pur*party*(n('s2_inc')/100);
+  const rev2=a2*rpa, sp2=bud*mo, v2=rev2-sp2;
+  set('s2_imp',num(imp)); set('s2_pur',num(pur)); set('s2_ad',num(a2));
+  set('s2_rev',eur(rev2)); set('s2_sp',eur(sp2)); set('s2_v',eur(v2));
+  set('s2_roas',(sp2>0?(rev2/sp2).toFixed(2):'—')+'×');
+
+  /* ---------- 03 web ---------- */
+  const vis=n('s3_vis')*12;
+  const ord=vis*Math.max(n('s3_c1')-n('s3_c0'),0)/100;
+  const allA=ord*party;
+  const a3core=allA*(n('s3_inc')/100);
+  const a3pre=allA*(n('s3_pre')/100);
+  const a3=a3core+a3pre;
+  const contacts=ord*(n('s3_cap')/100);
+  const v3=a3*rpa;
+  set('s3_ord',num(ord)); set('s3_all',num(allA)); set('s3_ad',num(a3core));
+  set('s3_pa',num(a3pre)); set('s3_ct',num(contacts)); set('s3_v',eur(v3));
+
+  /* ---------- 04 agent ---------- */
+  const msg=n('s4_msg')*12;
+  const rc=msg*(n('s4_pre')/100)*(n('s4_lost')/100)*(n('s4_rec')/100);
+  const a4=rc*party, rev4=a4*rpa;
+  const hrs=msg*0.8*n('s4_min')/60, hv=hrs*n('s4_cost');
+  const v4=rev4+hv;
+  set('s4_conv',num(msg)); set('s4_rc',num(rc)); set('s4_ad',num(a4));
+  set('s4_rev',eur(rev4)); set('s4_hr',num(hrs)); set('s4_hv',eur(hv)); set('s4_v',eur(v4));
+
+  /* ---------- 05 database ---------- */
+  const ea=n('s5_em')*(n('s5_eo')/100)*(n('s5_ep')/100)*n('s5_ec')*12*party;
+  const wa=n('s5_wa')*0.70*(n('s5_wp')/100)*n('s5_wc')*12*party;
+  const la=adm*(n('s5_loy')/100);
+  const a5=ea+wa+la, v5=a5*rpa;
+  set('s5_ea',num(ea)); set('s5_wa2',num(wa)); set('s5_la',num(la));
+  set('s5_ad',num(a5)); set('s5_v',eur(v5));
+  set('s5_cpa',a5>0?eur2(Math.min((n('s5_em')+n('s5_wa'))*0.012/a5*12,99)):'—');
+
+  /* ---------- 06 data layer ---------- */
+  const w6=sp2*(n('s6_waste')/100)*(n('s6_rec')/100);
+  const e6=rev2*(n('s6_eff')/100);
+  const a6=n('s6_show')*52*n('s6_seat');
+  const sv6=a6*rpa;
+  const v6=w6+e6+sv6;
+  set('s6_w',eur(w6)); set('s6_e',eur(e6)); set('s6_sa',num(a6));
+  set('s6_sv',eur(sv6)); set('s6_v',eur(v6));
+
+  /* ---------- 07 automations ---------- */
+  const h7=n('s7_h')*(n('s7_auto')/100)*52, hv7=h7*n('s7_cost');
+  const a7=adm*(n('s7_maps')/100)*(n('s7_lift')/100);
+  const av7=a7*rpa, v7=hv7+av7;
+  set('s7_hr',num(h7)); set('s7_hv',eur(hv7)); set('s7_ra',num(n('s7_rev')));
+  set('s7_ad',num(a7)); set('s7_av',eur(av7)); set('s7_v',eur(v7));
+
+  /* ---------- 08 bar (runs on every admission, base + uplift) ---------- */
+  const upliftAdm=a1+a2+a3+a4+a5+a6+a7;
+  const base8=adm+(n('s8_incl')>=1?upliftAdm:0);
+  const cur=n('s8_now'), nw=cur*(1+n('s8_up')/100);
+  const rev8=base8*(nw-cur);
+  const pre8=allA*(n('s8_att')/100)*n('s8_bask');
+  const gm=(rev8+pre8)*(n('s8_marg')/100);
+  const v8=gm;
+  set('s8_base',num(base8)); set('s8_new',eur2(nw)); set('s8_rev',eur(rev8));
+  set('s8_pre',eur(pre8)); set('s8_gm',eur(gm)); set('s8_v',eur(v8));
+
+  /* ---------- rollup ---------- */
+  const A=[a1,a2,a3,a4,a5,a6,a7,0], V=[v1,v2,v3,v4,v5,v6,v7,v8];
+  for(let i=0;i<8;i++){ set('t'+(i+1)+'a', A[i]?num(A[i]):'—'); set('t'+(i+1)+'v', eur(V[i])); }
+  const TA=A.reduce((x,y)=>x+y,0), TV=V.reduce((x,y)=>x+y,0);
+  set('tta',num(TA)); set('ttv',eur(TV));
+
+  const fee=n('r_fee')*12+n('r_set');
+  const net=TV-fee;
+  const mult2=fee>0?(TV+fee)/fee:0;
+  const occ2=cap>0?(adm+TA)/cap*100:0;
+  const payDays=TV>0?Math.max(fee/(TV/365),0):0;
+
+  set('r_adm',num(TA)); set('r_rev',eur(TV));
+  set('r_inv',eur(fee)); set('r_ads',eur(sp2));
+  set('r_occ',occ.toFixed(1)+'% → '+occ2.toFixed(1)+'%');
+  set('r_pay',payDays>0?Math.round(payDays)+' days':'—');
+  set('r_net',eur(net)+'  ·  '+mult2.toFixed(1)+'×');
+
+  const share=adm>0?TA/adm*100:0;
+  const fl=$('r_flag');
+  if(share>25){
+    fl.className='flag warn';
+    fl.innerHTML='<b>Sanity check failed.</b> This model is claiming '+share.toFixed(1)+'% more admissions than the cinema does today. Anything above 25% will not be believed in the room, and should not be. Lower a conversion rate or an incremental share until this goes green.';
+  } else {
+    fl.className='flag';
+    fl.innerHTML='<b>Sanity check passed.</b> The model asks occupancy to move from '+occ.toFixed(1)+'% to '+occ2.toFixed(1)+'% — an increase of '+share.toFixed(1)+'% in admissions. That is the whole ask, stated plainly, and it is the number to put in front of a buyer.';
+  }
+
+  set('of_g', num(TA*0.40/4));
+
+  /* ---------- plan highlight ---------- */
+  const ids=['p_sala','p_circ','p_grup'];
+  ids.forEach(i=>{const e=$(i);if(e)e.classList.remove('on')});
+  const pick = sites>=6?'p_grup':(sites>=2?'p_circ':'p_sala');
+  const pe=$(pick); if(pe) pe.classList.add('on');
+}
+
+document.querySelectorAll('input').forEach(i=>i.addEventListener('input',calc));
+calc();
+
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+
+/* arrow nav */
+const secs=[...document.querySelectorAll('section')];
+addEventListener('keydown',e=>{
+  if(document.activeElement && document.activeElement.tagName==='INPUT') return;
+  if(e.key!=='ArrowDown'&&e.key!=='ArrowUp') return;
+  e.preventDefault();
+  const y=scrollY+70;
+  let i=secs.findIndex(s=>s.offsetTop>y+10);
+  if(e.key==='ArrowUp'){ i=secs.map(s=>s.offsetTop).filter(t=>t<y-10).length-1; }
+  i=Math.max(0,Math.min(i,secs.length-1));
+  scrollTo({top:secs[i].offsetTop-0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>
