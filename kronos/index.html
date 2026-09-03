@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kronos Moto — Vendita e Officina Moto a Milano</title>
+<meta name="description" content="Kronos Moto, Milano. Vendita di moto usate selezionate e officina specializzata multimarca: tagliandi, diagnosi elettronica, sospensioni, freni, gomme e preparazione.">
+<link rel="icon" href="img/kronos-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   KRONOS MOTO — design system
+   Base: DESIGN.md (showroom editorial: 0px radius, no shadows,
+   uppercase condensed display, 8px grid, surface-only separation)
+   Palette: sampled from the Kronos logo — #DE0312 red, black, white
+   ============================================================ */
+:root{
+  --red:#DE0312;
+  --red-dark:#AE020E;
+  --ink:#000000;
+  --ink-2:#202020;
+  --ink-3:#313131;
+  --steel:#7D7D7D;
+  --ash:#969696;
+  --rule:#E4E4E4;
+  --white:#FFFFFF;
+  --marble:#F5F5F5;
+
+  --font-display:"Barlow Condensed","Oswald","Arial Narrow",sans-serif;
+  --font-body:"Barlow","Helvetica Neue",Arial,sans-serif;
+  --track:0.023em;
+
+  --s8:8px; --s16:16px; --s24:24px; --s32:32px; --s40:40px;
+  --s48:48px; --s56:56px; --s64:64px; --s80:80px; --s160:160px;
+  --maxw:1440px;
+  --gut:clamp(20px,5vw,64px);
+  --nav-h:76px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--white);color:var(--ink);
+  font-family:var(--font-body);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+h1,h2,h3,h4,.display,.eyebrow,.btn,.navlink,.stat-k,.brandmark{
+  font-family:var(--font-display);
+  text-transform:uppercase;
+  letter-spacing:var(--track);
+  font-weight:600;
+  margin:0;
+}
+h1{font-size:clamp(44px,7.4vw,104px);line-height:.93}
+h2{font-size:clamp(32px,4.4vw,58px);line-height:1.02}
+h3{font-size:clamp(19px,1.7vw,25px);line-height:1.15}
+p{margin:0}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gut)}
+.section{padding-block:clamp(56px,8vw,var(--s80))}
+.marble{background:var(--marble)}
+.lede{font-size:clamp(16px,1.35vw,19px);line-height:1.65;color:var(--ink-3);max-width:62ch}
+.small{font-size:14px;line-height:1.6;color:var(--ink-3)}
+
+.eyebrow{
+  font-size:12px;font-weight:500;color:var(--ink-2);
+  display:flex;align-items:center;gap:12px;
+}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--red);flex:none}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 24px;font-size:14px;border-radius:0;
+  transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+.btn .arw{transition:transform .18s ease}
+.btn:hover .arw{transform:translateX(5px)}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:var(--red-dark)}
+.btn-ghost{padding-inline:0;color:var(--ink)}
+.btn-ghost:hover{color:var(--red)}
+.btn-outline{border:1px solid var(--steel);color:var(--ink)}
+.btn-outline:hover{border-color:var(--ink);background:var(--ink);color:#fff}
+.btn-on-dark{border:1px solid rgba(255,255,255,.45);color:#fff}
+.btn-on-dark:hover{background:#fff;color:var(--ink);border-color:#fff}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+/* ---------- topbar ---------- */
+.topbar{
+  background:var(--ink);color:#fff;font-family:var(--font-display);
+  font-size:12px;letter-spacing:var(--track);text-transform:uppercase;
+}
+.topbar .wrap{display:flex;gap:24px;align-items:center;justify-content:space-between;min-height:38px}
+.topbar a:hover{color:var(--red)}
+.topbar .sep{color:var(--steel)}
+.topbar .right{display:flex;gap:24px}
+@media(max-width:760px){.topbar .right{display:none}}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:60;background:#fff;
+  border-bottom:1px solid transparent;transition:border-color .2s ease;
+}
+.nav.stuck{border-bottom-color:var(--rule)}
+.nav .wrap{display:flex;align-items:center;gap:var(--s32);min-height:var(--nav-h)}
+.logo img{height:38px;width:auto}
+.navlinks{display:flex;gap:var(--s32);margin-left:auto;align-items:center}
+.navlink{font-size:13px;font-weight:500;position:relative;padding-block:6px}
+.navlink::after{
+  content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;
+  background:var(--red);transform:scaleX(0);transform-origin:left;
+  transition:transform .22s cubic-bezier(.2,.7,.3,1);
+}
+.navlink:hover::after,.navlink[aria-current]::after{transform:scaleX(1)}
+.nav .btn{margin-left:var(--s8)}
+.burger{display:none;margin-left:auto;padding:10px;line-height:0}
+.burger span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0}
+@media(max-width:1080px){
+  .navlinks,.nav .btn{display:none}
+  .burger{display:block}
+}
+.drawer{
+  position:fixed;inset:var(--nav-h) 0 0;background:#fff;z-index:55;
+  padding:var(--s32) var(--gut) var(--s48);display:none;overflow-y:auto;
+}
+.drawer.open{display:block}
+.drawer a{
+  display:block;font-family:var(--font-display);text-transform:uppercase;
+  letter-spacing:var(--track);font-size:28px;font-weight:600;
+  padding:14px 0;border-bottom:1px solid var(--rule);
+}
+.drawer .btn{margin-top:var(--s32);width:100%;justify-content:center;border-bottom:0}
+
+/* ---------- hero ---------- */
+.hero{padding-block:clamp(48px,7vw,84px) clamp(32px,4vw,48px)}
+.hero h1{margin-top:var(--s24);max-width:16ch}
+.hero .lede{margin-top:var(--s24)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:var(--s24);align-items:center;margin-top:var(--s40)}
+.hero-media{overflow:hidden}
+.hero-media img{
+  width:100%;aspect-ratio:21/9;object-fit:cover;
+  transform:scale(1.06);animation:heroIn 1.4s cubic-bezier(.2,.7,.3,1) forwards;
+}
+@keyframes heroIn{to{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.hero-media img{animation:none;transform:none}}
+@media(max-width:700px){.hero-media img{aspect-ratio:16/10}}
+
+/* ---------- value strip ---------- */
+.strip{border-block:1px solid var(--rule)}
+.strip .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.strip .cell{padding:var(--s32) var(--s24)}
+.strip .cell+.cell{border-left:1px solid var(--rule)}
+.strip .cell:first-child{padding-left:0}
+.strip .cell:last-child{padding-right:0}
+.stat-k{font-size:13px;font-weight:500;color:var(--steel);display:block}
+.strip h3{margin-top:10px}
+@media(max-width:900px){
+  .strip .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .strip .cell{padding:var(--s24) var(--s24)}
+  .strip .cell:nth-child(2){padding-right:0}
+  .strip .cell:nth-child(3){border-left:0;padding-left:0;border-top:1px solid var(--rule)}
+  .strip .cell:nth-child(4){border-top:1px solid var(--rule)}
+}
+@media(max-width:520px){
+  .strip .wrap{grid-template-columns:minmax(0,1fr)}
+  .strip .cell{padding:var(--s24) 0}
+  .strip .cell+.cell{border-left:0;border-top:1px solid var(--rule)}
+}
+
+/* ---------- section heading block ---------- */
+.sec-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:var(--s32);flex-wrap:wrap;margin-bottom:var(--s48);
+}
+@media(max-width:700px){.sec-head{flex-direction:column;align-items:flex-start;gap:var(--s24);margin-bottom:var(--s40)}}
+.sec-head .link{font-family:var(--font-display);text-transform:uppercase;letter-spacing:var(--track);font-size:13px;font-weight:500;display:inline-flex;gap:8px;align-items:center;padding-bottom:2px;border-bottom:2px solid var(--red)}
+.sec-head .link:hover{color:var(--red)}
+.rulered{height:2px;background:var(--red);width:0;transition:width .8s cubic-bezier(.2,.7,.3,1);margin-bottom:var(--s24)}
+.reveal.in .rulered{width:64px}
+
+/* ---------- two column ---------- */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,var(--s80));align-items:center}
+.two.narrow-first{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+@media(max-width:900px){.two,.two.narrow-first{grid-template-columns:1fr}}
+.two img{width:100%;aspect-ratio:4/3;object-fit:cover}
+
+/* ---------- plus cards ---------- */
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.grid4 .card{background:#fff;padding:var(--s32) var(--s24)}
+.grid4 .num{font-family:var(--font-display);font-size:12px;letter-spacing:var(--track);color:var(--red);font-weight:600}
+.grid4 h3{margin:14px 0 10px}
+@media(max-width:960px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.grid4{grid-template-columns:1fr}}
+
+/* ---------- editorial band ---------- */
+.band{position:relative;isolation:isolate}
+.band img{width:100%;aspect-ratio:21/9;object-fit:cover;min-height:340px}
+.band .overlay{
+  position:absolute;inset:0;display:flex;align-items:center;
+  background:linear-gradient(90deg,rgba(0,0,0,.86) 0%,rgba(0,0,0,.72) 38%,rgba(0,0,0,.34) 68%,rgba(0,0,0,.12) 100%);
+}
+.band .inner{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gut);width:100%;color:#fff}
+.band h2{max-width:15ch}
+.band .lede{color:rgba(255,255,255,.86);margin-top:var(--s24)}
+.band .eyebrow{color:#fff}
+.band .btn{margin-top:var(--s32)}
+@media(max-width:900px){
+  .band img{aspect-ratio:3/2;min-height:0;display:block;object-position:100% center}
+  .band .overlay{position:static;background:var(--ink);padding-block:var(--s48)}
+}
+
+/* ---------- services ---------- */
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s24)}
+@media(max-width:960px){.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.grid3{grid-template-columns:1fr}}
+.svc{border-top:2px solid var(--ink);padding-top:var(--s24);transition:border-color .2s ease}
+.svc:hover{border-top-color:var(--red)}
+.svc h3{margin-bottom:10px}
+
+/* ---------- checklist ---------- */
+.checks{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px var(--s32);margin-top:var(--s32);padding:0;list-style:none}
+.checks li{display:flex;gap:12px;font-size:15px;color:var(--ink-3);border-bottom:1px solid var(--rule);padding-bottom:12px}
+.checks li::before{content:"";flex:none;width:8px;height:8px;background:var(--red);margin-top:8px}
+@media(max-width:640px){.checks{grid-template-columns:1fr}}
+
+/* ---------- brands ---------- */
+.brands{display:flex;flex-wrap:wrap;gap:var(--s16) var(--s40);align-items:center;justify-content:center}
+.brandmark{font-size:clamp(18px,2.2vw,28px);color:var(--ash);font-weight:500;transition:color .18s ease}
+.brandmark:hover{color:var(--ink)}
+
+/* ---------- faq ---------- */
+.faq-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr);gap:clamp(32px,5vw,var(--s80))}
+.faq-head{align-self:start;position:sticky;top:calc(var(--nav-h) + 40px)}
+@media(max-width:900px){.faq-layout{grid-template-columns:minmax(0,1fr)}.faq-head{position:static}}
+.faq{border-top:1px solid var(--rule)}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{
+  list-style:none;cursor:pointer;padding:var(--s24) var(--s40) var(--s24) 0;
+  font-family:var(--font-display);text-transform:uppercase;letter-spacing:var(--track);
+  font-weight:600;font-size:clamp(17px,1.5vw,21px);position:relative;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"";position:absolute;right:6px;top:50%;width:14px;height:2px;
+  background:var(--ink);transition:transform .2s ease;
+}
+.faq summary::before{
+  content:"";position:absolute;right:12px;top:50%;width:2px;height:14px;
+  margin-top:-6px;background:var(--ink);transition:transform .2s ease,opacity .2s ease;
+}
+.faq details[open] summary::before{opacity:0;transform:rotate(90deg)}
+.faq details[open] summary{color:var(--red)}
+.faq details[open] summary::after,.faq details[open] summary::before{background:var(--red)}
+.faq .ans{padding:0 var(--s40) var(--s32) 0;color:var(--ink-3);max-width:76ch}
+
+/* ---------- final cta ---------- */
+.cta{background:var(--ink);color:#fff}
+.cta h2{max-width:18ch}
+.cta .lede{color:rgba(255,255,255,.78);margin-top:var(--s24)}
+.cta .row{display:flex;gap:var(--s24);flex-wrap:wrap;margin-top:var(--s40);align-items:center}
+
+/* ---------- footer ---------- */
+.footer{background:var(--marble);border-top:1px solid var(--rule)}
+.footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:var(--s40);padding-block:var(--s64) var(--s48)}
+@media(max-width:960px){.footer .cols{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.footer .cols{grid-template-columns:1fr}}
+.footer h4{font-size:12px;font-weight:500;color:var(--steel);margin-bottom:var(--s16)}
+.footer .fl{display:block;padding:5px 0;font-size:15px;color:var(--ink-3)}
+.footer .fl:hover{color:var(--red)}
+.footer .logo img{height:44px;margin-bottom:var(--s24)}
+.legal{
+  border-top:1px solid var(--rule);padding-block:var(--s24);
+  display:flex;justify-content:space-between;gap:var(--s24);flex-wrap:wrap;
+  font-size:13px;color:var(--steel);
+}
+.legal a:hover{color:var(--red)}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="wrap">
+    <span>Kronos Moto — Milano</span>
+    <div class="right">
+      <a href="https://maps.google.com/?q=Via+Ajaccio+4,+20133+Milano" target="_blank" rel="noopener">Via Ajaccio 4, 20133 Milano</a>
+      <span class="sep">/</span>
+      <a href="tel:+3902713774">Tel. 02 713774</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Kronos Moto — home"><img src="img/kronos-logo.png" alt="Kronos Moto"></a>
+    <nav class="navlinks">
+      <a class="navlink" href="#moto">Moto</a>
+      <a class="navlink" href="#officina">Officina</a>
+      <a class="navlink" href="#servizi">Servizi</a>
+      <a class="navlink" href="#vendi">Vendi la tua moto</a>
+      <a class="navlink" href="#chi-siamo">Chi siamo</a>
+      <a class="navlink" href="#contatti">Contatti</a>
+    </nav>
+    <a class="btn btn-red" href="#contatti">Prenota un intervento <span class="arw">&rarr;</span></a>
+    <button class="burger" id="burger" aria-label="Apri il menu" aria-expanded="false" aria-controls="drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a href="#moto">Moto</a>
+  <a href="#officina">Officina</a>
+  <a href="#servizi">Servizi</a>
+  <a href="#vendi">Vendi la tua moto</a>
+  <a href="#chi-siamo">Chi siamo</a>
+  <a href="#contatti">Contatti</a>
+  <a class="btn btn-red" href="#contatti">Prenota un intervento <span class="arw">&rarr;</span></a>
+</div>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Vendita e officina moto — Milano</p>
+    <h1>Vendiamo moto.<br>E le teniamo vive.</h1>
+    <p class="lede">Kronos Moto è concessionaria e officina specializzata a Milano. Moto usate controllate una per una, e un'assistenza multimarca che tratta la tua moto come se fosse la nostra.</p>
+    <div class="hero-cta">
+      <a class="btn btn-red" href="#contatti">Prenota un intervento <span class="arw">&rarr;</span></a>
+      <a class="btn btn-ghost" href="#moto">Vedi le moto disponibili <span class="arw">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+<div class="hero-media">
+  <img src="img/hero-pista.jpg" alt="Moto sportiva in azione in pista" width="2400" height="1028" fetchpriority="high">
+</div>
+
+<!-- ============ VALUE STRIP ============
+     I quattro pilastri. Se Kronos fornisce numeri reali
+     (moto in pronta consegna, anni di attività, controlli, mesi
+     di garanzia) sostituire i titoli con le cifre. -->
+<section class="strip">
+  <div class="wrap">
+    <div class="cell"><span class="stat-k">01 — Vendita</span><h3>Usato<br>controllato</h3></div>
+    <div class="cell"><span class="stat-k">02 — Officina</span><h3>Assistenza<br>multimarca</h3></div>
+    <div class="cell"><span class="stat-k">03 — Ricambi</span><h3>Ricambi e<br>accessori</h3></div>
+    <div class="cell"><span class="stat-k">04 — Preventivi</span><h3>Preventivo<br>prima di toccarla</h3></div>
+  </div>
+</section>
+
+<!-- ============ CHI SIAMO ============ -->
+<section class="section" id="chi-siamo">
+  <div class="wrap reveal">
+    <div class="two narrow-first">
+      <div>
+        <div class="rulered"></div>
+        <p class="eyebrow">Chi siamo</p>
+        <h2 style="margin-top:24px">Un'officina<br>prima che<br>un negozio</h2>
+        <p class="lede" style="margin-top:24px">Kronos Moto nasce a Milano da chi le moto le smonta, non solo le vende. In esposizione trovi usato selezionato e controllato; dietro, un'officina attrezzata che segue la moto per tutta la sua vita — tagliandi, diagnosi, assetto, freni, gomme, preparazione.</p>
+        <p class="lede" style="margin-top:16px">Nessun preventivo a sorpresa: si guarda la moto, si spiega cosa serve davvero e cosa può aspettare, e solo dopo si mette mano.</p>
+        <a class="btn btn-outline" href="#contatti" style="margin-top:32px">Vieni a trovarci <span class="arw">&rarr;</span></a>
+      </div>
+      <img src="img/motore.jpg" alt="Dettaglio motore in lavorazione" width="1400" height="1050" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ============ I NOSTRI PLUS ============ -->
+<section class="section marble">
+  <div class="wrap reveal">
+    <div class="rulered"></div>
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">I nostri plus</p>
+        <h2 style="margin-top:24px">Perché portarla<br>da noi</h2>
+      </div>
+      <a class="link" href="#servizi">Tutti i servizi <span class="arw">&rarr;</span></a>
+    </div>
+    <div class="grid4">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>Officina multimarca</h3>
+        <p class="small">Stradali, sportive, naked, custom e scooter. Un solo interlocutore per manutenzione ordinaria e interventi specialistici.</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>Usato verificato</h3>
+        <p class="small">Ogni moto in esposizione passa un controllo meccanico ed estetico prima di essere messa in vendita. Storia e tagliandi alla mano.</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>Ricambi e accessori</h3>
+        <p class="small">Ricambi originali e aftermarket, pneumatici, batterie, olio e abbigliamento tecnico — ordinati e montati in sede.</p>
+      </div>
+      <div class="card">
+        <span class="num">04</span>
+        <h3>Preventivo chiaro</h3>
+        <p class="small">Diagnosi, cifra e tempi prima di iniziare. Se durante il lavoro cambia qualcosa, ti chiamiamo: non si procede senza il tuo ok.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BAND ============ -->
+<section class="band" id="moto">
+  <img src="img/moto-esposizione.jpg" alt="Moto sportiva pronta in esposizione" width="2400" height="1028" loading="lazy">
+  <div class="overlay">
+    <div class="inner">
+      <p class="eyebrow">Moto in esposizione</p>
+      <h2 style="margin-top:24px">La moto giusta,<br>già pronta a girare</h2>
+      <p class="lede">Usato selezionato e tagliandato in casa. La provi, la guardi sul ponte con noi, e sai esattamente cosa stai comprando.</p>
+      <a class="btn btn-on-dark" href="#contatti">Chiedi la disponibilità <span class="arw">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFFICINA ============ -->
+<section class="section" id="officina">
+  <div class="wrap reveal">
+    <div class="two">
+      <img src="img/sospensioni.jpg" alt="Intervento su sospensioni e ciclistica" width="1400" height="1050" loading="lazy">
+      <div>
+        <div class="rulered"></div>
+        <p class="eyebrow">Officina specializzata</p>
+        <h2 style="margin-top:24px">Ogni moto esce<br>solo quando<br>è pronta</h2>
+        <p class="lede" style="margin-top:24px">Banco, ponte e strumentazione diagnostica in sede. Si parte dal problema che hai raccontato, si verifica sulla moto e si interviene su quello — senza gonfiare la lista.</p>
+        <ul class="checks">
+          <li>Tagliando e manutenzione programmata</li>
+          <li>Diagnosi elettronica ed errori centralina</li>
+          <li>Freni, dischi e spurgo impianto</li>
+          <li>Sospensioni, assetto e taratura</li>
+          <li>Gomme, equilibratura e allineamento</li>
+          <li>Catena, corona, pignone e trasmissione</li>
+          <li>Batteria, impianto elettrico e ricarica</li>
+          <li>Revisione e preparazione pre-vendita</li>
+        </ul>
+        <a class="btn btn-red" href="#contatti" style="margin-top:40px">Prenota un intervento <span class="arw">&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVIZI ============ -->
+<section class="section marble" id="servizi">
+  <div class="wrap reveal">
+    <div class="rulered"></div>
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Servizi</p>
+        <h2 style="margin-top:24px">Cosa facciamo</h2>
+      </div>
+      <a class="link" href="#contatti">Chiedi un preventivo <span class="arw">&rarr;</span></a>
+    </div>
+    <div class="grid3">
+      <div class="svc">
+        <h3>Tagliando e manutenzione</h3>
+        <p class="small">Olio, filtri, candele, liquidi e controlli di sicurezza secondo il piano della casa madre. Libretto aggiornato.</p>
+      </div>
+      <div class="svc">
+        <h3>Diagnosi elettronica</h3>
+        <p class="small">Lettura e cancellazione errori, controllo sensori, mappature e problemi di avviamento o ricarica.</p>
+      </div>
+      <div class="svc">
+        <h3>Gomme ed equilibratura</h3>
+        <p class="small">Montaggio, smontaggio ed equilibratura pneumatici, con consiglio sulla gomma giusta per come la usi.</p>
+      </div>
+      <div class="svc">
+        <h3>Sospensioni e assetto</h3>
+        <p class="small">Revisione forcelle e mono, cambio olio, taratura precarico e idraulica in base al tuo peso e al tuo uso.</p>
+      </div>
+      <div class="svc">
+        <h3>Freni e ciclistica</h3>
+        <p class="small">Pastiglie, dischi, pompe, tubi in treccia e spurgo. Controllo cuscinetti, forcellone e geometrie.</p>
+      </div>
+      <div class="svc">
+        <h3>Preparazione e accessori</h3>
+        <p class="small">Scarichi, protezioni, portapacchi, illuminazione e personalizzazioni — montate e collaudate in officina.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VENDI ============ -->
+<section class="section" id="vendi">
+  <div class="wrap reveal">
+    <div class="two">
+      <div>
+        <div class="rulered"></div>
+        <p class="eyebrow">Vendi la tua moto</p>
+        <h2 style="margin-top:24px">Ti liberiamo noi<br>dal garage</h2>
+        <p class="lede" style="margin-top:24px">Valutiamo la tua moto sul posto e ti diciamo subito cosa possiamo fare: acquisto diretto, permuta su una moto in esposizione o vendita in conto vendita, con la moto esposta e curata da noi.</p>
+        <p class="lede" style="margin-top:16px">Pratiche, passaggio di proprietà e documenti li gestiamo noi. Tu porti la moto e le chiavi.</p>
+        <a class="btn btn-red" href="#contatti" style="margin-top:40px">Fai valutare la tua moto <span class="arw">&rarr;</span></a>
+      </div>
+      <img src="img/showroom.jpg" alt="Moto in esposizione" width="1600" height="1200" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ============ BRANDS ============ -->
+<section class="section marble">
+  <div class="wrap reveal" style="text-align:center">
+    <p class="eyebrow" style="justify-content:center">Officina multimarca</p>
+    <div class="brands" style="margin-top:40px">
+      <span class="brandmark">Ducati</span>
+      <span class="brandmark">Yamaha</span>
+      <span class="brandmark">Honda</span>
+      <span class="brandmark">Kawasaki</span>
+      <span class="brandmark">Suzuki</span>
+      <span class="brandmark">BMW</span>
+      <span class="brandmark">KTM</span>
+      <span class="brandmark">Aprilia</span>
+      <span class="brandmark">Triumph</span>
+      <span class="brandmark">MV Agusta</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section">
+  <div class="wrap reveal">
+    <div class="faq-layout">
+      <div class="faq-head">
+        <div class="rulered"></div>
+        <p class="eyebrow">Domande frequenti</p>
+        <h2 style="margin:24px 0 0">Le cose che<br>ci chiedete sempre</h2>
+      </div>
+    <div class="faq">
+      <details>
+        <summary>Lavorate su tutte le marche?</summary>
+        <p class="ans">Sì. L'officina è multimarca: stradali, sportive, naked, custom, enduro e scooter. Se un intervento richiede attrezzatura o ricambi specifici ti diciamo subito tempi e costi prima di prendere in carico la moto.</p>
+      </details>
+      <details>
+        <summary>Devo prendere appuntamento?</summary>
+        <p class="ans">Per un tagliando o un intervento programmato sì, così la moto entra subito in lavorazione e non resta ferma. Per un controllo veloce o un preventivo puoi passare in negozio negli orari di apertura.</p>
+      </details>
+      <details>
+        <summary>Fate il preventivo prima di intervenire?</summary>
+        <p class="ans">Sempre. Guardiamo la moto, ti spieghiamo cosa serve adesso e cosa può aspettare, e ti diamo cifra e tempi. Non si procede senza il tuo ok, e se durante il lavoro emerge altro ti chiamiamo prima di continuare.</p>
+      </details>
+      <details>
+        <summary>Le moto usate che vendete come sono controllate?</summary>
+        <p class="ans">Ogni moto passa dall'officina prima di andare in esposizione: controllo meccanico, ciclistica, freni, gomme, elettronica ed estetica. Ti mostriamo la moto sul ponte e ti raccontiamo la sua storia, tagliandi compresi.</p>
+      </details>
+      <details>
+        <summary>Accettate permute o ritirate la mia moto?</summary>
+        <p class="ans">Sì. Possiamo acquistarla direttamente, prenderla in permuta su una moto in esposizione oppure tenerla in conto vendita. Passaggio di proprietà e pratiche le gestiamo noi.</p>
+      </details>
+      <details>
+        <summary>Vendete anche ricambi e accessori?</summary>
+        <p class="ans">Sì: ricambi originali e aftermarket, pneumatici, batterie, olio, protezioni e abbigliamento tecnico. Se non è a magazzino lo ordiniamo e, se vuoi, lo montiamo direttamente in officina.</p>
+      </details>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section cta" id="contatti">
+  <div class="wrap reveal">
+    <div class="two">
+      <div>
+        <p class="eyebrow" style="color:#fff">Contatti</p>
+        <h2 style="margin-top:24px">Portala qui.<br>Ci pensiamo noi.</h2>
+        <p class="lede">Chiamaci per un appuntamento in officina, una valutazione della tua moto o per sapere cosa abbiamo in esposizione.</p>
+        <div class="row">
+          <a class="btn btn-red" href="tel:+3902713774">Chiama 02 713774 <span class="arw">&rarr;</span></a>
+          <a class="btn btn-on-dark" href="https://maps.google.com/?q=Via+Ajaccio+4,+20133+Milano" target="_blank" rel="noopener">Vieni in negozio <span class="arw">&rarr;</span></a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-display);text-transform:uppercase;letter-spacing:var(--track);font-size:12px;font-weight:500;color:var(--ash);margin-bottom:16px">Dove siamo</h4>
+        <p class="lede" style="color:#fff">Kronos Moto<br>Via Ajaccio 4<br>20133 Milano (MI)</p>
+        <!-- ORARI DA CONFERMARE CON IL CLIENTE prima della pubblicazione -->
+        <h4 style="font-family:var(--font-display);text-transform:uppercase;letter-spacing:var(--track);font-size:12px;font-weight:500;color:var(--ash);margin:32px 0 16px">Orari</h4>
+        <p class="lede" style="color:rgba(255,255,255,.78)">Lunedì – Venerdì&nbsp;&nbsp;09:00 – 13:00 / 14:30 – 19:00<br>Sabato&nbsp;&nbsp;09:00 – 13:00<br>Domenica&nbsp;&nbsp;chiuso</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="logo" href="#top"><img src="img/kronos-logo.png" alt="Kronos Moto"></a>
+        <p class="small">Vendita moto usate selezionate e officina specializzata multimarca a Milano.</p>
+      </div>
+      <div>
+        <h4>Naviga</h4>
+        <a class="fl" href="#moto">Moto</a>
+        <a class="fl" href="#officina">Officina</a>
+        <a class="fl" href="#servizi">Servizi</a>
+        <a class="fl" href="#vendi">Vendi la tua moto</a>
+        <a class="fl" href="#chi-siamo">Chi siamo</a>
+      </div>
+      <div>
+        <h4>Contatti</h4>
+        <a class="fl" href="tel:+3902713774">02 713774</a>
+        <a class="fl" href="https://maps.google.com/?q=Via+Ajaccio+4,+20133+Milano" target="_blank" rel="noopener">Via Ajaccio 4, 20133 Milano</a>
+        <!-- EMAIL DA INSERIRE -->
+      </div>
+      <div>
+        <h4>Social</h4>
+        <!-- SOSTITUIRE CON I PROFILI REALI DI KRONOS MOTO -->
+        <a class="fl" href="#">Instagram</a>
+        <a class="fl" href="#">Facebook</a>
+        <a class="fl" href="https://www.google.com/maps/search/?api=1&amp;query=Kronos+Moto%2C+Via+Ajaccio+4%2C+20133+Milano" target="_blank" rel="noopener">Google Maps</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>&copy; <span id="yr">2026</span> Kronos Moto S.r.l.s. — Milano</span>
+      <span><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Cookie Policy</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // sticky nav hairline
+  var nav = document.getElementById('nav');
+  var onScroll = function(){ nav.classList.toggle('stuck', window.scrollY > 8); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // mobile drawer
+  var burger = document.getElementById('burger');
+  var drawer = document.getElementById('drawer');
+  burger.addEventListener('click', function(){
+    var open = drawer.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  drawer.addEventListener('click', function(e){
+    if (e.target.tagName === 'A'){
+      drawer.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // scroll reveal
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // accordion: one open at a time
+  var dets = document.querySelectorAll('.faq details');
+  dets.forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if (d.open) dets.forEach(function(o){ if (o !== d) o.open = false; });
+    });
+  });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
