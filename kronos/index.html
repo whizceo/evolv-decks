@@ -188,8 +188,12 @@ p{margin:0}
 /* ---------- two column ---------- */
 .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,var(--s80));align-items:center}
 .two.narrow-first{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
-@media(max-width:900px){.two,.two.narrow-first{grid-template-columns:1fr}}
+.two.img-narrow{grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr)}
+@media(max-width:900px){.two,.two.narrow-first,.two.img-narrow{grid-template-columns:1fr}}
 .two img{width:100%;aspect-ratio:4/3;object-fit:cover}
+/* scatto verticale del negozio: ritratto su desktop, altezza contenuta su mobile */
+.two img.portrait{aspect-ratio:3/4}
+@media(max-width:900px){.two img.portrait{aspect-ratio:4/5;max-height:72vh}}
 
 /* ---------- plus cards ---------- */
 .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
@@ -212,7 +216,7 @@ p{margin:0}
 .band .eyebrow{color:#fff}
 .band .btn{margin-top:var(--s32)}
 @media(max-width:900px){
-  .band img{aspect-ratio:3/2;min-height:0;display:block;object-position:100% center}
+  .band img{aspect-ratio:3/2;min-height:0;display:block;object-position:center}
   .band .overlay{position:static;background:var(--ink);padding-block:var(--s48)}
 }
 
@@ -239,6 +243,8 @@ p{margin:0}
 .b-mondial img{height:clamp(62px,6.4vw,96px)}
 .b-kl img{height:clamp(46px,4.8vw,72px)}
 .b-hero img{height:clamp(38px,3.8vw,56px)}
+.brandshot{width:100%;aspect-ratio:2.4/1;object-fit:cover;margin-top:clamp(48px,6vw,80px);display:block}
+@media(max-width:900px){.brandshot{aspect-ratio:16/9}}
 @media(max-width:640px){
   .brands{flex-direction:column;gap:var(--s40)}
   .b-mondial img{height:66px}
@@ -358,7 +364,7 @@ p{margin:0}
   </div>
 </section>
 <div class="hero-media">
-  <img src="img/hero-pista.jpg" alt="Moto sportiva in azione in pista" width="2400" height="1028" fetchpriority="high">
+  <img src="img/hero-kl.jpg" alt="Scooter KL Motorcycle Brera in strada a Milano" width="1908" height="818" fetchpriority="high">
 </div>
 
 <!-- ============ VALUE STRIP ============
@@ -386,7 +392,7 @@ p{margin:0}
         <p class="lede" style="margin-top:16px">Nessun preventivo a sorpresa: si guarda la moto, si spiega cosa serve davvero e cosa può aspettare, e solo dopo si mette mano.</p>
         <a class="btn btn-outline" href="#contatti" style="margin-top:32px">Vieni a trovarci <span class="arw">&rarr;</span></a>
       </div>
-      <img src="img/motore.jpg" alt="Dettaglio motore in lavorazione" width="1400" height="1050" loading="lazy">
+      <img src="img/negozio-vetrina.jpg" alt="Interno del negozio Kronos Moto a Milano, moto in esposizione" width="1600" height="1200" loading="lazy">
     </div>
   </div>
 </section>
@@ -429,7 +435,7 @@ p{margin:0}
 
 <!-- ============ BAND ============ -->
 <section class="band" id="moto">
-  <img src="img/moto-esposizione.jpg" alt="Moto sportiva pronta in esposizione" width="2400" height="1028" loading="lazy">
+  <img src="img/negozio-showroom.jpg" alt="Showroom Kronos Moto: scooter e moto in pronta consegna" width="2000" height="1333" loading="lazy">
   <div class="overlay">
     <div class="inner">
       <p class="eyebrow">Moto in esposizione</p>
@@ -443,8 +449,8 @@ p{margin:0}
 <!-- ============ OFFICINA ============ -->
 <section class="section" id="officina">
   <div class="wrap reveal">
-    <div class="two">
-      <img src="img/sospensioni.jpg" alt="Intervento su sospensioni e ciclistica" width="1400" height="1050" loading="lazy">
+    <div class="two img-narrow">
+      <img class="portrait" src="img/negozio-corsia.jpg" alt="La corsia del negozio Kronos Moto con le moto pronte" width="1200" height="1600" loading="lazy">
       <div>
         <div class="rulered"></div>
         <p class="eyebrow">Officina specializzata</p>
@@ -518,7 +524,7 @@ p{margin:0}
         <p class="lede" style="margin-top:16px">Pratiche, passaggio di proprietà e documenti li gestiamo noi. Tu porti la moto e le chiavi.</p>
         <a class="btn btn-red" href="#contatti" style="margin-top:40px">Fai valutare la tua moto <span class="arw">&rarr;</span></a>
       </div>
-      <img src="img/showroom.jpg" alt="Moto in esposizione" width="1600" height="1200" loading="lazy">
+      <img src="img/mondial-hps.jpg" alt="F.B Mondial HPS 125 in esposizione" width="1600" height="1200" loading="lazy">
     </div>
   </div>
 </section>
@@ -532,6 +538,7 @@ p{margin:0}
       <span class="brandmark b-kl"><img src="img/brands/kl.png" alt="KL Motorcycle" width="568" height="180" loading="lazy"></span>
       <span class="brandmark b-hero"><img src="img/brands/hero.png" alt="Hero" width="561" height="180" loading="lazy"></span>
     </div>
+    <img class="brandshot" src="img/hero-xpulse.jpg" alt="Hero XPulse, enduro stradale della gamma Hero" width="1558" height="649" loading="lazy">
   </div>
 </section>
 
