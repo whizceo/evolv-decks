@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<title>CytoKind — ActiveCampaign account audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#070830; --navy2:#111349; --ink:#14155A; --blue:#3256E8; --peri:#5B6CE8;
+  --lav:#EEF1FE; --lav2:#F7F8FF; --line:#DCE1F6; --line2:#EBEEFA;
+  --grey:#5A5F86; --grey2:#8E93B4; --red:#D93A55; --green:#0E9E79; --white:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#c9cee6;font-family:'Inter',-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.page{width:1920px;height:1200px;background:var(--white);overflow:hidden;
+  display:flex;flex-direction:column;position:relative}
+
+/* ══════ HEADER ══════ */
+.hd{background:var(--navy);color:#fff;padding:24px 56px 22px;display:flex;
+  align-items:center;gap:34px;flex:0 0 auto;position:relative;overflow:hidden}
+.hd:after{content:"";position:absolute;right:-90px;top:-150px;width:420px;height:420px;
+  border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(91,108,232,.55),rgba(91,108,232,0) 68%)}
+.mark{flex:0 0 auto;width:52px;height:52px;border-radius:50%;background:var(--peri);
+  display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+.mark svg{width:24px;height:24px}
+.hdmain{flex:1 1 auto;position:relative;z-index:2}
+.eyebrow{font-size:9.5px;letter-spacing:.30em;text-transform:uppercase;color:#8f95c8;font-weight:700}
+.hd h1{font-size:30px;font-weight:700;letter-spacing:-.028em;margin-top:7px;line-height:1.06}
+.hd h1 span{color:var(--peri)}
+.hd .sub{font-size:12.5px;color:#adb2d6;margin-top:7px;font-weight:300;letter-spacing:.005em;max-width:1010px;line-height:1.5}
+.chips{display:flex;gap:0;position:relative;z-index:2;flex:0 0 auto}
+.chip{padding:0 24px;border-left:1px solid rgba(255,255,255,.14);text-align:right}
+.chip:first-child{border-left:0}
+.chip .f{font-size:26px;font-weight:700;letter-spacing:-.035em;line-height:1}
+.chip .l{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:#8f95c8;
+  margin-top:7px;font-weight:600;line-height:1.4}
+.chip.a .f{color:var(--peri)}
+.chip.r .f{color:#FF7B90}
+.mono{font-family:'JetBrains Mono',monospace;letter-spacing:-.03em}
+
+/* ══════ BODY ══════ */
+.body{flex:1 1 auto;display:grid;grid-template-columns:390px 1fr;min-height:0}
+
+/* — reconciliation rail — */
+.recon{background:var(--lav2);border-right:1px solid var(--line);padding:22px 26px 18px 56px;
+  display:flex;flex-direction:column;min-height:0}
+.sech{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;color:var(--grey2)}
+.recon h2{font-size:19px;font-weight:700;letter-spacing:-.025em;color:var(--ink);margin-top:8px;line-height:1.14}
+.recon .lead{font-size:10.6px;line-height:1.55;color:var(--grey);margin-top:9px;font-weight:400}
+.rlist{margin-top:14px;flex:1 1 auto;display:flex;flex-direction:column;gap:11px}
+.rrow{position:relative;padding-left:24px}
+.rnum{position:absolute;left:0;top:1px;width:15px;height:15px;border-radius:50%;
+  background:var(--ink);color:#fff;font-size:8.4px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace}
+.rrow b{display:block;font-size:11.4px;font-weight:700;color:var(--ink);letter-spacing:-.018em;line-height:1.25}
+.rrow span{display:block;font-size:10.2px;line-height:1.5;color:var(--grey);margin-top:4px;font-weight:400}
+.rrow span b{display:inline;font-size:inherit;color:var(--ink);font-weight:600}
+.rfoot{margin-top:14px;background:var(--ink);color:#fff;padding:13px 16px;border-radius:3px;flex:0 0 auto}
+.rfoot .k{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#9aa0d4;font-weight:700}
+.rfoot p{font-size:11px;line-height:1.5;margin-top:6px;font-weight:400}
+
+/* — findings grid — */
+.finds{padding:22px 56px 18px 30px;display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;gap:16px 26px;min-height:0}
+.find{display:flex;flex-direction:column;min-height:0;border-top:2px solid var(--peri);padding-top:10px}
+.find:nth-child(2){border-top-color:var(--blue)}
+.find:nth-child(3){border-top-color:var(--green)}
+.find:nth-child(4){border-top-color:var(--red)}
+.fhd{display:flex;gap:12px;align-items:flex-start}
+.fnum{flex:0 0 auto;font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:600;
+  color:var(--peri);letter-spacing:-.05em;line-height:1;padding-top:1px}
+.find:nth-child(2) .fnum{color:var(--blue)}
+.find:nth-child(3) .fnum{color:var(--green)}
+.find:nth-child(4) .fnum{color:var(--red)}
+.find h3{font-size:15.5px;font-weight:700;letter-spacing:-.026em;color:var(--ink);line-height:1.16}
+.find .fs{font-size:10.8px;line-height:1.5;color:var(--grey);margin-top:7px;font-weight:400}
+.frows{margin-top:11px;flex:0 0 auto;border-top:1px solid var(--line2)}
+.frow{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;
+  padding:11.4px 0;border-bottom:1px solid var(--line2)}
+.frow i{font-style:normal;font-size:11.2px;font-weight:600;color:var(--ink);letter-spacing:-.012em;line-height:1.3}
+.frow em{font-style:normal;font-size:10.5px;color:var(--grey);text-align:right;line-height:1.3;
+  font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.025em;white-space:nowrap}
+.frow em b{color:var(--ink);font-weight:600}
+.kick{margin-top:auto;background:var(--lav2);border-left:2px solid var(--line);
+  padding:9px 13px;font-size:10.4px;line-height:1.5;color:var(--grey);font-weight:400}
+
+/* ══════ CHAIN BAND ══════ */
+.band{flex:0 0 auto;background:var(--lav);border-top:1px solid var(--line);
+  padding:15px 56px 14px;display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center}
+.bandl{border-right:1px solid var(--line);padding-right:30px}
+.bandl h4{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.022em;margin-top:6px;line-height:1.15;max-width:200px}
+.chain{display:flex;align-items:center;gap:0}
+.node{background:#fff;border:1px solid var(--line);border-top:2px solid var(--green);
+  padding:9px 16px;font-size:10.5px;font-weight:600;color:var(--ink);text-align:center;
+  line-height:1.25;min-width:150px}
+.node.break{border-top-color:var(--red);background:#FEF3F5;border-color:#F3C9D1}
+.node.dead{border-top-color:var(--grey2);background:#F4F5FA;color:var(--grey2)}
+.node span{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;
+  color:var(--grey2);margin-top:4px;letter-spacing:-.02em}
+.node.break span{color:var(--red)}
+.arr{padding:0 12px;color:var(--peri);font-size:15px;font-weight:700}
+.arr.x{color:var(--red)}
+.bandnote{margin-left:26px;padding-left:26px;border-left:1px solid var(--line);
+  font-size:10.4px;line-height:1.5;color:var(--grey);max-width:290px;font-weight:400}
+.bandnote b{color:var(--ink);font-weight:600}
+
+/* ══════ FOOTER ══════ */
+.ft{flex:0 0 auto;background:var(--navy2);color:#fff;padding:15px 56px;
+  display:flex;align-items:center;gap:26px}
+.ftl{flex:0 0 auto;border-right:1px solid rgba(255,255,255,.16);padding-right:26px}
+.ftl .k{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#8f95c8;font-weight:700}
+.ftl b{display:block;font-size:15px;font-weight:700;letter-spacing:-.02em;margin-top:5px;line-height:1.15}
+.fixl{flex:1 1 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.fixl div{font-size:9.8px;line-height:1.42;color:#c6cae8;padding-left:14px;position:relative;font-weight:400}
+.fixl div:before{content:"";position:absolute;left:0;top:5px;width:5px;height:5px;
+  border-radius:50%;background:var(--green)}
+.sig{flex:0 0 auto;text-align:right;font-size:8.6px;line-height:1.5;color:#7a80ad;letter-spacing:.06em}
+.sig b{display:block;color:#fff;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+
+/* ── web wrapper: fit the fixed 1920×1200 canvas to any desktop viewport ── */
+body{display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden}
+.page{transform-origin:center center;box-shadow:0 18px 60px rgba(7,8,48,.22)}
+/* ── mobile gate ── */
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--navy);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:40px;font-family:'Inter',-apple-system,sans-serif;color:#fff}
+.mobile-block .mb-emoji{font-size:48px;margin-bottom:22px}
+.mobile-block .mb-title{font-weight:700;font-size:1.8rem;letter-spacing:-.03em;margin-bottom:14px;color:var(--peri)}
+.mobile-block .mb-sub{font-size:.95rem;color:#adb2d6;max-width:340px;line-height:1.6;font-weight:300}
+.mobile-block .mb-tag{font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;
+  color:#8f95c8;font-weight:700;margin-bottom:26px}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+</style></head><body>
+<div class="mobile-block">
+  <div class="mb-tag">CytoKind × Evolv AI</div>
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title">Open on desktop</div>
+  <div class="mb-sub">This audit is a single wide page built for a big screen — open it on your laptop to read it properly.</div>
+</div>
+<div class="page">
+
+<header class="hd">
+  <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4.5 17 12 6 19.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="hdmain">
+    <div class="eyebrow">CytoKind × Evolv AI · ActiveCampaign account audit · 4 September 2026</div>
+    <h1>What the CRM reports — <span>and why the numbers do not reconcile</span></h1>
+    <p class="sub">Every figure on this page was read directly from cytokind.activehosted.com and can be verified inside the account in under a minute. None of it describes how the team is performing. All of it describes configuration that was built and left inactive.</p>
+  </div>
+  <div class="chips">
+    <div class="chip r"><div class="f mono">0</div><div class="l">Contacts through<br>the pipeline</div></div>
+    <div class="chip r"><div class="f mono">$0</div><div class="l">Revenue attributed<br>all time</div></div>
+    <div class="chip a"><div class="f mono">2.09%</div><div class="l">Click rate on<br>1,767 sends</div></div>
+    <div class="chip"><div class="f mono">4</div><div class="l">Objects built<br>and switched off</div></div>
+    <div class="chip a"><div class="f mono">6/9</div><div class="l">Automations at<br>zero throughput</div></div>
+  </div>
+</header>
+
+<div class="body">
+  <aside class="recon">
+    <div class="sech">The reconciliation</div>
+    <h2>Why the dashboard and the sales record disagree</h2>
+    <p class="lead">This is the single finding that explains the rest. It is a chain of four dependent objects, and the first one in the chain has never executed.</p>
+    <div class="rlist"><div class='rrow'><div class='rnum'>1</div><b>The pipeline automation has never run</b><span><b>Customer Pipeline — Lead to Order Confirmed</b> is in state <b>Inactive</b>. Contacts entered: <b>0</b>. It is the only automation in the account labelled with both business goals.</span></div><div class='rrow'><div class='rnum'>2</div><b>So the goal object was never fed</b><span><b>Montly Target / August Sale</b> reads <b>2 of 20 conversions</b> and <b>total value $0 USD</b>. Its target end date is blank — the list view renders it as <b>01/01/1970</b>, the Unix epoch, meaning it was never set.</span></div><div class='rrow'><div class='rnum'>3</div><b>And no sale has ever been attributed</b><span>The <b>Revenue</b> column returns <b>“--”</b> on all 11 campaigns ever sent, across all time. There is no revenue attribution configured anywhere in the account.</span></div><div class='rrow'><div class='rnum'>4</div><b>Which is why the two numbers differ</b><span>The dashboard counts what passed through an automation that is switched off. The sales record counts what was actually closed on the phone. Both are accurate reports of different things.</span></div><div class='rrow'><div class='rnum'>5</div><b>The second goal reports the same way</b><span><b>Overall Sales - CRM</b> reads <b>$0 of $100</b>. ActiveCampaign flags both goals <b>“Needs attention.”</b> The account has been telling you this since it was created.</span></div></div>
+    <div class="rfoot">
+      <div class="k">What this means</div>
+      <p>Nothing here is a people problem. The measurement layer was never switched on — which means decisions have been made against a number that was never being collected.</p>
+    </div>
+  </aside>
+
+  <main class="finds"><div class="find">
+          <div class="fhd"><div class="fnum">01</div><div><h3>Lead alerting is built, and switched off</h3></div></div>
+          <p class="fs">The speed-to-response layer already exists in the account. None of it is running, so first contact happens whenever someone thinks to look.</p>
+          <div class="frows"><div class='frow'><i>Facebook Lead SMS Notification</i><em>Inactive · 0 contacts · last edited 05 Aug</em></div><div class='frow'><i>New Lead — Personal Email Alert</i><em>Inactive · 0 contacts · last edited 05 Aug</em></div><div class='frow'><i>Cytokind Inc. 3-Email Welcome Sequence</i><em>Inactive · 0 contacts · last edited 05 Aug</em></div><div class='frow'><i>Master SMS List</i><em>0 contacts — no destination for any SMS alert</em></div><div class='frow'><i>New Lead — Instant Alert</i><em>Active · 0 contacts — never triggered</em></div><div class='frow'><i>Time to first contact</i><em>Not recorded anywhere in the account</em></div></div>
+          <div class="kick">Four objects built in one afternoon in August and never activated. Turning them on is a configuration change, not a project.</div>
+        </div><div class="find">
+          <div class="fhd"><div class="fnum">02</div><div><h3>Six of nine automations hold zero contacts</h3></div></div>
+          <p class="fs">The automation layer reports no throughput and no conversion data, so nothing downstream of a lead form can be measured.</p>
+          <div class="frows"><div class='frow'><i>Cytokind Phototherapy Prescription Sales Tracking</i><em>Active · 0 contacts — the sales tracker itself is empty</em></div><div class='frow'><i>On FB Psoriasis Leads · On FB MS Leads</i><em>Active · 0 contacts each</em></div><div class='frow'><i>Next Outreach Reminder · Calendly — Discovery Call Booked</i><em>Active · 0 contacts each</em></div><div class='frow'><i>Psoriasis Email 2 Follow Up</i><em>Active · 0 contacts</em></div><div class='frow'><i>Psoriasis Inquiry Form</i><em>Active · 46 contacts</em></div><div class='frow'><i>Light Therapy for MS Form</i><em>Active · 58 contacts</em></div><div class='frow'><i>Conversion Rate column</i><em>Returns “—” on every row, without exception</em></div></div>
+          <div class="kick">Only two automations carry contacts: the Psoriasis Inquiry Form (46) and the Light Therapy for MS Form (58).</div>
+        </div><div class="find">
+          <div class="fhd"><div class="fnum">03</div><div><h3>The email that works is not the one being sent</h3></div></div>
+          <p class="fs">Across 1,767 sends the account clicks at 2.09%. One campaign clears that by 4.5×, and it is the only one leading with cost and coverage rather than clinical proof.</p>
+          <div class="frows"><div class='frow'><i>Psoriasis — Check Your Coverage</i><em>35.19% open · <b>9.26% click</b> · 26.32% click-to-open</em></div><div class='frow'><i>68% Average Skin Clearance</i><em>33.33% open · <b>0.00% click</b></em></div><div class='frow'><i>CK — Email 3 — The Science</i><em>22.86% open · <b>0.00% click</b></em></div><div class='frow'><i>CK — Email 2 — Fatigue Assessment</i><em>21.15% open · 1.65% click</em></div><div class='frow'><i>CK — Email 1 — Scientific American</i><em>21.22% open · 2.68% click</em></div><div class='frow'><i>Account, all time</i><em>1,767 sent · 24.5% open · <b>2.09% click</b> · 8.55% CTOR</em></div></div>
+          <div class="kick">Opens are healthy. The drop is entirely at the click — a copy and offer-framing problem, not a deliverability or list problem.</div>
+        </div><div class="find">
+          <div class="fhd"><div class="fnum">04</div><div><h3>Deliverability and list structure are degrading</h3></div></div>
+          <p class="fs">List hygiene is starting to affect the sending domain. Mailbox providers begin throttling a sender above roughly 2%.</p>
+          <div class="frows"><div class='frow'><i>CK — Email 1 — Scientific American</i><em><b>5.85% bounce</b> — 24 hard bounces of 410 sent</em></div><div class='frow'><i>Same send, trailing 30 days</i><em><b>9.9% bounce</b> — 19 of 192</em></div><div class='frow'><i>Account, all time</i><em>2.6% bounce · 0.4% unsubscribe</em></div><div class='frow'><i>Lead capture forms in account</i><em><b>0</b> — no native capture form exists</em></div><div class='frow'><i>Segments</i><em>29 built · three are duplicates of the same 17 contacts</em></div><div class='frow'><i>Stale segments</i><em>Last refreshed 21 Aug · one July blast list, 172 of 179</em></div><div class='frow'><i>“Your prescription has been…”</i><em>Draft since 23 Jul · 0 recipients · never sent</em></div></div>
+          <div class="kick">Left alone, this degrades inbox placement for every future send, including the ones that are working.</div>
+        </div></main>
+</div>
+
+<section class="band">
+  <div class="bandl">
+    <div class="sech">Where it breaks</div>
+    <h4>The measurement chain, and the link that never fired</h4>
+  </div>
+  <div style="display:flex;align-items:center">
+    <div class="chain"><div class='node'>Meta lead form<span>executing</span></div><div class='arr'>›</div><div class='node'>Contact created in CRM<span>executing</span></div><div class='arr x'>›</div><div class='node break'>Pipeline automation<span>inactive · 0</span></div><div class='arr x'>›</div><div class='node dead'>Goal object<span>no input</span></div><div class='arr'>›</div><div class='node dead'>Dashboard + revenue<span>no input</span></div></div>
+    <div class="bandnote">A contact is created correctly and then stops. Everything downstream of the pipeline automation — the goal object, the conversion count, the revenue figure and the dashboard — inherits <b>zero</b> from it.</div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="ftl"><div class="k">Sequence</div><b>What gets fixed,<br>in this order</b></div>
+  <div class="fixl"><div>Activate the pipeline automation and backfill every contact already in the account, so the goal object reports a real number.</div><div>Configure revenue attribution and set a real target date, so the dashboard reconciles to what was actually sold.</div><div>Switch on SMS and email lead alerting and populate the SMS list, so first contact is measured in minutes.</div><div>Rebuild the nurture sequence around the coverage-and-cost angle that already clicks at 9.26%.</div><div>Run list hygiene and verify sending authentication to bring bounce back under 2%.</div></div>
+  <div class="sig"><b>Evolv AI</b>Prepared 4 September 2026<br>for CytoKind</div>
+</footer>
+
+</div>
+<script>
+(function(){
+  var W=1920,H=1200;
+  function fit(){
+    var p=document.querySelector('.page');
+    if(!p)return;
+    var s=Math.min(window.innerWidth/W, window.innerHeight/H, 1);
+    p.style.transform='scale('+s+')';
+    p.style.margin=((H*s-H)/2)+'px '+((W*s-W)/2)+'px';
+  }
+  window.addEventListener('resize',fit);
+  window.addEventListener('load',fit);
+  fit();
+})();
+</script>
+</body></html>
