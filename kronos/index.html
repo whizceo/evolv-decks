@@ -92,17 +92,6 @@ p{margin:0}
 .btn-on-dark:hover{background:#fff;color:var(--ink);border-color:#fff}
 :focus-visible{outline:2px solid var(--red);outline-offset:3px}
 
-/* ---------- topbar ---------- */
-.topbar{
-  background:var(--ink);color:#fff;font-family:var(--font-display);
-  font-size:12px;letter-spacing:var(--track);text-transform:uppercase;
-}
-.topbar .wrap{display:flex;gap:24px;align-items:center;justify-content:space-between;min-height:38px}
-.topbar a:hover{color:var(--red)}
-.topbar .sep{color:var(--steel)}
-.topbar .right{display:flex;gap:24px}
-@media(max-width:760px){.topbar .right{display:none}}
-
 /* ---------- nav ---------- */
 .nav{
   position:sticky;top:0;z-index:60;background:#fff;
@@ -120,6 +109,17 @@ p{margin:0}
 }
 .navlink:hover::after,.navlink[aria-current]::after{transform:scaleX(1)}
 .nav .btn{margin-left:var(--s8)}
+/* indirizzo nella barra bianca: micro-tipografia display, separato da un filetto */
+.navaddr{
+  display:none;margin-left:var(--s24);padding-left:var(--s24);
+  border-left:1px solid var(--rule);
+  font-family:var(--font-display);font-size:11px;letter-spacing:var(--track);
+  text-transform:uppercase;color:var(--steel);line-height:1.5;white-space:nowrap;
+}
+.navaddr b{display:block;font-weight:600;color:var(--ink)}
+.navaddr:hover{color:var(--red)}
+.navaddr:hover b{color:var(--red)}
+@media(min-width:1240px){.navaddr{display:block}}
 .burger{display:none;margin-left:auto;padding:10px;line-height:0}
 .burger span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0}
 @media(max-width:1080px){
@@ -137,6 +137,11 @@ p{margin:0}
   padding:14px 0;border-bottom:1px solid var(--rule);
 }
 .drawer .btn{margin-top:var(--s32);width:100%;justify-content:center;border-bottom:0}
+.drawer .drawer-addr{
+  font-size:13px;font-weight:500;color:var(--steel);border-bottom:0;
+  margin-top:var(--s24);padding:0;line-height:1.6;text-transform:uppercase;
+}
+.drawer .drawer-addr b{display:block;font-weight:600;color:var(--ink)}
 
 /* ---------- hero ---------- */
 .hero{
@@ -330,18 +335,6 @@ p{margin:0}
 </head>
 <body>
 
-<!-- ============ TOPBAR ============ -->
-<div class="topbar">
-  <div class="wrap">
-    <span>Kronos Moto — Milano</span>
-    <div class="right">
-      <a href="https://maps.google.com/?q=Via+Ajaccio+4,+20133+Milano" target="_blank" rel="noopener">Via Ajaccio 4, 20133 Milano</a>
-      <span class="sep">/</span>
-      <a href="tel:+390284541050">Tel. 02 84 54 10 50</a>
-    </div>
-  </div>
-</div>
-
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
   <div class="wrap">
@@ -354,7 +347,8 @@ p{margin:0}
       <a class="navlink" href="#chi-siamo">Chi siamo</a>
       <a class="navlink" href="#contatti">Contatti</a>
     </nav>
-    <a class="btn btn-red" href="#contatti">Prenota un intervento <span class="arw">&rarr;</span></a>
+    <a class="navaddr" href="https://maps.google.com/?q=Via+Ajaccio+4,+20133+Milano" target="_blank" rel="noopener"><b>Via Ajaccio, 4</b>20133 Milano</a>
+    <a class="btn btn-red" href="tel:+390284541050">Tel. 02 84 54 10 50</a>
     <button class="burger" id="burger" aria-label="Apri il menu" aria-expanded="false" aria-controls="drawer">
       <span></span><span></span><span></span>
     </button>
@@ -368,7 +362,8 @@ p{margin:0}
   <a href="#vendi">Vendi la tua moto</a>
   <a href="#chi-siamo">Chi siamo</a>
   <a href="#contatti">Contatti</a>
-  <a class="btn btn-red" href="#contatti">Prenota un intervento <span class="arw">&rarr;</span></a>
+  <a class="btn btn-red" href="tel:+390284541050">Tel. 02 84 54 10 50</a>
+  <a class="drawer-addr" href="https://maps.google.com/?q=Via+Ajaccio+4,+20133+Milano" target="_blank" rel="noopener"><b>Via Ajaccio, 4</b>20133 Milano (MI)</a>
 </div>
 
 <main id="top">
