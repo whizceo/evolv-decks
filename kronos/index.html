@@ -50,7 +50,7 @@ img{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
-h1,h2,h3,h4,.display,.eyebrow,.btn,.navlink,.stat-k,.brandmark{
+h1,h2,h3,h4,.display,.eyebrow,.btn,.navlink,.stat-k{
   font-family:var(--font-display);
   text-transform:uppercase;
   letter-spacing:var(--track);
@@ -231,9 +231,21 @@ p{margin:0}
 @media(max-width:640px){.checks{grid-template-columns:1fr}}
 
 /* ---------- brands ---------- */
-.brands{display:flex;flex-wrap:wrap;gap:var(--s16) var(--s40);align-items:center;justify-content:center}
-.brandmark{font-size:clamp(18px,2.2vw,28px);color:var(--ash);font-weight:500;transition:color .18s ease}
-.brandmark:hover{color:var(--ink)}
+.brands{display:flex;flex-wrap:wrap;gap:clamp(40px,7vw,110px);align-items:center;justify-content:center}
+.brandmark{display:inline-flex;align-items:center;line-height:0}
+.brandmark img{width:auto;opacity:.72;transition:opacity .22s ease,transform .22s cubic-bezier(.2,.7,.3,1)}
+.brandmark:hover img{opacity:1;transform:translateY(-3px)}
+/* heights are tuned per mark so the three read at the same optical weight */
+.b-mondial img{height:clamp(62px,6.4vw,96px)}
+.b-kl img{height:clamp(46px,4.8vw,72px)}
+.b-hero img{height:clamp(38px,3.8vw,56px)}
+@media(max-width:640px){
+  .brands{flex-direction:column;gap:var(--s40)}
+  .b-mondial img{height:66px}
+  .b-kl img{height:48px}
+  .b-hero img{height:40px}
+}
+@media(prefers-reduced-motion:reduce){.brandmark:hover img{transform:none}}
 
 /* ---------- faq ---------- */
 .faq-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr);gap:clamp(32px,5vw,var(--s80))}
@@ -514,18 +526,11 @@ p{margin:0}
 <!-- ============ BRANDS ============ -->
 <section class="section marble">
   <div class="wrap reveal" style="text-align:center">
-    <p class="eyebrow" style="justify-content:center">Officina multimarca</p>
-    <div class="brands" style="margin-top:40px">
-      <span class="brandmark">Ducati</span>
-      <span class="brandmark">Yamaha</span>
-      <span class="brandmark">Honda</span>
-      <span class="brandmark">Kawasaki</span>
-      <span class="brandmark">Suzuki</span>
-      <span class="brandmark">BMW</span>
-      <span class="brandmark">KTM</span>
-      <span class="brandmark">Aprilia</span>
-      <span class="brandmark">Triumph</span>
-      <span class="brandmark">MV Agusta</span>
+    <p class="eyebrow" style="justify-content:center">Marchi trattati</p>
+    <div class="brands" style="margin-top:48px">
+      <span class="brandmark b-mondial"><img src="img/brands/mondial.png" alt="F.B Mondial" width="276" height="180" loading="lazy"></span>
+      <span class="brandmark b-kl"><img src="img/brands/kl.png" alt="KL Motorcycle" width="568" height="180" loading="lazy"></span>
+      <span class="brandmark b-hero"><img src="img/brands/hero.png" alt="Hero" width="561" height="180" loading="lazy"></span>
     </div>
   </div>
 </section>
