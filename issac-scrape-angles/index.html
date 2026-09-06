@@ -1,0 +1,134 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ISSAC — Scrape Angles, what came back</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16181a;--acc:#1c5d43;--paper:#fdfdfb;--line:#e3e1db;--mut:#6b6f72;--band:#f7f7f4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.62 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+header{border-bottom:1px solid var(--line);padding:64px 0 34px;margin-bottom:44px}
+.kicker{font:600 11px/1 Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:18px}
+h1{font:400 clamp(34px,5.2vw,58px)/1.06 Newsreader,Georgia,serif;letter-spacing:-.02em;margin:0 0 16px}
+.sub{font:400 clamp(17px,2vw,21px)/1.5 Newsreader,Georgia,serif;color:var(--mut);max-width:62ch;margin:0}
+.meta{margin-top:22px;font:400 12.5px/1.5 JetBrains Mono,monospace;color:var(--mut)}
+h2{font:400 clamp(23px,3vw,31px)/1.15 Newsreader,Georgia,serif;letter-spacing:-.01em;margin:64px 0 8px}
+h2:first-of-type{margin-top:0}
+.lede{color:var(--mut);max-width:70ch;margin:0 0 24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:38px 0 8px}
+.stat{background:var(--paper);padding:22px 20px}
+.stat b{display:block;font:600 30px/1 Inter;letter-spacing:-.02em}
+.stat span{display:block;margin-top:7px;font:400 12.5px/1.4 Inter;color:var(--mut)}
+.scroll{overflow-x:auto;border:1px solid var(--line);margin:8px 0 4px}
+table{border-collapse:collapse;width:100%;min-width:900px;font-size:14px}
+th{background:var(--ink);color:#fff;font:600 10.5px/1.3 Inter;letter-spacing:.09em;text-transform:uppercase;
+   text-align:left;padding:13px 14px;vertical-align:bottom;white-space:nowrap}
+td{padding:14px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:var(--band)}
+.n{font-weight:600;min-width:190px}
+.num{font:600 13px/1.5 JetBrains Mono,monospace;white-space:nowrap;text-align:right}
+.c{font:400 12.5px/1.5 JetBrains Mono,monospace;color:var(--mut);white-space:nowrap}
+.real{color:var(--acc);font-weight:600}
+.d{color:var(--mut);font-size:13.5px;min-width:300px}
+.q{font-family:JetBrains Mono,monospace;font-size:12px}
+.b{white-space:nowrap}
+.pill{display:inline-block;padding:3px 9px;border-radius:2px;font:600 10.5px/1.4 Inter;letter-spacing:.04em;white-space:nowrap}
+.pill.ok{background:#d9eae1;color:#14503a}
+.pill.mid{background:#faf0dc;color:#7a5a18}
+.pill.no{background:#f7dede;color:#8a2b2b}
+.note{border-left:2px solid var(--acc);padding:2px 0 2px 20px;margin:30px 0;max-width:72ch}
+.note p{margin:0 0 10px} .note p:last-child{margin:0}
+.note b{font-weight:600;color:var(--ink)}
+ol.next{max-width:76ch;padding-left:0;list-style:none;counter-reset:s;margin:22px 0 0}
+ol.next li{counter-increment:s;position:relative;padding:16px 0 16px 46px;border-top:1px solid var(--line)}
+ol.next li:before{content:counter(s);position:absolute;left:0;top:16px;font:600 12px/1.9 JetBrains Mono,monospace;
+   width:24px;height:24px;text-align:center;border:1px solid var(--line);color:var(--acc)}
+ol.next b{display:block;font-weight:600;margin-bottom:2px}
+ol.next span{color:var(--mut);font-size:14px}
+footer{margin:80px 0 60px;padding-top:26px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--paper);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+.mobile-block .mb-title{font:400 2rem/1.1 Newsreader,Georgia,serif;color:var(--ink);margin-bottom:14px}
+.mobile-block .mb-kicker{font:600 11px/1 Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:20px}
+.mobile-block .mb-sub{font-size:.95rem;color:var(--mut);max-width:340px;line-height:1.6}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+@media(max-width:640px){header{padding-top:40px} .wrap{padding:0 18px}}
+</style></head><body>
+<div class="mobile-block">
+  <div class="mb-kicker">Evolv One</div>
+  <div class="mb-title">Open on desktop</div>
+  <div class="mb-sub">This report is a wide data table — open it on a laptop to read it properly.</div>
+</div>
+<div class="wrap">
+<header>
+  <div class="kicker">Evolv One · Issac · lead-list build</div>
+  <h1>Scrape angles — what actually came back</h1>
+  <p class="sub">The second sheet of the list build, executed overnight on 6 September 2026. Seventeen angles, sixteen free tools tested live against a real Texas business, and four of the sheet's paid line-items retired.</p>
+  <div class="meta">Run 2026-09-06 · outputs in clients/ISSAC/lists/scrape/ · workbook ISSAC-3-SCRAPE-ANGLES-RESULTS.xlsx</div>
+</header>
+
+<div class="stats">
+  <div class="stat"><b>11</b><span>angles built and run</span></div>
+  <div class="stat"><b>15/16</b><span>free tools verified live</span></div>
+  <div class="stat"><b>6</b><span>paid line-items made free</span></div>
+  <div class="stat"><b>274,652</b><span>SBA loans, keyless</span></div>
+  <div class="stat"><b>1,526</b><span>businesses suppressed</span></div>
+</div>
+
+<h2>What changes about the money</h2>
+<p class="lede">The sheet priced five angles as paid work. Four of them turned out to have a free path that had simply not been looked for, and one of them is genuinely worth buying.</p>
+<div class="note">
+  <p><b>Officer and owner-name match</b> — the sheet says a Secretary of State quote is needed. It was built twice for nothing, from two separate government files. No quote is needed.</p>
+  <p><b>UCC-1 maturity map</b> — priced at roughly one to five dollars per name, which makes it unbuildable across a 261,000-row registry. A free federal file replaces it and carries more: the loan amount and the origination date, neither of which a UCC-1 gives you.</p>
+  <p><b>Careers pulse and website time-travel</b> — both budgeted for Apify. Plain HTTP and the keyless Wayback API do the work, and staying off the search engines makes them immune to the blocks that killed press mining.</p>
+  <p><b>Owner's last review reply</b> — this one really does cost money. Google Maps has no free API and blocked direct access. It is the highest-scored angle on the sheet, and the sheet's price was right.</p>
+</div>
+
+<h2>Every angle, and what it produced</h2>
+<p class="lede">Row counts are read from the output files themselves. Where a source refused, the row says the source refused rather than reporting an empty result.</p>
+<div class="scroll"><table><thead><tr>
+<th>Status</th><th>Angle</th><th>Rows</th><th>Sheet cost</th><th>Real cost</th><th>What the number means</th>
+</tr></thead><tbody><tr class="shipped"><td class="b"><span class="pill ok">Shipped</span></td><td class="n">Appraisal-district sweep</td><td class="num">13,915</td><td class="c">$0</td><td class="c real">$0</td><td class="d">Harris County business personal property, straight from the appraisal district's bulk file.</td></tr><tr class="shipped"><td class="b"><span class="pill ok">Shipped</span></td><td class="n">Multi-year BPP delta</td><td class="num">4,520</td><td class="c">$0</td><td class="c real">$0</td><td class="d">Dallas CAD. A falling BPP value year over year is equipment leaving the building.</td></tr><tr class="shipped"><td class="b"><span class="pill ok">Shipped</span></td><td class="n">Officer / owner-name match</td><td class="num">12,244</td><td class="c">SOS quote</td><td class="c real">$0</td><td class="d">FMCSA carrier census. Only rows where the business is an actual carrier count — a non-carrier match is a namesake and is labelled as one.</td></tr><tr class="shipped"><td class="b"><span class="pill ok">Shipped</span></td><td class="n">Officer match, second source</td><td class="num">2,325</td><td class="c">SOS quote</td><td class="c real">$0</td><td class="d">TDLR trade licences. 659 real named individuals plus 1,437 phones; the other 1,666 “owner names” are the company name echoed back, and are separated rather than averaged in.</td></tr><tr class="shipped"><td class="b"><span class="pill ok">Shipped</span></td><td class="n">Environmental screen</td><td class="num">9,248</td><td class="c">$0</td><td class="c real">$0</td><td class="d">EPA ECHO. A permit tied to a site is an asset that transfers with a sale.</td></tr><tr class="shipped"><td class="b"><span class="pill ok">Shipped</span></td><td class="n">Second entity, same address</td><td class="num">6,261</td><td class="c">$0</td><td class="c real">$0</td><td class="d">Owners split the real estate into a holdco before they sell. Capped at three entities per address so office parks don't flood it.</td></tr><tr class="shipped"><td class="b"><span class="pill ok">Shipped</span></td><td class="n">Form 5500 join</td><td class="num">4,029</td><td class="c">$0</td><td class="c real">$0</td><td class="d">A company with a filed retirement plan has an owner with a retirement date.</td></tr><tr class="shipped"><td class="b"><span class="pill ok">Shipped</span></td><td class="n">Anniversary calendar</td><td class="num">7,948</td><td class="c">$0</td><td class="c real">$0</td><td class="d">A round-number trading anniversary is a legitimate, non-creepy reason to make contact.</td></tr><tr class="gated"><td class="b"><span class="pill ok">Shipped, re-run</span></td><td class="n">Website time-travel</td><td class="num">33</td><td class="c">Apify</td><td class="c real">$0</td><td class="d">Wayback CDX is keyless — Apify is not needed. Ran on 33 domains because the resolver was still running; re-run now that it has finished.</td></tr><tr class="gated"><td class="b"><span class="pill ok">Shipped, re-run</span></td><td class="n">Careers-page pulse</td><td class="num">34</td><td class="c">Apify</td><td class="c real">$0</td><td class="d">Plain HTTP against the company's own site. “No careers page” is not a decline signal — most forty-year-old shops never had one.</td></tr><tr class="gated"><td class="b"><span class="pill ok">Shipped, re-run</span></td><td class="n">Domain + email fingerprint</td><td class="num">34</td><td class="c">free</td><td class="c real">$0</td><td class="d">RDAP plus certificate transparency, both keyless.</td></tr><tr class="blocked"><td class="b"><span class="pill no">Blocked at source</span></td><td class="n">Local-press mining</td><td class="num">25</td><td class="c">~$100/yr</td><td class="c real">blocked</td><td class="d">Google News 503, Bing recall gone, Yahoo zero items, GDELT indexes national outlets only. The rows that exist are a parser proof. Zero rows does not mean no press — it means nobody could be asked.</td></tr><tr class="ready"><td class="b"><span class="pill mid">Source ready</span></td><td class="n">UCC-1 maturity map</td><td class="num">274,652 loans</td><td class="c">~$1–5 each</td><td class="c real">$0</td><td class="d">Replaced by 274,652 Texas SBA loans from USAspending, keyless. It carries the loan amount and the origination date, which a UCC-1 filing does not. 2020–21 are excluded on purpose: PPP ran under the same authority and is not term debt.</td></tr><tr class="ready"><td class="b"><span class="pill mid">Source ready</span></td><td class="n">Zoning + infrastructure overlay</td><td class="num">source verified live</td><td class="c">$0</td><td class="c real">$0</td><td class="d">Austin and Dallas Socrata permit endpoints both answered 200 keyless today. Dallas carries contractor and job value. Covers two cities, not 254 counties.</td></tr><tr class="ready"><td class="b"><span class="pill mid">Source ready</span></td><td class="n">Machinery listing watch</td><td class="num">pattern proven</td><td class="c">~$0</td><td class="c real">$0</td><td class="d">Same snapshot-then-diff machinery as the marketplace angle. The delisting is the signal, so it says nothing until there are two dated snapshots.</td></tr><tr class="pay"><td class="b"><span class="pill mid">Worth paying</span></td><td class="n">Owner's last review reply</td><td class="num">—</td><td class="c">~$50/10k</td><td class="c real">~$50/10k — correct</td><td class="d">Google Maps has no free API and blocked direct access (302 to a consent wall, tested). Highest-scored angle on the sheet, and the one place the sheet's paid cost was right. Worth buying.</td></tr><tr class="pay"><td class="b"><span class="pill mid">Worth paying</span></td><td class="n">Registered-agent change</td><td class="num">—</td><td class="c">~$60/mo</td><td class="c real">~$60/mo — correct</td><td class="d">Texas SOS bulk and SOSDirect are both billed and the free Comptroller files carry no agent column. Nothing free beats it.</td></tr><tr class="manual"><td class="b"><span class="pill mid">Hand-built</span></td><td class="n">Association past-presidents</td><td class="num">—</td><td class="c">$0</td><td class="c real">labour, not money</td><td class="d">Free in principle, but every trade body publishes officers in a different shape and there is no index of Texas associations to crawl. Start it once the trade Issac sells into is named.</td></tr></tbody></table></div>
+
+<h2>The sixteen free tools, called live</h2>
+<p class="lede">A list of tool names is worth nothing — half the free scrapers on any blog are dead, throttled to uselessness, or quietly require a key. Each of these was called with a real business from the registry, and the evidence column is what came back.</p>
+<div class="scroll"><table><thead><tr>
+<th>Status</th><th>Tool</th><th>Replaces</th><th>Evidence returned</th>
+</tr></thead><tbody><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">Socrata / SODA (data.texas.gov)</td><td class="d">Apify actors over state data</td><td class="d q">1 outlet rows for taxpayer 17529674578 — A-I-Q AUTO INC.</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">USAspending bulk + search API</td><td class="d">SOSDirect UCC-1 search</td><td class="d q">3 TX SBA loan awards returned, first Issued Date=2016-08-31</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">Wayback CDX API</td><td class="d">Apify + paid archive tooling</td><td class="d q">6 captures of aiqauto.com, earliest 20230219</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">EPA ECHO REST</td><td class="d">paid environmental screening</td><td class="d q">3,824 EPA-regulated facilities in Fort Worth TX</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">FMCSA census (data.transportation.gov)</td><td class="d">SOS officer lookup</td><td class="d q">3 TX carrier rows, sample FLYING H EXPRESS INC</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">FEC bulk individual contributions</td><td class="d">paid people-data vendors</td><td class="d q">HTTP 206, 2048 bytes, ZIP magic OK — full indiv24.zip is the a07 source</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">crt.sh certificate transparency</td><td class="d">paid domain intel</td><td class="d q">511 TLS certificates logged for aiqauto.com</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">RDAP (rdap.org)</td><td class="d">paid WHOIS API</td><td class="d q">AIQAUTO.COM registered 2023-01-18</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">Austin Socrata permits</td><td class="d">agenda scrape + paid GIS</td><td class="d q">3 Austin construction permits, 28 columns incl. issue_date + work_class</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">Dallas Socrata permits</td><td class="d">agenda scrape + paid GIS</td><td class="d q">3 Dallas building permits incl. contractor + value</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">DuckDB (local engine)</td><td class="d">BigQuery / hosted warehouse</td><td class="d q">DuckDB v1.5.5 read 261,313 registry rows with no database server</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">Plain urllib + soft-404 gate</td><td class="d">Apify generic scraper</td><td class="d q">5,372 bytes from aiqauto.com, page names the business</td></tr><tr><td class="b"><span class="pill mid">Flaky</span></td><td class="n">DuckDuckGo HTML endpoint</td><td class="d">Serper / Brave paid search</td><td class="d q">RuntimeError: INTERMITTENT — 3 attempts, last: URLError. NOT dead: resolve_domains.py is pulling evidenc</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">GDELT DOC 2.0</td><td class="d">paid news API</td><td class="d q">3 articles on a NATIONAL control term (fails on Texas SMB names)</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">Overpass / OpenStreetMap</td><td class="d">Google Places API</td><td class="d q">3 OSM car-repair nodes in the Fort Worth box</td></tr><tr><td class="b"><span class="pill ok">Live</span></td><td class="n">Common Crawl index</td><td class="d">Apify crawler</td><td class="d q">control texas.gov = 65 captures in CC-MAIN-2026-34 (endpoint LIVE); aiqauto.com = 0. ⚠ Common Crawl does not reach small Texas business sites — useful for large domains only.</td></tr></tbody></table></div>
+
+<h2>Two things found that were not on the sheet</h2>
+<div class="note">
+  <p><b>261,313 registry rows audited</b> against two independently published Comptroller files. 323 businesses are confirmed closed and still sitting in the list — 174 of them the registry still marks as active. Closure is only ever asserted when a second file records a closure date; absence alone is written as unverifiable, because a service business can surrender a permit and trade on for decades.</p>
+  <p><b>104,299 outlet records</b> across 1.45 million Texas sales-tax outlets. 1,293 businesses are quietly shutting locations while still trading. This is the only angle in the build that reads decline off a government file with a date on it instead of inferring it from silence, and its verdict arrives before the business is gone. Two traps are guarded: a chain closing 52 of 347 stores is a property team's decision rather than an owner's, and a surrendered permit followed by a new one within 180 days is a move, not a death.</p>
+</div>
+
+<h2>The rule that shaped every file</h2>
+<div class="note">
+  <p>A blocked request is not an empty result. Nothing in these files reports “nothing found” unless the source was actually reached and actually answered.</p>
+  <p>This matters more than it sounds. If a rate-limited search gets written down as “this company has no website”, that false negative is indistinguishable from a fact and nobody downstream can catch it. Six separate false signals were caught in this run's own output, and each was labelled rather than deleted — a deleted row is invisible, a labelled row can be checked.</p>
+  <p>The same rule caught the tool audit itself: the first pass reported five dead tools, and four of them were bugs in the probe, not dead tools.</p>
+</div>
+
+<h2>Honest gaps — read before trusting a blank</h2>
+<div class="note">
+  <p><b>Local press is dead as a source.</b> Google News, Bing, Yahoo and GDELT were all tested. Zero press rows means nobody could be asked, not that there is no coverage.</p>
+  <p><b>Websites resolved for 55% of the 3,000 tested</b> — 1,636 evidenced, plus 891 unverified candidates held back for review. 473 names were never searched at all because the free endpoint refused, and those are logged as not asked rather than as no website.</p>
+  <p><b>Three angles ran on the evidenced domains only.</b> Their small row counts prove the code works; they are not a measure of how many businesses qualify.</p>
+</div>
+
+<h2>What happens next</h2>
+<ol class="next">
+  <li><b>Re-run time-travel, fingerprint and careers at full scale</b><span>The resolver finished with 1,636 evidenced websites, up from the 33 those three ran against. About thirty minutes.</span></li>
+  <li><b>Build the loan angle on the SBA snapshot</b><span>274,652 loans are already on disk. This is the free UCC-1 replacement and the largest cost saving on the sheet.</span></li>
+  <li><b>Decide on the review-reply angle</b><span>Roughly $50 per 10,000. Highest-scored angle on the sheet and the only one with no free path. Everything else is now free.</span></li>
+  <li><b>Load the suppression file as a hard filter</b><span>1,526 businesses. 1,203 are already listed with a broker — approaching those is tortious interference and a risk to Issac's licence, not a data-quality preference.</span></li>
+  <li><b>Drop or flag the 323 confirmed-closed rows</b><span>In the freshness audit, marked SUPPRESS. 174 of them the registry still shows as active.</span></li>
+  <li><b>Take the second marketplace snapshot</b><span>A delisting means nothing until there are two dated snapshots. The first is dated 6 September.</span></li>
+</ol>
+
+<footer>Built by Claude for Evolv One · rebuild via clients/ISSAC/_build/build_angles_report.py · never hand-edit this page</footer>
+</div></body></html>
