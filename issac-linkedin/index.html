@@ -1,0 +1,359 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ISSAC — LinkedIn Content Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16181a;--acc:#1c5d43;--paper:#fdfdfb;--line:#e3e1db;--mut:#6b6f72;--band:#f7f7f4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+     font:400 17px/1.68 Newsreader,Georgia,serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.col{max-width:70ch;margin:0 auto}
+
+header{border-bottom:1px solid var(--line);padding:88px 0 46px;margin-bottom:0}
+.kicker{font:600 11px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:22px}
+h1{font:400 clamp(38px,6.4vw,74px)/1.02 Newsreader,Georgia,serif;letter-spacing:-.025em;margin:0 0 20px;max-width:16ch}
+.sub{font:400 clamp(18px,2.2vw,23px)/1.48 Newsreader,Georgia,serif;color:var(--mut);max-width:60ch;margin:0}
+.meta{margin-top:30px;font:400 12px/1.7 JetBrains Mono,monospace;color:var(--mut);letter-spacing:.01em}
+
+.toc{border-bottom:1px solid var(--line);padding:30px 0 34px;
+     font:400 13.5px/1.9 Inter,sans-serif;color:var(--mut)}
+.toc a{color:var(--mut);text-decoration:none;border-bottom:1px solid transparent;margin-right:26px;white-space:nowrap;display:inline-block}
+.toc a:hover{color:var(--acc);border-bottom-color:var(--acc)}
+
+.part{border-top:1px solid var(--ink);margin-top:96px;padding-top:14px}
+.partno{font:600 11px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+h2{font:400 clamp(28px,4vw,44px)/1.08 Newsreader,Georgia,serif;letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.deck{font:400 18px/1.5 Newsreader,Georgia,serif;color:var(--mut);max-width:62ch;margin:0 0 8px}
+
+h3{font:600 20px/1.32 Inter,sans-serif;letter-spacing:-.01em;margin:62px 0 4px;max-width:34ch}
+h3 .no{display:block;font:600 11px/1.6 JetBrains Mono,monospace;color:var(--acc);letter-spacing:.1em;margin-bottom:9px}
+h4{font:600 13px/1.4 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--acc);margin:52px 0 14px}
+p{margin:0 0 20px}
+.lead::first-letter{float:left;font:400 62px/.82 Newsreader,Georgia,serif;padding:6px 10px 0 0;color:var(--acc)}
+em{font-style:italic}
+strong{font-weight:600}
+
+.pull{border-left:2px solid var(--acc);padding:6px 0 6px 24px;margin:34px 0;
+      font:400 22px/1.42 Newsreader,Georgia,serif;letter-spacing:-.01em;max-width:52ch}
+.note{background:var(--band);border:1px solid var(--line);padding:22px 26px;margin:34px 0;
+      font:400 15px/1.62 Inter,sans-serif;color:var(--mut)}
+.note b{color:var(--ink);font-weight:600}
+.note p{margin:0 0 12px}.note p:last-child{margin:0}
+.src{font:600 10.5px/1.4 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;
+     display:inline-block;padding:3px 8px;border-radius:2px;vertical-align:1px;margin-right:8px}
+.src.doc{background:#eff4f1;color:#14503a}
+.src.data{background:#d9eae1;color:#14503a}
+.src.read{background:#faf0dc;color:#7a5a18}
+
+.scroll{overflow-x:auto;border:1px solid var(--line);margin:38px 0;
+        width:min(1124px,calc(100vw - 56px));margin-left:50%;transform:translateX(-50%)}
+table{border-collapse:collapse;width:100%;min-width:760px;font:400 14px/1.55 Inter,sans-serif}
+th{background:var(--ink);color:#fff;font:600 10.5px/1.3 Inter,sans-serif;letter-spacing:.09em;
+   text-transform:uppercase;text-align:left;padding:13px 14px;vertical-align:bottom}
+td{padding:14px;border-top:1px solid var(--line);vertical-align:top;color:var(--mut)}
+td:first-child{color:var(--ink);font-weight:600}
+tbody tr:nth-child(even){background:var(--band)}
+.mono{font:400 12px/1.5 JetBrains Mono,monospace;white-space:nowrap}
+
+ol.rules{list-style:none;counter-reset:r;padding:0;margin:26px 0 0;max-width:74ch}
+ol.rules li{counter-increment:r;position:relative;padding:20px 0 20px 52px;border-top:1px solid var(--line);
+            font:400 16px/1.6 Inter,sans-serif}
+ol.rules li:before{content:counter(r);position:absolute;left:0;top:20px;width:28px;height:28px;
+   border:1px solid var(--line);color:var(--acc);text-align:center;
+   font:600 12px/2.2 JetBrains Mono,monospace}
+ol.rules li b{font-weight:600;color:var(--ink)}
+
+ul.plain{list-style:none;padding:0;margin:22px 0;max-width:74ch}
+ul.plain li{padding:13px 0 13px 30px;border-top:1px solid var(--line);position:relative;
+            font:400 15.5px/1.6 Inter,sans-serif;color:var(--mut)}
+ul.plain li:before{content:"\2014";position:absolute;left:0;top:13px;color:var(--acc)}
+ul.plain li b{color:var(--ink);font-weight:600}
+ul.plain.no li:before{content:"\2715";color:#8a2b2b;font-size:12px;top:15px}
+
+/* ── post cards ─────────────────────────────────────────────────────── */
+.post{border-top:1px solid var(--ink);margin:70px 0 0;padding-top:0}
+.posthead{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;padding:16px 0 4px;
+          font:600 10.5px/1.4 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.posthead .n{font:600 12px/1 JetBrains Mono,monospace;color:var(--acc);letter-spacing:.1em}
+.posthead .t{color:var(--ink)}
+.tag{border:1px solid var(--line);padding:3px 8px;border-radius:2px;background:var(--band)}
+.tag.b{background:#d9eae1;color:#14503a;border-color:#c3ddd0}
+.tag.a{background:#fff;color:var(--mut)}
+.caption{border:1px solid var(--line);background:#fff;padding:30px 32px;margin:20px 0 0;max-width:62ch;
+         font:400 16.5px/1.62 Inter,sans-serif;color:var(--ink);white-space:pre-wrap}
+.caption .fold{display:block;border-bottom:1px dashed var(--line);margin:16px 0 14px;padding:0 0 4px;
+       font:600 9.5px/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#b9b6ae}
+.hookline{font-weight:600}
+.imgcard{margin:22px 0 0;max-width:62ch;border:1px solid var(--line);background:var(--band);padding:26px 30px}
+.imgcard .lab{font:600 10px/1.4 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
+.imgcard .line{font:400 25px/1.22 Newsreader,Georgia,serif;color:var(--ink);margin:0 0 16px;max-width:22ch}
+.imgcard .cap{font:400 12px/1.4 JetBrains Mono,monospace;color:var(--mut);border-top:1px solid var(--line);padding-top:12px}
+.why{margin:18px 0 0;max-width:62ch;font:400 14.5px/1.6 Inter,sans-serif;color:var(--mut)}
+.why b{color:var(--acc);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:10.5px}
+
+footer{border-top:1px solid var(--ink);margin-top:110px;padding:40px 0 90px;
+       font:400 13px/1.8 JetBrains Mono,monospace;color:var(--mut)}
+@media(max-width:640px){
+  body{font-size:16px}
+  header{padding:56px 0 34px}
+  .part{margin-top:66px}
+  .pull{font-size:19px}
+  .caption{padding:22px 20px;font-size:15.5px}
+  .imgcard{padding:20px}
+  .imgcard .line{font-size:21px}
+}
+</style></head><body>
+
+<header><div class="wrap">
+  <div class="kicker">Broker Social Solutions · content phase 1</div>
+  <h1>The hook test</h1>
+  <p class="sub">A sixteen-week LinkedIn strategy with one objective, one instrument and one indicator.
+  Built to find the sentences that stop a 62-year-old Texas business owner, and to find nothing else.</p>
+  <div class="meta">v1 — for Issac's approval · 6 September 2026 · Evolv AI for Broker Social Solutions<br>
+  Companion to the ICP psychographic &amp; soul. Confidential.</div>
+</div></header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#decision">01 The decision</a><a href="#why">02 Why LinkedIn</a>
+  <a href="#metric">03 Instrument &amp; indicator</a><a href="#funnel">04 The funnel</a>
+  <a href="#types">05 Content types</a><a href="#design">06 Test design</a>
+  <a href="#shapes">07 Post shapes</a><a href="#caption">08 Caption law</a>
+  <a href="#voice">09 The voice</a><a href="#image">10 The image test</a>
+  <a href="#preflight">11 Pre-flight</a><a href="#ritual">12 The ritual</a>
+  <a href="#posts">13 The first ten posts</a><a href="#phase2">14 Phase 2</a>
+</div></nav>
+
+<main class="wrap"><div class="col">
+
+<div id="decision"><div class="part"><div class="partno">Part one</div><h2>The decision</h2><p class="deck">Eight lines that define the whole of phase 1. If a thing is not on this list, it is not being done.</p></div></div>
+<div><ol class='rules'><li><b>The objective of phase 1</b><br>Find the sentences that make a 62-year-old Texas business owner stop scrolling. Nothing else is being attempted, measured or optimised for sixteen weeks.</li><li><b>Why only that</b><br>Everything downstream — the offer, the lead magnet, the funnel, the newsletter, the video — is built on top of a hook that works. Build any of it first and you are decorating a guess.</li><li><b>The instrument</b><br>OWNER REACH. One number, taken from the post's own analytics panel. It scores the hooks.</li><li><b>The indicator</b><br>QUALIFIED OWNER REPLY. One number, counted by hand on a Friday. It judges the strategy.</li><li><b>Everything else</b><br>Ignored for ninety days. Followers, likes, impressions in aggregate, comments from other brokers, connection requests, profile views. Not tracked, not reported, not discussed.</li><li><b>Who writes</b><br>Issac. First person, always. A man who has been in the room, not a firm with a point of view.</li><li><b>What is not in phase 1</b><br>No lead magnet. No newsletter. No video. No carousel. No link. No booking page. No call to action beyond a plain sentence. No follow-up sequence. No automation on the account.</li><li><b>How long before it means anything</b><br>Four weeks to a first read on the territories. Sixteen weeks to a decision. The account will look like it is doing nothing for the first three of those weeks. It is not.</li></ol></div>
+
+<div id="why"><div class="part"><div class="partno">Part two</div><h2>Why this happens on LinkedIn</h2><p class="deck">Not because it is a marketing channel. Because of four specific things about this man.</p></div></div>
+<div><h3>Follow-up sequences kill him, and content does not</h3><p><span class='src data'>DATA</span>The most fatal line in the whole psychographic: <b>the second automated message proves the first one was automated.</b> Email forces you to choose between one shot and being found out. Content removes the choice. You publish, you never chase, and the waiting is done by the work.</p><h3>He looks you up before he replies, not after</h3><p><span class='src read'>READ</span>'Be useful first, for months. He will look you up himself.' That look-up is the actual conversion event in this market, and the profile plus the last twenty posts is what he finds. The account is not a channel. It is the thing the cold email is checked against.</p><h3>He can read without being seen reading</h3><p><span class='src read'>READ</span>This man has carried the decision alone for two to six years specifically so that nobody knows he is thinking about it. A post can be read at eleven at night with nobody notified. A reply to an email is a disclosure. That asymmetry is the entire reason this works.</p><h3>It is the only place recognition scales</h3><p><span class='src doc'>DOC</span>One verifiable fact about his company is what starts a conversation — and it does not scale. Recognition of his <i>situation</i> does scale, and it is the next best thing. LinkedIn is where one sentence can be true about four hundred men at once without being generic.</p><h3>The audience is small, so precision beats volume</h3><p><span class='src doc'>DOC</span>494,881 businesses in the 27 priority counties, of which the real target is a few thousand men. A post that reaches 800 of the right people beats one that reaches 40,000 of the wrong ones, and on LinkedIn you can see which one happened.</p></div>
+
+<div id="metric"><div class="part"><div class="partno">Part three</div><h2>One instrument, one indicator</h2><p class="deck">The instrument ranks the hooks. The indicator judges the strategy. Everything else is ignored.</p></div></div>
+<div>
+  <div class='note'><p>The original engine note said the metric is <b>stop rate</b> — impressions to a meaningful dwell. That is the correct concept and it is <b>not directly measurable on LinkedIn</b>. LinkedIn does not expose dwell time or expand rate on a personal profile, and it never has. Building a sixteen-week test on a number that cannot be read would have wasted the sixteen weeks. So the concept is kept and the measurement is replaced with the closest thing the platform actually reports.</p></div>
+  <h4>The instrument — Owner Reach</h4>
+  <ol class='rules'><li><b>What it is</b><br><b>OWNER REACH</b> = post impressions × the share of viewers LinkedIn reports as Owner / Founder / President / CEO seniority. Rounded to the nearest ten. One number per post.</li><li><b>Where it comes from</b><br>The post's own analytics panel. Impressions is the headline number; the seniority and location splits are two taps down under 'Top demographics'. Two minutes per post.</li><li><b>Why impressions are a legitimate proxy for stopping</b><br>LinkedIn's ranking system expands a post's distribution when early dwell is high and suppresses it when it is not. Impressions are the observable shadow of dwell. You cannot see the cause; you can see what the cause produced.</li><li><b>Why the seniority filter is not optional</b><br>Raw impressions on a broker's account are dominated by other brokers, coaches and advisors. That traffic is real, it is worthless, and it will happily make a bad hook look like a good one. Multiplying by owner share removes the entire failure mode.</li><li><b>How a hook is scored</b><br><b>Owner Reach Index</b> = this post's Owner Reach ÷ the median Owner Reach of the trailing ten posts. Above 1.3 = the territory keeps its slot. Below 0.7 = it is a candidate for the cull. The first ten posts have no trailing median, so they set the baseline and score nothing.</li><li><b>What it is not</b><br>It is not engagement, it is not a like count and it is not a leading indicator of revenue. It is a ruler for hooks. That is the whole of its job.</li></ol>
+  <h4>The indicator — Qualified Owner Reply</h4>
+  <ol class='rules'><li><b>What it is</b><br><b>QUALIFIED OWNER REPLY (QOR)</b> — one comment or one direct message from a person whose LinkedIn profile shows an owner-level title at a Texas business in the target trades.</li><li><b>What counts</b><br>Owner, President, Founder, Partner, CEO, General Manager-with-equity. Texas. The business is real, is at least five years old, and is not a brokerage, a fund, an advisory or a marketing company.</li><li><b>What does not count</b><br>Every other broker. Every coach, consultant, fractional anything, lender, insurance man and search-fund associate. Anybody outside Texas. Anybody who liked it and said nothing.</li><li><b>How it is counted</b><br>By hand, once a week, on a Friday, into one line: <span class='mono'>week / QOR count / who</span>. No dashboard. Building a dashboard for a number that will be 0, 0, 0, 1, 0, 2 is theatre.</li><li><b>Why this is the only indicator</b><br>One reply from a 64-year-old machine-shop owner in Rockwall County is worth more to this business than four hundred impressions from the industry, because one seller listing is worth six figures. The economics of the business make every other number a distraction.</li><li><b>What it will be for the first month</b><br>Zero. Probably zero for six weeks. That is expected and it is not a signal. The instrument steers the ship; the indicator tells you whether the ship is going anywhere. You need both, and only both.</li></ol>
+  <h4>Ignored for ninety days</h4>
+  <ul class='plain no'><li><b>Follower count</b> — Grows fastest when you post things other brokers enjoy. It is a measure of the wrong room.</li><li><b>Likes and reactions</b> — Almost entirely peers and vendors in this segment. A 62-year-old owner reads and leaves.</li><li><b>Comments from the industry</b> — Warm, well-meant, and they will pull the account toward writing for brokers within a month.</li><li><b>Total impressions</b> — Un-filtered reach flatters bad hooks. Only Owner Reach is looked at.</li><li><b>Profile views</b> — Not attributable to a post, and not stable enough to steer by.</li><li><b>Connection requests</b> — Inbound requests in this market skew heavily to service providers selling to Issac.</li><li><b>Anything on a daily basis</b> — Nothing here is read more often than weekly. Daily checking produces decisions on noise.</li></ul>
+</div>
+
+<div id="funnel"><div class="part"><div class="partno">Part four</div><h2>The funnel, bent to fit him</h2><p class="deck">Kallaway's seven stages, and an honest account of which of them a man who cannot be rushed will let you use.</p></div></div>
+<div class='scroll'><table><thead><tr><th>Stage</th><th>What he believes</th><th>Standard play</th><th>What we do in phase 1</th><th>Share</th></tr></thead><tbody><tr><td>1 · Unaware</td><td>&ldquo;I&rsquo;m not selling. I&rsquo;m just working.&rdquo;</td><td>Challenge the status quo with an opinion post.</td><td><b>Run heavily.</b> Recognition content. Name the thing he has told nobody. This is where THE SECRET and THE DAY AFTER live.</td><td>40%</td></tr><tr><td>2 · Problem aware</td><td>&ldquo;I&rsquo;ve been thinking about it. I don&rsquo;t know what I&rsquo;ve got.&rdquo;</td><td>Diagnostic content. Symptom lists.</td><td><b>Run heavily.</b> The uncomfortable diagnostic, always with the fix in the same post. THE BETTER YOU ARE, FIVE YEARS OF NEXT YEAR.</td><td>35%</td></tr><tr><td>3 · Solution aware</td><td>&ldquo;There&rsquo;s a way to do this properly. I don&rsquo;t know what it is.&rdquo;</td><td>Category education.</td><td><b>Run.</b> Method content. How a number is actually built, why the building is a separate sale. THE NUMBER, THE BUILDING, DUE DILIGENCE.</td><td>25%</td></tr><tr><td>4 · Aware of him</td><td>&ldquo;That&rsquo;s the broker who writes the sensible things.&rdquo;</td><td>Build-in-public, team posts, case teasers.</td><td><b>Not published — earned.</b> This stage happens on his profile when the man looks Issac up, not in a post. Which is why the profile is a pre-flight item, not a nice-to-have.</td><td>0%</td></tr><tr><td>5 · Believes he can do it</td><td>&ldquo;He&rsquo;s done this before, with people like me.&rdquo;</td><td>Detailed walkthroughs and results.</td><td><b>Held.</b> The Room stories carry a trace of this without ever being about Issac. Explicit proof waits for phase 2.</td><td>0%</td></tr><tr><td>6 · Category depth</td><td>&ldquo;I understand how this works now.&rdquo;</td><td>Long-form, multi-part series.</td><td><b>Held for phase 2.</b> This is the newsletter and the long guide. Both are built on the territories that win, not before them.</td><td>0%</td></tr><tr><td>7 · Ready</td><td>&ldquo;I want to talk to somebody.&rdquo;</td><td>Direct CTA, booking link, lead magnet.</td><td><b>Deliberately absent.</b> He has been pressured by professionals for six years and has won every time by not replying. The close in phase 1 is a plain sentence and a comment box.</td><td>0%</td></tr></tbody></table></div>
+<div><div class='note'><p>The house rule is 40% top / 40% middle / 20% bottom. <b>Phase 1 runs 100/0/0 and it is on purpose.</b> The trust-killer list rules out every bottom-of-funnel move available: urgency of any kind, follow-up sequences, talking about yourself before being useful, naming a number before understanding the business. A funnel that cannot use its own bottom half is not a broken funnel here — it is the correct shape for a buyer whose defining behaviour is refusing to be moved. The bottom half gets built in phase 2, on top of the four territories that survive.</p></div></div>
+
+<div id="types"><div class="part"><div class="partno">Part five</div><h2>Three types of post</h2><p class="deck">The house system runs four. Phase 1 runs three, and the fourth is set to zero on purpose.</p></div></div>
+<div><h3><span class='no'>40% of posts · awareness</span>RECOGNITION</h3><p>Say out loud the thing he has never said. No teaching, no advice, no fix. The whole post is &ldquo;I know what this is like and I am not going to make it weird.&rdquo;</p><div class='pull'>It is the only content that reaches a man at stage 1, because he does not have a question yet. He has a feeling he has never heard described.</div><p class='mono' style='color:var(--mut);white-space:normal'>Territories — THE SECRET · THE DAY AFTER · THE KIDS AREN'T COMING · THIRTY YEARS IN THE SAME BUILDING</p><h3><span class='no'>30% of posts · storytelling</span>THE ROOM</h3><p>One deal, one moment, one thing Issac watched happen. Anonymised to the point of being unfindable. One story, one insight, and the insight is never the moral of a fable.</p><div class='pull'>This is the single asset no competitor can copy and no AI can invent: twelve closings in 2025 and a decade of rooms. It converts 'a broker' into 'the man who was there' faster than any credential.</div><p class='mono' style='color:var(--mut);white-space:normal'>Territories — Any territory. The story is the delivery mechanism, not the subject.</p><h3><span class='no'>30% of posts · educational</span>METHOD</h3><p>How the thing actually works, given away with nothing asked. The four drivers of a multiple. Why the dirt prices differently to the business. What a buyer's accountant does in week three.</p><div class='pull'>'Be useful first, for months.' Method content is the proof of competence that lets a man who distrusts everyone under forty conclude, privately, that this one knows the work.</div><p class='mono' style='color:var(--mut);white-space:normal'>Territories — THE NUMBER · THE BUILDING · WHAT YOUR CPA ISN'T FOR · DUE DILIGENCE · FOUR IN FIVE DON'T SELL</p></div>
+<div><div class='note'><p>The house system has a fourth type — <b>Conversion</b>. It is set to zero for sixteen weeks. Not reduced. Zero. Every conversion mechanic available on LinkedIn (comment-a-keyword, lead magnet in the DMs, booking link, results screenshot) trips at least one item on the trust-killer list for this specific buyer.</p></div></div>
+
+<div id="design"><div class="part"><div class="partno">Part six</div><h2>The test design</h2><p class="deck">Twelve territories, forty-eight posts, sixteen weeks, one variable.</p></div></div>
+<div><ol class='rules'><li><b>The unit under test</b><br>The <b>territory</b>, not the post. Twelve territories, already defined and already sourced from the psychographic. A territory is a claim about what this man cares about.</li><li><b>The bank</b><br>12 territories × 4 hooks = <b>48 posts</b>. Four posts is the minimum that tells you about a territory rather than about a Tuesday.</li><li><b>Cadence</b><br><b>3 per week. Tuesday, Wednesday, Thursday. Mid-morning Central.</b> Fixed for the whole sixteen weeks. Cadence is not a variable in this test.</li><li><b>Duration</b><br><b>16 weeks.</b> 48 posts at 3 per week. Weeks 1–4 are the first block and set the baseline.</li><li><b>Order</b><br>Territories are interleaved, never blocked. No territory posts twice in the same week, and no two consecutive posts share a shape. A territory that ran three Tuesdays in a row would be measuring Tuesday.</li><li><b>The one-variable rule</b><br>Within the sixteen weeks, exactly two things vary: <b>the hook</b> (the thing being tested) and <b>the image</b> (balanced, so it cannot contaminate the hook read). Length is fixed to two shapes. Everything else is frozen.</li><li><b>The floor</b><br>A post below <b>0.7 Owner Reach Index</b> is a miss. Three misses out of four in a territory kills the territory at the next review, with no discussion.</li><li><b>The review</b><br>Every four weeks. Rank the twelve by median Owner Reach Index, kill the bottom four, write four new hooks inside the winners. Arithmetic only. No opinions in the review.</li></ol></div>
+<div class='scroll'><table><thead><tr><th>#</th><th>Territory</th><th>Rooted in</th><th>Priority</th><th>Why it is in the test</th></tr></thead><tbody><tr><td><span class='mono'>01</span></td><td>THE SECRET</td><td>Pain 01 — the loneliness of the decision</td><td>🔴 1</td><td>Names the one thing he has told nobody. Recognition, not persuasion. Nothing else is this strong.</td></tr><tr><td><span class='mono'>02</span></td><td>THE NUMBER YOU'VE NEVER HAD</td><td>Problem 01 + Desire 02</td><td>🔴 1</td><td>78% have never had a valuation and nearly all of them want one. Largest unmet demand in the market.</td></tr><tr><td><span class='mono'>03</span></td><td>THE BUILDING IS A SEPARATE DEAL</td><td>Problem 06 + Solution 04</td><td>🔴 1</td><td>Issac's structural advantage. Almost nobody else in his inbox can write this credibly.</td></tr><tr><td><span class='mono'>04</span></td><td>THE BETTER YOU ARE, THE LESS IT'S WORTH</td><td>Problem 04</td><td>🔴 1</td><td>Counter-intuitive, true, unarguable. Flatters and stings in the same sentence.</td></tr><tr><td><span class='mono'>05</span></td><td>THE DAY AFTER</td><td>Outcome 07 + Pain 03</td><td>🔴 1</td><td>75% regret it within a year and it is almost never about price. Nobody paid at closing writes this.</td></tr><tr><td><span class='mono'>06</span></td><td>THE KIDS AREN'T COMING</td><td>Problem 02 + Want 03</td><td>🟠 2</td><td>The quiet grief. Enormous charge. Written badly it is cruel — test carefully.</td></tr><tr><td><span class='mono'>07</span></td><td>FIVE YEARS OF NEXT YEAR</td><td>Pain 08 + Bottleneck 02</td><td>🟠 2</td><td>30% say 'too busy'. He recognises himself instantly and without offence.</td></tr><tr><td><span class='mono'>08</span></td><td>WHAT YOUR CPA ISN'T FOR</td><td>Belief 05</td><td>🟠 2</td><td>Corrects the most common false comfort without attacking a man he has trusted twenty years.</td></tr><tr><td><span class='mono'>09</span></td><td>FOUR IN FIVE DON'T SELL</td><td>Belief 04</td><td>🟠 2</td><td>Reframes waiting as a risk rather than as caution. Cite it properly or not at all.</td></tr><tr><td><span class='mono'>10</span></td><td>THE MAN WHO BUYS YOUR SHOP</td><td>Bottleneck 10</td><td>🟡 3</td><td>Replaces a faceless corporation with a specific human being. Removes a category of dread.</td></tr><tr><td><span class='mono'>11</span></td><td>WHAT THEY DON'T TELL YOU IN DUE DILIGENCE</td><td>Problem 09 + Pain 06</td><td>🟡 3</td><td>Insider knowledge freely given. Builds authority faster than any credential.</td></tr><tr><td><span class='mono'>12</span></td><td>THIRTY YEARS IN THE SAME BUILDING</td><td>Trigger 04 — the anniversary</td><td>🟡 3</td><td>Pure respect, zero ask. The warmest territory available and the best free timing signal held.</td></tr></tbody></table></div>
+
+<div id="shapes"><div class="part"><div class="partno">Part seven</div><h2>Two shapes, locked</h2><p class="deck">Length is not one of the things being tested, so it is frozen to two options for the whole run.</p></div></div>
+<div><h3><span class='no'>60–90 words</span>THE SHORT</h3><p><b>Architecture.</b> Hook. Rehook. Three or four single lines. Flat close.</p><p><b>Used for.</b> Recognition, and the sharp end of Method. Anything that would be weakened by explaining it.</p><p><b>Why it is measurable.</b> It is fully readable inside the feed without expanding, which means it is the cleanest possible test of whether the sentence itself did anything.</p><h3><span class='no'>220–280 words</span>THE LONG</h3><p><b>Architecture.</b> Hook. Rehook. A turn. Three or four beats. A line that lands. Flat close.</p><p><b>Used for.</b> The Room stories and full Method pieces. Anything where the value is in the detail.</p><p><b>Why it is measurable.</b> Long enough that expanding it is a real decision, which is exactly the behaviour the instrument is reading.</p></div>
+<div><div class='note'><p>The engine note specified ~60 and ~250 words. <b>The short shape is widened to 60–90 and this is a proposed amendment, flagged rather than made silently.</b> At sixty words a LinkedIn post does not reach the 'see more' fold at all, which removes the expansion signal entirely — and the expansion signal is a large part of what drives the distribution the instrument reads. 60–90 keeps the post short enough to be one idea and long enough to be measurable. Issac's call.</p></div></div>
+
+<div id="caption"><div class="part"><div class="partno">Part eight</div><h2>The caption law</h2><p class="deck">The rules every post obeys. They come from the house caption framework and from the trust-killer list, and where those two disagree the trust-killer list wins.</p></div></div>
+<div><ol class='rules'><li><b>The two lines are the whole test</b><br>He sees line one, line two, and the image. Nothing else, until he decides. <b>Line 1 = the hook.</b> Declarative, specific, never mysterious. <b>Line 2 = the turn.</b> It flips, deepens or costs something. Both must clear the fold.</li><li><b>One blank line between everything</b><br>Single lines only. No paragraph blocks. A wall of text is a scroll-past in this segment before a single word is read.</li><li><b>Sentence length: max 14 words, varied</b><br>The house rule is eight. Eight is right for Whiz and wrong for Issac — at eight words a 60-year-old broker reads as a 25-year-old doing a LinkedIn voice. Fourteen with variation sounds like a man who has quoted jobs on the back of an invoice.</li><li><b>First person, always. Never 'we'</b><br>The entire strategy rests on him being a specific man rather than a company. A corporate voice forfeits the only advantage he has.</li><li><b>Flat, plain, declarative</b><br>No exclamation marks. No superlatives. No emojis anywhere, including the close. No em dashes. No hashtags. Enthusiasm reads as a young person selling, and nothing ages a message faster here.</li><li><b>Tenure, never age</b><br>'Thirty-one years in the same building' says everything 'at your age' would say, with respect. One reference to his age and the account is finished with him.</li><li><b>Never a number about a specific business</b><br>Statistics about the market are fine and are cited. A number about a business he could identify is not. He checks things.</li><li><b>The close is a sentence, not a call to action</b><br>No 'comment BUYER below'. No 'DM me'. No link. No booking page. No 'thoughts?'. End on the strongest plain line in the post and stop. If a question is used, it must be one he would answer in his own head rather than in the comment box.</li><li><b>No urgency, ever</b><br>'Whenever, or never' is a stronger close in this market than any deadline. This is the one rule with no exceptions and no clever workarounds.</li></ol>
+  <h4>What we kept from the house system, and what we cut</h4></div>
+<div class='scroll'><table><thead><tr><th>House rule (SLAY)</th><th>Phase 1</th><th>Reason</th></tr></thead><tbody><tr><td>Hook + Rehook in the first two lines</td><td><b style='color:#14503a'>KEPT</b></td><td>The single most transferable rule in the house system, and it is platform physics, not taste.</td></tr><tr><td>Scope narrows down the post</td><td><b style='color:#14503a'>KEPT</b></td><td>Broad opening, narrow close. It qualifies the right reader without excluding anyone early.</td></tr><tr><td>One post, one idea</td><td><b style='color:#14503a'>KEPT</b></td><td>Non-negotiable in both systems.</td></tr><tr><td>Max 8 words per sentence</td><td><b style='color:#7a5a18'>CHANGED to 14</b></td><td>Eight words is a young voice. It is the fastest way to lose this specific reader.</td></tr><tr><td>Comment a KEYWORD to get the thing</td><td><b style='color:#8a2b2b'>REMOVED</b></td><td>Trips 'anything that could have been sent to somebody else' and manufactures urgency. Both fatal here.</td></tr><tr><td>Emoji checkmarks and numbered CTA block</td><td><b style='color:#8a2b2b'>REMOVED</b></td><td>'Enthusiasm' is on the trust-killer list by name.</td></tr><tr><td>TLDR line</td><td><b style='color:#8a2b2b'>REMOVED</b></td><td>Reads as content-marketing furniture. He has never seen a broker he trusts write TLDR.</td></tr><tr><td>P.S. with mild urgency or social proof</td><td><b style='color:#8a2b2b'>REMOVED</b></td><td>Urgency of any kind. There is no soft version of this for him.</td></tr><tr><td>Proof at ~5% of content</td><td><b style='color:#7a5a18'>HELD AT 0%</b></td><td>Phase 1 has no proof posts at all. Proof arrives in phase 2, once a territory has earned the right to carry it.</td></tr></tbody></table></div>
+
+<div id="voice"><div class="part"><div class="partno">Part nine</div><h2>The words, and the words that end it</h2><p class="deck">Straight from the language bank in the psychographic. The left column is not a style preference. It is a list of the things that get the message deleted.</p></div></div>
+<div class='scroll'><table><thead><tr><th>Never write</th><th>Write instead</th><th>Why</th></tr></thead><tbody><tr><td><span style='color:#8a2b2b'>Exit strategy</span></td><td>Getting out / what happens next</td><td>Consultant language. He has never used it about his own company.</td></tr><tr><td><span style='color:#8a2b2b'>Your asset</span></td><td>Your company / the shop / your business</td><td>The word that most reliably makes him delete.</td></tr><tr><td><span style='color:#8a2b2b'>EBITDA multiple</span></td><td>What it would sell for / what the number is built on</td><td>He knows it and resents being spoken to in it. Only after he uses it first.</td></tr><tr><td><span style='color:#8a2b2b'>Retirement</span></td><td>Slowing down / stepping back / handing it over</td><td>'Retirement' means old. 'Slowing down' is his own phrase.</td></tr><tr><td><span style='color:#8a2b2b'>At your age / aging owner</span></td><td>After thirty-one years</td><td>An insult and a threat at once. Tenure says it with respect.</td></tr><tr><td><span style='color:#8a2b2b'>Opportunity</span></td><td>The thing you built</td><td>Buyer-side language. It positions him as inventory.</td></tr><tr><td><span style='color:#8a2b2b'>Legacy</span></td><td>Your name on the building / what you leave behind</td><td>Used so hard by this industry that it now reads as manipulation.</td></tr><tr><td><span style='color:#8a2b2b'>We help business owners…</span></td><td>I've watched this go wrong four ways</td><td>Category claims are invisible. A specific observation is not.</td></tr><tr><td><span style='color:#8a2b2b'>Circle back / touch base / reach out</span></td><td>Call / write / talk</td><td>Corporate filler.</td></tr><tr><td><span style='color:#8a2b2b'>Deal flow / pipeline / the market</span></td><td>The buyers I know / the men I've sold to</td><td>Abstractions. He deals in people.</td></tr></tbody></table></div>
+
+<div id="image"><div class="part"><div class="partno">Part ten</div><h2>The image question</h2><p class="deck">Ten posts, five with a card and five without, and an honest account of what that can and cannot tell us.</p></div></div>
+<div><div class='note'><p>There is a real conflict to resolve here. The engine note says <b>text-only</b>, because an image makes it impossible to tell whether the hook or the picture did the work. That is correct. It is also true that image posts and text posts are distributed differently by LinkedIn, and running sixteen weeks of text-only means never finding out which one this audience actually stops for.</p></div> <ol class='rules'><li><b>You cannot A/B test on organic LinkedIn</b><br>There is no split-test tool. Two versions of one post cannot be shown to two halves of the same audience. Anyone who says otherwise is describing paid ads. So the test has to be built into the schedule instead of into the platform.</li><li><b>The design: balanced, blocked on territory</b><br>Every territory ships exactly half its posts with an image and half without. Across the first ten posts that is 5 and 5, one of each in every territory. Territory therefore cannot explain a difference between the two groups, which is the entire point.</li><li><b>The image is one variable, not five</b><br>One fixed image system for the whole test: a plain typographic card. Off-white ground, one line of the post's own text set in the serif, small monospace caption bottom-left, thin rule. No logo, no photograph, no icon, no colour, no branding. Identical treatment every time. The moment the images start differing in style, the test is measuring art direction.</li><li><b>How it is read</b><br>At the four-week review: median Owner Reach Index of the five image posts against the five text posts. Ten posts is a first look, not a verdict. The question is answered at post 48, not post 10.</li><li><b>If the hook read and the image read disagree</b><br>The hook read wins. The image is the secondary variable and it is balanced precisely so that it can be ignored if it turns out not to matter.</li></ol>
+  <h4>The card specification</h4>
+  <ul class='plain'><li><b>Canvas</b> — 1200 × 1200, square. Squares take more feed height than landscape on mobile.</li><li><b>Ground</b> — #FDFDFB off-white. Never white, never dark, never a gradient.</li><li><b>Type</b> — One line, Newsreader or any transitional serif, 400 weight, roughly 84px, ink #16181A, set at 1.15 line-height, ragged right, generous margins, optically centred.</li><li><b>Caption</b> — Bottom-left, JetBrains Mono 400, 22px, #6B6F72. Never a name, never a title, never a URL.</li><li><b>Rule</b> — A single 1px #E3E1DB hairline above the caption. Nothing else on the card.</li><li><b>Forbidden</b> — Logos. Photographs. Stock images. Headshots. Icons. Colour. Quotation marks. Drop shadows. Anything that looks designed.</li><li><b>Why so plain</b> — The card must read as a page from a document rather than as a graphic. A designed image on this account signals marketing, and marketing is what he has been deleting for six years.</li></ul></div>
+
+<div id="preflight"><div class="part"><div class="partno">Part eleven</div><h2>Before post one</h2><p class="deck">Seven things that must be true about the profile before the first post goes out, because the profile is where the decision actually gets made.</p></div></div>
+<div><ol class='rules'><li><b>The headline</b><br>It must say what he does for sellers, in his own words, with no adjectives. If it currently reads as a list of services or contains the word 'passionate', it is costing reach on every single post in this test.</li><li><b>The banner</b><br>Plain. Ideally a real photograph of an ordinary Texas commercial property, not a skyline and not a stock handshake. It is the first thing he sees after clicking the name.</li><li><b>The About section</b><br>Written first person, past tense, about work done rather than services offered. Twelve closings in 2025 is a fact; 'trusted advisor' is not.</li><li><b>The featured section</b><br>Empty in phase 1. Deliberately. There is nothing to gate and nothing to sell yet.</li><li><b>Contact</b><br>Direct email visible. A man who has decided to write does not want to use a form.</li><li><b>No automation on the account</b><br>No connection-request automation, no auto-DM, no scheduler that posts on his behalf without him seeing it. One automated artefact on this profile undoes the whole strategy.</li><li><b>Connections</b><br>Do not mass-connect before or during the test. It changes who the algorithm samples with, which changes the instrument, which invalidates every number recorded before it.</li></ol></div>
+
+<div id="ritual"><div class="part"><div class="partno">Part twelve</div><h2>The weekly ritual</h2><p class="deck">Fifteen minutes on a Friday, forty-five once a month. That is the entire operating cost of the measurement.</p></div></div>
+<div><ul class='plain'><li><b>Tue / Wed / Thu, mid-morning Central</b> — Post. One post. No editing after twenty minutes.</li><li><b>Every day, 0 minutes</b> — Nothing. The account is not checked daily. This is a rule, not a preference.</li><li><b>Friday, 15 minutes</b> — Open each of the week's three posts. Record impressions and owner-seniority share. Compute Owner Reach. Count QOR by hand. Three lines in one sheet.</li><li><b>Every fourth Friday, 45 minutes</b> — Rank the twelve territories by median Owner Reach Index. Kill the bottom four. Write four new hooks inside the surviving eight. Read the image split. No opinions — the numbers decide.</li><li><b>Never</b> — Deleting a post that underperformed. A miss is data and the account is not a portfolio.</li></ul></div>
+
+<div id="posts"><div class="part"><div class="partno">Part thirteen</div><h2>The first ten posts</h2><p class="deck">Five territories, two posts each, balanced across shape and format. Written to be published as they are.</p></div></div>
+<div class='scroll'><table><thead><tr><th>Week</th><th>Day</th><th>Post</th><th>Territory</th><th>Shape</th><th>Format</th></tr></thead><tbody><tr><td>Week 1</td><td>Tue</td><td><span class='mono'>01</span></td><td>THE SECRET</td><td>SHORT</td><td>A · text only</td></tr><tr><td>Week 1</td><td>Wed</td><td><span class='mono'>06</span></td><td>THE BUILDING IS A SEPARATE DEAL</td><td>LONG</td><td><b>B · image</b></td></tr><tr><td>Week 1</td><td>Thu</td><td><span class='mono'>03</span></td><td>THE NUMBER YOU'VE NEVER HAD</td><td>SHORT</td><td><b>B · image</b></td></tr><tr><td>Week 2</td><td>Tue</td><td><span class='mono'>08</span></td><td>THE BETTER YOU ARE, THE LESS IT'S WORTH</td><td>LONG</td><td>A · text only</td></tr><tr><td>Week 2</td><td>Wed</td><td><span class='mono'>09</span></td><td>THE DAY AFTER</td><td>SHORT</td><td>A · text only</td></tr><tr><td>Week 2</td><td>Thu</td><td><span class='mono'>02</span></td><td>THE SECRET</td><td>LONG</td><td><b>B · image</b></td></tr><tr><td>Week 3</td><td>Tue</td><td><span class='mono'>05</span></td><td>THE BUILDING IS A SEPARATE DEAL</td><td>SHORT</td><td>A · text only</td></tr><tr><td>Week 3</td><td>Wed</td><td><span class='mono'>04</span></td><td>THE NUMBER YOU'VE NEVER HAD</td><td>LONG</td><td>A · text only</td></tr><tr><td>Week 3</td><td>Thu</td><td><span class='mono'>07</span></td><td>THE BETTER YOU ARE, THE LESS IT'S WORTH</td><td>SHORT</td><td><b>B · image</b></td></tr><tr><td>Week 4</td><td>Tue</td><td><span class='mono'>10</span></td><td>THE DAY AFTER</td><td>LONG</td><td><b>B · image</b></td></tr></tbody></table></div>
+<div><div class='note'><p>Five territories, two posts each. Balanced three ways: <b>5 short / 5 long</b>, <b>5 text-only / 5 image</b>, and <b>one of each format inside every territory</b>. No territory appears twice in one week and no two consecutive posts share a shape. That balance is the reason the image question can be read at all after only ten posts.</p></div></div>
+<div><div class='post'><div class='posthead'><span class='n'>POST 01</span><span class='t'>THE SECRET</span><span class='tag'>RECOGNITION</span><span class='tag'>SHORT · 90w</span><span class='tag a'>A · text only</span><span class='tag'>Week 1 · Tuesday</span></div><div class='caption'><span class='hookline'>Most owners I sit with decided to sell about two years before they told anybody.</span>
+
+<span class='hookline'>The staff didn&#x27;t know. The customers didn&#x27;t know. His wife knew about half of it.</span><span class='fold'>see more</span>He didn&#x27;t tell the staff, because the good ones would start looking.
+
+He didn&#x27;t tell the customers, for the same reason.
+
+And he didn&#x27;t tell all of it at home, because she&#x27;d either get frightened or get her hopes up.
+
+So he carried the biggest decision of his life alone, and called it being careful.
+
+Nobody ever says it first.</div><p class='why'><b>Why this post</b><br>Pure recognition. No advice, no teaching, no fix, nothing asked. It exists to test whether naming the loneliness is enough on its own. If this territory works, everything else in the account gets easier.</p></div><div class='post'><div class='posthead'><span class='n'>POST 02</span><span class='t'>THE SECRET</span><span class='tag'>RECOGNITION</span><span class='tag'>LONG · 252w</span><span class='tag b'>B · image</span><span class='tag'>Week 2 · Thursday</span></div><div class='caption'><span class='hookline'>There&#x27;s a conversation most owners are having with themselves, and with nobody else.</span>
+
+<span class='hookline'>It starts around three in the morning and it&#x27;s shorter than you&#x27;d think.</span><span class='fold'>see more</span>If I&#x27;m not here Thursday, what happens to this place.
+
+Not in a dramatic way. He isn&#x27;t sick. He&#x27;s just done the arithmetic everybody does eventually, and he&#x27;s noticed the answer isn&#x27;t written down anywhere.
+
+He doesn&#x27;t raise it with the staff. The two people the whole thing actually runs on would start looking, and he&#x27;d lose them inside a month.
+
+He doesn&#x27;t raise it with his customers. The ones with options would start taking them.
+
+He doesn&#x27;t raise it with his CPA, because his CPA does taxes, and this is not taxes.
+
+And he doesn&#x27;t raise all of it at home, because she&#x27;ll either get frightened or get her hopes up, and he&#x27;d rather carry it than do that to her.
+
+So he carries it. Two years, usually. Sometimes six.
+
+I&#x27;ve sat across the table from a lot of men in this position. The thing I did not expect, early on, was how few of them were looking for advice when it finally came out.
+
+They already knew what they wanted to do. Most of them had known for a long time.
+
+What they wanted was one person in the room who wasn&#x27;t going to be surprised by it, and wasn&#x27;t going to do anything with it.
+
+That turned out to be most of the job.
+
+Nobody says it first. So I&#x27;ll say it first.</div><div class='imgcard'><div class='lab'>The card</div><p class='line'>Nobody says it first.</p><div class='cap'>the conversation nobody starts</div></div><p class='why'><b>Why this post</b><br>Same territory, long shape, image on. This is the pair for post 01 and it is the account's signature piece. It also does something no method post can: it shows the room without claiming anything about Issac.</p></div><div class='post'><div class='posthead'><span class='n'>POST 03</span><span class='t'>THE NUMBER YOU'VE NEVER HAD</span><span class='tag'>METHOD</span><span class='tag'>SHORT · 71w</span><span class='tag b'>B · image</span><span class='tag'>Week 1 · Thursday</span></div><div class='caption'><span class='hookline'>You know what your house is worth to within about ten thousand dollars.</span>
+
+<span class='hookline'>You&#x27;ve never once had the thing that pays for the house priced.</span><span class='fold'>see more</span>Roughly four out of five owners are in exactly that position.
+
+The same men who can quote a job to the dollar in nine seconds.
+
+It isn&#x27;t carelessness, and it isn&#x27;t avoidance.
+
+Nobody ever brought them a number they didn&#x27;t have to go and ask for.</div><div class='imgcard'><div class='lab'>The card</div><p class='line'>You know what your house is worth. You&#x27;ve never priced the thing that pays for it.</p><div class='cap'>78% have never had a valuation</div></div><p class='why'><b>Why this post</b><br>The largest unmet demand in the market, delivered as a mirror rather than an offer. The house comparison does the whole job in one line and it is impossible to argue with.</p></div><div class='post'><div class='posthead'><span class='n'>POST 04</span><span class='t'>THE NUMBER YOU'VE NEVER HAD</span><span class='tag'>METHOD</span><span class='tag'>LONG · 276w</span><span class='tag a'>A · text only</span><span class='tag'>Week 3 · Wednesday</span></div><div class='caption'><span class='hookline'>A man told me last year his business was worth about three times what he takes out of it.</span>
+
+<span class='hookline'>He&#x27;d been carrying that number since 2013. He got it from another owner at a trade dinner.</span><span class='fold'>see more</span>He&#x27;s planning the back half of his life around something he overheard.
+
+I&#x27;m not going to tell anybody what their business is worth in a post. Anybody who does that is guessing at you.
+
+But here&#x27;s what actually moves the number, and none of it is the trade you&#x27;re in.
+
+One. How much of the work still comes through you personally. If the answer is most of it, a buyer isn&#x27;t looking at a company. He&#x27;s looking at a job with your name on it.
+
+Two. How concentrated the customers are. One account at sixty per cent of revenue takes more off the price than anything else on this list, and it is the one nobody plots until a buyer&#x27;s accountant plots it for them.
+
+Three. Whether the revenue repeats, or has to be won again every January.
+
+Four. Whether the books survive a stranger reading them for three weeks without finding a surprise.
+
+Two shops on the same road, same trade, same revenue, will not get the same number. I&#x27;ve watched it happen more than once. The difference was never the trade, and it was never the market.
+
+The good news in that list is that three of the four are things you can change, and they take about a year each.
+
+The bad news is that you have to start before you&#x27;ve decided.
+
+Eleven years is a long time to plan around something you heard at a dinner.</div><p class='why'><b>Why this post</b><br>Method at full length with the fix included. The four drivers are genuinely useful, freely given, and they are the single fastest way to establish that this man knows the work.</p></div><div class='post'><div class='posthead'><span class='n'>POST 05</span><span class='t'>THE BUILDING IS A SEPARATE DEAL</span><span class='tag'>METHOD</span><span class='tag'>SHORT · 76w</span><span class='tag a'>A · text only</span><span class='tag'>Week 3 · Tuesday</span></div><div class='caption'><span class='hookline'>Ask a man what his place is worth and he&#x27;ll tell you about the business.</span>
+
+<span class='hookline'>He&#x27;s answering about the wrong asset.</span><span class='fold'>see more</span>He bought that corner in 1994 for a number that sounds like a joke now.
+
+The city has spent thirty years growing out to meet him.
+
+The business is what he built. The land is what happened while he was building it.
+
+Those two things get sold in two different ways, to two different men.</div><p class='why'><b>Why this post</b><br>Issac's home ground compressed to seventy words. The 1994 corner is specific enough to be believed and general enough to be true about several thousand men at once.</p></div><div class='post'><div class='posthead'><span class='n'>POST 06</span><span class='t'>THE BUILDING IS A SEPARATE DEAL</span><span class='tag'>METHOD</span><span class='tag'>LONG · 249w</span><span class='tag b'>B · image</span><span class='tag'>Week 1 · Wednesday</span></div><div class='caption'><span class='hookline'>Your business and your building are two different sales.</span>
+
+<span class='hookline'>Most owners find that out after they&#x27;ve already sold both for one price.</span><span class='fold'>see more</span>Here&#x27;s the shape of it.
+
+The business gets priced off what it earns. The building gets priced off what the land and the improvements are worth, and off what somebody else could do with that corner.
+
+Two different methods. Two different sets of buyers.
+
+The man who wants to run your shop and the man who wants your two acres on a road that grew up around you are not the same man. They don&#x27;t bid against each other unless somebody puts them in the same process.
+
+Bundle it, and you get one buyer, one number and one method. Usually the business method, because that&#x27;s the conversation that started it.
+
+Which means one of the two assets went across the table free.
+
+I&#x27;ve seen that gap. It is not small, and it is worst exactly where you&#x27;d want it to be best: the men who bought the dirt early, before anybody thought that road was going anywhere.
+
+You can still sell them together at the end. That is often the right answer, and sometimes it&#x27;s the only one a buyer will take.
+
+The point is that you separate them first, price them separately, and then decide which way you want to go.
+
+Thirty years of work sitting on a piece of land, and in more of these deals than you&#x27;d think, the land was the bigger half.</div><div class='imgcard'><div class='lab'>The card</div><p class='line'>Two assets. Two methods. Two buyers. One price is how one of them goes free.</p><div class='cap'>the dirt is a separate deal</div></div><p class='why'><b>Why this post</b><br>The territory with the lowest risk and the highest defensibility. This is the post that nobody else in his inbox can write, and it is worth putting an image on early to give it the widest possible first read.</p></div><div class='post'><div class='posthead'><span class='n'>POST 07</span><span class='t'>THE BETTER YOU ARE, THE LESS IT'S WORTH</span><span class='tag'>RECOGNITION</span><span class='tag'>SHORT · 90w</span><span class='tag b'>B · image</span><span class='tag'>Week 3 · Thursday</span></div><div class='caption'><span class='hookline'>The reason your business runs so well is the same reason it won&#x27;t sell.</span>
+
+<span class='hookline'>You&#x27;re the reason. That&#x27;s the compliment nobody wants.</span><span class='fold'>see more</span>You quote faster than anyone you&#x27;ve ever hired.
+
+You catch the mistake before it ships.
+
+The three customers who actually matter call your cell phone, not the office.
+
+A buyer looks at all of that and doesn&#x27;t see a company. He sees a job that requires you, and he can&#x27;t buy you.
+
+It&#x27;s fixable. It takes a year and it starts with letting things be done slightly worse.</div><div class='imgcard'><div class='lab'>The card</div><p class='line'>The reason it runs so well is the reason it won&#x27;t sell.</p><div class='cap'>owner dependence</div></div><p class='why'><b>Why this post</b><br>Counter-intuitive, true and unarguable. It flatters and stings in the same breath, which is the highest-engagement structure available. The fix lands in the same post so it never reads as an accusation.</p></div><div class='post'><div class='posthead'><span class='n'>POST 08</span><span class='t'>THE BETTER YOU ARE, THE LESS IT'S WORTH</span><span class='tag'>THE ROOM</span><span class='tag'>LONG · 238w</span><span class='tag a'>A · text only</span><span class='tag'>Week 2 · Tuesday</span></div><div class='caption'><span class='hookline'>There&#x27;s a sentence I&#x27;ve had to say to men I respect, and it has never once gone down easy.</span>
+
+<span class='hookline'>The thing you&#x27;re proudest of is the thing costing you the most money.</span><span class='fold'>see more</span>He built it so it works. He knows every job, every price, and every customer&#x27;s brother-in-law.
+
+When something goes wrong at four on a Friday, it goes wrong to him, and it is fixed by five.
+
+Thirty-one years of that.
+
+Then a buyer walks the place and asks one question. What happens here if he isn&#x27;t here.
+
+And everybody standing in that room already knows the answer.
+
+Here&#x27;s the part worth knowing early. This is the most fixable thing on the entire list, and it is also the slowest. It is not a document you write in a weekend. It&#x27;s a year of deliberately handing things away and then letting them be done slightly worse than you would have done them.
+
+Write down how you quote, in your own words, badly.
+
+Give the three big accounts a second name to call, and answer slower when they call you anyway.
+
+Let somebody else run the Friday problem, and don&#x27;t rescue them at half past four.
+
+Twelve months of that and a buyer is looking at a company.
+
+Twelve months of doing it properly, your way, and he&#x27;s still looking at a job.
+
+I know which one is more satisfying to run.
+
+I&#x27;m telling you which one sells.</div><p class='why'><b>Why this post</b><br>The Room type doing its work: a story that is really a method piece. The final two lines are the strongest close in the first ten and they ask for nothing.</p></div><div class='post'><div class='posthead'><span class='n'>POST 09</span><span class='t'>THE DAY AFTER</span><span class='tag'>RECOGNITION</span><span class='tag'>SHORT · 64w</span><span class='tag a'>A · text only</span><span class='tag'>Week 2 · Wednesday</span></div><div class='caption'><span class='hookline'>Everybody asks what the business is worth.</span>
+
+<span class='hookline'>Almost nobody asks what the first Monday looks like.</span><span class='fold'>see more</span>Three quarters of owners who sell say they regret it inside a year.
+
+Push on that and it&#x27;s almost never about the number.
+
+For thirty years, seven in the morning had somewhere to be.
+
+Work out what replaces that before you work out what to sell it for.</div><p class='why'><b>Why this post</b><br>The signature territory in its shortest form. The 7am line is the single most quotable sentence in the whole psychographic and this post exists to find out whether it travels.</p></div><div class='post'><div class='posthead'><span class='n'>POST 10</span><span class='t'>THE DAY AFTER</span><span class='tag'>THE ROOM</span><span class='tag'>LONG · 259w</span><span class='tag b'>B · image</span><span class='tag'>Week 4 · Tuesday</span></div><div class='caption'><span class='hookline'>Three out of four owners who sell say they regret it within a year.</span>
+
+<span class='hookline'>Almost none of them are talking about the money.</span><span class='fold'>see more</span>I want to be careful with that number, because it gets used as a scare story and it isn&#x27;t one.
+
+The regret is rarely that they sold. It&#x27;s that nobody spent five minutes with them on the part that comes after the wire clears.
+
+Here&#x27;s how it actually goes.
+
+The closing is on a Friday. There&#x27;s a dinner. Somebody makes a short speech and somebody is proud of him.
+
+Then it&#x27;s Monday, and it&#x27;s seven in the morning, and for thirty years seven in the morning has had somewhere to be.
+
+He has money and a calendar with nothing in it. And he finds out that the thing he was attached to was never the business. It was being the man people called.
+
+The ones who come through it well have almost always done one thing, and they did it early.
+
+They worked out what the Monday looked like before they worked out what the price was.
+
+Some stayed on two days a week for a year, on purpose, with it written into the deal. Some had the next thing already started before they signed anything. One man I know bought a smaller version of what he&#x27;d just sold, twenty miles up the road, and is happier than he&#x27;s been since 1998.
+
+None of that is a financial decision, and none of it can be made after closing.
+
+The price is the easy half of this.</div><div class='imgcard'><div class='lab'>The card</div><p class='line'>What are you doing at seven on the Monday?</p><div class='cap'>75% regret it within a year</div></div><p class='why'><b>Why this post</b><br>The strongest single post in the ten. It is the territory nobody else writes because everybody else is paid at closing, and it is the clearest possible demonstration that Issac is not.</p></div></div>
+
+<div id="phase2"><div class="part"><div class="partno">Part fourteen</div><h2>What week seventeen unlocks</h2><p class="deck">Everything deliberately withheld from phase 1, and the order it arrives in.</p></div></div>
+<div><ol class='rules'><li><b>The four surviving territories become the pillars</b><br>Not chosen in a planning document. Chosen by sixteen weeks of Owner Reach.</li><li><b>Then, and only then, format opens up</b><br>Carousel, video, the document post. Each introduced one at a time against the winning hooks, so that a format can be judged against a known baseline.</li><li><b>Then the offer</b><br>One thing, gated by nothing, built out of the territory that won. If THE NUMBER wins it is a valuation-drivers piece. If THE BUILDING wins it is the split. The market picks it, not us.</li><li><b>Then proof</b><br>Anonymised transaction stories at roughly one in twenty posts. Never before the account has spent four months being useful for free.</li><li><b>Then the email system meets the content</b><br>The cold email becomes the introduction and the account becomes the reason it gets a reply. That is when the two halves of the build finally join up, and it is the whole point of doing this in the order we are doing it.</li></ol>
+  <h4>What we need from Issac</h4>
+  <ul class='plain'><li><b>Approve or edit the ten posts</b> — Line by line. Anything that does not sound like him gets cut, not softened. A post he would not have said is worse than no post.</li><li><b>Confirm the short shape at 60–90 words</b> — The one amendment to the engine note. His call.</li><li><b>Confirm the close</b> — No call to action anywhere in phase 1. This is the item most likely to be argued with and it is the one worth holding.</li><li><b>Confirm Owner Reach as the instrument</b> — Two minutes per post, three posts a week, from his own analytics panel. If he will not do the two minutes, the test cannot run.</li><li><b>Confirm the Friday fifteen minutes</b> — The whole test is fifteen minutes a week plus writing. If that is not true, we cut to two posts a week rather than let the measurement lapse.</li><li><b>Give one real story per territory</b> — Not for publication as-is. The Room posts need his actual rooms. Five stories buys sixteen weeks of content that no competitor can reproduce.</li><li><b>The Gmail archive</b> — Everything he has written to sellers, buyers and referral sources. The voice in these ten posts is built from the psychographic. Built from his own sentences, it stops being a good imitation and starts being him.</li></ul></div>
+
+</div></main>
+
+<footer><div class="wrap">
+ISSAC — LinkedIn content strategy, phase 1: the hook test. v1 — for Issac's approval · 6 September 2026<br>
+Built on the ICP psychographic &amp; soul, the AIOS content system and the Kallaway funnel.<br>
+Never hand-edit this page — it is rendered from linkedin_data.py by build_linkedin.py.<br>
+Built by Evolv AI for Broker Social Solutions. Confidential.
+</div></footer>
+
+</body></html>
