@@ -1,0 +1,520 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ISSAC — The Soul of the Seller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16181a;--acc:#1c5d43;--paper:#fdfdfb;--line:#e3e1db;--mut:#6b6f72;--band:#f7f7f4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+     font:400 17px/1.68 Newsreader,Georgia,serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.col{max-width:70ch;margin:0 auto}
+
+header{border-bottom:1px solid var(--line);padding:88px 0 46px;margin-bottom:0}
+.kicker{font:600 11px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:22px}
+h1{font:400 clamp(38px,6.4vw,74px)/1.02 Newsreader,Georgia,serif;letter-spacing:-.025em;margin:0 0 20px;max-width:16ch}
+.sub{font:400 clamp(18px,2.2vw,23px)/1.48 Newsreader,Georgia,serif;color:var(--mut);max-width:60ch;margin:0}
+.meta{margin-top:30px;font:400 12px/1.7 JetBrains Mono,monospace;color:var(--mut);letter-spacing:.01em}
+
+.toc{border-bottom:1px solid var(--line);padding:30px 0 34px;
+     font:400 13.5px/1.9 Inter,sans-serif;color:var(--mut)}
+.toc a{color:var(--mut);text-decoration:none;border-bottom:1px solid transparent;margin-right:26px;white-space:nowrap;display:inline-block}
+.toc a:hover{color:var(--acc);border-bottom-color:var(--acc)}
+
+.part{border-top:1px solid var(--ink);margin-top:96px;padding-top:14px}
+.partno{font:600 11px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+h2{font:400 clamp(28px,4vw,44px)/1.08 Newsreader,Georgia,serif;letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.deck{font:400 18px/1.5 Newsreader,Georgia,serif;color:var(--mut);max-width:62ch;margin:0 0 8px}
+
+h3{font:600 20px/1.32 Inter,sans-serif;letter-spacing:-.01em;margin:62px 0 4px;max-width:34ch}
+h3 .no{display:block;font:600 11px/1.6 JetBrains Mono,monospace;color:var(--acc);letter-spacing:.1em;margin-bottom:9px}
+h4{font:600 13px/1.4 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--acc);margin:52px 0 14px}
+p{margin:0 0 20px}
+.lead::first-letter{float:left;font:400 62px/.82 Newsreader,Georgia,serif;padding:6px 10px 0 0;color:var(--acc)}
+em{font-style:italic}
+strong{font-weight:600}
+
+.pull{border-left:2px solid var(--acc);padding:6px 0 6px 24px;margin:34px 0;
+      font:400 22px/1.42 Newsreader,Georgia,serif;letter-spacing:-.01em;max-width:52ch}
+.said{font:400 19px/1.5 Newsreader,Georgia,serif;color:var(--ink);background:var(--band);
+      border:1px solid var(--line);padding:20px 24px;margin:28px 0;max-width:60ch}
+.said span{display:block;margin-top:10px;font:400 11.5px/1.4 JetBrains Mono,monospace;color:var(--mut)}
+.note{background:var(--band);border:1px solid var(--line);padding:22px 26px;margin:34px 0;
+      font:400 15px/1.62 Inter,sans-serif;color:var(--mut)}
+.note b{color:var(--ink);font-weight:600}
+.note p{margin:0 0 12px}.note p:last-child{margin:0}
+.src{font:600 10.5px/1.4 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;
+     display:inline-block;padding:3px 8px;border-radius:2px;vertical-align:1px;margin-right:8px}
+.src.doc{background:#eff4f1;color:#14503a}
+.src.data{background:#d9eae1;color:#14503a}
+.src.read{background:#faf0dc;color:#7a5a18}
+
+.souls{margin:44px 0 0}
+.soul{border-top:1px solid var(--line);padding:36px 0 4px}
+.soul h3{margin-top:0}
+.soul .facts{font:400 13px/1.8 JetBrains Mono,monospace;color:var(--mut);margin:0 0 20px}
+.soul .facts b{color:var(--ink);font-weight:600}
+
+.scroll{overflow-x:auto;border:1px solid var(--line);margin:34px 0}
+table{border-collapse:collapse;width:100%;min-width:760px;font:400 14px/1.55 Inter,sans-serif}
+th{background:var(--ink);color:#fff;font:600 10.5px/1.3 Inter,sans-serif;letter-spacing:.09em;
+   text-transform:uppercase;text-align:left;padding:13px 14px;vertical-align:bottom}
+td{padding:14px;border-top:1px solid var(--line);vertical-align:top;color:var(--mut)}
+td:first-child{color:var(--ink);font-weight:600}
+tbody tr:nth-child(even){background:var(--band)}
+td a{color:var(--acc)}
+.mono{font:400 12px/1.5 JetBrains Mono,monospace;white-space:nowrap}
+
+ol.rules{list-style:none;counter-reset:r;padding:0;margin:26px 0 0;max-width:74ch}
+ol.rules li{counter-increment:r;position:relative;padding:20px 0 20px 52px;border-top:1px solid var(--line);
+            font:400 16px/1.6 Inter,sans-serif}
+ol.rules li:before{content:counter(r);position:absolute;left:0;top:20px;width:28px;height:28px;
+   border:1px solid var(--line);color:var(--acc);text-align:center;
+   font:600 12px/2.2 JetBrains Mono,monospace}
+ol.rules li b{font-weight:600;color:var(--ink)}
+
+ul.plain{list-style:none;padding:0;margin:22px 0;max-width:74ch}
+ul.plain li{padding:13px 0 13px 30px;border-top:1px solid var(--line);position:relative;
+            font:400 15.5px/1.6 Inter,sans-serif;color:var(--mut)}
+ul.plain li:before{content:"—";position:absolute;left:0;top:13px;color:var(--acc)}
+ul.plain li b{color:var(--ink);font-weight:600}
+ul.plain.no li:before{content:"\2715";color:#8a2b2b;font-size:12px;top:15px}
+
+footer{border-top:1px solid var(--ink);margin-top:110px;padding:40px 0 90px;
+       font:400 13px/1.8 JetBrains Mono,monospace;color:var(--mut)}
+@media(max-width:640px){
+  body{font-size:16px}
+  header{padding:56px 0 34px}
+  .part{margin-top:66px}
+  .pull{font-size:19px}
+}
+</style></head><body>
+
+<header><div class="wrap">
+  <div class="kicker">Broker Social Solutions · ICP psychographic, companion document</div>
+  <h1>The soul of the seller</h1>
+  <p class="sub">Who the Texas business owner actually is, at the moment he starts thinking about
+  letting go — and what that means for every word Issac publishes.</p>
+  <p class="meta">v1 — for Issac's approval &nbsp;·&nbsp; built 6 September 2026 &nbsp;·&nbsp; companion to
+  ISSAC-ICP-PSYCHOGRAPHIC-AND-SOUL.xlsx<br>
+  Sources: Issac's own ICP document, 3 August 2026 &nbsp;·&nbsp; published research, read at source</p>
+</div></header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#why">Why this exists</a><a href="#truths">Ten truths</a><a href="#day">A Tuesday</a>
+  <a href="#souls">The five souls</a><a href="#voice">What Issac writes</a>
+  <a href="#never">What he must never post</a><a href="#gaps">What we do not know</a>
+  <a href="#evidence">Evidence</a><a href="#approval">Approval</a>
+</div></nav>
+
+<div class="wrap"><div class="col">
+
+<section id="why" class="part"><div class="partno">Preface</div>
+<h2>Why a soul document exists</h2>
+<p class="lead">There is already a document that says who to call. It has four hard gates, twenty-four
+scoring criteria, four circles and a hundred and fifty industries, and it is correct. It will produce a
+list of Texas business owners who match, precisely, the profile Issac wrote down.</p>
+<p>It cannot tell him what to say to any of them.</p>
+<p>That is the gap this document fills. A match model describes a business. This describes the man
+inside it — what he is actually deciding, what he has told nobody, what makes him reply and what makes
+him disappear without a word. It exists because in phase one Issac is not running outreach. He is
+publishing, in his own name, to a small and specific group of people who have been lied to by
+professionals for six years and have become very good at spotting it.</p>
+<div class="note">
+<p><b>The one thing to hold on to.</b> This man is carrying the biggest decision of his life and he has
+told nobody. Not his employees, not his customers, not his banker, not fully his wife. Read truth 06
+first if you read nothing else.</p>
+<p><b>What is claimed and what is not.</b> Every claim here carries one of three tags.
+<span class="src doc">His own document</span> means it is written in Issac's ICP file dated 3 August 2026.
+<span class="src data">Verified research</span> means we read it at the source, and the source and the
+date are in the evidence table at the bottom. <span class="src read">Our read</span> means it is our
+reading of the segment and it is not yet confirmed — those are the ones we need him to sign or correct.</p>
+</div>
+</section>
+
+<section id="truths" class="part"><div class="partno">Part one</div>
+<h2>Ten things that are true about him</h2>
+<p class="deck">In the order they matter. The sixth is the one everything else hangs from.</p>
+<h3><span class="no">TRUTH 01</span>He is not the owner of the business. He is the business.</h3><p><span class="src read">Our read — needs his yes</span></p>
+<p class="lead">Ask him what he does and he will not give you a job title. He will give you the name of the
+company, because for thirty-one years there has been no meaningful difference between the two. The company
+is where he learned who he was. It is the reason he was not at some of his daughter's games. It is the
+answer he gives at weddings, at church, at the counter of the parts store where they still call him by his
+first name.</p>
+<p>This matters more than any financial fact in this document, because it explains a behaviour that looks
+irrational from the outside: an owner who will spend two years agonising over a decision that would take a
+financial advisor twenty minutes to recommend. He is not slow. He is not confused about the arithmetic.
+He is being asked to agree to the removal of the thing that has been standing where his identity goes.</p>
+<div class="pull">Selling the business does not cost him the business. It costs him the answer to the
+question of who he is on Monday.</div>
+<p>Everything that follows in this document is downstream of this one fact. When he says the timing is not
+right, he usually means he has not yet found a second answer to that question. When he says he wants top
+dollar, he is often asking for the price to justify the loss. And when a stranger opens an email by calling
+his company <em>an asset</em>, the stranger has, without knowing it, described the man himself as inventory.</p>
+
+<h3><span class="no">TRUTH 02</span>His retirement is a building on a farm-to-market road, and he has never had it priced.</h3><p><span class="src data">Verified research</span></p>
+<p>He does not have a retirement account in any meaningful sense. He has a company, and possibly the land
+under it, and a general belief that between them they will be enough. A privately held business can
+represent <strong>80 to 90 percent of an owner's total net worth</strong>. That single sentence explains why
+he is not treating this as a business decision. It is the only financial decision left in his life, and it
+is unrepeatable.</p>
+<p>And he has never had it valued. Not casually, not formally, not once. Roughly <strong>78 percent of Baby
+Boomer owners have never completed a pre-transition value assessment</strong>. He knows what his house is
+worth to the dollar because Zillow tells him every time he opens his phone. He has no idea what the thing
+paying for the house is worth, and he has arranged his entire remaining life around a number he made up.</p>
+<div class="said">"It's worth what somebody's willing to pay for it."<span>What he says when asked. It is
+a defence, not an opinion.</span></div>
+<p>He is not indifferent to the number. He is frightened of it. If it comes back lower than the figure in
+his head, thirty years were worth less than he told himself, and the plan he has been quietly making with
+his wife stops working. Not asking is how he keeps the plan alive. This is the single most exploitable
+fact in the entire psychographic, and it is exploitable in the good sense: the man who hands him a real
+number, with no listing agreement attached, has given him back a decade of his life.</p>
+
+<h3><span class="no">TRUTH 03</span>He built it for children who are not coming.</h3><p><span class="src doc">His own document</span></p>
+<p>Issac's own document names it plainly, in a list of the highest-priority seller motivations:
+<em>children don't want the business</em>. It sits there between partner disputes and changing industries
+like an operational fact. It is not an operational fact. It is the quiet grief at the centre of this
+segment.</p>
+<p>Here is how it happens, almost every time. He worked so that they would not have to. He paid for the
+degree, made the tuition payments in the bad years, drove up for the graduation, and was genuinely,
+uncomplicatedly proud. And the degree took them to Austin, or Denver, or Charlotte, into work that is
+cleaner and better paid and does not involve being called at ten at night because a truck went down. He
+won. He got exactly what he was working for.</p>
+<div class="pull">He succeeded at raising them out of the business, and the prize for winning is that
+there is nobody to give it to.</div>
+<p>He will not describe this as grief and he will be irritated if you do. But it is why the succession
+question makes him go quiet, and it is why the profile spec calls family involvement <em>the decisive
+field</em>. If an heir is seated, there is no conversation to have. If there is no heir, there is a man
+carrying something he has not put down.</p>
+<p>There is a sentence available here that almost nobody says to him, and it is true: <em>you raised them
+too well to want it.</em> It reframes the thing he privately reads as a failure as what it actually was,
+which is the whole point of the work. It has to be said carefully, once, and never as a lead-in to a pitch.</p>
+
+<h3><span class="no">TRUTH 04</span>He is tired in a way that sleep does not fix.</h3><p><span class="src doc">His own document</span></p>
+<p>Burnout appears on Issac's motivation list, and the word is wrong for him. Burnout is what consultants
+have. What he has is the specific fatigue of being the final escalation point for every problem, every day,
+for twenty years — the man the call comes to when the estimate is wrong, when the crew does not show, when
+the customer is shouting, when the bank wants something. There is no one above him. There has never been
+anyone above him.</p>
+<p>He is not exhausted by the work. He likes the work. He is exhausted by being the last line, and the
+distinction matters because content that offers him <em>rest</em> misses, while content that describes the
+Sunday-evening feeling lands.</p>
+<div class="said">"I'm not tired. I'm done."<span>The distinction he would draw himself, if asked
+by somebody he trusted.</span></div>
+<p>Never use the word burnout to him. It belongs to a younger vocabulary and it makes the fatigue sound
+like a personal weakness rather than an occupational consequence. Describe the Sunday instead, and let him
+name it.</p>
+
+<h3><span class="no">TRUTH 05</span>He has been farmed for six years, and he has won every time by not replying.</h3><p><span class="src data">Verified research</span></p>
+<p>The demographic has been carpet-bombed. Search funds. Private-equity associates working a list.
+Postcard brokers. Automated LinkedIn sequences that call him by a first name he does not use. He receives
+some version of the same message every week, and he has been trained, by pure volume, to delete it
+before the second line.</p>
+<p>We tested the phone lane and stopped: <strong>forty dials produced thirty-nine voicemails</strong>.
+That is not a difficult market, that is a closed door, and it is why the cold lane in this account is email
+and LinkedIn only, and why phone and SMS are warm channels opened by a reply and never before.</p>
+<p>What is more useful than the failure rate is what the farming has taught him. He can now identify an
+automated message in under two seconds, from the shape of the first sentence, without reading it. He
+notices when a message could have been sent to anybody. He notices when somebody has mentioned his
+industry but not his company. And crucially — he remembers the names. Every generic approach is not
+neutral; it is a small permanent debit against a name he will see again.</p>
+<div class="pull">In this market, the cost of a generic message is not zero. It is the permanent loss
+of the one person you were writing to.</div>
+
+<h3><span class="no">TRUTH 06</span>He has nobody to tell.</h3><p><span class="src read">Our read — needs his yes</span></p>
+<p class="lead">This is the centre of the document. If you take one thing from all of it, take this.</p>
+<p>He has been thinking about selling for somewhere between two and six years, and he has told no one.
+Not properly. Consider who is available to him.</p>
+<ul class="plain">
+<li><b>Not his employees.</b> The day they learn he is thinking about it, the best two start looking,
+and he loses the business he was trying to sell.</li>
+<li><b>Not his customers.</b> The day they learn, the biggest one starts a conversation with a competitor
+about continuity risk.</li>
+<li><b>Not his competitors,</b> who are the only other people on earth who understand his business.</li>
+<li><b>Not his banker,</b> because the banker will draw a conclusion about the loan.</li>
+<li><b>Not his CPA,</b> not really. His CPA does his taxes, brilliantly, for twenty-two years, and has
+never once been asked a question about a transaction.</li>
+<li><b>Not fully his wife.</b> He has raised it. He has not opened it. If he opens it she gets either
+frightened or hopeful, and both are expensive, and he does not yet have answers to the questions she will
+ask.</li>
+</ul>
+<p>So he carries the largest financial and personal decision of his life entirely alone, in a life that is
+otherwise densely populated with people who like him. The research shows the shape of it from the outside:
+<strong>44 percent of Boomer owners have sought no outside advice at all</strong>, and only
+<strong>5 percent have a formal exit-planning team</strong>. Those numbers are usually read as unpreparedness.
+They are better read as isolation.</p>
+<div class="pull">A man with the biggest secret of his life and no one to say it to. Every other insight in
+this document is a footnote to that one.</div>
+<p>This is why content beats outreach here, and it is not close. Outreach asks him to open the secret to a
+stranger who wants something. Content lets him read a stranger describing his exact situation, accurately,
+in private, at eleven at night, with nothing asked of him. He does not have to admit anything to anybody
+to receive it. He will read the whole thing, follow the account, tell nobody he is following it, and appear
+in the inbox eleven months later with four words: <em>can I ask you something.</em></p>
+<p>That is the entire strategy. Everything in the CONTENT ENGINE sheet is a mechanical consequence of
+this paragraph.</p>
+
+<h3><span class="no">TRUTH 07</span>He is not afraid of losing money. He is afraid of looking like a fool.</h3><p><span class="src read">Our read — needs his yes</span></p>
+<p>Thirty years of nobody putting one over on him. He has priced jobs, argued with suppliers, survived at
+least two recessions and one very bad year he does not talk about, and he did it without an MBA and
+without ever once being the smartest-sounding person in the room. Competence is not something he has.
+It is what he is.</p>
+<p>So the nightmare is not a low price. The nightmare is signing something he did not fully understand,
+in a room full of people who did, and finding out afterwards. Which is why he will walk away from a
+term he does not follow rather than ask what it means — asking would expose the gap, and the gap is
+intolerable, and walking away is free.</p>
+<p>The practical consequence for content is large and specific: <strong>explain one deal mechanic per
+post, in language he can repeat at his own kitchen table.</strong> Earn-outs. Seller notes. Working
+capital pegs. Add-backs. Not because he wants a finance education, but because every mechanic he can
+name is one less room he has to be afraid of. You are not teaching him. You are disarming a specific
+humiliation.</p>
+
+<h3><span class="no">TRUTH 08</span>The clock runs against him and he cannot see the hand move.</h3><p><span class="src doc">His own document</span></p>
+<p>Issac's document puts the sweet spot at 55 to 72, and that band is not arbitrary — it is the
+financeable band. A buyer using bank financing usually wants a transition period, and a 74-year-old
+who wants out in ninety days can be bought by a far smaller pool than the same business with a
+66-year-old willing to stay twelve months. Every year he waits quietly removes buyers from a room he
+has never seen.</p>
+<p>He does not experience this. He experiences a year that felt like the last one. He has said
+<em>next year</em> four or five times now, and each individual instance was reasonable — it really
+was a busy spring, the equipment really did need replacing first. Only the accumulation is a problem,
+and accumulation is invisible from inside.</p>
+<p>The research gives us his own explanation, in his own segment's words. Asked why they are not
+exit planning, Boomer owners say: <strong>30 percent too busy, 14 percent don't know how to start,
+10 percent don't need it because it's a family transition.</strong> Two of those three are content
+problems, solvable without a single conversation.</p>
+<div class="note"><p><b>The hard rule that comes out of this.</b> Never mention his age, ever, in
+any post or any message, directly or by implication. Use tenure instead. <em>Thirty-one years in the
+same building</em> carries the identical information and reads as respect rather than as a threat.
+Age-referencing is the single fastest way to lose him permanently.</p></div>
+
+<h3><span class="no">TRUTH 09</span>His building is worth more than he thinks. His business is worth less.</h3><p><span class="src doc">His own document</span></p>
+<p>Two mistakes, running in opposite directions, in the same man.</p>
+<p>He bought the building in the nineties because the rent was going up and it seemed sensible. It has
+been a line item ever since. In the meantime Dallas, Austin and Houston grew out to meet him, and the
+dirt repriced two or three times while he was busy running the company that sits on it. Issac's own
+document flags commercial real-estate ownership as <strong>high priority</strong>, and owner-occupied
+is exactly the shape.</p>
+<p>Meanwhile the business is worth less than he believes, for a reason that is genuinely painful: it
+depends on him. He is the best estimator, the relationship the biggest customer actually has, the one
+who knows why that job in 2011 went wrong. Everything that made the company profitable made it
+un-transferable. His greatest professional strength is his largest valuation discount.</p>
+<div class="pull">The better he is at his business, the less it is worth. It is true, it is unarguable,
+and nobody has ever told him.</div>
+<p>Put the two together and you get the most valuable single insight Issac can offer this man, which is
+that <strong>he owns two assets, with two buyer pools and two valuation methods, and he has been
+thinking about one of them.</strong> Sold as one line, one of them is free. This is home ground: most
+business brokers cannot speak credibly about the real estate, and most commercial brokers cannot value
+the business. Issac can do both, and that is the whole differentiation.</p>
+
+<h3><span class="no">TRUTH 10</span>He would rather die at his desk than admit he does not know what to do.</h3><p><span class="src read">Our read — needs his yes</span></p>
+<p>This is the operating constraint on every word Issac publishes.</p>
+<p>He will not be taught. Not because he is arrogant — he is generally not — but because accepting
+instruction requires first conceding ignorance, and the ignorance is the humiliating part. Content
+framed as <em>here is what you don't know</em> fails with him even when it is completely correct, and
+it fails silently, which is worse: he does not argue, he just leaves.</p>
+<p>What works is the sideways version. <em>Here is what I've watched other owners do.</em>
+<em>Here is what I see go wrong.</em> <em>Here is what the last four sales in this trade actually
+looked like.</em> He gets the identical information, applies it privately, and keeps his competence
+intact. He may even repeat it later as something he already knew, which is fine, and is in fact the
+proof that it worked.</p>
+<div class="note"><p><b>The voice this dictates.</b> Issac never posts as a broker looking for
+listings. He posts as the man who has been in the room a hundred times and is describing what he
+sees, to no one in particular, with nothing asked in return. The moment a post has an ask at the
+bottom, the entire preceding paragraph is re-read as a pitch and discarded.</p></div>
+
+</section>
+
+<section id="day" class="part"><div class="partno">Part two</div>
+<h2>A Tuesday</h2>
+<p class="deck">Because a list of traits is not a person. <span class="src read">Our read — needs his yes</span></p>
+<p>He is awake at ten past five without an alarm, and has been for two decades. He is at the shop before
+six-thirty because the crews roll at seven and there is always one thing. He answers his own phone. The
+number on the website is his mobile, and it has been since the website was built in 2011 by a nephew.</p>
+<p>Between seven and eleven he is genuinely happy, and this is the part that outsiders miss about him
+completely. He likes the work. He is good at it. He solves four problems before lunch that nobody else
+in the building could have solved, and each one confirms something he needs confirmed.</p>
+<p>At some point in the afternoon a message arrives from somebody who wants to buy his business, or
+list it, or discuss his exit strategy. It is the third this month. He reads six words and deletes it,
+and feels a very small, very specific irritation that he does not examine.</p>
+<p>At four he looks at the receivables and thinks about the customer who is now, if he is honest,
+somewhere north of half his revenue. He does not calculate the exact percentage. He has not calculated
+it in nine years.</p>
+<p>He gets home at six-forty. His wife asks how it was. He says <em>fine, busy</em>, and it is true,
+and it is also the whole conversation. At nine-thirty he is on his phone on the sofa, and at some point
+between nine-thirty and eleven he is going to read something, alone, that describes his exact situation
+back to him with unusual accuracy, and he is going to read every word of it and tell nobody.</p>
+<div class="pull">That eleven o'clock moment is the entire target of phase one. Not a meeting. Not a
+call. A man on a sofa, reading something true, in private.</div>
+</section>
+
+<section id="souls" class="part"><div class="partno">Part three</div>
+<h2>The five souls inside the one profile</h2>
+<p class="deck">The ICP is one man on paper and five men in practice. The share estimates are ours and
+they are the thing we most need Issac to correct — he is the only person who knows which of these he
+actually meets. <span class="src read">Our read — needs his yes</span></p>
+<div class="souls"><div class="soul"><h3>① The founder at the end</h3><p class="facts">62–72 · founded it · owns the building · no heir · ~30% of C1/C2</p>
+<p>He signed a lease on a two-bay unit in 1991 with money he did not really have, and he has not worked
+anywhere else since. His surname may be on the sign. He will mention, within four minutes of meeting you,
+that nobody gave him anything, and he will be right.</p>
+<p>He is the core of the segment and the hardest to reach, because he is the most farmed and the most
+defended. What gets through is not a proposition. It is evidence that somebody actually went and looked
+at what he built — and the strongest such evidence we hold is free and public: <strong>the year he
+started.</strong> The charter date or first sales-tax permit gives us an anniversary, and an anniversary
+is a legitimate, non-creepy reason to say something to a man who has been waiting thirty years for
+somebody to notice.</p>
+<p>What ends it instantly: any suggestion that the business is winding down, or any reference to his age.
+He will read one word of that and never come back, and he will not tell you why.</p>
+</div>
+<div class="soul"><h3>② The second-generation custodian</h3><p class="facts">52–64 · inherited it · family entity · ~20%</p>
+<p>He was twenty-four when his father had the first heart attack, and he has been running it ever since.
+He never chose this. He tripled it and got no credit for it, mostly from himself.</p>
+<p>His block is not financial and it is not operational. It is that selling his father's name feels like
+selling his father. He has resented the business since he was thirty and he loves it, and both of those
+are true at the same moment, every day.</p>
+<p>What he needs is permission — the idea, said out loud by somebody with no stake in it, that keeping a
+business out of guilt is not loyalty, it is a slow sale at a worse price. What loses him forever: any
+opinion, however mild, about how his father ran it. He will defend a man he spent twenty years arguing
+with.</p>
+</div>
+<div class="soul"><h3>③ The burned-out operator</h3><p class="facts">48–60 · built or bought 2005–2015 · often leases · ~20%</p>
+<p>Younger than the classic profile and considerably more tired. He grew fast, growth was the whole
+identity, and somewhere around year nine it stopped being a company and started being a job he cannot
+quit. He has googled <em>sell my business</em> late at night and closed the tab.</p>
+<p>He has been congratulated on his growth by everybody. He has never once been understood. Content that
+recognises the trap rather than the success is the only thing that reaches him — and congratulating him
+on the growth is, specifically, the thing that tells him you looked at the outside of his business for
+nine seconds.</p>
+</div>
+<div class="soul"><h3>④ The quiet absentee</h3><p class="facts">60–75 · GM in place · owns the building · ~15% · the most reachable</p>
+<p>He put a general manager in three or four years ago. He comes in Tuesdays and Thursdays. He does not
+know the names of the last four people hired. He has already left emotionally and never did the
+paperwork, and he is still personally on the hook for every payroll.</p>
+<p>He is the most reachable of the five and the least contacted, because from the outside he is
+invisible — the business looks unchanged. But the county roll shows something almost nobody uses:
+<strong>the tax bill mails to a different city.</strong> That is the cheapest hard evidence of
+disengagement available anywhere in this build, and it costs nothing.</p>
+<p>The one way to lose him is to contact the business rather than him. The switchboard is a wall, and
+the GM has no reason on earth to pass along a message about selling.</p>
+</div>
+<div class="soul"><h3>⑤ The property-rich trader</h3><p class="facts">58–70 · ordinary business, extraordinary dirt · ~15%</p>
+<p>He runs a perfectly ordinary business on land that has quietly become the most valuable thing he
+owns, and he is still thinking about the business. Ask him how things are and he will tell you trade has
+been slow. He is answering about the wrong asset.</p>
+<p>This is Issac's double fee and, more importantly, it is the man for whom Issac is objectively the
+right person in Texas. Nobody has ever separated the two numbers for him — what the operating business
+is worth, and what the land alone is worth, priced independently.</p>
+<p>The trap: pitching the business and the property in the same breath before trust exists reads as
+somebody counting his money in front of him. The property conversation is the second conversation,
+always.</p>
+</div></div>
+</section>
+
+<section id="voice" class="part"><div class="partno">Part four</div>
+<h2>What this means for what Issac writes</h2>
+<p class="deck">Ten rules, all of them derived from something above. This is the style guide.</p>
+<ol class="rules">
+<li><b>He posts as a witness, never as a broker.</b> Not "we help owners exit" — "here is what I have
+watched go wrong four different ways." A witness is credible. A broker is a category.</li>
+<li><b>Never post an ask.</b> The moment there is a call to action at the bottom, the paragraph above it
+is re-read as a pitch and discarded. In phase one the only acceptable close is a full stop.</li>
+<li><b>One idea per post, explained to the end.</b> He does not skim. He is fifty-eight to seventy and
+he reads the whole thing or none of it.</li>
+<li><b>Never mention age. Use tenure.</b> "Thirty-one years in the same building" carries the same
+information as "at your age" and costs nothing instead of everything.</li>
+<li><b>Give away the method, not just the conclusion.</b> Showing how a valuation is built is what makes
+a valuation credible. Withholding it makes Issac one more person with a number and a motive.</li>
+<li><b>Sideways, never downward.</b> "Here is what other owners do" lands. "Here is what you don't know"
+fails silently — he does not argue, he leaves.</li>
+<li><b>Be willing to say the unflattering thing.</b> The post that says his number is probably too high,
+and why, will outperform twenty posts that flatter him. Willingness to lose the meeting is the proof of
+the advice.</li>
+<li><b>Flat, plain, declarative.</b> No exclamation marks, no superlatives, no energy. Enthusiasm reads
+as a young person selling and nothing ages a message faster in this segment.</li>
+<li><b>Specific over credentialed, always.</b> One true detail about his trade — the June slowdown, the
+way estimates get quoted, what happens to receivables in a bad quarter — outranks every logo and every
+qualification.</li>
+<li><b>Write to the household, not only the owner.</b> The decision needs a second yes from somebody
+with a completely different set of fears, and almost nobody in this market writes to her.</li>
+</ol>
+</section>
+
+<section id="never" class="part"><div class="partno">Part four, continued</div>
+<h2>What he must never post</h2>
+<p class="deck">These are not preferences. Each one loses the reader permanently, and silently.</p>
+<ul class="plain no">
+<li><b>Anything that could have been written for someone else.</b> Generic is not neutral in this
+segment. It confirms his central suspicion and it costs the name.</li>
+<li><b>"List your business with me."</b> Not in phase one, not in any form. The listing ask is the end
+of a relationship that has not started.</li>
+<li><b>Anything sourced from a court file, a health record, an obituary or a divorce filing.</b>
+Issac's own document rules these out absolutely, and the rule holds for content exactly as it holds for
+research.</li>
+<li><b>His aircraft, his boat, his ranch, his hobbies.</b> All findable, all fatal. It tells him exactly
+how deeply he has been researched, and it frightens him. Use it to size the man internally; never say
+it back.</li>
+<li><b>Urgency of any kind.</b> Deadlines, market timing, "before it's too late". He has been pressured
+by professionals for six years and has won every time by not replying.</li>
+<li><b>Any suggestion that his business is declining.</b> Even where it is true. It attacks the man,
+not the asset.</li>
+<li><b>Follow-up sequences.</b> The second automated message proves the first one was automated. One
+message, then let the content do the waiting.</li>
+</ul>
+</section>
+
+<section id="gaps" class="part"><div class="partno">Part five</div>
+<h2>What we do not know</h2>
+<p class="deck">Stated plainly, because a document that pretends to certainty it does not have is worth
+less than one that does not.</p>
+<ul class="plain">
+<li><b>The share of each of the five souls.</b> Our split is an estimate, not data. Issac has had these
+conversations; we have read about them. Where those disagree, he wins.</li>
+<li><b>Which triggers he has actually seen fire.</b> We can rank them by reasoning. He can rank them by
+memory, and his ranking is worth more.</li>
+<li><b>His own language.</b> Every banned and recommended phrase on the language sheet is our
+reconstruction. Posts go out under his name and have to sound like him on the first line or the strategy
+fails there.</li>
+<li><b>Whether the second-generation and absentee souls are worth separate content.</b> If they are
+under 10 percent of who he actually meets, they get folded into the others and we stop spending words
+on them.</li>
+<li><b>The 87 percent figure</b> for Boomers with no personal post-transition plan was read off a chart
+rather than prose, and is flagged as such in the evidence table. Verify before it is ever published.</li>
+</ul>
+</section>
+
+<section id="evidence" class="part"><div class="partno">Part six</div>
+<h2>Evidence</h2>
+<p class="deck">Every number in this document, with its source and the date we read it. Nothing here is
+recalled from memory. Two rows are internal and are never published.</p>
+<div class='scroll'><table><thead><tr><th>The statistic</th><th>Source</th><th>Link</th><th>Read at source</th></tr></thead><tbody><tr><td>A business can represent 80–90% of an owner's total net worth.</td><td>Exit Planning Institute, 2025 State of Owner Readiness — Generational Report</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>75% of business owners profoundly regret selling their company just one year later.</td><td>PricewaterhouseCoopers research, cited in EPI 2025 Generational Report</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>57% of Baby Boomers plan to sell their business in the next 5 years, but are unprepared: formal valuation plans 27%, estate plans 9%.</td><td>EPI 2025 Generational Report, p.12</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>58% of Baby Boomers plan to exit in the next 5 years. 5% have a formal exit planning team.</td><td>EPI 2025 Generational Report, p.13</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>Only 13% of respondents have a formal exit plan.</td><td>EPI 2025 Generational Report, p.13</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>78% of Baby Boomers have not completed a pre-transition value assessment.</td><td>EPI 2025 Generational Report, p.13</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>Why Boomers aren't exit planning: 30% 'too busy', 14% 'don't know how to start', 10% 'don't need it for a family transition'.</td><td>EPI 2025 Generational Report, p.12–13</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>Less than a quarter (23%) of Baby Boomers have exit planning on their priority list.</td><td>EPI 2025 Generational Report, p.12</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>87% of Baby Boomers have no personal post-transition plan; 85% have no business transition plan.</td><td>EPI 2025 Generational Report, p.14 chart</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>2013 baseline: 83% had no formal exit plan, 81% had no strategic business plan, 76% wanted to transition within 10 years.</td><td>EPI 2013 National SOOR, cited in the 2025 report</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>Main Street buyers: 46% first-time buyers, 32% serial entrepreneurs. Lower Middle Market: 44% individual buyers, ~20% private equity.</td><td>IBBA & M&A Source Market Pulse, Q4 2025</td><td class='mono'><a href="https://www.prnewswire.com/news-releases/the-ibba-and-ma-source-announce-the-market-pulse-q4-2025-survey-results-302691992.html">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>83% of deals over $5M attracted at least 3 offers; 18% attracted 10+ bids.</td><td>IBBA & M&A Source Market Pulse, Q1 2026</td><td class='mono'><a href="https://www.prnewswire.com/news-releases/the-market-pulse-survey-q1-2026-reports-the-latest-trends-in-business-sales-up-to-50m-302813653.html">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>~80% of privately held businesses listed for sale fail to transact within 12 months.</td><td>⚠️ SECONDARY SOURCE — widely cited, attributed to EPI research. Not verified in the primary PDF.</td><td class='mono'><a href="https://www.duedilio.com/business-sale-failure-rate/">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>Cold calling into this segment: 40 dials produced 39 voicemails.</td><td>Our own test, ruled 2026-08-31. Internal.</td><td class='mono'>Internal — not published</td><td class='mono'>2026-08-31</td></tr><tr><td>Texas universe: 701,815 businesses pulled; 261,313 through the four gates; 138,184 in the 10–30 year band.</td><td>Texas Comptroller sales-tax permit + franchise tax files, on disk.</td><td class='mono'>Internal — not published</td><td class='mono'>2026-08-28</td></tr></tbody></table></div>
+</section>
+
+<section id="approval" class="part"><div class="partno">Part seven</div>
+<h2>What we need from Issac</h2>
+<p class="deck">Ten minutes decides whether the other forty pages are worth reading.</p>
+<ol class="rules">
+<li><b>Read part one and part three first.</b> The ten truths and the five souls. If the man described
+there is not the man you sell for, stop and tell us — everything downstream is built on him.</li>
+<li><b>Mark the amber rows in the workbook.</b> Amber means our read, not your fact. Those are the ones
+that need your yes. Green and grey are your own document and published research.</li>
+<li><b>Give us the split between the five souls.</b> You are the only source for this, and it decides
+where the content weight goes.</li>
+<li><b>Correct the language sheet in your own words.</b> It becomes the style guide for every post that
+goes out under your name.</li>
+<li><b>Tell us what we got wrong about trust.</b> Ten ways to lose this man are listed. You have been
+in the room; we have not.</li>
+<li><b>Then we build the hook bank.</b> Forty-eight hooks across the twelve territories you approved,
+three posted a week, ranked by stop rate every four weeks. That is phase one, and it is the only thing
+in phase one.</li>
+</ol>
+</section>
+
+</div></div>
+
+<footer><div class="wrap">
+ISSAC — The soul of the seller &nbsp;·&nbsp; v1 — for Issac's approval &nbsp;·&nbsp; 6 September 2026<br>
+Companion to ISSAC-ICP-PSYCHOGRAPHIC-AND-SOUL.xlsx (20 sheets) and the ICP MATCH MODEL workbook.<br>
+Built by Evolv AI for Broker Social Solutions. Confidential.
+</div></footer>
+
+</body></html>
