@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CytoKind — The Ad Account, 30 Days</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,400;0,500;1,6..72,300&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --ink:#16150f; --ink2:#4a4740; --ink3:#918c81;
+  --rule:#ddd9cf; --rule2:#efece4;
+  --paper:#ffffff; --band:#f6f4ee;
+  --acc:#1c5d43; --warn:#8a4b1c;
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  color:var(--ink); background:var(--band);
+  font-size:15px; line-height:1.5;
+  font-variant-numeric:tabular-nums;
+  -webkit-font-feature-settings:"tnum" 1;
+  padding:32px 16px 64px;
+}
+.page{
+  max-width:900px; margin:0 auto; background:var(--paper);
+  padding:48px 56px 40px;
+  box-shadow:0 1px 2px rgba(0,0,0,.05), 0 12px 40px rgba(0,0,0,.06);
+}
+
+/* masthead */
+.mast{
+  display:flex; justify-content:space-between; align-items:baseline;
+  gap:24px; flex-wrap:wrap;
+  border-bottom:1.5px solid var(--ink); padding-bottom:14px; margin-bottom:34px;
+}
+.mast .who{
+  font-size:11px; letter-spacing:.24em; text-transform:uppercase;
+  font-weight:600; color:var(--acc);
+}
+.mast .when{
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink3); font-weight:500;
+}
+
+h1{
+  font-family:'Newsreader',Georgia,serif; font-weight:300;
+  font-size:36px; line-height:1.18; letter-spacing:-.02em;
+  max-width:27ch; margin-bottom:16px;
+}
+h1 em{ font-style:italic; color:var(--acc); }
+.standfirst{
+  font-size:15px; line-height:1.6; color:var(--ink2);
+  max-width:64ch; padding-bottom:26px; border-bottom:1px solid var(--rule);
+}
+
+/* headline strip */
+.strip{
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:1px; background:var(--rule2);
+  margin:28px 0 32px; border-top:1px solid var(--rule2); border-bottom:1px solid var(--rule2);
+}
+.strip div{ background:var(--paper); padding:18px 4px 16px; }
+.strip .f{
+  font-family:'Newsreader',Georgia,serif; font-weight:300;
+  font-size:32px; line-height:1; letter-spacing:-.03em; color:var(--acc);
+}
+.strip .l{
+  font-size:10.5px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--ink3); font-weight:500; margin-top:9px; line-height:1.4;
+}
+
+h2{
+  font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  font-weight:600; color:var(--acc);
+  padding-bottom:8px; margin:0 0 18px; border-bottom:1px solid var(--rule);
+}
+section{ margin-bottom:32px; }
+.lede{
+  font-family:'Newsreader',Georgia,serif; font-weight:300;
+  font-size:22px; line-height:1.36; letter-spacing:-.01em;
+  max-width:44ch; margin-bottom:18px;
+}
+p{ max-width:66ch; color:var(--ink2); margin-bottom:12px; }
+p:last-child{ margin-bottom:0; }
+strong{ color:var(--ink); font-weight:600; }
+
+/* tables */
+table{ width:100%; border-collapse:collapse; }
+th{
+  font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  font-weight:600; color:var(--ink3);
+  padding:0 10px 8px; border-bottom:1.5px solid var(--ink); white-space:nowrap;
+}
+th:first-child{ padding-left:0; } th:last-child{ padding-right:0; }
+td{
+  padding:10px 10px; border-bottom:1px solid var(--rule2);
+  vertical-align:baseline; color:var(--ink2); font-size:14px;
+}
+td:first-child{ padding-left:0; color:var(--ink); font-weight:500; }
+td:last-child{ padding-right:0; }
+tbody tr:last-child td{ border-bottom:none; }
+tr.total td{ border-top:1.5px solid var(--ink); border-bottom:none; padding-top:13px; }
+tr.best td{ background:#f4f8f6; }
+.al{text-align:left} .ar{text-align:right} .ac{text-align:center}
+.num{ font-weight:600; color:var(--ink); }
+.acc{ color:var(--acc); }
+.dim{ color:var(--ink3); font-weight:400; font-size:12.5px; }
+
+.seg{
+  font-size:10px; letter-spacing:.1em; text-transform:uppercase; font-weight:600;
+  padding:3px 8px; border-radius:2px; white-space:nowrap;
+}
+.seg.derm{ background:#eaf1ed; color:var(--acc); }
+.seg.ms{ background:#f4efe8; color:var(--warn); }
+.state{ font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:500; }
+.state.on{ color:var(--acc); }
+.state.off{ color:var(--ink3); }
+
+/* split panel */
+.split{ display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--rule); }
+.split > div{ padding:22px 24px; }
+.split > div + div{ border-left:1px solid var(--rule); }
+.split .h{
+  font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink3); font-weight:600; margin-bottom:12px;
+}
+.split .big{
+  font-family:'Newsreader',Georgia,serif; font-weight:300; font-size:40px;
+  line-height:1; letter-spacing:-.03em; margin-bottom:4px;
+}
+.split .derm .big{ color:var(--acc); }
+.split .ms .big{ color:var(--warn); }
+.split .sub{ font-size:13px; color:var(--ink2); line-height:1.5; margin-top:10px; }
+
+/* pull quote / callout */
+.callout{
+  padding:20px 24px; background:var(--band);
+  border-left:3px solid var(--acc);
+  font-family:'Newsreader',Georgia,serif; font-size:19px; line-height:1.45;
+  color:var(--ink); max-width:none;
+}
+.callout.warn{ border-left-color:var(--warn); }
+
+/* findings */
+.find{ border-top:1px solid var(--rule); padding-top:15px; margin-top:18px; }
+.find:first-of-type{ border-top:none; padding-top:0; margin-top:0; }
+.find h3{
+  font-family:'Newsreader',Georgia,serif; font-weight:400;
+  font-size:19px; line-height:1.34; margin-bottom:9px; letter-spacing:-.01em;
+}
+.find h3 .n{
+  font-family:'Inter',sans-serif; font-size:10px; font-weight:600;
+  letter-spacing:.16em; color:var(--acc); vertical-align:2px; margin-right:10px;
+}
+
+/* asks */
+ol.asks{ list-style:none; counter-reset:a; }
+ol.asks li{
+  counter-increment:a; position:relative; padding:12px 0 12px 40px;
+  border-bottom:1px solid var(--rule2); max-width:66ch; color:var(--ink2);
+}
+ol.asks li:last-child{ border-bottom:none; }
+ol.asks li::before{
+  content:counter(a); position:absolute; left:0; top:14px;
+  font-size:11px; font-weight:600; color:var(--acc);
+  border:1px solid var(--rule); width:22px; height:22px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+}
+ol.asks strong{ display:block; color:var(--ink); margin-bottom:2px; }
+
+.src{
+  margin-top:8px; font-size:11.5px; color:var(--ink3); line-height:1.55; max-width:none;
+}
+footer{
+  margin-top:36px; padding-top:14px; border-top:1px solid var(--rule);
+  display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink3); font-weight:500;
+}
+
+@media (max-width:720px){
+  body{ padding:0; }
+  .page{ padding:32px 20px 36px; box-shadow:none; }
+  h1{ font-size:29px; }
+  .strip{ grid-template-columns:1fr 1fr; }
+  .split{ grid-template-columns:1fr; }
+  .split > div + div{ border-left:none; border-top:1px solid var(--rule); }
+  table{ font-size:13px; }
+  th,td{ padding-left:6px; padding-right:6px; }
+}
+@media print{
+  body{ background:#fff; padding:0; }
+  .page{ box-shadow:none; padding:0; max-width:none; }
+}
+</style>
+</head><body>
+<div class="page">
+
+  <div class="mast">
+    <span class="who">CytoKind &nbsp;·&nbsp; Meta Ad Account</span>
+    <span class="when">11 Aug — 9 Sep 2026 &nbsp;·&nbsp; 30 days</span>
+  </div>
+
+  <h1>The account is healthy. <em>Two dollars in five point at people who have never bought.</em></h1>
+  <p class="standfirst">
+    In the thirty days to 9 September the account spent <strong>$2,393.75</strong> and produced
+    <strong>400 enquiries</strong> through Facebook lead forms. Meta rates every live ad
+    above average on both engagement and conversion. Nothing here is broken — the issue is not
+    quality, it is direction.
+  </p>
+
+  <div class="strip">
+    <div><div class="f">$2,394</div><div class="l">Spent<br>in 30 days</div></div>
+    <div><div class="f">400</div><div class="l">Enquiries<br>from lead forms</div></div>
+    <div><div class="f">$2.89</div><div class="l">Average cost<br>per enquiry</div></div>
+    <div><div class="f">40%</div><div class="l">Of spend aimed at<br>MS Fatigue</div></div>
+  </div>
+
+  <section>
+    <h2>01 — Where the money went</h2>
+    <table>
+      <thead><tr>
+        <th class="al">Campaign</th><th class="ac">Segment</th>
+        <th class="ac">Status</th><th class="ar">Spend</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td>Psoriasis — Facebook lead form<span class="dim"> · 187 leads</span></td>
+          <td class="ac"><span class="seg derm">Dermatology</span></td>
+          <td class="ac"><span class="state on">Running</span></td>
+          <td class="ar"><span class="num">$725.87</span></td>
+        </tr><tr>
+          <td>MS Fatigue — Facebook lead form<span class="dim"> · 213 leads</span></td>
+          <td class="ac"><span class="seg ms">MS Fatigue</span></td>
+          <td class="ac"><span class="state on">Running</span></td>
+          <td class="ar"><span class="num">$430.62</span></td>
+        </tr><tr>
+          <td>Psoriasis — landing page<span class="dim"> · 1,972 landing-page views</span></td>
+          <td class="ac"><span class="seg derm">Dermatology</span></td>
+          <td class="ac"><span class="state off">Paused</span></td>
+          <td class="ar"><span class="num">$721.41</span></td>
+        </tr><tr>
+          <td>MS Fatigue — landing page<span class="dim"> · 1,556 landing-page views</span></td>
+          <td class="ac"><span class="seg ms">MS Fatigue</span></td>
+          <td class="ac"><span class="state off">Paused</span></td>
+          <td class="ar"><span class="num">$419.57</span></td>
+        </tr><tr>
+          <td>MS Fatigue — contact us<span class="dim"> · 457 landing-page views</span></td>
+          <td class="ac"><span class="seg ms">MS Fatigue</span></td>
+          <td class="ac"><span class="state off">Paused</span></td>
+          <td class="ar"><span class="num">$96.28</span></td>
+        </tr>
+        <tr class="total">
+          <td>Total</td><td></td><td></td>
+          <td class="ar"><span class="num acc">$2,393.75</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="src">
+      Five campaigns delivered in the window. The two lead-form campaigns are live today; the three
+      landing-page campaigns ran earlier in the window and are now paused. A further five campaigns
+      sit in the account with no spend.
+    </p>
+  </section>
+
+  <section>
+    <h2>02 — The split that matters</h2>
+    <div class="split">
+      <div class="derm">
+        <div class="h">Dermatology</div>
+        <div class="big">$1,447</div>
+        <div class="l dim">60% of spend &nbsp;·&nbsp; 187 enquiries</div>
+        <div class="sub">The only segment that has ever produced a device sale. Every sale in the
+        company's history has come from here, and every one was covered by insurance.</div>
+      </div>
+      <div class="ms">
+        <div class="h">MS Fatigue</div>
+        <div class="big">$946</div>
+        <div class="l dim">40% of spend &nbsp;·&nbsp; 213 enquiries</div>
+        <div class="sub">Has never produced a device sale — not one, at any point. It generates
+        <strong>more</strong> enquiries than dermatology, at roughly half the cost each.</div>
+      </div>
+    </div>
+    <div class="callout warn" style="margin-top:22px">
+      MS Fatigue is the cheapest traffic in the account and the only segment that has never sold
+      anything. Because Facebook optimises toward whatever is cheapest, budget drifts there on its
+      own — quietly, and without anyone deciding it.
+    </div>
+    <p class="src">
+      Segment sales history: CytoKind, as recorded 14 August 2026. Spend and enquiry counts: Meta
+      Ads Manager export, 10 September 2026.
+    </p>
+  </section>
+
+  <section>
+    <h2>03 — The four live ads</h2>
+    <table>
+      <thead><tr>
+        <th class="al">Ad</th><th class="ar">Spend</th><th class="ar">Enquiries</th>
+        <th class="ar">Cost each</th><th class="ar">Cost per 1,000 views</th><th class="ar">Times seen</th>
+      </tr></thead>
+      <tbody><tr class="best">
+          <td>MS Fatigue — “New Research” form ad</td>
+          <td class="ar">$430.62</td>
+          <td class="ar">213</td>
+          <td class="ar"><span class="num acc">$2.02</span></td>
+          <td class="ar">$30.47</td>
+          <td class="ar">2.1×</td>
+        </tr><tr class="">
+          <td>Psoriasis — simple banner</td>
+          <td class="ar">$368.97</td>
+          <td class="ar">94</td>
+          <td class="ar"><span class="num ">$3.93</span></td>
+          <td class="ar">$39.19</td>
+          <td class="ar">3.0×</td>
+        </tr><tr class="">
+          <td>Psoriasis — test banner</td>
+          <td class="ar">$189.64</td>
+          <td class="ar">52</td>
+          <td class="ar"><span class="num ">$3.65</span></td>
+          <td class="ar">$36.18</td>
+          <td class="ar">1.9×</td>
+        </tr><tr class="">
+          <td>Psoriasis — test banner, 600 image</td>
+          <td class="ar">$167.26</td>
+          <td class="ar">41</td>
+          <td class="ar"><span class="num ">$4.08</span></td>
+          <td class="ar">$43.11</td>
+          <td class="ar">1.9×</td>
+        </tr></tbody>
+    </table>
+    <p class="src">
+      “Times seen” is how often the average person in the audience saw the ad across the month.
+      Cost per 1,000 views is what Facebook charged to reach that audience — a rough read on how
+      contested it is. Both derived from the export's impression and reach figures.
+    </p>
+  </section>
+
+  <section>
+    <h2>04 — What the numbers say</h2>
+
+    <div class="find">
+      <h3><span class="n">01</span>The psoriasis ads are not underperforming. They are three versions
+      of the same idea.</h3>
+      <p>All three land between <strong>$3.65 and $4.08</strong> per enquiry — a very
+      narrow band. When three variations produce nearly identical results, the variations are not the
+      problem; the underlying idea is at its ceiling. What is being tested is the picture, not the
+      message.</p>
+    </div>
+
+    <div class="find">
+      <h3><span class="n">02</span>The MS ad wins on a different idea, not a better execution.</h3>
+      <p>It leads with <strong>new research</strong>. It brings in enquiries at
+      <strong>$2.02</strong> against the psoriasis average of <strong>$3.88</strong>,
+      and reaches its audience <strong>22% cheaper</strong>. That angle has never been tried on
+      psoriasis — which is the one place it would be pointed at buyers who actually purchase.</p>
+    </div>
+
+    <div class="find">
+      <h3><span class="n">03</span>The best-funded psoriasis ad is wearing out.</h3>
+      <p>The simple banner takes half the psoriasis budget and has now been seen <strong>three
+      times</strong> by the average person in its audience, against 1.9 for the other two. It is
+      being shown to the same small group over and over. That is the ceiling of an audience, not of
+      an ad — and it will get more expensive from here.</p>
+    </div>
+
+    <div class="find">
+      <h3><span class="n">04</span>Direction has already improved, and it should be said.</h3>
+      <p>In the month to 3 August, <strong>85%</strong> of measured spend pointed at MS Fatigue.
+      In this window it is <strong>40%</strong>. The account has moved
+      meaningfully toward the buying segment. The remaining 40% is now the
+      open question rather than the whole problem.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>05 — What this report cannot tell you</h2>
+    <div class="callout">
+      400 enquiries arrived. We cannot yet see how many became sales — and that single number
+      decides whether any of the above is good news.
+    </div>
+    <ol class="asks">
+      <li><strong>Sales in this window, split by segment.</strong>
+        Six devices were recorded as of 14 August, against a target of twenty by 10 September — today.
+        The current figure, and whether any came from MS, settles the argument on this page for good.</li>
+      <li><strong>Enquiries from the three paused landing-page campaigns.</strong>
+        $1,237.26 bought 3,985 landing-page views there, but the account only counted
+        views, not enquiries. Until that is counted we cannot say whether the landing page or the
+        Facebook form is the cheaper way to buy a customer — and the two are being chosen between right now.</li>
+      <li><strong>What happens after someone presses submit.</strong>
+        Cost per enquiry is only meaningful next to what an enquiry is worth. That is a
+        follow-up question, not an advertising one.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>06 — The recommendation</h2>
+    <p class="lede">Take the idea that is winning and point it at the people who buy.</p>
+    <p>Run the <strong>“new research”</strong> angle on psoriasis as a genuine fourth ad — not another
+    banner variation. It is the only untested combination of the account's best-performing message and
+    its only proven segment, and it costs nothing to find out.</p>
+    <p>Hold MS spend where it is rather than cutting it, until the sales figures in <em>05</em> are in
+    hand. Cutting it now would be a decision made on cost, which is exactly the mistake this report
+    is about.</p>
+  </section>
+
+  <footer>
+    <span>Prepared by Evolv AI</span>
+    <span>Source · Meta Ads Manager export, 10 Sep 2026</span>
+  </footer>
+
+</div>
+</body></html>
