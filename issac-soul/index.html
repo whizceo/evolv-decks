@@ -2,117 +2,202 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ISSAC — The Soul of the Seller</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#16181a;--acc:#1c5d43;--paper:#fdfdfb;--line:#e3e1db;--mut:#6b6f72;--band:#f7f7f4}
+:root{--sig:#e42b0c;--grad:linear-gradient(94deg,#ff0201 -33.85%,#ff7802 -1.54%,#ff0201 73.55%);
+  --ink:#000;--carbon:#1f1f1f;--s900:#101828;--s700:#364153;--s600:#4a5565;--steel:#676767;--iron:#8a8a8a;
+  --mist:#99a1af;--cloud:#d4d4d4;--frost:#e5e7eb;--paper:#fff;--vellum:#f5f5f5;--r:8px;
+  --sh:rgba(0,0,0,.1) 0 1px 3px 0,rgba(0,0,0,.1) 0 1px 2px -1px;
+  --f:Inter,"Söhne","Suisse Int'l",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 *{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);
-     font:400 17px/1.68 Newsreader,Georgia,serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
-.col{max-width:70ch;margin:0 auto}
-
-header{border-bottom:1px solid var(--line);padding:88px 0 46px;margin-bottom:0}
-.kicker{font:600 11px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:22px}
-h1{font:400 clamp(38px,6.4vw,74px)/1.02 Newsreader,Georgia,serif;letter-spacing:-.025em;margin:0 0 20px;max-width:16ch}
-.sub{font:400 clamp(18px,2.2vw,23px)/1.48 Newsreader,Georgia,serif;color:var(--mut);max-width:60ch;margin:0}
-.meta{margin-top:30px;font:400 12px/1.7 JetBrains Mono,monospace;color:var(--mut);letter-spacing:.01em}
-
-.toc{border-bottom:1px solid var(--line);padding:30px 0 34px;
-     font:400 13.5px/1.9 Inter,sans-serif;color:var(--mut)}
-.toc a{color:var(--mut);text-decoration:none;border-bottom:1px solid transparent;margin-right:26px;white-space:nowrap;display:inline-block}
-.toc a:hover{color:var(--acc);border-bottom-color:var(--acc)}
-
-.part{border-top:1px solid var(--ink);margin-top:96px;padding-top:14px}
-.partno{font:600 11px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
-h2{font:400 clamp(28px,4vw,44px)/1.08 Newsreader,Georgia,serif;letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
-.deck{font:400 18px/1.5 Newsreader,Georgia,serif;color:var(--mut);max-width:62ch;margin:0 0 8px}
-
-h3{font:600 20px/1.32 Inter,sans-serif;letter-spacing:-.01em;margin:62px 0 4px;max-width:34ch}
-h3 .no{display:block;font:600 11px/1.6 JetBrains Mono,monospace;color:var(--acc);letter-spacing:.1em;margin-bottom:9px}
-h4{font:600 13px/1.4 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--acc);margin:52px 0 14px}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:var(--vellum);color:var(--s600);font:400 18px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
 p{margin:0 0 20px}
-.lead::first-letter{float:left;font:400 62px/.82 Newsreader,Georgia,serif;padding:6px 10px 0 0;color:var(--acc)}
+b,strong{font-weight:600;color:var(--s900)}
 em{font-style:italic}
-strong{font-weight:600}
 
-.pull{border-left:2px solid var(--acc);padding:6px 0 6px 24px;margin:34px 0;
-      font:400 22px/1.42 Newsreader,Georgia,serif;letter-spacing:-.01em;max-width:52ch}
-.said{font:400 19px/1.5 Newsreader,Georgia,serif;color:var(--ink);background:var(--band);
-      border:1px solid var(--line);padding:20px 24px;margin:28px 0;max-width:60ch}
-.said span{display:block;margin-top:10px;font:400 11.5px/1.4 JetBrains Mono,monospace;color:var(--mut)}
-.note{background:var(--band);border:1px solid var(--line);padding:22px 26px;margin:34px 0;
-      font:400 15px/1.62 Inter,sans-serif;color:var(--mut)}
-.note b{color:var(--ink);font-weight:600}
-.note p{margin:0 0 12px}.note p:last-child{margin:0}
-.src{font:600 10.5px/1.4 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;
-     display:inline-block;padding:3px 8px;border-radius:2px;vertical-align:1px;margin-right:8px}
-.src.doc{background:#eff4f1;color:#14503a}
-.src.data{background:#d9eae1;color:#14503a}
-.src.read{background:#faf0dc;color:#7a5a18}
+/* nav */
+.topbar{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--frost)}
+.bar{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.mark{font:600 20px/1 var(--f);color:var(--ink);text-decoration:none;letter-spacing:-.025em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.navcta{background:var(--grad);color:#fff;text-decoration:none;font:600 14px/1 var(--f);letter-spacing:.025em;
+  text-transform:uppercase;padding:12px 20px;border-radius:var(--r);white-space:nowrap}
 
-.souls{margin:44px 0 0}
-.soul{border-top:1px solid var(--line);padding:36px 0 4px}
-.soul h3{margin-top:0}
-.soul .facts{font:400 13px/1.8 JetBrains Mono,monospace;color:var(--mut);margin:0 0 20px}
-.soul .facts b{color:var(--ink);font-weight:600}
+/* hero */
+.hero{padding:40px 0 0}
+.herocard{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);
+  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;padding:64px}
+.pill{display:inline-block;border:1px solid var(--cloud);border-radius:var(--r);padding:4px 12px;
+  font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s600);margin-bottom:32px}
+h1{font:300 clamp(44px,6.2vw,72px)/1 var(--f);letter-spacing:-.03em;color:var(--s900);margin:0 0 24px;max-width:10em}
+.sub{font:400 20px/1.5 var(--f);color:var(--s600);max-width:32em;margin:0}
+.panel{background:var(--carbon);border-radius:var(--r);padding:32px;display:flex;flex-direction:column;justify-content:flex-end}
+.meta p{margin:0;padding:14px 0;border-top:1px solid rgba(255,255,255,.14);font:400 14px/1.43 var(--f);color:var(--mist)}
+.meta p:first-child{border-top:0;padding:0 0 24px;font:300 30px/1.33 var(--f);color:#fff}
 
-.scroll{overflow-x:auto;border:1px solid var(--line);margin:34px 0}
-table{border-collapse:collapse;width:100%;min-width:760px;font:400 14px/1.55 Inter,sans-serif}
-th{background:var(--ink);color:#fff;font:600 10.5px/1.3 Inter,sans-serif;letter-spacing:.09em;
-   text-transform:uppercase;text-align:left;padding:13px 14px;vertical-align:bottom}
-td{padding:14px;border-top:1px solid var(--line);vertical-align:top;color:var(--mut)}
-td:first-child{color:var(--ink);font-weight:600}
-tbody tr:nth-child(even){background:var(--band)}
-td a{color:var(--acc)}
-.mono{font:400 12px/1.5 JetBrains Mono,monospace;white-space:nowrap}
+/* layout */
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:64px;padding-top:64px;padding-bottom:96px}
+.toc{position:sticky;top:96px;display:flex;flex-direction:column;gap:4px}
+.toc a{font:500 14px/1.43 var(--f);color:var(--s600);text-decoration:none;padding:8px 12px;border-radius:var(--r)}
+.toc a:hover{background:var(--paper);color:var(--s900)}
+.toc a.on{background:var(--paper);color:var(--s900);box-shadow:inset 2px 0 0 var(--sig),var(--sh)}
+main,.rail{min-width:0}
 
-ol.rules{list-style:none;counter-reset:r;padding:0;margin:26px 0 0;max-width:74ch}
-ol.rules li{counter-increment:r;position:relative;padding:20px 0 20px 52px;border-top:1px solid var(--line);
-            font:400 16px/1.6 Inter,sans-serif}
-ol.rules li:before{content:counter(r);position:absolute;left:0;top:20px;width:28px;height:28px;
-   border:1px solid var(--line);color:var(--acc);text-align:center;
-   font:600 12px/2.2 JetBrains Mono,monospace}
-ol.rules li b{font-weight:600;color:var(--ink)}
+/* sections */
+.part{margin:0 0 96px}
+.part:last-child{margin-bottom:0}
+.partno{display:inline-block;border:1px solid var(--cloud);border-radius:var(--r);padding:4px 12px;
+  font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s600)}
+h2{font:300 clamp(34px,4.4vw,48px)/1.2 var(--f);letter-spacing:-.025em;color:var(--s900);margin:20px 0 16px;max-width:18em}
+.deck{font:400 18px/1.5 var(--f);color:var(--s600);max-width:40em;margin:0}
+.shead .deck .src{margin-left:4px}
+.sbody{margin-top:32px}
+.card,.sbody.card{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);padding:48px}
+.card p{max-width:40em}
+.card>:last-child{margin-bottom:0}
+.lead{font:400 20px/1.5 var(--f);color:var(--s900)}
 
-ul.plain{list-style:none;padding:0;margin:22px 0;max-width:74ch}
-ul.plain li{padding:13px 0 13px 30px;border-top:1px solid var(--line);position:relative;
-            font:400 15.5px/1.6 Inter,sans-serif;color:var(--mut)}
-ul.plain li:before{content:"—";position:absolute;left:0;top:13px;color:var(--acc)}
-ul.plain li b{color:var(--ink);font-weight:600}
-ul.plain.no li:before{content:"\2715";color:#8a2b2b;font-size:12px;top:15px}
+/* truths */
+.stack{display:flex;flex-direction:column;gap:16px}
+.thead{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding-bottom:24px;border-bottom:1px solid var(--frost);margin-bottom:32px}
+.no{font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s900)}
+h3{font:400 30px/1.33 var(--f);color:var(--s900);margin:0 0 24px;max-width:22em}
+.pull{position:relative;margin:32px 0;padding:24px 0 32px;border-top:1px solid var(--frost);border-bottom:1px solid var(--frost);
+  font:300 30px/1.33 var(--f);color:var(--s900);max-width:26em}
+.pull::before{content:"“";display:block;height:40px;font:400 72px/1 Georgia,"Times New Roman",serif;color:var(--sig)}
+.said{background:var(--vellum);border-radius:var(--r);padding:24px 32px;margin:32px 0;font:400 20px/1.5 var(--f);color:var(--s900);max-width:36em}
+.said span{display:block;margin-top:12px;font:400 14px/1.43 var(--f);color:var(--steel)}
+.note{background:var(--vellum);border:1px solid var(--frost);border-radius:var(--r);padding:32px;margin:32px 0}
+.note p{font:400 16px/1.6 var(--f);color:var(--s600);margin:0 0 16px;max-width:none}
+.note p:last-child{margin:0}
+.src{display:inline-block;font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;padding:4px 12px;
+  border-radius:var(--r);border:1px solid var(--cloud);color:var(--s600);vertical-align:middle;white-space:nowrap}
+.src.data{background:var(--carbon);border-color:var(--carbon);color:#fff}
+.src.read{border-color:var(--sig);color:var(--s900)}
+.note .src{margin:2px 2px}
 
-footer{border-top:1px solid var(--ink);margin-top:110px;padding:40px 0 90px;
-       font:400 13px/1.8 JetBrains Mono,monospace;color:var(--mut)}
-@media(max-width:640px){
-  body{font-size:16px}
-  header{padding:56px 0 34px}
-  .part{margin-top:66px}
-  .pull{font-size:19px}
+/* emphasis panel: truth 06, the centre of the document */
+.card.dark{background:var(--carbon);border-color:var(--carbon)}
+.dark p,.dark li{color:var(--cloud)}
+.dark h3,.dark b,.dark strong,.dark .no,.dark .lead,.dark .pull{color:#fff}
+.dark .thead,.dark .pull,.dark ul.plain li{border-color:rgba(255,255,255,.14)}
+.dark .src.read{color:#fff}
+.dark ul.plain li{color:var(--cloud)}
+.dark ul.plain li::before{background:#fff}
+
+ul.plain{list-style:none;padding:0;margin:24px 0;max-width:44em}
+ul.plain li{position:relative;padding:16px 0 16px 32px;border-top:1px solid var(--frost);font:400 16px/1.6 var(--f);color:var(--s600)}
+ul.plain li:last-child{border-bottom:1px solid var(--frost)}
+ul.plain li::before{content:"";position:absolute;left:0;top:28px;width:12px;height:1px;background:var(--s900)}
+.card>ul.plain:last-child{margin-bottom:0}
+
+/* souls */
+.souls{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.soul{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);padding:40px}
+.soul:first-child{grid-column:1/-1}
+.soul h3{font-size:24px;line-height:1.38;margin:0 0 16px}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px!important}
+.facts span{border:1px solid var(--cloud);border-radius:var(--r);padding:4px 12px;font:500 12px/1.5 var(--f);
+  letter-spacing:.025em;text-transform:uppercase;color:var(--s600)}
+.soul p{font-size:16px;line-height:1.6}
+.soul>:last-child{margin-bottom:0}
+
+/* numbered rules */
+ol.rules{list-style:none;counter-reset:r;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+ol.rules li{counter-increment:r;background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);
+  padding:32px;font:400 16px/1.6 var(--f);color:var(--s600)}
+ol.rules li::before{content:counter(r,decimal-leading-zero);display:block;font:300 48px/1 var(--f);letter-spacing:-.025em;
+  color:var(--s900);margin-bottom:24px}
+ol.rules li b{display:block;font:400 20px/1.43 var(--f);color:var(--s900);margin-bottom:8px}
+
+/* never */
+ul.plain.no{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0;max-width:none}
+ul.plain.no li{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);padding:32px}
+ul.plain.no li:last-child:nth-child(odd){grid-column:1/-1}
+ul.plain.no li::before{content:"¹5";position:static;display:flex;align-items:center;justify-content:center;width:32px;height:32px;
+  background:none;border:1px solid var(--cloud);border-radius:var(--r);font-size:12px;color:var(--ink);margin-bottom:20px}
+ul.plain.no li b{display:block;font:400 20px/1.43 var(--f);color:var(--s900);margin-bottom:8px}
+
+/* approval: the one ask, on carbon */
+.sbody.dark{background:var(--carbon);border-radius:var(--r);padding:48px}
+.sbody.dark ol.rules li{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12);box-shadow:none;color:var(--cloud)}
+.sbody.dark ol.rules li::before{color:var(--sig)}
+.sbody.dark ol.rules li b{color:#fff}
+
+/* evidence */
+.scroll{overflow-x:auto;background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh)}
+table{border-collapse:collapse;width:100%;min-width:760px;font:400 14px/1.5 var(--f)}
+th{background:var(--carbon);color:#fff;font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;text-align:left;padding:14px 16px;vertical-align:bottom}
+td{padding:16px;border-top:1px solid var(--frost);vertical-align:top;color:var(--s600)}
+td:first-child{color:var(--s900);font-weight:500}
+tbody tr:nth-child(even){background:var(--vellum)}
+td a{color:var(--s900);text-underline-offset:3px}
+.mono{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+footer{background:var(--carbon);color:var(--mist);padding:64px 0;font:400 14px/1.8 var(--f)}
+
+@media(max-width:960px){
+  html{scroll-padding-top:128px}
+  .wrap{padding:0 16px}
+  .mark{font-size:16px}
+  .navcta{font-size:12px;padding:10px 14px}
+  .hero{padding-top:16px}
+  .herocard{grid-template-columns:1fr;gap:32px;padding:32px 24px}
+  .pill{margin-bottom:24px}
+  .sub{font-size:18px}
+  .layout{grid-template-columns:1fr;gap:32px;padding-top:24px;padding-bottom:64px}
+  .rail{position:sticky;top:64px;z-index:10;background:var(--vellum);margin:0 -16px;border-bottom:1px solid var(--frost)}
+  .toc{position:static;flex-direction:row;overflow-x:auto;padding:8px 16px;gap:4px;scrollbar-width:none}
+  .toc::-webkit-scrollbar{display:none}
+  .toc a{flex:none;white-space:nowrap}
+  .part{margin-bottom:64px}
+  .card,.sbody.card,.sbody.dark{padding:28px 20px}
+  .soul,ol.rules li,ul.plain.no li{padding:28px 20px}
+  .souls,ol.rules,ul.plain.no{grid-template-columns:1fr}
+  h3{font-size:24px;line-height:1.38}
+  .pull{font-size:22px;line-height:1.4;padding:20px 0 24px}
+  .pull::before{font-size:56px;height:32px}
+  .said{padding:20px;font-size:18px}
+  .note{padding:24px 20px}
+  body{font-size:17px}
 }
 </style></head><body>
 
-<header><div class="wrap">
-  <div class="kicker">Broker Social Solutions · ICP psychographic, companion document</div>
-  <h1>The soul of the seller</h1>
-  <p class="sub">Who the Texas business owner actually is, at the moment he starts thinking about
-  letting go — and what that means for every word Issac publishes.</p>
-  <p class="meta">v1 — for Issac's approval &nbsp;·&nbsp; built 6 September 2026 &nbsp;·&nbsp; companion to
-  ISSAC-ICP-PSYCHOGRAPHIC-AND-SOUL.xlsx<br>
-  Sources: Issac's own ICP document, 3 August 2026 &nbsp;·&nbsp; published research, read at source</p>
+<header class="topbar"><div class="wrap bar">
+  <a class="mark" href="#top">The soul of the seller</a>
+  <a class="navcta" href="#approval">Approval &rarr;</a>
 </div></header>
 
-<nav class="toc"><div class="wrap">
+<section class="hero" id="top"><div class="wrap"><div class="herocard">
+  <div>
+    <div class="pill">Broker Social Solutions · ICP psychographic, companion document</div>
+    <h1>The soul of the seller</h1>
+    <p class="sub">Who the Texas business owner actually is, at the moment he starts thinking about
+    letting go — and what that means for every word Issac publishes.</p>
+  </div>
+  <div class="panel"><div class="meta">
+    <p>v1 — for Issac's approval</p>
+    <p>built 6 September 2026</p>
+    <p>companion to ISSAC-ICP-PSYCHOGRAPHIC-AND-SOUL.xlsx</p>
+    <p>Sources: Issac's own ICP document, 3 August 2026</p>
+    <p>published research, read at source</p>
+  </div></div>
+</div></div></section>
+
+<div class="wrap layout">
+<aside class="rail"><nav class="toc">
   <a href="#why">Why this exists</a><a href="#truths">Ten truths</a><a href="#day">A Tuesday</a>
   <a href="#souls">The five souls</a><a href="#voice">What Issac writes</a>
   <a href="#never">What he must never post</a><a href="#gaps">What we do not know</a>
   <a href="#evidence">Evidence</a><a href="#approval">Approval</a>
-</div></nav>
+</nav></aside>
+<main>
 
-<div class="wrap"><div class="col">
-
-<section id="why" class="part"><div class="partno">Preface</div>
+<section id="why" class="part"><div class="shead"><div class="partno">Preface</div>
 <h2>Why a soul document exists</h2>
-<p class="lead">There is already a document that says who to call. It has four hard gates, twenty-four
+</div><div class="sbody card"><p class="lead">There is already a document that says who to call. It has four hard gates, twenty-four
 scoring criteria, four circles and a hundred and fifty industries, and it is correct. It will produce a
 list of Texas business owners who match, precisely, the profile Issac wrote down.</p>
 <p>It cannot tell him what to say to any of them.</p>
@@ -131,12 +216,12 @@ first if you read nothing else.</p>
 date are in the evidence table at the bottom. <span class="src read">Our read</span> means it is our
 reading of the segment and it is not yet confirmed — those are the ones we need him to sign or correct.</p>
 </div>
-</section>
+</div></section>
 
-<section id="truths" class="part"><div class="partno">Part one</div>
+<section id="truths" class="part"><div class="shead"><div class="partno">Part one</div>
 <h2>Ten things that are true about him</h2>
-<p class="deck">In the order they matter. The sixth is the one everything else hangs from.</p>
-<h3><span class="no">TRUTH 01</span>He is not the owner of the business. He is the business.</h3><p><span class="src read">Our read — needs his yes</span></p>
+<p class="deck">In the order they matter. The sixth is the one everything else hangs from.</p></div><div class="sbody flat">
+<div class="stack"><article class="card truth"><div class="thead"><span class="no">TRUTH 01</span><span class="src read">Our read — needs his yes</span></div><h3>He is not the owner of the business. He is the business.</h3>
 <p class="lead">Ask him what he does and he will not give you a job title. He will give you the name of the
 company, because for thirty-one years there has been no meaningful difference between the two. The company
 is where he learned who he was. It is the reason he was not at some of his daughter's games. It is the
@@ -152,8 +237,8 @@ question of who he is on Monday.</div>
 right, he usually means he has not yet found a second answer to that question. When he says he wants top
 dollar, he is often asking for the price to justify the loss. And when a stranger opens an email by calling
 his company <em>an asset</em>, the stranger has, without knowing it, described the man himself as inventory.</p>
-
-<h3><span class="no">TRUTH 02</span>His retirement is a building on a farm-to-market road, and he has never had it priced.</h3><p><span class="src data">Verified research</span></p>
+</article>
+<article class="card truth"><div class="thead"><span class="no">TRUTH 02</span><span class="src data">Verified research</span></div><h3>His retirement is a building on a farm-to-market road, and he has never had it priced.</h3>
 <p>He does not have a retirement account in any meaningful sense. He has a company, and possibly the land
 under it, and a general belief that between them they will be enough. A privately held business can
 represent <strong>80 to 90 percent of an owner's total net worth</strong>. That single sentence explains why
@@ -170,8 +255,8 @@ his head, thirty years were worth less than he told himself, and the plan he has
 his wife stops working. Not asking is how he keeps the plan alive. This is the single most exploitable
 fact in the entire psychographic, and it is exploitable in the good sense: the man who hands him a real
 number, with no listing agreement attached, has given him back a decade of his life.</p>
-
-<h3><span class="no">TRUTH 03</span>He built it for children who are not coming.</h3><p><span class="src doc">His own document</span></p>
+</article>
+<article class="card truth"><div class="thead"><span class="no">TRUTH 03</span><span class="src doc">His own document</span></div><h3>He built it for children who are not coming.</h3>
 <p>Issac's own document names it plainly, in a list of the highest-priority seller motivations:
 <em>children don't want the business</em>. It sits there between partner disputes and changing industries
 like an operational fact. It is not an operational fact. It is the quiet grief at the centre of this
@@ -190,8 +275,8 @@ carrying something he has not put down.</p>
 <p>There is a sentence available here that almost nobody says to him, and it is true: <em>you raised them
 too well to want it.</em> It reframes the thing he privately reads as a failure as what it actually was,
 which is the whole point of the work. It has to be said carefully, once, and never as a lead-in to a pitch.</p>
-
-<h3><span class="no">TRUTH 04</span>He is tired in a way that sleep does not fix.</h3><p><span class="src doc">His own document</span></p>
+</article>
+<article class="card truth"><div class="thead"><span class="no">TRUTH 04</span><span class="src doc">His own document</span></div><h3>He is tired in a way that sleep does not fix.</h3>
 <p>Burnout appears on Issac's motivation list, and the word is wrong for him. Burnout is what consultants
 have. What he has is the specific fatigue of being the final escalation point for every problem, every day,
 for twenty years — the man the call comes to when the estimate is wrong, when the crew does not show, when
@@ -205,8 +290,8 @@ by somebody he trusted.</span></div>
 <p>Never use the word burnout to him. It belongs to a younger vocabulary and it makes the fatigue sound
 like a personal weakness rather than an occupational consequence. Describe the Sunday instead, and let him
 name it.</p>
-
-<h3><span class="no">TRUTH 05</span>He has been farmed for six years, and he has won every time by not replying.</h3><p><span class="src data">Verified research</span></p>
+</article>
+<article class="card truth"><div class="thead"><span class="no">TRUTH 05</span><span class="src data">Verified research</span></div><h3>He has been farmed for six years, and he has won every time by not replying.</h3>
 <p>The demographic has been carpet-bombed. Search funds. Private-equity associates working a list.
 Postcard brokers. Automated LinkedIn sequences that call him by a first name he does not use. He receives
 some version of the same message every week, and he has been trained, by pure volume, to delete it
@@ -221,8 +306,8 @@ industry but not his company. And crucially — he remembers the names. Every ge
 neutral; it is a small permanent debit against a name he will see again.</p>
 <div class="pull">In this market, the cost of a generic message is not zero. It is the permanent loss
 of the one person you were writing to.</div>
-
-<h3><span class="no">TRUTH 06</span>He has nobody to tell.</h3><p><span class="src read">Our read — needs his yes</span></p>
+</article>
+<article class="card truth dark"><div class="thead"><span class="no">TRUTH 06</span><span class="src read">Our read — needs his yes</span></div><h3>He has nobody to tell.</h3>
 <p class="lead">This is the centre of the document. If you take one thing from all of it, take this.</p>
 <p>He has been thinking about selling for somewhere between two and six years, and he has told no one.
 Not properly. Consider who is available to him.</p>
@@ -253,8 +338,8 @@ to receive it. He will read the whole thing, follow the account, tell nobody he 
 in the inbox eleven months later with four words: <em>can I ask you something.</em></p>
 <p>That is the entire strategy. Everything in the CONTENT ENGINE sheet is a mechanical consequence of
 this paragraph.</p>
-
-<h3><span class="no">TRUTH 07</span>He is not afraid of losing money. He is afraid of looking like a fool.</h3><p><span class="src read">Our read — needs his yes</span></p>
+</article>
+<article class="card truth"><div class="thead"><span class="no">TRUTH 07</span><span class="src read">Our read — needs his yes</span></div><h3>He is not afraid of losing money. He is afraid of looking like a fool.</h3>
 <p>Thirty years of nobody putting one over on him. He has priced jobs, argued with suppliers, survived at
 least two recessions and one very bad year he does not talk about, and he did it without an MBA and
 without ever once being the smartest-sounding person in the room. Competence is not something he has.
@@ -268,8 +353,8 @@ post, in language he can repeat at his own kitchen table.</strong> Earn-outs. Se
 capital pegs. Add-backs. Not because he wants a finance education, but because every mechanic he can
 name is one less room he has to be afraid of. You are not teaching him. You are disarming a specific
 humiliation.</p>
-
-<h3><span class="no">TRUTH 08</span>The clock runs against him and he cannot see the hand move.</h3><p><span class="src doc">His own document</span></p>
+</article>
+<article class="card truth"><div class="thead"><span class="no">TRUTH 08</span><span class="src doc">His own document</span></div><h3>The clock runs against him and he cannot see the hand move.</h3>
 <p>Issac's document puts the sweet spot at 55 to 72, and that band is not arbitrary — it is the
 financeable band. A buyer using bank financing usually wants a transition period, and a 74-year-old
 who wants out in ninety days can be bought by a far smaller pool than the same business with a
@@ -287,8 +372,8 @@ problems, solvable without a single conversation.</p>
 any post or any message, directly or by implication. Use tenure instead. <em>Thirty-one years in the
 same building</em> carries the identical information and reads as respect rather than as a threat.
 Age-referencing is the single fastest way to lose him permanently.</p></div>
-
-<h3><span class="no">TRUTH 09</span>His building is worth more than he thinks. His business is worth less.</h3><p><span class="src doc">His own document</span></p>
+</article>
+<article class="card truth"><div class="thead"><span class="no">TRUTH 09</span><span class="src doc">His own document</span></div><h3>His building is worth more than he thinks. His business is worth less.</h3>
 <p>Two mistakes, running in opposite directions, in the same man.</p>
 <p>He bought the building in the nineties because the rent was going up and it seemed sensible. It has
 been a line item ever since. In the meantime Dallas, Austin and Houston grew out to meet him, and the
@@ -306,8 +391,8 @@ that <strong>he owns two assets, with two buyer pools and two valuation methods,
 thinking about one of them.</strong> Sold as one line, one of them is free. This is home ground: most
 business brokers cannot speak credibly about the real estate, and most commercial brokers cannot value
 the business. Issac can do both, and that is the whole differentiation.</p>
-
-<h3><span class="no">TRUTH 10</span>He would rather die at his desk than admit he does not know what to do.</h3><p><span class="src read">Our read — needs his yes</span></p>
+</article>
+<article class="card truth"><div class="thead"><span class="no">TRUTH 10</span><span class="src read">Our read — needs his yes</span></div><h3>He would rather die at his desk than admit he does not know what to do.</h3>
 <p>This is the operating constraint on every word Issac publishes.</p>
 <p>He will not be taught. Not because he is arrogant — he is generally not — but because accepting
 instruction requires first conceding ignorance, and the ignorance is the humiliating part. Content
@@ -322,12 +407,12 @@ proof that it worked.</p>
 listings. He posts as the man who has been in the room a hundred times and is describing what he
 sees, to no one in particular, with nothing asked in return. The moment a post has an ask at the
 bottom, the entire preceding paragraph is re-read as a pitch and discarded.</p></div>
+</article></div>
+</div></section>
 
-</section>
-
-<section id="day" class="part"><div class="partno">Part two</div>
+<section id="day" class="part"><div class="shead"><div class="partno">Part two</div>
 <h2>A Tuesday</h2>
-<p class="deck">Because a list of traits is not a person. <span class="src read">Our read — needs his yes</span></p>
+<p class="deck">Because a list of traits is not a person. <span class="src read">Our read — needs his yes</span></p></div><div class="sbody card">
 <p>He is awake at ten past five without an alarm, and has been for two decades. He is at the shop before
 six-thirty because the crews roll at seven and there is always one thing. He answers his own phone. The
 number on the website is his mobile, and it has been since the website was built in 2011 by a nephew.</p>
@@ -346,14 +431,14 @@ between nine-thirty and eleven he is going to read something, alone, that descri
 back to him with unusual accuracy, and he is going to read every word of it and tell nobody.</p>
 <div class="pull">That eleven o'clock moment is the entire target of phase one. Not a meeting. Not a
 call. A man on a sofa, reading something true, in private.</div>
-</section>
+</div></section>
 
-<section id="souls" class="part"><div class="partno">Part three</div>
+<section id="souls" class="part"><div class="shead"><div class="partno">Part three</div>
 <h2>The five souls inside the one profile</h2>
 <p class="deck">The ICP is one man on paper and five men in practice. The share estimates are ours and
 they are the thing we most need Issac to correct — he is the only person who knows which of these he
-actually meets. <span class="src read">Our read — needs his yes</span></p>
-<div class="souls"><div class="soul"><h3>① The founder at the end</h3><p class="facts">62–72 · founded it · owns the building · no heir · ~30% of C1/C2</p>
+actually meets. <span class="src read">Our read — needs his yes</span></p></div><div class="sbody flat">
+<div class="souls"><div class="soul"><h3>① The founder at the end</h3><p class="facts"><span>62–72</span><span>founded it</span><span>owns the building</span><span>no heir</span><span>~30% of C1/C2</span></p>
 <p>He signed a lease on a two-bay unit in 1991 with money he did not really have, and he has not worked
 anywhere else since. His surname may be on the sign. He will mention, within four minutes of meeting you,
 that nobody gave him anything, and he will be right.</p>
@@ -366,7 +451,7 @@ somebody to notice.</p>
 <p>What ends it instantly: any suggestion that the business is winding down, or any reference to his age.
 He will read one word of that and never come back, and he will not tell you why.</p>
 </div>
-<div class="soul"><h3>② The second-generation custodian</h3><p class="facts">52–64 · inherited it · family entity · ~20%</p>
+<div class="soul"><h3>② The second-generation custodian</h3><p class="facts"><span>52–64</span><span>inherited it</span><span>family entity</span><span>~20%</span></p>
 <p>He was twenty-four when his father had the first heart attack, and he has been running it ever since.
 He never chose this. He tripled it and got no credit for it, mostly from himself.</p>
 <p>His block is not financial and it is not operational. It is that selling his father's name feels like
@@ -377,7 +462,7 @@ business out of guilt is not loyalty, it is a slow sale at a worse price. What l
 opinion, however mild, about how his father ran it. He will defend a man he spent twenty years arguing
 with.</p>
 </div>
-<div class="soul"><h3>③ The burned-out operator</h3><p class="facts">48–60 · built or bought 2005–2015 · often leases · ~20%</p>
+<div class="soul"><h3>③ The burned-out operator</h3><p class="facts"><span>48–60</span><span>built or bought 2005–2015</span><span>often leases</span><span>~20%</span></p>
 <p>Younger than the classic profile and considerably more tired. He grew fast, growth was the whole
 identity, and somewhere around year nine it stopped being a company and started being a job he cannot
 quit. He has googled <em>sell my business</em> late at night and closed the tab.</p>
@@ -386,7 +471,7 @@ recognises the trap rather than the success is the only thing that reaches him �
 on the growth is, specifically, the thing that tells him you looked at the outside of his business for
 nine seconds.</p>
 </div>
-<div class="soul"><h3>④ The quiet absentee</h3><p class="facts">60–75 · GM in place · owns the building · ~15% · the most reachable</p>
+<div class="soul"><h3>④ The quiet absentee</h3><p class="facts"><span>60–75</span><span>GM in place</span><span>owns the building</span><span>~15%</span><span>the most reachable</span></p>
 <p>He put a general manager in three or four years ago. He comes in Tuesdays and Thursdays. He does not
 know the names of the last four people hired. He has already left emotionally and never did the
 paperwork, and he is still personally on the hook for every payroll.</p>
@@ -397,7 +482,7 @@ disengagement available anywhere in this build, and it costs nothing.</p>
 <p>The one way to lose him is to contact the business rather than him. The switchboard is a wall, and
 the GM has no reason on earth to pass along a message about selling.</p>
 </div>
-<div class="soul"><h3>⑤ The property-rich trader</h3><p class="facts">58–70 · ordinary business, extraordinary dirt · ~15%</p>
+<div class="soul"><h3>⑤ The property-rich trader</h3><p class="facts"><span>58–70</span><span>ordinary business, extraordinary dirt</span><span>~15%</span></p>
 <p>He runs a perfectly ordinary business on land that has quietly become the most valuable thing he
 owns, and he is still thinking about the business. Ask him how things are and he will tell you trade has
 been slow. He is answering about the wrong asset.</p>
@@ -408,11 +493,11 @@ is worth, and what the land alone is worth, priced independently.</p>
 somebody counting his money in front of him. The property conversation is the second conversation,
 always.</p>
 </div></div>
-</section>
+</div></section>
 
-<section id="voice" class="part"><div class="partno">Part four</div>
+<section id="voice" class="part"><div class="shead"><div class="partno">Part four</div>
 <h2>What this means for what Issac writes</h2>
-<p class="deck">Ten rules, all of them derived from something above. This is the style guide.</p>
+<p class="deck">Ten rules, all of them derived from something above. This is the style guide.</p></div><div class="sbody flat">
 <ol class="rules">
 <li><b>He posts as a witness, never as a broker.</b> Not "we help owners exit" — "here is what I have
 watched go wrong four different ways." A witness is credible. A broker is a category.</li>
@@ -437,11 +522,11 @@ qualification.</li>
 <li><b>Write to the household, not only the owner.</b> The decision needs a second yes from somebody
 with a completely different set of fears, and almost nobody in this market writes to her.</li>
 </ol>
-</section>
+</div></section>
 
-<section id="never" class="part"><div class="partno">Part four, continued</div>
+<section id="never" class="part"><div class="shead"><div class="partno">Part four, continued</div>
 <h2>What he must never post</h2>
-<p class="deck">These are not preferences. Each one loses the reader permanently, and silently.</p>
+<p class="deck">These are not preferences. Each one loses the reader permanently, and silently.</p></div><div class="sbody flat">
 <ul class="plain no">
 <li><b>Anything that could have been written for someone else.</b> Generic is not neutral in this
 segment. It confirms his central suspicion and it costs the name.</li>
@@ -460,12 +545,12 @@ not the asset.</li>
 <li><b>Follow-up sequences.</b> The second automated message proves the first one was automated. One
 message, then let the content do the waiting.</li>
 </ul>
-</section>
+</div></section>
 
-<section id="gaps" class="part"><div class="partno">Part five</div>
+<section id="gaps" class="part"><div class="shead"><div class="partno">Part five</div>
 <h2>What we do not know</h2>
 <p class="deck">Stated plainly, because a document that pretends to certainty it does not have is worth
-less than one that does not.</p>
+less than one that does not.</p></div><div class="sbody card">
 <ul class="plain">
 <li><b>The share of each of the five souls.</b> Our split is an estimate, not data. Issac has had these
 conversations; we have read about them. Where those disagree, he wins.</li>
@@ -480,18 +565,18 @@ on them.</li>
 <li><b>The 87 percent figure</b> for Boomers with no personal post-transition plan was read off a chart
 rather than prose, and is flagged as such in the evidence table. Verify before it is ever published.</li>
 </ul>
-</section>
+</div></section>
 
-<section id="evidence" class="part"><div class="partno">Part six</div>
+<section id="evidence" class="part"><div class="shead"><div class="partno">Part six</div>
 <h2>Evidence</h2>
 <p class="deck">Every number in this document, with its source and the date we read it. Nothing here is
-recalled from memory. Two rows are internal and are never published.</p>
+recalled from memory. Two rows are internal and are never published.</p></div><div class="sbody flat">
 <div class='scroll'><table><thead><tr><th>The statistic</th><th>Source</th><th>Link</th><th>Read at source</th></tr></thead><tbody><tr><td>A business can represent 80–90% of an owner's total net worth.</td><td>Exit Planning Institute, 2025 State of Owner Readiness — Generational Report</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>75% of business owners profoundly regret selling their company just one year later.</td><td>PricewaterhouseCoopers research, cited in EPI 2025 Generational Report</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>57% of Baby Boomers plan to sell their business in the next 5 years, but are unprepared: formal valuation plans 27%, estate plans 9%.</td><td>EPI 2025 Generational Report, p.12</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>58% of Baby Boomers plan to exit in the next 5 years. 5% have a formal exit planning team.</td><td>EPI 2025 Generational Report, p.13</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>Only 13% of respondents have a formal exit plan.</td><td>EPI 2025 Generational Report, p.13</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>78% of Baby Boomers have not completed a pre-transition value assessment.</td><td>EPI 2025 Generational Report, p.13</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>Why Boomers aren't exit planning: 30% 'too busy', 14% 'don't know how to start', 10% 'don't need it for a family transition'.</td><td>EPI 2025 Generational Report, p.12–13</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>Less than a quarter (23%) of Baby Boomers have exit planning on their priority list.</td><td>EPI 2025 Generational Report, p.12</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>87% of Baby Boomers have no personal post-transition plan; 85% have no business transition plan.</td><td>EPI 2025 Generational Report, p.14 chart</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>2013 baseline: 83% had no formal exit plan, 81% had no strategic business plan, 76% wanted to transition within 10 years.</td><td>EPI 2013 National SOOR, cited in the 2025 report</td><td class='mono'><a href="https://exit-planning-institute.org/hubfs/25SOOR-Generational.pdf">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>Main Street buyers: 46% first-time buyers, 32% serial entrepreneurs. Lower Middle Market: 44% individual buyers, ~20% private equity.</td><td>IBBA & M&A Source Market Pulse, Q4 2025</td><td class='mono'><a href="https://www.prnewswire.com/news-releases/the-ibba-and-ma-source-announce-the-market-pulse-q4-2025-survey-results-302691992.html">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>83% of deals over $5M attracted at least 3 offers; 18% attracted 10+ bids.</td><td>IBBA & M&A Source Market Pulse, Q1 2026</td><td class='mono'><a href="https://www.prnewswire.com/news-releases/the-market-pulse-survey-q1-2026-reports-the-latest-trends-in-business-sales-up-to-50m-302813653.html">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>~80% of privately held businesses listed for sale fail to transact within 12 months.</td><td>⚠️ SECONDARY SOURCE — widely cited, attributed to EPI research. Not verified in the primary PDF.</td><td class='mono'><a href="https://www.duedilio.com/business-sale-failure-rate/">source</a></td><td class='mono'>2026-09-06</td></tr><tr><td>Cold calling into this segment: 40 dials produced 39 voicemails.</td><td>Our own test, ruled 2026-08-31. Internal.</td><td class='mono'>Internal — not published</td><td class='mono'>2026-08-31</td></tr><tr><td>Texas universe: 701,815 businesses pulled; 261,313 through the four gates; 138,184 in the 10–30 year band.</td><td>Texas Comptroller sales-tax permit + franchise tax files, on disk.</td><td class='mono'>Internal — not published</td><td class='mono'>2026-08-28</td></tr></tbody></table></div>
-</section>
+</div></section>
 
-<section id="approval" class="part"><div class="partno">Part seven</div>
+<section id="approval" class="part"><div class="shead"><div class="partno">Part seven</div>
 <h2>What we need from Issac</h2>
-<p class="deck">Ten minutes decides whether the other forty pages are worth reading.</p>
+<p class="deck">Ten minutes decides whether the other forty pages are worth reading.</p></div><div class="sbody dark">
 <ol class="rules">
 <li><b>Read part one and part three first.</b> The ten truths and the five souls. If the man described
 there is not the man you sell for, stop and tell us — everything downstream is built on him.</li>
@@ -507,9 +592,9 @@ in the room; we have not.</li>
 three posted a week, ranked by stop rate every four weeks. That is phase one, and it is the only thing
 in phase one.</li>
 </ol>
-</section>
+</div></section>
 
-</div></div>
+</main></div>
 
 <footer><div class="wrap">
 ISSAC — The soul of the seller &nbsp;·&nbsp; v1 — for Issac's approval &nbsp;·&nbsp; 6 September 2026<br>
@@ -517,4 +602,12 @@ Companion to ISSAC-ICP-PSYCHOGRAPHIC-AND-SOUL.xlsx (20 sheets) and the ICP MATCH
 Built by Evolv AI for Broker Social Solutions. Confidential.
 </div></footer>
 
+<script>
+(()=>{const links=[...document.querySelectorAll('.toc a')];
+const byId=new Map(links.map(a=>[a.getAttribute('href').slice(1),a]));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting)return;const a=byId.get(e.target.id);if(!a)return;
+  links.forEach(l=>l.classList.toggle('on',l===a));const t=a.parentElement;
+  if(t.scrollWidth>t.clientWidth)t.scrollTo({left:a.offsetLeft-16,behavior:'smooth'});});},{rootMargin:'-30% 0px -60% 0px'});
+document.querySelectorAll('section.part').forEach(x=>io.observe(x));})();
+</script>
 </body></html>
