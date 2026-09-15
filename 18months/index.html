@@ -9,162 +9,165 @@
 <link rel="icon" href="assets/favicon-32x32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:opsz,wght@9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <style>
 :root{
-  /* Versione scura su teal 18Months (#003d47, dal CSS 18months.it) */
-  --ground:#003d47;
-  --brand:#ffffff;           /* colore d'azione su fondo teal: bottoni bianchi, testo teal */
-  --brand-hover:#e5eced;     /* Tint Wash 18months.it */
-  --tint:#e5eced;
-  /* Neutri OpenServ ricalcolati sul teal */
-  --bg:var(--ground); --fg:#ffffff; --fog:#0b4b56; --mist:#4f7d85;
-  --ash:#b8cbce; --smoke:#8fabb0; --slate:#93aeb3;
-  --sans:'DM Sans', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --serif:'Cormorant Garamond', 'EB Garamond', Georgia, 'Times New Roman', serif;
-  --max:1200px; --gap:80px; --pad:24px;
+  /* Brand 18Months (dal CSS 18months.it) */
+  --teal:#003d47; --teal-hover:#004a59; --tint:#e5eced;
+  /* Tipografia — titoli ABC Normal → Space Grotesk, testo Inter (DESIGN Copy) */
+  --title:'Space Grotesk','Plus Jakarta Sans',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --text:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --max:1200px; --gap:96px; --pad:24px;
   --r-card:16px; --r-input:12px; --r-pill:100px;
-  --shadow-nav:0 0 48px rgba(0,0,0,.25);
+  --shadow-nav:0 0 48px rgba(0,0,0,.12);
 }
+/* Temi di banda, alternati come su 18months.it: bg-common (bianco) · bg-light (tint) · bg-dark (teal) */
+.t-white,.t-light{--fg:#000b0f; --ash:#4a585c; --slate:#6b7a7e; --mist:#b3bfc2; --line:#e3e9ea;
+  --brand:var(--teal); --brand-hover:var(--teal-hover); --on-brand:#fff; --surface:#fff; --fog:#f3f6f6}
+.t-white{--bg:#fff}
+.t-light{--bg:var(--tint); --mist:#a9bbbe; --line:#d3dee0; --fog:#f3f6f6}
+.t-dark{--bg:var(--teal); --fg:#fff; --ash:#b8cbce; --slate:#93aeb3; --mist:#4f7d85; --line:#1c5561;
+  --brand:#fff; --brand-hover:var(--tint); --on-brand:var(--teal); --surface:#0b4b56; --fog:#0b4b56}
+
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:110px}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.4;font-weight:400;-webkit-font-smoothing:antialiased;padding-inline:16px}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;background:#fff;color:#000b0f;font-family:var(--text);font-size:16px;line-height:1.5;letter-spacing:-.005em;font-weight:400;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,h4,p,ul{margin:0}
+.band{background:var(--bg);color:var(--fg);padding-inline:16px}
 .wrap{max-width:var(--max);margin:0 auto}
+.section{padding-block:var(--gap)}
 
 /* ---------- Floating nav ---------- */
-.nav{position:sticky;top:calc(16px + env(safe-area-inset-top,0px));z-index:50;max-width:var(--max);margin:24px auto 0;background:var(--fog);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-card);box-shadow:var(--shadow-nav);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 12px 12px 24px}
+.nav{position:fixed;z-index:50;top:calc(16px + env(safe-area-inset-top,0px));left:16px;right:16px;max-width:var(--max);margin:0 auto;background:#fff;color:#000b0f;border-radius:var(--r-card);box-shadow:var(--shadow-nav);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 12px 12px 24px}
 .nav__logo img{height:30px;width:auto}
 .nav__links{display:flex;gap:16px}
-.nav__links a{padding:0 8px;font-size:15px;letter-spacing:-.017em;transition:color .2s}
-.nav__links a:hover{color:var(--brand)}
+.nav__links a{padding:0 8px;font-size:15px;transition:color .2s}
+.nav__links a:hover{color:var(--teal)}
 
 /* ---------- Buttons ---------- */
-.btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:var(--ground);border:0;border-radius:var(--r-pill);padding:10px 20px;font:400 15px/1.2 var(--sans);letter-spacing:-.01em;cursor:pointer;transition:background .2s}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:var(--on-brand);border:0;border-radius:var(--r-pill);padding:11px 22px;font:500 15px/1.2 var(--text);letter-spacing:-.01em;cursor:pointer;transition:background .2s}
 .btn:hover{background:var(--brand-hover)}
+.nav .btn{background:var(--teal);color:#fff}.nav .btn:hover{background:var(--teal-hover)}
 .btn .arr{font-size:14px;line-height:1}
 .btn--ghost{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1px var(--mist)}
 .btn--ghost:hover{background:var(--fog)}
-.plus{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--mist);background:var(--bg);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,transform .3s}
+.plus{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--mist);display:grid;place-items:center;cursor:pointer;transition:border-color .2s}
 .plus svg{width:14px;height:14px;stroke:var(--fg);stroke-width:1.2;transition:transform .3s}
 
 /* ---------- Type ---------- */
-.eyebrow{display:block;color:var(--brand);font-size:12px;line-height:1.2;letter-spacing:.02em;text-transform:uppercase;margin-bottom:16px}
-.display{font-family:var(--serif);font-weight:300;font-size:clamp(44px,6.4vw,72px);line-height:.95;letter-spacing:-.02em}
-.h-lg{font-family:var(--serif);font-weight:300;font-size:clamp(36px,4.6vw,56px);line-height:1;letter-spacing:-.02em}
-.sub{font-size:20px;line-height:1.3;color:var(--ash);letter-spacing:-.017em}
-.body{color:var(--ash);font-size:15px;line-height:1.55}
+.eyebrow{display:block;color:var(--brand);font:500 12px/1.2 var(--text);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.display{font-family:var(--title);font-weight:500;font-size:clamp(38px,4.3vw,60px);line-height:1.05;letter-spacing:-.025em}
+.h-lg{font-family:var(--title);font-weight:500;font-size:clamp(34px,4.2vw,52px);line-height:1.08;letter-spacing:-.02em}
+.sub{font-size:18px;line-height:1.45;color:var(--ash)}
+.body{color:var(--ash);font-size:16px;line-height:1.6}
 .body p+p{margin-top:14px}
-.section{padding-block:var(--gap)}
 
 /* ---------- Hero ---------- */
-.hero{position:relative;text-align:center;padding-block:120px 96px;overflow:hidden}
-.hero__mark{position:absolute;width:260px;opacity:.09;pointer-events:none}
-.hero__mark--a{right:-40px;top:40px;transform:rotate(8deg)}
-.hero__mark--b{left:-70px;bottom:-40px;width:180px;transform:rotate(-12deg);opacity:.06}
-.spark{position:absolute;fill:var(--brand);opacity:.16;pointer-events:none}
-.hero .display{max-width:980px;margin:0 auto}
-.hero .display em{font-style:italic}
-.hero .sub{margin:24px auto 0;max-width:560px}
-.hero__cta{margin-top:36px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-
-/* ---------- Stripe ---------- */
-.stripe{height:3px;display:grid;grid-template-columns:1fr 1fr 1fr;margin-inline:-16px}
-.stripe i:nth-child(1){background:var(--tint)}.stripe i:nth-child(2){background:var(--mist)}.stripe i:nth-child(3){background:#000}
+.hero{position:relative;overflow:hidden;min-height:max(720px,100svh);display:flex;align-items:center;padding-block:140px 96px}
+.hero__text{position:relative;z-index:2;max-width:min(700px,56%)}
+.hero__sub{font-family:var(--title);font-weight:500;font-size:clamp(22px,2.3vw,30px);line-height:1.2;letter-spacing:-.02em;color:#7fa0a6;margin-top:20px}
+.hero__cta{margin-top:40px;display:flex;gap:12px;flex-wrap:wrap}
+.hero__art{position:absolute;z-index:1;top:0;bottom:0;right:-6vw;width:min(50vw,760px);pointer-events:none}
+.hero__art canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease}
+.hero__art.ready canvas{opacity:1}
+.hero__fallback{position:absolute;right:4%;top:50%;width:78%;transform:translateY(-50%);opacity:.22;transition:opacity .6s}
+.hero__art.ready .hero__fallback{opacity:0}
 
 /* ---------- Intro 18Tickets ---------- */
-.intro{display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:start;border:1px solid var(--fog);background:var(--fog);border-radius:var(--r-card);padding:48px}
-.intro__logo{background:#ffffff;border-radius:var(--r-card);padding:28px 24px;display:grid;place-items:center}
+.intro{display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:start}
+.intro__logo{background:#fff;border-radius:var(--r-card);padding:28px 24px;display:grid;place-items:center}
 .intro__logo img{width:187px}
-.intro p{font-size:22px;line-height:1.35;letter-spacing:-.017em;color:var(--fg)}
+.intro p{font-size:22px;line-height:1.45;letter-spacing:-.015em;color:var(--fg)}
 
 /* ---------- Chi siamo ---------- */
 .about{display:grid;grid-template-columns:5fr 7fr;gap:64px}
 .about__head{position:sticky;top:120px;align-self:start}
 .about__head .btn{margin-top:32px}
-.about .body{font-size:17px;line-height:1.55}
-.about .body p:first-child{color:var(--fg);font-size:20px;line-height:1.4;letter-spacing:-.017em}
+.about .body{font-size:17px}
+.about .body p:first-child{color:var(--fg);font-size:20px;line-height:1.5;letter-spacing:-.015em}
 
 /* ---------- Numbers ---------- */
 .center-head{text-align:center;margin-bottom:48px}
 .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.num{border:1px solid var(--mist);border-radius:var(--r-card);padding:32px var(--pad) 28px;display:flex;flex-direction:column;justify-content:space-between;min-height:240px}
-.num__val{font-variant-numeric:lining-nums;font-family:var(--serif);font-weight:300;font-size:clamp(72px,9vw,120px);line-height:.85;letter-spacing:-.03em;color:var(--brand)}
-.num__val sup{font-size:.4em;vertical-align:top;position:relative;top:.2em;margin-right:4px;color:var(--fg)}
-.num__label{font-size:15px;color:var(--ash);border-top:1px solid var(--fog);padding-top:16px;margin-top:32px}
-.num__label b{font-weight:400;color:var(--fg)}
+.num{background:var(--surface);border-radius:var(--r-card);padding:32px var(--pad) 28px;display:flex;flex-direction:column;justify-content:space-between;min-height:240px}
+.num__val{font-family:var(--title);font-weight:500;font-variant-numeric:tabular-nums;font-size:clamp(64px,8vw,104px);line-height:.9;letter-spacing:-.04em;color:var(--brand)}
+.num__val sup{font-size:.42em;vertical-align:top;position:relative;top:.12em;margin-right:6px;color:var(--fg)}
+.num__label{font-size:15px;color:var(--ash);border-top:1px solid var(--line);padding-top:16px;margin-top:32px}
+.num__label b{font-weight:500;color:var(--fg)}
 
 /* ---------- Punti di forza ---------- */
 .forza{display:grid;grid-template-columns:4fr 8fr;gap:64px}
 .forza__head{position:sticky;top:120px;align-self:start}
 .acc{display:grid;gap:12px}
-.acc__item{border:1px solid var(--fog);border-radius:var(--r-card);background:var(--bg);transition:border-color .2s,background .2s}
+.acc__item{border:1px solid var(--line);border-radius:var(--r-card);transition:border-color .2s,background .2s}
 .acc__item:hover{border-color:var(--mist)}
-.acc__item.open{background:var(--fog);border-color:var(--fog)}
+.acc__item.open{background:var(--surface);border-color:var(--surface)}
 .acc__btn{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px var(--pad);cursor:pointer}
 .acc__btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:var(--r-card)}
-.acc__n{color:var(--brand);font-size:12px;min-width:28px}
-.acc__t{flex:1;font-size:22px;line-height:1.2;letter-spacing:-.017em}
+.acc__n{color:var(--slate);font:500 12px var(--text);min-width:28px}
+.acc__t{flex:1;font-family:var(--title);font-weight:500;font-size:21px;line-height:1.25;letter-spacing:-.015em}
 .acc__item.open .plus svg{transform:rotate(45deg)}
 .acc__item.open .plus{border-color:var(--fg)}
 .acc__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
 .acc__item.open .acc__panel{grid-template-rows:1fr}
 .acc__inner{overflow:hidden}
 .acc__content{padding:0 var(--pad) 28px calc(var(--pad) + 48px);max-width:720px}
-.acc__content p{color:var(--ash);line-height:1.55}
+.acc__content p{color:var(--ash);line-height:1.6}
 .acc__content p+p,.acc__content p+.tags,.acc__content .tags+p{margin-top:14px}
 .acc__content .lead{color:var(--fg)}
 .tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin-top:14px}
-.tags li{border-radius:var(--r-pill);background:var(--bg);border:1px solid var(--mist);padding:6px 14px;font-size:13px;color:var(--fg)}
+.tags li{border-radius:var(--r-pill);border:1px solid var(--mist);padding:6px 14px;font-size:13px;color:var(--fg)}
 
 /* ---------- Software ---------- */
 .sw-head{text-align:center;margin-bottom:56px}
-.sw{display:grid;gap:20px}
-.card{border:1px solid var(--mist);border-radius:var(--r-card);overflow:hidden;display:grid;grid-template-columns:7fr 5fr;background:var(--bg)}
-.card:nth-child(even){grid-template-columns:5fr 7fr}
-.card:nth-child(even) .card__img{order:2}
+.card{border-radius:var(--r-card);overflow:hidden;display:grid;grid-template-columns:7fr 5fr;background:var(--surface);border:1px solid var(--line)}
+.card--flip{grid-template-columns:5fr 7fr}
+.card--flip .card__img{order:2}
 .card__img{background:var(--fog);padding:24px;display:flex;align-items:center}
-.card__img img{border-radius:12px;border:1px solid var(--fog);width:100%}
+.t-white .card__img{background:var(--tint)}
+.card__img img{border-radius:12px;width:100%}
 .card__body{padding:40px;display:flex;flex-direction:column;justify-content:center}
-.card__title{font-size:30px;line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
-.card__body .body{font-size:16px}
+.card__title{font-family:var(--title);font-weight:500;font-size:30px;line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
+.t-dark .card{border-color:var(--surface)}
+.t-dark .card__img{background:#135764}
 
 /* ---------- Contatti ---------- */
 .contact{display:grid;grid-template-columns:4fr 8fr;gap:64px}
 .contact__head{align-self:start;position:sticky;top:120px}
 .contact__head .sub{margin-top:16px}
-.form{border:1px solid var(--mist);border-radius:var(--r-card);padding:32px}
+.form{background:var(--surface);border-radius:var(--r-card);padding:32px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-size:13px;color:var(--ash)}
-.field input,.field textarea{font:400 15px/1.4 var(--sans);color:var(--fg);background:var(--bg);border:1px solid var(--mist);border-radius:var(--r-input);padding:12px 14px;outline:0;transition:border-color .2s}
+.field input,.field textarea{font:400 15px/1.4 var(--text);color:var(--fg);background:var(--surface);border:1px solid var(--mist);border-radius:var(--r-input);padding:12px 14px;outline:0;transition:border-color .2s}
 .field input:focus,.field textarea:focus{border-color:var(--brand)}
 .field textarea{min-height:120px;resize:vertical}
 .field--full{grid-column:1/-1}
 .req{font-size:12px;color:var(--slate);margin-top:12px}
-.consent{margin-top:28px;border-top:1px solid var(--fog);padding-top:24px}
-.consent h4{font-size:15px;font-weight:400;margin-bottom:4px}
+.consent{margin-top:28px;border-top:1px solid var(--line);padding-top:24px}
+.consent h4{font-family:var(--title);font-size:17px;font-weight:500;margin-bottom:4px}
 .consent .small{font-size:12px;color:var(--slate)}
 .legal{margin-top:12px;max-height:150px;overflow:auto;background:var(--fog);border-radius:var(--r-input);padding:14px 16px;font-size:12px;line-height:1.5;color:var(--ash)}
 .legal p+p{margin-top:8px}
-.choice{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--fog);font-size:14px}
+.choice{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px}
 .seg{display:inline-flex;border:1px solid var(--mist);border-radius:var(--r-pill);padding:3px;flex:none}
 .seg input{position:absolute;opacity:0;pointer-events:none}
 .seg label{padding:6px 16px;border-radius:var(--r-pill);font-size:13px;cursor:pointer;color:var(--ash)}
-.seg input:checked+label{background:var(--brand);color:var(--ground)}
+.seg input:checked+label{background:var(--brand);color:var(--on-brand)}
 .seg input:focus-visible+label{outline:2px solid var(--brand);outline-offset:1px}
 .form__foot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:28px;flex-wrap:wrap}
 .form__msg{font-size:13px;color:var(--slate)}
 
 /* ---------- Footer ---------- */
-.footer{padding-block:64px 40px}
-.footer__top{display:grid;grid-template-columns:4fr 8fr;gap:64px;padding-bottom:48px;border-bottom:1px solid var(--fog)}
+.footer{padding-block:72px 40px}
+.footer__top{display:grid;grid-template-columns:4fr 8fr;gap:64px;padding-bottom:48px;border-bottom:1px solid var(--line)}
 .footer__logo img{height:34px;width:auto}
 .footer__cols{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-.footer__cols h5{font-size:12px;font-weight:400;color:var(--slate);text-transform:uppercase;letter-spacing:.02em;margin:0 0 12px}
-.footer__cols p,.footer__cols li{font-size:14px;line-height:1.6;color:var(--fg)}
+.footer__cols h5{font:500 12px/1.2 var(--text);color:var(--slate);text-transform:uppercase;letter-spacing:.08em;margin:0 0 12px}
+.footer__cols p,.footer__cols li{font-size:14px;line-height:1.6}
 .footer__cols ul{list-style:none;padding:0}
 .footer a:hover{color:var(--tint)}
 .footer__bot{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:24px;flex-wrap:wrap}
@@ -182,16 +185,21 @@ h1,h2,h3,h4,p,ul{margin:0}
 
 /* ---------- Responsive ---------- */
 @media (max-width:900px){
-  :root{--gap:64px}
+  :root{--gap:72px}
+  .hero{display:block;min-height:0;padding-block:120px 0}
+  .hero__text{max-width:none}
+  .display{font-size:clamp(34px,8.6vw,52px)}
+  .hero__art{position:relative;right:auto;width:auto;height:380px;margin:8px -16px 0}
+  .hero__fallback{right:auto;left:50%;width:300px;transform:translate(-50%,-50%)}
   .about,.forza,.contact,.footer__top{grid-template-columns:minmax(0,1fr);gap:32px}
   .about__head,.forza__head,.contact__head{position:static}
-  .intro{grid-template-columns:1fr;padding:28px;gap:24px}
-  .intro__logo{justify-items:start;place-items:start;padding:20px}
+  .intro{grid-template-columns:minmax(0,1fr);gap:28px}
+  .intro__logo{place-items:start;padding:20px;justify-self:start}
   .intro p{font-size:19px}
-  .nums{grid-template-columns:1fr}
+  .nums{grid-template-columns:minmax(0,1fr)}
   .num{min-height:0}
-  .card,.card:nth-child(even){grid-template-columns:minmax(0,1fr)}
-  .card:nth-child(even) .card__img{order:0}
+  .card,.card--flip{grid-template-columns:minmax(0,1fr)}
+  .card--flip .card__img{order:0}
   .card__body{padding:28px}
   .footer__cols{grid-template-columns:1fr 1fr}
 }
@@ -199,8 +207,7 @@ h1,h2,h3,h4,p,ul{margin:0}
   .nav{padding:10px 10px 10px 16px}
   .nav__links{display:none}
   .nav__logo img{height:24px}
-  .hero{padding-block:72px 64px}
-  .hero__mark--a{width:160px;right:-60px;top:10px}
+  .hero__art{height:320px}
   .acc__t{font-size:18px}
   .acc__n{display:none}
   .acc__content{padding:0 var(--pad) 24px}
@@ -214,7 +221,7 @@ h1,h2,h3,h4,p,ul{margin:0}
 <body>
 
 <nav class="nav" aria-label="Menu principale">
-  <a class="nav__logo" href="#top" title="Vai alla Homepage"><img src="assets/logo-white.svg" alt="18months.it" width="150" height="34"></a>
+  <a class="nav__logo" href="#top" title="Vai alla Homepage"><img src="assets/logo.svg" alt="18months.it" width="150" height="34"></a>
   <div class="nav__links">
     <a href="#chisiamo">Chi siamo</a>
     <a href="#software">Software</a>
@@ -224,70 +231,77 @@ h1,h2,h3,h4,p,ul{margin:0}
 
 <main id="top">
 
-  <!-- HERO -->
-  <section class="hero wrap">
-    <img class="hero__mark hero__mark--a" src="assets/mark.svg" alt="" aria-hidden="true">
-    <img class="hero__mark hero__mark--b" src="assets/mark.svg" alt="" aria-hidden="true">
-    <svg class="spark" style="left:12%;top:22%;width:22px" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.6 6.3 5.7 11.4 12 12-6.3.6-11.4 5.7-12 12-.6-6.3-5.7-11.4-12-12C6.3 11.4 11.4 6.3 12 0z"/></svg>
-    <svg class="spark" style="right:18%;bottom:20%;width:14px" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.6 6.3 5.7 11.4 12 12-6.3.6-11.4 5.7-12 12-.6-6.3-5.7-11.4-12-12C6.3 11.4 11.4 6.3 12 0z"/></svg>
-    <svg class="spark" style="left:22%;bottom:14%;width:9px;opacity:.1" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12"/></svg>
-    <h1 class="display rv">18Tickets è il sistema di biglietteria pensato da chi lavora ogni giorno con <em>cinema, teatri e operatori culturali.</em></h1>
-    <p class="sub rv">Un software completo, semplice e con un'assistenza reale.</p>
-    <div class="hero__cta rv">
-      <a class="btn" href="#contatti">Contattaci <span class="arr">↗</span></a>
-      <a class="btn btn--ghost" href="#software">Software</a>
+  <!-- HERO — bg-dark -->
+  <section class="band t-dark">
+    <div class="hero wrap">
+      <div class="hero__text">
+        <h1 class="display rv">18Tickets è il sistema di biglietteria pensato da chi lavora ogni giorno con cinema, teatri e operatori culturali.</h1>
+        <p class="hero__sub rv">Un software completo, semplice e con un'assistenza reale.</p>
+        <div class="hero__cta rv">
+          <a class="btn" href="#contatti">Contattaci <span class="arr">↗</span></a>
+          <a class="btn btn--ghost" href="#software">Software</a>
+        </div>
+      </div>
+      <div class="hero__art" id="mark3d" aria-hidden="true">
+        <img class="hero__fallback" src="assets/mark.svg" alt="">
+      </div>
     </div>
   </section>
 
-  <!-- 18TICKETS -->
-  <section class="wrap">
-    <div class="intro rv">
-      <div class="intro__logo"><img src="assets/18tickets.png" alt="18Tickets" width="187" height="32"></div>
-      <p>18Tickets è la piattaforma di biglietteria certificata pensata per cinema, teatri, musei, enti, associazioni e organizzatori di eventi. Grazie a un unico sistema cloud, integra tecnologia, automazione e assistenza specializzata per gestire in modo semplice e completo la vendita dei biglietti, il controllo degli accessi e gli adempimenti fiscali, garantendo a ogni organizzatore il pieno controllo dei propri dati, del pubblico e degli incassi.</p>
+  <!-- 18TICKETS — bg-light -->
+  <section class="band t-light">
+    <div class="section wrap">
+      <div class="intro rv">
+        <div class="intro__logo"><img src="assets/18tickets.png" alt="18Tickets" width="187" height="32"></div>
+        <p>18Tickets è la piattaforma di biglietteria certificata pensata per cinema, teatri, musei, enti, associazioni e organizzatori di eventi. Grazie a un unico sistema cloud, integra tecnologia, automazione e assistenza specializzata per gestire in modo semplice e completo la vendita dei biglietti, il controllo degli accessi e gli adempimenti fiscali, garantendo a ogni organizzatore il pieno controllo dei propri dati, del pubblico e degli incassi.</p>
+      </div>
     </div>
   </section>
 
-  <!-- CHI SIAMO -->
-  <section class="section wrap" id="chisiamo">
-    <div class="about">
-      <div class="about__head rv">
+  <!-- CHI SIAMO — bg-common -->
+  <section class="band t-white" id="chisiamo">
+    <div class="section wrap">
+      <div class="about">
+        <div class="about__head rv">
+          <span class="eyebrow">18Months</span>
+          <h2 class="h-lg">Chi siamo</h2>
+          <a class="btn" href="#contatti">Contattaci <span class="arr">↗</span></a>
+        </div>
+        <div class="body rv">
+          <p>18Months è una software house specializzata nello sviluppo di soluzioni tecnologiche per la biglietteria digitale e la gestione degli eventi che ha sviluppato nel tempo 18Tickets, una piattaforma certificata e altamente scalabile, affermatasi come una delle principali soluzioni italiane per il settore cinema, con una rete di oltre 200 strutture clienti e milioni di biglietti gestiti ogni anno.</p>
+          <p>L’esperienza maturata nel settore ha portato alla realizzazione di strumenti avanzati per la vendita online e in cassa, il controllo accessi, la gestione delle sale, l’analisi dei dati e l’ottimizzazione dei processi operativi, garantendo affidabilità, flessibilità e continuità di servizio.</p>
+          <p>Dal 2020, 18Months fa parte del gruppo Tickettando, realtà fondata da Nino Capitti e attiva nel mercato della biglietteria per eventi, spettacoli e attività culturali.</p>
+          <p>Questa sinergia ha favorito un percorso di evoluzione tecnologica e di ampliamento delle competenze, consentendo a 18Tickets di estendere progressivamente il proprio ambito di applicazione oltre il settore cinematografico.</p>
+          <p>Oggi la piattaforma supporta cinema, teatri, musei, attrazioni, organizzatori di eventi e operatori culturali, offrendo un ecosistema integrato di strumenti per la gestione della biglietteria, degli accessi e della relazione con il pubblico. Con oltre 16 milioni di biglietti emessi, 18Tickets rappresenta una soluzione affidabile e in continua evoluzione, progettata per accompagnare la crescita e la trasformazione digitale degli operatori del settore.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMERI — bg-light -->
+  <section class="band t-light">
+    <div class="section wrap">
+      <div class="center-head rv">
         <span class="eyebrow">18Months</span>
-        <h2 class="h-lg">Chi siamo</h2>
-        <a class="btn" href="#contatti">Contattaci <span class="arr">↗</span></a>
+        <h2 class="h-lg">I nostri numeri</h2>
       </div>
-      <div class="body rv">
-        <p>18Months è una software house specializzata nello sviluppo di soluzioni tecnologiche per la biglietteria digitale e la gestione degli eventi che ha sviluppato nel tempo 18Tickets, una piattaforma certificata e altamente scalabile, affermatasi come una delle principali soluzioni italiane per il settore cinema, con una rete di oltre 200 strutture clienti e milioni di biglietti gestiti ogni anno.</p>
-        <p>L’esperienza maturata nel settore ha portato alla realizzazione di strumenti avanzati per la vendita online e in cassa, il controllo accessi, la gestione delle sale, l’analisi dei dati e l’ottimizzazione dei processi operativi, garantendo affidabilità, flessibilità e continuità di servizio.</p>
-        <p>Dal 2020, 18Months fa parte del gruppo Tickettando, realtà fondata da Nino Capitti e attiva nel mercato della biglietteria per eventi, spettacoli e attività culturali.</p>
-        <p>Questa sinergia ha favorito un percorso di evoluzione tecnologica e di ampliamento delle competenze, consentendo a 18Tickets di estendere progressivamente il proprio ambito di applicazione oltre il settore cinematografico.</p>
-        <p>Oggi la piattaforma supporta cinema, teatri, musei, attrazioni, organizzatori di eventi e operatori culturali, offrendo un ecosistema integrato di strumenti per la gestione della biglietteria, degli accessi e della relazione con il pubblico. Con oltre 16 milioni di biglietti emessi, 18Tickets rappresenta una soluzione affidabile e in continua evoluzione, progettata per accompagnare la crescita e la trasformazione digitale degli operatori del settore.</p>
+      <div class="nums">
+        <div class="num rv"><div class="num__val" data-count="16"><sup>+</sup><span>16</span></div><p class="num__label"><b>mln</b> biglietti emessi</p></div>
+        <div class="num rv"><div class="num__val" data-count="400"><sup>+</sup><span>400</span></div><p class="num__label">strutture che utilizzano <b>18Tickets</b></p></div>
+        <div class="num rv"><div class="num__val" data-count="12"><sup>+</sup><span>12</span></div><p class="num__label"><b>mln</b> di utenti acquistano da noi</p></div>
       </div>
     </div>
   </section>
 
-  <div class="stripe" aria-hidden="true"><i></i><i></i><i></i></div>
-
-  <!-- NUMERI -->
-  <section class="section wrap">
-    <div class="center-head rv">
-      <span class="eyebrow">18Months</span>
-      <h2 class="h-lg">I nostri numeri</h2>
-    </div>
-    <div class="nums">
-      <div class="num rv"><div class="num__val" data-count="16"><sup>+</sup><span>16</span></div><p class="num__label"><b>mln</b> biglietti emessi</p></div>
-      <div class="num rv"><div class="num__val" data-count="400"><sup>+</sup><span>400</span></div><p class="num__label">strutture che utilizzano <b>18Tickets</b></p></div>
-      <div class="num rv"><div class="num__val" data-count="12"><sup>+</sup><span>12</span></div><p class="num__label"><b>mln</b> di utenti acquistano da noi</p></div>
-    </div>
-  </section>
-
-  <!-- PUNTI DI FORZA -->
-  <section class="section wrap">
-    <div class="forza">
-      <div class="forza__head rv">
-        <span class="eyebrow">18Months</span>
-        <h2 class="h-lg">I nostri punti di forza</h2>
-      </div>
-      <div class="acc">
+  <!-- PUNTI DI FORZA — bg-dark -->
+  <section class="band t-dark">
+    <div class="section wrap">
+      <div class="forza">
+        <div class="forza__head rv">
+          <span class="eyebrow">18Months</span>
+          <h2 class="h-lg">I nostri punti di forza</h2>
+        </div>
+        <div class="acc">
 
         <div class="acc__item rv">
           <button class="acc__btn" aria-expanded="false"><span class="acc__n">01</span><span class="acc__t">Sistema certificato SIAE completamente gestito</span><span class="plus"><svg viewBox="0 0 14 14"><path d="M7 0v14M0 7h14"/></svg></span></button>
@@ -336,18 +350,18 @@ h1,h2,h3,h4,p,ul{margin:0}
             <p class="lead">Il cliente vende direttamente, incassa direttamente, possiede i dati del suo pubblico, gestisce in autonomia la programmazione…decide lui tutto.</p>
           </div></div></div>
         </div>
-
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SOFTWARE -->
-  <section class="section wrap" id="software">
-    <div class="sw-head rv">
-      <span class="eyebrow">18Tickets</span>
-      <h2 class="h-lg">Il software</h2>
-    </div>
-    <div class="sw">
+  <!-- SOFTWARE — bg-common · bg-light · bg-dark -->
+  <section class="band t-white" id="software">
+    <div class="section wrap">
+      <div class="sw-head rv">
+        <span class="eyebrow">18Tickets</span>
+        <h2 class="h-lg">Il software</h2>
+      </div>
       <article class="card rv">
         <div class="card__img"><img src="assets/Immagine-2-800x396.png" alt="Selezione posti in sala – vendita online 18Tickets" width="800" height="396" loading="lazy"></div>
         <div class="card__body">
@@ -356,7 +370,11 @@ h1,h2,h3,h4,p,ul{margin:0}
           <p class="body">Grafica accattivante e un processo d’acquisto rapido che accompagna lo spettatore dalla scelta del film o dello spettacolo fino al checkout.</p>
         </div>
       </article>
-      <article class="card rv">
+    </div>
+  </section>
+  <section class="band t-light">
+    <div class="section wrap">
+      <article class="card card--flip rv">
         <div class="card__img"><img src="assets/Immagine-3-800x475.png" alt="Pannello di cassa 18Tickets" width="800" height="475" loading="lazy"></div>
         <div class="card__body">
           <span class="eyebrow">Il software</span>
@@ -364,6 +382,10 @@ h1,h2,h3,h4,p,ul{margin:0}
           <p class="body">Un pannello di controllo completo per la gestione della programmazione, delle tariffe e della configurazione delle sale in tempo reale. Il software gestionale pensato per gli operatori: semplice, veloce e centralizzato per gestire prenotazioni, abbonamenti e cassa.</p>
         </div>
       </article>
+    </div>
+  </section>
+  <section class="band t-dark">
+    <div class="section wrap">
       <article class="card rv">
         <div class="card__img"><img src="assets/immagine-4-800x361.png" alt="Riepiloghi vendite e reportistica 18Tickets" width="800" height="361" loading="lazy"></div>
         <div class="card__body">
@@ -375,14 +397,15 @@ h1,h2,h3,h4,p,ul{margin:0}
     </div>
   </section>
 
-  <!-- CONTATTI -->
-  <section class="section wrap" id="contatti">
-    <div class="contact">
-      <div class="contact__head rv">
-        <span class="eyebrow">18Months</span>
-        <h2 class="h-lg">Contattaci</h2>
-        <p class="sub">Compila il form per maggiori informazioni</p>
-      </div>
+  <!-- CONTATTI — bg-light -->
+  <section class="band t-light" id="contatti">
+    <div class="section wrap">
+      <div class="contact">
+        <div class="contact__head rv">
+          <span class="eyebrow">18Months</span>
+          <h2 class="h-lg">Contattaci</h2>
+          <p class="sub">Compila il form per maggiori informazioni</p>
+        </div>
       <form class="form rv" id="form" novalidate>
         <div class="grid2">
           <div class="field"><label for="f-nome">Nome*</label><input id="f-nome" name="nome" required autocomplete="given-name"></div>
@@ -417,13 +440,14 @@ h1,h2,h3,h4,p,ul{margin:0}
           <button class="btn" type="submit">Invia <span class="arr">↗</span></button>
         </div>
       </form>
+      </div>
     </div>
   </section>
 </main>
 
-<div class="stripe" aria-hidden="true"><i></i><i></i><i></i></div>
-
-<footer class="footer wrap">
+<!-- FOOTER — bg-dark -->
+<footer class="band t-dark">
+  <div class="footer wrap">
   <div class="footer__top">
     <a class="footer__logo" href="#top" title="Vai alla Homepage"><img src="assets/logo-white.svg" alt="18months.it" width="150" height="34"></a>
     <div class="footer__cols">
@@ -463,6 +487,7 @@ h1,h2,h3,h4,p,ul{margin:0}
       <li><a href="https://github.com/18Months" title="GitHub" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 2.9.8.1-.7.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7c-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .6 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg></a></li>
     </ul>
   </div>
+  </div>
 </footer>
 
 <script>
@@ -499,6 +524,77 @@ document.getElementById('form').addEventListener('submit',function(ev){
   window.location.href='mailto:info@18months.it?subject='+encodeURIComponent('Richiesta informazioni – '+f.nome.value+' '+f.cognome.value)+'&body='+encodeURIComponent(body);
   msg.textContent='Si sta aprendo il tuo client email…';
 });
+</script>
+<script type="module">
+// Hero 3D: il marchio 18Months (stesso path di assets/mark.svg) estruso in Three.js
+import * as THREE from 'three';
+import {SVGLoader} from 'three/addons/loaders/SVGLoader.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+
+const host=document.getElementById('mark3d');
+const MARK_D='M884.002 0c-75.1 0-135.982 60.897-135.982 135.996 0 24.228 6.893 46.672 17.96 66.358l-174.355 222.5c-11.576-3.198-23.585-5.496-36.217-5.497-75.082 0-135.995 60.836-135.998 135.98 0 12.618 2.284 24.637 5.466 36.264L202.341 765.984c-19.67-11.099-42.115-17.96-66.343-17.96C60.915 748.026 0 808.89 0 884.004.003 959.131 60.917 1020 135.998 1020c75.146 0 135.995-60.867 135.998-135.996 0-12.634-2.283-24.622-5.498-36.232l222.551-174.383c19.702 11.097 42.164 17.944 66.359 17.944 75.114-.003 135.982-60.915 135.982-135.996-.001-24.224-6.847-46.658-17.96-66.358L847.769 266.51c11.611 3.214 23.615 5.497 36.233 5.497C959.101 272.005 1020 211.126 1020 135.996 1020 60.898 959.1.002 884.002 0';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+try{
+  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.outputColorSpace=THREE.SRGBColorSpace;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=1.05;
+  host.appendChild(renderer.domElement);
+
+  const scene=new THREE.Scene();
+  const pmrem=new THREE.PMREMGenerator(renderer);
+  scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
+
+  const camera=new THREE.PerspectiveCamera(26,1,0.1,100);
+  camera.position.set(0,0,15);
+
+  const svg=new SVGLoader().parse('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 1020"><path d="'+MARK_D+'"/></svg>');
+  const shapes=svg.paths.flatMap(p=>SVGLoader.createShapes(p));
+  const geo=new THREE.ExtrudeGeometry(shapes,{depth:150,bevelEnabled:true,bevelThickness:24,bevelSize:18,bevelSegments:10,curveSegments:72});
+  geo.center();
+
+  const mat=new THREE.MeshPhysicalMaterial({color:0x6f9ba2,roughness:.26,metalness:.12,clearcoat:1,clearcoatRoughness:.14,envMapIntensity:1.1});
+  const mesh=new THREE.Mesh(geo,mat);
+  const s=5.1/1020;
+  mesh.scale.set(s,s,s);
+  mesh.rotation.x=Math.PI;               // SVG y-giù → y-su (rotazione, niente mirror)
+  const pivot=new THREE.Group();
+  pivot.add(mesh);
+  scene.add(pivot);
+
+  const key=new THREE.DirectionalLight(0xffffff,2.4); key.position.set(-5,6,9); scene.add(key);
+  const rim=new THREE.DirectionalLight(0xcdeef2,3); rim.position.set(7,-3,-6); scene.add(rim);
+  scene.add(new THREE.HemisphereLight(0xe5eced,0x003d47,.7));
+
+  function resize(){
+    const w=host.clientWidth,h=host.clientHeight;
+    renderer.setSize(w,h,false);
+    camera.aspect=w/h;
+    camera.position.z=w/h<1?19:15;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  addEventListener('resize',resize);
+
+  let px=0,py=0,tx=0,ty=0,visible=true;
+  addEventListener('pointermove',e=>{tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5;},{passive:true});
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;}).observe(host);
+
+  const clock=new THREE.Clock();
+  function frame(){
+    const t=clock.getElapsedTime();
+    px+=(tx-px)*.05; py+=(ty-py)*.05;
+    pivot.rotation.y=-.5+Math.sin(t*.35)*.22+px*.35;
+    pivot.rotation.x=.22+Math.cos(t*.28)*.07+py*.2;
+    pivot.position.y=Math.sin(t*.7)*.1;
+    renderer.render(scene,camera);
+  }
+  if(reduce){ pivot.rotation.set(.22,-.5,0); renderer.render(scene,camera); }
+  else renderer.setAnimationLoop(()=>{ if(visible) frame(); });
+  requestAnimationFrame(()=>host.classList.add('ready'));
+}catch(err){ /* WebGL non disponibile: resta il marchio piatto */ }
 </script>
 </body>
 </html>
