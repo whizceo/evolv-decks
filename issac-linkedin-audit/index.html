@@ -1,0 +1,307 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ISSAC — LinkedIn Profile Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--sig:#e42b0c;--grad:linear-gradient(94deg,#ff0201 -33.85%,#ff7802 -1.54%,#ff0201 73.55%);
+  --ink:#000;--carbon:#1f1f1f;--s900:#101828;--s700:#364153;--s600:#4a5565;--steel:#676767;--iron:#8a8a8a;
+  --mist:#99a1af;--cloud:#d4d4d4;--frost:#e5e7eb;--paper:#fff;--vellum:#f5f5f5;--r:8px;
+  --sh:rgba(0,0,0,.1) 0 1px 3px 0,rgba(0,0,0,.1) 0 1px 2px -1px;
+  --f:Inter,"Söhne","Suisse Int'l",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:var(--vellum);color:var(--s600);font:400 18px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+p{margin:0 0 20px}
+b,strong{font-weight:600;color:var(--s900)}
+em{font-style:italic}
+
+/* nav */
+.topbar{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--frost)}
+.bar{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.mark{font:600 20px/1 var(--f);color:var(--ink);text-decoration:none;letter-spacing:-.025em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.navcta{background:var(--grad);color:#fff;text-decoration:none;font:600 14px/1 var(--f);letter-spacing:.025em;
+  text-transform:uppercase;padding:12px 20px;border-radius:var(--r);white-space:nowrap}
+
+/* hero */
+.hero{padding:40px 0 0}
+.herocard{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);
+  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;padding:64px}
+.pill{display:inline-block;border:1px solid var(--cloud);border-radius:var(--r);padding:4px 12px;
+  font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s600);margin-bottom:32px}
+h1{font:300 clamp(44px,6.2vw,72px)/1 var(--f);letter-spacing:-.03em;color:var(--s900);margin:0 0 24px;max-width:10em}
+.sub{font:400 20px/1.5 var(--f);color:var(--s600);max-width:32em;margin:0}
+.panel{background:var(--carbon);border-radius:var(--r);padding:32px;display:flex;flex-direction:column;justify-content:flex-end}
+.meta p{margin:0;padding:14px 0;border-top:1px solid rgba(255,255,255,.14);font:400 14px/1.43 var(--f);color:var(--mist)}
+.meta p:first-child{border-top:0;padding:0 0 24px;font:300 30px/1.33 var(--f);color:#fff}
+
+/* layout */
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:64px;padding-top:64px;padding-bottom:96px}
+.toc{position:sticky;top:96px;display:flex;flex-direction:column;gap:4px}
+.toc a{font:500 14px/1.43 var(--f);color:var(--s600);text-decoration:none;padding:8px 12px;border-radius:var(--r)}
+.toc a:hover{background:var(--paper);color:var(--s900)}
+.toc a.on{background:var(--paper);color:var(--s900);box-shadow:inset 2px 0 0 var(--sig),var(--sh)}
+main,.rail{min-width:0}
+
+/* sections */
+.part{margin:0 0 96px}
+.part:last-child{margin-bottom:0}
+.partno{display:inline-block;border:1px solid var(--cloud);border-radius:var(--r);padding:4px 12px;
+  font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s600)}
+h2{font:300 clamp(34px,4.4vw,48px)/1.2 var(--f);letter-spacing:-.025em;color:var(--s900);margin:20px 0 16px;max-width:18em}
+.deck{font:400 18px/1.5 var(--f);color:var(--s600);max-width:40em;margin:0}
+.sbody{margin-top:32px}
+.sbody>:first-child{margin-top:0}
+.sbody>:last-child{margin-bottom:0}
+.card{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);padding:48px}
+.card p{max-width:40em}
+.card>:last-child{margin-bottom:0}
+.gap{margin-top:16px}
+h4{display:flex;align-items:center;gap:12px;font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;
+  color:var(--s900);margin:64px 0 24px}
+h4::before{content:"";width:24px;height:2px;background:var(--sig)}
+
+/* cards with a header row */
+.stack{display:flex;flex-direction:column;gap:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid2>.card{padding:40px}
+.grid2>.card:last-child:nth-child(odd){grid-column:1/-1}
+.thead{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding-bottom:24px;border-bottom:1px solid var(--frost);margin-bottom:32px}
+.thead .no{font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s900)}
+h3{font:400 30px/1.33 var(--f);color:var(--s900);margin:0 0 24px;max-width:22em}
+.grid2 h3{font-size:24px;line-height:1.38;margin-bottom:16px}
+.grid2 p{font-size:16px;line-height:1.6}
+.pull{position:relative;margin:32px 0 0;padding:24px 0 0;border-top:1px solid var(--frost);
+  font:300 30px/1.33 var(--f);color:var(--s900);max-width:26em}
+.pull::before{content:"\201C";display:block;height:40px;font:400 72px/1 Georgia,"Times New Roman",serif;color:var(--sig)}
+.note{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);padding:32px;margin:32px 0}
+.note p{font:400 16px/1.6 var(--f);color:var(--s600);margin:0 0 16px;max-width:none}
+.note p:last-child{margin:0}
+.src{display:inline-block;font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;padding:4px 12px;
+  border-radius:var(--r);border:1px solid var(--cloud);color:var(--s600);vertical-align:middle;white-space:nowrap}
+.src.data{background:var(--carbon);border-color:var(--carbon);color:#fff}
+.src.read{border-color:var(--sig);color:var(--s900)}
+.take{background:var(--vellum);border-left:2px solid var(--sig);border-radius:0 var(--r) var(--r) 0;padding:24px 32px;margin:32px 0 0;
+  font:400 18px/1.55 var(--f);color:var(--s900)}
+.take b{display:block;font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--steel);margin-bottom:12px}
+.take br{display:none}
+
+/* why linkedin: numbered reason cards */
+.reasons{counter-reset:w}
+.reasons .thead::before{counter-increment:w;content:counter(w,decimal-leading-zero);font:300 32px/1 var(--f);letter-spacing:-.025em;color:var(--s900)}
+
+/* content types */
+.type .terr{font:500 12px/1.6 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--steel);margin:32px 0 0;max-width:none}
+
+/* post shapes */
+.shape .wc{font:300 32px/1 var(--f);letter-spacing:-.025em;color:var(--s900)}
+
+/* the ten posts */
+.post .pid{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.post .pid .no{font:300 32px/1 var(--f);letter-spacing:-.025em}
+.post .pid .t{font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--sig)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;padding:4px 12px;border-radius:var(--r);
+  border:1px solid var(--cloud);color:var(--s600);white-space:nowrap}
+.tag.b{background:var(--carbon);border-color:var(--carbon);color:#fff}
+.pbody{display:grid;grid-template-columns:minmax(0,40em);gap:32px}
+.pbody.b{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:start}
+.caption{background:var(--vellum);border:1px solid var(--frost);border-radius:var(--r);padding:32px;
+  font:400 16px/1.62 var(--f);color:var(--s900);white-space:pre-wrap}
+.caption .hookline{font-weight:600}
+.caption .fold{display:block;border-bottom:1px dashed var(--cloud);margin:16px 0 14px;padding:0 0 6px;
+  font:500 11px/1 var(--f);letter-spacing:.1em;text-transform:uppercase;color:var(--iron)}
+.imgcard{position:sticky;top:96px}
+.imgcard .lab{font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--steel);margin:0 0 12px}
+.imgcard img{display:block;width:100%;border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);background:#fff}
+.imgcard .fn{font:400 12px/1.5 var(--f);color:var(--steel);margin:12px 0 0}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{position:relative;padding:16px 0 16px 32px;border-top:1px solid var(--frost);font:400 16px/1.6 var(--f);color:var(--s600)}
+ul.plain li:first-child{border-top:0;padding-top:0}
+ul.plain li:first-child::before{top:12px}
+ul.plain li:last-child{padding-bottom:0}
+ul.plain li::before{content:"";position:absolute;left:0;top:28px;width:12px;height:1px;background:var(--s900)}
+
+/* numbered rules */
+ol.rules{list-style:none;counter-reset:r;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+ol.rules li{counter-increment:r;background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);
+  padding:32px;font:400 16px/1.6 var(--f);color:var(--s600)}
+ol.rules li:last-child:nth-child(odd){grid-column:1/-1}
+ol.rules li::before{content:counter(r,decimal-leading-zero);display:block;font:300 48px/1 var(--f);letter-spacing:-.025em;
+  color:var(--s900);margin-bottom:24px}
+ol.rules li>b:first-child{display:block;font:400 20px/1.43 var(--f);color:var(--s900);margin-bottom:8px}
+ol.rules li br{display:none}
+
+/* ignored for ninety days */
+ul.plain.no{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+ul.plain.no li{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);padding:32px}
+ul.plain.no li:last-child:nth-child(odd){grid-column:1/-1}
+ul.plain.no li::before{content:"\2715";position:static;display:flex;align-items:center;justify-content:center;width:32px;height:32px;
+  background:none;border:1px solid var(--cloud);border-radius:var(--r);font-size:12px;color:var(--ink);margin-bottom:20px}
+ul.plain.no li b{display:block;font:400 20px/1.43 var(--f);color:var(--s900);margin-bottom:8px}
+ul.plain.no .d{color:var(--sig)}
+
+/* the ask, on carbon */
+.dark{background:var(--carbon);border-radius:var(--r);padding:48px}
+.dark h4{color:#fff;margin-top:0}
+.dark ul.plain li{color:var(--cloud);border-color:rgba(255,255,255,.12)}
+.dark ul.plain li::before{background:var(--sig);height:2px}
+.dark ul.plain li b{color:#fff}
+
+/* tables */
+.scroll{overflow-x:auto;background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh)}
+table{border-collapse:collapse;width:100%;min-width:760px;font:400 14px/1.5 var(--f)}
+th{background:var(--carbon);color:#fff;font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;text-align:left;padding:14px 16px;vertical-align:bottom}
+td{padding:16px;border-top:1px solid var(--frost);vertical-align:top;color:var(--s600)}
+td:first-child{color:var(--s900);font-weight:500}
+tbody tr:nth-child(even){background:var(--vellum)}
+.mono{white-space:nowrap}
+.never{color:var(--sig)}
+.v{display:inline-block;font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;padding:2px 10px;
+  border-radius:var(--r);border:1px solid var(--cloud);color:var(--s900);white-space:nowrap}
+.v.kept{background:var(--carbon);border-color:var(--carbon);color:#fff}
+.v.removed{border-color:var(--sig);color:var(--sig)}
+
+footer{background:var(--carbon);color:var(--mist);padding:64px 0;font:400 14px/1.8 var(--f)}
+
+@media(max-width:960px){
+  html{scroll-padding-top:128px}
+  .wrap{padding:0 16px}
+  .mark{font-size:16px}
+  .navcta{font-size:12px;padding:10px 14px}
+  .hero{padding-top:16px}
+  .herocard{grid-template-columns:1fr;gap:32px;padding:32px 24px}
+  .pill{margin-bottom:24px}
+  .sub{font-size:18px}
+  .take{font-size:17px;padding:20px}
+  .layout{grid-template-columns:1fr;gap:32px;padding-top:24px;padding-bottom:64px}
+  .rail{position:sticky;top:64px;z-index:10;background:var(--vellum);margin:0 -16px;border-bottom:1px solid var(--frost)}
+  .toc{position:static;flex-direction:row;overflow-x:auto;padding:8px 16px;gap:4px;scrollbar-width:none}
+  .toc::-webkit-scrollbar{display:none}
+  .toc a{flex:none;white-space:nowrap}
+  .part{margin-bottom:64px}
+  .card,.grid2>.card,.dark,ol.rules li{padding:28px 20px}
+  .grid2,ol.rules{grid-template-columns:1fr}
+  h3{font-size:24px;line-height:1.38}
+  .pull{font-size:22px;line-height:1.4;padding-top:20px}
+  .pull::before{font-size:56px;height:32px}
+  .pbody,.pbody.b{grid-template-columns:minmax(0,1fr)}
+  .imgcard{position:static}
+  .caption{padding:20px;font-size:15.5px}
+  .post .pid .no,.shape .wc,.reasons .thead::before{font-size:24px}
+  ul.plain.no{grid-template-columns:1fr}
+  ul.plain.no li{padding:28px 20px}
+  .note{padding:24px 20px}
+  h4{margin-top:48px}
+  body{font-size:17px}
+}
+
+/* audit additions */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+.ba>div{border-radius:var(--r);padding:32px;font:400 16px/1.6 var(--f)}
+.ba .now{background:var(--vellum);border:1px solid var(--frost);color:var(--s600)}
+.ba .fix{background:var(--paper);border:1px solid var(--frost);box-shadow:var(--sh);border-left:2px solid var(--sig);color:var(--s900)}
+.ba .lab{display:block;font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--steel);margin:0 0 16px}
+.ba .fix .lab{color:var(--sig)}
+.ba p{margin:0 0 14px}.ba p:last-child{margin:0}
+.draft{white-space:pre-wrap}
+.fill{background:#fdecea;color:var(--s900);padding:0 4px;border-radius:4px}
+.v.fixit{border-color:var(--s900)}
+.opt{display:grid;grid-template-columns:32px 1fr;column-gap:12px;padding:18px 0;border-top:1px solid var(--frost)}
+.opt:first-of-type{border-top:0;padding-top:0}
+.opt .k{font:300 28px/1 var(--f);color:var(--s900);min-width:28px}
+.opt .c{grid-column:2;font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--steel);margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:0 0 16px}
+.stat{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);padding:32px}
+.stat .n{font:300 48px/1 var(--f);letter-spacing:-.03em;color:var(--s900);margin:0 0 12px}
+.stat p{font:400 15px/1.5 var(--f);margin:0}
+td .v{margin-top:2px}
+.pri{font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--sig);white-space:nowrap}
+.srcs{font:400 14px/1.7 var(--f);color:var(--steel);margin-top:24px}
+.srcs a{color:var(--s700)}
+@media(max-width:960px){
+  .ba,.stats{grid-template-columns:1fr}
+  .ba>div,.stat{padding:24px 20px}
+}
+</style></head><body>
+
+<header class="topbar"><div class="wrap bar">
+  <a class="mark" href="#top">The profile audit</a>
+  <a class="navcta" href="#checklist">The checklist &rarr;</a>
+</div></header>
+
+<section class="hero" id="top"><div class="wrap"><div class="herocard">
+  <div>
+    <div class="pill">Issac Newton · eXp Commercial &middot; LinkedIn</div>
+    <h1>The profile audit</h1>
+    <p class="sub">What an owner finds when they look Issac up, what to change before the first email goes out,
+    and how LinkedIn outbound runs next to the hook test without breaking it.</p>
+  </div>
+  <div class="panel"><div class="meta">
+    <p>Audit v1</p>
+    <p>15 September 2026</p>
+    <p>Live profile read: linkedin.com/in/nih</p>
+    <p>Evolv AI for Issac Newton · eXp Commercial</p>
+    <p>Companion to the hook test.</p>
+    <p>Confidential.</p>
+  </div></div>
+</div></div></section>
+
+<div class="wrap layout">
+<aside class="rail"><nav class="toc">
+  <a href="#read">01 The read</a><a href="#score">02 Scorecard</a><a href="#top-card">03 Top of the profile</a><a href="#about">04 About</a><a href="#featured">05 Featured &amp; activity</a><a href="#experience">06 Experience &amp; skills</a><a href="#settings">07 Contact &amp; settings</a><a href="#trec">08 TREC</a><a href="#bss">09 Two audiences</a><a href="#outbound">10 Outbound in parallel</a><a href="#checklist">11 The checklist</a>
+</nav></aside>
+<main>
+
+<section id="read" class="part"><div class="shead"><div class="partno">Part one</div><h2>The read</h2><p class="deck">Why this profile matters more than it did a month ago.</p></div><div class="sbody">
+<div class="stats">
+  <div class="stat"><div class="n">21,646</div><p>followers. The account already has reach. The question is who it reaches.</p></div>
+  <div class="stat"><div class="n">4 of 4</div><p>Featured items are about AI or workflow automation. None is about selling a business or a building.</p></div>
+  <div class="stat"><div class="n">0</div><p>ways to reach him in Contact info. No email, no phone. The three links go to eXp, M&amp;A Source and IBBA.</p></div>
+</div>
+<div class="card">
+<p>From 18 September, Texas owners start receiving emails signed <b>Issac Newton</b>. The next thing a careful owner does is type that name into Google. The first result is this profile. It is also where every connection request lands, and where every reader of the hook-test posts goes after clicking his name.</p>
+<p>Both lanes, email and LinkedIn, finish on the same page. Today that page is written for two audiences at once. The top half speaks to business and property owners. The Featured section, the tail of the headline and the recent reshares speak to brokers who might buy prospecting automation from Broker Social Solutions.</p>
+<p>An owner who has just read a plain, personal email and then finds <em>"Workflow Automations I'm using to eliminate time spent on manual lead gen"</em> pinned at the top of the sender's profile has a reason to believe the email was not written by him. That one discovery can undo the email lane and the content lane together.</p>
+<div class="take"><b>The read</b>The profile is not missing anything a tool can add. It is carrying the wrong things. Almost every fix below is a deletion or a rewrite Issac can do in about an hour, and the most important ones must be done before the first email goes out.</div>
+</div>
+</div></section>
+<section id="score" class="part"><div class="shead"><div class="partno">Part two</div><h2>Scorecard</h2><p class="deck">Every element on the profile, what is there today, and when it has to change.</p></div><div class="sbody"><div class='scroll'><table><thead><tr><th>Element</th><th>Today</th><th>Verdict</th><th>When</th></tr></thead><tbody><tr><td>Photo</td><td>Professional headshot, verified badge</td><td><span class='v kept'>Keep</span></td><td>—</td></tr><tr><td>Headline</td><td>&ldquo;CRE &amp; M&amp;A Investment Advisor | Advising Commercial Property and Business Owners with Scalable Systems to Exit Successfully | Brokerage Automation Prospecting Systems&rdquo;</td><td><span class='v fixit'>Fix</span></td><td>Before the first email (~18 Sep)</td></tr><tr><td>Featured</td><td>Two Anthropic news reshares, an automation post, a Broker Social Solutions post ending &ldquo;Book a Workflow Automation Demo&rdquo;</td><td><span class='v removed'>Remove</span></td><td>Before the first email (~18 Sep)</td></tr><tr><td>About</td><td>&ldquo;Ready for a Profitable Exit…? Let's Make It Happen!&rdquo; A services list written as &ldquo;we&rdquo;, with exclamation marks</td><td><span class='v fixit'>Fix</span></td><td>Before the first email (~18 Sep)</td></tr><tr><td>Contact info</td><td>No email, no phone. Links: expcommercial.com, masource.com, ibba.org</td><td><span class='v fixit'>Fix</span></td><td>Before the first email (~18 Sep)</td></tr><tr><td>Location</td><td>&ldquo;United States&rdquo;</td><td><span class='v fixit'>Fix</span></td><td>Before the first email (~18 Sep)</td></tr><tr><td>Recent activity</td><td>Three event promos carrying 9 to 12 hashtags each, a Flippa reshare with emojis, an AI reshare</td><td><span class='v '>Pause</span></td><td>Now until post 01</td></tr><tr><td>Banner</td><td>Glass tower against a sun flare</td><td><span class='v fixit'>Fix</span></td><td>Before post 01</td></tr><tr><td>Experience</td><td>eXp, CoStar, Zillow and Redfin entries carry each company's own boilerplate. No line is in his voice</td><td><span class='v fixit'>Fix</span></td><td>Before post 01</td></tr><tr><td>Top skills</td><td>Artificial Intelligence for Business, Digital Marketing, Sales, Value Selling, Project Leadership (64 skills in total)</td><td><span class='v fixit'>Fix</span></td><td>Before post 01</td></tr><tr><td>Licenses</td><td>51 listed: the TREC license, then LinkedIn Learning course certificates</td><td><span class='v fixit'>Fix</span></td><td>Before post 01</td></tr><tr><td>Profile URL</td><td>linkedin.com/in/nih</td><td><span class='v fixit'>Fix</span></td><td>Before post 01</td></tr><tr><td>Education</td><td>San José State University 2006–2010; Champions School of Real Estate, license #689887</td><td><span class='v kept'>Keep</span></td><td>—</td></tr><tr><td>Organizations</td><td>Three, including IBBA and M&amp;A Source</td><td><span class='v kept'>Keep</span></td><td>—</td></tr><tr><td>Company page</td><td>Broker Social Solutions: 191 followers, location San Francisco</td><td><span class='v fixit'>Fix</span></td><td>Issac's call</td></tr></tbody></table></div></div></section>
+<section id="top-card" class="part"><div class="shead"><div class="partno">Part three</div><h2>The top of the profile</h2><p class="deck">The only part most visitors read: headline, banner, location, address.</p></div><div class="sbody"><h4>The headline</h4><div class='ba'><div class='now'><span class='lab'>On the profile today</span><p>CRE &amp; M&amp;A Investment Advisor | Advising Commercial Property and Business Owners with <b>Scalable Systems</b> to Exit Successfully | <b>Brokerage Automation Prospecting Systems</b></p><p>Two audiences in one line. The last third tells an owner that his prospecting is automated, which is exactly what he should not learn after receiving an email from him. &ldquo;Exit Successfully&rdquo; is an adjective doing the work a fact should do.</p></div><div class='fix'><span class='lab'>Pick one of three</span><div class='opt'><span class='k'>1</span><span>I sell Texas businesses and commercial property for the owners who built them. Business and commercial real estate advisor, eXp Commercial, Dallas</span><span class='c'>Recommended</span></div><div class='opt'><span class='k'>2</span><span>Twelve closings in 2025 · Business and commercial real estate advisor · eXp Commercial · Dallas, Texas</span><span class='c'>Opens with a fact</span></div><div class='opt'><span class='k'>3</span><span>Business and commercial real estate advisor · eXp Commercial · Dallas, Texas</span><span class='c'>The plainest</span></div></div></div><div class='note'><p>Every option says what he does for sellers, carries no adjectives, and names <b>eXp Commercial</b>. The brokerage name in the headline is what puts every post, comment and message he writes under a profile that names his broker (see part eight).</p></div><h4>The banner</h4><div class='ba'><div class='now'><span class='lab'>On the profile today</span><p>A glass office tower against a sun flare. It reads as stock photography and as a downtown office market, which is not the market of an owner selling a machine shop in Waco.</p></div><div class='fix'><span class='lab'>Change it to</span><p>One real photograph of an ordinary Texas commercial property he has listed or sold: a metal building, a strip centre, a yard. Taken on his phone is fine. No text, no logo, no skyline, no handshake.</p><p>Size 1584 × 396. Issac sends the photo; Evolv crops it.</p></div></div><h4>Location and profile address</h4><div class='ba'><div class='now'><span class='lab'>On the profile today</span><p>Location: <b>United States</b>.</p><p>Address: <b>linkedin.com/in/nih</b>. It means nothing to someone typing his name and does not match the name on the emails.</p></div><div class='fix'><span class='lab'>Change it to</span><p>Location: <b>Dallas, Texas</b>. LinkedIn search and Sales Navigator both filter on it.</p><p>Address: <b>linkedin.com/in/issacnewtoncre</b> if it is free. The old address may stop working, so anything printed with /in/nih (cards, signatures) gets updated the same day.</p></div></div></div></section>
+<section id="about" class="part"><div class="shead"><div class="partno">Part four</div><h2>About</h2><p class="deck">From a services brochure to a record of work done.</p></div><div class="sbody"><div class='ba'><div class='now'><span class='lab'>On the profile today</span><p>Opens: <em>&ldquo;Ready for a Profitable Exit from Your Business or Commercial Property? Let's Make It Happen!&rdquo;</em></p><p>Then: &ldquo;my team and I&rdquo;, &ldquo;trusted experts&rdquo;, &ldquo;top dollar&rdquo;, &ldquo;proven systems&rdquo;, &ldquo;hassle-free&rdquo;, &ldquo;let's jump on a call&rdquo;, a three-item services list, a list of charities and the three memberships.</p><p>It is written the way every broker's About is written, so it proves nothing. The pre-flight rule for this section is first person, past tense, work done. <b>Twelve closings in 2025 is a fact; &ldquo;trusted advisor&rdquo; is not.</b></p></div><div class='fix'><span class='lab'>Draft to paste (Issac fills the brackets)</span><div class='draft'>I sell businesses and commercial property in Texas.
+
+In 2025 I closed twelve transactions. <span class='fill'>[one line in his words: what kind of owners and properties those were]</span>
+
+I joined eXp Commercial in September 2024. For the three years before that I managed broker accounts across the central US for CoStar Group, the company behind LoopNet and BizBuySell.
+
+Before CoStar I bought houses for Zillow in Dallas, sold them as a REALTOR® with Redfin in Houston, and spent six years as a licensed State Farm agent.
+
+I am a member of TABB, IBBA and M&amp;A Source.
+
+<span class='fill'>[optional: one line on the charities, only if he has worked with them himself]</span>
+
+If you own a business or a building and want to talk about selling it, email me at issac.newton@expcommercial.com or call 214-836-0135. I answer both myself.
+
+Issac Newton · eXp Commercial · Texas license #<span class='fill'>[number, as TREC shows it]</span></div></div></div><div class='note'><p>No &ldquo;we&rdquo;, no exclamation marks, no emojis, no hashtags, no adjectives, the same law as the captions. Every sentence is built from his own experience entries and the facts he gave us; he confirms each one before it goes live. Nothing in it mentions automation, systems or Broker Social Solutions.</p></div></div></section>
+<section id="featured" class="part"><div class="shead"><div class="partno">Part five</div><h2>Featured and activity</h2><p class="deck">The section that currently undoes the rest.</p></div><div class="sbody"><div class='ba'><div class='now'><span class='lab'>On the profile today</span><p>1. Reshare: <em>&ldquo;Anthropic just released an update that turns your phone into a 24/7 worker&rdquo;</em></p><p>2. Reshare: <em>&ldquo;Claude Design by Anthropic Labs…&rdquo;</em></p><p>3. Post: <em>&ldquo;Workflow Automations I'm using to eliminate time spent on manual lead gen &amp; qualification…&rdquo;</em> (31 reactions, 32 comments)</p><p>4. Post: <em>&ldquo;Leveling Up Deal Strategy — Broker Social Solutions is building the automation infrastructure… Book a Workflow Automation Demo&rdquo;</em></p></div><div class='fix'><span class='lab'>Change it to</span><p><b>Nothing.</b> Remove all four items.</p><p>The pre-flight for the hook test says Featured stays empty in phase 1, deliberately: there is nothing to gate and nothing to sell yet.</p><p>The posts are not deleted. They stay in his activity, dated, where an owner has to scroll months to find them. Featured is the one place LinkedIn puts them in front of everyone.</p></div></div><h4>Recent activity</h4><div class='ba'><div class='now'><span class='lab'>What his followers have seen</span><p>Last 30 days: three promotions for the Resimercial event (16 Sep, MetroTex, Dallas) with capitalised headers and 9 to 12 hashtags each; a Flippa report reshare with emojis. Best result: 19 reactions, 3 comments.</p><p>Earlier: the Thorndale and Marsh Lane land listings, which are useful, correctly signed with eXp Commercial, and in his register.</p></div><div class='fix'><span class='lab'>Change it to</span><p>After the event on 16 September: no reshares, no hashtag posts and no AI or automation content on his personal feed until post 01.</p><p>Then the hook-test calendar is the only thing that publishes: Tuesday, Wednesday, Thursday, mid-morning Central, one post, written under the caption law.</p><p>Property listings can continue in the land-deal format, as long as they follow the same law: no hashtags, no exclamation marks, broker signature kept.</p></div></div></div></section>
+<section id="experience" class="part"><div class="shead"><div class="partno">Part six</div><h2>Experience, skills and licenses</h2><p class="deck">His real history is strong. Company boilerplate is covering it.</p></div><div class="sbody"><h4>Experience</h4><div class='ba'><div class='now'><span class='lab'>On the profile today</span><p><b>eXp Commercial</b>, Sep 2024 to today: two paragraphs of eXp's corporate description (&ldquo;one of the fastest growing brokerages worldwide… international market disruptor&rdquo;).</p><p><b>CoStar Group</b>, 2021–2024, Broker Accounts Regional Manager, Central US: CoStar's, BizBuySell's and LoopNet's company descriptions.</p><p><b>Zillow, Redfin, State Farm</b>: company descriptions; Redfin media attached.</p></div><div class='fix'><span class='lab'>Change it to</span><p><b>eXp Commercial</b>: <span class='draft'>I represent owners selling a business, the property it operates from, or both. Twelve closings in 2025. <span class='fill'>[one line on deal types]</span></span></p><p><b>CoStar Group</b>: <span class='draft'>I managed the accounts of business and commercial brokers across the central US on LoopNet and BizBuySell. <span class='fill'>[correct the scope in his words]</span></span></p><p><b>Zillow, Redfin, State Farm</b>: keep title and dates, delete the descriptions and the Redfin media.</p></div></div><div class='note'><p>The CoStar years are the most underused asset on the profile. A man who spent three years inside the marketplaces where Texas businesses and buildings get listed is a credible person to sell one. Today that sits under a paragraph about CoStar's headquarters in Washington.</p></div><h4>Skills and licenses</h4><div class='ba'><div class='now'><span class='lab'>On the profile today</span><p>Top skills: Artificial Intelligence for Business · Digital Marketing · Sales · Value Selling · Project Leadership.</p><p>Licenses: 51, with LinkedIn Learning certificates such as &ldquo;Asking Great Sales Questions&rdquo; listed next to the TREC license.</p></div><div class='fix'><span class='lab'>Change it to</span><p>Top skills: <b>Mergers &amp; Acquisitions · Business Brokerage · Commercial Real Estate · Business Valuation · Exit Planning</b>. Delete the AI and marketing skills.</p><p>Licenses: TREC first. Keep real estate, M&amp;A and valuation credentials. Delete the course certificates: 51 entries hide the one that matters.</p></div></div></div></section>
+<section id="settings" class="part"><div class="shead"><div class="partno">Part seven</div><h2>Contact and settings</h2><p class="deck">Eight settings, checked from his own account.</p></div><div class="sbody"><ol class='rules'><li><b>Contact email and phone</b><br>Contact info → add issac.newton@expcommercial.com and 214-836-0135 (both already public in his listing posts). Set email visibility to the widest option offered. An owner who has decided to write does not want a form.</li><li><b>The three website slots</b><br>Replace masource.com and ibba.org (already shown under Organizations) with: the BizBuySell broker profile, eXp Commercial's IABS form, and TREC's Consumer Protection Notice. The last two are the TREC links (part eight).</li><li><b>Public profile: everything visible</b><br>Settings → Visibility → Edit your public profile. Visibility on, every section shown. An owner who Googles his name after an email is usually not signed in to LinkedIn; this is the version he reads.</li><li><b>Follow stays secondary</b><br>Settings → Visibility → Followers → &ldquo;Make follow primary&rdquo; off. The outbound lane needs owners to see Connect, not Follow.</li><li><b>Profile viewing: name shown</b><br>Settings → Visibility → Profile viewing options → name and headline. The profile visit in the outbound sequence is only a signal if the owner can see who looked.</li><li><b>No connected tools</b><br>Settings → Data privacy → remove any scheduler, automation or scraping app, and any browser extension acting on LinkedIn. This includes HeyReach until week 17. Pre-flight rule 06: one automated artefact on this profile undoes the whole strategy.</li><li><b>Two-step verification on, one person logs in</b><br>Nobody at Evolv logs into the account. A sign-in from Milan or from an assistant's laptop is the quickest way to get the account restricted, and during the test the account is the instrument.</li><li><b>Audience baseline, today</b><br>Analytics → Followers: screenshot job seniority, industry and location before anything changes. It becomes week 0 in the tracker, so the Owner Reach numbers have something to be compared with.</li></ol><div class="note"><p>Settings are read from Issac's side only. This audit was run from a connected account, which cannot see his settings, so items three to eight are to be checked, not assumed wrong. Menu paths are LinkedIn desktop as of September 2026.</p></div></div></section>
+<section id="trec" class="part"><div class="shead"><div class="partno">Part eight</div><h2>TREC on LinkedIn</h2><p class="deck">The profile and posts are advertisements under Texas rules. Four things keep them compliant.</p></div><div class="sbody"><ol class='rules'><li><b>Broker name on the profile</b><br>Rule 535.155 lets the broker's name for a social media post sit on the profile page, if it is readily noticeable and one click away. &ldquo;eXp Commercial&rdquo; in the headline does that for every post and message.</li><li><b>IABS and Consumer Protection Notice links</b><br>Rules 531.18 and 531.20: when social media is used for business, the profile, or a page it links to directly, carries both links. The contact-info website slots are the place (part seven).</li><li><b>Team name only next to the broker</b><br>&ldquo;We Sell Group&rdquo; is a team name (rule 535.154). It never appears alone, and the broker's name is at least half its size. It stays off the profile until the exact broker string is confirmed. That same string is what the email signatures are waiting for.</li><li><b>&ldquo;Broker&rdquo; only if the license says broker</b><br>His license entry reads &ldquo;Real Estate Broker/Sales Agent&rdquo;. The headline options use the word that matches his TREC license type; Issac confirms which it is.</li></ol><p class='srcs'>Source: <a href='https://www.trec.texas.gov/article/what-you-need-know-comply-our-social-media-rules'>TREC, What You Need to Know to Comply With Our Social Media Rules</a>. This is a reading of the published rules, not legal advice. eXp Commercial's compliance team has the final word.</p></div></section>
+<section id="bss" class="part"><div class="shead"><div class="partno">Part nine</div><h2>Two audiences, one profile</h2><p class="deck">The owners he sells for, and the brokers his AI agency sells to, separated for sixteen weeks.</p></div><div class="sbody"><div class='card'><p>Broker Social Solutions, his AI agency, is a real business with a real audience: brokers who want prospecting systems. Its proof is automation. The owner Issac is selling to wants the opposite proof: that a person, not a system, is on the other side.</p><p>One profile cannot give both proofs at once. During the sixteen weeks of the hook test and the email lane, his personal profile carries only the owner story, and Broker Social Solutions lives on its own company page.</p></div><h4>What that means in practice</h4><ol class='rules'><li><b>Headline and Featured</b><br>No mention of automation, systems or Broker Social Solutions (covered in parts three and five).</li><li><b>No experience entry yet</b><br>Adding Broker Social Solutions as a current role would bring the automation story back to the top of the profile. It gets its entry in week 17.</li><li><b>Company page posts stay on the company page</b><br>No resharing Broker Social Solutions or AI news to his personal feed during the test.</li><li><b>Fix the company page location</b><br>It says San Francisco. The company is his, and he is in Dallas.</li></ol><div class='note'><p><b>The cost, stated plainly:</b> Broker Social Solutions loses the reach of his 21,646 followers for sixteen weeks. That is Issac's decision to make. Our recommendation is to pay it, because one listing signed with an owner is worth more than any amount of reach for the automation offer, and because the automation offer will have a stronger case in week 17 with a working pipeline to point to.</p></div></div></section>
+<section id="outbound" class="part"><div class="shead"><div class="partno">Part ten</div><h2>Outbound in parallel</h2><p class="deck">How LinkedIn outreach runs next to the hook test without breaking pre-flight rules 06 and 07.</p></div><div class="sbody"><div class='card'><p>The hook-test pre-flight has two rules that look like they forbid LinkedIn outbound. Rule 06: no connection-request automation, no auto-DM, no scheduler. Rule 07: no mass-connecting before or during the test, because changing who he is connected to changes who LinkedIn shows the posts to, and that changes the instrument.</p><p>Neither rule forbids an owner receiving a connection request from Issac. They forbid a machine sending it, and they forbid the volume changing mid-test. So the outbound lane runs on six rules:</p></div><div class="gap"></div><ol class='rules'><li><b>By hand, from his own account</b><br>Issac sends every request and writes every message himself, on his own device. No tool sends anything. Rule 06 stands untouched.</li><li><b>A fixed number, every weekday</b><br>15 requests a weekday, 75 a week, from the week before post 01 to week 16. The same number every week makes it a constant in the measurement instead of a change between weeks. LinkedIn does not publish its weekly limit; third-party tests put it near 100 a week for a standard account, so 75 leaves room.</li><li><b>Owners on the email list, and nobody else</b><br>Only owners already on the prospect list, matched to their LinkedIn profile. No brokers, no agents, no vendors, no open networkers. Those are the people the posts are trying to reach anyway.</li><li><b>No note, no sequence</b><br>The request goes without a note. A note is a pitch sent before there is any trust. After an owner accepts, Issac writes one short message himself: no link, no attachment, no call request. Nothing is pre-written as a follow-up.</li><li><b>Withdraw what is not accepted</b><br>Requests still pending after 21 days are withdrawn. A growing pile of pending requests is one of the signals LinkedIn uses to tighten limits.</li><li><b>One reply stops the other channel</b><br>An owner who replies by email is removed from the LinkedIn sheet, and the other way round. Nobody is worked on two channels after they have answered.</li></ol>
+  <h4>The sequence, per owner</h4><div class='scroll'><table><thead><tr><th>When</th><th>Channel</th><th>What happens</th><th>Who</th></tr></thead><tbody><tr><td>Day 0</td><td>Email</td><td>Email 1 from the warmed inboxes, signed Issac Newton, eXp Commercial</td><td>Instantly (already built)</td></tr><tr><td>Day 2</td><td>LinkedIn</td><td>Issac opens the owner's profile. The owner sees who looked</td><td>Issac, from the daily sheet</td></tr><tr><td>Day 3</td><td>LinkedIn</td><td>Connection request, no note</td><td>Issac</td></tr><tr><td>On accept</td><td>LinkedIn</td><td>One short message typed by Issac. No link, no pitch, no call request</td><td>Issac</td></tr><tr><td>Any reply</td><td>Both</td><td>The owner leaves the other channel</td><td>Evolv updates sheet + Instantly</td></tr><tr><td>Every weekday</td><td>Log</td><td>Requests sent, accepted, messages, replies: four numbers in the tracker</td><td>Issac, 1 minute</td></tr></tbody></table></div>
+  <h4>Tools</h4><div class='scroll'><table><thead><tr><th>Tool</th><th>Price</th><th>Verdict</th><th>Why</th></tr></thead><tbody><tr><td>LinkedIn Sales Navigator Core</td><td>US$119.99/mo, or US$1,079.88/yr</td><td><span class='v kept'>Buy</span></td><td>Finds the owner behind each list row (search by owner or partner seniority, Texas geography, years at the company) and saves lists. It sends nothing on its own.</td></tr><tr><td>HeyReach</td><td>US$79/mo per seat (US$63 billed yearly)</td><td><span class='v removed'>Not in phase 1</span></td><td>What it sells is automated connection requests, messages, follow-ups and profile views: each one breaks pre-flight rule 06. A trial is already open; Issac's account stays unconnected to it until week 17.</td></tr><tr><td>Post schedulers</td><td>—</td><td><span class='v removed'>No</span></td><td>Rule 06: no scheduler that posts on his behalf without him seeing it. Posts go out by hand from the calendar.</td></tr></tbody></table></div><p class='srcs'>Prices read at source on 15 Sep 2026: <a href='https://business.linkedin.com/sell/sales-navigator/compare-plans'>LinkedIn Sales Navigator plans</a> · <a href='https://www.heyreach.io/pricing'>HeyReach pricing</a>. Weekly limit (not published by LinkedIn): <a href='https://phantombuster.com/blog/social-selling/linkedin-connection-request-limit/'>PhantomBuster</a>, <a href='https://overloop.com/blog/linkedin-limits'>Overloop</a>.</p><div class='take'><b>What to expect from the lane</b>The owners on this list are mostly older and not active online, so only part of the list will have a LinkedIn profile to match. LinkedIn is the second touch for those rows; email stays the volume lane. We measure the match rate on the first 1,000 rows and report it rather than guessing it now. One honest effect: sixteen weeks of connecting with owners will slowly raise owner reach on every post. The test ranks territories against each other inside the same four-week window, so a slow lift shared by every post does not change the ranking.</div></div></section>
+<section id="checklist" class="part"><div class="shead"><div class="partno">Part eleven</div><h2>The checklist</h2><p class="deck">Twenty items. Most take Issac less than ten minutes.</p></div><div class="sbody"><div class='scroll'><table><thead><tr><th>Stage</th><th>Task</th><th>Owner</th><th>Time</th></tr></thead><tbody><tr><td><span class='pri'>Before first email</span></td><td>Remove all four Featured items</td><td>Issac</td><td>2 min</td></tr><tr><td></td><td>Pick a headline (part three)</td><td>Issac</td><td>2 min</td></tr><tr><td></td><td>Fill the About brackets and paste it</td><td>Issac; draft by Evolv</td><td>15 min</td></tr><tr><td></td><td>Contact info: email, phone, three links</td><td>Issac; IABS link from eXp</td><td>10 min</td></tr><tr><td></td><td>Location → Dallas, Texas</td><td>Issac</td><td>1 min</td></tr><tr><td></td><td>Public profile: every section visible</td><td>Issac</td><td>2 min</td></tr><tr><td></td><td>Confirm license type and the TREC broker string</td><td>Issac</td><td>1 message</td></tr><tr><td></td><td>Pause reshares and hashtag posts after 16 Sep</td><td>Issac</td><td>—</td></tr><tr><td><span class='pri'>Before post 01</span></td><td>Banner: one real property photo</td><td>Issac sends, Evolv crops</td><td>10 min</td></tr><tr><td></td><td>Experience: eXp and CoStar rewritten, boilerplate deleted</td><td>Evolv drafts, Issac approves</td><td>20 min</td></tr><tr><td></td><td>Top five skills set, AI and marketing skills deleted</td><td>Issac</td><td>5 min</td></tr><tr><td></td><td>Licenses pruned to TREC and real credentials</td><td>Issac</td><td>10 min</td></tr><tr><td></td><td>Custom URL → /in/issacnewtoncre</td><td>Issac</td><td>2 min</td></tr><tr><td></td><td>Settings: follow secondary, name on views, no connected tools, two-step on</td><td>Issac</td><td>10 min</td></tr><tr><td></td><td>Audience screenshot → tracker week 0</td><td>Issac → Evolv</td><td>5 min</td></tr><tr><td></td><td>Broker Social Solutions page: location → Dallas</td><td>Issac's call</td><td>2 min</td></tr><tr><td><span class='pri'>Outbound lane</span></td><td>Sales Navigator Core</td><td>Issac buys</td><td>—</td></tr><tr><td></td><td>Match list rows to LinkedIn profiles; daily sheet of 15</td><td>Evolv</td><td>ongoing</td></tr><tr><td></td><td>Daily: visit, connect, message on accept, log four numbers</td><td>Issac</td><td>15 min a weekday</td></tr><tr><td></td><td>Reply on one channel removes the owner from the other</td><td>Evolv</td><td>—</td></tr></tbody></table></div></div></section>
+
+</main></div>
+<footer><div class="wrap">Evolv AI for Issac Newton · eXp Commercial · LinkedIn profile audit · 15 September 2026 · Confidential.</div></footer>
+<script>
+(function(){var links=[].slice.call(document.querySelectorAll('.toc a'));
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)});}});},{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section.part').forEach(function(s){io.observe(s)});})();
+</script>
+</body></html>
