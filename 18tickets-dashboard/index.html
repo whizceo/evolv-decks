@@ -79,6 +79,9 @@ img{max-width:100%;display:block}
 .card__h{display:flex;justify-content:space-between;align-items:center;gap:10px 16px;flex-wrap:wrap;margin-bottom:16px}
 .card__h h3{font:500 16px/1.25 var(--title);letter-spacing:-.005em;display:flex;align-items:center;gap:7px}
 .card__h small{display:block;color:var(--slate);font-size:12.5px;margin-top:2px}
+.adv{display:inline-block;color:#a9bccd;font-size:11px;line-height:1;cursor:help;transform:translateY(-1px)}
+.legend-adv{font:400 11.5px/1.4 var(--text);color:var(--slate);margin-left:4px}
+.legend-adv .adv{margin-right:3px}
 .i{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;border:1px solid #c6d0db;color:var(--slate);font:600 9.5px/1 var(--text);cursor:help}
 .span2{grid-row:span 2}
 
@@ -274,7 +277,7 @@ tr.sel td{background:var(--blue-50)}
 <main class="main">
   <header class="top" id="panoramica">
     <div>
-      <div class="crumb">18Months <span>/</span> 18Tickets <span>/</span> Funnel di acquisto <span class="pill">Demo · dati simulati</span></div>
+      <div class="crumb">18Months <span>/</span> 18Tickets <span>/</span> Funnel di acquisto <span class="pill">Demo · dati simulati</span> <span class="legend-adv"><span class="adv">✦</span>Livello avanzato</span></div>
       <h1>Funnel di acquisto e vendite</h1>
       <p id="range"></p>
     </div>
@@ -345,7 +348,7 @@ tr.sel td{background:var(--blue-50)}
       <div class="minis" id="hourMini" style="margin:22px 0 0"></div>
     </div>
     <div class="card">
-      <div class="card__h"><div><h3>Anticipo sull'orario dello spettacolo</h3></div></div>
+      <div class="card__h"><div><h3>Anticipo sull'orario dello spettacolo <span class="adv" title="Livello avanzato: richiede integrazioni aggiuntive">✦</span></h3></div></div>
       <div class="bars bars--plain" id="lead"></div>
       <div class="card__h" style="margin:26px 0 16px"><div><h3>Tempo per completare l'acquisto</h3><small id="ttpSub"></small></div></div>
       <div class="bars bars--plain" id="ttp"></div>
@@ -360,7 +363,7 @@ tr.sel td{background:var(--blue-50)}
       <div class="minis" id="payMini2" style="margin:24px 0 0"></div>
     </div>
     <div class="card">
-      <div class="card__h"><div><h3>Pagamenti non riusciti</h3><small>Chi arriva al pagamento ma non conclude</small></div></div>
+      <div class="card__h"><div><h3>Pagamenti non riusciti <span class="adv" title="Livello avanzato: richiede integrazioni aggiuntive">✦</span></h3><small>Chi arriva al pagamento ma non conclude</small></div></div>
       <div class="minis" id="payMini"></div>
       <div class="bars bars--plain" id="payFail"></div>
     </div>
@@ -369,7 +372,7 @@ tr.sel td{background:var(--blue-50)}
   <div class="sec__h" id="sorgenti"><h2>Sorgenti e dispositivi</h2><p>Da dove arrivano le persone e con quale dispositivo comprano</p></div>
   <section class="sec grid g-3">
     <div class="card">
-      <div class="card__h"><div><h3>Sorgenti di traffico</h3><small>Sessioni e conversione per sorgente</small></div></div>
+      <div class="card__h"><div><h3>Sorgenti di traffico <span class="adv" title="Livello avanzato: richiede integrazioni aggiuntive">✦</span></h3><small>Sessioni e conversione per sorgente</small></div></div>
       <div class="bars bars--plain" id="src"></div>
     </div>
     <div class="card">
@@ -378,7 +381,7 @@ tr.sel td{background:var(--blue-50)}
       <div class="dev" id="dev"></div>
     </div>
     <div class="card">
-      <div class="card__h"><div><h3>Nuovi e di ritorno</h3><small>Chi compra per la prima volta e chi torna</small></div></div>
+      <div class="card__h"><div><h3>Nuovi e di ritorno <span class="adv" title="Livello avanzato: richiede integrazioni aggiuntive">✦</span></h3><small>Chi compra per la prima volta e chi torna</small></div></div>
       <div class="stack" id="nrStack"></div>
       <div class="dev" id="nr"></div>
     </div>
@@ -395,7 +398,7 @@ tr.sel td{background:var(--blue-50)}
       <div class="chart" id="cQual"></div>
     </div>
     <div class="card">
-      <div class="card__h"><div><h3>Stato per struttura</h3><small>Eventi ricevuti nelle ultime 24 ore</small></div></div>
+      <div class="card__h"><div><h3>Stato per struttura <span class="adv" title="Livello avanzato: richiede integrazioni aggiuntive">✦</span></h3><small>Eventi ricevuti nelle ultime 24 ore</small></div></div>
       <div class="health" id="health"></div>
     </div>
   </section>
@@ -408,12 +411,12 @@ tr.sel td{background:var(--blue-50)}
 
   <div class="sec__h" id="avvisi"><h2>Avvisi</h2><p>Cosa è cambiato e dove intervenire, generato dai dati di ieri</p></div>
   <section class="sec card">
-    <div class="card__h"><div><h3>Ultimi avvisi</h3></div><div class="chips" id="alChips"></div></div>
+    <div class="card__h"><div><h3>Ultimi avvisi <span class="adv" title="Livello avanzato: richiede integrazioni aggiuntive">✦</span></h3></div><div class="chips" id="alChips"></div></div>
     <div class="feed" id="feed"></div>
   </section>
 
   <footer class="foot">
-    <span>Fonti: Google Analytics 4 · acquisti registrati lato server · export vendite 18Tickets. Dati aggiornati ogni 24 ore. Tutti i numeri di questa demo sono simulati.</span>
+    <span>Fonti: Google Analytics 4 · acquisti registrati lato server · export vendite 18Tickets. Dati aggiornati ogni 24 ore. Tutti i numeri di questa demo sono simulati. ✦ = livello avanzato, richiede integrazioni aggiuntive.</span>
     <div>Realizzato da <img src="assets/skalio-logo-bn.png" alt="Skalio" width="80" height="25"></div>
   </footer>
 </main>
