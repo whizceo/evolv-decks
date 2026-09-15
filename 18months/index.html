@@ -5,48 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Software biglietteria per cinema, teatri ed eventi | 18Tickets</title>
 <meta name="description" content="Gestisci biglietteria, controllo accessi, programmazione e incassi con 18Tickets. Il software cloud per cinema, teatri, musei e operatori culturali.">
+<meta name="theme-color" content="#003d47">
 <link rel="icon" href="assets/favicon-32x32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:opsz,wght@9..40,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* Brand — 18Months (sostituisce Signal Violet) */
-  --brand:#003d47;
-  --brand-hover:#004a59;
-  --tint:#e5eced;            /* Tint Wash, dal CSS 18months.it */
-  /* Neutri — OpenServ */
-  --white:#ffffff; --ink:#000000; --fog:#f5f5f5; --mist:#a6a6a6;
-  --ash:#4d4d4d; --smoke:#9c9c9c; --slate:#707070;
+  /* Versione scura su teal 18Months (#003d47, dal CSS 18months.it) */
+  --ground:#003d47;
+  --brand:#ffffff;           /* colore d'azione su fondo teal: bottoni bianchi, testo teal */
+  --brand-hover:#e5eced;     /* Tint Wash 18months.it */
+  --tint:#e5eced;
+  /* Neutri OpenServ ricalcolati sul teal */
+  --bg:var(--ground); --fg:#ffffff; --fog:#0b4b56; --mist:#4f7d85;
+  --ash:#b8cbce; --smoke:#8fabb0; --slate:#93aeb3;
   --sans:'DM Sans', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --serif:'Cormorant Garamond', 'EB Garamond', Georgia, 'Times New Roman', serif;
   --max:1200px; --gap:80px; --pad:24px;
   --r-card:16px; --r-input:12px; --r-pill:100px;
-  --shadow-nav:0 0 48px rgba(0,0,0,.1);
+  --shadow-nav:0 0 48px rgba(0,0,0,.25);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:110px}
-body{margin:0;background:var(--white);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.4;font-weight:400;-webkit-font-smoothing:antialiased;padding-inline:16px}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.4;font-weight:400;-webkit-font-smoothing:antialiased;padding-inline:16px}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,h4,p,ul{margin:0}
 .wrap{max-width:var(--max);margin:0 auto}
 
 /* ---------- Floating nav ---------- */
-.nav{position:sticky;top:calc(16px + env(safe-area-inset-top,0px));z-index:50;max-width:var(--max);margin:24px auto 0;background:var(--white);border-radius:var(--r-card);box-shadow:var(--shadow-nav);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 12px 12px 24px}
+.nav{position:sticky;top:calc(16px + env(safe-area-inset-top,0px));z-index:50;max-width:var(--max);margin:24px auto 0;background:var(--fog);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-card);box-shadow:var(--shadow-nav);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 12px 12px 24px}
 .nav__logo img{height:30px;width:auto}
 .nav__links{display:flex;gap:16px}
 .nav__links a{padding:0 8px;font-size:15px;letter-spacing:-.017em;transition:color .2s}
 .nav__links a:hover{color:var(--brand)}
 
 /* ---------- Buttons ---------- */
-.btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:var(--white);border:0;border-radius:var(--r-pill);padding:10px 20px;font:400 15px/1.2 var(--sans);letter-spacing:-.01em;cursor:pointer;transition:background .2s}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:var(--ground);border:0;border-radius:var(--r-pill);padding:10px 20px;font:400 15px/1.2 var(--sans);letter-spacing:-.01em;cursor:pointer;transition:background .2s}
 .btn:hover{background:var(--brand-hover)}
 .btn .arr{font-size:14px;line-height:1}
-.btn--ghost{background:var(--white);color:var(--ink);box-shadow:inset 0 0 0 1px var(--mist)}
+.btn--ghost{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1px var(--mist)}
 .btn--ghost:hover{background:var(--fog)}
-.plus{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--mist);background:var(--white);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,transform .3s}
-.plus svg{width:14px;height:14px;stroke:var(--ink);stroke-width:1.2;transition:transform .3s}
+.plus{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--mist);background:var(--bg);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,transform .3s}
+.plus svg{width:14px;height:14px;stroke:var(--fg);stroke-width:1.2;transition:transform .3s}
 
 /* ---------- Type ---------- */
 .eyebrow{display:block;color:var(--brand);font-size:12px;line-height:1.2;letter-spacing:.02em;text-transform:uppercase;margin-bottom:16px}
@@ -70,35 +72,35 @@ h1,h2,h3,h4,p,ul{margin:0}
 
 /* ---------- Stripe ---------- */
 .stripe{height:3px;display:grid;grid-template-columns:1fr 1fr 1fr;margin-inline:-16px}
-.stripe i:nth-child(1){background:var(--tint)}.stripe i:nth-child(2){background:var(--brand)}.stripe i:nth-child(3){background:var(--ink)}
+.stripe i:nth-child(1){background:var(--tint)}.stripe i:nth-child(2){background:var(--mist)}.stripe i:nth-child(3){background:#000}
 
 /* ---------- Intro 18Tickets ---------- */
 .intro{display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:start;border:1px solid var(--fog);background:var(--fog);border-radius:var(--r-card);padding:48px}
-.intro__logo{background:var(--white);border-radius:var(--r-card);padding:28px 24px;display:grid;place-items:center}
+.intro__logo{background:#ffffff;border-radius:var(--r-card);padding:28px 24px;display:grid;place-items:center}
 .intro__logo img{width:187px}
-.intro p{font-size:22px;line-height:1.35;letter-spacing:-.017em;color:var(--ink)}
+.intro p{font-size:22px;line-height:1.35;letter-spacing:-.017em;color:var(--fg)}
 
 /* ---------- Chi siamo ---------- */
 .about{display:grid;grid-template-columns:5fr 7fr;gap:64px}
 .about__head{position:sticky;top:120px;align-self:start}
 .about__head .btn{margin-top:32px}
 .about .body{font-size:17px;line-height:1.55}
-.about .body p:first-child{color:var(--ink);font-size:20px;line-height:1.4;letter-spacing:-.017em}
+.about .body p:first-child{color:var(--fg);font-size:20px;line-height:1.4;letter-spacing:-.017em}
 
 /* ---------- Numbers ---------- */
 .center-head{text-align:center;margin-bottom:48px}
 .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .num{border:1px solid var(--mist);border-radius:var(--r-card);padding:32px var(--pad) 28px;display:flex;flex-direction:column;justify-content:space-between;min-height:240px}
 .num__val{font-variant-numeric:lining-nums;font-family:var(--serif);font-weight:300;font-size:clamp(72px,9vw,120px);line-height:.85;letter-spacing:-.03em;color:var(--brand)}
-.num__val sup{font-size:.4em;vertical-align:top;position:relative;top:.2em;margin-right:4px;color:var(--ink)}
+.num__val sup{font-size:.4em;vertical-align:top;position:relative;top:.2em;margin-right:4px;color:var(--fg)}
 .num__label{font-size:15px;color:var(--ash);border-top:1px solid var(--fog);padding-top:16px;margin-top:32px}
-.num__label b{font-weight:400;color:var(--ink)}
+.num__label b{font-weight:400;color:var(--fg)}
 
 /* ---------- Punti di forza ---------- */
 .forza{display:grid;grid-template-columns:4fr 8fr;gap:64px}
 .forza__head{position:sticky;top:120px;align-self:start}
 .acc{display:grid;gap:12px}
-.acc__item{border:1px solid var(--fog);border-radius:var(--r-card);background:var(--white);transition:border-color .2s,background .2s}
+.acc__item{border:1px solid var(--fog);border-radius:var(--r-card);background:var(--bg);transition:border-color .2s,background .2s}
 .acc__item:hover{border-color:var(--mist)}
 .acc__item.open{background:var(--fog);border-color:var(--fog)}
 .acc__btn{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px var(--pad);cursor:pointer}
@@ -106,21 +108,21 @@ h1,h2,h3,h4,p,ul{margin:0}
 .acc__n{color:var(--brand);font-size:12px;min-width:28px}
 .acc__t{flex:1;font-size:22px;line-height:1.2;letter-spacing:-.017em}
 .acc__item.open .plus svg{transform:rotate(45deg)}
-.acc__item.open .plus{border-color:var(--ink)}
+.acc__item.open .plus{border-color:var(--fg)}
 .acc__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
 .acc__item.open .acc__panel{grid-template-rows:1fr}
 .acc__inner{overflow:hidden}
 .acc__content{padding:0 var(--pad) 28px calc(var(--pad) + 48px);max-width:720px}
 .acc__content p{color:var(--ash);line-height:1.55}
 .acc__content p+p,.acc__content p+.tags,.acc__content .tags+p{margin-top:14px}
-.acc__content .lead{color:var(--ink)}
+.acc__content .lead{color:var(--fg)}
 .tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin-top:14px}
-.tags li{border-radius:var(--r-pill);background:var(--white);border:1px solid var(--mist);padding:6px 14px;font-size:13px;color:var(--ink)}
+.tags li{border-radius:var(--r-pill);background:var(--bg);border:1px solid var(--mist);padding:6px 14px;font-size:13px;color:var(--fg)}
 
 /* ---------- Software ---------- */
 .sw-head{text-align:center;margin-bottom:56px}
 .sw{display:grid;gap:20px}
-.card{border:1px solid var(--mist);border-radius:var(--r-card);overflow:hidden;display:grid;grid-template-columns:7fr 5fr;background:var(--white)}
+.card{border:1px solid var(--mist);border-radius:var(--r-card);overflow:hidden;display:grid;grid-template-columns:7fr 5fr;background:var(--bg)}
 .card:nth-child(even){grid-template-columns:5fr 7fr}
 .card:nth-child(even) .card__img{order:2}
 .card__img{background:var(--fog);padding:24px;display:flex;align-items:center}
@@ -137,7 +139,7 @@ h1,h2,h3,h4,p,ul{margin:0}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-size:13px;color:var(--ash)}
-.field input,.field textarea{font:400 15px/1.4 var(--sans);color:var(--ink);background:var(--white);border:1px solid var(--mist);border-radius:var(--r-input);padding:12px 14px;outline:0;transition:border-color .2s}
+.field input,.field textarea{font:400 15px/1.4 var(--sans);color:var(--fg);background:var(--bg);border:1px solid var(--mist);border-radius:var(--r-input);padding:12px 14px;outline:0;transition:border-color .2s}
 .field input:focus,.field textarea:focus{border-color:var(--brand)}
 .field textarea{min-height:120px;resize:vertical}
 .field--full{grid-column:1/-1}
@@ -151,7 +153,7 @@ h1,h2,h3,h4,p,ul{margin:0}
 .seg{display:inline-flex;border:1px solid var(--mist);border-radius:var(--r-pill);padding:3px;flex:none}
 .seg input{position:absolute;opacity:0;pointer-events:none}
 .seg label{padding:6px 16px;border-radius:var(--r-pill);font-size:13px;cursor:pointer;color:var(--ash)}
-.seg input:checked+label{background:var(--brand);color:var(--white)}
+.seg input:checked+label{background:var(--brand);color:var(--ground)}
 .seg input:focus-visible+label{outline:2px solid var(--brand);outline-offset:1px}
 .form__foot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:28px;flex-wrap:wrap}
 .form__msg{font-size:13px;color:var(--slate)}
@@ -162,15 +164,15 @@ h1,h2,h3,h4,p,ul{margin:0}
 .footer__logo img{height:34px;width:auto}
 .footer__cols{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
 .footer__cols h5{font-size:12px;font-weight:400;color:var(--slate);text-transform:uppercase;letter-spacing:.02em;margin:0 0 12px}
-.footer__cols p,.footer__cols li{font-size:14px;line-height:1.6;color:var(--ink)}
+.footer__cols p,.footer__cols li{font-size:14px;line-height:1.6;color:var(--fg)}
 .footer__cols ul{list-style:none;padding:0}
-.footer a:hover{color:var(--brand)}
+.footer a:hover{color:var(--tint)}
 .footer__bot{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:24px;flex-wrap:wrap}
 .footer__legal{display:flex;gap:20px;font-size:13px;color:var(--ash)}
 .socials{display:flex;gap:8px;list-style:none;padding:0}
 .socials a{width:40px;height:40px;border-radius:50%;border:1px solid var(--mist);display:grid;place-items:center;transition:border-color .2s}
 .socials a:hover{border-color:var(--brand)}
-.socials svg{width:16px;height:16px;fill:var(--ink)}
+.socials svg{width:16px;height:16px;fill:var(--fg)}
 
 .about>*,.forza>*,.contact>*,.intro>*,.card>*,.footer__top>*,.nums>*,.grid2>*{min-width:0}
 /* ---------- Reveal ---------- */
@@ -212,7 +214,7 @@ h1,h2,h3,h4,p,ul{margin:0}
 <body>
 
 <nav class="nav" aria-label="Menu principale">
-  <a class="nav__logo" href="#top" title="Vai alla Homepage"><img src="assets/logo.svg" alt="18months.it" width="150" height="34"></a>
+  <a class="nav__logo" href="#top" title="Vai alla Homepage"><img src="assets/logo-white.svg" alt="18months.it" width="150" height="34"></a>
   <div class="nav__links">
     <a href="#chisiamo">Chi siamo</a>
     <a href="#software">Software</a>
@@ -224,8 +226,8 @@ h1,h2,h3,h4,p,ul{margin:0}
 
   <!-- HERO -->
   <section class="hero wrap">
-    <img class="hero__mark hero__mark--a" src="assets/mark-brand.svg" alt="" aria-hidden="true">
-    <img class="hero__mark hero__mark--b" src="assets/mark-brand.svg" alt="" aria-hidden="true">
+    <img class="hero__mark hero__mark--a" src="assets/mark.svg" alt="" aria-hidden="true">
+    <img class="hero__mark hero__mark--b" src="assets/mark.svg" alt="" aria-hidden="true">
     <svg class="spark" style="left:12%;top:22%;width:22px" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.6 6.3 5.7 11.4 12 12-6.3.6-11.4 5.7-12 12-.6-6.3-5.7-11.4-12-12C6.3 11.4 11.4 6.3 12 0z"/></svg>
     <svg class="spark" style="right:18%;bottom:20%;width:14px" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.6 6.3 5.7 11.4 12 12-6.3.6-11.4 5.7-12 12-.6-6.3-5.7-11.4-12-12C6.3 11.4 11.4 6.3 12 0z"/></svg>
     <svg class="spark" style="left:22%;bottom:14%;width:9px;opacity:.1" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12"/></svg>
@@ -423,7 +425,7 @@ h1,h2,h3,h4,p,ul{margin:0}
 
 <footer class="footer wrap">
   <div class="footer__top">
-    <a class="footer__logo" href="#top" title="Vai alla Homepage"><img src="assets/logo.svg" alt="18months.it" width="150" height="34"></a>
+    <a class="footer__logo" href="#top" title="Vai alla Homepage"><img src="assets/logo-white.svg" alt="18months.it" width="150" height="34"></a>
     <div class="footer__cols">
       <div>
         <h5>18Months S.r.l.</h5>
