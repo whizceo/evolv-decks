@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>18Tickets</title>
+<meta name="description" content="La prima applicazione di Cloud Ticketing italiana completamente Pay per use.">
+<meta name="theme-color" content="#9c1f14">
+<link rel="icon" href="assets/favicon-32x32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<style>
+:root{
+  /* Brand 18Tickets — solo rosso e bianco */
+  --red:#9c1f14; --red-hover:#b3271b; --deep:#7d170e; --tint:#f7eceb;
+  --title:'Space Grotesk','Plus Jakarta Sans',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --text:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --max:1200px; --gap:96px; --pad:24px;
+  --r-card:16px; --r-input:12px; --r-pill:100px;
+  --shadow-nav:0 0 48px rgba(0,0,0,.12);
+}
+/* Temi di banda alternati: bianco · tinta · rosso */
+.t-white,.t-light{--fg:#140605; --ash:#5e4a48; --slate:#806a67; --mist:#d2bcb9; --line:#eee1df;
+  --brand:var(--red); --brand-hover:var(--red-hover); --on-brand:#fff; --surface:#fff; --fog:#fbf5f4}
+.t-white{--bg:#fff}
+.t-light{--bg:var(--tint); --mist:#cfb3af; --line:#ead7d4}
+.t-dark,.t-deep{--bg:var(--red); --fg:#fff; --ash:#f2d2ce; --slate:#e3aca5; --mist:#d06b61; --line:#b23a2f;
+  --brand:#fff; --brand-hover:var(--tint); --on-brand:var(--red); --surface:#ab2c20; --fog:#ab2c20}
+.t-deep{--bg:var(--deep); --line:#9a2e24; --mist:#b9564c}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;background:#fff;color:#140605;font-family:var(--text);font-size:16px;line-height:1.5;letter-spacing:-.005em;font-weight:400;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,ul{margin:0}
+.band{background:var(--bg);color:var(--fg);padding-inline:16px}
+.wrap{max-width:var(--max);margin:0 auto}
+.section{padding-block:var(--gap)}
+
+/* ---------- Floating nav ---------- */
+.nav{position:fixed;z-index:50;top:calc(16px + env(safe-area-inset-top,0px));left:16px;right:16px;max-width:var(--max);margin:0 auto;background:#fff;color:#140605;border-radius:var(--r-card);box-shadow:var(--shadow-nav);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 12px 12px 24px}
+.nav__logo img{height:28px;width:auto}
+.nav__links{display:flex;gap:16px}
+.nav__links a{padding:0 8px;font-size:15px;transition:color .2s}
+.nav__links a:hover{color:var(--red)}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:var(--on-brand);border:0;border-radius:var(--r-pill);padding:11px 22px;font:500 15px/1.2 var(--text);letter-spacing:-.01em;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--brand-hover)}
+.nav .btn{background:var(--red);color:#fff}.nav .btn:hover{background:var(--red-hover)}
+.btn .arr{font-size:14px;line-height:1}
+.btn--ghost{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1px var(--mist)}
+.btn--ghost:hover{background:var(--fog)}
+.or{font-size:14px;color:var(--ash)}
+
+/* ---------- Type ---------- */
+.eyebrow{display:block;color:var(--brand);font:500 12px/1.2 var(--text);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.display{font-family:var(--title);font-weight:500;font-size:clamp(40px,4.6vw,66px);line-height:1.04;letter-spacing:-.028em;color:rgba(255,255,255,.66)}
+.display strong{font-weight:500;color:#fff}
+.h-lg{font-family:var(--title);font-weight:500;font-size:clamp(32px,3.9vw,50px);line-height:1.08;letter-spacing:-.02em}
+.h-lg .soft{color:var(--slate)}
+.sub{font-size:18px;line-height:1.45;color:var(--ash)}
+.body{color:var(--ash);font-size:16px;line-height:1.6}
+.body p+p{margin-top:14px}
+.center-head{text-align:center;margin-bottom:56px}
+
+/* ---------- Hero ---------- */
+.hero{position:static;min-height:max(720px,100svh);display:flex;align-items:center;padding-block:140px 96px}
+.hero__text{position:relative;z-index:2;max-width:min(680px,54%)}
+.hero__cta{margin-top:44px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hero__note{margin-top:14px;font-size:14px;color:var(--ash)}
+.hero-band{position:relative;overflow:hidden}
+.hero__art{position:absolute;z-index:1;inset:0;pointer-events:none}
+.hero__art canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease}
+.hero__art.ready canvas{opacity:1}
+.hero__fallback{position:absolute;right:8%;top:50%;width:min(38vw,540px);transform:translateY(-50%);opacity:.22;transition:opacity .6s}
+.hero__art.ready .hero__fallback{opacity:0}
+
+/* ---------- Intro: 3 punti ---------- */
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;list-style:none;padding:0}
+.feat{background:var(--surface);border-radius:var(--r-card);padding:32px var(--pad) 28px;display:flex;flex-direction:column;gap:48px;min-height:230px}
+.feat__ic{width:48px;height:48px;border-radius:50%;border:1px solid var(--mist);display:grid;place-items:center}
+.feat__ic svg{width:22px;height:22px;stroke:var(--red);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.feat__t{font-family:var(--title);font-weight:500;font-size:23px;line-height:1.2;letter-spacing:-.015em;margin-top:auto}
+
+/* ---------- Features (card) ---------- */
+.card{border-radius:var(--r-card);overflow:hidden;display:grid;grid-template-columns:5fr 7fr;background:var(--surface);border:1px solid var(--line)}
+.card--flip{grid-template-columns:7fr 5fr}
+.card--flip .card__img{order:2}
+.card__img{background:var(--fog);padding:40px;display:grid;place-items:center}
+.t-white .card__img{background:var(--tint)}
+.card__img img{border-radius:12px;width:100%;max-width:300px;box-shadow:0 10px 40px rgba(60,10,6,.12)}
+.card__body{padding:48px;display:flex;flex-direction:column;justify-content:center}
+.card__title{font-family:var(--title);font-weight:500;font-size:30px;line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
+.t-dark .card{border-color:var(--surface)}
+.t-dark .card__img{background:#b8392c}
+
+/* ---------- Prova ---------- */
+.try{text-align:center;max-width:820px;margin:0 auto}
+.try__cta{margin-top:40px;display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap}
+.fine{margin-top:24px;font-size:14px;color:var(--slate)}
+
+/* ---------- Esercenti / Media (tile) ---------- */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;list-style:none;padding:0}
+.tile{background:var(--surface);border-radius:var(--r-card);overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;transition:border-color .2s}
+a.tile:hover{border-color:var(--mist)}
+.tile__img{aspect-ratio:7/6;background:var(--fog);overflow:hidden}
+.tile__img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+a.tile:hover .tile__img img{transform:scale(1.04)}
+.tile__b{padding:18px 20px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.tile__t{font-family:var(--title);font-weight:500;font-size:20px;letter-spacing:-.015em}
+.tile__k{font-size:13px;color:var(--slate);white-space:nowrap}
+
+/* ---------- About ---------- */
+.about{display:grid;grid-template-columns:5fr 7fr;gap:64px}
+.about__head{position:sticky;top:120px;align-self:start}
+.about__head .btn{margin-top:32px}
+.about .body{font-size:17px}
+.about .body p:first-child{color:var(--fg);font-size:20px;line-height:1.5;letter-spacing:-.015em}
+
+/* ---------- Contatti ---------- */
+.contact{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:end}
+.contact p{font-size:22px;line-height:1.45;letter-spacing:-.015em;color:var(--fg)}
+.contact p a{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.contact__cta{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap}
+
+/* ---------- Footer ---------- */
+.footer{padding-block:48px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.credits{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ash)}
+.credits img{height:26px;width:auto}
+.footer__legal{display:flex;gap:24px;font-size:14px}
+.footer a:hover{color:var(--tint)}
+
+.about>*,.contact>*,.card>*,.feats>*,.tiles>*{min-width:0}
+/* ---------- Reveal ---------- */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  :root{--gap:72px}
+  .hero{display:block;min-height:0;padding-block:120px 0}
+  .hero__text{max-width:none}
+  .display{font-size:clamp(34px,8.6vw,52px)}
+  .hero__art{position:relative;inset:auto;height:420px;margin:8px -16px 0}
+  .hero__fallback{right:auto;left:50%;width:300px;transform:translate(-50%,-50%)}
+  .about,.contact{grid-template-columns:minmax(0,1fr);gap:32px}
+  .about__head{position:static}
+  .feats{grid-template-columns:minmax(0,1fr)}
+  .feat{min-height:0;gap:28px}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card,.card--flip{grid-template-columns:minmax(0,1fr)}
+  .card--flip .card__img{order:0}
+  .card__img{padding:28px}
+  .card__body{padding:28px}
+  .contact p{font-size:19px}
+}
+@media (max-width:600px){
+  .nav{padding:10px 10px 10px 16px}
+  .nav__links{display:none}
+  .nav__logo img{height:22px}
+  .hero__art{height:320px}
+  .tiles{gap:12px}
+  .tile__b{flex-direction:column;align-items:flex-start;gap:2px;padding:14px}
+  .tile__t{font-size:17px}
+  .card__title{font-size:25px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Menu principale">
+  <a class="nav__logo" href="#top" title="Vai alla Homepage"><img src="assets/18tickets.png" alt="18Tickets" width="187" height="32"></a>
+  <div class="nav__links">
+    <a href="#features">Features</a>
+    <a href="#about">About</a>
+    <a href="#media">Media</a>
+    <a href="#contatti">Contatti</a>
+  </div>
+  <a class="btn" href="https://demo.18tickets.it/">Prova la demo <span class="arr">↗</span></a>
+</nav>
+
+<main id="top">
+
+  <!-- HERO — rosso -->
+  <section class="band t-dark hero-band">
+    <div class="hero wrap">
+      <div class="hero__text">
+        <h1 class="display rv">La prima applicazione di <strong>Cloud Ticketing</strong> italiana completamente <strong>Pay per use</strong>.</h1>
+        <div class="hero__cta rv">
+          <a class="btn btn--ghost" href="#features">Leggi di più</a>
+          <span class="or">oppure</span>
+          <a class="btn" href="https://demo.18tickets.it/">Prova la demo <span class="arr">↗</span></a>
+        </div>
+        <p class="hero__note rv">Provala, è gratis!</p>
+      </div>
+      <div class="hero__art" id="mark3d" aria-hidden="true">
+        <img class="hero__fallback" src="assets/mark.svg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO — tinta -->
+  <section class="band t-light">
+    <div class="section wrap">
+      <ul class="feats">
+        <li class="feat rv">
+          <span class="feat__ic"><svg viewBox="0 0 24 24"><path d="M4 5h11a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v3l-4-3h-3"/></svg></span>
+          <p class="feat__t">Un nuovo modo social di vivere cinema e teatro.</p>
+        </li>
+        <li class="feat rv">
+          <span class="feat__ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg></span>
+          <p class="feat__t">Gestione integrata di eTicketing, Cassa, Bar ed e-commerce.</p>
+        </li>
+        <li class="feat rv">
+          <span class="feat__ic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="15" height="11" rx="1.5"/><path d="M6 19h7"/><rect x="16" y="9" width="6" height="11" rx="1.5"/></svg></span>
+          <p class="feat__t">Un'unica interfaccia adattiva per mobile, tablet e PC.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FEATURES — bianco · tinta · rosso -->
+  <section class="band t-white" id="features">
+    <div class="section wrap">
+      <div class="center-head rv">
+        <span class="eyebrow">Features</span>
+        <h2 class="h-lg">Funzionalità che portano il ticketing<br><span class="soft">sulla frontiera dell'innovazione.</span></h2>
+      </div>
+      <article class="card rv">
+        <div class="card__img"><img src="assets/feature-integrated.jpg" alt="Carrello: bibite, pop corn e gadget nella stessa applicazione" width="330" height="330" loading="lazy"></div>
+        <div class="card__body">
+          <span class="eyebrow">eTicketing · Cassa · Bar · e-commerce</span>
+          <h3 class="card__title">Un'applicazione completa che integra eTicketing, Cassa Bar, ed e-commerce.</h3>
+          <p class="body">Dalla stessa applicazione sono raggiungibili tutti i servizi erogati dall'esercente. La piattaforma di amministrazione, allo stesso tempo, permette di configurare l'intero sistema con pochi click.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+  <section class="band t-light">
+    <div class="section wrap">
+      <article class="card card--flip rv">
+        <div class="card__img"><img src="assets/feature-social.jpg" alt="Invito agli amici e condivisione dell'evento su Facebook" width="330" height="330" loading="lazy"></div>
+        <div class="card__body">
+          <span class="eyebrow">Social</span>
+          <h3 class="card__title">Il modo social di vivere l'intrattenimento</h3>
+          <p class="body">Grazie ad un'ottima integrazione con tutti i social network, in particolare con Facebook, l'esperienza d'uso dell'applicazione permette di organizzare con semplicità le serate con gli amici.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+  <section class="band t-dark">
+    <div class="section wrap">
+      <article class="card rv">
+        <div class="card__img"><img src="assets/feature-responsive.jpg" alt="Programmazione di un film su smartphone" width="330" height="330" loading="lazy"></div>
+        <div class="card__body">
+          <span class="eyebrow">Smartphone · PC · Tablet</span>
+          <h3 class="card__title">Una sola interfaccia per domare tutti i tuoi dispositivi.</h3>
+          <p class="body">La semplicità d'uso di 18Tickets è la stessa su tutti i modelli di smartphone, pc e tablet. La stessa applicazione, correttamente ottimizzata, è comodamente accessibile su tutti i tuoi dispositivi.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PROVA — bianco -->
+  <section class="band t-white">
+    <div class="section wrap">
+      <div class="try rv">
+        <span class="eyebrow">Demo</span>
+        <h2 class="h-lg">Cosa aspetti? Collegati, e...</h2>
+        <div class="try__cta">
+          <a class="btn" href="https://demo.18tickets.it/">Prova la demo <span class="arr">↗</span></a>
+          <span class="or">oppure</span>
+          <a class="btn btn--ghost" href="#contatti">Richiedi informazioni e demo esercente</a>
+        </div>
+        <p class="fine">La demo è completamente gratuita. Non ti verrà richiesta alcuna carta di credito.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESERCENTI — tinta -->
+  <section class="band t-light">
+    <div class="section wrap">
+      <div class="center-head rv">
+        <span class="eyebrow">Esercenti</span>
+        <h2 class="h-lg">E se sei un esercente...<br><span class="soft">potrai avere una gestione completa.</span></h2>
+      </div>
+      <ul class="tiles">
+        <li class="tile rv"><div class="tile__img"><img src="assets/owners-film.jpg" alt="Gestione film" width="210" height="180" loading="lazy"></div><div class="tile__b"><span class="tile__t">Film</span></div></li>
+        <li class="tile rv"><div class="tile__img"><img src="assets/owners-screenings.jpg" alt="Gestione proiezioni" width="210" height="180" loading="lazy"></div><div class="tile__b"><span class="tile__t">Proiezioni</span></div></li>
+        <li class="tile rv"><div class="tile__img"><img src="assets/owners-bar-and-shop.jpg" alt="Gestione bar" width="210" height="180" loading="lazy"></div><div class="tile__b"><span class="tile__t">Bar</span></div></li>
+        <li class="tile rv"><div class="tile__img"><img src="assets/owners-register.jpg" alt="Cassa e shop" width="210" height="180" loading="lazy"></div><div class="tile__b"><span class="tile__t">Shop</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ABOUT — bianco -->
+  <section class="band t-white" id="about">
+    <div class="section wrap">
+      <div class="about">
+        <div class="about__head rv">
+          <span class="eyebrow">About</span>
+          <h2 class="h-lg">Qualche parola per spiegarci meglio.</h2>
+          <a class="btn" href="https://demo.18tickets.it/">Prova la demo <span class="arr">↗</span></a>
+        </div>
+        <div class="body rv">
+          <p>“18Tickets” rivoluziona l’esperienza dello spettatore che può comprare il biglietto e accedere alla sala attraverso lo smartphone o che tramite i social network può scambiare opinioni con altri appassionati o mettersi d’accordo con gli amici per vedere un determinato film. “18Tickets” è anche il frutto della passione per il cinema dei suoi creatori.</p>
+          <p>La applicazione “18Tickets” è in grado di colmare istantaneamente il gap tecnologico delle monosale cinematografiche rendendo al contempo molto più competitivo anche il mercato delle multisala, e di rivoluzionare il modo di fruire il cinema, riportandolo ad un momento di aggregazione e di condivisione di gusti e di passioni, grazie all’interazione dell’applicazione con i social network.</p>
+          <p>La nuova applicazione mette a disposizione dei singoli gestori un sito web, una piattaforma e-commerce e una cassa elettronica per la vendita dei biglietti, gadget e prodotti del bar, un gestionale per l’automatizzazione di tutte le attività, un pos virtuale personalizzabile per i pagamenti con tutte le carte di credito.</p>
+          <p>Prevede inoltre altre funzioni orientate al marketing, molto facili da utilizzare, che permettono di segmentare e profilare i clienti/spettatori in modo da poter interagire con loro attraverso un’attività di comunicazione mirata, oppure di abilitare l'utilizzo della sala anche per eventi diversi dalla proiezione. L’applicazione “18Tickets” è infatti pensata per tutte le attività culturali e commerciali che prevedono la vendita di biglietti ed è pronta ad allargarsi anche a musei, eventi culturali, sportivi, musicali e fiere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA — tinta -->
+  <section class="band t-light" id="media">
+    <div class="section wrap">
+      <div class="center-head rv">
+        <span class="eyebrow">Media</span>
+        <h2 class="h-lg">Sui media</h2>
+      </div>
+      <ul class="tiles">
+        <li class="rv"><a class="tile" href="https://www.18tickets.it/assets/stampa/Messaggero_18months.pdf" target="_blank" rel="noopener"><div class="tile__img"><img src="assets/media-messaggero.jpg" alt="Articolo de Il Messaggero su 18Tickets" width="170" height="156" loading="lazy"></div><div class="tile__b"><span class="tile__t">Il messaggero</span><span class="tile__k">PDF ↗</span></div></a></li>
+        <li class="rv"><a class="tile" href="https://www.18tickets.it/assets/videos/esercenti@720x400.mp4" target="_blank" rel="noopener"><div class="tile__img"><img src="assets/media-spot.jpg" alt="Videospot 18Tickets per gli esercenti" width="720" height="400" loading="lazy"></div><div class="tile__b"><span class="tile__t">Videospot</span><span class="tile__k">Video ↗</span></div></a></li>
+        <li class="rv"><a class="tile" href="http://video.repubblica.it/tecno-e-scienze/18tickets-una-app-per-salvare-i-piccoli-cinema/108470/106855" target="_blank" rel="noopener"><div class="tile__img"><img src="assets/media-repubblica.jpg" alt="18Tickets, una app per salvare i piccoli cinema – Repubblica.it" width="300" height="245" loading="lazy"></div><div class="tile__b"><span class="tile__t">Repubblica.it</span><span class="tile__k">Video ↗</span></div></a></li>
+        <li class="rv"><a class="tile" href="https://www.18tickets.it/assets/stampa/Corriere_18months.pdf" target="_blank" rel="noopener"><div class="tile__img"><img src="assets/media-corriere.jpg" alt="Articolo del Corriere della Sera su 18Tickets" width="381" height="295" loading="lazy"></div><div class="tile__b"><span class="tile__t">Corriere della Sera</span><span class="tile__k">PDF ↗</span></div></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTATTI — rosso -->
+  <section class="band t-dark" id="contatti">
+    <div class="section wrap">
+      <div class="contact">
+        <div class="rv">
+          <span class="eyebrow">Contatti</span>
+          <h2 class="h-lg">Vuoi saperne di più?</h2>
+        </div>
+        <div class="rv">
+          <p>Sei un esercente o sei interessato al prodotto? Vorresti accedere ad una demo del lato amministrativo? Scrivici a <a href="mailto:info@18months.it">info@18months.it</a> lasciandoci tutti i tuoi dati, ti ricontatteremo appena possibile.</p>
+          <div class="contact__cta">
+            <a class="btn" href="mailto:info@18months.it">Scrivici <span class="arr">↗</span></a>
+            <a class="btn btn--ghost" href="https://demo.18tickets.it/">Prova la demo <span class="arr">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER — rosso scuro -->
+<footer class="band t-deep">
+  <div class="footer wrap">
+    <div class="credits">Powered by <a href="https://18months.it/" title="18Months"><img src="assets/logo-white.svg" alt="18Months" width="150" height="34"></a></div>
+    <nav class="footer__legal" aria-label="Link legali">
+      <a href="https://www.18tickets.it/privacy.html">Privacy policy</a>
+      <a href="https://facebook.com/18Tickets">Seguici su facebook</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  });},{threshold:.15});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+}else{document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');});}
+</script>
+<script type="module">
+// Hero: il simbolo 18Tickets (catena a tre cerchi del logo, path di assets/mark.svg) come costellazione di particelle triangolari
+// Pattern "constellation" (DESIGN Dala): migliaia di triangoli outline 1–2px multicolore + campo ambientale.
+// Scroll = la costellazione si sgrana e ruota; load = i granelli si ricompongono nel marchio.
+import * as THREE from 'three';
+import {SVGLoader} from 'three/addons/loaders/SVGLoader.js';
+import {MeshSurfaceSampler} from 'three/addons/math/MeshSurfaceSampler.js';
+
+const host=document.getElementById('mark3d');
+const band=host.closest('.hero-band');
+const MARK_D='M884.002 0c-75.1 0-135.982 60.897-135.982 135.996 0 24.228 6.893 46.672 17.96 66.358l-174.355 222.5c-11.576-3.198-23.585-5.496-36.217-5.497-75.082 0-135.995 60.836-135.998 135.98 0 12.618 2.284 24.637 5.466 36.264L202.341 765.984c-19.67-11.099-42.115-17.96-66.343-17.96C60.915 748.026 0 808.89 0 884.004.003 959.131 60.917 1020 135.998 1020c75.146 0 135.995-60.867 135.998-135.996 0-12.634-2.283-24.622-5.498-36.232l222.551-174.383c19.702 11.097 42.164 17.944 66.359 17.944 75.114-.003 135.982-60.915 135.982-135.996-.001-24.224-6.847-46.658-17.96-66.358L847.769 266.51c11.611 3.214 23.615 5.497 36.233 5.497C959.101 272.005 1020 211.126 1020 135.996 1020 60.898 959.1.002 884.002 0';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile=()=>innerWidth<=900;
+THREE.ColorManagement.enabled=false;
+
+try{
+  const PR=Math.min(devicePixelRatio,2);
+  const renderer=new THREE.WebGLRenderer({antialias:false,alpha:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(PR);
+  host.appendChild(renderer.domElement);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(30,1,.1,100);
+  camera.position.z=8;
+
+  // Marchio piatto → punti sulla faccia (sottile in profondità) + contorno nitido
+  const svg=new SVGLoader().parse('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 1020"><path d="'+MARK_D+'"/></svg>');
+  const shapes=svg.paths.flatMap(p=>SVGLoader.createShapes(p));
+  const geo=new THREE.ShapeGeometry(shapes,48);
+  geo.center(); geo.rotateX(Math.PI); geo.scale(1/1020,1/1020,1/1020);
+  const sampler=new MeshSurfaceSampler(new THREE.Mesh(geo)).build();
+  const rim=[];
+  for(const sh of shapes){for(const c of [sh,...sh.holes]){for(const v of c.getSpacedPoints(900))rim.push(v);}}
+  const rimPts=rim.map(v=>new THREE.Vector3((v.x-510)/1020,-(v.y-510)/1020,0));
+
+  const pal=[['#ffffff',.46],['#fff1ef',.2],['#ffd6d1',.16],['#ffb3aa',.1],['#ff8f84',.08]]
+    .map(([h,w])=>[new THREE.Color(h),w]);
+  const pick=()=>{let r=Math.random();for(const [c,w] of pal){if((r-=w)<=0)return c}return pal[0][0]};
+
+  function cloud(count,shape){
+    const pos=new Float32Array(count*3),sc=new Float32Array(count*3),col=new Float32Array(count*3),rnd=new Float32Array(count*4);
+    const p=new THREE.Vector3(),n=new THREE.Vector3(),d=new THREE.Vector3();
+    for(let i=0;i<count;i++){
+      if(shape){if(Math.random()<.3){p.copy(rimPts[(Math.random()*rimPts.length)|0]);p.x+=(Math.random()-.5)*.006;p.y+=(Math.random()-.5)*.006;}else sampler.sample(p,n);p.z=(Math.random()-.5)*.07;}
+      else p.set((Math.random()-.5)*11,(Math.random()-.5)*6,-3+Math.random()*4);
+      pos.set([p.x,p.y,p.z],i*3);
+      // dispersione: verso l'esterno e in profondità, spinta a destra (lontano dal testo) su desktop
+      d.set(p.x+(Math.random()-.5)*.9+(isMobile()?0:.35),p.y+(Math.random()-.5)*.9,(Math.random()-.2)*1.8).normalize().multiplyScalar(.35+Math.random()*1.3);
+      sc.set([d.x,d.y,d.z],i*3);
+      const c=pick();col.set([c.r,c.g,c.b],i*3);
+      rnd.set([Math.random(),Math.random()*6.2832,Math.random()*6.2832,shape?(Math.random()<.28?1:0):2],i*4);
+    }
+    const g=new THREE.BufferGeometry();
+    g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    g.setAttribute('aScatter',new THREE.BufferAttribute(sc,3));
+    g.setAttribute('aColor',new THREE.BufferAttribute(col,3));
+    g.setAttribute('aRnd',new THREE.BufferAttribute(rnd,4));
+    return g;
+  }
+
+  const uniforms={uTime:{value:0},uScatter:{value:reduce?0:1},uSize:{value:1},uPR:{value:PR},uMouse:{value:new THREE.Vector3(99,99,0)}};
+  const mat=new THREE.ShaderMaterial({
+    uniforms,transparent:true,depthWrite:false,
+    vertexShader:`
+      uniform float uTime,uScatter,uSize,uPR; uniform vec3 uMouse;
+      attribute vec3 aScatter,aColor; attribute vec4 aRnd;
+      varying vec3 vColor; varying float vAlpha,vRot,vKind;
+      void main(){
+        float amb=step(1.5,aRnd.w);
+        float s=clamp(uScatter*(.55+aRnd.x*.9),0.,1.); s=s*s*(3.-2.*s);
+        vec3 pos=position+aScatter*s*(1.-amb);
+        float ph=aRnd.z;
+        pos+=vec3(sin(uTime*.5+ph),cos(uTime*.43+ph*1.7),sin(uTime*.37+ph*.6))*(.01+s*.08+amb*.14);
+        vec4 w=modelMatrix*vec4(pos,1.);
+        vec2 dv=w.xy-uMouse.xy; float dl=length(dv);
+        w.xy+=dv/max(dl,1e-3)*smoothstep(.6,0.,dl)*.25*(1.-amb);
+        vec4 mv=viewMatrix*w;
+        gl_Position=projectionMatrix*mv;
+        gl_PointSize=uSize*uPR*(4.5+aRnd.x*6.)*(8./-mv.z);
+        vColor=aColor; vKind=aRnd.w;
+        vRot=aRnd.y+uTime*(.15+aRnd.x*.35)*(aRnd.x>.5?1.:-1.);
+        vAlpha=mix(.95,.3,amb)*mix(1.,.4,s);
+      }`,
+    fragmentShader:`
+      varying vec3 vColor; varying float vAlpha,vRot,vKind;
+      float sdTri(vec2 p,float r){const float k=1.7320508;p.x=abs(p.x)-r;p.y=p.y+r/k;
+        if(p.x+k*p.y>0.)p=vec2(p.x-k*p.y,-k*p.x-p.y)/2.;p.x-=clamp(p.x,-2.*r,0.);return -length(p)*sign(p.y);}
+      void main(){
+        vec2 p=gl_PointCoord*2.-1.; p.y=-p.y;
+        float c=cos(vRot),s=sin(vRot); p=mat2(c,-s,s,c)*p;
+        float d=sdTri(p,.62);
+        float a=(vKind>.5&&vKind<1.5)?1.-smoothstep(-.02,.06,d):1.-smoothstep(.08,.18,abs(d+.05));
+        if(a<.01)discard;
+        gl_FragColor=vec4(vColor,a*vAlpha);
+      }`
+  });
+
+  const shapePts=new THREE.Points(cloud(isMobile()?4200:7500,true),mat);
+  const ambPts=new THREE.Points(cloud(isMobile()?260:620,false),mat);
+  shapePts.frustumCulled=ambPts.frustumCulled=false;
+  const group=new THREE.Group();
+  group.add(shapePts); scene.add(group); scene.add(ambPts);
+
+  function resize(){
+    const w=host.clientWidth,h=host.clientHeight,m=isMobile();
+    renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+    const vh=2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2))*camera.position.z, vw=vh*camera.aspect;
+    group.scale.setScalar(m?Math.min(vh*.74,vw*.7):Math.min(vh*.68,vw*.38));
+    group.position.x=m?0:vw*.25;
+    uniforms.uSize.value=m?.85:1;
+  }
+
+  // Scroll: 0 = marchio composto, 1 = costellazione sgranata
+  let scrollP=0;
+  const onScroll=()=>{const r=band.getBoundingClientRect();scrollP=THREE.MathUtils.clamp((innerHeight*.5-(r.top+r.height*.5))/(r.height*.8),0,1);};
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // Mouse: i granelli si scostano dal puntatore
+  const ray=new THREE.Raycaster(),plane=new THREE.Plane(new THREE.Vector3(0,0,1),0),hit=new THREE.Vector3(),ndc=new THREE.Vector2();
+  let hasMouse=false,px=0,py=0;
+  addEventListener('pointermove',e=>{
+    const r=host.getBoundingClientRect();
+    ndc.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
+    hasMouse=e.pointerType==='mouse';
+  },{passive:true});
+
+  let visible=true,intro=reduce?0:1,sc=0;
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;}).observe(host);
+  const clock=new THREE.Clock();
+
+  function pose(t){
+    px+=(ndc.x-px)*.04; py+=(ndc.y-py)*.04;
+    group.rotation.set(.12+Math.cos(t*.2)*.06-py*.1+sc*.45,-.12+Math.sin(t*.25)*.16+px*.15+sc*1.7,sc*.3);
+    group.position.y=Math.sin(t*.6)*.04+sc*.3;
+    ambPts.rotation.y=t*.02+sc*.35; ambPts.position.y=sc*.8;
+  }
+  function frame(){
+    const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime;
+    intro=Math.max(0,intro-dt/2.6);
+    sc+=(scrollP-sc)*.08;
+    uniforms.uTime.value=t;
+    uniforms.uScatter.value=Math.max(intro*intro,sc);
+    pose(t);
+    if(hasMouse){ray.setFromCamera(ndc,camera);if(ray.ray.intersectPlane(plane,hit))uniforms.uMouse.value.lerp(hit,.2);}
+    renderer.render(scene,camera);
+  }
+  const still=()=>{pose(0);renderer.render(scene,camera);};
+
+  resize();
+  addEventListener('resize',()=>{resize();if(reduce)still();});
+  if(reduce)still(); else renderer.setAnimationLoop(()=>{if(visible)frame();});
+  requestAnimationFrame(()=>host.classList.add('ready'));
+}catch(err){console.warn('hero 3D',err); /* resta il marchio piatto */}
+</script>
+</body>
+</html>
