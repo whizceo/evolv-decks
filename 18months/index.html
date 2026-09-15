@@ -66,14 +66,15 @@ h1,h2,h3,h4,p,ul{margin:0}
 .body p+p{margin-top:14px}
 
 /* ---------- Hero ---------- */
-.hero{position:relative;overflow:hidden;min-height:max(720px,100svh);display:flex;align-items:center;padding-block:140px 96px}
+.hero{position:static;min-height:max(720px,100svh);display:flex;align-items:center;padding-block:140px 96px}
 .hero__text{position:relative;z-index:2;max-width:min(700px,56%)}
 .hero__sub{font-family:var(--title);font-weight:500;font-size:clamp(22px,2.3vw,30px);line-height:1.2;letter-spacing:-.02em;color:#7fa0a6;margin-top:20px}
 .hero__cta{margin-top:40px;display:flex;gap:12px;flex-wrap:wrap}
-.hero__art{position:absolute;z-index:1;top:0;bottom:0;right:-6vw;width:min(50vw,760px);pointer-events:none}
+.hero-band{position:relative;overflow:hidden}
+.hero__art{position:absolute;z-index:1;inset:0;pointer-events:none}
 .hero__art canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease}
 .hero__art.ready canvas{opacity:1}
-.hero__fallback{position:absolute;right:4%;top:50%;width:78%;transform:translateY(-50%);opacity:.22;transition:opacity .6s}
+.hero__fallback{position:absolute;right:8%;top:50%;width:min(38vw,540px);transform:translateY(-50%);opacity:.22;transition:opacity .6s}
 .hero__art.ready .hero__fallback{opacity:0}
 
 /* ---------- Intro 18Tickets ---------- */
@@ -189,7 +190,7 @@ h1,h2,h3,h4,p,ul{margin:0}
   .hero{display:block;min-height:0;padding-block:120px 0}
   .hero__text{max-width:none}
   .display{font-size:clamp(34px,8.6vw,52px)}
-  .hero__art{position:relative;right:auto;width:auto;height:380px;margin:8px -16px 0}
+  .hero__art{position:relative;inset:auto;height:420px;margin:8px -16px 0}
   .hero__fallback{right:auto;left:50%;width:300px;transform:translate(-50%,-50%)}
   .about,.forza,.contact,.footer__top{grid-template-columns:minmax(0,1fr);gap:32px}
   .about__head,.forza__head,.contact__head{position:static}
@@ -232,7 +233,7 @@ h1,h2,h3,h4,p,ul{margin:0}
 <main id="top">
 
   <!-- HERO — bg-dark -->
-  <section class="band t-dark">
+  <section class="band t-dark hero-band">
     <div class="hero wrap">
       <div class="hero__text">
         <h1 class="display rv">18Tickets è il sistema di biglietteria pensato da chi lavora ogni giorno con cinema, teatri e operatori culturali.</h1>
@@ -526,75 +527,157 @@ document.getElementById('form').addEventListener('submit',function(ev){
 });
 </script>
 <script type="module">
-// Hero 3D: il marchio 18Months (stesso path di assets/mark.svg) estruso in Three.js
+// Hero: il marchio 18Months (stesso path di assets/mark.svg) come costellazione di particelle triangolari
+// Pattern "constellation" (DESIGN Dala): migliaia di triangoli outline 1–2px multicolore + campo ambientale.
+// Scroll = la costellazione si sgrana e ruota; load = i granelli si ricompongono nel marchio.
 import * as THREE from 'three';
 import {SVGLoader} from 'three/addons/loaders/SVGLoader.js';
-import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+import {MeshSurfaceSampler} from 'three/addons/math/MeshSurfaceSampler.js';
 
 const host=document.getElementById('mark3d');
+const band=host.closest('.hero-band');
 const MARK_D='M884.002 0c-75.1 0-135.982 60.897-135.982 135.996 0 24.228 6.893 46.672 17.96 66.358l-174.355 222.5c-11.576-3.198-23.585-5.496-36.217-5.497-75.082 0-135.995 60.836-135.998 135.98 0 12.618 2.284 24.637 5.466 36.264L202.341 765.984c-19.67-11.099-42.115-17.96-66.343-17.96C60.915 748.026 0 808.89 0 884.004.003 959.131 60.917 1020 135.998 1020c75.146 0 135.995-60.867 135.998-135.996 0-12.634-2.283-24.622-5.498-36.232l222.551-174.383c19.702 11.097 42.164 17.944 66.359 17.944 75.114-.003 135.982-60.915 135.982-135.996-.001-24.224-6.847-46.658-17.96-66.358L847.769 266.51c11.611 3.214 23.615 5.497 36.233 5.497C959.101 272.005 1020 211.126 1020 135.996 1020 60.898 959.1.002 884.002 0';
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile=()=>innerWidth<=900;
+THREE.ColorManagement.enabled=false;
 
 try{
-  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-  renderer.outputColorSpace=THREE.SRGBColorSpace;
-  renderer.toneMapping=THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure=1.05;
+  const PR=Math.min(devicePixelRatio,2);
+  const renderer=new THREE.WebGLRenderer({antialias:false,alpha:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(PR);
   host.appendChild(renderer.domElement);
-
   const scene=new THREE.Scene();
-  const pmrem=new THREE.PMREMGenerator(renderer);
-  scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
+  const camera=new THREE.PerspectiveCamera(30,1,.1,100);
+  camera.position.z=8;
 
-  const camera=new THREE.PerspectiveCamera(26,1,0.1,100);
-  camera.position.set(0,0,15);
-
+  // Marchio piatto → punti sulla faccia (sottile in profondità) + contorno nitido
   const svg=new SVGLoader().parse('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 1020"><path d="'+MARK_D+'"/></svg>');
   const shapes=svg.paths.flatMap(p=>SVGLoader.createShapes(p));
-  const geo=new THREE.ExtrudeGeometry(shapes,{depth:150,bevelEnabled:true,bevelThickness:24,bevelSize:18,bevelSegments:10,curveSegments:72});
-  geo.center();
+  const geo=new THREE.ShapeGeometry(shapes,48);
+  geo.center(); geo.rotateX(Math.PI); geo.scale(1/1020,1/1020,1/1020);
+  const sampler=new MeshSurfaceSampler(new THREE.Mesh(geo)).build();
+  const rim=[];
+  for(const sh of shapes){for(const c of [sh,...sh.holes]){for(const v of c.getSpacedPoints(900))rim.push(v);}}
+  const rimPts=rim.map(v=>new THREE.Vector3((v.x-510)/1020,-(v.y-510)/1020,0));
 
-  const mat=new THREE.MeshPhysicalMaterial({color:0x6f9ba2,roughness:.26,metalness:.12,clearcoat:1,clearcoatRoughness:.14,envMapIntensity:1.1});
-  const mesh=new THREE.Mesh(geo,mat);
-  const s=5.1/1020;
-  mesh.scale.set(s,s,s);
-  mesh.rotation.x=Math.PI;               // SVG y-giù → y-su (rotazione, niente mirror)
-  const pivot=new THREE.Group();
-  pivot.add(mesh);
-  scene.add(pivot);
+  const pal=[['#ffffff',.2],['#8ff0e0',.2],['#4cc9f0',.14],['#e5eced',.1],['#ffb829',.11],['#ff5a4e',.08],['#9d7bff',.1],['#ff6fb5',.07]]
+    .map(([h,w])=>[new THREE.Color(h),w]);
+  const pick=()=>{let r=Math.random();for(const [c,w] of pal){if((r-=w)<=0)return c}return pal[0][0]};
 
-  const key=new THREE.DirectionalLight(0xffffff,2.4); key.position.set(-5,6,9); scene.add(key);
-  const rim=new THREE.DirectionalLight(0xcdeef2,3); rim.position.set(7,-3,-6); scene.add(rim);
-  scene.add(new THREE.HemisphereLight(0xe5eced,0x003d47,.7));
+  function cloud(count,shape){
+    const pos=new Float32Array(count*3),sc=new Float32Array(count*3),col=new Float32Array(count*3),rnd=new Float32Array(count*4);
+    const p=new THREE.Vector3(),n=new THREE.Vector3(),d=new THREE.Vector3();
+    for(let i=0;i<count;i++){
+      if(shape){if(Math.random()<.3){p.copy(rimPts[(Math.random()*rimPts.length)|0]);p.x+=(Math.random()-.5)*.006;p.y+=(Math.random()-.5)*.006;}else sampler.sample(p,n);p.z=(Math.random()-.5)*.07;}
+      else p.set((Math.random()-.5)*11,(Math.random()-.5)*6,-3+Math.random()*4);
+      pos.set([p.x,p.y,p.z],i*3);
+      // dispersione: verso l'esterno e in profondità, spinta a destra (lontano dal testo) su desktop
+      d.set(p.x+(Math.random()-.5)*.9+(isMobile()?0:.35),p.y+(Math.random()-.5)*.9,(Math.random()-.2)*1.8).normalize().multiplyScalar(.35+Math.random()*1.3);
+      sc.set([d.x,d.y,d.z],i*3);
+      const c=pick();col.set([c.r,c.g,c.b],i*3);
+      rnd.set([Math.random(),Math.random()*6.2832,Math.random()*6.2832,shape?(Math.random()<.28?1:0):2],i*4);
+    }
+    const g=new THREE.BufferGeometry();
+    g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    g.setAttribute('aScatter',new THREE.BufferAttribute(sc,3));
+    g.setAttribute('aColor',new THREE.BufferAttribute(col,3));
+    g.setAttribute('aRnd',new THREE.BufferAttribute(rnd,4));
+    return g;
+  }
+
+  const uniforms={uTime:{value:0},uScatter:{value:reduce?0:1},uSize:{value:1},uPR:{value:PR},uMouse:{value:new THREE.Vector3(99,99,0)}};
+  const mat=new THREE.ShaderMaterial({
+    uniforms,transparent:true,depthWrite:false,
+    vertexShader:`
+      uniform float uTime,uScatter,uSize,uPR; uniform vec3 uMouse;
+      attribute vec3 aScatter,aColor; attribute vec4 aRnd;
+      varying vec3 vColor; varying float vAlpha,vRot,vKind;
+      void main(){
+        float amb=step(1.5,aRnd.w);
+        float s=clamp(uScatter*(.55+aRnd.x*.9),0.,1.); s=s*s*(3.-2.*s);
+        vec3 pos=position+aScatter*s*(1.-amb);
+        float ph=aRnd.z;
+        pos+=vec3(sin(uTime*.5+ph),cos(uTime*.43+ph*1.7),sin(uTime*.37+ph*.6))*(.01+s*.08+amb*.14);
+        vec4 w=modelMatrix*vec4(pos,1.);
+        vec2 dv=w.xy-uMouse.xy; float dl=length(dv);
+        w.xy+=dv/max(dl,1e-3)*smoothstep(.6,0.,dl)*.25*(1.-amb);
+        vec4 mv=viewMatrix*w;
+        gl_Position=projectionMatrix*mv;
+        gl_PointSize=uSize*uPR*(4.5+aRnd.x*6.)*(8./-mv.z);
+        vColor=aColor; vKind=aRnd.w;
+        vRot=aRnd.y+uTime*(.15+aRnd.x*.35)*(aRnd.x>.5?1.:-1.);
+        vAlpha=mix(.95,.3,amb)*mix(1.,.4,s);
+      }`,
+    fragmentShader:`
+      varying vec3 vColor; varying float vAlpha,vRot,vKind;
+      float sdTri(vec2 p,float r){const float k=1.7320508;p.x=abs(p.x)-r;p.y=p.y+r/k;
+        if(p.x+k*p.y>0.)p=vec2(p.x-k*p.y,-k*p.x-p.y)/2.;p.x-=clamp(p.x,-2.*r,0.);return -length(p)*sign(p.y);}
+      void main(){
+        vec2 p=gl_PointCoord*2.-1.; p.y=-p.y;
+        float c=cos(vRot),s=sin(vRot); p=mat2(c,-s,s,c)*p;
+        float d=sdTri(p,.62);
+        float a=(vKind>.5&&vKind<1.5)?1.-smoothstep(-.02,.06,d):1.-smoothstep(.08,.18,abs(d+.05));
+        if(a<.01)discard;
+        gl_FragColor=vec4(vColor,a*vAlpha);
+      }`
+  });
+
+  const shapePts=new THREE.Points(cloud(isMobile()?4200:7500,true),mat);
+  const ambPts=new THREE.Points(cloud(isMobile()?260:620,false),mat);
+  shapePts.frustumCulled=ambPts.frustumCulled=false;
+  const group=new THREE.Group();
+  group.add(shapePts); scene.add(group); scene.add(ambPts);
 
   function resize(){
-    const w=host.clientWidth,h=host.clientHeight;
-    renderer.setSize(w,h,false);
-    camera.aspect=w/h;
-    camera.position.z=w/h<1?19:15;
-    camera.updateProjectionMatrix();
+    const w=host.clientWidth,h=host.clientHeight,m=isMobile();
+    renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+    const vh=2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2))*camera.position.z, vw=vh*camera.aspect;
+    group.scale.setScalar(m?Math.min(vh*.74,vw*.7):Math.min(vh*.68,vw*.38));
+    group.position.x=m?0:vw*.25;
+    uniforms.uSize.value=m?.85:1;
   }
-  resize();
-  addEventListener('resize',resize);
 
-  let px=0,py=0,tx=0,ty=0,visible=true;
-  addEventListener('pointermove',e=>{tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5;},{passive:true});
+  // Scroll: 0 = marchio composto, 1 = costellazione sgranata
+  let scrollP=0;
+  const onScroll=()=>{const r=band.getBoundingClientRect();scrollP=THREE.MathUtils.clamp((innerHeight*.5-(r.top+r.height*.5))/(r.height*.8),0,1);};
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // Mouse: i granelli si scostano dal puntatore
+  const ray=new THREE.Raycaster(),plane=new THREE.Plane(new THREE.Vector3(0,0,1),0),hit=new THREE.Vector3(),ndc=new THREE.Vector2();
+  let hasMouse=false,px=0,py=0;
+  addEventListener('pointermove',e=>{
+    const r=host.getBoundingClientRect();
+    ndc.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
+    hasMouse=e.pointerType==='mouse';
+  },{passive:true});
+
+  let visible=true,intro=reduce?0:1,sc=0;
   new IntersectionObserver(es=>{visible=es[0].isIntersecting;}).observe(host);
-
   const clock=new THREE.Clock();
+
+  function pose(t){
+    px+=(ndc.x-px)*.04; py+=(ndc.y-py)*.04;
+    group.rotation.set(.12+Math.cos(t*.2)*.06-py*.1+sc*.45,-.12+Math.sin(t*.25)*.16+px*.15+sc*1.7,sc*.3);
+    group.position.y=Math.sin(t*.6)*.04+sc*.3;
+    ambPts.rotation.y=t*.02+sc*.35; ambPts.position.y=sc*.8;
+  }
   function frame(){
-    const t=clock.getElapsedTime();
-    px+=(tx-px)*.05; py+=(ty-py)*.05;
-    pivot.rotation.y=-.5+Math.sin(t*.35)*.22+px*.35;
-    pivot.rotation.x=.22+Math.cos(t*.28)*.07+py*.2;
-    pivot.position.y=Math.sin(t*.7)*.1;
+    const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime;
+    intro=Math.max(0,intro-dt/2.6);
+    sc+=(scrollP-sc)*.08;
+    uniforms.uTime.value=t;
+    uniforms.uScatter.value=Math.max(intro*intro,sc);
+    pose(t);
+    if(hasMouse){ray.setFromCamera(ndc,camera);if(ray.ray.intersectPlane(plane,hit))uniforms.uMouse.value.lerp(hit,.2);}
     renderer.render(scene,camera);
   }
-  if(reduce){ pivot.rotation.set(.22,-.5,0); renderer.render(scene,camera); }
-  else renderer.setAnimationLoop(()=>{ if(visible) frame(); });
+  const still=()=>{pose(0);renderer.render(scene,camera);};
+
+  resize();
+  addEventListener('resize',()=>{resize();if(reduce)still();});
+  if(reduce)still(); else renderer.setAnimationLoop(()=>{if(visible)frame();});
   requestAnimationFrame(()=>host.classList.add('ready'));
-}catch(err){ /* WebGL non disponibile: resta il marchio piatto */ }
+}catch(err){console.warn('hero 3D',err); /* resta il marchio piatto */}
 </script>
 </body>
 </html>
