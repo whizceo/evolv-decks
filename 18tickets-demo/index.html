@@ -1,0 +1,714 @@
+<title>Tickettando · Biglietteria</title>
+<meta name="description" content="Programmazione, abbonamenti e biglietti online: cinema, teatro e festival. Demo della biglietteria 18Tickets.">
+<link rel="icon" href="assets/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<style>
+:root{
+  /* Brand Tickettando — solo giallo e bianco */
+  --yellow:#e59738; --yellow-hover:#eca651; --deep:#d98a2e; --tint:#fcf3e7; --ink:#1c1308; --amber:#95580f;
+  --title:'Space Grotesk','Plus Jakarta Sans',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --text:'Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --max:1200px; --gap:96px; --pad:24px;
+  --r-card:16px; --r-pill:100px;
+  --shadow-nav:0 0 48px rgba(0,0,0,.12);
+}
+/* Temi di banda alternati: bianco · tinta · giallo */
+.t-white,.t-light{--fg:var(--ink); --ash:#5f5140; --slate:#8a7862; --mist:#e3cfb3; --line:#f0e4d3; --accent:var(--amber);
+  --brand:var(--yellow); --brand-hover:var(--yellow-hover); --on-brand:var(--ink); --surface:#fff; --fog:#fffaf2}
+.t-white{--bg:#fff}
+.t-light{--bg:var(--tint); --mist:#e0c6a4; --line:#efdcc3}
+.t-dark,.t-deep{--bg:var(--yellow); --fg:var(--ink); --ash:#4a3316; --slate:#6e4e21; --mist:rgba(28,19,8,.28); --line:rgba(28,19,8,.14); --accent:var(--ink);
+  --brand:var(--ink); --brand-hover:#3b2a13; --on-brand:#fff; --surface:#fff; --fog:rgba(255,255,255,.3)}
+.t-deep{--bg:var(--deep)}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;background:#fff;color:var(--ink);font-family:var(--text);font-size:16px;line-height:1.5;letter-spacing:-.005em;font-weight:400;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+h1,h2,h3,h4,p,ul{margin:0}
+.band{background:var(--bg);color:var(--fg);padding-inline:16px}
+.wrap{max-width:var(--max);margin:0 auto}
+.section{padding-block:var(--gap)}
+
+/* ---------- Floating nav ---------- */
+.nav{position:fixed;z-index:50;top:calc(16px + env(safe-area-inset-top,0px));left:16px;right:16px;max-width:var(--max);margin:0 auto;background:#fff;color:var(--ink);border-radius:var(--r-card);box-shadow:var(--shadow-nav);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 12px 12px 24px}
+.nav__logo{flex:0 0 auto}
+.nav__logo img{height:30px;width:auto}
+.nav__links{display:flex;gap:6px;align-items:center}
+.nav__links a{padding:7px 14px;border-radius:var(--r-pill);font-size:15px;transition:background .2s,color .2s}
+.nav__links a:hover{background:var(--tint)}
+.nav__links a.on{background:var(--yellow);color:var(--ink)}
+.nav .btn{background:var(--yellow);color:var(--ink)}.nav .btn:hover{background:var(--yellow-hover)}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:var(--on-brand);border:0;border-radius:var(--r-pill);padding:11px 22px;font:500 15px/1.2 var(--text);letter-spacing:-.01em;cursor:pointer;transition:background .2s;white-space:nowrap}
+.btn:hover{background:var(--brand-hover)}
+.btn .arr{font-size:14px;line-height:1}
+.btn--ghost{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1px var(--mist)}
+.btn--ghost:hover{background:var(--fog)}
+.btn--sm{padding:8px 15px;font-size:13.5px}
+.or{font-size:13.5px;color:var(--slate)}
+
+/* ---------- Type ---------- */
+.eyebrow{display:block;color:var(--accent);font:500 12px/1.2 var(--text);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+.display{font-family:var(--title);font-weight:500;font-size:clamp(40px,4.6vw,66px);line-height:1.04;letter-spacing:-.028em;color:rgba(28,19,8,.5)}
+.display strong{font-weight:500;color:var(--ink)}
+.h-lg{font-family:var(--title);font-weight:500;font-size:clamp(32px,3.9vw,50px);line-height:1.08;letter-spacing:-.02em}
+.h-lg .soft{color:var(--slate)}
+.sub{font-size:18px;line-height:1.5;color:var(--ash)}
+
+/* ---------- Hero ---------- */
+.hero{position:static;min-height:max(720px,100svh);display:flex;align-items:center;padding-block:140px 96px}
+.hero__text{position:relative;z-index:2;max-width:min(640px,52%)}
+.hero__cta{margin-top:40px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hero__note{margin-top:18px;font-size:14px;color:var(--ash)}
+.hero-band{position:relative;overflow:hidden}
+.hero__art{position:absolute;z-index:1;inset:0;pointer-events:none}
+.hero__art canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease}
+.hero__art.ready canvas{opacity:1}
+.hero__fallback{position:absolute;right:6%;top:50%;width:min(44vw,600px);transform:translateY(-50%);opacity:.25;filter:brightness(0) invert(1);transition:opacity .6s}
+.hero__art.ready .hero__fallback{opacity:0}
+
+/* ---------- Section head ---------- */
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px 32px;margin-bottom:36px;flex-wrap:wrap}
+
+/* ---------- Chips ---------- */
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips--scroll{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-bottom:28px;padding:2px}
+.chips--scroll::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;background:transparent;border:0;box-shadow:inset 0 0 0 1px var(--mist);border-radius:var(--r-pill);padding:8px 16px;font:500 13.5px/1.2 var(--text);color:var(--fg);cursor:pointer;transition:background .2s,box-shadow .2s;white-space:nowrap}
+.chip:hover{background:var(--fog)}
+.chip.on{background:var(--brand);color:var(--on-brand);box-shadow:none}
+
+/* ---------- Rail (poster carousel) ---------- */
+.rail{position:relative}
+.rail__track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 2px 10px;scroll-padding-inline:2px;overscroll-behavior-x:contain}
+.rail__track::-webkit-scrollbar{display:none}
+.rail__btn{position:absolute;top:calc(50% - 44px);width:46px;height:46px;border-radius:50%;background:#fff;color:var(--ink);box-shadow:0 8px 28px rgba(28,19,8,.18);border:0;display:grid;place-items:center;cursor:pointer;z-index:3;font-size:24px;line-height:1;transition:opacity .2s}
+.rail__btn--prev{left:-20px}.rail__btn--next{right:-20px}
+.rail__btn:disabled{opacity:0;pointer-events:none}
+.poster{flex:0 0 180px;scroll-snap-align:start;display:flex;flex-direction:column;gap:12px}
+.poster__img{position:relative;display:block;aspect-ratio:180/250;border-radius:12px;overflow:hidden;background:var(--fog);box-shadow:0 8px 26px rgba(28,19,8,.1)}
+.t-dark .poster__img{box-shadow:0 10px 30px rgba(28,19,8,.2)}
+.poster__img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.poster:hover .poster__img img{transform:scale(1.04)}
+.poster__t{font:500 13px/1.3 var(--text);letter-spacing:.01em;text-transform:uppercase;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tag{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+.tag span,.ftags span{background:var(--yellow);color:var(--ink);font:600 10px/1 var(--text);letter-spacing:.06em;padding:5px 8px;border-radius:var(--r-pill)}
+.ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;padding:18px;background:var(--yellow);color:var(--ink);text-align:center;font:500 14px/1.25 var(--title)}
+.ph img{width:70%;height:auto;filter:brightness(0) invert(1)}
+.poster--more .poster__img{display:grid;place-items:center;background:var(--brand);color:var(--on-brand);text-align:center;font:500 15px/1.35 var(--title);box-shadow:none}
+.poster--more b{display:block;font-size:40px;font-weight:500;letter-spacing:-.03em;line-height:1.1}
+
+/* ---------- Footer ---------- */
+.footer{padding-block:48px 40px;display:flex;justify-content:space-between;align-items:center;gap:20px 32px;flex-wrap:wrap}
+.footer__legal{display:flex;gap:8px 24px;font-size:14px;flex-wrap:wrap}
+.footer__legal a:hover{text-decoration:underline;text-underline-offset:3px}
+.credits{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ash)}
+.credits img{height:24px;width:auto}
+.copy{width:100%;font-size:13px;color:var(--ash);border-top:1px solid var(--line);padding-top:20px}
+
+/* ---------- Reveal ---------- */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+@media (max-width:900px){
+  :root{--gap:72px}
+  .hero{display:block;min-height:0;padding-block:120px 0}
+  .hero__text{max-width:none}
+  .display{font-size:clamp(34px,8.6vw,52px)}
+  .hero__art{position:relative;inset:auto;height:380px;margin:8px -16px 0}
+  .hero__fallback{right:auto;left:50%;width:320px;transform:translate(-50%,-50%)}
+  .rail__btn{display:none}
+}
+@media (max-width:600px){
+  .nav{padding:10px 10px 10px 16px}
+  .nav__links{display:none}
+  .nav__logo img{height:24px}
+  .hero__art{height:300px}
+  .poster{flex-basis:140px}
+  .rail__track{gap:14px}
+  .footer{flex-direction:column;align-items:flex-start}
+}
+
+/* ---------- Demo: abbonamenti ---------- */
+.abb{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;align-items:stretch}
+.abb__card{background:var(--surface);border-radius:var(--r-card);padding:24px;display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:center;box-shadow:inset 0 0 0 1px var(--line)}
+.abb__card .poster__img{width:180px}
+.abb__card h3{font:500 24px/1.15 var(--title);letter-spacing:-.015em;margin-bottom:10px}
+.abb__card p{color:var(--ash);font-size:15px;margin-bottom:20px}
+.up{background:var(--surface);border-radius:var(--r-card);padding:24px 28px;box-shadow:inset 0 0 0 1px var(--line)}
+.up h3{font:500 13px/1 var(--text);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.up ul{list-style:none;padding:0;columns:2;column-gap:32px}
+.up li{break-inside:avoid;display:flex;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.up__when{flex:0 0 86px;color:var(--slate);font-size:13px}.up__when b{color:var(--fg);font-weight:600;margin-right:6px}
+.carte{margin-top:24px;background:var(--yellow);color:var(--ink);border-radius:var(--r-card);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px 32px;flex-wrap:wrap}
+.carte p{font:500 20px/1.25 var(--title);letter-spacing:-.01em}
+.carte .chips span{background:#fff;color:var(--ink);border-radius:var(--r-pill);padding:10px 18px;font:600 14px/1 var(--text)}
+/* ---------- Demo: filtri ---------- */
+.filters{display:grid;gap:14px;margin-bottom:40px}
+.filters .chips--scroll{margin-bottom:0}
+.fl{font:500 12px/1 var(--text);letter-spacing:.08em;text-transform:uppercase;color:var(--slate);margin:6px 0 -2px}
+.days{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.days::-webkit-scrollbar{display:none}
+.day{flex:0 0 74px;height:92px;border:0;border-radius:40px;background:transparent;box-shadow:inset 0 0 0 1px var(--mist);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:var(--fg);transition:background .2s}
+.day:hover{background:var(--fog)}
+.day small{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--slate)}
+.day b{font:500 24px/1 var(--title)}.day span{font-size:12px}
+.day.on{background:var(--brand);color:var(--on-brand);box-shadow:none}.day.on small{color:inherit}
+/* ---------- Demo: schede film ---------- */
+.films{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.film{background:var(--surface);border-radius:var(--r-card);box-shadow:inset 0 0 0 1px var(--line);padding:20px;display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;align-items:start}
+.t-white .film{background:var(--fog)}
+.film__body{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0}
+.film__t{font:500 21px/1.18 var(--title);letter-spacing:-.012em}
+.film__t a:hover{color:var(--accent)}
+.film__meta{font-size:13.5px;color:var(--ash)}.film__meta span{color:var(--slate)}
+.ftags{display:flex;gap:6px}
+.film .btn{margin-top:4px}
+.shows{width:100%;display:flex;gap:8px;flex-wrap:wrap}
+.film__meta{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.film__where{display:inline-flex;align-items:center;gap:5px;font-size:13.5px;color:var(--slate)}
+.time{display:inline-flex;flex-direction:column;background:var(--yellow);color:var(--ink);border-radius:12px;padding:7px 13px;font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;line-height:1.3;transition:background .2s}
+.time small{font-size:11px;font-weight:500;letter-spacing:.02em}
+.time b{font:600 16px/1.15 var(--text);letter-spacing:0}
+.time:hover{background:var(--yellow-hover)}
+.film__acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.empty{grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--ash)}
+.cta{text-align:center;display:grid;justify-items:center;gap:22px}
+@media (max-width:1000px){.films{grid-template-columns:1fr}.abb{grid-template-columns:1fr}}
+@media (max-width:600px){
+  .abb__card{grid-template-columns:1fr}.abb__card .poster__img{width:160px}
+  .up ul{columns:1}
+  .film{grid-template-columns:96px minmax(0,1fr);gap:16px;padding:16px}
+  .film__t{font-size:18px}
+  .day{flex-basis:64px;height:82px}
+}
+</style>
+
+<nav class="nav" aria-label="Menu principale">
+  <a class="nav__logo" href="https://demo.18tickets.it/" aria-label="Tickettando, home"><img src="assets/tickettando-logo.png" alt="Tickettando" width="141" height="30"></a>
+  <div class="nav__links"><a class="on" href="#top">Home</a><a href="#programmazione">Biglietteria</a><a href="#abbonamenti">Abbonamenti</a></div>
+  <a class="btn" href="https://demo.18tickets.it/users/sign_in">Accedi</a>
+</nav>
+
+<main id="top">
+  <section class="band t-dark hero-band">
+    <div class="hero wrap">
+      <div class="hero__text">
+        <span class="eyebrow rv">Biglietteria online</span>
+        <h1 class="display rv"><strong>Cinema, teatro e festival.</strong> Scegli lo spettacolo, prendi il posto.</h1>
+        <div class="hero__cta rv">
+          <a class="btn" href="#programmazione">Acquista biglietti <span class="arr">→</span></a>
+          <a class="btn btn--ghost" href="#abbonamenti">Abbonamenti</a>
+        </div>
+        <p class="hero__note rv">Puoi usare Carta Cultura e Carta del Docente.</p>
+      </div>
+      <div class="hero__art" id="mark3d" aria-hidden="true">
+        <img class="hero__fallback" src="assets/mark.svg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section class="band t-white">
+    <div class="wrap section">
+      <div class="shead rv">
+        <div><span class="eyebrow">In cartellone</span><h2 class="h-lg">Programmazione</h2></div>
+        <a class="btn btn--ghost" href="#programmazione">Tutte le date <span class="arr">→</span></a>
+      </div>
+      <div class="rail rv">
+        <button class="rail__btn rail__btn--prev" aria-label="Indietro">‹</button>
+        <div class="rail__track"><a class="poster" href="https://demo.18tickets.it/film/291">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/291/app_775fe135-b066-4d5d-a0d6-bf3e46e64531.png" alt="TINDARI FEST 2026: ALTRI PIANI" loading="eager" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">TINDARI FEST 2026: ALTRI PIANI</span></a><a class="poster" href="https://demo.18tickets.it/film/309">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/309/app_203775f1-4a46-4908-a50e-f09084ee7ba4.png" alt="TINDARI FEST 2026: FINO ALLE STELLE" loading="eager" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">TINDARI FEST 2026: FINO ALLE STELLE</span></a><a class="poster" href="https://demo.18tickets.it/film/290">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/290/app_a0194381-400d-42d2-84ce-9fdc9bce7cf7.png" alt="TINDARI FEST 2026: GLI AMORI DIFFICILI" loading="eager" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">TINDARI FEST 2026: GLI AMORI DIFFICILI</span></a><a class="poster" href="https://demo.18tickets.it/film/314">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/314/app_82fd7e12-879a-4f83-825d-82b33daeb188.jpg" alt="SUPERMA" loading="eager" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">SUPERMA</span></a><a class="poster" href="https://demo.18tickets.it/film/302">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/302/app_8c5273df-2778-4e5c-bfa0-9ce51df8652b.jpg" alt="LE CITTÀ DI PIANURA" loading="eager" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">LE CITTÀ DI PIANURA</span></a><a class="poster" href="https://demo.18tickets.it/film/299">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/299/app_bf314cfc-9283-4895-aa47-870634f24f0f.jpg" alt="IL PRIGIONIERO (EL CAUTIVO)" loading="eager" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FEDE</span></span></span>
+  <span class="poster__t">IL PRIGIONIERO (EL CAUTIVO)</span></a><a class="poster" href="https://demo.18tickets.it/film/308">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/308/app_cf8fbc4d-e046-4329-9773-ac59475f68e1.png" alt="TINDARI FEST 2026: FEDRA" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">TINDARI FEST 2026: FEDRA</span></a><a class="poster" href="https://demo.18tickets.it/film/1">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/1/app_5c9f51dc-568f-48af-aafb-ff5ac598dbc9.jpg" alt="TENET" loading="lazy" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FEDE</span></span></span>
+  <span class="poster__t">TENET</span></a><a class="poster" href="https://demo.18tickets.it/film/293">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/293/app_05609718-2639-47db-a520-574ab952f638.jpg" alt="BACKROOMS" loading="lazy" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FEDE</span></span></span>
+  <span class="poster__t">BACKROOMS</span></a><a class="poster" href="https://demo.18tickets.it/film/298">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/298/app_d74c3a3a-2424-4d69-8b9c-fb21658cc946.jpg" alt="ROMERÍA - IL MARE DEI RICORDI" loading="lazy" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FEDE</span></span></span>
+  <span class="poster__t">ROMERÍA - IL MARE DEI RICORDI</span></a><a class="poster" href="https://demo.18tickets.it/film/296">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/296/app_72f4bf0c-d516-48dd-998c-465f2bcadf27.jpg" alt="NO GOOD MEN" loading="lazy" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FEDE</span></span></span>
+  <span class="poster__t">NO GOOD MEN</span></a><a class="poster" href="https://demo.18tickets.it/film/301">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/301/app_dd4124b1-4016-4cf0-9a3b-e5ec8207398a.jpg" alt="IL SILENZIO DEGLI ALTRI (SORDA)" loading="lazy" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FEDE</span></span></span>
+  <span class="poster__t">IL SILENZIO DEGLI ALTRI (SORDA)</span></a><a class="poster" href="https://demo.18tickets.it/film/297">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/297/app_77bcfdeb-c62e-477c-9268-8798e57524aa.jpg" alt="SENZA PELLE (10 E LUCE)" loading="lazy" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FEDE</span></span></span>
+  <span class="poster__t">SENZA PELLE (10 E LUCE)</span></a><a class="poster" href="https://demo.18tickets.it/film/311">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/311/app_18719123-10f6-4d8e-949c-6d853c492aa1.png" alt="TINDARI FEST 2026: LE DONNE DI ODISSEO" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">TINDARI FEST 2026: LE DONNE DI ODISSEO</span></a><a class="poster" href="https://demo.18tickets.it/film/294">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/294/app_f981f1a0-b6e1-41a6-82b2-e9a03bc4624e.jpg" alt="SMART WORKING" loading="lazy" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FEDE</span></span></span>
+  <span class="poster__t">SMART WORKING</span></a><a class="poster" href="https://demo.18tickets.it/film/310">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/310/app_8694e418-03da-45b4-8583-0c3cf3275612.png" alt="TINDARI FEST 2026: IL CIELO E IL SANGUE" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">TINDARI FEST 2026: IL CIELO E IL SANGUE</span></a><a class="poster" href="https://demo.18tickets.it/film/312">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/312/app_15ff49a2-b18d-43f5-9d6e-e1a798e153e4.png" alt="TINDARI FEST 2026: OTELLO E DESDEMONA O DEL FEMMINICIDIOI" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">TINDARI FEST 2026: OTELLO E DESDEMONA O DEL FEMMINICIDIOI</span></a><a class="poster" href="https://demo.18tickets.it/film/295">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/295/app_a65fea3a-5c8c-4446-a5d0-28ab04c861db.jpg" alt="LE BAMBINE (MOSQUITOES)" loading="lazy" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FEDE</span></span></span>
+  <span class="poster__t">LE BAMBINE (MOSQUITOES)</span></a><a class="poster" href="https://demo.18tickets.it/film/306">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/306/app_2e20763c-4f36-4bfd-9934-05ca7db435d0.png" alt="TINDARI FEST 2026: ENNIO SEGRETO" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">TINDARI FEST 2026: ENNIO SEGRETO</span></a><a class="poster" href="https://demo.18tickets.it/film/303">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/303/app_f0452716-4fea-418c-9781-6390a9b75114.jpg" alt="HEN - STORIA DI UNA GALLIN" loading="lazy" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FEDE</span></span></span>
+  <span class="poster__t">HEN - STORIA DI UNA GALLIN</span></a><a class="poster" href="https://demo.18tickets.it/film/307">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/307/app_7626b74f-7d77-4889-8f65-3df4c837ab97.png" alt="TINDARI FEST 2026: UN ULULATO IN MEZZO AL MARE" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">TINDARI FEST 2026: UN ULULATO IN MEZZO AL MARE</span></a><a class="poster" href="https://demo.18tickets.it/film/304">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/304/app_970b6fe8-599e-4223-8b7b-a3992f449458.jpg" alt="DISCLOSURE DAY" loading="lazy" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FEDE</span></span></span>
+  <span class="poster__t">DISCLOSURE DAY</span></a><a class="poster" href="https://demo.18tickets.it/film/305">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/305/app_dd88eda2-7c74-44d8-b01d-4d2dba6a51f7.png" alt="TINDARI FEST 2026: TOSCA" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></span>
+  <span class="poster__t">TINDARI FEST 2026: TOSCA</span></a><a class="poster" href="https://demo.18tickets.it/film/228">
+  <span class="poster__img"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/228/app_712509ae-a1b1-40dd-9117-0ad8108a0a6e.jpg" alt="CATS" loading="lazy" referrerpolicy="no-referrer-when-downgrade"><span class="tag"><span>FESTIVAL</span><span>TESTAGGR</span></span></span>
+  <span class="poster__t">CATS</span></a></div>
+        <button class="rail__btn rail__btn--next" aria-label="Avanti">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="band t-light" id="abbonamenti">
+    <div class="wrap section">
+      <div class="shead rv"><div><span class="eyebrow">Stagione 2026/27</span><h2 class="h-lg">Abbonamenti</h2></div></div>
+      <div class="abb rv">
+        <div class="abb__card">
+          <a class="poster__img" href="https://demo.18tickets.it/g/154"><img src="https://cdn.18tickets.net/demo/uploads/projection_group/poster/154/app_b8217fce-603d-4e5d-af59-c0fe14d007ec.jpg" alt="Abbonamenti stagione 2026/27" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+          <div><h3>Abbonamenti Stagione 2026/27 · Turno A</h3><p>Tutti gli spettacoli del turno con un solo acquisto.</p>
+            <a class="btn" href="https://demo.18tickets.it/g/154">Programmazione completa <span class="arr">→</span></a></div>
+        </div>
+        <div class="up"><h3>Prossimi appuntamenti</h3><ul><li><span class="up__when"><b>15/09</b>22:00</span><span class="up__t">Tindari Fest 2026: Altri piani</span></li><li><span class="up__when"><b>16/09</b>22:00</span><span class="up__t">Tindari Fest 2026: Fino alle...</span></li><li><span class="up__when"><b>23/09</b>22:00</span><span class="up__t">Tindari Fest 2026: Gli amori...</span></li><li><span class="up__when"><b>06/10</b>22:00</span><span class="up__t">Tindari Fest 2026: Fedra</span></li><li><span class="up__when"><b>22/10</b>22:00</span><span class="up__t">Tindari Fest 2026: LE donne d...</span></li><li><span class="up__when"><b>28/10</b>22:00</span><span class="up__t">Tindari Fest 2026: Il cielo e...</span></li><li><span class="up__when"><b>29/10</b>22:00</span><span class="up__t">Tindari Fest 2026: OTELLO E D...</span></li><li><span class="up__when"><b>01/11</b>22:00</span><span class="up__t">Tindari Fest 2026: Ennio Segreto</span></li><li><span class="up__when"><b>12/11</b>22:00</span><span class="up__t">Tindari Fest 2026: Un ululat...</span></li><li><span class="up__when"><b>29/11</b>21:00</span><span class="up__t">Tindari Fest 2026: Tosca</span></li></ul></div>
+      </div>
+      <div class="carte rv"><p>Qui puoi utilizzare</p><div class="chips"><span>Carta Cultura</span><span>Carta del Docente</span></div></div>
+    </div>
+  </section>
+
+  <section class="band t-white" id="programmazione">
+    <div class="wrap section">
+      <div class="shead rv"><div><span class="eyebrow">Biglietteria</span><h2 class="h-lg">Programmazione completa</h2></div></div>
+      <div class="filters rv">
+        <p class="fl">Struttura</p><div class="chips chips--scroll"><button class="chip on" data-f="venue" data-v=""><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tutte le strutture</button><button class="chip" data-f="venue" data-v="18-cinema"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</button><button class="chip" data-f="venue" data-v="teatro-il-sistina"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Teatro Il Sistina</button><button class="chip" data-f="venue" data-v="tickettando"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tickettando</button></div>
+        <p class="fl">Mese</p><div class="chips chips--scroll"><button class="chip on" data-f="month" data-v="">Tutti i mesi</button><button class="chip" data-f="month" data-v="2026-09">Settembre</button><button class="chip" data-f="month" data-v="2026-10">Ottobre</button><button class="chip" data-f="month" data-v="2026-11">Novembre</button><button class="chip" data-f="month" data-v="2030-12">Dicembre</button></div>
+        <div class="days"><button class="day on" data-f="day" data-v="" data-m=""><b>+</b><span>Tutte le date</span></button><button class="day" data-f="day" data-v="2026-09-15" data-m="2026-09"><small>Mar</small><b>15</b><span>Set</span></button><button class="day" data-f="day" data-v="2026-09-16" data-m="2026-09"><small>Mer</small><b>16</b><span>Set</span></button><button class="day" data-f="day" data-v="2026-09-17" data-m="2026-09"><small>Gio</small><b>17</b><span>Set</span></button><button class="day" data-f="day" data-v="2026-09-23" data-m="2026-09"><small>Mer</small><b>23</b><span>Set</span></button><button class="day" data-f="day" data-v="2026-09-24" data-m="2026-09"><small>Gio</small><b>24</b><span>Set</span></button><button class="day" data-f="day" data-v="2026-09-30" data-m="2026-09"><small>Mer</small><b>30</b><span>Set</span></button><button class="day" data-f="day" data-v="2026-10-01" data-m="2026-10"><small>Gio</small><b>1</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-02" data-m="2026-10"><small>Ven</small><b>2</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-04" data-m="2026-10"><small>Dom</small><b>4</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-05" data-m="2026-10"><small>Lun</small><b>5</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-06" data-m="2026-10"><small>Mar</small><b>6</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-07" data-m="2026-10"><small>Mer</small><b>7</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-08" data-m="2026-10"><small>Gio</small><b>8</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-09" data-m="2026-10"><small>Ven</small><b>9</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-11" data-m="2026-10"><small>Dom</small><b>11</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-12" data-m="2026-10"><small>Lun</small><b>12</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-13" data-m="2026-10"><small>Mar</small><b>13</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-14" data-m="2026-10"><small>Mer</small><b>14</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-15" data-m="2026-10"><small>Gio</small><b>15</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-16" data-m="2026-10"><small>Ven</small><b>16</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-17" data-m="2026-10"><small>Sab</small><b>17</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-18" data-m="2026-10"><small>Dom</small><b>18</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-20" data-m="2026-10"><small>Mar</small><b>20</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-21" data-m="2026-10"><small>Mer</small><b>21</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-22" data-m="2026-10"><small>Gio</small><b>22</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-23" data-m="2026-10"><small>Ven</small><b>23</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-27" data-m="2026-10"><small>Mar</small><b>27</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-28" data-m="2026-10"><small>Mer</small><b>28</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-29" data-m="2026-10"><small>Gio</small><b>29</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-30" data-m="2026-10"><small>Ven</small><b>30</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-10-31" data-m="2026-10"><small>Sab</small><b>31</b><span>Ott</span></button><button class="day" data-f="day" data-v="2026-11-01" data-m="2026-11"><small>Dom</small><b>1</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-02" data-m="2026-11"><small>Lun</small><b>2</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-09" data-m="2026-11"><small>Lun</small><b>9</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-10" data-m="2026-11"><small>Mar</small><b>10</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-11" data-m="2026-11"><small>Mer</small><b>11</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-12" data-m="2026-11"><small>Gio</small><b>12</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-13" data-m="2026-11"><small>Ven</small><b>13</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-14" data-m="2026-11"><small>Sab</small><b>14</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-15" data-m="2026-11"><small>Dom</small><b>15</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-16" data-m="2026-11"><small>Lun</small><b>16</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-17" data-m="2026-11"><small>Mar</small><b>17</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-18" data-m="2026-11"><small>Mer</small><b>18</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-19" data-m="2026-11"><small>Gio</small><b>19</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-20" data-m="2026-11"><small>Ven</small><b>20</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-21" data-m="2026-11"><small>Sab</small><b>21</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-22" data-m="2026-11"><small>Dom</small><b>22</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-29" data-m="2026-11"><small>Dom</small><b>29</b><span>Nov</span></button><button class="day" data-f="day" data-v="2026-11-30" data-m="2026-11"><small>Lun</small><b>30</b><span>Nov</span></button><button class="day" data-f="day" data-v="2030-12-30" data-m="2030-12"><small>Lun</small><b>30</b><span>Dic</span></button><button class="day" data-f="day" data-v="2030-12-31" data-m="2030-12"><small>Mar</small><b>31</b><span>Dic</span></button></div>
+        <p class="fl">Categoria</p><div class="chips chips--scroll"><button class="chip on" data-f="tag" data-v="">Tutti i titoli</button><button class="chip" data-f="tag" data-v="FEDE">FEDE</button><button class="chip" data-f="tag" data-v="FESTIVAL">FESTIVAL</button><button class="chip" data-f="tag" data-v="TESTAGGR">TESTAGGR</button></div>
+      </div>
+      <div class="films" id="films"><article class="film rv" data-venues="tickettando" data-days="2026-09-15" data-months="2026-09" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/291"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/291/app_775fe135-b066-4d5d-a0d6-bf3e46e64531.png" alt="TINDARI FEST 2026: ALTRI PIANI" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/291">TINDARI FEST 2026: ALTRI PIANI</a></h3><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tickettando</p>
+    <a class="btn" href="https://demo.18tickets.it/subscriptions?film_id=291">Acquista biglietti open <span class="arr">→</span></a><p class="or">oppure seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/291" data-day="2026-09-15" data-venue="tickettando"><small>Mar 15 Set</small><b>22:00</b><span>TEATRO MASSIMO</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/291">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="tickettando" data-days="2026-09-16 2026-09-17" data-months="2026-09" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/309"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/309/app_203775f1-4a46-4908-a50e-f09084ee7ba4.png" alt="TINDARI FEST 2026: FINO ALLE STELLE" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/309">TINDARI FEST 2026: FINO ALLE STELLE</a></h3><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tickettando</p>
+    <a class="btn" href="https://demo.18tickets.it/subscriptions?film_id=309">Acquista biglietti open <span class="arr">→</span></a><p class="or">oppure seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/309" data-day="2026-09-16" data-venue="tickettando"><small>Mer 16 Set</small><b>22:00</b><span>TEATRO MASSIMO</span></a><a class="time show" href="https://demo.18tickets.it/film/309" data-day="2026-09-17" data-venue="tickettando"><small>Gio 17 Set</small><b>22:00</b><span>TEATRO MASSIMO</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/309">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="tickettando" data-days="2026-09-23 2026-09-24" data-months="2026-09" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/290"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/290/app_a0194381-400d-42d2-84ce-9fdc9bce7cf7.png" alt="TINDARI FEST 2026: GLI AMORI DIFFICILI" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/290">TINDARI FEST 2026: GLI AMORI DIFFICILI</a></h3><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tickettando</p>
+    <a class="btn" href="https://demo.18tickets.it/subscriptions?film_id=290">Acquista biglietti open <span class="arr">→</span></a><p class="or">oppure seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/290" data-day="2026-09-23" data-venue="tickettando"><small>Mer 23 Set</small><b>22:00</b><span>TEATRO MASSIMO</span></a><a class="time show" href="https://demo.18tickets.it/film/290" data-day="2026-09-24" data-venue="tickettando"><small>Gio 24 Set</small><b>22:00</b><span>TEATRO MASSIMO</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/290">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-09-30" data-months="2026-09" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/314"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/314/app_82fd7e12-879a-4f83-825d-82b33daeb188.jpg" alt="SUPERMA" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/314">SUPERMA</a></h3><p class="film__meta"><span>Regia</span> James Gunn</p><p class="film__meta"><span>Con</span> David Corenswet, Rachel Brosnahan, Nicholas Hoult, Edi Gathegi, Nathan Fillion, Isabela Merced, María Gabriela De Faría, Skyler Gisondo, Alan Tudyk, Grace Ch...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/314" data-day="2026-09-30" data-venue="18-cinema"><small>Mer 30 Set</small><b>21:00</b><span>TEST SETT</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/314">▶ Guarda il trailer</a><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/314">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-10-01 2026-10-02" data-months="2026-10" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/302"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/302/app_8c5273df-2778-4e5c-bfa0-9ce51df8652b.jpg" alt="LE CITTÀ DI PIANURA" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/302">LE CITTÀ DI PIANURA</a></h3><p class="film__meta"><span>Regia</span> Francesco Sossai</p><p class="film__meta"><span>Con</span> Filippo Scotti, Sergio Romano, Pierpaolo Capovilla, Roberto Citran, Andrea Pennacchi, Giuseppe Messina, Denis Fasolo, Tommaso Gianesini, Lorena De March, Gia...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/302" data-day="2026-10-01" data-venue="18-cinema"><small>Gio 1 Ott</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/302" data-day="2026-10-02" data-venue="18-cinema"><small>Ven 2 Ott</small><b>22:00</b><span>SALA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/302">▶ Guarda il trailer</a><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/302">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-10-04 2026-10-05 2026-10-06 2026-10-07" data-months="2026-10" data-tags="FEDE">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/299"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/299/app_bf314cfc-9283-4895-aa47-870634f24f0f.jpg" alt="IL PRIGIONIERO (EL CAUTIVO)" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FEDE</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/299">IL PRIGIONIERO (EL CAUTIVO)</a></h3><p class="film__meta"><span>Regia</span> Alejandro Amenábar</p><p class="film__meta"><span>Con</span> Julio Peña, Alessandro Borghi, Miguel Rellán, Fernando Tejero, Luis Callejo, José Manuel Poga, Roberto álamo, Albert Salazar, Juanma Muniagurria, César Sarat...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/299" data-day="2026-10-04" data-venue="18-cinema"><small>Dom 4 Ott</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/299" data-day="2026-10-05" data-venue="18-cinema"><small>Lun 5 Ott</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/299" data-day="2026-10-06" data-venue="18-cinema"><small>Mar 6 Ott</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/299" data-day="2026-10-07" data-venue="18-cinema"><small>Mer 7 Ott</small><b>22:00</b><span>SALA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/299">▶ Guarda il trailer</a><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/299">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="tickettando" data-days="2026-10-06 2026-10-07" data-months="2026-10" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/308"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/308/app_cf8fbc4d-e046-4329-9773-ac59475f68e1.png" alt="TINDARI FEST 2026: FEDRA" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/308">TINDARI FEST 2026: FEDRA</a></h3><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tickettando</p>
+    <a class="btn" href="https://demo.18tickets.it/subscriptions?film_id=308">Acquista biglietti open <span class="arr">→</span></a><p class="or">oppure seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/308" data-day="2026-10-06" data-venue="tickettando"><small>Mar 6 Ott</small><b>22:00</b><span>TEATRO MASSIMO</span></a><a class="time show" href="https://demo.18tickets.it/film/308" data-day="2026-10-07" data-venue="tickettando"><small>Mer 7 Ott</small><b>22:00</b><span>TEATRO MASSIMO</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/308">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-10-07 2026-10-08" data-months="2026-10" data-tags="FEDE">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/1"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/1/app_5c9f51dc-568f-48af-aafb-ff5ac598dbc9.jpg" alt="TENET" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FEDE</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/1">TENET</a></h3><p class="film__meta"><span>Regia</span> Christopher Nolan</p><p class="film__meta"><span>Con</span> John David Washington, Robert Pattinson, Elizabeth Debicki, Kenneth Branagh, Dimple Kapadia, Himesh Patel, Aaron Taylor Johnson, Michael Caine, Clémence Poés...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/1" data-day="2026-10-07" data-venue="18-cinema"><small>Mer 7 Ott</small><b>21:00</b><span>TEATRO VERDI</span></a><a class="time show" href="https://demo.18tickets.it/film/1" data-day="2026-10-08" data-venue="18-cinema"><small>Gio 8 Ott</small><b>21:00</b><span>TEATRO VERDI</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/1">▶ Guarda il trailer</a><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/1">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-10-09" data-months="2026-10" data-tags="FEDE">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/293"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/293/app_05609718-2639-47db-a520-574ab952f638.jpg" alt="BACKROOMS" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FEDE</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/293">BACKROOMS</a></h3><p class="film__meta"><span>Regia</span> Kane Parsons</p><p class="film__meta"><span>Con</span> Chiwetel Ejiofor, Renate Reinsve, Mark Duplass, Finn Bennett, Lukita Maxwell, Avan Jogia, Robert Bobroczkyi, Ember Ambrose, Krista Kosonen, Philip Granger, K...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/293" data-day="2026-10-09" data-venue="18-cinema"><small>Ven 9 Ott</small><b>21:00</b><span>SALA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/293">▶ Guarda il trailer</a><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/293">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-10-11 2026-10-12 2026-10-13 2026-10-14 2026-10-15" data-months="2026-10" data-tags="FEDE">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/298"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/298/app_d74c3a3a-2424-4d69-8b9c-fb21658cc946.jpg" alt="ROMERÍA - IL MARE DEI RICORDI" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FEDE</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/298">ROMERÍA - IL MARE DEI RICORDI</a></h3><p class="film__meta"><span>Regia</span> Carla Simón</p><p class="film__meta"><span>Con</span> Llúcia Garcia, Mitch, Tristán Ulloa, Celine Tyll, León Romagosa, Hans Romagosa, Marina Troncoso, José ángel Egido, Miryam Gallego, Sara Casasnovas, Toño Casa...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/298" data-day="2026-10-11" data-venue="18-cinema"><small>Dom 11 Ott</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/298" data-day="2026-10-12" data-venue="18-cinema"><small>Lun 12 Ott</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/298" data-day="2026-10-13" data-venue="18-cinema"><small>Mar 13 Ott</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/298" data-day="2026-10-14" data-venue="18-cinema"><small>Mer 14 Ott</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/298" data-day="2026-10-15" data-venue="18-cinema"><small>Gio 15 Ott</small><b>22:00</b><span>SALA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/298">▶ Guarda il trailer</a><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/298">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-10-16 2026-10-17" data-months="2026-10" data-tags="FEDE">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/296"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/296/app_72f4bf0c-d516-48dd-998c-465f2bcadf27.jpg" alt="NO GOOD MEN" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FEDE</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/296">NO GOOD MEN</a></h3><p class="film__meta"><span>Regia</span> Shahrbanoo Sadat</p><p class="film__meta"><span>Con</span> Shahrbanoo Sadat, Anwar Hashimi, Liam Hussaini, Yasin Negah, Torkan Omari, Fatim Zahra El Hassani, Ahmad Anuar Azizi, Masihullah Tajzai, Laila Mahmudi, Farza...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/296" data-day="2026-10-16" data-venue="18-cinema"><small>Ven 16 Ott</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/296" data-day="2026-10-17" data-venue="18-cinema"><small>Sab 17 Ott</small><b>22:00</b><span>SALA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/296">▶ Guarda il trailer</a><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/296">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-10-18 2026-11-18 2026-11-19 2026-11-20 2026-11-21 2026-11-22" data-months="2026-10 2026-11" data-tags="FEDE">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/301"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/301/app_dd4124b1-4016-4cf0-9a3b-e5ec8207398a.jpg" alt="IL SILENZIO DEGLI ALTRI (SORDA)" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FEDE</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/301">IL SILENZIO DEGLI ALTRI (SORDA)</a></h3><p class="film__meta"><span>Regia</span> Eva Libertad</p><p class="film__meta"><span>Con</span> Miriam Garlo, álvaro Cervantes, Elena Irureta, Joaquín Notario, Daniela Saura Pérez, Elaia Sánchez, Jade Molina Uroz, Valentina Arrona Fernández, Martina Bla...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/301" data-day="2026-10-18" data-venue="18-cinema"><small>Dom 18 Ott</small><b>21:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/301" data-day="2026-11-18" data-venue="18-cinema"><small>Mer 18 Nov</small><b>21:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/301" data-day="2026-11-19" data-venue="18-cinema"><small>Gio 19 Nov</small><b>21:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/301" data-day="2026-11-20" data-venue="18-cinema"><small>Ven 20 Nov</small><b>21:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/301" data-day="2026-11-21" data-venue="18-cinema"><small>Sab 21 Nov</small><b>21:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/301" data-day="2026-11-22" data-venue="18-cinema"><small>Dom 22 Nov</small><b>21:00</b><span>SALA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/301">▶ Guarda il trailer</a><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/301">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-10-20 2026-10-21 2026-10-22" data-months="2026-10" data-tags="FEDE">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/297"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/297/app_77bcfdeb-c62e-477c-9268-8798e57524aa.jpg" alt="SENZA PELLE (10 E LUCE)" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FEDE</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/297">SENZA PELLE (10 E LUCE)</a></h3><p class="film__meta"><span>Regia</span> Alessandro D&#x27;Alatri</p><p class="film__meta"><span>Con</span> Kim Rossi Stuart, Anna Galiena, Massimo Ghini, Cecilia Genovesi, Pasquale Anselmo, Maria Grazia Grassini, Pier Giorgio Menichini, Leila Durante, Renzo Stacch...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/297" data-day="2026-10-20" data-venue="18-cinema"><small>Mar 20 Ott</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/297" data-day="2026-10-21" data-venue="18-cinema"><small>Mer 21 Ott</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/297" data-day="2026-10-22" data-venue="18-cinema"><small>Gio 22 Ott</small><b>22:00</b><span>SALA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/297">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="tickettando" data-days="2026-10-22 2026-10-23" data-months="2026-10" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/311"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/311/app_18719123-10f6-4d8e-949c-6d853c492aa1.png" alt="TINDARI FEST 2026: LE DONNE DI ODISSEO" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/311">TINDARI FEST 2026: LE DONNE DI ODISSEO</a></h3><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tickettando</p>
+    <a class="btn" href="https://demo.18tickets.it/subscriptions?film_id=311">Acquista biglietti open <span class="arr">→</span></a><p class="or">oppure seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/311" data-day="2026-10-22" data-venue="tickettando"><small>Gio 22 Ott</small><b>22:00</b><span>TEATRO MASSIMO</span></a><a class="time show" href="https://demo.18tickets.it/film/311" data-day="2026-10-23" data-venue="tickettando"><small>Ven 23 Ott</small><b>22:00</b><span>TEATRO MASSIMO</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/311">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-10-23" data-months="2026-10" data-tags="FEDE">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/294"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/294/app_f981f1a0-b6e1-41a6-82b2-e9a03bc4624e.jpg" alt="SMART WORKING" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FEDE</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/294">SMART WORKING</a></h3><p class="film__meta"><span>Regia</span> Svevo Moltrasio</p><p class="film__meta"><span>Con</span> Maccio Capatonda, Sara Lazzaro, Alessandro Tiberi, Maurizio Nichetti, Svevo Moltrasio, Giulia Bolatti, Federico Iarlori, Quentin Darmon, Maria Chiara Augenti...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/294" data-day="2026-10-23" data-venue="18-cinema"><small>Ven 23 Ott</small><b>21:00</b><span>SALA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/294">▶ Guarda il trailer</a><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/294">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="tickettando" data-days="2026-10-27 2026-10-28" data-months="2026-10" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/310"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/310/app_8694e418-03da-45b4-8583-0c3cf3275612.png" alt="TINDARI FEST 2026: IL CIELO E IL SANGUE" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/310">TINDARI FEST 2026: IL CIELO E IL SANGUE</a></h3><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tickettando</p>
+    <a class="btn" href="https://demo.18tickets.it/subscriptions?film_id=310">Acquista biglietti open <span class="arr">→</span></a><p class="or">oppure seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/310" data-day="2026-10-27" data-venue="tickettando"><small>Mar 27 Ott</small><b>22:00</b><span>TEATRO MASSIMO</span></a><a class="time show" href="https://demo.18tickets.it/film/310" data-day="2026-10-28" data-venue="tickettando"><small>Mer 28 Ott</small><b>22:00</b><span>TEATRO MASSIMO</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/310">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="tickettando" data-days="2026-10-29 2026-10-30" data-months="2026-10" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/312"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/312/app_15ff49a2-b18d-43f5-9d6e-e1a798e153e4.png" alt="TINDARI FEST 2026: OTELLO E DESDEMONA O DEL FEMMINICIDIOI" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/312">TINDARI FEST 2026: OTELLO E DESDEMONA O DEL FEMMINICIDIOI</a></h3><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tickettando</p>
+    <a class="btn" href="https://demo.18tickets.it/subscriptions?film_id=312">Acquista biglietti open <span class="arr">→</span></a><p class="or">oppure seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/312" data-day="2026-10-29" data-venue="tickettando"><small>Gio 29 Ott</small><b>21:30</b><span>TEATRO MASSIMO</span></a><a class="time show" href="https://demo.18tickets.it/film/312" data-day="2026-10-30" data-venue="tickettando"><small>Ven 30 Ott</small><b>22:00</b><span>TEATRO MASSIMO</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/312">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-10-31" data-months="2026-10" data-tags="FEDE">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/295"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/295/app_a65fea3a-5c8c-4446-a5d0-28ab04c861db.jpg" alt="LE BAMBINE (MOSQUITOES)" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FEDE</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/295">LE BAMBINE (MOSQUITOES)</a></h3><p class="film__meta"><span>Regia</span> Nicole Bertani, Valentina Bertani</p><p class="film__meta"><span>Con</span> Mia Ferricelli, Agnese Scazza, Petra Scheggia, Clara Tramontano, Jessica Piccolo Valerani, Cristina Donadio, Matteo Martari, Davide Enea Casarin, Jasmin Matt...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/295" data-day="2026-10-31" data-venue="18-cinema"><small>Sab 31 Ott</small><b>22:00</b><span>SALA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/295">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="tickettando" data-days="2026-11-01 2026-11-02" data-months="2026-11" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/306"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/306/app_2e20763c-4f36-4bfd-9934-05ca7db435d0.png" alt="TINDARI FEST 2026: ENNIO SEGRETO" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/306">TINDARI FEST 2026: ENNIO SEGRETO</a></h3><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tickettando</p>
+    <a class="btn" href="https://demo.18tickets.it/subscriptions?film_id=306">Acquista biglietti open <span class="arr">→</span></a><p class="or">oppure seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/306" data-day="2026-11-01" data-venue="tickettando"><small>Dom 1 Nov</small><b>22:00</b><span>TEATRO MASSIMO</span></a><a class="time show" href="https://demo.18tickets.it/film/306" data-day="2026-11-02" data-venue="tickettando"><small>Lun 2 Nov</small><b>22:00</b><span>TEATRO MASSIMO</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/306">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-11-09 2026-11-10 2026-11-11 2026-11-12 2026-11-13 2026-11-14 2026-11-15" data-months="2026-11" data-tags="FEDE">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/303"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/303/app_f0452716-4fea-418c-9781-6390a9b75114.jpg" alt="HEN - STORIA DI UNA GALLIN" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FEDE</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/303">HEN - STORIA DI UNA GALLIN</a></h3><p class="film__meta"><span>Regia</span> Pálfi György</p><p class="film__meta"><span>Con</span> γιάννης κοκιασμένος, μαρία διακοπαναγιώτου, αργύρης πανταζάρας, αντώνης καφετζόπουλος, αντώνης τσιοτσιόπουλος, Machmout Bamerni, χρόνης μπαρμπάριαν, Nikos Ka...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/303" data-day="2026-11-09" data-venue="18-cinema"><small>Lun 9 Nov</small><b>21:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/303" data-day="2026-11-10" data-venue="18-cinema"><small>Mar 10 Nov</small><b>21:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/303" data-day="2026-11-11" data-venue="18-cinema"><small>Mer 11 Nov</small><b>21:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/303" data-day="2026-11-12" data-venue="18-cinema"><small>Gio 12 Nov</small><b>21:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/303" data-day="2026-11-13" data-venue="18-cinema"><small>Ven 13 Nov</small><b>21:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/303" data-day="2026-11-14" data-venue="18-cinema"><small>Sab 14 Nov</small><b>21:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/303" data-day="2026-11-15" data-venue="18-cinema"><small>Dom 15 Nov</small><b>21:00</b><span>SALA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/303">▶ Guarda il trailer</a><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/303">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="tickettando" data-days="2026-11-12 2026-11-13" data-months="2026-11" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/307"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/307/app_7626b74f-7d77-4889-8f65-3df4c837ab97.png" alt="TINDARI FEST 2026: UN ULULATO IN MEZZO AL MARE" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/307">TINDARI FEST 2026: UN ULULATO IN MEZZO AL MARE</a></h3><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tickettando</p>
+    <a class="btn" href="https://demo.18tickets.it/subscriptions?film_id=307">Acquista biglietti open <span class="arr">→</span></a><p class="or">oppure seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/307" data-day="2026-11-12" data-venue="tickettando"><small>Gio 12 Nov</small><b>22:00</b><span>TEATRO MASSIMO</span></a><a class="time show" href="https://demo.18tickets.it/film/307" data-day="2026-11-13" data-venue="tickettando"><small>Ven 13 Nov</small><b>22:00</b><span>TEATRO MASSIMO</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/307">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="18-cinema" data-days="2026-11-16 2026-11-17" data-months="2026-11" data-tags="FEDE">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/304"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/304/app_970b6fe8-599e-4223-8b7b-a3992f449458.jpg" alt="DISCLOSURE DAY" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FEDE</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/304">DISCLOSURE DAY</a></h3><p class="film__meta"><span>Regia</span> Steven Spielberg</p><p class="film__meta"><span>Con</span> Emily Blunt, Josh O&#x27;connor, Colin Firth, Colman Domingo, Eve Hewson, Wyatt Russell, Elizabeth Marvel, Henry Lloyd Hughes, Courtney Grace, Michael Gaston, Gab...</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>18 Cinema</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/304" data-day="2026-11-16" data-venue="18-cinema"><small>Lun 16 Nov</small><b>22:00</b><span>SALA</span></a><a class="time show" href="https://demo.18tickets.it/film/304" data-day="2026-11-17" data-venue="18-cinema"><small>Mar 17 Nov</small><b>22:00</b><span>SALA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/304">▶ Guarda il trailer</a><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/304">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="tickettando" data-days="2026-11-29 2026-11-30" data-months="2026-11" data-tags="">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/305"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/305/app_dd88eda2-7c74-44d8-b01d-4d2dba6a51f7.png" alt="TINDARI FEST 2026: TOSCA" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <h3 class="film__t"><a href="https://demo.18tickets.it/film/305">TINDARI FEST 2026: TOSCA</a></h3><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Tickettando</p>
+    <a class="btn" href="https://demo.18tickets.it/subscriptions?film_id=305">Acquista biglietti open <span class="arr">→</span></a><p class="or">oppure seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/305" data-day="2026-11-29" data-venue="tickettando"><small>Dom 29 Nov</small><b>21:00</b><span>TEATRO MASSIMO</span></a><a class="time show" href="https://demo.18tickets.it/film/305" data-day="2026-11-30" data-venue="tickettando"><small>Lun 30 Nov</small><b>21:00</b><span>TEATRO MASSIMO</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/305">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><article class="film rv" data-venues="teatro-il-sistina" data-days="2030-12-30 2030-12-31" data-months="2030-12" data-tags="FESTIVAL TESTAGGR">
+  <a class="film__poster poster__img" href="https://demo.18tickets.it/film/228"><img src="https://cdn.18tickets.net/demo/uploads/film/playbill/228/app_712509ae-a1b1-40dd-9117-0ad8108a0a6e.jpg" alt="CATS" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></a>
+  <div class="film__body">
+    <div class="ftags"><span>FESTIVAL</span><span>TESTAGGR</span></div><h3 class="film__t"><a href="https://demo.18tickets.it/film/228">CATS</a></h3><p class="film__meta"><span>Regia</span> Kabib Kaboom</p><p class="film__meta"><span>Con</span> Kabib Kaboom, Samir Wallakbar, Abdul Salek</p><p class="film__where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Teatro Il Sistina</p>
+    <p class="or">Seleziona un orario</p>
+    <div class="shows"><a class="time show" href="https://demo.18tickets.it/film/228" data-day="2030-12-30" data-venue="teatro-il-sistina"><small>Lun 30 Dic</small><b>23:00</b><span>TEATRO NUOVO</span></a><a class="time show" href="https://demo.18tickets.it/film/228" data-day="2030-12-31" data-venue="teatro-il-sistina"><small>Mar 31 Dic</small><b>23:30</b><span>SISTINA</span></a></div>
+    <div class="film__acts"><a class="btn btn--ghost btn--sm" href="https://demo.18tickets.it/film/228">Programmazione completa <span class="arr">→</span></a></div>
+  </div>
+</article><p class="empty" hidden>Nessuno spettacolo per questa selezione.</p></div>
+    </div>
+  </section>
+
+  <section class="band t-dark">
+    <div class="wrap section cta rv">
+      <h2 class="h-lg">Hai già un account?</h2>
+      <p class="sub">Accedi per ritrovare i tuoi biglietti e gli abbonamenti.</p>
+      <a class="btn" href="https://demo.18tickets.it/users/sign_in">Accedi <span class="arr">→</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="band t-light">
+  <div class="footer wrap">
+    <nav class="footer__legal" aria-label="Link legali"><a href="https://demo.18tickets.it/cg">Condizioni generali</a><a href="https://demo.18tickets.it/privacy">Privacy</a><a href="https://demo.18tickets.it/impressum">Impressum</a><a href="https://demo.18tickets.it/#">Cookies</a></nav>
+    <div class="credits">Powered by <a href="https://18months.it/" title="18Months"><img src="assets/18months-logo-ink.svg" alt="18Months" width="150" height="34"></a></div>
+    <p class="copy">© 18Months, 2026. All rights reserved</p>
+  </div>
+</footer>
+
+<script>
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  });},{threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+}else{document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');});}
+
+// Caroselli: frecce che scorrono di una "pagina" e si spengono ai bordi
+document.querySelectorAll('.rail').forEach(function(r){
+  var t=r.querySelector('.rail__track'),p=r.querySelector('.rail__btn--prev'),n=r.querySelector('.rail__btn--next');
+  function upd(){p.disabled=t.scrollLeft<4;n.disabled=t.scrollLeft+t.clientWidth>=t.scrollWidth-4;}
+  p.addEventListener('click',function(){t.scrollBy({left:-t.clientWidth*.85,behavior:'smooth'});});
+  n.addEventListener('click',function(){t.scrollBy({left:t.clientWidth*.85,behavior:'smooth'});});
+  t.addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
+  r.upd=upd;
+});
+
+// Filtri programmazione: struttura · mese · giorno · categoria
+(function(){
+  var st={venue:'',month:'',day:'',tag:''},films=[].slice.call(document.querySelectorAll('.film')),empty=document.querySelector('.empty');
+  function has(el,k,v){return !v||(' '+el.dataset[k]+' ').indexOf(' '+v+' ')>-1;}
+  function apply(){
+    var n=0;
+    films.forEach(function(f){
+      var ok=has(f,'venues',st.venue)&&has(f,'months',st.month)&&has(f,'days',st.day)&&has(f,'tags',st.tag);
+      f.hidden=!ok;if(ok){n++;f.classList.add('in');}
+      f.querySelectorAll('.show').forEach(function(s){s.hidden=(st.day&&s.dataset.day!==st.day)||(st.venue&&s.dataset.venue!==st.venue)||(st.month&&s.dataset.day.slice(0,7)!==st.month);});
+    });
+    empty.hidden=n>0;
+    document.querySelectorAll('.day').forEach(function(d){d.hidden=!!(st.month&&d.dataset.m&&d.dataset.m!==st.month);});
+  }
+  document.querySelectorAll('[data-f]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var k=b.dataset.f;st[k]=b.dataset.v;
+      if(k==='month'){st.day='';document.querySelectorAll('[data-f=day]').forEach(function(x){x.classList.toggle('on',!x.dataset.v);});}
+      document.querySelectorAll('[data-f='+k+']').forEach(function(x){x.classList.toggle('on',x===b);});
+      apply();
+    });
+  });
+})();
+</script>
+<script type="module">
+// Hero: il simbolo Tickettando (biglietto con perforazione del logo, path di assets/mark.svg) come costellazione di particelle triangolari
+// Pattern "constellation" (DESIGN Dala): migliaia di triangoli outline 1–2px multicolore + campo ambientale.
+// Scroll = la costellazione si sgrana e ruota; load = i granelli si ricompongono nel marchio.
+import * as THREE from 'three';
+import {SVGLoader} from 'three/addons/loaders/SVGLoader.js';
+import {MeshSurfaceSampler} from 'three/addons/math/MeshSurfaceSampler.js';
+
+const host=document.getElementById('mark3d');
+const band=host.closest('.hero-band');
+const MARK_D='M415.0 368.6 L385.0 368.6 L385.0 339.4 L415.0 339.4 Z M415.0 420.6 L385.0 420.6 L385.0 391.4 L415.0 391.4 Z M415.0 472.6 L385.0 472.6 L385.0 443.4 L415.0 443.4 Z M415.0 524.6 L385.0 524.6 L385.0 495.4 L415.0 495.4 Z M911.0 617.5 L911.0 734.0 L109.0 734.0 L109.0 286.0 L911.0 286.0 L911.0 402.5 L884.8 403.1 L879.5 403.5 L874.3 404.2 L869.1 405.1 L864.0 406.2 L858.9 407.6 L854.0 409.3 L849.1 411.2 L844.3 413.3 L839.6 415.6 L835.0 418.2 L830.6 421.0 L826.3 424.1 L822.1 427.3 L818.1 430.7 L814.3 434.3 L810.7 438.1 L807.3 442.1 L804.1 446.3 L801.0 450.6 L798.2 455.0 L795.6 459.6 L793.3 464.3 L791.2 469.1 L789.3 474.0 L787.6 478.9 L786.2 484.0 L785.1 489.1 L784.2 494.3 L783.5 499.5 L783.1 504.8 L783.0 510.0 L783.1 515.2 L783.5 520.5 L784.2 525.7 L785.1 530.9 L786.2 536.0 L787.6 541.1 L789.3 546.0 L791.2 550.9 L793.3 555.7 L795.6 560.4 L798.2 565.0 L801.0 569.4 L804.1 573.7 L807.3 577.9 L810.7 581.9 L814.3 585.7 L818.1 589.3 L822.1 592.7 L826.3 595.9 L830.6 599.0 L835.0 601.8 L839.6 604.4 L844.3 606.7 L849.1 608.8 L854.0 610.7 L858.9 612.4 L864.0 613.8 L869.1 614.9 L874.3 615.8 L879.5 616.5 L884.8 616.9 Z M380.5 659.4 L151.0 362.0 L151.0 692.0 L869.0 692.0 L869.0 657.5 L868.1 657.4 L860.9 656.1 L853.8 654.5 L846.7 652.6 L839.8 650.3 L833.0 647.7 L826.3 644.7 L819.8 641.4 L813.4 637.8 L807.2 633.9 L801.2 629.7 L795.5 625.2 L789.9 620.4 L784.6 615.4 L779.6 610.1 L774.8 604.5 L770.3 598.8 L766.1 592.8 L762.2 586.6 L758.6 580.2 L755.3 573.7 L752.3 567.0 L749.7 560.2 L747.4 553.3 L745.5 546.2 L743.9 539.1 L742.6 531.9 L741.7 524.6 L741.2 517.3 L741.0 510.0 L741.2 502.7 L741.7 495.4 L742.6 488.1 L743.9 480.9 L745.5 473.8 L747.4 466.7 L749.7 459.8 L752.3 453.0 L755.3 446.3 L758.6 439.8 L762.2 433.4 L766.1 427.2 L770.3 421.2 L774.8 415.5 L779.6 409.9 L784.6 404.6 L789.9 399.6 L795.5 394.8 L801.2 390.3 L807.2 386.1 L813.4 382.2 L819.8 378.6 L826.3 375.3 L833.0 372.3 L839.8 369.7 L846.7 367.4 L853.8 365.5 L860.9 363.9 L868.1 362.6 L869.0 362.5 L869.0 328.0 L167.7 328.0 L385.0 609.5 L385.0 599.4 L415.0 599.4 L415.0 628.6 L399.7 628.6 L407.5 638.6 L390.8 651.4 L415.0 651.4 L415.0 680.6 L385.0 680.6 L385.0 655.9 Z M415.0 576.6 L385.0 576.6 L385.0 547.4 L415.0 547.4 Z';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile=()=>innerWidth<=900;
+THREE.ColorManagement.enabled=false;
+
+try{
+  const PR=Math.min(devicePixelRatio,2);
+  const renderer=new THREE.WebGLRenderer({antialias:false,alpha:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(PR);
+  host.appendChild(renderer.domElement);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(30,1,.1,100);
+  camera.position.z=8;
+
+  // Marchio piatto → punti sulla faccia (sottile in profondità) + contorno nitido
+  const svg=new SVGLoader().parse('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 1020"><path d="'+MARK_D+'"/></svg>');
+  const shapes=svg.paths.flatMap(p=>SVGLoader.createShapes(p));
+  const geo=new THREE.ShapeGeometry(shapes,48);
+  geo.center(); geo.rotateX(Math.PI); geo.scale(1/1020,1/1020,1/1020);
+  const sampler=new MeshSurfaceSampler(new THREE.Mesh(geo)).build();
+  const rim=[];
+  for(const sh of shapes){for(const c of [sh,...sh.holes]){for(const v of c.getSpacedPoints(900))rim.push(v);}}
+  const rimPts=rim.map(v=>new THREE.Vector3((v.x-510)/1020,-(v.y-510)/1020,0));
+
+  const pal=[['#ffffff',.5],['#fff8ee',.2],['#ffedd2',.14],['#ffdcae',.1],['#1c1308',.06]]
+    .map(([h,w])=>[new THREE.Color(h),w]);
+  const pick=()=>{let r=Math.random();for(const [c,w] of pal){if((r-=w)<=0)return c}return pal[0][0]};
+
+  function cloud(count,shape){
+    const pos=new Float32Array(count*3),sc=new Float32Array(count*3),col=new Float32Array(count*3),rnd=new Float32Array(count*4);
+    const p=new THREE.Vector3(),n=new THREE.Vector3(),d=new THREE.Vector3();
+    for(let i=0;i<count;i++){
+      if(shape){if(Math.random()<.3){p.copy(rimPts[(Math.random()*rimPts.length)|0]);p.x+=(Math.random()-.5)*.006;p.y+=(Math.random()-.5)*.006;}else sampler.sample(p,n);p.z=(Math.random()-.5)*.07;}
+      else p.set((Math.random()-.5)*11,(Math.random()-.5)*6,-3+Math.random()*4);
+      pos.set([p.x,p.y,p.z],i*3);
+      // dispersione: verso l'esterno e in profondità, spinta a destra (lontano dal testo) su desktop
+      d.set(p.x+(Math.random()-.5)*.9+(isMobile()?0:.35),p.y+(Math.random()-.5)*.9,(Math.random()-.2)*1.8).normalize().multiplyScalar(.35+Math.random()*1.3);
+      sc.set([d.x,d.y,d.z],i*3);
+      const c=pick();col.set([c.r,c.g,c.b],i*3);
+      rnd.set([Math.random(),Math.random()*6.2832,Math.random()*6.2832,shape?(Math.random()<.28?1:0):2],i*4);
+    }
+    const g=new THREE.BufferGeometry();
+    g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    g.setAttribute('aScatter',new THREE.BufferAttribute(sc,3));
+    g.setAttribute('aColor',new THREE.BufferAttribute(col,3));
+    g.setAttribute('aRnd',new THREE.BufferAttribute(rnd,4));
+    return g;
+  }
+
+  const uniforms={uTime:{value:0},uScatter:{value:reduce?0:1},uSize:{value:1},uPR:{value:PR},uMouse:{value:new THREE.Vector3(99,99,0)}};
+  const mat=new THREE.ShaderMaterial({
+    uniforms,transparent:true,depthWrite:false,
+    vertexShader:`
+      uniform float uTime,uScatter,uSize,uPR; uniform vec3 uMouse;
+      attribute vec3 aScatter,aColor; attribute vec4 aRnd;
+      varying vec3 vColor; varying float vAlpha,vRot,vKind;
+      void main(){
+        float amb=step(1.5,aRnd.w);
+        float s=clamp(uScatter*(.55+aRnd.x*.9),0.,1.); s=s*s*(3.-2.*s);
+        vec3 pos=position+aScatter*s*(1.-amb);
+        float ph=aRnd.z;
+        pos+=vec3(sin(uTime*.5+ph),cos(uTime*.43+ph*1.7),sin(uTime*.37+ph*.6))*(.01+s*.08+amb*.14);
+        vec4 w=modelMatrix*vec4(pos,1.);
+        vec2 dv=w.xy-uMouse.xy; float dl=length(dv);
+        w.xy+=dv/max(dl,1e-3)*smoothstep(.6,0.,dl)*.25*(1.-amb);
+        vec4 mv=viewMatrix*w;
+        gl_Position=projectionMatrix*mv;
+        gl_PointSize=uSize*uPR*(4.5+aRnd.x*6.)*(8./-mv.z);
+        vColor=aColor; vKind=aRnd.w;
+        vRot=aRnd.y+uTime*(.15+aRnd.x*.35)*(aRnd.x>.5?1.:-1.);
+        vAlpha=mix(.95,.3,amb)*mix(1.,.4,s);
+      }`,
+    fragmentShader:`
+      varying vec3 vColor; varying float vAlpha,vRot,vKind;
+      float sdTri(vec2 p,float r){const float k=1.7320508;p.x=abs(p.x)-r;p.y=p.y+r/k;
+        if(p.x+k*p.y>0.)p=vec2(p.x-k*p.y,-k*p.x-p.y)/2.;p.x-=clamp(p.x,-2.*r,0.);return -length(p)*sign(p.y);}
+      void main(){
+        vec2 p=gl_PointCoord*2.-1.; p.y=-p.y;
+        float c=cos(vRot),s=sin(vRot); p=mat2(c,-s,s,c)*p;
+        float d=sdTri(p,.62);
+        float a=(vKind>.5&&vKind<1.5)?1.-smoothstep(-.02,.06,d):1.-smoothstep(.08,.18,abs(d+.05));
+        if(a<.01)discard;
+        gl_FragColor=vec4(vColor,a*vAlpha);
+      }`
+  });
+
+  const shapePts=new THREE.Points(cloud(isMobile()?4200:7500,true),mat);
+  const ambPts=new THREE.Points(cloud(isMobile()?260:620,false),mat);
+  shapePts.frustumCulled=ambPts.frustumCulled=false;
+  const group=new THREE.Group();
+  group.add(shapePts); scene.add(group); scene.add(ambPts);
+
+  function resize(){
+    const w=host.clientWidth,h=host.clientHeight,m=isMobile();
+    renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+    const vh=2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2))*camera.position.z, vw=vh*camera.aspect;
+    group.scale.setScalar(m?Math.min(vh*1.0,vw*.98):Math.min(vh*.95,vw*.48));
+    group.position.x=m?0:vw*.25;
+    uniforms.uSize.value=m?.85:1;
+  }
+
+  // Scroll: 0 = marchio composto, 1 = costellazione sgranata
+  let scrollP=0;
+  const onScroll=()=>{const r=band.getBoundingClientRect();scrollP=THREE.MathUtils.clamp((innerHeight*.5-(r.top+r.height*.5))/(r.height*.8),0,1);};
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // Mouse: i granelli si scostano dal puntatore
+  const ray=new THREE.Raycaster(),plane=new THREE.Plane(new THREE.Vector3(0,0,1),0),hit=new THREE.Vector3(),ndc=new THREE.Vector2();
+  let hasMouse=false,px=0,py=0;
+  addEventListener('pointermove',e=>{
+    const r=host.getBoundingClientRect();
+    ndc.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
+    hasMouse=e.pointerType==='mouse';
+  },{passive:true});
+
+  let visible=true,intro=reduce?0:1,sc=0;
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;}).observe(host);
+  const clock=new THREE.Clock();
+
+  function pose(t){
+    px+=(ndc.x-px)*.04; py+=(ndc.y-py)*.04;
+    group.rotation.set(.12+Math.cos(t*.2)*.06-py*.1+sc*.45,-.12+Math.sin(t*.25)*.16+px*.15+sc*1.7,sc*.3);
+    group.position.y=Math.sin(t*.6)*.04+sc*.3;
+    ambPts.rotation.y=t*.02+sc*.35; ambPts.position.y=sc*.8;
+  }
+  function frame(){
+    const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime;
+    intro=Math.max(0,intro-dt/2.6);
+    sc+=(scrollP-sc)*.08;
+    uniforms.uTime.value=t;
+    uniforms.uScatter.value=Math.max(intro*intro,sc);
+    pose(t);
+    if(hasMouse){ray.setFromCamera(ndc,camera);if(ray.ray.intersectPlane(plane,hit))uniforms.uMouse.value.lerp(hit,.2);}
+    renderer.render(scene,camera);
+  }
+  const still=()=>{pose(0);renderer.render(scene,camera);};
+
+  resize();
+  addEventListener('resize',()=>{resize();if(reduce)still();});
+  if(reduce)still(); else renderer.setAnimationLoop(()=>{if(visible)frame();});
+  requestAnimationFrame(()=>host.classList.add('ready'));
+}catch(err){console.warn('hero 3D',err); /* resta il marchio piatto */}
+
+</script>
