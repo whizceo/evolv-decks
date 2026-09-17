@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The List Build — Issac Newton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --paper:#F7F6F2;
+  --card:#FFFFFF;
+  --ink:#16150F;
+  --ink-2:#4A4740;
+  --mut:#8B877C;
+  --line:#181710;
+  --hair:#DDD9CE;
+  --accent:#B4431C;
+  --accent-soft:#FBEDE6;
+  --green:#3C6B4A;
+  --dot:rgba(22,21,15,.13);
+}
+
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--paper);
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;font-family:'Inter',sans-serif}
+.mobile-block .mb-emoji{font-size:44px;margin-bottom:22px}
+.mobile-block .mb-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.7rem;margin-bottom:14px;color:var(--ink)}
+.mobile-block .mb-sub{font-size:.95rem;color:var(--mut);max-width:340px;line-height:1.6}
+@media screen and (max-width:900px){
+  .mobile-block{display:flex!important}
+  body>*:not(.mobile-block){display:none!important}
+}
+
+body{
+  background:var(--paper);
+  background-image:radial-gradient(var(--dot) 1px, transparent 1px);
+  background-size:26px 26px;
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);width:0;z-index:900;transition:width .1s linear}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 40px 140px}
+
+/* ---------- header ---------- */
+header{padding:96px 0 60px;border-bottom:1.5px solid var(--line);margin-bottom:0}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:26px}
+h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(3rem,7vw,5.2rem);line-height:.95;letter-spacing:-.025em;margin-bottom:22px}
+.dek{font-size:1.06rem;color:var(--ink-2);max-width:640px;line-height:1.65}
+.dek b{font-weight:600;color:var(--ink)}
+.byline{margin-top:30px;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.09em;color:var(--mut);text-transform:uppercase}
+
+.strip{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1.5px solid var(--line);margin-bottom:10px}
+.strip div{padding:22px 18px 22px 0;border-right:1px solid var(--hair)}
+.strip div:last-child{border-right:none}
+.strip .n{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:500;letter-spacing:-.03em;display:block;margin-bottom:5px}
+.strip .l{font-size:.7rem;color:var(--mut);letter-spacing:.06em;text-transform:uppercase;line-height:1.35}
+
+/* ---------- stage scaffolding ---------- */
+.stage{padding:8px 0 0}
+.stage-head{display:flex;align-items:baseline;gap:16px;margin:54px 0 20px}
+.stage-num{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;color:var(--accent);letter-spacing:.1em;padding-top:5px}
+.stage-title{font-family:'Fraunces',serif;font-size:1.72rem;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.stage-sub{font-size:.9rem;color:var(--ink-2);max-width:700px;margin:6px 0 0 44px;line-height:1.6}
+.stage-sub code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:#EFEDE6;padding:1px 5px;border-radius:2px}
+
+/* ---------- boxes ---------- */
+.row{display:grid;gap:22px}
+.row.c1{grid-template-columns:minmax(0,640px);justify-content:center}
+.row.c2{grid-template-columns:repeat(2,1fr)}
+.row.c3{grid-template-columns:repeat(3,1fr)}
+.row.c5{grid-template-columns:repeat(5,1fr)}
+
+.box{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  opacity:0;transform:translateY(22px);
+  transition:opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1);
+}
+.in .box{opacity:1;transform:none}
+.in .box:nth-child(2){transition-delay:.11s}
+.in .box:nth-child(3){transition-delay:.22s}
+.in .box:nth-child(4){transition-delay:.33s}
+.in .box:nth-child(5){transition-delay:.44s}
+
+.box.dark{background:var(--ink);border-color:var(--ink);color:#F7F6F2}
+.box.dark .bh{border-bottom-color:rgba(247,246,242,.2);color:#fff}
+.box.dark .kv{border-bottom-color:rgba(247,246,242,.13)}
+.box.dark .k{color:#B6B2A6}
+.box.dark .v{color:#fff}
+.box.dark .bf{color:#A29E92;border-top-color:rgba(247,246,242,.16)}
+
+.bh{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:13px 16px;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.bh .tag{font-weight:400;letter-spacing:.06em;color:var(--mut);font-size:.66rem}
+.box.dark .bh .tag{color:#9C988C}
+
+.bnum{padding:18px 16px;border-bottom:1.5px solid var(--line);text-align:center}
+.bnum .big{font-family:'JetBrains Mono',monospace;font-size:2.15rem;font-weight:500;letter-spacing:-.045em;line-height:1}
+.bnum .cap{font-size:.68rem;color:var(--mut);letter-spacing:.09em;text-transform:uppercase;margin-top:7px}
+
+.blist{padding:4px 16px 8px}
+.kv{display:flex;justify-content:space-between;gap:14px;padding:7.5px 0;border-bottom:1px solid var(--hair);font-size:.795rem;align-items:baseline}
+.kv:last-child{border-bottom:none}
+.k{color:var(--ink-2);min-width:0}
+.v{font-family:'JetBrains Mono',monospace;font-size:.775rem;font-weight:500;white-space:nowrap;letter-spacing:-.01em}
+.v.dim{color:var(--mut);font-weight:400}
+.v.acc{color:var(--accent)}
+.v.ok{color:var(--green)}
+
+.bf{padding:10px 16px 12px;border-top:1px solid var(--hair);font-size:.72rem;color:var(--mut);line-height:1.5}
+.bf b{color:var(--ink-2);font-weight:600}
+
+/* note / rule callouts */
+.note{
+  border-left:2.5px solid var(--accent);background:var(--accent-soft);
+  padding:13px 16px;font-size:.81rem;color:#5E3520;line-height:1.55;margin-top:22px;
+  opacity:0;transform:translateY(14px);transition:all .6s .25s cubic-bezier(.2,.7,.3,1);
+}
+.in .note{opacity:1;transform:none}
+.note b{font-weight:600;color:#4A2716}
+.note.plain{border-left-color:var(--line);background:#EFEDE6;color:var(--ink-2)}
+.note.plain b{color:var(--ink)}
+
+/* ---------- connectors ---------- */
+.conn{height:64px;position:relative;margin-top:14px}
+.conn svg{width:100%;height:100%;display:block;overflow:visible}
+.conn path,.conn line{fill:none;stroke:var(--line);stroke-width:1.6;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);}
+.in.conn path,.in.conn line,.conn.in path{stroke-dashoffset:0;transition:stroke-dashoffset .85s cubic-bezier(.4,.1,.2,1)}
+.conn marker path{stroke-dasharray:none;stroke-dashoffset:0}
+.conn .head{fill:var(--line);stroke:none;opacity:0;transition:opacity .25s .75s}
+.conn.in .head{opacity:1}
+.conn.tall{height:88px}
+.conn .lab{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  background:var(--paper);padding:3px 11px;font-family:'JetBrains Mono',monospace;
+  font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;color:var(--mut);
+  opacity:0;transition:opacity .4s .6s;white-space:nowrap
+}
+.conn.in .lab{opacity:1}
+
+/* side branch */
+.side{display:grid;grid-template-columns:1fr 54px 1fr;align-items:center;gap:0}
+.side .arm{height:1.6px;background:var(--line);position:relative;transform:scaleX(0);transform-origin:left;transition:transform .5s ease}
+.in .side .arm{transform:scaleX(1)}
+.side .arm:after{content:'';position:absolute;right:-1px;top:-3.5px;border-left:8px solid var(--line);border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;opacity:0;transition:opacity .2s .5s}
+.in .side .arm:after{opacity:1}
+
+/* ---------- final 5 ---------- */
+.five{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.lead{background:var(--card);border:1.5px solid var(--line);display:flex;flex-direction:column;opacity:0;transform:translateY(22px) scale(.985);transition:all .6s cubic-bezier(.2,.7,.3,1)}
+.in .lead{opacity:1;transform:none}
+.in .lead:nth-child(2){transition-delay:.1s}
+.in .lead:nth-child(3){transition-delay:.2s}
+.in .lead:nth-child(4){transition-delay:.3s}
+.in .lead:nth-child(5){transition-delay:.4s}
+.lead .rank{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.12em;padding:9px 13px;border-bottom:1.5px solid var(--line);background:var(--ink);color:#F7F6F2;display:flex;justify-content:space-between}
+.lead .co{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:600;line-height:1.2;padding:14px 13px 4px;letter-spacing:-.01em}
+.lead .who{padding:0 13px 12px;font-size:.73rem;color:var(--accent);font-weight:600;letter-spacing:.02em}
+.lead .facts{padding:0 13px 4px;flex:1}
+.lead .facts .kv{font-size:.735rem;padding:6px 0}
+.lead .facts .v{font-size:.72rem}
+.lead .why{padding:11px 13px 13px;border-top:1px solid var(--hair);font-size:.72rem;color:var(--ink-2);line-height:1.5}
+
+/* ---------- footer ---------- */
+footer{margin-top:80px;border-top:1.5px solid var(--line);padding-top:26px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px}
+footer .ft{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:9px}
+footer p{font-size:.775rem;color:var(--ink-2);line-height:1.6}
+footer code{font-family:'JetBrains Mono',monospace;font-size:.86em;color:var(--ink)}
+
+.ruler{height:1.5px;background:var(--line);margin:66px 0 0}
+</style>
+</head>
+<body>
+
+<div class="mobile-block">
+  <div class="mb-emoji">🖥️</div>
+  <div class="mb-title">Open on desktop</div>
+  <div class="mb-sub">This is a wide data flow — open it on your laptop to read the whole build.</div>
+</div>
+
+<div class="progress" id="prog"></div>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Evolv AI · Lead engine · Issac Newton, eXp Commercial</div>
+  <h1>The List<br>Build</h1>
+  <p class="dek">Every step from <b>701,815 Texas businesses</b> down to the <b>1,000-lead enrichment list</b> and the <b>5 leads</b> picked for full-profile research. Real tables, real counts, read from BigQuery — nothing rounded, nothing illustrative.</p>
+  <div class="byline">Built 1–17 Sep 2026 · BigQuery <code>issac_final</code> · 32/32 verify checks pass</div>
+</header>
+
+<div class="strip">
+  <div><span class="n" data-count="37">0</span><span class="l">Free databases</span></div>
+  <div><span class="n" data-count="20">0</span><span class="l">Scrape angles</span></div>
+  <div><span class="n">$0</span><span class="l">Paid data spend<br>to reach the 1,000</span></div>
+  <div><span class="n" data-count="318642">0</span><span class="l">Commercial parcels<br>ingested</span></div>
+  <div><span class="n" data-count="513839">0</span><span class="l">Owner rows<br>in the 3 tables</span></div>
+</div>
+
+<!-- ============ 01 SOURCES ============ -->
+<section class="stage reveal">
+  <div class="stage-head"><span class="stage-num">01</span><h2 class="stage-title">Sources — free first, paid never</h2></div>
+  <p class="stage-sub">Public registries, tax rolls, licences and federal files, one CSV per angle. Paid tools were held back for the one thing free data cannot give: a contact point.</p>
+  <div class="row c3" style="margin-top:26px">
+
+    <div class="box">
+      <div class="bh">Free databases <span class="tag">37</span></div>
+      <div class="bnum"><div class="big" data-count="3230352">0</div><div class="cap">TX franchise rows</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">Comptroller franchise + sales tax</span><span class="v">core</span></div>
+        <div class="kv"><span class="k">SOS officer records (PIR 2024)</span><span class="v">owners</span></div>
+        <div class="kv"><span class="k">County appraisal rolls</span><span class="v">4</span></div>
+        <div class="kv"><span class="k">FMCSA · EPA ECHO · TDLR</span><span class="v">3</span></div>
+        <div class="kv"><span class="k">SBA 7(a)/504 · SAM · USAspending</span><span class="v">3</span></div>
+        <div class="kv"><span class="k">FEC · Form 5500 · WARN · DNC</span><span class="v">4</span></div>
+      </div>
+      <div class="bf">The join key: <b>SOS file number</b> inside the franchise file — that is what unlocks officer names, and with them the surname-match succession signal.</div>
+    </div>
+
+    <div class="box">
+      <div class="bh">Scrape angles <span class="tag">20 defined</span></div>
+      <div class="bnum"><div class="big" data-count="443154">0</div><div class="cap">Rows pulled</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">a17 entity status</span><span class="v">261,313</span></div>
+        <div class="kv"><span class="k">a15 outlet closures</span><span class="v">104,299</span></div>
+        <div class="kv"><span class="k">a07 · a08 · a11</span><span class="v">16,051 · 13,915 · 12,244</span></div>
+        <div class="kv"><span class="k">a03 environmental</span><span class="v">9,248</span></div>
+        <div class="kv"><span class="k">a01 anniversary</span><span class="v">7,948</span></div>
+        <div class="kv"><span class="k">a02 second entity</span><span class="v">6,261</span></div>
+        <div class="kv"><span class="k">a09 · a06 · a16</span><span class="v">4,520 · 4,029 · 2,325</span></div>
+        <div class="kv"><span class="k">DNC suppression</span><span class="v">1,526</span></div>
+      </div>
+      <div class="bf">a12–a14 test-only (33/34/34) · a10 press <b>blocked</b> (25 rows). Every angle stored raw, all-string, before it is trusted.</div>
+    </div>
+
+    <div class="box">
+      <div class="bh">Appraisal rolls <span class="tag">4 counties</span></div>
+      <div class="bnum"><div class="big" data-count="318642">0</div><div class="cap">Parcels · $799.6B</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">Harris</span><span class="v">115,244</span></div>
+        <div class="kv"><span class="k">Dallas</span><span class="v">93,424</span></div>
+        <div class="kv"><span class="k">Tarrant <span style="color:var(--accent)">full 2026 roll</span></span><span class="v">70,046</span></div>
+        <div class="kv"><span class="k">Collin</span><span class="v">39,928</span></div>
+        <div class="kv"><span class="k">B-class (multifamily), Tarrant</span><span class="v">10,835</span></div>
+      </div>
+      <div class="bf">State class is the authority, not the county's own flag: <b>F*</b> commercial and <b>B*</b> multifamily are always in. Fixing that alone added <b>36,273</b> parcels.</div>
+    </div>
+
+  </div>
+
+  <div class="note"><b>Lesson paid for on 16 Sep:</b> the build reported 20/20 green while a filter bug silently dropped 36,273 parcels. Internal-consistency checks cannot catch rows filtered out <i>before</i> they enter the pipeline. Four coverage checks — raw roll vs warehouse, per county — were added the same day.</div>
+</section>
+
+<div class="conn reveal">
+  <svg viewBox="0 0 1000 64" preserveAspectRatio="none">
+    <path d="M166 0 C166 34, 500 24, 500 56" style="--len:120"/>
+    <path d="M500 0 L500 56" style="--len:60"/>
+    <path d="M833 0 C833 34, 500 24, 500 56" style="--len:120"/>
+    <polygon class="head" points="492,52 508,52 500,64"/>
+  </svg>
+  <span class="lab">load · exact matching only</span>
+</div>
+
+<!-- ============ 02 WAREHOUSE ============ -->
+<section class="stage reveal">
+  <div class="stage-head"><span class="stage-num">02</span><h2 class="stage-title">One warehouse, four layers</h2></div>
+  <p class="stage-sub"><code>raw</code> as loaded → <code>scrape</code> all-string → <code>build</code> → <code>final</code>. One runner, numbered SQL stages <code>00</code>→<code>07</code>, and a verify file that fails the build on any false check.</p>
+  <div class="row c1" style="margin-top:26px">
+    <div class="box">
+      <div class="bh">BigQuery · issac_final <span class="tag">ours, Ady's raw untouched</span></div>
+      <div class="bnum"><div class="big" data-count="701815">0</div><div class="cap">Unique Texas taxpayers</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">Franchise file rows in</span><span class="v">3,230,352</span></div>
+        <div class="kv"><span class="k">Collapsed to 1 row per taxpayer</span><span class="v">701,815</span></div>
+        <div class="kv"><span class="k">Signals staging table</span><span class="v">450,368</span></div>
+        <div class="kv"><span class="k">Verify checks</span><span class="v ok">32 / 32 pass</span></div>
+      </div>
+      <div class="bf"><b>Three standing rules:</b> exact matching only, never fuzzy · rows are tagged, never deleted · every fact carries its own source column (<code>business_start_date_source</code>, <code>market_value_source</code>, <code>merge_evidence</code>, <code>as_of_date</code>).</div>
+    </div>
+  </div>
+  <div class="note plain"><b>The "3M businesses" correction.</b> 3,230,352 is franchise <i>rows</i>, not companies — and <code>right_to_transact = 'A'</code> is true on every single one of them, so it is not a filter. The real universe is 701,815 unique taxpayers.</div>
+</section>
+
+<div class="conn reveal">
+  <svg viewBox="0 0 1000 64" preserveAspectRatio="none">
+    <path d="M500 0 L500 56" style="--len:60"/>
+    <polygon class="head" points="492,52 508,52 500,64"/>
+  </svg>
+  <span class="lab">5 hard gates</span>
+</div>
+
+<!-- ============ 03 GATES ============ -->
+<section class="stage reveal">
+  <div class="stage-head"><span class="stage-num">03</span><h2 class="stage-title">The ICP gates</h2></div>
+  <p class="stage-sub">Hard yes/no, straight from workbook 1. A failure is written into the row as <code>EXCLUDED</code> with a reason — the row stays, so nothing ever disappears without a trace.</p>
+  <div class="row c2" style="margin-top:26px">
+    <div class="box">
+      <div class="bh">Gates applied</div>
+      <div class="blist" style="padding-top:8px">
+        <div class="kv"><span class="k">1 · In Texas</span><span class="v ok">pass/fail</span></div>
+        <div class="kv"><span class="k">2 · Active SOS entity</span><span class="v ok">pass/fail</span></div>
+        <div class="kv"><span class="k">3 · Trading 5+ years</span><span class="v ok">pass/fail</span></div>
+        <div class="kv"><span class="k">4 · Industry that owns its building<br><span style="font-size:.9em;color:var(--mut)">NAICS 23, 31–33, 42, 48–49, 81</span></span><span class="v ok">pass/fail</span></div>
+        <div class="kv"><span class="k">5 · Not on the avoid list</span><span class="v ok">pass/fail</span></div>
+      </div>
+      <div class="bf">Avoid list resolved <b>exactly</b>: 1,213 taxpayers, 1,171 confirmed. No fuzzy name+city guessing — a possible-only match gets <code>outreach_hold</code>, not a delete.</div>
+    </div>
+    <div class="box">
+      <div class="bh">What survives <span class="tag">measured, not estimated</span></div>
+      <div class="blist" style="padding-top:8px">
+        <div class="kv"><span class="k">All Texas taxpayers</span><span class="v">701,815</span></div>
+        <div class="kv"><span class="k">Active entity + 5 yrs trading</span><span class="v">208,895</span></div>
+        <div class="kv"><span class="k">Owns-building sectors (core ICP)</span><span class="v">74,305</span></div>
+        <div class="kv"><span class="k">Core ICP, 10+ yrs</span><span class="v">44,267</span></div>
+        <div class="kv"><span class="k">Core ICP, 20+ yrs</span><span class="v">17,359</span></div>
+        <div class="kv"><span class="k">ICP universe carried forward</span><span class="v acc">205,162</span></div>
+      </div>
+      <div class="bf">Business + both tables = the ICP universe, <b>no overlap</b>. Every property appears exactly once: <code>property_owners</code> XOR <code>both_owners_properties</code>.</div>
+    </div>
+  </div>
+</section>
+
+<div class="conn tall reveal">
+  <svg viewBox="0 0 1000 88" preserveAspectRatio="none">
+    <path d="M500 0 L500 26 C500 48, 166 42, 166 80" style="--len:210"/>
+    <path d="M500 0 L500 80" style="--len:84"/>
+    <path d="M500 0 L500 26 C500 48, 833 42, 833 80" style="--len:210"/>
+    <polygon class="head" points="158,76 174,76 166,88"/>
+    <polygon class="head" points="492,76 508,76 500,88"/>
+    <polygon class="head" points="825,76 841,76 833,88"/>
+  </svg>
+  <span class="lab">split by what the offer needs</span>
+</div>
+
+<!-- ============ 04 THREE TABLES ============ -->
+<section class="stage reveal">
+  <div class="stage-head"><span class="stage-num">04</span><h2 class="stage-title">Three owner tables</h2></div>
+  <p class="stage-sub">Not "sellers" — <b>owners</b>. Selling is intent, a signal layered on top, never a list. Grain is fixed: one row per taxpayer in the business tables, one row per county+account in the property tables.</p>
+  <div class="row c3" style="margin-top:26px">
+
+    <div class="box">
+      <div class="bh">Table 1 <span class="tag">business_owners</span></div>
+      <div class="bnum"><div class="big" data-count="200331">0</div><div class="cap">Rows · 191 columns</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">Decision-maker names</span><span class="v">185,487</span></div>
+        <div class="kv"><span class="k">Phones (FMCSA etc.)</span><span class="v">19,271</span></div>
+        <div class="kv"><span class="k">Emails</span><span class="v">5,563</span></div>
+        <div class="kv"><span class="k">Websites</span><span class="v">1,358</span></div>
+      </div>
+      <div class="bf">Owns the business; no commercial parcel matched to it — <b>yet</b>.</div>
+    </div>
+
+    <div class="box">
+      <div class="bh">Table 2 <span class="tag">both_owners</span></div>
+      <div class="bnum"><div class="big" data-count="4831">0</div><div class="cap">Rows · 201 columns</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">Linked parcels</span><span class="v">9,965</span></div>
+        <div class="kv"><span class="k">Carries any signal</span><span class="v">3,858</span></div>
+        <div class="kv"><span class="k">Circle 1 on coverage</span><span class="v">383</span></div>
+      </div>
+      <div class="bf">Owns the business <b>and</b> the building. The densest table in the build — and where 4 of the final 5 come from.</div>
+    </div>
+
+    <div class="box">
+      <div class="bh">Table 3 <span class="tag">property_owners</span></div>
+      <div class="bnum"><div class="big" data-count="308677">0</div><div class="cap">Rows · 155 columns</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">Named contact</span><span class="v">via entity officer</span></div>
+        <div class="kv"><span class="k">Carries any signal</span><span class="v">1,088</span></div>
+        <div class="kv"><span class="k">Circle 1 on coverage</span><span class="v">26,515</span></div>
+      </div>
+      <div class="bf">~2,500 trusted properties whose business is out of ICP now land here <b>with</b> the linked entity and its decision maker, instead of vanishing.</div>
+    </div>
+  </div>
+
+  <div class="note"><b>"100% accurate" means the merges are exact or hand-checked, never fuzzy.</b> A = exact canonical legal name + entity suffix + shared zip, unique (84,339 parcels) · M = manual review where A has no single answer (436) · B = exact legal name, unique statewide (29,769). The remaining <b>158,905</b> parcels stay unmerged, tagged with <code>unmerged_reason</code> + <code>candidate_taxpayer_numbers</code> — never silently attached to a company.</div>
+</section>
+
+<div class="conn reveal">
+  <svg viewBox="0 0 1000 64" preserveAspectRatio="none">
+    <path d="M166 0 C166 34, 500 24, 500 56" style="--len:120"/>
+    <path d="M500 0 L500 56" style="--len:60"/>
+    <path d="M833 0 C833 34, 500 24, 500 56" style="--len:120"/>
+    <polygon class="head" points="492,52 508,52 500,64"/>
+  </svg>
+  <span class="lab">join every signal back in</span>
+</div>
+
+<!-- ============ 05 SIGNALS ============ -->
+<section class="stage reveal">
+  <div class="stage-head"><span class="stage-num">05</span><h2 class="stage-title">Every free database and scrape, joined into the rows</h2></div>
+  <p class="stage-sub">Stage <code>04_signals.sql</code> builds one row per taxpayer, then <code>05_outputs.sql</code> welds <b>+103 columns</b> onto all three tables. Keys are the scrape's own taxpayer number, or an exact canonical name + zip5 pair that is unique. Best-graded row wins; the grade is kept.</p>
+  <div class="row c2" style="margin-top:26px">
+    <div class="box">
+      <div class="bh">stg_signals</div>
+      <div class="bnum"><div class="big" data-count="450368">0</div><div class="cap">Rows · 1 per taxpayer</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">business_owners carrying any signal</span><span class="v acc">154,623</span></div>
+        <div class="kv"><span class="k">Outlet closed (a15)</span><span class="v">64,863</span></div>
+        <div class="kv"><span class="k">— of which grade A/B</span><span class="v">8,526</span></div>
+        <div class="kv"><span class="k">Business personal property (BPP)</span><span class="v">11,625</span></div>
+        <div class="kv"><span class="k">SBA loan (504: 809)</span><span class="v">9,373</span></div>
+        <div class="kv"><span class="k">SAM.gov, with a named contact</span><span class="v">8,734</span></div>
+      </div>
+      <div class="bf">Rows unchanged by the join: 200,331 · 4,831 · 308,677. Verify went 27/27 → <b>30/30</b>, with a new coverage check that every scrape taxpayer got tagged.</div>
+    </div>
+    <div class="box">
+      <div class="bh">The rest of the signal stack</div>
+      <div class="blist" style="padding-top:8px">
+        <div class="kv"><span class="k">FMCSA carrier</span><span class="v">6,254</span></div>
+        <div class="kv"><span class="k">EPA regulated site</span><span class="v">5,602</span></div>
+        <div class="kv"><span class="k">Anniversary milestone (a01)</span><span class="v">5,094</span></div>
+        <div class="kv"><span class="k">FEC donor</span><span class="v">3,760</span></div>
+        <div class="kv"><span class="k">Second entity filed (a02)</span><span class="v">3,563</span></div>
+        <div class="kv"><span class="k">Form 5500 (staff count)</span><span class="v">2,349</span></div>
+        <div class="kv"><span class="k">TDLR licence</span><span class="v">1,968</span></div>
+        <div class="kv"><span class="k">Federal awards</span><span class="v">1,407</span></div>
+        <div class="kv"><span class="k">WARN layoff notice</span><span class="v">32</span></div>
+        <div class="kv"><span class="k">Confirmed intent to sell</span><span class="v acc">2</span></div>
+      </div>
+      <div class="bf"><b>Circle 1 = 0 by construction, and that is honest.</b> A confirmed live intent signal exists on 2 rows in the whole state. Intent is research, not a column.</div>
+    </div>
+  </div>
+</section>
+
+<div class="conn reveal">
+  <svg viewBox="0 0 1000 64" preserveAspectRatio="none">
+    <path d="M500 0 L500 56" style="--len:60"/>
+    <polygon class="head" points="492,52 508,52 500,64"/>
+  </svg>
+  <span class="lab">filter 1 · coverage</span>
+</div>
+
+<!-- ============ 06 FILTER 1 ============ -->
+<section class="stage reveal">
+  <div class="stage-head"><span class="stage-num">06</span><h2 class="stage-title">Filter 1 — how much of the row is actually filled</h2></div>
+  <p class="stage-sub">Not fit. Not contact. <b>Coverage:</b> how many workbook-1 fields we hold on this row. 1 point for a direct source, 0.5 for a proxy or partial. Fields no source can fill yet — owner age, LinkedIn, succession, his own words — are left out of the denominator instead of scoring everyone zero.</p>
+  <div class="row c3" style="margin-top:26px">
+
+    <div class="box">
+      <div class="bh">business_owners <span class="tag">25 fields</span></div>
+      <div class="blist" style="padding-top:8px">
+        <div class="kv"><span class="k">Circle 1 <span style="color:var(--mut)">≥14.0</span></span><span class="v acc">3,678</span></div>
+        <div class="kv"><span class="k">Circle 2 <span style="color:var(--mut)">≥12.0</span></span><span class="v">19,105</span></div>
+        <div class="kv"><span class="k">Circle 3 <span style="color:var(--mut)">≥10.5</span></span><span class="v">17,856</span></div>
+        <div class="kv"><span class="k">Circle 4 <span style="color:var(--mut)">≥10.0</span></span><span class="v dim">58,763</span></div>
+        <div class="kv"><span class="k">Circle 5</span><span class="v dim">98,003</span></div>
+        <div class="kv"><span class="k">Excluded (tagged, kept)</span><span class="v dim">2,926</span></div>
+      </div>
+      <div class="bf">Circle 1 already carries <b>2,077 emails</b> and <b>3,536 phones</b> of its 3,678 rows. Circles 4–5: almost no contact at all.</div>
+    </div>
+
+    <div class="box">
+      <div class="bh">both_owners <span class="tag">25 fields</span></div>
+      <div class="blist" style="padding-top:8px">
+        <div class="kv"><span class="k">Circle 1 <span style="color:var(--mut)">≥16.0</span></span><span class="v acc">383</span></div>
+        <div class="kv"><span class="k">Circle 2 <span style="color:var(--mut)">≥14.0</span></span><span class="v">1,056</span></div>
+        <div class="kv"><span class="k">Circle 3 <span style="color:var(--mut)">≥12.0</span></span><span class="v">1,606</span></div>
+        <div class="kv"><span class="k">Circle 4 <span style="color:var(--mut)">≥11.0</span></span><span class="v dim">1,356</span></div>
+        <div class="kv"><span class="k">Circle 5</span><span class="v dim">370</span></div>
+        <div class="kv"><span class="k">Excluded (tagged, kept)</span><span class="v dim">60</span></div>
+      </div>
+      <div class="bf">Highest cut-offs in the build, because owning the building fills the property half of the workbook outright.</div>
+    </div>
+
+    <div class="box">
+      <div class="bh">property_owners <span class="tag">17 fields</span></div>
+      <div class="blist" style="padding-top:8px">
+        <div class="kv"><span class="k">Circle 1 <span style="color:var(--mut)">≥11.0</span></span><span class="v acc">26,515</span></div>
+        <div class="kv"><span class="k">Circle 2 <span style="color:var(--mut)">≥10.0</span></span><span class="v">32,327</span></div>
+        <div class="kv"><span class="k">Circle 3 <span style="color:var(--mut)">≥9.0</span></span><span class="v">81,881</span></div>
+        <div class="kv"><span class="k">Circle 4 <span style="color:var(--mut)">≥8.0</span></span><span class="v dim">33,334</span></div>
+        <div class="kv"><span class="k">Circle 5</span><span class="v dim">102,003</span></div>
+        <div class="kv"><span class="k">Excluded (tagged, kept)</span><span class="v dim">32,617</span></div>
+      </div>
+      <div class="bf">Fewer fields exist for a parcel than for a company, so the scale is its own — cut-offs come from the real spread, never a copied number.</div>
+    </div>
+  </div>
+  <div class="note plain">New leading columns on every table: <code>filter_1</code> · <code>coverage_score</code> · <code>coverage_of</code> · <code>coverage_fields</code> · <code>coverage_missing</code>. A lead now says out loud what we know about it <b>and what is missing</b> — which is exactly what the research step is handed.</div>
+</section>
+
+<div class="conn reveal">
+  <svg viewBox="0 0 1000 64" preserveAspectRatio="none">
+    <path d="M166 0 C166 34, 500 24, 500 56" style="--len:120"/>
+    <path d="M500 0 L500 56" style="--len:60"/>
+    <path d="M833 0 C833 34, 500 24, 500 56" style="--len:120"/>
+    <polygon class="head" points="492,52 508,52 500,64"/>
+  </svg>
+  <span class="lab">size gate</span>
+</div>
+
+<!-- ============ 07 SIZE GATE ============ -->
+<section class="stage reveal">
+  <div class="stage-head"><span class="stage-num">07</span><h2 class="stage-title">The size gate — the fix that changed the list</h2></div>
+  <p class="stage-sub">Version 1 of the 1,000 sorted on coverage alone. Big companies have the most public data, so the best-covered rows were the <b>worst-fitting</b> leads: Thrustmaster (~250 staff), TTI, Tyler Technologies, Microsoft, Exxon. Stage <code>07_size_gate.sql</code> closes it.</p>
+  <div class="row c2" style="margin-top:26px">
+    <div class="box dark">
+      <div class="bh">OVERSIZE if any of these is true</div>
+      <div class="blist" style="padding-top:8px">
+        <div class="kv"><span class="k">Staff (Form 5500)</span><span class="v">&gt; 100</span></div>
+        <div class="kv"><span class="k">Equipment / BPP value</span><span class="v">&gt; $3M</span></div>
+        <div class="kv"><span class="k">Locations</span><span class="v">&gt; 3</span></div>
+        <div class="kv"><span class="k">Trucks (FMCSA)</span><span class="v">&gt; 50</span></div>
+        <div class="kv"><span class="k">Federal contract value</span><span class="v">&gt; $20M</span></div>
+        <div class="kv"><span class="k">Owned property value</span><span class="v">&gt; $25M</span></div>
+      </div>
+      <div class="bf">No proxy available = <b>IN BAND</b>. The gate writes <code>size_gate</code> + <code>size_reason</code> on all three tables and <b>drops nothing</b> — a big company is still a real company, just not this offer.</div>
+    </div>
+    <div class="box">
+      <div class="bh">Effect on the list</div>
+      <div class="blist" style="padding-top:8px">
+        <div class="kv"><span class="k">Verify checks after the stage</span><span class="v ok">32 / 32</span></div>
+        <div class="kv"><span class="k">v1 leads that survived the re-cut</span><span class="v">367 / 1,000</span></div>
+        <div class="kv"><span class="k">Thrustmaster (~250 staff, $150M rev)</span><span class="v acc">out</span></div>
+        <div class="kv"><span class="k">RBEX / Apple Towing (PE-owned)</span><span class="v acc">out</span></div>
+        <div class="kv"><span class="k">Presidential Car Wash</span><span class="v ok">in</span></div>
+      </div>
+      <div class="bf">New sort order, in this exact priority: <b>circle_1 (fit) → filter_1 (coverage) → coverage_score → fit_score</b>. Fit leads, coverage breaks the tie.</div>
+    </div>
+  </div>
+</section>
+
+<div class="conn reveal">
+  <svg viewBox="0 0 1000 64" preserveAspectRatio="none">
+    <path d="M500 0 L500 56" style="--len:60"/>
+    <polygon class="head" points="492,52 508,52 500,64"/>
+  </svg>
+  <span class="lab">take the top</span>
+</div>
+
+<!-- ============ 08 THE 1000 ============ -->
+<section class="stage reveal">
+  <div class="stage-head"><span class="stage-num">08</span><h2 class="stage-title">The 1,000</h2></div>
+  <p class="stage-sub">In band · circle_1 C1–C2 · filter_1 1–2 · sorted fit first. Nothing hand-picked — it is the top of the sort, split across the three tables.</p>
+
+  <div class="row c1" style="margin-top:26px">
+    <div class="box dark">
+      <div class="bh">Enrichment list <span class="tag">17 Sep · 20 columns · 13 in, 5 blank</span></div>
+      <div class="bnum"><div class="big" data-count="1000">0</div><div class="cap">Leads, all with a named human</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">business_owners — all C1 · filter 1</span><span class="v">300</span></div>
+        <div class="kv"><span class="k">both_owners — 24 C1·1 + 85 C1·2 + 90 C2·1 + 101 C2·2</span><span class="v">300</span></div>
+        <div class="kv"><span class="k">property_owners — all C1 · filter 1</span><span class="v">400</span></div>
+      </div>
+      <div class="bf">Only <b>109</b> both_owners rows are C1 and in band in the entire state — which is why that column dips into C2 rather than pad the list with worse leads.</div>
+    </div>
+  </div>
+
+  <div class="row c3" style="margin-top:22px">
+    <div class="box">
+      <div class="bh">Business · 300</div>
+      <div class="blist" style="padding-top:8px">
+        <div class="kv"><span class="k">Named contact</span><span class="v">292</span></div>
+        <div class="kv"><span class="k">Email already known</span><span class="v">216</span></div>
+        <div class="kv"><span class="k">Phone already known</span><span class="v">300</span></div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="bh">Both · 300</div>
+      <div class="blist" style="padding-top:8px">
+        <div class="kv"><span class="k">Named contact</span><span class="v">295</span></div>
+        <div class="kv"><span class="k">Email already known</span><span class="v">159</span></div>
+        <div class="kv"><span class="k">Phone already known</span><span class="v">292</span></div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="bh">Property · 400</div>
+      <div class="blist" style="padding-top:8px">
+        <div class="kv"><span class="k">Named contact</span><span class="v">385</span></div>
+        <div class="kv"><span class="k">Email already known</span><span class="v acc">0</span></div>
+        <div class="kv"><span class="k">Phone already known</span><span class="v">6</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note plain"><b>The sheet carries 13 columns in, not 191.</b> An enrichment actor only needs enough to identify a human: <code>source_table · lead_key · circle_1 · fit_score · filter_1 · coverage_score · company · contact_name · contact_title · address · city · zip · website · known_email · known_phone</code> — then five blank result columns. The 155–201-column rows stay in BigQuery, one <code>lead_key</code> join away.</div>
+</section>
+
+<!-- side branch: channel matrix -->
+<div class="conn reveal" style="height:52px">
+  <svg viewBox="0 0 1000 52" preserveAspectRatio="none">
+    <path d="M500 0 L500 44" style="--len:48"/>
+    <polygon class="head" points="492,40 508,40 500,52"/>
+  </svg>
+</div>
+
+<!-- ============ 09 CHANNEL MATRIX ============ -->
+<section class="stage reveal">
+  <div class="stage-head"><span class="stage-num">09</span><h2 class="stage-title">Channel matrix — finding the human</h2></div>
+  <p class="stage-sub">Order is fixed: <b>decision-maker email (must) → personal LinkedIn (must) → phone (warm lane only, never a cold dial)</b>. Before buying anything, the list was measured — then two actors were run head-to-head on the same 50 rows for under a dollar.</p>
+
+  <div class="row c3" style="margin-top:26px">
+    <div class="box">
+      <div class="bh">qualifyops <span class="tag">main actor</span></div>
+      <div class="bnum"><div class="big">23<span style="font-size:.5em;color:var(--mut)">/50</span></div><div class="cap">All SMTP-deliverable</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">Matched an email we already had</span><span class="v ok">5 exact</span></div>
+        <div class="kv"><span class="k">Cost per verified hit</span><span class="v">$0.008</span></div>
+      </div>
+      <div class="bf">The mail server confirms the mailbox exists. <b>Exists ≠ belongs to our person</b> — an address is kept only if its local part is built from the contact's own name.</div>
+    </div>
+    <div class="box dark">
+      <div class="bh">memo23 <span class="tag">binned</span></div>
+      <div class="bnum"><div class="big">25<span style="font-size:.5em;opacity:.55">/50</span></div><div class="cap">Unverified pattern guesses</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">Agreements with qualifyops</span><span class="v">0</span></div>
+        <div class="kv"><span class="k">Conflicts, re-checked</span><span class="v">8</span></div>
+        <div class="kv"><span class="k">Of those, mailbox does not exist</span><span class="v acc">8 / 8</span></div>
+      </div>
+      <div class="bf">It sends first.last guesses as if they were findings. Deleted from the stack for good — there is no room for a made-up email.</div>
+    </div>
+    <div class="box">
+      <div class="bh">Round 2 · the 27 misses</div>
+      <div class="bnum"><div class="big">~37<span style="font-size:.5em;color:var(--mut)">/50</span></div><div class="cap">Own-name emails, combined</div></div>
+      <div class="blist">
+        <div class="kv"><span class="k">scalelist — own-name valid</span><span class="v ok">13</span></div>
+        <div class="kv"><span class="k">peakydev · x_guru · microworlds</span><span class="v dim">6 · 3 · 2</span></div>
+        <div class="kv"><span class="k">Total test spend</span><span class="v">$2.58</span></div>
+      </div>
+      <div class="bf">Waterfall locked: <b>qualifyops → scalelist → peakydev</b>. scalelist also repairs the real mail domain (thrustmaster.net → thrustmastertexas.com).</div>
+    </div>
+  </div>
+
+  <div class="note"><b>The rule that came out of the test:</b> two independent sources agreeing beats a single "Valid". Database-style actors return ~10 people per company and our contact is rarely one of them; and an FMCSA <code>best_email</code> is the MCS-150 signer, not the owner — so every FMCSA-sourced address gets re-checked before it is trusted.</div>
+</section>
+
+<div class="conn tall reveal">
+  <svg viewBox="0 0 1000 88" preserveAspectRatio="none">
+    <path d="M500 0 L500 80" style="--len:84"/>
+    <polygon class="head" points="492,76 508,76 500,88"/>
+  </svg>
+  <span class="lab">pick 5 · full web research</span>
+</div>
+
+<!-- ============ 10 THE FIVE ============ -->
+<section class="stage reveal">
+  <div class="stage-head"><span class="stage-num">10</span><h2 class="stage-title">The five</h2></div>
+  <p class="stage-sub">The last missing layer is not data, it is <b>a person</b>. These five go to full web research — owner, company, the people around him — and come back as a sourced profile with an evidence file. All five: owner-run, one site, own their building, 26–31 years in business, C1 on fit, filter 1 on coverage, in band.</p>
+
+  <div class="five" style="margin-top:26px">
+
+    <div class="lead">
+      <div class="rank"><span>01</span><span>FIT 95</span></div>
+      <div class="co">King Fabrication, L.L.C.</div>
+      <div class="who">Vincent J Rossitto · President</div>
+      <div class="facts">
+        <div class="kv"><span class="k">Trade</span><span class="v">Metal fab</span></div>
+        <div class="kv"><span class="k">Years</span><span class="v">29</span></div>
+        <div class="kv"><span class="k">Parcels owned</span><span class="v">2</span></div>
+        <div class="kv"><span class="k">Coverage</span><span class="v">17.0 / 25</span></div>
+        <div class="kv"><span class="k">Columns filled</span><span class="v">122 / 208</span></div>
+      </div>
+      <div class="why">Two Rossitto officers on file. <b>30-year anniversary</b> next May. Highest fit score in the entire list.</div>
+    </div>
+
+    <div class="lead">
+      <div class="rank"><span>02</span><span>FIT 85</span></div>
+      <div class="co">Presidential, Inc.</div>
+      <div class="who">Harold D Hudson · President</div>
+      <div class="facts">
+        <div class="kv"><span class="k">Trade</span><span class="v">Car wash</span></div>
+        <div class="kv"><span class="k">Years</span><span class="v">27</span></div>
+        <div class="kv"><span class="k">Parcels owned</span><span class="v">2 · $2.97M</span></div>
+        <div class="kv"><span class="k">Coverage</span><span class="v">18.5 / 25</span></div>
+        <div class="kv"><span class="k">Officers</span><span class="v">1 (sole)</span></div>
+      </div>
+      <div class="why">Sole officer, owns both wash sites. A second entity — HUT Holdings I LLC — is on file: <b>possible transition paperwork</b>.</div>
+    </div>
+
+    <div class="lead">
+      <div class="rank"><span>03</span><span>C1</span></div>
+      <div class="co">Ober &amp; Sons, Inc.</div>
+      <div class="who">Micheal Ober · President</div>
+      <div class="facts">
+        <div class="kv"><span class="k">Trade</span><span class="v">Steel erection</span></div>
+        <div class="kv"><span class="k">Years</span><span class="v">31</span></div>
+        <div class="kv"><span class="k">Parcels owned</span><span class="v">3</span></div>
+        <div class="kv"><span class="k">Ober officers</span><span class="v">3</span></div>
+      </div>
+      <div class="why">"&amp; Sons" plus three Ober officers — Micheal, Eric, Ryan. The <b>succession question asks itself</b>.</div>
+    </div>
+
+    <div class="lead">
+      <div class="rank"><span>04</span><span>C1</span></div>
+      <div class="co">Maeker Restaurants, Inc.</div>
+      <div class="who">Lyndon L Maeker · President</div>
+      <div class="facts">
+        <div class="kv"><span class="k">Trade</span><span class="v">Restaurant</span></div>
+        <div class="kv"><span class="k">Years</span><span class="v">29</span></div>
+        <div class="kv"><span class="k">Owns its building</span><span class="v">yes</span></div>
+        <div class="kv"><span class="k">Maeker officers</span><span class="v">3</span></div>
+      </div>
+      <div class="why">Independent operator, owns the real estate under it. <b>30-year anniversary</b> next.</div>
+    </div>
+
+    <div class="lead">
+      <div class="rank"><span>05</span><span>C1</span></div>
+      <div class="co">Duong Auto Care Corp.</div>
+      <div class="who">Long Duong · President</div>
+      <div class="facts">
+        <div class="kv"><span class="k">Trade</span><span class="v">Auto repair</span></div>
+        <div class="kv"><span class="k">Years</span><span class="v">26</span></div>
+        <div class="kv"><span class="k">Owns its building</span><span class="v">yes</span></div>
+        <div class="kv"><span class="k">Locations</span><span class="v">1</span></div>
+      </div>
+      <div class="why">A second entity, Drift Dynamics LLC, filed on the same officer — <b>new venture, or the way out</b>.</div>
+    </div>
+
+  </div>
+
+  <div class="note"><b>What comes back per lead:</b> a profile document plus an evidence file, every fact carrying its source, an honest "why now / away from sale" read, and the row gaps closed by hand. Backups if one dies: Intrepid Industries (47 yrs, 12 staff) · Complete Plumbing. Never touched, on any lead: the Texas Owner Information Report — it is confidential.</div>
+</section>
+
+<footer>
+  <div>
+    <div class="ft">Proof</div>
+    <p>32/32 verify checks pass, including four coverage checks that assert every raw commercial parcel per county reaches the warehouse. Backups <code>issac_final.zbak_20260917*</code> taken before each rebuild.</p>
+  </div>
+  <div>
+    <div class="ft">Rebuild</div>
+    <p><code>scripts/issac/owner_tables/00→07</code> run in order by <code>build_owner_tables.py</code>; the list itself by <code>enrichment_sample.sql</code>. Tables are never hand-edited — a stage is re-run.</p>
+  </div>
+  <div>
+    <div class="ft">Next</div>
+    <p>Run the email waterfall on the 1,000 · verify with BounceBan · load to Instantly. Open decisions still with Whiz: vacant-lot scope and the C1 threshold.</p>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var prog = document.getElementById('prog');
+  function onScroll(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // set dash length on every connector path from its real geometry
+  document.querySelectorAll('.conn path').forEach(function(p){
+    try{
+      var len = p.getTotalLength() || 200;
+      p.style.setProperty('--len', len);
+    }catch(e){ p.style.setProperty('--len', 400); }
+  });
+
+  function countUp(el){
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    if (isNaN(target)) return;
+    var dur = 1100, start = null;
+    function step(ts){
+      if (!start) start = ts;
+      var t = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(target * eased).toLocaleString('en-US');
+      if (t < 1) requestAnimationFrame(step);
+      else el.textContent = target.toLocaleString('en-US');
+    }
+    requestAnimationFrame(step);
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      en.target.classList.add('in');
+      en.target.querySelectorAll('[data-count]').forEach(countUp);
+      io.unobserve(en.target);
+    });
+  }, {threshold:0.18, rootMargin:'0px 0px -60px 0px'});
+
+  document.querySelectorAll('.reveal, .strip').forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
