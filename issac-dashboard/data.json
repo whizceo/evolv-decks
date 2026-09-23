@@ -1,0 +1,563 @@
+{
+ "generated_at": "2026-09-23T12:25:03+00:00",
+ "client": "Issac Newton",
+ "brokerage": "eXp Commercial",
+ "machine_live_since": null,
+ "instantly": {
+  "status": "draft",
+  "note": "3 campaigns built, not launched. 9 inboxes warming since 4 Sep.",
+  "campaigns": [
+   {
+    "name": "Both",
+    "status": "draft",
+    "in_campaign": 0,
+    "contacted": 0,
+    "sent": 0,
+    "replies": 0,
+    "positive": 0,
+    "bounced": 0,
+    "unsubscribed": 0
+   },
+   {
+    "name": "Business",
+    "status": "draft",
+    "in_campaign": 0,
+    "contacted": 0,
+    "sent": 0,
+    "replies": 0,
+    "positive": 0,
+    "bounced": 0,
+    "unsubscribed": 0
+   },
+   {
+    "name": "Property",
+    "status": "draft",
+    "in_campaign": 0,
+    "contacted": 0,
+    "sent": 0,
+    "replies": 0,
+    "positive": 0,
+    "bounced": 0,
+    "unsubscribed": 0
+   }
+  ],
+  "inboxes": [
+   {
+    "domain": "issacnewtontx.com",
+    "warmup": null,
+    "ok": true
+   },
+   {
+    "domain": "issacnewtontx.com",
+    "warmup": null,
+    "ok": true
+   },
+   {
+    "domain": "issacnewtontx.com",
+    "warmup": null,
+    "ok": true
+   },
+   {
+    "domain": "issacnewtoncre.com",
+    "warmup": null,
+    "ok": true
+   },
+   {
+    "domain": "issacnewtoncre.com",
+    "warmup": null,
+    "ok": true
+   },
+   {
+    "domain": "issacnewtoncre.com",
+    "warmup": null,
+    "ok": true
+   },
+   {
+    "domain": "newtoncre.com",
+    "warmup": null,
+    "ok": true
+   },
+   {
+    "domain": "newtoncre.com",
+    "warmup": null,
+    "ok": true
+   },
+   {
+    "domain": "newtoncre.com",
+    "warmup": null,
+    "ok": true
+   }
+  ],
+  "daily": [
+   {
+    "date": "2026-08-25",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-26",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-27",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-28",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-29",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-30",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-31",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-01",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-02",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-03",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-04",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-05",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-06",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-07",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-08",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-09",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-10",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-11",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-12",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-13",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-14",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-15",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-16",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-17",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-18",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-19",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-20",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-21",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-22",
+    "sent": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-23",
+    "sent": 0,
+    "replies": 0
+   }
+  ],
+  "connected": false,
+  "synced_at": null
+ },
+ "heyreach": {
+  "status": "waiting",
+  "note": "Workspace ready. Waiting for Issac's LinkedIn to connect.",
+  "requests_sent": 0,
+  "accepted": 0,
+  "messages_sent": 0,
+  "replies": 0,
+  "profile_views": 0,
+  "daily": [
+   {
+    "date": "2026-08-25",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-26",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-27",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-28",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-29",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-30",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-08-31",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-01",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-02",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-03",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-04",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-05",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-06",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-07",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-08",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-09",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-10",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-11",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-12",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-13",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-14",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-15",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-16",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-17",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-18",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-19",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-20",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-21",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-22",
+    "requests": 0,
+    "replies": 0
+   },
+   {
+    "date": "2026-09-23",
+    "requests": 0,
+    "replies": 0
+   }
+  ],
+  "connected": false,
+  "synced_at": null
+ },
+ "ghl": {
+  "status": "draft",
+  "note": "Seller + deal pipelines built. Goes live after test 1.",
+  "seller": [
+   {
+    "stage": "Identified",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "First Contact Made",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Conversation Started",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Discovery Call Booked",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Discovery Call Held",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Valuation in Progress",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Listing Presentation",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Listing Agreement Sent",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Signed — Listing Live",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Offers / Negotiation",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Under Contract",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Closed",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Past Client / Referral",
+    "count": 0,
+    "value": 0
+   }
+  ],
+  "deal": [
+   {
+    "stage": "Inquiry Received",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Qualified",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Criteria Defined",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Properties Presented",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Tour / Site Visit",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "LOI Submitted",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Under Contract",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Closed",
+    "count": 0,
+    "value": 0
+   },
+   {
+    "stage": "Repeat Buyer / Investor",
+    "count": 0,
+    "value": 0
+   }
+  ],
+  "activity": [],
+  "connected": false,
+  "synced_at": null
+ },
+ "list": {
+  "universe": {
+   "both_owners": 4778,
+   "business_owners": 200384,
+   "property_owners": 299866
+  },
+  "in_play": {
+   "both_owners": 400,
+   "business_owners": 400,
+   "property_owners": 200
+  },
+  "with_email": 55,
+  "with_linkedin": null,
+  "note": "Top of Circle 1 on each table. Email search runs on the 1,000 after 23 Sep.",
+  "updated": "2026-09-23"
+ },
+ "content": {
+  "status": "handed_over",
+  "followers": null,
+  "followers_delta_30d": null,
+  "posts_30d": null,
+  "impressions_30d": null,
+  "posts": [],
+  "note": "LinkedIn has no analytics API for personal profiles. Update weekly from the LinkedIn analytics tab.",
+  "updated": "2026-09-23"
+ },
+ "website": {
+  "status": "not_built",
+  "visits_30d": null,
+  "form_fills_30d": null,
+  "note": "Seller site + forms in build. GHL connects to its forms.",
+  "updated": "2026-09-23"
+ }
+}
