@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>What Would Yours Sell For</title>
+<meta name="description" content="A one-page price range for Texas business and commercial property owners — from Issac Newton, eXp Commercial.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+/* ============================================================
+   BACKEND CONFIG — the only block you ever edit.
+   VIDEO_URL : YouTube / Vimeo / Wistia / Loom link or a direct .mp4. Empty = placeholder.
+               Can also be overridden per-link with ?v=<url>.
+   WEBHOOK   : GHL inbound webhook (or any URL taking JSON POST). Empty = no send.
+   CALENDAR  : booking link shown ONLY to qualified answers.
+   ============================================================ */
+window.AVSL = {
+  VIDEO_URL: "",
+  WEBHOOK:   "",
+  CALENDAR:  "https://calendly.com/inexp"
+};
+</script>
+<style>
+:root{--bg:#060607;--ink:#f3efeb;--ink2:#cfc9c4;--mute:#8e8882;--dim:#55504c;--line:rgba(255,255,255,.075);--line2:rgba(255,255,255,.14);
+  --sig:#e42b0c;--amber:#ff8a3d;--gold:#ffc38a;--ok:#5fd39a;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--sans:'Inter',system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* backdrop — same control-room bloom as the Newton dashboard */
+.bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(1100px 620px at 50% -18%,rgba(228,43,12,.24),transparent 62%),
+             radial-gradient(900px 520px at 100% 110%,rgba(255,138,61,.08),transparent 60%),#060607}
+.bgfx::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:46px 46px;-webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 12%,transparent 70%);mask-image:radial-gradient(ellipse at 50% 0%,#000 12%,transparent 70%)}
+.bgfx::after{content:'';position:absolute;top:-40%;left:56%;width:240px;height:180%;
+  background:linear-gradient(90deg,transparent,rgba(255,120,70,.07),transparent);transform:rotate(26deg);filter:blur(34px)}
+
+main{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding:clamp(56px,9vh,96px) 16px 64px}
+
+/* ---------- hero: title · subtitle · video. nothing else. ---------- */
+.hero{text-align:center}
+h1{font-weight:500;font-size:clamp(30px,5.2vw,56px);line-height:1.06;letter-spacing:-.035em;max-width:900px;margin:0 auto;
+  animation:rise .8s cubic-bezier(.2,.8,.2,1) backwards}
+h1 em{font-style:normal;background:linear-gradient(180deg,#fff 10%,var(--gold) 55%,var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--ink2);font-weight:300;font-size:clamp(16px,1.9vw,19px);max-width:640px;margin:22px auto 0;
+  animation:rise .8s .08s cubic-bezier(.2,.8,.2,1) backwards}
+
+/* video stage */
+.stage{position:relative;margin:clamp(40px,6vh,64px) auto 0;max-width:960px;animation:rise .9s .16s cubic-bezier(.2,.8,.2,1) backwards}
+.stage .halo{position:absolute;inset:-8% -6% -18%;z-index:-1;pointer-events:none;
+  background:radial-gradient(60% 55% at 50% 60%,rgba(228,43,12,.32),transparent 70%);filter:blur(40px)}
+.frame{position:relative;padding:10px;border-radius:26px;
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.015));border:1px solid var(--line2);
+  backdrop-filter:blur(18px) saturate(130%);-webkit-backdrop-filter:blur(18px) saturate(130%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 50px 120px -40px rgba(0,0,0,1),0 30px 80px -50px rgba(228,43,12,.55)}
+.frame::before{content:'';position:absolute;top:-1px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,150,110,.8),transparent)}
+.screen{position:relative;aspect-ratio:16/9;border-radius:17px;overflow:hidden;background:#0b0a0a;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.screen iframe,.screen video{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#000}
+.ph{position:absolute;inset:0;display:grid;place-items:center;
+  background:radial-gradient(80% 90% at 50% 100%,rgba(228,43,12,.22),transparent 60%),
+             linear-gradient(180deg,#121011,#080708)}
+.ph::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:32px 32px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 55%,#000,transparent 72%);mask-image:radial-gradient(ellipse at 50% 55%,#000,transparent 72%)}
+.play{position:relative;width:92px;height:92px;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle at 35% 30%,#ff6a3d,var(--sig) 60%,#a51c06);
+  box-shadow:0 0 0 10px rgba(228,43,12,.12),0 0 0 22px rgba(228,43,12,.05),0 20px 50px -10px rgba(228,43,12,.8);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.play::after{content:'';position:absolute;inset:-22px;border-radius:50%;border:1px solid rgba(255,138,61,.35);animation:pulse 2.4s ease-out infinite}
+.play svg{margin-left:5px}
+.ph:hover .play{transform:scale(1.06)}
+.ph .cap{position:absolute;bottom:18px;left:0;right:0;text-align:center;font:500 10.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.reflect{height:60px;margin:0 6%;border-radius:0 0 50% 50%;background:radial-gradient(60% 100% at 50% 0%,rgba(228,43,12,.18),transparent 70%);filter:blur(14px)}
+
+/* ---------- survey ---------- */
+.survey{margin:48px auto 0;max-width:720px}
+.survey h2{text-align:center;font-weight:500;font-size:clamp(22px,3vw,30px);letter-spacing:-.025em}
+.survey .lede{text-align:center;color:var(--mute);margin-top:8px;font-size:14px}
+.glass{position:relative;margin-top:28px;border-radius:22px;
+  background:linear-gradient(180deg,rgba(255,255,255,.052),rgba(255,255,255,.014));border:1px solid var(--line);
+  backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 28px 60px -32px rgba(0,0,0,.95)}
+.glass::before{content:'';position:absolute;top:-1px;left:14%;right:14%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,150,110,.55),transparent);opacity:.75}
+.bar{height:3px;border-radius:22px 22px 0 0;background:rgba(255,255,255,.05);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sig),var(--amber));box-shadow:0 0 12px rgba(255,138,61,.6);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.qwrap{padding:clamp(24px,4vw,40px)}
+.meta{display:flex;justify-content:space-between;align-items:center;font:500 10.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.q{animation:slide .45s cubic-bezier(.2,.8,.2,1)}
+.q h3{font-weight:500;font-size:clamp(19px,2.4vw,23px);letter-spacing:-.02em;line-height:1.3;margin:18px 0 6px}
+.q .hint{color:var(--mute);font-size:13.5px;margin-bottom:18px}
+.opts{display:grid;gap:10px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{display:flex;align-items:center;gap:14px;text-align:left;padding:15px 16px;border-radius:14px;border:1px solid var(--line2);
+  background:rgba(255,255,255,.02);transition:border-color .2s,background .2s,transform .2s}
+.opt:hover{border-color:rgba(255,138,61,.5);background:rgba(228,43,12,.06)}
+.opt:active{transform:scale(.99)}
+.opt.sel{border-color:var(--amber);background:rgba(228,43,12,.12)}
+.opt .k{flex:none;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font:500 11px/1 var(--mono);color:var(--mute);border:1px solid var(--line2)}
+.opt.sel .k{background:var(--sig);border-color:var(--sig);color:#fff}
+.opt small{display:block;color:var(--mute);font-size:12.5px;margin-top:1px}
+.fields{display:grid;gap:12px}
+.fields.two{grid-template-columns:1fr 1fr}
+label.f{display:block}
+label.f span{display:block;font:500 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+input,textarea{width:100%;font:inherit;color:var(--ink);background:rgba(0,0,0,.35);border:1px solid var(--line2);border-radius:12px;padding:13px 14px;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus{border-color:var(--amber);box-shadow:0 0 0 4px rgba(228,43,12,.15)}
+input.bad{border-color:#ff5a4f}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:26px}
+.back{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.back:hover{color:var(--ink)}
+.back[hidden]{visibility:hidden;display:block}
+.go{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:12px;font-weight:500;
+  background:linear-gradient(180deg,#f0401f,var(--sig));box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 14px 30px -12px rgba(228,43,12,.9);transition:transform .2s,filter .2s}
+.go:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.go:disabled{opacity:.35;pointer-events:none}
+.fine{color:var(--dim);font-size:12px;margin-top:16px;line-height:1.5}
+
+/* result */
+.res{text-align:center;animation:slide .5s cubic-bezier(.2,.8,.2,1)}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;border:1px solid var(--line2);font:500 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink2)}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.res h3{font-weight:500;font-size:clamp(22px,3vw,28px);letter-spacing:-.025em;margin:18px 0 8px}
+.res p{color:var(--ink2);max-width:520px;margin:0 auto}
+.cal{margin-top:26px;border-radius:16px;overflow:hidden;border:1px solid var(--line2);background:#fff;height:680px}
+.cal iframe{width:100%;height:100%;border:0}
+
+footer{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 16px 40px;text-align:center;color:var(--dim);font-size:11.5px;line-height:1.7}
+footer a{color:var(--mute);text-decoration:underline;text-underline-offset:2px}
+
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}}
+@keyframes pulse{0%{transform:scale(.8);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+@media (max-width:640px){
+  .opts.two,.fields.two{grid-template-columns:1fr}
+  .frame{padding:6px;border-radius:18px}.screen{border-radius:13px}
+  .play{width:70px;height:70px}.play svg{width:24px;height:24px}
+  .cal{height:760px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bgfx"></div>
+
+<main>
+  <section class="hero">
+    <h1>Find out what your Texas business <em>and the building it sits in</em> would sell for today.</h1>
+    <p class="sub">Answer a few questions and I'll send you a one-page price range. No documents, no cost, no obligation to sell.</p>
+
+    <div class="stage">
+      <div class="halo"></div>
+      <div class="frame"><div class="screen" id="screen"></div></div>
+      <div class="reflect"></div>
+    </div>
+  </section>
+
+  <section class="survey" id="survey">
+    <h2>Answer below to get your range</h2>
+    <p class="lede">Takes about 60 seconds. Every answer stays between you and me.</p>
+    <div class="glass">
+      <div class="bar"><i id="bar"></i></div>
+      <div class="qwrap" id="q"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Issac Newton · Commercial Broker | M&amp;A Advisor · eXp Commercial<br>
+  A price range is a broker's opinion of value. It is not an appraisal.<br>
+  <a href="https://www.trec.texas.gov/forms/information-about-brokerage-services" target="_blank" rel="noopener">Texas Real Estate Commission Information About Brokerage Services</a> ·
+  <a href="https://www.trec.texas.gov/forms/consumer-protection-notice" target="_blank" rel="noopener">Consumer Protection Notice</a>
+</footer>
+
+<script>
+(function(){
+const CFG = window.AVSL;
+
+/* ---------- video: paste any link in CONFIG (or ?v=) ---------- */
+function embed(u){
+  if(!u) return null;
+  let m;
+  if((m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/))) return {t:'if',src:`https://www.youtube.com/embed/${m[1]}?autoplay=1&rel=0&modestbranding=1&playsinline=1`};
+  if((m=u.match(/vimeo\.com\/(?:video\/)?(\d+)/))) return {t:'if',src:`https://player.vimeo.com/video/${m[1]}?autoplay=1&title=0&byline=0&portrait=0`};
+  if((m=u.match(/loom\.com\/(?:share|embed)\/([\w]+)/))) return {t:'if',src:`https://www.loom.com/embed/${m[1]}?autoplay=1&hide_owner=true`};
+  if((m=u.match(/wistia\.(?:com|net)\/(?:medias|embed\/iframe)\/([\w]+)/))) return {t:'if',src:`https://fast.wistia.net/embed/iframe/${m[1]}?autoPlay=true`};
+  if(/\.(mp4|webm|mov)(\?|$)/i.test(u)) return {t:'vid',src:u};
+  return {t:'if',src:u};
+}
+const qs = new URLSearchParams(location.search);
+const vurl = qs.get('v') || CFG.VIDEO_URL;
+const screen = document.getElementById('screen');
+screen.innerHTML = `<button class="ph" id="ph" aria-label="Play video">
+  <span class="play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.5v15a1 1 0 0 0 1.52.85l12-7.5a1 1 0 0 0 0-1.7l-12-7.5A1 1 0 0 0 7 4.5z"/></svg></span>
+  <span class="cap">${vurl ? 'Watch first · 3 minutes' : 'Video coming soon'}</span></button>`;
+document.getElementById('ph').onclick = () => {
+  const e = embed(vurl); if(!e) return;
+  screen.innerHTML = e.t==='vid'
+    ? `<video src="${e.src}" controls autoplay playsinline></video>`
+    : `<iframe src="${e.src}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+};
+
+/* ---------- survey: branching by what they own ---------- */
+const A = {};           // answers
+const hist = [];        // step history for Back
+const SECTORS = [
+  ['mfg','Manufacturing / industrial'],['dist','Distribution / logistics'],['const','Construction / trades'],
+  ['svc','Business or field services'],['health','Healthcare / medical practice'],['auto','Automotive / repair'],
+  ['food','Restaurant / hospitality'],['retail','Retail / wholesale'],['other','Something else']];
+
+const STEPS = {
+  own:{ q:'What would you consider selling?', hint:'Pick the closest one.', opts:[
+      ['both','The business and the building','I own both'],
+      ['biz','The business','I lease the space'],
+      ['prop','A commercial property','No operating business attached']], next:a=>a.own==='prop'?'ptype':'sector'},
+  sector:{ q:'What does the business do?', two:true, opts:SECTORS, next:()=> 'rev'},
+  ptype:{ q:'What kind of property is it?', two:true, opts:[
+      ['ind','Industrial / warehouse'],['office','Office'],['retail','Retail / strip center'],['mf','Multifamily (5+ units)'],
+      ['land','Land'],['mixed','Mixed use / other']], next:()=> 'pval'},
+  rev:{ q:'Roughly, what does the business bring in a year?', hint:'Revenue, not profit. A ballpark is fine.', opts:[
+      ['r0','Under $500K'],['r1','$500K – $1M'],['r2','$1M – $3M'],['r3','$3M – $10M'],['r4','$10M+']],
+      next:a=>a.own==='both'?'pval':'years'},
+  pval:{ q:()=>A.own==='both'?'And the building — what do you think it’s worth?':'What do you think the property is worth?', hint:'Your best guess is fine. That’s what the range is for.', opts:[
+      ['p0','Under $1M'],['p1','$1M – $3M'],['p2','$3M – $10M'],['p3','$10M+'],['pu','No idea']],
+      next:a=>a.own==='prop'?'where':'years'},
+  years:{ q:'How long have you been running it?', opts:[
+      ['y0','Under 5 years'],['y1','5 – 10 years'],['y2','10 – 20 years'],['y3','20+ years']], next:()=> 'where'},
+  where:{ q:()=>`Where is the ${A.own==='prop'?'property':'business'}?`, two:true, opts:[
+      ['dfw','Dallas – Fort Worth'],['hou','Houston'],['aus','Austin'],['sat','San Antonio'],
+      ['tx','Elsewhere in Texas'],['out','Outside Texas']], next:a=>a.own==='prop'?'when':'role'},
+  role:{ q:'How involved are you day to day?', opts:[
+      ['full','I run everything','Nothing moves without me'],
+      ['part','I’ve stepped back some','Key people handle a lot'],
+      ['gm','A manager runs it','I oversee']], next:()=> 'succ'},
+  succ:{ q:'If you stepped away tomorrow, who takes over?', opts:[
+      ['fam','A family member is taking it over'],['none','No plan yet'],['mgr','A partner or key employee might'],['unsure','Honestly not sure']],
+      next:()=> 'when'},
+  when:{ q:'When could you see yourself selling?', opts:[
+      ['t0','In the next 6 months'],['t1','6 – 12 months'],['t2','1 – 2 years'],['t3','Just curious what it’s worth']],
+      next:()=> 'why'},
+  why:{ q:'What’s making you think about it?', hint:'Pick the one that fits best.', two:true, opts:[
+      ['retire','Retirement'],['health','Health or family'],['tired','Ready for a change'],['offer','Someone approached me'],
+      ['next','Starting something new'],['partner','Partner situation']], next:()=> 'contact'},
+  contact:{ form:true, q:'Where should I send your range?', hint:'I prepare each one myself. It usually lands within 2 business days.' }
+};
+
+/* estimate total steps on the current branch for the progress bar */
+function pathLen(){
+  return A.own==='prop' ? 7 : A.own==='both' ? 11 : 10;
+}
+
+const box = document.getElementById('q'), bar = document.getElementById('bar');
+let cur = 'own';
+
+function txt(v){ return typeof v==='function' ? v() : v }
+
+function render(){
+  const s = STEPS[cur];
+  const n = hist.length + 1, tot = pathLen();
+  bar.style.width = Math.min(96, (n-1)/tot*100) + '%';
+  const meta = `<div class="meta"><span>Question ${n} of ${tot}</span><span>${Math.round((n-1)/tot*100)}%</span></div>`;
+  const nav = `<div class="nav"><button class="back" ${hist.length?'':'hidden'} id="back">← Back</button>${s.form?'<button class="go" id="send" disabled>Send me my range →</button>':''}</div>`;
+
+  if(s.form){
+    box.innerHTML = `${meta}<div class="q"><h3>${txt(s.q)}</h3><p class="hint">${s.hint}</p>
+      <div class="fields two">
+        <label class="f"><span>First name</span><input id="fn" autocomplete="given-name" value="${A.fn||''}"></label>
+        <label class="f"><span>Last name</span><input id="ln" autocomplete="family-name" value="${A.ln||''}"></label>
+      </div>
+      <div class="fields two" style="margin-top:12px">
+        <label class="f"><span>Email</span><input id="em" type="email" autocomplete="email" value="${A.em||''}"></label>
+        <label class="f"><span>Mobile</span><input id="ph" type="tel" autocomplete="tel" value="${A.ph||''}"></label>
+      </div>
+      <div class="fields" style="margin-top:12px">
+        <label class="f"><span>${A.own==='prop'?'Property address':'Business name'}</span><input id="co" value="${A.co||''}"></label>
+      </div>
+      ${nav}
+      <p class="fine">By sending this you agree Issac Newton (eXp Commercial) can contact you about your range by email, phone or text. Reply STOP to opt out.</p></div>`;
+    const ids=['fn','ln','em','ph','co'], send=document.getElementById('send');
+    const ok=()=>{ ids.forEach(i=>A[i]=document.getElementById(i).value.trim());
+      send.disabled = !(A.fn && /\S+@\S+\.\S+/.test(A.em) && A.ph.replace(/\D/g,'').length>=10 && A.co) };
+    ids.forEach(i=>document.getElementById(i).addEventListener('input',ok)); ok();
+    send.onclick = finish;
+  } else {
+    box.innerHTML = `${meta}<div class="q"><h3>${txt(s.q)}</h3>${s.hint?`<p class="hint">${s.hint}</p>`:'<div style="height:12px"></div>'}
+      <div class="opts ${s.two?'two':''}">${s.opts.map((o,i)=>`<button class="opt ${A[cur]===o[0]?'sel':''}" data-v="${o[0]}">
+        <span class="k">${String.fromCharCode(65+i)}</span><span>${o[1]}${o[2]?`<small>${o[2]}</small>`:''}</span></button>`).join('')}</div>${nav}</div>`;
+    box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+      box.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
+      A[cur]=b.dataset.v; setTimeout(()=>{ hist.push(cur); cur=s.next(A); render(); }, 220);
+    });
+  }
+  const back=document.getElementById('back');
+  if(back) back.onclick=()=>{ cur=hist.pop(); render(); };
+}
+
+/* keyboard: A/B/C… picks an option */
+document.addEventListener('keydown',e=>{
+  if(STEPS[cur].form || e.metaKey || e.ctrlKey || /INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  const i=e.key.toUpperCase().charCodeAt(0)-65, b=box.querySelectorAll('.opt')[i];
+  if(e.key.length===1 && b) b.click();
+});
+
+/* ---------- qualification (mirrors Issac's seller ICP) ----------
+   Hard out: outside Texas · family succession · "just curious" · too small on every side.
+   Size floor: revenue ≥ $500K, or property ≥ $1M.
+   Then score ≥ 5 → calendar. Everyone still gets their range by email. */
+function qualify(){
+  const why=[];
+  if(A.where==='out') why.push('outside Texas');
+  if(A.succ==='fam') why.push('family succession');
+  if(A.when==='t3') why.push('no timeline');
+  const bigBiz = A.rev && A.rev!=='r0';
+  const bigProp = A.pval && !['p0','pu'].includes(A.pval);
+  if(!bigBiz && !bigProp) why.push('below size floor');
+  let s=0;
+  s += A.own==='both'?3:1;
+  s += {r1:1,r2:2,r3:3,r4:3}[A.rev]||0;
+  s += {p1:1,p2:2,p3:3}[A.pval]||0;
+  s += {y2:1,y3:2}[A.years]||0;
+  s += {t0:3,t1:3,t2:1}[A.when]||0;
+  s += {retire:2,health:2,offer:1,tired:1,partner:1,next:1}[A.why]||0;
+  s += {part:1,gm:1}[A.role]||0;
+  s += {none:1,unsure:1}[A.succ]||0;
+  return {ok: !why.length && s>=5, score:s, reasons:why};
+}
+
+function finish(){
+  const r = qualify();
+  bar.style.width='100%';
+  const payload = {...A, qualified:r.ok, score:r.score, dq:r.reasons.join(', '),
+    source:'avsl-opinion-of-value', page:location.href, utm:Object.fromEntries(qs), ts:new Date().toISOString()};
+  if(CFG.WEBHOOK) fetch(CFG.WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(()=>{});
+
+  if(r.ok){
+    const cal = CFG.CALENDAR + (CFG.CALENDAR.includes('?')?'&':'?') +
+      `name=${encodeURIComponent(A.fn+' '+A.ln)}&email=${encodeURIComponent(A.em)}&hide_gdpr_banner=1&background_color=ffffff&primary_color=e42b0c`;
+    box.innerHTML = `<div class="res"><span class="badge"><i></i>You're a fit</span>
+      <h3>${A.fn}, your range is on my desk.</h3>
+      <p>Based on your answers, a 15-minute call gets you a tighter number. I walk you through it and answer what's on your mind. Pick a time below.</p>
+      <div class="cal"><iframe src="${cal}" title="Book a time with Issac"></iframe></div></div>`;
+  } else {
+    box.innerHTML = `<div class="res"><span class="badge"><i></i>Received</span>
+      <h3>Thanks, ${A.fn}. Your range is on its way.</h3>
+      <p>I'll email it to ${A.em} within 2 business days. If anything in it raises a question, just reply to that email.</p></div>`;
+  }
+  document.getElementById('survey').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+render();
+})();
+</script>
+</body>
+</html>
