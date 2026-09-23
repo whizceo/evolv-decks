@@ -2,305 +2,433 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <title>Issac · Command Center</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#070b16;--panel:rgba(16,23,42,.74);--panel-2:rgba(255,255,255,.035);--line:rgba(150,165,210,.11);--line-2:rgba(150,165,210,.2);
-  --ink:#e9edf7;--mut:#8d96b0;--dim:#5a6380;--blue:#5b8cff;--blue-2:#9cb8ff;--blue-soft:rgba(91,140,255,.14);
-  --amber:#f2a65a;--green:#4fd1a1;--red:#ff7a7a;--track:rgba(150,165,210,.1);
-  --glow-a:rgba(52,96,255,.2);--glow-b:rgba(242,138,58,.13);--shadow:0 1px 0 rgba(255,255,255,.04) inset,0 20px 40px -24px rgba(0,0,0,.6);
-}
-:root[data-theme="light"]{
-  --bg:#f3f4f8;--panel:rgba(255,255,255,.9);--panel-2:#f6f7fb;--line:rgba(20,30,60,.08);--line-2:rgba(20,30,60,.16);
-  --ink:#10162a;--mut:#5d667f;--dim:#8b93a8;--blue:#2f63e8;--blue-2:#2f63e8;--blue-soft:rgba(47,99,232,.1);
-  --amber:#d9822b;--green:#1e9e72;--red:#d64545;--track:rgba(20,30,60,.07);
-  --glow-a:rgba(47,99,232,.08);--glow-b:rgba(217,130,43,.07);--shadow:0 1px 2px rgba(16,22,42,.05),0 12px 32px -20px rgba(16,22,42,.18);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:Inter,system-ui,sans-serif;font-weight:400;background:var(--bg);color:var(--ink);min-height:100vh;
-  background-image:radial-gradient(900px 600px at 92% -8%,var(--glow-a),transparent 60%),radial-gradient(700px 700px at 110% 70%,var(--glow-b),transparent 60%);
-  background-attachment:fixed;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1,"cv11" 1}
-.num,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-feature-settings:"tnum" 1}
+:root{--sig:#e42b0c;--sig-soft:#fbe3de;
+  --ink:#000;--carbon:#1f1f1f;--s900:#101828;--s700:#364153;--s600:#4a5565;--steel:#676767;--iron:#8a8a8a;
+  --mist:#99a1af;--cloud:#d4d4d4;--frost:#e5e7eb;--paper:#fff;--vellum:#f5f5f5;--r:8px;
+  --sh:rgba(0,0,0,.1) 0 1px 3px 0,rgba(0,0,0,.1) 0 1px 2px -1px;
+  --f:Inter,"Söhne","Suisse Int'l",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:var(--vellum);color:var(--s600);font:400 16px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+b,strong{font-weight:600;color:var(--s900)}
+p{margin:0}
 
-/* sidebar */
-.side{position:fixed;left:16px;top:16px;bottom:16px;width:64px;border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(14px);
-  border-radius:20px;display:flex;flex-direction:column;align-items:center;padding:14px 0;gap:6px;z-index:10}
-.side a,.side button{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:var(--dim);background:none;border:0;cursor:pointer;transition:.2s}
-.side a:hover,.side button:hover{color:var(--ink);background:var(--panel-2)}
-.side a.on{color:var(--blue-2);background:var(--blue-soft)}
-.side svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.side .sp{flex:1}
-.side .mark{font-weight:600;font-size:13px;letter-spacing:.02em;color:var(--ink);margin-bottom:10px}
-.side .lbl{font-size:10px;color:var(--dim);margin-top:-2px}
+/* nav */
+.topbar{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--frost)}
+.bar{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.mark{font:600 20px/1 var(--f);color:var(--ink);letter-spacing:-.025em;white-space:nowrap}
+.mark span{font-weight:400;color:var(--iron)}
+.livepill{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--cloud);border-radius:100px;padding:8px 16px;
+  font:500 12px/1 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s900);white-space:nowrap}
+.demo-flag{display:none;background:var(--carbon);color:#fff;text-align:center;font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;padding:8px 16px}
+body.demo .demo-flag{display:block}
 
-main{margin:0 auto;padding:16px 24px 48px 104px;max-width:1420px}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-.card{grid-column:span 12;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px 24px;backdrop-filter:blur(14px);box-shadow:var(--shadow);position:relative;overflow:hidden;min-width:0}
-.s8{grid-column:span 8}.s6{grid-column:span 6}.s4{grid-column:span 4}.s3{grid-column:span 3}
-.h{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-.h h2{font-size:15px;font-weight:500;letter-spacing:-.005em}
-.h .src{font-size:11px;color:var(--dim);display:flex;align-items:center;gap:6px}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--dim);display:inline-block;flex:none}
-.dot.live{background:var(--green);box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 18%,transparent)}
-.dot.draft,.dot.waiting,.dot.handed_over{background:var(--amber)}
-.dot.not_built,.dot.off{background:var(--dim)}
-.dot.error{background:var(--red)}
-.note{font-size:12px;color:var(--mut);line-height:1.5}
-.big{font-size:44px;font-weight:300;letter-spacing:-.03em;line-height:1}
-.mid{font-size:26px;font-weight:300;letter-spacing:-.02em;line-height:1}
-.lab{font-size:12px;color:var(--mut)}
-.chip{font-size:11px;padding:5px 10px;border-radius:999px;border:1px solid var(--line-2);color:var(--mut);white-space:nowrap}
-.empty{color:var(--dim)}
+/* status dots */
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--cloud);flex:none}
+.dot.live{background:var(--sig);box-shadow:0 0 0 4px var(--sig-soft)}
+.dot.draft{background:transparent;box-shadow:inset 0 0 0 1.5px var(--carbon)}
+.dot.error{background:transparent;box-shadow:inset 0 0 0 2px var(--sig)}
 
 /* hero */
-.hero{min-height:236px;display:flex;flex-direction:column}
-.hero .hi{font-size:15px;color:var(--mut)}
-.hero .name{font-size:36px;font-weight:500;letter-spacing:-.025em;margin:4px 0 10px}
-.hero .row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.hero .kpi{display:flex;align-items:baseline;gap:10px;margin-top:4px}
-.hero svg{position:absolute;left:0;right:0;bottom:0;width:100%;height:110px}
-.hero .copy{max-width:360px;position:relative;z-index:1}
+.hero{padding:40px 0 0}
+.herocard{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);
+  display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:48px;padding:56px}
+.pill{display:inline-block;border:1px solid var(--cloud);border-radius:var(--r);padding:4px 12px;
+  font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s600)}
+h1{font:300 clamp(40px,5.4vw,64px)/1.05 var(--f);letter-spacing:-.03em;color:var(--s900);margin:28px 0 16px}
+.sub{font:400 18px/1.5 var(--f);color:var(--s600);max-width:32em}
+.convo{display:flex;align-items:flex-end;gap:24px;margin-top:40px;padding-top:24px;border-top:1px solid var(--frost)}
+.convo .big{font:300 72px/.9 var(--f);letter-spacing:-.04em;color:var(--s900)}
+.convo .lab{font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s600);padding-bottom:6px}
+.chart-hero{height:120px;margin-top:16px}
+.panel{background:var(--carbon);border-radius:var(--r);padding:32px;display:flex;flex-direction:column;color:var(--mist)}
+.panel .day{font:300 30px/1.3 var(--f);color:#fff;margin-bottom:6px}
+.panel .clock{font:400 14px/1.43 var(--f);color:var(--mist);margin-bottom:24px}
+.panel ul{list-style:none;margin:auto 0 0;padding:0}
+.panel li{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid rgba(255,255,255,.14);font:400 14px/1.43 var(--f)}
+.panel li .t{color:#fff;flex:1}
+.panel li em{font-style:normal;color:var(--mist);font-size:13px}
+.panel .dot.draft{box-shadow:inset 0 0 0 1.5px #fff}
+.panel .dot.live{box-shadow:0 0 0 4px rgba(228,43,12,.28)}
 
-.status .date{font-size:17px;font-weight:500}
-.status .day{font-size:13px;color:var(--mut);margin-top:2px}
-.src-list{list-style:none;margin-top:18px;display:grid;gap:10px}
-.src-list li{display:flex;align-items:center;gap:10px;font-size:13px}
-.src-list li span.t{flex:1}
-.src-list li em{font-style:normal;font-size:11px;color:var(--dim)}
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:16px}
+.kpi{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);padding:28px 28px 20px;min-width:0}
+.kpi .no{font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s600)}
+.kpi .v{font:300 52px/1 var(--f);letter-spacing:-.035em;color:var(--s900);margin:20px 0 8px}
+.kpi .d{font:400 14px/1.43 var(--f);color:var(--steel);min-height:20px}
+.kpi .mini-chart{height:44px;margin-top:16px}
+.kpi.hot{background:var(--carbon);border-color:var(--carbon)}
+.kpi.hot .no,.kpi.hot .d,.kpi.hot .note{color:var(--mist)}.kpi.hot .v{color:#fff}
 
-.kpi-card .mid{margin:14px 0 8px}
-.kpi-card .delta{font-size:11px;color:var(--dim)}
+/* layout */
+.layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:56px;padding-top:64px;padding-bottom:96px}
+.toc{position:sticky;top:96px;align-self:start;display:flex;flex-direction:column;gap:4px}
+.toc a{font:500 14px/1.43 var(--f);color:var(--s600);text-decoration:none;padding:8px 12px;border-radius:var(--r);display:flex;gap:10px}
+.toc a i{font-style:normal;color:var(--iron);font-variant-numeric:tabular-nums}
+.toc a:hover{background:var(--paper);color:var(--s900)}
+.toc a.on{background:var(--paper);color:var(--s900);box-shadow:inset 2px 0 0 var(--sig),var(--sh)}
+main{min-width:0}
 
-/* funnel */
-.fun{display:grid;gap:10px}
-.fun .r{display:grid;grid-template-columns:150px 1fr 70px 56px;align-items:center;gap:14px;font-size:13px}
-.fun .bar{height:10px;background:var(--track);border-radius:6px;overflow:hidden}
-.fun .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--blue),var(--blue-2));transition:width 1s cubic-bezier(.2,.7,.2,1)}
-.fun .r:nth-last-child(-n+2) .bar i{background:linear-gradient(90deg,var(--amber),#f6c48d)}
-.fun .v{text-align:right}
-.fun .c{text-align:right;font-size:11px;color:var(--dim)}
+.part{margin:0 0 96px}
+.part:last-child{margin-bottom:0}
+h2{font:300 clamp(32px,4vw,44px)/1.15 var(--f);letter-spacing:-.025em;color:var(--s900);margin:20px 0 12px;max-width:18em}
+.deck{font:400 18px/1.5 var(--f);color:var(--s600);max-width:40em}
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.src{display:inline-flex;align-items:center;gap:8px;font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;padding:4px 12px;
+  border-radius:var(--r);border:1px solid var(--cloud);color:var(--s600);white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:32px}
+.s12{grid-column:span 12}.s7{grid-column:span 7}.s6{grid-column:span 6}.s5{grid-column:span 5}
+.card{background:var(--paper);border:1px solid var(--frost);border-radius:var(--r);box-shadow:var(--sh);padding:32px;min-width:0}
+.card.dark{background:var(--carbon);border-color:var(--carbon);color:var(--mist)}
+.thead{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--frost);margin-bottom:24px}
+.dark .thead{border-color:rgba(255,255,255,.14)}
+h3{font:400 22px/1.35 var(--f);color:var(--s900);margin:0;letter-spacing:-.01em}
+.dark h3,.dark b{color:#fff}
+.note{font:400 14px/1.5 var(--f);color:var(--steel)}
+.dark .note{color:var(--mist)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;font:400 13px/1.4 var(--f);color:var(--s600)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.legend i.ln{height:2px;border-radius:0}
 
-.ring-wrap{display:flex;align-items:center;justify-content:center;padding:6px 0 14px}
-.ring-wrap svg{width:170px;height:170px}
-.minis{display:grid;gap:12px}
-.mini{display:grid;grid-template-columns:1fr auto;gap:6px;font-size:12px;color:var(--mut)}
-.mini .bar{grid-column:1/-1;height:6px;border-radius:4px;background:var(--track);overflow:hidden}
-.mini .bar i{display:block;height:100%;background:var(--blue);border-radius:4px}
+/* stat rows */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0;border-top:1px solid var(--frost);margin-top:24px}
+.stats>div{padding:16px 16px 0 0}
+.stats .v{font:300 32px/1.1 var(--f);letter-spacing:-.03em;color:var(--s900)}
+.stats .v.empty{color:var(--cloud)}
+.stats .l{font:400 13px/1.4 var(--f);color:var(--steel);margin-top:4px}
 
-/* tables */
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{font-weight:400;font-size:11px;color:var(--dim);text-align:right;padding:0 0 10px;letter-spacing:.02em}
-th:first-child,td:first-child{text-align:left}
-td{padding:11px 0;border-top:1px solid var(--line);text-align:right}
-td .pill{font-size:10px;padding:3px 8px;border-radius:999px;margin-left:8px;border:1px solid var(--line-2);color:var(--mut);vertical-align:1px}
+/* charts */
+.chart{position:relative;width:100%}
+.chart svg{display:block;overflow:visible}
+.ax{font:400 11px var(--f);fill:var(--iron)}
+.grid-l{stroke:var(--frost);stroke-width:1}
+.hit{fill:transparent;cursor:crosshair}
+.hit:hover{fill:rgba(16,24,40,.05)}
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--carbon);color:#fff;border-radius:var(--r);padding:8px 12px;
+  font:400 12px/1.5 var(--f);box-shadow:0 8px 24px rgba(0,0,0,.18);opacity:0;transform:translate(-50%,calc(-100% - 12px));transition:opacity .12s;white-space:nowrap}
+#tip b{color:#fff;font-weight:600}
+#tip.on{opacity:1}
 
-/* bars */
-.bars{display:flex;align-items:flex-end;gap:5px;height:120px;margin-top:20px;position:relative}
-.bars .b{flex:1;height:100%;display:flex;align-items:flex-end;position:relative}
-.bars .b i{width:100%;min-height:3px;border-radius:6px;background:linear-gradient(180deg,var(--blue-2),var(--blue));opacity:.8;transition:height .9s cubic-bezier(.2,.7,.2,1)}
-.bars .b.zero i{background:var(--track);opacity:1}
-.bars .b.peak i{opacity:1;box-shadow:0 0 18px -2px var(--blue)}
-.bars .b:hover i{opacity:1}
-.bars .b .tip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);font-size:11px;padding:4px 7px;border-radius:7px;background:var(--panel-2);border:1px solid var(--line-2);white-space:nowrap;opacity:0;pointer-events:none;transition:.15s;backdrop-filter:blur(8px);z-index:2}
-.bars .b:hover .tip{opacity:1}
-.bars.two .b i.r{position:absolute;bottom:0;left:25%;width:50%;background:var(--amber);opacity:1}
-.axis{display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-top:8px}
-.legend{display:flex;gap:14px;font-size:11px;color:var(--mut)}
-.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:0}
+/* campaign table */
+table{width:100%;border-collapse:collapse;font:400 14px/1.43 var(--f)}
+th{font:500 12px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s600);text-align:right;padding:0 0 12px 12px;border-bottom:1px solid var(--frost);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;padding-left:0}
+td{padding:16px 0 16px 12px;border-bottom:1px solid var(--frost);text-align:right;color:var(--s900);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td .tag{display:inline-block;margin-left:8px;border:1px solid var(--cloud);border-radius:var(--r);padding:1px 8px;font:500 11px/1.5 var(--f);letter-spacing:.025em;text-transform:uppercase;color:var(--s600)}
+td .tag.live{border-color:var(--sig);color:var(--sig)}
+.stack{display:flex;height:8px;border-radius:2px;overflow:hidden;background:var(--vellum);margin-top:10px;min-width:120px}
+.stack i{display:block;height:100%}
+.sub-l{color:var(--iron)}
+
+/* heatmap */
+.heat{display:grid;grid-template-columns:32px repeat(var(--w),minmax(0,1fr));gap:4px;align-items:center}
+.heat .hl{font:400 11px var(--f);color:var(--iron)}
+.heat .c{aspect-ratio:1;border-radius:3px;background:var(--vellum);border:1px solid var(--frost);max-height:36px}
+.heat .c.out{background:transparent;border-color:transparent}
+.heat .c.max{box-shadow:0 0 0 2px var(--sig)}
+.scale{display:flex;align-items:center;gap:4px;margin-top:16px;font:400 11px var(--f);color:var(--iron)}
+.scale i{width:14px;height:14px;border-radius:3px;display:inline-block}
+
+/* meters */
+.meter{padding:16px 0;border-top:1px solid var(--frost)}
+.meter:first-child{border-top:0;padding-top:0}
+.meter .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;color:var(--s900);font-size:15px}
+.meter .row b{font:300 28px/1 var(--f);letter-spacing:-.03em;white-space:nowrap}
+.meter .track{position:relative;height:8px;background:var(--vellum);border-radius:2px;margin-top:12px}
+.meter .track i{position:absolute;left:0;top:0;bottom:0;background:var(--carbon);border-radius:2px}
+.meter .track i.bad{background:var(--sig)}
+.meter .track u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--sig)}
 
 /* inboxes */
-.inbox{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
-.ib{border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--panel-2)}
-.ib .n{font-size:18px;font-weight:300}
-.ib .d{font-size:10px;color:var(--dim);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.inbox-wrap{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:center}
+.inboxes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ib{border:1px solid var(--frost);border-radius:var(--r);padding:12px 14px;background:var(--vellum)}
+.ib .n{font:300 24px/1 var(--f);color:var(--s900);letter-spacing:-.02em}
+.ib .d{font:400 11px/1.4 var(--f);color:var(--iron);margin-top:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ib .g{height:4px;background:var(--frost);border-radius:2px;margin-top:10px;overflow:hidden}
+.ib .g i{display:block;height:100%;background:var(--carbon)}
 
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.stats.three{grid-template-columns:repeat(3,1fr)}
-.stat .mid{font-size:24px;margin-bottom:6px}
+/* linkedin step blocks */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:end;height:220px;margin-top:8px}
+.steps .st{position:relative;display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding-right:10px}
+.steps .blk{background:var(--carbon);border-radius:4px 4px 0 0;min-height:2px}
+.steps .st:last-child .blk{background:var(--sig)}
+.steps .st .v{font:300 28px/1 var(--f);color:var(--s900);letter-spacing:-.03em;margin-bottom:8px}
+.steps .st .r{position:absolute;top:0;left:-20px;font:500 11px/1 var(--f);color:var(--sig);background:var(--paper);padding:4px 7px;border:1px solid var(--sig-soft);border-radius:100px}
+.steps-l{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--carbon);padding-top:10px}
+.steps-l span{font:400 13px/1.4 var(--f);color:var(--s600);padding-right:8px}
+
+/* posts */
+.posts{list-style:none;margin:24px 0 0;padding:0}
+.posts li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:16px;padding:16px 0;border-top:1px solid var(--frost)}
+.when{font:400 12px/1.2 var(--f);color:var(--iron);text-transform:uppercase;letter-spacing:.025em}
+.when b{display:block;font:300 24px/1 var(--f);color:var(--s900);letter-spacing:-.02em;margin-bottom:2px}
+.posts .t{font:400 15px/1.45 var(--f);color:var(--s900)}
+.posts .imp{display:flex;align-items:center;gap:10px;margin-top:8px;font:400 12px var(--f);color:var(--steel)}
+.posts .imp i{display:block;height:4px;background:var(--carbon);border-radius:2px}
 
 /* pipeline */
-.tabs{display:flex;gap:4px;padding:3px;border:1px solid var(--line);border-radius:10px}
-.tabs button{font:inherit;font-size:12px;border:0;background:none;color:var(--mut);padding:5px 10px;border-radius:7px;cursor:pointer}
-.tabs button.on{background:var(--blue-soft);color:var(--blue-2)}
-.pipe{display:grid;gap:2px}
-.pipe .r{display:grid;grid-template-columns:22px 1fr 1.2fr 42px 86px;gap:12px;align-items:center;font-size:13px;padding:7px 0;border-top:1px solid var(--line)}
+.tabs{display:inline-flex;border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:3px}
+.tabs button{border:0;background:transparent;color:var(--mist);font:500 12px/1 var(--f);letter-spacing:.025em;text-transform:uppercase;padding:9px 16px;border-radius:100px;cursor:pointer}
+.tabs button.on{background:#fff;color:var(--carbon)}
+.pipe .r{display:grid;grid-template-columns:28px minmax(140px,230px) minmax(0,1fr) 44px 72px;gap:14px;align-items:center;padding:10px 0;border-top:1px solid rgba(255,255,255,.08);font:400 14px/1.4 var(--f)}
 .pipe .r:first-child{border-top:0}
-.pipe .i{font-size:10px;color:var(--dim)}
-.pipe .bar{height:6px;border-radius:4px;background:var(--track);overflow:hidden}
-.pipe .bar i{display:block;height:100%;border-radius:4px;background:var(--blue)}
-.pipe .r.win .bar i{background:var(--amber)}
-.pipe .v{text-align:right;font-size:12px;color:var(--mut)}
-.pipe .c{text-align:right}
+.pipe .i{color:rgba(255,255,255,.35);font-size:12px}
+.pipe .nm{color:#fff}
+.pipe .b{height:10px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.pipe .b i{display:block;height:100%;background:var(--mist);border-radius:2px}
+.pipe .r.win .b i{background:var(--sig)}
+.pipe .r.win .nm{font-weight:500}
+.pipe .c{color:#fff;text-align:right}
+.pipe .v{color:var(--mist);text-align:right}
+.pipe-sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14)}
+.pipe-sum .v{font:300 32px/1.1 var(--f);color:#fff;letter-spacing:-.03em}
+.pipe-sum .l{font:400 13px/1.4 var(--f);color:var(--mist);margin-top:4px}
 
-/* list */
-.split{display:flex;height:12px;border-radius:7px;overflow:hidden;gap:3px;margin:16px 0 14px}
-.split i{display:block;height:100%}
-.leg{display:grid;gap:9px}
-.leg div{display:flex;align-items:center;gap:10px;font-size:13px}
-.leg div span{flex:1;color:var(--mut)}
-.leg b{font-weight:400}
+/* owner list */
+.donut-wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:32px;align-items:center}
+.leg{display:flex;flex-direction:column}
+.leg>div{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 0;border-top:1px solid var(--frost);font:400 14px/1.4 var(--f);color:var(--s900)}
+.leg>div:first-child{border-top:0}
+.leg i{width:12px;height:12px;border-radius:3px}
+.leg b{font:300 22px/1 var(--f);letter-spacing:-.02em}
+.uni .r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:14px 0;border-top:1px solid var(--frost);font:400 14px/1.4 var(--f);color:var(--s900)}
+.uni .r:first-child{border-top:0;padding-top:0}
+.uni .tr{grid-column:1/-1;height:8px;background:var(--vellum);border-radius:2px;position:relative;overflow:hidden}
+.uni .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:2px}
 
-.feed{list-style:none;display:grid}
-.feed li{display:grid;grid-template-columns:52px 1fr;gap:14px;padding:11px 0;border-top:1px solid var(--line);font-size:13px;align-items:center}
-.feed li:first-child{border-top:0}
-.feed .when{font-size:11px;color:var(--dim)}
-.feed .when b{display:block;font-size:17px;font-weight:400;color:var(--ink)}
+/* feed */
+.feed{list-style:none;margin:0;padding:0}
+.feed li{display:grid;grid-template-columns:48px 14px minmax(0,1fr);gap:12px;padding:14px 0;border-top:1px solid var(--frost);align-items:start;font:400 15px/1.45 var(--f);color:var(--s900)}
+.feed li:first-child{border-top:0;padding-top:0}
+.feed .pin{width:10px;height:10px;border-radius:50%;border:2px solid var(--carbon);margin-top:5px}
+.feed li.win .pin{border-color:var(--sig);background:var(--sig)}
 
-.banner{grid-column:span 12;border:1px dashed var(--amber);color:var(--amber);border-radius:14px;padding:10px 16px;font-size:12px;display:none}
-.demo .banner{display:block}
-footer{margin-top:22px;font-size:11px;color:var(--dim);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer{border-top:1px solid var(--frost);background:var(--paper)}
+footer .wrap{padding-top:24px;padding-bottom:32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:400 13px/1.5 var(--f);color:var(--steel)}
 
-.reveal{opacity:0;transform:translateY(8px);animation:in .6s cubic-bezier(.2,.7,.2,1) forwards}
-@keyframes in{to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.reveal{animation:none;opacity:1;transform:none}*{transition:none!important}}
-
-@media (max-width:1080px){.s8,.s6,.s4{grid-column:span 12}.s3{grid-column:span 6}}
-@media (max-width:720px){
-  main{margin:0;padding:16px 16px 96px}
-  .side{left:0;right:0;top:auto;bottom:0;width:auto;height:64px;flex-direction:row;justify-content:space-around;border-radius:18px 18px 0 0;padding:0 8px}
-  .side .sp,.side .mark,.side .lbl{display:none}
-  .grid{gap:12px}.card{padding:18px;border-radius:16px}
-  .s3{grid-column:span 6}
-  .hero .name{font-size:28px}.big{font-size:36px}
-  .fun .r{grid-template-columns:96px 1fr 44px;gap:10px}.fun .c{display:none}
-  .pipe .r{grid-template-columns:1fr 34px 70px}.pipe .i,.pipe .bar{display:none}
-  .stats{grid-template-columns:repeat(2,1fr)}.stats.three{grid-template-columns:repeat(3,1fr)}
-  table .hm{display:none}
+@media (max-width:1080px){
+  .herocard{grid-template-columns:minmax(0,1fr);padding:40px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .s7,.s6,.s5{grid-column:span 12}
+}
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr;gap:0;padding-top:24px}
+  .toc{position:sticky;top:64px;z-index:20;flex-direction:row;overflow-x:auto;background:var(--vellum);margin:0 -16px 32px;padding:8px 16px;scrollbar-width:none}
+  .toc::-webkit-scrollbar{display:none}
+  .toc a{white-space:nowrap;flex:none}
+  .toc a.on{box-shadow:inset 0 -2px 0 var(--sig),var(--sh)}
+  html{scroll-padding-top:128px}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .hero{padding-top:16px}
+  .herocard{padding:24px;gap:24px}
+  .convo .big{font-size:56px}
+  .kpis{gap:8px}
+  .kpi{padding:18px 16px 12px}.kpi .v{font-size:36px;margin:12px 0 6px}.kpi .d{font-size:12px}
+  .card{padding:20px}
+  .part{margin-bottom:64px}
+  .inbox-wrap,.donut-wrap{grid-template-columns:1fr}
+  .pipe .r{grid-template-columns:22px minmax(0,1fr) 36px 58px;gap:10px}
+  .pipe .b{grid-column:2/-1;grid-row:2}
+  .pipe-sum .v{font-size:24px}
+  .hm{display:none}
+  .mark span{display:none}
+  .livepill{padding:6px 12px;font-size:11px}
 }
 </style>
 </head>
 <body>
-<nav class="side" aria-label="Sections">
-  <div class="mark">IN</div>
-  <a href="#overview" class="on" title="Overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></a>
-  <a href="#email" title="Email"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
-  <a href="#linkedin" title="LinkedIn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></a>
-  <a href="#pipeline" title="Pipeline"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></a>
-  <a href="#list" title="Owner list"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></a>
-  <a href="#website" title="Website"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></a>
-  <div class="sp"></div>
-  <button id="theme" title="Switch theme" aria-label="Switch theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
-  <div class="lbl" id="themeLbl">Light</div>
-</nav>
+<div class="demo-flag">Sample numbers — shown to preview the layout. Not real results.</div>
 
-<main>
-<div class="grid" id="app">
-  <div class="banner">Sample view. These numbers show how the page fills up once the machine runs. They are not real.</div>
+<header class="topbar">
+  <div class="wrap bar">
+    <div class="mark">Issac Newton <span>· Command Center</span></div>
+    <div class="livepill"><span class="dot" id="liveDot"></span><span id="liveTxt">Loading</span></div>
+  </div>
+</header>
 
-  <!-- HERO -->
-  <section class="card s8 hero reveal" id="overview">
-    <div class="row">
-      <div class="copy">
-        <div class="hi" id="greet">Good morning,</div>
-        <div class="name">Issac</div>
-        <div class="kpi"><span class="big num" id="convos">—</span><span class="lab">conversations started · last 30 days</span></div>
-        <p class="note" id="heroNote" style="margin-top:10px"></p>
+<section class="hero wrap" id="overview">
+  <div class="herocard">
+    <div>
+      <span class="pill">eXp Commercial · Texas · seller machine</span>
+      <h1><span id="greet">Good morning,</span><br>Issac.</h1>
+      <p class="sub" id="heroNote">Loading the latest numbers.</p>
+      <div class="convo">
+        <div class="big num" id="convos">—</div>
+        <div class="lab">Conversations with owners<br><span class="note" style="text-transform:none;letter-spacing:0">replies across email + LinkedIn, last 30 days</span></div>
       </div>
-      <span class="chip mono" id="clock">--:-- CT</span>
+      <div class="chart chart-hero" id="heroChart"></div>
     </div>
-    <svg id="spark" viewBox="0 0 800 110" preserveAspectRatio="none" aria-hidden="true"></svg>
-  </section>
+    <aside class="panel">
+      <div class="day" id="dayN">—</div>
+      <div class="clock"><span id="today"></span> · <span id="clock"></span></div>
+      <ul id="sources"></ul>
+    </aside>
+  </div>
 
-  <!-- STATUS -->
-  <section class="card s4 status reveal" style="animation-delay:.05s">
-    <div class="date" id="today">—</div>
-    <div class="day" id="dayN">—</div>
-    <ul class="src-list" id="sources"></ul>
-  </section>
+  <div class="kpis">
+    <div class="kpi"><div class="no">01 · Owners reached</div><div class="v num" id="k1">—</div><div class="d" id="k1d"></div><div class="chart mini-chart" id="k1c"></div></div>
+    <div class="kpi"><div class="no">02 · Replies</div><div class="v num" id="k2">—</div><div class="d" id="k2d"></div><div class="chart mini-chart" id="k2c"></div></div>
+    <div class="kpi"><div class="no">03 · Discovery calls</div><div class="v num" id="k3">—</div><div class="d" id="k3d"></div><div class="mini-chart" id="k3c"></div></div>
+    <div class="kpi hot"><div class="no">04 · Listings signed</div><div class="v num" id="k4">—</div><div class="d" id="k4d"></div><div class="mini-chart" id="k4c"></div></div>
+  </div>
+</section>
 
-  <!-- KPIs -->
-  <section class="card s3 kpi-card reveal" style="animation-delay:.08s"><div class="lab">Owners reached</div><div class="mid num" id="k1">—</div><div class="delta" id="k1d"></div></section>
-  <section class="card s3 kpi-card reveal" style="animation-delay:.1s"><div class="lab">Replies</div><div class="mid num" id="k2">—</div><div class="delta" id="k2d"></div></section>
-  <section class="card s3 kpi-card reveal" style="animation-delay:.12s"><div class="lab">Discovery calls booked</div><div class="mid num" id="k3">—</div><div class="delta" id="k3d"></div></section>
-  <section class="card s3 kpi-card reveal" style="animation-delay:.14s"><div class="lab">Listings signed</div><div class="mid num" id="k4">—</div><div class="delta" id="k4d"></div></section>
+<div class="wrap layout">
+  <nav class="toc" aria-label="Sections">
+    <a href="#machine"><i>01</i>The machine</a>
+    <a href="#email"><i>02</i>Email</a>
+    <a href="#linkedin"><i>03</i>LinkedIn</a>
+    <a href="#pipeline"><i>04</i>Pipeline</a>
+    <a href="#list"><i>05</i>Owner list</a>
+    <a href="#website"><i>06</i>Website + moves</a>
+  </nav>
 
-  <!-- FUNNEL -->
-  <section class="card s8 reveal">
-    <div class="h"><h2>From owner to listing</h2><span class="src">Email · LinkedIn · CRM</span></div>
-    <div class="fun" id="funnel"></div>
-  </section>
+  <main>
+    <section class="part" id="machine">
+      <span class="pill">01 · The machine</span>
+      <h2>From owner in play to listing signed.</h2>
+      <p class="deck">Every stage a seller walks through, and how many make it to the next one.</p>
+      <div class="grid">
+        <div class="card s12">
+          <div class="thead"><h3>The funnel</h3><span class="note">Width on a square-root scale so the late stages stay visible</span></div>
+          <div class="chart" id="funnel"></div>
+        </div>
+        <div class="card s12">
+          <div class="thead"><h3>Every touch, every day</h3>
+            <div class="legend"><span><i style="background:var(--carbon)"></i>Emails sent</span><span><i style="background:var(--mist)"></i>LinkedIn requests</span><span><i class="ln" style="background:var(--sig)"></i>Replies (right axis)</span></div></div>
+          <div class="chart" id="combo" style="height:280px"></div>
+          <div class="stats" id="comboStats"></div>
+        </div>
+      </div>
+    </section>
 
-  <!-- RATE -->
-  <section class="card s4 reveal">
-    <div class="h"><h2>List coverage</h2><span class="src">Email + LinkedIn</span></div>
-    <div class="ring-wrap"><svg id="ring" viewBox="0 0 170 170"></svg></div>
-    <div class="minis" id="rates"></div>
-  </section>
+    <section class="part" id="email">
+      <div class="shead"><div><span class="pill">02 · Email</span>
+      <h2>Three campaigns, one per kind of owner.</h2></div><span class="src" id="emailSrc"></span></div>
+      <div class="grid">
+        <div class="card s12">
+          <div class="thead"><h3>Campaigns</h3>
+            <div class="legend"><span><i style="background:var(--carbon)"></i>Contacted</span><span><i style="background:var(--mist)"></i>Replied</span><span><i style="background:var(--sig)"></i>Interested</span></div></div>
+          <table><thead><tr><th>Campaign</th><th>Contacted</th><th class="hm">Sent</th><th>Replies</th><th class="hm">Interested</th><th class="hm">Bounce</th></tr></thead><tbody id="camps"></tbody></table>
+        </div>
+        <div class="card s7">
+          <div class="thead"><h3>Reply rate, 7-day rolling</h3><span class="note" id="rrNote"></span></div>
+          <div class="chart" id="rolling" style="height:220px"></div>
+        </div>
+        <div class="card s5">
+          <div class="thead"><h3>When emails go out</h3><span class="note">Sent per day</span></div>
+          <div id="heat"></div>
+          <div class="scale" id="heatScale"></div>
+        </div>
+        <div class="card s5">
+          <div class="thead"><h3>What the replies say</h3></div>
+          <div class="chart" id="replyDonut" style="height:200px"></div>
+          <div class="leg" id="replyLeg" style="margin-top:16px"></div>
+        </div>
+        <div class="card s7">
+          <div class="thead"><h3>Sender health</h3><span class="note">Red line = the limit we never cross</span></div>
+          <div id="health"></div>
+        </div>
+        <div class="card s12">
+          <div class="thead"><h3>Sending inboxes</h3><span class="note" id="inboxSrc"></span></div>
+          <div class="inbox-wrap"><div class="chart" id="warm" style="height:200px"></div><div class="inboxes" id="inboxes"></div></div>
+        </div>
+      </div>
+    </section>
 
-  <!-- EMAIL -->
-  <section class="card s8 reveal" id="email">
-    <div class="h"><h2>Email campaigns</h2><span class="src" id="emailSrc"></span></div>
-    <table>
-      <thead><tr><th>Campaign</th><th>Contacted</th><th class="hm">Sent</th><th>Replies</th><th class="hm">Interested</th><th class="hm">Bounced</th></tr></thead>
-      <tbody id="camps"></tbody>
-    </table>
-    <div class="h" style="margin:24px 0 0"><span class="lab">Emails sent per day · 30 days</span><span class="lab">Hover a day for replies</span></div>
-    <div class="bars" id="emailBars"></div>
-    <div class="axis" id="emailAxis"></div>
-  </section>
+    <section class="part" id="linkedin">
+      <div class="shead"><div><span class="pill">03 · LinkedIn</span>
+      <h2>Outreach from your profile, and what you post.</h2></div><span class="src" id="liSrc"></span></div>
+      <div class="grid">
+        <div class="card s6">
+          <div class="thead"><h3>Request to reply</h3><span class="note">Conversion between each step</span></div>
+          <div class="steps" id="steps"></div>
+          <div class="steps-l"><span>Requests sent</span><span>Accepted</span><span>Messaged</span><span>Replied</span></div>
+        </div>
+        <div class="card s6">
+          <div class="thead"><h3>Requests per day</h3>
+            <div class="legend"><span><i style="background:var(--carbon)"></i>Requests</span><span><i style="background:var(--sig);border-radius:50%"></i>Replies</span></div></div>
+          <div class="chart" id="liChart" style="height:236px"></div>
+        </div>
+        <div class="card s12">
+          <div class="thead"><h3>LinkedIn content</h3><span class="src" id="ctSrc"></span></div>
+          <div class="stats" id="ctStats" style="border-top:0;margin-top:0"></div>
+          <ul class="posts" id="posts"></ul>
+        </div>
+      </div>
+    </section>
 
-  <!-- INBOXES -->
-  <section class="card s4 reveal">
-    <div class="h"><h2>Sending inboxes</h2><span class="src" id="inboxSrc"></span></div>
-    <div class="ring-wrap" style="padding-bottom:8px"><svg id="warm" viewBox="0 0 170 170"></svg></div>
-    <div class="inbox" id="inboxes"></div>
-  </section>
+    <section class="part" id="pipeline">
+      <div class="shead"><div><span class="pill">04 · Pipeline</span>
+      <h2>Where every seller and buyer sits in the CRM.</h2></div><span class="src" id="ghlSrc"></span></div>
+      <div class="grid">
+        <div class="card dark s12">
+          <div class="thead"><h3 id="pipeTitle">Seller journey</h3>
+            <div class="tabs"><button class="on" data-p="seller">Sellers</button><button data-p="deal">Buyers</button></div></div>
+          <div class="pipe" id="pipe"></div>
+          <div class="pipe-sum" id="pipeSum"></div>
+        </div>
+        <div class="card s12">
+          <div class="thead"><h3>Property value by stage</h3><span class="note">Sellers · stage numbers match the journey above</span></div>
+          <div class="chart" id="valueChart" style="height:240px"></div>
+        </div>
+      </div>
+    </section>
 
-  <!-- LINKEDIN OUTREACH -->
-  <section class="card s6 reveal" id="linkedin">
-    <div class="h"><h2>LinkedIn outreach</h2><span class="src" id="liSrc"></span></div>
-    <div class="stats" id="liStats"></div>
-    <div class="bars" id="liBars"></div>
-    <div class="axis" id="liAxis"></div>
-  </section>
+    <section class="part" id="list">
+      <div class="shead"><div><span class="pill">05 · Owner list</span>
+      <h2>Who the machine is talking to.</h2></div><span class="src" id="listSrc"></span></div>
+      <div class="grid">
+        <div class="card s7">
+          <div class="thead"><h3>Owners in play</h3><span class="note" id="universe"></span></div>
+          <div class="donut-wrap"><div class="chart" id="ownerDonut" style="height:220px"></div><div class="leg" id="listLeg"></div></div>
+        </div>
+        <div class="card s5">
+          <div class="thead"><h3>Picked from Texas</h3><span class="note">In play vs. every owner found</span></div>
+          <div class="uni" id="uni"></div>
+        </div>
+        <div class="card s12">
+          <div class="thead"><h3>Contact coverage</h3><span class="note">Share of owners in play we can reach, by channel</span></div>
+          <div id="coverage"></div>
+        </div>
+      </div>
+    </section>
 
-  <!-- LINKEDIN CONTENT -->
-  <section class="card s6 reveal">
-    <div class="h"><h2>LinkedIn content</h2><span class="src" id="ctSrc"></span></div>
-    <div class="stats three" id="ctStats"></div>
-    <ul class="feed" id="posts" style="margin-top:16px"></ul>
-  </section>
-
-  <!-- PIPELINE -->
-  <section class="card s8 reveal" id="pipeline">
-    <div class="h"><h2>Pipeline</h2>
-      <div style="display:flex;gap:12px;align-items:center"><span class="src" id="ghlSrc"></span>
-      <div class="tabs"><button class="on" data-p="seller">Sellers</button><button data-p="deal">Buyers</button></div></div>
-    </div>
-    <div class="pipe" id="pipe"></div>
-  </section>
-
-  <!-- LIST -->
-  <section class="card s4 reveal" id="list">
-    <div class="h"><h2>Owners in play</h2><span class="src" id="listSrc"></span></div>
-    <div class="mid num" id="inPlay">—</div>
-    <div class="lab" style="margin-top:6px" id="universe"></div>
-    <div class="split" id="split"></div>
-    <div class="leg" id="listLeg"></div>
-    <div class="minis" style="margin-top:18px" id="coverage"></div>
-  </section>
-
-  <!-- ACTIVITY -->
-  <section class="card s6 reveal">
-    <div class="h"><h2>Latest moves</h2><span class="src">CRM</span></div>
-    <ul class="feed" id="feed"></ul>
-  </section>
-
-  <!-- WEBSITE -->
-  <section class="card s6 reveal" id="website">
-    <div class="h"><h2>Website</h2><span class="src" id="webSrc"></span></div>
-    <div class="stats three" id="webStats"></div>
-    <p class="note" id="webNote" style="margin-top:16px"></p>
-  </section>
+    <section class="part" id="website">
+      <span class="pill">06 · Website + latest moves</span>
+      <h2>What happened most recently.</h2>
+      <div class="grid">
+        <div class="card s5">
+          <div class="thead"><h3>Website</h3><span class="src" id="webSrc"></span></div>
+          <div class="stats" id="webStats" style="border-top:0;margin-top:0"></div>
+          <p class="note" id="webNote" style="margin-top:20px"></p>
+        </div>
+        <div class="card s7">
+          <div class="thead"><h3>Latest moves in the CRM</h3></div>
+          <ul class="feed" id="feed"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
-<footer><span id="updated">—</span><span>Built by Evolv One</span></footer>
-</main>
+
+<footer><div class="wrap"><span id="updated"></span><span>Built by Evolv One</span></div></footer>
+<div id="tip"></div>
 
 <script>
 (() => {
@@ -311,15 +439,13 @@ const fmt = n => n == null ? '—' : Number(n).toLocaleString('en-US');
 const money = n => !n ? '$0' : n >= 1e6 ? '$' + (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M' : n >= 1e3 ? '$' + Math.round(n / 1e3) + 'K' : '$' + Math.round(n);
 const pct = (a, b) => b ? (100 * a / b) : 0;
 const sum = (arr, k) => (arr || []).reduce((s, x) => s + (+x[k] || 0), 0);
+const tot = a => a.reduce((x, y) => x + y, 0);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dshort = s => new Date(s + 'T12:00').toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+const nn = i => String(i + 1).padStart(2, '0');
+const WIN = /signed|closed|under contract/i;
 const STATUS = {live:'Live', draft:'Built · not launched', waiting:'Waiting on setup', handed_over:'Handed over', not_built:'In build', error:'Sync error'};
-
-/* theme */
-const root = document.documentElement;
-const setTheme = t => { root.dataset.theme = t; $('themeLbl').textContent = t === 'light' ? 'Dark' : 'Light'; try { localStorage.setItem('issac-theme', t) } catch (e) {} };
-let saved = null; try { saved = localStorage.getItem('issac-theme') } catch (e) {}
-setTheme(saved || 'dark');
-$('theme').onclick = () => setTheme(root.dataset.theme === 'light' ? 'dark' : 'light');
+const C = {carbon:'#1f1f1f', sig:'#e42b0c', mist:'#99a1af', cloud:'#d4d4d4', frost:'#e5e7eb', vellum:'#f5f5f5', ink:'#101828'};
 
 /* clock + greeting in Texas time */
 function tick() {
@@ -327,16 +453,21 @@ function tick() {
   const h = +now.toLocaleString('en-US', {timeZone: TZ, hour: 'numeric', hour12: false});
   $('greet').textContent = h < 12 ? 'Good morning,' : h < 18 ? 'Good afternoon,' : 'Good evening,';
   $('clock').textContent = now.toLocaleTimeString('en-US', {timeZone: TZ, hour: '2-digit', minute: '2-digit'}) + ' CT';
-  $('today').textContent = now.toLocaleDateString('en-US', {timeZone: TZ, month: 'long', day: 'numeric', year: 'numeric'});
+  $('today').textContent = now.toLocaleDateString('en-US', {timeZone: TZ, weekday: 'long', month: 'long', day: 'numeric'});
 }
 tick(); setInterval(tick, 30000);
 
-/* sidebar active state */
-const links = [...document.querySelectorAll('.side a')];
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
-}), {rootMargin: '-40% 0px -55% 0px'});
+/* toc active state */
+const links = [...document.querySelectorAll('.toc a')];
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)) }),
+  {rootMargin: '-30% 0px -60% 0px'});
 links.forEach(a => { const t = document.querySelector(a.getAttribute('href')); t && io.observe(t) });
+
+/* tooltip: any element with data-tip */
+const tip = $('tip');
+document.addEventListener('mousemove', e => { const t = e.target.closest && e.target.closest('[data-tip]');
+  if (!t) { tip.classList.remove('on'); return }
+  tip.innerHTML = t.dataset.tip; tip.style.left = e.clientX + 'px'; tip.style.top = e.clientY + 'px'; tip.classList.add('on') });
 
 /* sample data, only with ?demo */
 function demo(d) {
@@ -345,18 +476,18 @@ function demo(d) {
   const ramp = i => Math.min(1, i / 8);
   d.machine_live_since = days[2];
   d.instantly.status = 'live';
-  d.instantly.daily = days.map((dt, i) => { const wd = new Date(dt + 'T12:00').getDay(); const on = i > 1 && wd >= 2 && wd <= 4;
-    const sent = on ? Math.round(240 * ramp(i) + r() * 30) : 0; return {date: dt, sent, replies: on ? Math.round(sent * (0.02 + r() * 0.03)) : Math.round(r() * 2)} });
-  const tot = sum(d.instantly.daily, 'sent'), rep = sum(d.instantly.daily, 'replies');
+  d.instantly.daily = days.map((dt, i) => { const wd = new Date(dt + 'T12:00').getDay(); const on = i > 1 && wd >= 1 && wd <= 5;
+    const sent = on ? Math.round((wd >= 2 && wd <= 4 ? 240 : 150) * ramp(i) + r() * 30) : 0; return {date: dt, sent, replies: on ? Math.round(sent * (0.02 + r() * 0.03)) : Math.round(r() * 2)} });
+  const ts = sum(d.instantly.daily, 'sent'), rep = sum(d.instantly.daily, 'replies');
   const w = [.42, .38, .2];
   d.instantly.campaigns = d.instantly.campaigns.map((c, i) => ({...c, status: 'live', in_campaign: [400, 400, 200][i],
-    contacted: Math.round([400, 400, 200][i] * .82), sent: Math.round(tot * w[i]), replies: Math.round(rep * w[i]),
-    positive: Math.round(rep * w[i] * .35), bounced: Math.round(tot * w[i] * .012), unsubscribed: Math.round(tot * w[i] * .004)}));
-  d.instantly.inboxes = d.instantly.inboxes.map(x => ({...x, warmup: 96 + Math.round(r() * 4), ok: true}));
+    contacted: Math.round([400, 400, 200][i] * [.86, .81, .74][i]), sent: Math.round(ts * w[i]), replies: Math.round(rep * w[i]),
+    positive: Math.round(rep * w[i] * [.41, .33, .27][i]), bounced: Math.round(ts * w[i] * [.009, .012, .016][i]), unsubscribed: Math.round(ts * w[i] * .004)}));
+  d.instantly.inboxes = d.instantly.inboxes.map(x => ({...x, warmup: 95 + Math.round(r() * 5), ok: true}));
   d.heyreach.status = 'live';
   d.heyreach.daily = days.map((dt, i) => ({date: dt, requests: i > 3 ? Math.round(18 + r() * 7) : 0, replies: i > 5 ? Math.round(r() * 4) : 0}));
   d.heyreach.requests_sent = sum(d.heyreach.daily, 'requests'); d.heyreach.accepted = Math.round(d.heyreach.requests_sent * .31);
-  d.heyreach.messages_sent = d.heyreach.accepted; d.heyreach.replies = sum(d.heyreach.daily, 'replies'); d.heyreach.profile_views = 214;
+  d.heyreach.messages_sent = Math.round(d.heyreach.accepted * .94); d.heyreach.replies = sum(d.heyreach.daily, 'replies'); d.heyreach.profile_views = 214;
   d.ghl.status = 'live';
   const sc = [0, 0, 19, 9, 6, 4, 3, 2, 2, 1, 1, 0, 0], sv = [0, 0, 0, 14.2e6, 9.8e6, 7.1e6, 5.4e6, 3.9e6, 4.2e6, 2.6e6, 2.1e6, 0, 0];
   d.ghl.seller = d.ghl.seller.map((x, i) => ({...x, count: sc[i] || 0, value: sv[i] || 0}));
@@ -376,154 +507,282 @@ function demo(d) {
   return d;
 }
 
-/* SVG helpers */
+/* ---------- chart primitives, drawn at the container's real pixel width ---------- */
+function svg(el) { el.innerHTML = ''; const w = el.clientWidth || 600, h = el.clientHeight || 200;
+  el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"></svg>`; return [el.firstChild, w, h] }
 function smooth(pts) {
   if (!pts.length) return '';
   let p = `M${pts[0][0]},${pts[0][1]}`;
   for (let i = 1; i < pts.length; i++) { const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], cx = (x0 + x1) / 2; p += ` C${cx},${y0} ${cx},${y1} ${x1},${y1}` }
   return p;
 }
-function spark(vals) {
-  const W = 800, H = 110, max = Math.max(...vals, 1), n = vals.length;
-  const pts = vals.map((v, i) => [i * W / (n - 1), H - 14 - (v / max) * (H - 34)]);
-  const line = smooth(pts);
-  const flat = vals.every(v => !v);
-  $('spark').innerHTML = `<defs><linearGradient id="sg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--blue)" stop-opacity=".28"/><stop offset="1" stop-color="var(--blue)" stop-opacity="0"/></linearGradient>
-    <filter id="gl"><feGaussianBlur stdDeviation="4"/></filter></defs>
-    <path d="${line} L${W},${H} L0,${H}Z" fill="url(#sg)" opacity="${flat ? .3 : 1}"/>
-    <path d="${line}" fill="none" stroke="var(--blue)" stroke-width="5" opacity=".35" filter="url(#gl)"/>
-    <path d="${line}" fill="none" stroke="var(--blue-2)" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
-    ${flat ? '' : pts.filter((_, i) => i % 5 === 4).map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.2" fill="var(--blue-2)"/>`).join('')}`;
+const nice = m => { if (m <= 5) return 5; const p = Math.pow(10, Math.floor(Math.log10(m))), f = m / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p };
+const yGrid = (L, R, T, ph, W, mx, f) => { let g = ''; for (let k = 0; k <= 4; k++) { const y = T + ph - ph * k / 4;
+  g += `<line class="grid-l" x1="${L}" x2="${W - R}" y1="${y}" y2="${y}"/><text class="ax" x="${L - 8}" y="${y + 4}" text-anchor="end">${f(mx * k / 4)}</text>` } return g };
+const xDates = (dates, X, y) => dates.map((d, i) => (i % 7 === 0 && dates.length - 1 - i >= 4) || i === dates.length - 1 ? `<text class="ax" x="${X(i)}" y="${y}" text-anchor="middle">${dshort(d)}</text>` : '').join('');
+
+/* area line: hero + KPI minis */
+function area(el, vals, {color = C.carbon, dots = false, dates = null, unit = ''} = {}) {
+  const [s, W, H] = svg(el), n = vals.length, max = Math.max(...vals, 1), flat = vals.every(v => !v);
+  const pts = vals.map((v, i) => [i * W / Math.max(1, n - 1), H - 4 - (v / max) * (H - 12)]);
+  const line = smooth(pts), id = 'g' + Math.random().toString(36).slice(2, 7);
+  s.innerHTML = `<defs><linearGradient id="${id}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".16"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
+    <path d="${line} L${W},${H} L0,${H}Z" fill="url(#${id})"/>
+    <path d="${line}" fill="none" stroke="${flat ? C.cloud : color}" stroke-width="1.6" ${flat ? 'stroke-dasharray="3 4"' : ''}/>
+    ${dots && !flat ? `<circle cx="${pts.at(-1)[0]}" cy="${pts.at(-1)[1]}" r="9" fill="${C.sig}" opacity=".15"/><circle cx="${pts.at(-1)[0]}" cy="${pts.at(-1)[1]}" r="4" fill="${C.sig}"/>` : ''}
+    ${dates ? vals.map((v, i) => `<rect class="hit" x="${i * W / n}" y="0" width="${W / n}" height="${H}" data-tip="${dshort(dates[i])} · <b>${fmt(v)}</b> ${unit}"/>`).join('') : ''}`;
 }
-function ring(el, value, label, sub, color = 'var(--blue)') {
-  const R = 70, C = 2 * Math.PI * R, v = Math.max(0, Math.min(100, value || 0));
-  el.innerHTML = `<circle cx="85" cy="85" r="${R}" fill="none" stroke="var(--track)" stroke-width="10"/>
-    <circle cx="85" cy="85" r="${R}" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" transform="rotate(-90 85 85)" style="transition:stroke-dashoffset 1.2s cubic-bezier(.2,.7,.2,1)"/>
-    <text x="85" y="84" text-anchor="middle" fill="var(--ink)" font-size="28" font-weight="300" font-family="JetBrains Mono">${label}</text>
-    <text x="85" y="106" text-anchor="middle" fill="var(--mut)" font-size="11" font-family="Inter">${sub}</text>`;
-  requestAnimationFrame(() => requestAnimationFrame(() => el.children[1].style.strokeDashoffset = C * (1 - v / 100)));
+
+/* stacked daily columns + a line on its own right axis */
+function combo(el, days, a, b, line) {
+  const [s, W, H] = svg(el), L = 40, R = 36, T = 12, B = 26, pw = W - L - R, ph = H - T - B, n = days.length, bw = pw / n;
+  const mx = nice(Math.max(...a.map((v, i) => v + b[i]), 1)), my = nice(Math.max(...line, 1));
+  let g = yGrid(L, R, T, ph, W, mx, fmt);
+  for (let k = 0; k <= 4; k++) g += `<text class="ax" x="${W - R + 8}" y="${T + ph - ph * k / 4 + 4}" style="fill:${C.sig}">${fmt(Math.round(my * k / 4))}</text>`;
+  const cols = days.map((d, i) => { const x = L + i * bw + bw * .18, w = bw * .64, ha = ph * a[i] / mx, hb = ph * b[i] / mx, y0 = T + ph;
+    return `<rect x="${x}" y="${y0 - ha}" width="${w}" height="${ha}" fill="${C.carbon}" rx="1"/><rect x="${x}" y="${y0 - ha - hb}" width="${w}" height="${hb}" fill="${C.mist}" rx="1"/>` }).join('');
+  const X = i => L + i * bw + bw / 2, pts = line.map((v, i) => [X(i), T + ph - ph * v / my]);
+  const hits = days.map((d, i) => `<rect class="hit" x="${L + i * bw}" y="${T}" width="${bw}" height="${ph}" data-tip="${dshort(d)}<br>Emails <b>${fmt(a[i])}</b> · LinkedIn <b>${fmt(b[i])}</b><br>Replies <b>${fmt(line[i])}</b>"/>`).join('');
+  s.innerHTML = g + cols + `<path d="${smooth(pts)}" fill="none" stroke="${C.sig}" stroke-width="2"/>` +
+    pts.map(([x, y], i) => line[i] ? `<circle cx="${x}" cy="${y}" r="2.6" fill="#fff" stroke="${C.sig}" stroke-width="1.6"/>` : '').join('') + xDates(days, X, H - 6) + hits;
 }
-function bars(el, axis, rows, key, key2) {
-  const max = Math.max(...rows.map(x => x[key]), 1), peak = rows.reduce((b, x, i) => x[key] > rows[b][key] ? i : b, 0);
-  const any = rows.some(x => x[key]);
-  el.innerHTML = rows.map((x, i) => { const d = new Date(x.date + 'T12:00').toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
-    return `<div class="b ${x[key] ? '' : 'zero'} ${any && i === peak ? 'peak' : ''}"><span class="tip">${d} · ${fmt(x[key])}${key2 ? ' · ' + fmt(x[key2]) + ' replies' : ''}</span>
-      <i style="height:${x[key] ? Math.max(4, 100 * x[key] / max) : 3}%"></i></div>` }).join('');
-  const f = s => new Date(s + 'T12:00').toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
-  axis.innerHTML = `<span>${f(rows[0].date)}</span><span>${f(rows[Math.floor(rows.length / 2)].date)}</span><span>${f(rows.at(-1).date)}</span>`;
+
+/* plain columns, optional reply dots on top */
+function columns(el, labels, vals, {dots = null, tipf, axis = 'date', isMoney = false, hi = null} = {}) {
+  const [s, W, H] = svg(el), L = isMoney ? 52 : 36, R = 8, T = 12, B = 26, pw = W - L - R, ph = H - T - B, n = vals.length, bw = pw / n;
+  const mx = nice(Math.max(...vals, ...(dots || [0]), 1)), X = i => L + i * bw + bw / 2;
+  const cols = vals.map((v, i) => { const h = ph * v / mx, w = Math.min(bw * .62, 48);
+    return `<rect x="${X(i) - w / 2}" y="${T + ph - h}" width="${w}" height="${h}" fill="${hi && hi(i) ? C.sig : C.carbon}" rx="2"/>` +
+      (dots && dots[i] ? `<circle cx="${X(i)}" cy="${T + ph - ph * dots[i] / mx}" r="3.4" fill="${C.sig}" stroke="#fff" stroke-width="1.5"/>` : '') }).join('');
+  const xl = axis === 'date' ? xDates(labels, X, H - 6) : labels.map((_, i) => `<text class="ax" x="${X(i)}" y="${H - 6}" text-anchor="middle">${nn(i)}</text>`).join('');
+  const hits = labels.map((_, i) => `<rect class="hit" x="${L + i * bw}" y="${T}" width="${bw}" height="${ph}" data-tip="${tipf(i)}"/>`).join('');
+  s.innerHTML = yGrid(L, R, T, ph, W, mx, isMoney ? money : fmt) + cols + xl + hits
+    + (vals.some(Boolean) ? '' : `<text class="ax" x="${L + pw / 2}" y="${T + ph / 2}" text-anchor="middle">Fills in once the first ${axis === 'date' ? 'requests go out' : 'sellers carry a value'}</text>`);
 }
-const srcTag = (b, extra = '') => `<span class="dot ${b.error ? 'error' : b.status}"></span>${b.error ? 'Sync error' : STATUS[b.status] || b.status}${extra}`;
-const stat = (label, v, sub = '') => `<div class="stat"><div class="mid num ${v == null ? 'empty' : ''}">${v == null ? '—' : v}</div><div class="lab">${label}</div>${sub ? `<div class="note" style="font-size:11px;margin-top:2px">${sub}</div>` : ''}</div>`;
+
+/* line with a dashed average */
+function lineChart(el, dates, vals, unit) {
+  const [s, W, H] = svg(el), L = 40, R = 12, T = 12, B = 26, pw = W - L - R, ph = H - T - B, n = vals.length;
+  const real = vals.filter(v => v != null), mx = nice(Math.max(...real, 1));
+  const X = i => L + i * pw / Math.max(1, n - 1), Y = v => T + ph - ph * v / mx;
+  const segs = []; let cur = [];
+  vals.forEach((v, i) => { if (v == null) { cur.length && segs.push(cur); cur = [] } else cur.push([X(i), Y(v)]) }); cur.length && segs.push(cur);
+  const avg = real.length ? tot(real) / real.length : null;
+  const hits = dates.map((d, i) => `<rect class="hit" x="${X(i) - pw / n / 2}" y="${T}" width="${pw / n}" height="${ph}" data-tip="${dshort(d)} · <b>${vals[i] == null ? 'no sends yet' : vals[i].toFixed(1) + unit}</b>"/>`).join('');
+  s.innerHTML = yGrid(L, R, T, ph, W, mx, v => (+v.toFixed(mx <= 20 ? 1 : 0)) + unit)
+    + segs.map(sg => sg.length > 1 ? `<path d="${smooth(sg)} L${sg.at(-1)[0]},${T + ph} L${sg[0][0]},${T + ph}Z" fill="${C.carbon}" opacity=".06"/><path d="${smooth(sg)}" fill="none" stroke="${C.carbon}" stroke-width="1.8"/>`
+        : `<circle cx="${sg[0][0]}" cy="${sg[0][1]}" r="3" fill="${C.carbon}"/>`).join('')
+    + (avg != null ? `<line x1="${L}" x2="${W - R}" y1="${Y(avg)}" y2="${Y(avg)}" stroke="${C.sig}" stroke-dasharray="4 4"/><text class="ax" x="${W - R}" y="${Y(avg) - 6}" text-anchor="end" style="fill:${C.sig}">avg ${avg.toFixed(1)}${unit}</text>`
+        : `<text class="ax" x="${L + pw / 2}" y="${T + ph / 2}" text-anchor="middle">Starts the first day emails go out</text>`)
+    + xDates(dates, X, H - 6) + hits;
+}
+
+/* donut */
+function donut(el, parts, center, sub) {
+  const [s, W, H] = svg(el), cx = W / 2, cy = H / 2, R = Math.min(W, H) / 2 - 12, sw = Math.max(14, R * .22), c = 2 * Math.PI * R;
+  const all = tot(parts.map(p => p.v)), gap = parts.filter(x => x.v).length > 1 ? 3 : 0;
+  let off = 0;
+  const arcs = all ? parts.map(p => { const len = c * p.v / all;
+    const a = p.v ? `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${p.c}" stroke-width="${sw}" stroke-dasharray="${Math.max(1, len - gap)} ${c}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})" data-tip="${esc(p.n)} · <b>${fmt(p.v)}</b> · ${pct(p.v, all).toFixed(0)}%"/>` : '';
+    off += len; return a }).join('') : '';
+  s.innerHTML = `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${C.vellum}" stroke-width="${sw}"/>${arcs}
+    <text x="${cx}" y="${cy + R * .1}" text-anchor="middle" font-size="${R * .36}" font-weight="300" fill="${C.ink}" font-family="Inter" letter-spacing="-1">${center}</text>
+    <text class="ax" x="${cx}" y="${cy + R * .38}" text-anchor="middle">${sub}</text>`;
+}
+
+/* gauge ring with a tick crown */
+function ring(el, v, label, sub) {
+  const [s, W, H] = svg(el), cx = W / 2, cy = H / 2, R = Math.min(W, H) / 2 - 16, c = 2 * Math.PI * R, val = Math.max(0, Math.min(100, v || 0));
+  const ticks = Array.from({length: 48}, (_, i) => { const a = i / 48 * 2 * Math.PI - Math.PI / 2, r1 = R + 9, r2 = R + 13;
+    return `<line x1="${cx + r1 * Math.cos(a)}" y1="${cy + r1 * Math.sin(a)}" x2="${cx + r2 * Math.cos(a)}" y2="${cy + r2 * Math.sin(a)}" stroke="${i / 48 * 100 < val ? C.sig : C.frost}" stroke-width="1.4"/>` }).join('');
+  s.innerHTML = ticks + `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${C.vellum}" stroke-width="8"/>
+    <circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${C.carbon}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${c * val / 100} ${c}" transform="rotate(-90 ${cx} ${cy})"/>
+    <text x="${cx}" y="${cy + R * .12}" text-anchor="middle" font-size="${R * .4}" font-weight="300" fill="${C.ink}" font-family="Inter" letter-spacing="-1">${label}</text>
+    <text class="ax" x="${cx}" y="${cy + R * .4}" text-anchor="middle">${sub}</text>`;
+}
+
+/* the funnel: centred bands joined by trapezoids */
+function funnel(el, steps) {
+  el.innerHTML = ''; const w0 = el.clientWidth || 800, narrow = w0 < 560, LBL = narrow ? 100 : 170, VAL = narrow ? 84 : 150, rowH = narrow ? 34 : 44, gap = 12;
+  el.style.height = steps.length * (rowH + gap) - gap + 'px';
+  const [s, W] = svg(el), mid = LBL + (W - LBL - VAL) / 2, full = W - LBL - VAL - 16, top = steps[0][1] || 1;
+  const widths = steps.map(([, v]) => v ? Math.max(10, full * Math.sqrt(v / top)) : 4);
+  let out = '';
+  steps.forEach(([n, v], i) => { const y = i * (rowH + gap), w = widths[i], conv = i && steps[i - 1][1] ? pct(v, steps[i - 1][1]) : null;
+    if (i) { const pw = widths[i - 1], py = y - gap; out += `<path d="M${mid - pw / 2},${py} L${mid + pw / 2},${py} L${mid + w / 2},${y} L${mid - w / 2},${y}Z" fill="${C.frost}"/>` }
+    const fill = i === 0 ? C.cloud : i >= steps.length - 2 && v ? C.sig : C.carbon;
+    out += `<rect x="${mid - w / 2}" y="${y}" width="${w}" height="${rowH}" rx="3" fill="${fill}"
+        data-tip="${esc(n)} · <b>${fmt(v)}</b>${conv != null ? ' · ' + conv.toFixed(1) + '% of the step before' : ''} · ${pct(v, top).toFixed(1)}% of all"/>
+      <text x="0" y="${y + rowH / 2 + 5}" font-size="${narrow ? 12 : 14}" fill="${C.ink}" font-family="Inter">${esc(n)}</text>
+      <text x="${W - VAL + 16}" y="${y + rowH / 2 + 7}" font-size="${narrow ? 16 : 22}" font-weight="300" fill="${C.ink}" font-family="Inter" letter-spacing="-.5">${fmt(v)}</text>
+      ${conv != null ? `<text x="${W}" y="${y + rowH / 2 + 5}" text-anchor="end" font-size="11" fill="${C.sig}" font-family="Inter" font-weight="500">${conv.toFixed(0)}%</text>` : ''}` });
+  s.innerHTML = out;
+}
+
+/* ---------- page ---------- */
 const findFrom = (rows, word) => { const i = rows.findIndex(r => r.stage.toLowerCase().includes(word)); return i < 0 ? {count: 0, value: 0} :
   {count: rows.slice(i).filter(r => !/past client|repeat/i.test(r.stage)).reduce((s, r) => s + r.count, 0), value: rows.slice(i).reduce((s, r) => s + r.value, 0)} };
+const srcTag = (b, extra = '') => `<span class="dot ${b.error ? 'error' : b.status}"></span>${b.error ? 'Sync error' : STATUS[b.status] || b.status}${extra}`;
+const stat = (label, v) => `<div><div class="v num ${v == null ? 'empty' : ''}">${v == null ? '—' : v}</div><div class="l">${label}</div></div>`;
+let DATA = null, pipeView = 'seller';
 
 function render(d) {
-  const E = d.instantly, L = d.heyreach, G = d.ghl, LI = d.list, CT = d.content, W = d.website;
-  const emailReplies = sum(E.campaigns, 'replies'), contacted = sum(E.campaigns, 'contacted'), sent = sum(E.campaigns, 'sent');
-  const replies = emailReplies + (L.replies || 0);
-  const inPlay = Object.values(LI.in_play).reduce((a, b) => a + b, 0);
-  const reached = Math.max(contacted, L.requests_sent || 0);
+  const E = d.instantly, Li = d.heyreach, G = d.ghl, LI = d.list, CT = d.content, W = d.website;
+  const dates = E.daily.map(x => x.date);
+  const eSent = E.daily.map(x => x.sent), eRep = E.daily.map(x => x.replies);
+  const lReq = dates.map((_, i) => (Li.daily[i] || {}).requests || 0), lRep = dates.map((_, i) => (Li.daily[i] || {}).replies || 0);
+  const repDaily = eRep.map((v, i) => v + lRep[i]);
+  const emailReplies = sum(E.campaigns, 'replies'), contacted = sum(E.campaigns, 'contacted'), sent = sum(E.campaigns, 'sent'), positive = sum(E.campaigns, 'positive');
+  const replies = emailReplies + (Li.replies || 0);
+  const inPlay = tot(Object.values(LI.in_play));
+  const reached = Math.max(contacted, Li.requests_sent || 0);
   const booked = findFrom(G.seller, 'booked'), held = findFrom(G.seller, 'held'), val = findFrom(G.seller, 'valuation'),
         signed = findFrom(G.seller, 'signed'), closed = findFrom(G.seller, 'closed');
-  const live = [E, L, G].some(b => b.status === 'live');
+  const live = [E, Li, G].some(b => b.status === 'live');
 
-  /* hero */
-  const daily = E.daily.map((x, i) => x.replies + ((L.daily[i] || {}).replies || 0));
+  /* top + hero */
+  $('liveDot').className = 'dot ' + (live ? 'live' : 'draft');
+  $('liveTxt').textContent = live ? 'Machine live' : 'Built · launch pending';
   $('convos').textContent = fmt(replies);
   $('heroNote').textContent = live ? `${fmt(reached)} owners reached so far. ${fmt(booked.count)} discovery ${booked.count === 1 ? 'call' : 'calls'} on the books.`
     : 'The machine is built. The numbers start the day it launches.';
-  spark(daily);
-
-  /* status */
+  area($('heroChart'), repDaily, {color: C.sig, dots: true, dates, unit: 'replies'});
   if (d.machine_live_since) { const n = Math.floor((Date.now() - new Date(d.machine_live_since + 'T12:00')) / 864e5) + 1; $('dayN').textContent = `Day ${n} of the machine` }
   else $('dayN').textContent = 'Launch: pending';
-  const srcs = [['Email', E], ['LinkedIn outreach', L], ['CRM', G], ['LinkedIn content', CT], ['Website', W], ['Owner list', {status: 'live'}]];
+  const srcs = [['Email', E], ['LinkedIn outreach', Li], ['CRM', G], ['LinkedIn content', CT], ['Website', W], ['Owner list', {status: 'live'}]];
   $('sources').innerHTML = srcs.map(([n, b]) => `<li><span class="dot ${b.error ? 'error' : b.status}"></span><span class="t">${n}</span><em>${b.error ? 'Sync error' : STATUS[b.status] || b.status}</em></li>`).join('');
 
   /* kpis */
   $('k1').textContent = fmt(reached); $('k1d').textContent = `of ${fmt(inPlay)} owners in play`;
-  $('k2').textContent = fmt(replies); $('k2d').textContent = `${fmt(emailReplies)} email · ${fmt(L.replies || 0)} LinkedIn`;
+  area($('k1c'), eSent.map((v, i) => v + lReq[i]), {dates, unit: 'touches'});
+  $('k2').textContent = fmt(replies); $('k2d').textContent = `${fmt(emailReplies)} email · ${fmt(Li.replies || 0)} LinkedIn`;
+  area($('k2c'), repDaily, {color: C.sig, dates, unit: 'replies'});
   $('k3').textContent = fmt(booked.count); $('k3d').textContent = `${fmt(held.count)} held so far`;
-  $('k4').textContent = fmt(signed.count); $('k4d').textContent = signed.value ? `${money(signed.value)} listed` : 'Listing agreements signed';
+  $('k3c').innerHTML = `<div class="stack" style="height:10px;margin-top:20px"><i style="width:${pct(held.count, booked.count || 1)}%;background:${C.carbon}"></i></div>
+    <div class="note" style="font-size:12px;margin-top:6px">${booked.count ? pct(held.count, booked.count).toFixed(0) + '% showed up' : 'Show-up rate, once calls are booked'}</div>`;
+  $('k4').textContent = fmt(signed.count); $('k4d').textContent = signed.value ? `${money(signed.value)} in listings` : 'Listing agreements signed';
+  $('k4c').innerHTML = `<div class="stack" style="height:10px;margin-top:20px;background:rgba(255,255,255,.12)"><i style="width:${pct(signed.count, val.count || 1)}%;background:${C.sig}"></i></div>
+    <div class="note" style="font-size:12px;margin-top:6px">${val.count ? pct(signed.count, val.count).toFixed(0) + '% of valuations signed' : 'Valuation → signed, once valuations start'}</div>`;
 
-  /* funnel */
-  const steps = [['Owners in play', inPlay], ['Reached', reached], ['Replied', replies], ['Call booked', booked.count], ['Call held', held.count],
-    ['Valuation', val.count], ['Listing signed', signed.count], ['Closed', closed.count]];
-  $('funnel').innerHTML = steps.map(([n, v], i) => `<div class="r"><span>${n}</span><div class="bar"><i style="width:0" data-w="${v ? Math.max(1.5, pct(v, inPlay)) : 0}"></i></div>
-    <span class="v num">${fmt(v)}</span><span class="c">${i ? (steps[i - 1][1] ? pct(v, steps[i - 1][1]).toFixed(0) + '%' : '—') : ''}</span></div>`).join('');
-  requestAnimationFrame(() => requestAnimationFrame(() => document.querySelectorAll('#funnel i').forEach(i => i.style.width = i.dataset.w + '%')));
+  /* 01 machine */
+  funnel($('funnel'), [['Owners in play', inPlay], ['Reached', reached], ['Replied', replies], ['Call booked', booked.count], ['Call held', held.count],
+    ['Valuation', val.count], ['Listing signed', signed.count], ['Closed', closed.count]]);
+  combo($('combo'), dates, eSent, lReq, repDaily);
+  const touches = tot(eSent) + tot(lReq), rTot = tot(repDaily), best = repDaily.reduce((b, v, i) => v > repDaily[b] ? i : b, 0);
+  $('comboStats').innerHTML = stat('Touches · 30 days', fmt(touches)) + stat('Replies · 30 days', fmt(rTot))
+    + stat('Replies per 100 touches', touches ? (100 * rTot / touches).toFixed(1) : null) + stat('Best day for replies', repDaily[best] ? dshort(dates[best]) : null);
 
-  /* rates */
-  const cov = pct(reached, inPlay);
-  ring($('ring'), cov, reached ? cov.toFixed(0) + '%' : '0%', 'of owners in play reached');
-  const eRate = pct(emailReplies, contacted), acc = pct(L.accepted, L.requests_sent), pos = pct(sum(E.campaigns, 'positive'), emailReplies);
-  $('rates').innerHTML = [['Reply rate, all channels', pct(replies, reached), reached], ['Email reply rate', eRate, contacted], ['LinkedIn accept rate', acc, L.requests_sent], ['Interested, of email replies', pos, emailReplies]]
-    .map(([n, v, base]) => `<div class="mini"><span>${n}</span><span class="num">${base ? v.toFixed(1) + '%' : '—'}</span><div class="bar"><i style="width:${Math.min(100, v)}%"></i></div></div>`).join('');
+  /* 02 email */
+  $('emailSrc').innerHTML = srcTag(E);
+  $('camps').innerHTML = E.campaigns.map(c => { const base = c.in_campaign || 1;
+    return `<tr><td>${esc(c.name)}<span class="tag ${c.status === 'live' ? 'live' : ''}">${c.status === 'live' ? 'Live' : c.status === 'draft' ? 'Draft' : esc(c.status)}</span>
+      <div class="stack" data-tip="${esc(c.name)}<br>Contacted <b>${fmt(c.contacted)}</b> of ${fmt(c.in_campaign)} · replied <b>${fmt(c.replies)}</b> · interested <b>${fmt(c.positive)}</b>">
+      <i style="width:${pct(c.contacted - c.replies, base)}%;background:${C.carbon}"></i><i style="width:${pct(c.replies - c.positive, base)}%;background:${C.mist}"></i><i style="width:${pct(c.positive, base)}%;background:${C.sig}"></i></div></td>
+    <td class="num">${fmt(c.contacted)}<span class="sub-l"> / ${fmt(c.in_campaign)}</span></td><td class="num hm">${fmt(c.sent)}</td>
+    <td class="num">${fmt(c.replies)}<span class="sub-l">${c.contacted ? ' · ' + pct(c.replies, c.contacted).toFixed(1) + '%' : ''}</span></td><td class="num hm">${fmt(c.positive)}</td>
+    <td class="num hm">${c.sent ? pct(c.bounced, c.sent).toFixed(1) + '%' : '—'}</td></tr>` }).join('');
 
-  /* email */
-  $('emailSrc').innerHTML = srcTag(E, E.note && !E.connected ? '' : '');
-  $('camps').innerHTML = E.campaigns.map(c => `<tr><td>${esc(c.name)}<span class="pill">${c.status === 'live' ? 'Live' : c.status === 'draft' ? 'Draft' : esc(c.status)}</span></td>
-    <td class="num">${fmt(c.contacted)}<span class="lab"> / ${fmt(c.in_campaign)}</span></td><td class="num hm">${fmt(c.sent)}</td>
-    <td class="num">${fmt(c.replies)}</td><td class="num hm">${fmt(c.positive)}</td><td class="num hm">${c.sent ? pct(c.bounced, c.sent).toFixed(1) + '%' : '—'}</td></tr>`).join('');
-  bars($('emailBars'), $('emailAxis'), E.daily, 'sent', 'replies');
+  const roll = dates.map((_, i) => { const a = Math.max(0, i - 6), s7 = tot(eSent.slice(a, i + 1)), r7 = tot(eRep.slice(a, i + 1)); return s7 ? 100 * r7 / s7 : null });
+  lineChart($('rolling'), dates, roll, '%');
+  $('rrNote').textContent = contacted ? `${pct(emailReplies, contacted).toFixed(1)}% of contacted owners replied` : 'Replies ÷ emails sent';
 
-  /* inboxes */
+  /* heatmap, Monday-first weeks */
+  const wd = s => (new Date(s + 'T12:00').getDay() + 6) % 7, lead = wd(dates[0]), weeks = Math.ceil((lead + dates.length) / 7), hmx = Math.max(...eSent, 0);
+  let hh = '';
+  ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].forEach((dn, row) => { hh += `<span class="hl">${dn}</span>`;
+    for (let col = 0; col < weeks; col++) { const i = col * 7 + row - lead;
+      if (i < 0 || i >= dates.length) { hh += '<span class="c out"></span>'; continue }
+      const v = eSent[i], o = v ? .15 + .85 * v / hmx : 0;
+      hh += `<span class="c ${v && v === hmx ? 'max' : ''}" style="${v ? `background:rgba(31,31,31,${o.toFixed(2)});border-color:transparent` : ''}" data-tip="${dshort(dates[i])} · <b>${fmt(v)}</b> sent · ${fmt(eRep[i])} replies"></span>` } });
+  $('heat').innerHTML = `<div class="heat" style="--w:${weeks}">${hh}</div>`;
+  $('heatScale').innerHTML = `<span>0</span>${[.15, .4, .65, 1].map(o => `<i style="background:rgba(31,31,31,${o})"></i>`).join('')}<span>${fmt(hmx)}</span>
+    <span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px"><i style="box-shadow:0 0 0 2px ${C.sig};background:${C.carbon}"></i>busiest day</span>`;
+
+  const other = Math.max(0, emailReplies - positive), bounced = sum(E.campaigns, 'bounced'), unsub = sum(E.campaigns, 'unsubscribed');
+  donut($('replyDonut'), [{n: 'Interested', v: positive, c: C.sig}, {n: 'Other replies', v: other, c: C.carbon}, {n: 'Unsubscribed', v: unsub, c: C.cloud}],
+    emailReplies ? pct(positive, emailReplies).toFixed(0) + '%' : '—', emailReplies ? 'interested' : 'no replies yet');
+  $('replyLeg').innerHTML = [['Interested in talking', positive, C.sig], ['Other replies', other, C.carbon], ['Unsubscribed', unsub, C.cloud]]
+    .map(([n, v, c]) => `<div><i style="background:${c}"></i><span>${n}</span><b class="num">${fmt(v)}</b></div>`).join('');
+
   const ws = E.inboxes.filter(x => x.warmup != null), avg = ws.length ? sum(ws, 'warmup') / ws.length : null;
-  $('inboxSrc').innerHTML = `${E.inboxes.length} inboxes · ${new Set(E.inboxes.map(x => x.domain)).size} domains`;
-  ring($('warm'), avg ?? 0, avg == null ? '—' : Math.round(avg) + '%', avg == null ? 'score after sync' : 'avg warm-up', 'var(--green)');
-  $('inboxes').innerHTML = E.inboxes.map((x, i) => `<div class="ib"><div class="n num">${x.warmup ?? '—'}</div><div class="d">${esc(x.domain)}</div></div>`).join('');
+  const meters = [['Bounce rate', sent ? pct(bounced, sent) : null, 2, 5, 'Under 2% keeps the inboxes out of spam', '%', false],
+    ['Unsubscribe rate', sent ? pct(unsub, sent) : null, .5, 1.5, 'Under 0.5% means the message fits the owner', '%', false],
+    ['Average warm-up score', avg, 90, 100, 'Above 90 before any volume goes out', '', true]];
+  $('health').innerHTML = meters.map(([n, v, lim, scale, sub, u, above]) => { const bad = v != null && (above ? v < lim : v > lim);
+    return `<div class="meter"><div class="row"><span>${n}<br><span class="note">${sub}</span></span><b class="num" style="color:${bad ? C.sig : C.ink}">${v == null ? '—' : u ? v.toFixed(2) + u : Math.round(v)}</b></div>
+      <div class="track"><i class="${bad ? 'bad' : ''}" style="width:${v == null ? 0 : Math.min(100, 100 * v / scale)}%"></i><u style="left:${100 * lim / scale}%"></u></div></div>` }).join('');
 
-  /* linkedin */
-  $('liSrc').innerHTML = srcTag(L);
-  $('liStats').innerHTML = stat('Requests sent', fmt(L.requests_sent)) + stat('Accepted', fmt(L.accepted)) + stat('Messages', fmt(L.messages_sent)) + stat('Replies', fmt(L.replies));
-  bars($('liBars'), $('liAxis'), L.daily, 'requests');
+  $('inboxSrc').textContent = `${E.inboxes.length} inboxes · ${new Set(E.inboxes.map(x => x.domain)).size} domains`;
+  ring($('warm'), avg ?? 0, avg == null ? '—' : Math.round(avg) + '%', avg == null ? 'score after sync' : 'avg warm-up');
+  $('inboxes').innerHTML = E.inboxes.map((x, i) => `<div class="ib" data-tip="Inbox ${i + 1} · ${esc(x.domain)}<br>Warm-up <b>${x.warmup ?? '—'}</b> · ${x.ok ? 'healthy' : 'needs a look'}">
+    <div class="n num">${x.warmup ?? '—'}</div><div class="d">${nn(i)} · ${esc(x.domain)}</div><div class="g"><i style="width:${x.warmup || 0}%;${x.ok ? '' : 'background:' + C.sig}"></i></div></div>`).join('');
 
-  /* content */
+  /* 03 linkedin */
+  $('liSrc').innerHTML = srcTag(Li);
+  const ls = [Li.requests_sent || 0, Li.accepted || 0, Li.messages_sent || 0, Li.replies || 0], lmx = Math.max(...ls, 1);
+  $('steps').innerHTML = ls.map((v, i) => `<div class="st">${i && ls[i - 1] ? `<span class="r">${pct(v, ls[i - 1]).toFixed(0)}%</span>` : ''}<div class="v num">${fmt(v)}</div>
+    <div class="blk" style="height:${v ? Math.max(2, 70 * v / lmx) : 1}%"></div></div>`).join('');
+  columns($('liChart'), dates, lReq, {dots: lRep, tipf: i => `${dshort(dates[i])} · <b>${fmt(lReq[i])}</b> requests · <b>${fmt(lRep[i])}</b> replies`});
+
   $('ctSrc').innerHTML = srcTag(CT);
-  $('ctStats').innerHTML = stat('Followers', CT.followers == null ? null : fmt(CT.followers), CT.followers_delta_30d ? `+${fmt(CT.followers_delta_30d)} in 30 days` : '')
-    + stat('Posts · 30 days', CT.posts_30d == null ? null : fmt(CT.posts_30d)) + stat('Impressions · 30 days', CT.impressions_30d == null ? null : fmt(CT.impressions_30d));
+  $('ctStats').innerHTML = stat('Followers', CT.followers == null ? null : fmt(CT.followers)) + stat('New in 30 days', CT.followers_delta_30d == null ? null : '+' + fmt(CT.followers_delta_30d))
+    + stat('Posts · 30 days', CT.posts_30d == null ? null : fmt(CT.posts_30d)) + stat('Impressions · 30 days', CT.impressions_30d == null ? null : fmt(CT.impressions_30d))
+    + stat('Per post', CT.posts_30d ? fmt(Math.round(CT.impressions_30d / CT.posts_30d)) : null);
+  const pmx = Math.max(...(CT.posts || []).map(p => p.impressions), 1);
   $('posts').innerHTML = CT.posts && CT.posts.length ? CT.posts.map(p => { const dt = new Date(p.date + 'T12:00');
-    return `<li><span class="when"><b class="num">${dt.getDate()}</b>${dt.toLocaleDateString('en-US', {month: 'short'})}</span><span>${esc(p.title)}<br><span class="lab num">${fmt(p.impressions)} impressions</span></span></li>` }).join('')
-    : `<li><span class="when">—</span><span class="note">${esc(CT.note)}</span></li>`;
+    return `<li><span class="when"><b class="num">${dt.getDate()}</b>${dt.toLocaleDateString('en-US', {month: 'short'})}</span><div><div class="t">${esc(p.title)}</div>
+      <div class="imp"><i style="width:${Math.max(4, 60 * p.impressions / pmx)}%"></i><span class="num">${fmt(p.impressions)} impressions</span></div></div></li>` }).join('')
+    : `<li><span class="when">—</span><span class="note">${esc(CT.note || 'Posts show up here once content goes live.')}</span></li>`;
 
-  /* pipeline */
+  /* 04 pipeline */
   const drawPipe = which => { const rows = G[which] || [], max = Math.max(...rows.map(r => r.count), 1);
-    $('pipe').innerHTML = rows.map((r, i) => `<div class="r ${/signed|closed|under contract/i.test(r.stage) ? 'win' : ''}"><span class="i num">${String(i + 1).padStart(2, '0')}</span><span>${esc(r.stage)}</span>
-      <div class="bar"><i style="width:${100 * r.count / max}%"></i></div><span class="c num">${fmt(r.count)}</span><span class="v num">${r.value ? money(r.value) : '—'}</span></div>`).join('') };
-  document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x === b)); drawPipe(b.dataset.p) });
-  drawPipe('seller');
+    $('pipeTitle').textContent = which === 'seller' ? 'Seller journey' : 'Buyer journey';
+    $('pipe').innerHTML = rows.map((r, i) => `<div class="r ${WIN.test(r.stage) ? 'win' : ''}" data-tip="${esc(r.stage)} · <b>${fmt(r.count)}</b>${r.value ? ' · ' + money(r.value) : ''}">
+      <span class="i num">${nn(i)}</span><span class="nm">${esc(r.stage)}</span>
+      <div class="b"><i style="width:${100 * r.count / max}%"></i></div><span class="c num">${fmt(r.count)}</span><span class="v num">${r.value ? money(r.value) : '—'}</span></div>`).join('');
+    const open = rows.reduce((s, r) => s + r.count, 0), wins = rows.filter(r => WIN.test(r.stage)).reduce((s, r) => s + r.count, 0);
+    $('pipeSum').innerHTML = `<div><div class="v num">${fmt(open)}</div><div class="l">${which === 'seller' ? 'Sellers' : 'Buyers'} in the CRM</div></div>
+      <div><div class="v num">${money(sum(rows, 'value'))}</div><div class="l">Property value in play</div></div>
+      <div><div class="v num">${fmt(wins)}</div><div class="l">${which === 'seller' ? 'Signed, under contract or closed' : 'Under contract or closed'}</div></div>` };
+  document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { pipeView = b.dataset.p; document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x === b)); drawPipe(pipeView) });
+  drawPipe(pipeView);
   const openVal = sum(G.seller, 'value');
   $('ghlSrc').innerHTML = srcTag(G, openVal ? ` · ${money(openVal)} in play` : '');
+  columns($('valueChart'), G.seller.map(r => r.stage), G.seller.map(r => r.value), {axis: 'stage', isMoney: true, hi: i => WIN.test(G.seller[i].stage),
+    tipf: i => `${nn(i)} · ${esc(G.seller[i].stage)}<br><b>${money(G.seller[i].value)}</b> · ${fmt(G.seller[i].count)} sellers`});
 
-  /* list */
-  $('listSrc').innerHTML = `Updated ${new Date(LI.updated + 'T12:00').toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}`;
-  $('inPlay').textContent = fmt(inPlay);
-  const uni = Object.values(LI.universe).reduce((a, b) => a + b, 0);
-  $('universe').textContent = `picked from ${fmt(uni)} Texas owners`;
-  const parts = [['Own the business + the building', LI.in_play.both_owners, 'var(--amber)'], ['Own the business', LI.in_play.business_owners, 'var(--blue)'], ['Own the building', LI.in_play.property_owners, 'var(--blue-2)']];
-  $('split').innerHTML = parts.map(([, v, c]) => `<i style="flex:${v};background:${c}"></i>`).join('');
-  $('listLeg').innerHTML = parts.map(([n, v, c]) => `<div><i class="dot" style="background:${c}"></i><span>${n}</span><b class="num">${fmt(v)}</b></div>`).join('');
+  /* 05 list */
+  $('listSrc').textContent = LI.updated ? `Updated ${dshort(LI.updated)}` : 'Owner list';
+  $('universe').textContent = `picked from ${fmt(tot(Object.values(LI.universe)))} Texas owners`;
+  const parts = [['Own the business + the building', LI.in_play.both_owners, LI.universe.both_owners, C.sig], ['Own the business', LI.in_play.business_owners, LI.universe.business_owners, C.carbon], ['Own the building', LI.in_play.property_owners, LI.universe.property_owners, C.mist]];
+  donut($('ownerDonut'), parts.map(([n, v, , c]) => ({n, v, c})), fmt(inPlay), 'owners in play');
+  $('listLeg').innerHTML = parts.map(([n, v, , c]) => `<div><i style="background:${c}"></i><span>${n}</span><b class="num">${fmt(v)}</b></div>`).join('');
+  const umx = Math.max(...parts.map(p => p[2]));
+  $('uni').innerHTML = parts.map(([n, v, u, c]) => `<div class="r"><span>${n}</span><span class="num note">${fmt(v)} of ${fmt(u)}</span>
+    <div class="tr" data-tip="${esc(n)} · <b>${fmt(v)}</b> in play of ${fmt(u)} found · ${pct(v, u).toFixed(1)}%"><i style="width:${pct(u, umx)}%;background:${C.frost}"></i><i style="width:${Math.max(.6, pct(v, umx))}%;background:${c}"></i></div></div>`).join('')
+    + `<p class="note" style="margin-top:12px">Grey = every owner found. Colour = the slice in play now. The rest is the bench for the next waves.</p>`;
   $('coverage').innerHTML = [['With a verified email', LI.with_email], ['With a LinkedIn profile', LI.with_linkedin]].map(([n, v]) =>
-    `<div class="mini"><span>${n}</span><span class="num">${v == null ? '—' : fmt(v)}</span><div class="bar"><i style="width:${v ? pct(v, inPlay) : 0}%"></i></div></div>`).join('');
+    `<div class="meter"><div class="row"><span>${n}</span><b class="num">${v == null ? '—' : fmt(v)}<span class="note" style="font-size:14px">${v ? ' · ' + pct(v, inPlay).toFixed(0) + '%' : ''}</span></b></div>
+      <div class="track"><i style="width:${v ? pct(v, inPlay) : 0}%"></i></div></div>`).join('');
 
-  /* activity */
-  const act = G.activity || [];
-  $('feed').innerHTML = act.length ? act.map(a => { const t = new Date(a.at);
-    return `<li><span class="when"><b class="num">${t.toLocaleDateString('en-US', {day: 'numeric', timeZone: TZ})}</b>${t.toLocaleDateString('en-US', {month: 'short', timeZone: TZ})}</span><span>${esc(a.text)}</span></li>` }).join('')
-    : `<li><span class="when">—</span><span class="note">Every time a seller or buyer moves a stage in the CRM, it shows up here.</span></li>`;
-
-  /* website */
+  /* 06 website + feed */
   $('webSrc').innerHTML = srcTag(W);
   $('webStats').innerHTML = stat('Visits · 30 days', W.visits_30d == null ? null : fmt(W.visits_30d)) + stat('Forms filled', W.form_fills_30d == null ? null : fmt(W.form_fills_30d))
     + stat('Visit → form', W.visits_30d ? pct(W.form_fills_30d, W.visits_30d).toFixed(1) + '%' : null);
-  $('webNote').textContent = W.status === 'live' ? 'Every form goes straight into the CRM as a new seller or buyer.' : W.note;
+  $('webNote').textContent = W.status === 'live' ? 'Every form goes straight into the CRM as a new seller or buyer.' : (W.note || '');
+  const act = G.activity || [];
+  $('feed').innerHTML = act.length ? act.map(a => { const t = new Date(a.at);
+    return `<li class="${/signed|closed|contract/i.test(a.text) ? 'win' : ''}"><span class="when"><b class="num">${t.toLocaleDateString('en-US', {day: 'numeric', timeZone: TZ})}</b>${t.toLocaleDateString('en-US', {month: 'short', timeZone: TZ})}</span><span class="pin"></span><span>${esc(a.text)}</span></li>` }).join('')
+    : `<li><span class="when">—</span><span></span><span class="note">Every time a seller or buyer moves a stage in the CRM, it shows up here.</span></li>`;
 
   const g = new Date(d.generated_at);
   $('updated').textContent = `Updated ${g.toLocaleString('en-US', {timeZone: TZ, month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'})} CT · Instantly · HeyReach · GoHighLevel`;
 }
 
-fetch('data.json?t=' + Date.now()).then(r => r.json()).then(d => render(DEMO ? demo(d) : d))
-  .catch(() => { $('heroNote').textContent = 'Could not load the latest numbers. Refresh in a minute.' });
+let rt, lastW = innerWidth;
+addEventListener('resize', () => { if (innerWidth === lastW) return; lastW = innerWidth; clearTimeout(rt); rt = setTimeout(() => DATA && render(DATA), 150) });
+fetch('data.json?t=' + Date.now()).then(r => r.json()).then(d => { DATA = DEMO ? demo(d) : d; render(DATA) })
+  .catch(e => { console.error(e); $('heroNote').textContent = 'Could not load the latest numbers. Refresh in a minute.' });
 })();
 </script>
 </body>
