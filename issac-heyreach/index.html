@@ -1,0 +1,243 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Issac HeyReach Campaign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--void:#040506;--ink:#07080a;--obs:#111214;--graph:#1b1c1e;--slate:#2f3031;--smoke:#6a6b6c;--ash:#9c9c9d;--mist:#e6e6e6;--white:#fff;--coral:#ff6363;--ember:#452324;
+--mono:'JetBrains Mono',Menlo,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--void);color:var(--ash);font:400 15px/1.6 Inter,system-ui,sans-serif;font-feature-settings:'calt','kern','liga','ss03'}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:200px 1fr;gap:56px}
+nav{position:sticky;top:0;align-self:start;padding:48px 0;display:flex;flex-direction:column;gap:2px}
+nav a{color:var(--smoke);text-decoration:none;font-size:13px;font-weight:500;padding:7px 10px;border-radius:8px}
+nav a:hover{color:var(--white);background:var(--obs)}
+nav .mark{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--coral);text-transform:uppercase;padding:0 10px 14px}
+main{padding:48px 0 120px;min-width:0}
+header{padding-bottom:48px;border-bottom:1px solid var(--graph);margin-bottom:24px}
+h1{color:var(--white);font-size:52px;font-weight:600;line-height:1.08;letter-spacing:-.01em;margin:10px 0 16px}
+h1 em{font-style:normal;color:var(--coral)}
+.lede{font-size:18px;color:var(--ash);max-width:720px;margin:0}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--smoke)}
+section{padding:64px 0 16px}
+h2{color:var(--white);font-size:30px;font-weight:600;margin:8px 0 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+h3{color:var(--white);font-size:16px;font-weight:600;margin:32px 0 12px}
+code{font-family:var(--mono);font-size:.86em;color:var(--mist);background:var(--obs);padding:1px 6px;border-radius:5px}
+.card{background:var(--ink);border:1px solid var(--graph);border-radius:16px;padding:24px;box-shadow:rgba(255,255,255,.05) 0 1px 0 inset}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{text-align:left;padding:11px 14px;border-bottom:1px solid var(--graph);vertical-align:top}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--smoke);font-weight:500}
+td:first-child{color:var(--white);font-weight:500;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.tbl{background:var(--ink);border:1px solid var(--graph);border-radius:16px;overflow-x:auto}
+ol.steps-list{margin:0;padding:0;list-style:none;counter-reset:s}
+ol.steps-list li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;padding:12px 0;border-bottom:1px solid var(--graph);color:var(--mist)}
+ol.steps-list li:last-child{border-bottom:0}
+ol.steps-list li::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--coral);padding-top:3px}
+.brief{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--graph);border:1px solid var(--graph);border-radius:16px;overflow:hidden;margin-bottom:24px}
+.brief>div{background:var(--ink);padding:18px 20px;color:var(--mist);font-size:14px}
+.k{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--coral);margin-bottom:6px}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.step{background:var(--ink);border:1px solid var(--graph);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:rgba(255,255,255,.05) 0 1px 0 inset}
+.step:first-child{grid-column:1/-1}
+.step-head{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--graph)}
+.num{font-family:var(--mono);font-size:13px;color:var(--coral);font-weight:500}
+.meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--smoke)}
+.subj{display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--graph);background:var(--obs)}
+.subj .lab{font-family:var(--mono);font-size:10px;color:var(--smoke);width:14px}
+.subj .s{flex:1;color:var(--white);font-weight:500}
+.subj.empty .s{color:var(--smoke);font-weight:400;font-size:13px}
+.mail{padding:22px 20px 18px;color:var(--mist);font-size:15.5px;line-height:1.62;flex:1}
+.mail p{margin:0 0 14px}
+.sig{margin-top:18px;padding-top:14px;border-top:1px dashed var(--slate);font-size:13px;color:var(--smoke);line-height:1.55}
+.var{color:var(--coral);background:rgba(255,99,99,.09);border:1px solid rgba(255,99,99,.22);border-radius:6px;padding:0 5px;font-family:var(--mono);font-size:.84em;white-space:nowrap}
+.step-foot{display:flex;justify-content:space-between;align-items:center;padding:10px 20px;border-top:1px solid var(--graph)}
+.wc{font-family:var(--mono);font-size:11px;color:var(--smoke)}.wc.over{color:var(--coral)}
+.copy{font:500 12px Inter,sans-serif;color:var(--white);background:var(--obs);border:1px solid var(--slate);border-radius:8px;padding:5px 11px;cursor:pointer;white-space:nowrap}
+.copy:hover{background:var(--graph)}.copy.ok{color:var(--coral);border-color:var(--coral)}
+h2 .copy{font-size:11px}
+.sigblock{font-family:var(--mono);font-size:13px;color:var(--mist);white-space:pre;background:var(--obs);border:1px solid var(--graph);border-radius:12px;padding:16px 18px;margin:0 0 10px;overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.reply{margin-bottom:14px}.reply .q{color:var(--white);font-weight:600;margin-bottom:10px}
+.reply .a{white-space:pre-wrap;color:var(--mist);font-size:14.5px;background:var(--obs);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.reply .n{font-size:13px;color:var(--smoke);display:flex;justify-content:space-between;gap:12px;align-items:center}
+.block{display:grid;grid-template-columns:28px 1fr;gap:6px 12px;padding:16px 0;border-bottom:1px solid var(--graph)}
+.block:last-child{border-bottom:0}.block b{color:var(--white);font-weight:600}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--coral);margin-top:7px}
+.note{color:var(--smoke);font-size:13px;margin-top:10px}
+footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--graph);font-family:var(--mono);font-size:10.5px;color:var(--smoke);letter-spacing:.05em}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;gap:0;padding:0 16px}
+nav{flex-direction:row;overflow-x:auto;padding:12px 0;background:var(--void);z-index:5;border-bottom:1px solid var(--graph);gap:4px}
+nav .mark{display:none}nav a{white-space:nowrap}
+h1{font-size:36px}.brief,.steps,.grid2{grid-template-columns:1fr}td:first-child{white-space:normal}}
+
+.steps.li .step:first-child{grid-column:auto}
+.steps.li{grid-template-columns:1fr 1fr}
+.step.action{background:var(--obs);align-self:start}
+.mail.muted{color:var(--ash);font-size:14px}
+.subj.empty{border-top:1px solid var(--graph);border-bottom:0}
+.use{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--smoke);white-space:nowrap}
+.use.on{color:var(--coral)}
+.flow{font-family:var(--mono);font-size:12.5px;color:var(--mist);line-height:2}
+.flow b{color:var(--coral);font-weight:500}
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--ink);color:var(--mist);flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 16px}
+.mobile-block .mb-k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--coral);margin-bottom:18px}
+.mobile-block .mb-title{font-weight:600;font-size:1.6rem;margin-bottom:12px;color:var(--white)}
+.mobile-block .mb-sub{font-size:.95rem;color:var(--ash);max-width:340px;line-height:1.6}
+@media screen and (max-width:900px){.mobile-block{display:flex!important}body>*:not(.mobile-block){display:none!important}}
+</style></head><body><div class="mobile-block"><div class="mb-k">ISSAC · HEYREACH</div><div class="mb-title">Open on desktop</div><div class="mb-sub">This page is built for a big screen. Open it on your laptop.</div></div><div class="wrap">
+<nav><div class="mark">Issac · HeyReach</div><a href="#start">How to import</a><a href="#caps">What HeyReach does</a><a href="#infra">Infrastructure</a><a href="#vars">Variables + CSV</a><a href="#seq">The sequence</a><a href="#lanes">Two lanes</a><a href="#replies">Reply playbook</a><a href="#blockers">Before launch</a></nav>
+<main>
+<header>
+  <div class="eyebrow">Evolv One · Issac Newton · eXp Commercial · v2 · 23 Sep 2026</div>
+  <h1>The LinkedIn lane.<br><em>One goal: he replies.</em></h1>
+  <p class="lede">Its own lane, its own list, running next to email but never touching it. One campaign: view, follow, like, connect with no note, then three short messages that show Issac knows the business. 15 requests a weekday from his own account. Nothing a busy owner would read as a bot.</p>
+</header>
+
+<section id="start">
+  <div class="eyebrow">Step by step</div><h2>How to import</h2>
+  <div class="card"><ol class="steps-list"><li>Issac opens the invite link (sent on WhatsApp, the email invite didn&#x27;t arrive) → joins the &quot;Issac Newton&quot; workspace.</li><li>Issac: LinkedIn Senders → Add account → logs into his own LinkedIn. 2FA lands on his phone.</li><li>Sender → Limits + Working hours: the sender table below.</li><li>Leads → Blacklist: add eXp Commercial + other brokerages (companies) and Issac&#x27;s clients (people).</li><li>Leads → Create list ISSAC · C1 · LI · W01 → Import CSV → map linkedin_url, first_name, last_name, then the 5 custom columns.</li><li>Campaigns → Create ISSAC · C1 · LINKEDIN → pick the list → turn all 5 exclusion toggles ON.</li><li>Build from scratch: If connected (no delay) → Branch A + Branch B below, with the exact delays.</li><li>Like post: reaction Like, window 1 month, skip if none. Connection request: note OFF, withdraw 21 days.</li><li>Every message: paste the body, then the fallback (copy buttons).</li><li>Senders: Issac only. Schedule: the campaign table below.</li><li>Preview 5 owners. No { } showing, the known line is true and reads as a sentence.</li><li>Save the sequence as a template.</li><li>Launch only after the blockers are closed. Every Monday after: add next week&#x27;s list.</li></ol></div>
+</section>
+
+<section id="caps">
+  <div class="eyebrow">Researched on help.heyreach.io · 23 Sep 2026</div><h2>What HeyReach does</h2>
+  <p class="note" style="margin-top:0">Everything the tool can do, and whether this campaign uses it. <span class="use on">YES</span> = in the build.</p>
+  <h3>Actions</h3><div class="tbl"><table><tr><th>Feature</th><th>What it does</th><th>Here</th><th>Why</th></tr><tr><td>View profile</td><td>Visits the profile. The owner gets a &quot;viewed your profile&quot; notification.</td><td><span class="use on">YES</span></td><td>First touch. He sees a real Dallas broker looked at him.</td></tr><tr><td>Follow profile</td><td>Follows him. Must come before the connection request (a request already makes you a follower).</td><td><span class="use on">YES</span></td><td>Second touch, a day later. Quiet, no ask.</td></tr><tr><td>Like post</td><td>Reacts to his latest post within a window (24h → 3 months). Can skip if there&#x27;s no post.</td><td><span class="use on">YES</span></td><td>Window 1 month, skip if none. Most owners don&#x27;t post, so most skip. A like on something old reads as a bot.</td></tr><tr><td>Comment on post</td><td>Not a HeyReach action. No LinkedIn automation tool does it safely.</td><td><span class="use">BY HAND</span></td><td>Optional: when an owner does post, Issac writes one real line himself. An auto-comment from a stranger is the fastest way to look fake.</td></tr><tr><td>Send connection request</td><td>Blank or with a note (300 chars on Premium/Sales Nav, 200 on free). Auto-withdraws after X days.</td><td><span class="use on">YES</span></td><td>Blank. HeyReach&#x27;s own data: ~27% accepted blank vs ~22% with a note. The personal part goes in message 1, once he&#x27;s said yes.</td></tr><tr><td>Send message</td><td>To 1st-degree only: after an accepted request or on the Connected branch. Variables + fallback.</td><td><span class="use on">YES</span></td><td>Three messages, then stop.</td></tr><tr><td>Send InMail</td><td>Message without connecting. Needs Sales Navigator on the sender, uses InMail credits.</td><td><span class="use">NO (v2)</span></td><td>For owners who never accept, once Sales Nav is bought.</td></tr><tr><td>AI voice notes</td><td>Sends a voice message in the sender&#x27;s cloned voice.</td><td><span class="use">NO</span></td><td>A cloned voice from a stranger is a trust risk. Issac can record one by hand mid-conversation.</td></tr><tr><td>Find email / Add to Instantly</td><td>Looks up an email, or pushes the lead into an email campaign.</td><td><span class="use">NO</span></td><td>Separate lanes. An owner on LinkedIn never gets the email, and the other way round.</td></tr></table></div><h3>Conditions</h3><div class="tbl"><table><tr><th>Feature</th><th>What it does</th><th>Here</th><th>Why</th></tr><tr><td>If connected</td><td>Splits leads into Connected / Not connected. Can be step 1 with no delay.</td><td><span class="use on">YES</span></td><td>Issac has 21k followers. Anyone already connected skips the follow + request.</td></tr><tr><td>Open profile check</td><td>Splits open vs closed profiles to save InMail credits. Needs Sales Nav.</td><td><span class="use">NO (v2)</span></td><td>Goes with InMail.</td></tr></table></div><h3>Platform</h3><div class="tbl"><table><tr><th>Feature</th><th>What it does</th><th>Here</th><th>Why</th></tr><tr><td>Unibox</td><td>Every conversation from every sender in one inbox. Tags with names + colours. Reply from the web.</td><td><span class="use on">YES</span></td><td>Issac replies here or from his LinkedIn app; both stay in sync.</td></tr><tr><td>Lead import</td><td>CSV (LinkedIn URL + first + last name required), Sales Nav search, LinkedIn search, people who reacted to a post, Clay, API.</td><td><span class="use on">CSV</span></td><td>Our own list, built from the lead tables. Post-reactor import = a v2 lane.</td></tr><tr><td>Custom variables</td><td>Any CSV column becomes {variable}. Single braces, case-sensitive, fallback message required.</td><td><span class="use on">YES</span></td><td>Variables table below. Every one is resolved in the CSV, so the copy stays plain.</td></tr><tr><td>Exclusions + blacklist</td><td>5 exclusion toggles per campaign, exclusion lists, blacklist of people and companies.</td><td><span class="use on">YES</span></td><td>Exclusion lists must come from LinkedIn, so the DNC + the email lane are removed in the CSV instead.</td></tr><tr><td>A/B variants</td><td>Several variants per step.</td><td><span class="use">NO</span></td><td>Locked 23 Sep: a test only, one copy. The variable under test is the lead type.</td></tr><tr><td>Templates / JSON</td><td>Save a sequence as a template, import/export it as JSON.</td><td><span class="use on">YES</span></td><td>Save after the build. The next client gets it in one click.</td></tr><tr><td>Sender rotation</td><td>Several LinkedIn accounts share one campaign.</td><td><span class="use">NO</span></td><td>One persona: Issac. Never a second sender.</td></tr><tr><td>Analytics</td><td>Per campaign and per sender: requests, acceptance, replies, by step.</td><td><span class="use on">YES</span></td><td>sync.py pulls it into the dashboard, next to Instantly, as its own lane.</td></tr><tr><td>Integrations</td><td>Native: GoHighLevel, HubSpot, Pipedrive, Close, Clay, Apollo, RB2B, Zapier, Make, n8n, Instantly.</td><td><span class="use on">GHL</span></td><td>Conversations + tags into the Seller Pipeline (Ady).</td></tr><tr><td>API + webhooks + MCP</td><td>REST API (300 req/min). Webhooks: request sent/accepted, message sent, every reply, InMail, follow, like, view, tag updated.</td><td><span class="use on">YES</span></td><td>Numbers into the dashboard. No cross-channel stop needed: the lists never overlap.</td></tr></table></div><h3>Safety</h3><div class="tbl"><table><tr><th>Feature</th><th>What it does</th><th>Here</th><th>Why</th></tr><tr><td>Daily limits</td><td>Set per sender, shared across all campaigns. Requests: default 25, max 40. Warm-up actions (view, follow, like): 40/day pool.</td><td><span class="use on">15</span></td><td>PREFLIGHT 06: 15 requests a weekday. Warm-up split 15 / 15 / 10 = 40.</td></tr><tr><td>Weekly cap</td><td>200 requests/week hard cap. Cooldown until Monday when LinkedIn&#x27;s own limit is hit.</td><td><span class="use on">75</span></td><td>15 × 5 weekdays.</td></tr><tr><td>Locks</td><td>When LinkedIn pushes back, HeyReach pauses requests for a few hours and retries.</td><td><span class="use">AUTO</span></td><td>Nothing to set.</td></tr><tr><td>Minimum delay</td><td>3 hours between steps (except a first If-connected step). Delay edits are not retroactive.</td><td><span class="use">—</span></td><td>Set delays right before launch.</td></tr></table></div>
+  <p class="note">Growth US$79/seat/mo ($63 billed yearly) · 14-day trial · workspace &quot;Issac Newton&quot; on info@evolv.one, trial ends ~24 Sep. Sales Navigator Core US$119.99/mo is only needed for InMail / Open profile (v2).</p>
+</section>
+
+<section id="infra">
+  <div class="eyebrow">Workspace "Issac Newton" created 18 Sep · sender not connected yet</div><h2>Infrastructure</h2>
+  <h3>Sender (persona: Issac Newton, his own account)</h3>
+  <div class="tbl"><table><tr><th>Setting</th><th>Value</th><th>Why</th></tr><tr><td>Sender</td><td>Issac&#x27;s own LinkedIn (linkedin.com/in/nih), connected by Issac</td><td>He logs in himself. Nobody else holds the password.</td></tr><tr><td>Connection requests / day</td><td>15</td><td>PREFLIGHT 06. HeyReach default 25, max 40. 75/week vs a 200 cap.</td></tr><tr><td>Messages / day</td><td>20</td><td>Covers accepts + message 2s and 3s as they stack up.</td></tr><tr><td>Profile views / day</td><td>15</td><td>One per new owner. Warm-up pool is 40/day, shared with follows + likes.</td></tr><tr><td>Follows / day</td><td>15</td><td>Same 15 a day who&#x27;ll get a request.</td></tr><tr><td>Likes / day</td><td>10</td><td>Most owners have no recent post and skip. 15 + 15 + 10 = 40.</td></tr><tr><td>InMails / day</td><td>0</td><td>Not in the sequence (v2).</td></tr><tr><td>Working hours</td><td>08:00–17:00 · America/Chicago</td><td>HeyReach randomises gaps; a short window (e.g. 3h) never reaches the limit.</td></tr><tr><td>Working days</td><td>Mon–Fri</td><td>15 a weekday, nothing on weekends.</td></tr></table></div>
+  <p class="note">No signature on LinkedIn. TREC 535.155 is covered by the broker name on his profile, which is why the profile P0 fixes block launch. ⛔ Never a second sender, never Whiz's or Ady's account.</p>
+  <h3>Campaign</h3>
+  <div class="tbl"><table><tr><th>Setting</th><th>Value</th><th>Why</th></tr><tr><td>Campaigns</td><td>ONE: ISSAC · C1 · LINKEDIN</td><td>HeyReach advises max 2 campaigns per sender; 3 would split 15/day three ways. Tracks live in the variables.</td></tr><tr><td>Lead list</td><td>ISSAC · C1 · LI · W01, a new list each week</td><td>Add each week&#x27;s list to the running campaign (Edit campaign → Leads).</td></tr><tr><td>Exclude contacted in other HeyReach campaigns</td><td>ON</td><td></td></tr><tr><td>Exclude messaged by other senders</td><td>ON</td><td></td></tr><tr><td>Exclude contacted by same sender elsewhere</td><td>ON</td><td></td></tr><tr><td>Exclude blacklist</td><td>ON</td><td>Blacklist: Issac&#x27;s existing clients by LinkedIn URL.</td></tr><tr><td>Exclude blacklisted companies</td><td>ON</td><td>Blacklist: eXp Commercial + other brokerages.</td></tr><tr><td>Withdraw pending request</td><td>21 days</td><td>PREFLIGHT 06. Keeps the pending pile low, which LinkedIn watches.</td></tr><tr><td>Stop on reply</td><td>Built in</td><td>Any reply ends his sequence.</td></tr><tr><td>Schedule start</td><td>Any Monday once the blockers are closed</td><td>Runs on its own clock. Not tied to the Instantly launch.</td></tr></table></div>
+</section>
+
+<section id="vars">
+  <div class="eyebrow">What changes lead to lead</div><h2>Variables + CSV</h2>
+  <p class="note" style="margin-top:0">HeyReach variables use <b>single</b> braces and are case-sensitive: <span class="var">{FIRST_NAME}</span> works, <code>{{FIRST_NAME}}</code> and <code>{first_name}</code> don't. The three tracks share one copy; the track-specific words are written into the CSV cells, so HeyReach only swaps whole phrases.</p>
+  <div class="tbl"><table><tr><th>Variable</th><th>Type</th><th>Source</th><th>Rule</th></tr>
+  <tr><td><span class="var">{FIRST_NAME}</span></td><td>built-in</td><td><code>first_name</code></td><td>Mapped from the CSV, not taken from LinkedIn. Title-cased, first name only.</td></tr><tr><td><span class="var">{known}</span></td><td>custom</td><td><code>track + company / years in business / street / years owned / city</code></td><td>BOTH: &quot;29 years running Watson Supply, and you own the property on Irving too&quot; · BUSINESS: &quot;29 years running Watson Supply in Plano&quot; · PROPERTY: &quot;You&#x27;ve owned the property on Irving for 23 years&quot;. Same facts as the email lane. Starts with a capital, no full stop.</td></tr><tr><td><span class="var">{what_i_sell}</span></td><td>custom</td><td><code>track</code></td><td>BOTH: Texas businesses and the property they sit on · BUSINESS: Texas businesses · PROPERTY: commercial property in Texas</td></tr><tr><td><span class="var">{the_read}</span></td><td>custom</td><td><code>track</code></td><td>BOTH: a range of what each would sell for today · BUSINESS + PROPERTY: a range of what yours would sell for today</td></tr><tr><td><span class="var">{track}</span></td><td>custom</td><td><code>lead table</code></td><td>BOTH / BUSINESS / PROPERTY. Not used in copy. Lets the dashboard split replies by lead type.</td></tr>
+  </table></div>
+  <h3>Before upload (every Monday)</h3>
+  <div class="card"><ol class="steps-list"><li>Source: the three C1 lead tables. Take rows with a personal LinkedIn URL (/in/, never a company page) that have NOT been uploaded to Instantly.</li><li>Set lane = LINKEDIN on every row you take, in the lead table itself. From then on the email build skips them. One owner, one lane, forever.</li><li>Dedupe both ways by person AND company: if anyone at that company is in the email lane, drop the row.</li><li>Same suppression as Instantly: DNC (1,526) + Issac&#x27;s contacts/clients + anyone in GHL. HeyReach can&#x27;t use a CSV as an exclusion list, so it happens here.</li><li>Open 10 at random: right person, not a namesake, still at the company, the known line is true. Drop the batch&#x27;s bad pattern if you see one.</li><li>Order by ICP score, take the top 75 (one week of requests). PROPERTY rows under 5 years owned are out, same as email.</li><li>Fill known, what_i_sell, the_read from the table above. A blank cell = delete the row.</li><li>Columns: linkedin_url, first_name, last_name, track, known, what_i_sell, the_read. File: issac-c1-li-w01.csv (w02, w03…).</li></ol></div>
+  <p class="note">Only ~28% of rows carry a LinkedIn URL (14/50 in the actor test). LinkedIn takes the best-scored 75 of those a week; everything else stays in the email lane. 75 a week out of the email pool changes nothing on that side.</p>
+</section>
+
+<section id="seq">
+  <div class="eyebrow">Campaign · all three lead tables</div>
+  <h2>ISSAC · C1 · LINKEDIN <button class="copy" data-copy="ISSAC · C1 · LINKEDIN">Copy name</button></h2>
+  <div class="brief">
+    <div><span class="k">WHO</span>C1 owners with a personal LinkedIn profile, top 75 a week by ICP score. None of them are in the email lane.</div>
+    <div><span class="k">THE READ</span>Same offer as the email: what his would sell for today, on one page.</div>
+    <div><span class="k">WHY IT WORKS</span>The view, follow and like make the name familiar before he's asked anything. Message 1 opens with a fact about his business, so it reads as someone who knows him.</div>
+  </div>
+  <div class="card flow"><b>VIEW</b> D1 → <b>FOLLOW</b> D2 → <b>LIKE</b> D3 (skip if no post) → <b>CONNECT</b> D4 → accepted → <b>MSG 1</b> +1d → <b>MSG 2</b> +4d → <b>MSG 3</b> +7d → stop<br>
+  not accepted in 21 days → withdraw → stop · any reply → stop · comments: by hand only</div>
+  <h3>Branch A · Not connected (most owners)</h3><div class="steps li"><article class="step action"><div class="step-head"><span class="num">01</span><span class="meta">IF CONNECTED · STEP 1 · NO DELAY</span></div><div class="mail muted"><p>Not connected → this branch. Connected → Branch B.</p></div></article><article class="step action"><div class="step-head"><span class="num">02</span><span class="meta">VIEW PROFILE · DAY 1</span></div><div class="mail muted"><p>He gets &quot;Issac Newton viewed your profile&quot;. Nothing else.</p></div></article><article class="step action"><div class="step-head"><span class="num">03</span><span class="meta">FOLLOW · + 1 DAY</span></div><div class="mail muted"><p>Quiet second touch. Has to come before the request.</p></div></article><article class="step action"><div class="step-head"><span class="num">04</span><span class="meta">LIKE POST · + 1 DAY</span></div><div class="mail muted"><p>Reaction: Like. Window: 1 month. No post in that window → skip straight to the request.</p></div></article><article class="step action"><div class="step-head"><span class="num">05</span><span class="meta">CONNECTION REQUEST · + 1 DAY</span></div><div class="mail muted"><p>Note OFF. By now he&#x27;s seen the name twice. Withdraw after 21 days. Not accepted = sequence ends.</p></div></article><article class="step"><div class="step-head"><span class="num">06</span><span class="meta">MESSAGE 1 · + 1 DAY AFTER HE ACCEPTS</span></div><div class="mail"><p><span class="var">{FIRST_NAME}</span>, thanks for connecting.</p><p><span class="var">{known}</span>.</p><p>Most owners that far in have never had anyone put a real number on it. Asking feels like announcing it.</p><p>I sell <span class="var">{what_i_sell}</span>. I&#x27;ll send you <span class="var">{the_read}</span>, on one page. No call, stays between us.</p><p>Want me to run it?</p></div><div class="step-foot"><span class="wc">45 words</span><button class="copy" data-copy="{FIRST_NAME}, thanks for connecting.
+
+{known}.
+
+Most owners that far in have never had anyone put a real number on it. Asking feels like announcing it.
+
+I sell {what_i_sell}. I&#x27;ll send you {the_read}, on one page. No call, stays between us.
+
+Want me to run it?">Copy message</button></div><div class="subj empty"><span class="lab">FB</span><span class="s">Fallback: Thanks for connecting.
+
+Most owners have never had anyone put a real n…</span><button class="copy" data-copy="Thanks for connecting.
+
+Most owners have never had anyone put a real number on their business or property. Asking feels like announcing it.
+
+I sell Texas businesses and commercial property. I&#x27;ll send you a range of what yours would sell for today, on one page. No call, stays between us.
+
+Want me to run it?">Copy fallback</button></div></article><article class="step"><div class="step-head"><span class="num">07</span><span class="meta">MESSAGE 2 · + 4 DAYS, NO REPLY</span></div><div class="mail"><p><span class="var">{FIRST_NAME}</span>, I&#x27;m not asking if you&#x27;re selling.</p><p>Just whether a real number would help with whatever the long-term plan is.</p><p>Want it?</p></div><div class="step-foot"><span class="wc">22 words</span><button class="copy" data-copy="{FIRST_NAME}, I&#x27;m not asking if you&#x27;re selling.
+
+Just whether a real number would help with whatever the long-term plan is.
+
+Want it?">Copy message</button></div><div class="subj empty"><span class="lab">FB</span><span class="s">Fallback: Not asking if you&#x27;re selling.
+
+Just whether a real number would help w…</span><button class="copy" data-copy="Not asking if you&#x27;re selling.
+
+Just whether a real number would help with whatever the long-term plan is.
+
+Want it?">Copy fallback</button></div></article><article class="step"><div class="step-head"><span class="num">08</span><span class="meta">MESSAGE 3 · + 7 DAYS, NO REPLY · LAST</span></div><div class="mail"><p><span class="var">{FIRST_NAME}</span>, I&#x27;ll leave it here.</p><p>If the number&#x27;s ever useful, this year or in five, message me &quot;number&quot; and I&#x27;ll send it.</p></div><div class="step-foot"><span class="wc">22 words</span><button class="copy" data-copy="{FIRST_NAME}, I&#x27;ll leave it here.
+
+If the number&#x27;s ever useful, this year or in five, message me &quot;number&quot; and I&#x27;ll send it.">Copy message</button></div><div class="subj empty"><span class="lab">FB</span><span class="s">Fallback: I&#x27;ll leave it here.
+
+If the number&#x27;s ever useful, this year or in five…</span><button class="copy" data-copy="I&#x27;ll leave it here.
+
+If the number&#x27;s ever useful, this year or in five, message me &quot;number&quot; and I&#x27;ll send it.">Copy fallback</button></div></article></div>
+  <h3>Branch B · Already connected</h3><div class="steps li"><article class="step action"><div class="step-head"><span class="num">09</span><span class="meta">VIEW PROFILE · DAY 1</span></div><div class="mail muted"><p>Same first touch. No follow, no request: 1st-degree already follow each other.</p></div></article><article class="step action"><div class="step-head"><span class="num">10</span><span class="meta">LIKE POST · + 1 DAY</span></div><div class="mail muted"><p>Same rule: 1 month, skip if none.</p></div></article><article class="step"><div class="step-head"><span class="num">11</span><span class="meta">MESSAGE 1 · + 1 DAY</span></div><div class="mail"><p><span class="var">{FIRST_NAME}</span>, quick one.</p><p><span class="var">{known}</span>.</p><p>Most owners that far in have never had anyone put a real number on it. Asking feels like announcing it.</p><p>I sell <span class="var">{what_i_sell}</span>. I&#x27;ll send you <span class="var">{the_read}</span>, on one page. No call, stays between us.</p><p>Want me to run it?</p></div><div class="step-foot"><span class="wc">44 words</span><button class="copy" data-copy="{FIRST_NAME}, quick one.
+
+{known}.
+
+Most owners that far in have never had anyone put a real number on it. Asking feels like announcing it.
+
+I sell {what_i_sell}. I&#x27;ll send you {the_read}, on one page. No call, stays between us.
+
+Want me to run it?">Copy message</button></div><div class="subj empty"><span class="lab">FB</span><span class="s">Fallback: Quick one.
+
+Most owners have never had anyone put a real number on the…</span><button class="copy" data-copy="Quick one.
+
+Most owners have never had anyone put a real number on their business or property. Asking feels like announcing it.
+
+I sell Texas businesses and commercial property. I&#x27;ll send you a range of what yours would sell for today, on one page. No call, stays between us.
+
+Want me to run it?">Copy fallback</button></div></article><article class="step"><div class="step-head"><span class="num">12</span><span class="meta">MESSAGE 2 · + 4 DAYS, NO REPLY</span></div><div class="mail"><p><span class="var">{FIRST_NAME}</span>, I&#x27;m not asking if you&#x27;re selling.</p><p>Just whether a real number would help with whatever the long-term plan is.</p><p>Want it?</p></div><div class="step-foot"><span class="wc">22 words</span><button class="copy" data-copy="{FIRST_NAME}, I&#x27;m not asking if you&#x27;re selling.
+
+Just whether a real number would help with whatever the long-term plan is.
+
+Want it?">Copy message</button></div><div class="subj empty"><span class="lab">FB</span><span class="s">Fallback: Not asking if you&#x27;re selling.
+
+Just whether a real number would help w…</span><button class="copy" data-copy="Not asking if you&#x27;re selling.
+
+Just whether a real number would help with whatever the long-term plan is.
+
+Want it?">Copy fallback</button></div></article><article class="step"><div class="step-head"><span class="num">13</span><span class="meta">MESSAGE 3 · + 7 DAYS, NO REPLY · LAST</span></div><div class="mail"><p><span class="var">{FIRST_NAME}</span>, I&#x27;ll leave it here.</p><p>If the number&#x27;s ever useful, this year or in five, message me &quot;number&quot; and I&#x27;ll send it.</p></div><div class="step-foot"><span class="wc">22 words</span><button class="copy" data-copy="{FIRST_NAME}, I&#x27;ll leave it here.
+
+If the number&#x27;s ever useful, this year or in five, message me &quot;number&quot; and I&#x27;ll send it.">Copy message</button></div><div class="subj empty"><span class="lab">FB</span><span class="s">Fallback: I&#x27;ll leave it here.
+
+If the number&#x27;s ever useful, this year or in five…</span><button class="copy" data-copy="I&#x27;ll leave it here.
+
+If the number&#x27;s ever useful, this year or in five, message me &quot;number&quot; and I&#x27;ll send it.">Copy fallback</button></div></article></div>
+</section>
+
+<section id="lanes">
+  <div class="eyebrow">Parallel, never crossing</div><h2>Two lanes</h2>
+  <div class="tbl"><table><tr><th>What</th><th>How</th><th>Status</th></tr><tr><td>Who goes where</td><td>Lead table column lane = EMAIL or LINKEDIN, set when the weekly list is built. Never both.</td><td>TO BUILD</td></tr><tr><td>Dedupe before every upload</td><td>Both weekly builds skip any row, or any company, already in the other lane.</td><td>TO BUILD</td></tr><tr><td>Replies</td><td>HeyReach → GHL native integration: conversation + tag into the Seller Pipeline (Ady), marked LinkedIn.</td><td>TO BUILD</td></tr><tr><td>Numbers</td><td>sync.py reads HeyReach stats into the dashboard as its own lane, next to email. Compare reply rate per 100 owners.</td><td>KEY PENDING</td></tr></table></div>
+  <p class="note">Because no owner is ever in both lists, nothing has to stop the other channel on a reply. No n8n flows, no Instantly link. Each lane is measured on its own, so on Day 30 we know which one works.</p>
+</section>
+
+<section id="replies">
+  <div class="eyebrow">Issac answers from the HeyReach Unibox or his LinkedIn app</div><h2>Reply playbook</h2>
+  <div class="grid2"><div class="card reply"><div class="q">&quot;Sure&quot; / &quot;what do you need?&quot;</div><div class="a">Great. Three quick ones and I&#x27;ll put it together:
+
+1. Roughly what does it do in sales a year?
+2. Roughly what do you take home from it?
+3. Anything a buyer should know, like a big customer or a lease?
+
+Ballparks are fine. It stays between us.</div><div class="n"><span>Tag Interested. For PROPERTY: size, occupied or empty, any lease in place.</span><button class="copy" data-copy="Great. Three quick ones and I&#x27;ll put it together:
+
+1. Roughly what does it do in sales a year?
+2. Roughly what do you take home from it?
+3. Anything a buyer should know, like a big customer or a lease?
+
+Ballparks are fine. It stays between us.">Copy</button></div></div><div class="card reply"><div class="q">&quot;What does it cost?&quot;</div><div class="a">Nothing. It&#x27;s a number, not a listing. If you ever sell, you&#x27;ll know who to call.</div><div class="n"><span>Then the three questions.</span><button class="copy" data-copy="Nothing. It&#x27;s a number, not a listing. If you ever sell, you&#x27;ll know who to call.">Copy</button></div></div><div class="card reply"><div class="q">&quot;How did you find me?&quot;</div><div class="a">Fair question. Your company is on public Texas records, and I work with owners in your area. If you&#x27;d rather I didn&#x27;t message again, just say so.</div><div class="n"><span>Honest and short. Never mention the tools or the list.</span><button class="copy" data-copy="Fair question. Your company is on public Texas records, and I work with owners in your area. If you&#x27;d rather I didn&#x27;t message again, just say so.">Copy</button></div></div><div class="card reply"><div class="q">&quot;Not interested&quot; / &quot;not selling&quot;</div><div class="a">Understood, thanks for telling me. If it&#x27;s ever useful, the offer stands.</div><div class="n"><span>Tag Not interested. The reply already stopped the sequence.</span><button class="copy" data-copy="Understood, thanks for telling me. If it&#x27;s ever useful, the offer stands.">Copy</button></div></div><div class="card reply"><div class="q">&quot;Stop&quot; / &quot;don&#x27;t message me&quot;</div><div class="a">(no reply)</div><div class="n"><span>Tag Do not contact + add to the blacklist + DNC the same day.</span></div></div></div>
+</section>
+
+<section id="blockers">
+  <div class="eyebrow">Nothing launches until these are closed</div><h2>Before launch</h2>
+  <div class="card"><div class="block"><span class="dot"></span><div><b>Issac connects his LinkedIn to HeyReach</b><br>Invite still pending (eXp filter). Send the invite URL on WhatsApp. Nothing runs without his account.</div></div><div class="block"><span class="dot"></span><div><b>Trial ends ~24 Sep</b><br>Growth US$79/mo per seat. Issac pays the tools; confirm before the trial lapses or the build is lost.</div></div><div class="block"><span class="dot"></span><div><b>PREFLIGHT 06 vs automation</b><br>15 Sep said LinkedIn by hand until week 17; the 22 Sep plan moved it into HeyReach. This doc keeps the hand-rules (15/day, no note, 21-day withdraw). Whiz confirms.</div></div><div class="block"><span class="dot"></span><div><b>LinkedIn profile P0 fixes</b><br>Every view, follow and request sends him to Issac&#x27;s profile. Headline, cleared Featured, first-person About, Dallas, contact info: live before day 1.</div></div><div class="block"><span class="dot"></span><div><b>Lane column + dedupe</b><br>The lead tables get a lane column, and both weekly builds respect it. Without it the same owner gets both.</div></div><div class="block"><span class="dot"></span><div><b>Issac agrees to deliver the read</b><br>Same as email. The offer is his time.</div></div></div>
+  <p class="note">Sources: help.heyreach.io/en/articles/10493916 (sequence actions: no comment action) · help.heyreach.io/en/articles/15128619 (connection limits) · help.heyreach.io/en/articles/9932860 (common mistakes) · help.heyreach.io/en/articles/9877952 (launch + exclusions) · help.heyreach.io/en/articles/10493720 (exclusion lists) · help.heyreach.io/en/articles/14825415 (message guide + variables) · heyreach.io/pricing</p>
+</section>
+
+<footer>ISSAC · C1 · HEYREACH · v2 · 23 Sep 2026 · built from _build/build_linkedin_campaign.py, never hand-edit</footer>
+</main></div>
+<script>
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{
+  const t=b.textContent;try{await navigator.clipboard.writeText(b.dataset.copy);b.textContent='Copied';b.classList.add('ok');}
+  catch(e){b.textContent='Select + copy';}setTimeout(()=>{b.textContent=t;b.classList.remove('ok');},1400);
+}));
+</script></body></html>
