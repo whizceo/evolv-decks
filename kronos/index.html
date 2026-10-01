@@ -225,7 +225,8 @@ p{margin:0}
 .grid4 .num{font-family:var(--font-display);font-size:12px;letter-spacing:var(--track);color:var(--red);font-weight:600}
 .grid4 h3{margin:14px 0 10px}
 @media(max-width:960px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){.grid4{grid-template-columns:1fr}}
+.grid4.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:560px){.grid4,.grid4.grid2{grid-template-columns:1fr}}
 
 /* ---------- editorial band ---------- */
 .band{position:relative;isolation:isolate}
@@ -406,7 +407,7 @@ p{margin:0}
       <div>
         <div class="rulered"></div>
         <p class="eyebrow">Chi siamo</p>
-        <h2 style="margin-top:24px">Un'officina<br>prima che<br>un negozio</h2>
+        <h2 style="margin-top:24px">Negozio<br>e assistenza<br>moto</h2>
         <p class="lede" style="margin-top:24px">Kronos Moto nasce a Milano da chi le moto le smonta, non solo le vende. In esposizione trovi usato selezionato e controllato; dietro, un'officina attrezzata che segue la moto per tutta la sua vita — tagliandi, diagnosi, assetto, freni, gomme, preparazione.</p>
         <p class="lede" style="margin-top:16px">Nessun preventivo a sorpresa: si guarda la moto, si spiega cosa serve davvero e cosa può aspettare, e solo dopo si mette mano.</p>
         <a class="btn btn-outline" href="#contatti" style="margin-top:32px">Vieni a trovarci <span class="arw">&rarr;</span></a>
@@ -427,24 +428,14 @@ p{margin:0}
       </div>
       <a class="link" href="#servizi">Tutti i servizi <span class="arw">&rarr;</span></a>
     </div>
-    <div class="grid4">
+    <div class="grid4 grid2">
       <div class="card">
         <span class="num">01</span>
-        <h3>Officina multimarca</h3>
-        <p class="small">Stradali, sportive, naked, custom e scooter. Un solo interlocutore per manutenzione ordinaria e interventi specialistici.</p>
-      </div>
-      <div class="card">
-        <span class="num">02</span>
         <h3>Usato verificato</h3>
         <p class="small">Ogni moto in esposizione passa un controllo meccanico ed estetico prima di essere messa in vendita. Storia e tagliandi alla mano.</p>
       </div>
       <div class="card">
-        <span class="num">03</span>
-        <h3>Ricambi e accessori</h3>
-        <p class="small">Ricambi originali e aftermarket, pneumatici, batterie, olio e abbigliamento tecnico — ordinati e montati in sede.</p>
-      </div>
-      <div class="card">
-        <span class="num">04</span>
+        <span class="num">02</span>
         <h3>Preventivo chiaro</h3>
         <p class="small">Controllo, cifra e tempi prima di iniziare. Se durante il lavoro cambia qualcosa, ti chiamiamo: non si procede senza il tuo ok.</p>
       </div>
@@ -546,7 +537,7 @@ p{margin:0}
         <p class="lede" style="margin-top:16px">Pratiche, passaggio di proprietà e documenti li gestiamo noi. Tu porti la moto e le chiavi.</p>
         <a class="btn btn-red" href="#contatti" style="margin-top:40px">Fai valutare la tua moto <span class="arw">&rarr;</span></a>
       </div>
-      <img src="img/mondial-hps.jpg" alt="F.B Mondial HPS 125 in esposizione" width="1600" height="1200" loading="lazy">
+      <img src="img/mondial-smx.jpg" alt="F.B Mondial SMX in esposizione" width="1240" height="930" loading="lazy">
     </div>
   </div>
 </section>
@@ -632,9 +623,8 @@ p{margin:0}
         <h4 style="font-family:var(--font-display);text-transform:uppercase;letter-spacing:var(--track);font-size:12px;font-weight:500;color:var(--ash);margin-bottom:16px">Dove siamo</h4>
         <p class="lede" style="color:#fff">Kronos Moto<br>Via Ajaccio 4<br>20133 Milano (MI)</p>
         <p class="lede" style="margin-top:16px"><a href="tel:+390284541050" style="color:#fff">02 84 54 10 50</a><br><a href="mailto:aureliogravina@libero.it" style="color:rgba(255,255,255,.78)">aureliogravina@libero.it</a></p>
-        <!-- ORARI DA CONFERMARE CON IL CLIENTE prima della pubblicazione -->
         <h4 style="font-family:var(--font-display);text-transform:uppercase;letter-spacing:var(--track);font-size:12px;font-weight:500;color:var(--ash);margin:32px 0 16px">Orari</h4>
-        <p class="lede" style="color:rgba(255,255,255,.78)">Lunedì – Venerdì&nbsp;&nbsp;09:00 – 13:00 / 14:30 – 19:00<br>Sabato&nbsp;&nbsp;09:00 – 13:00<br>Domenica&nbsp;&nbsp;chiuso</p>
+        <p class="lede" style="color:rgba(255,255,255,.78)">Lunedì – Sabato&nbsp;&nbsp;09:00 – 12:30 / 15:00 – 19:00<br>Domenica&nbsp;&nbsp;chiuso</p>
       </div>
     </div>
   </div>
