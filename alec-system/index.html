@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alec's System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#06040e; --teal:#10242f; --graphite:#452623;
+  --fog:#f5f5f5; --paper:#ffffff; --mist:#e1edf2;
+  --terracotta:#e39a4d; --lavender:#cbb0eb; --plum:#1f1738; --sky:#a5c8d8; --cream:#f6ddc4;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--fog);flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+.mobile-block .mb-title{font-weight:800;font-size:1.8rem;letter-spacing:-.03em;margin-bottom:14px}
+.mobile-block .mb-sub{font-size:.95rem;color:var(--teal);max-width:340px;line-height:1.6}
+@media screen and (max-width:900px){.mobile-block{display:flex!important}body>*:not(.mobile-block){display:none!important}}
+html,body{height:100%;background:var(--fog);color:var(--ink);font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+
+.deck{position:relative;height:100vh;width:100vw}
+.slide{position:absolute;inset:0;display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;
+  padding:56px 80px 88px;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease}
+.slide.on{opacity:1;pointer-events:auto;transform:none}
+
+/* colored panel */
+.panel{position:relative;height:min(74vh,620px);border-radius:56px;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:48px}
+.panel.terracotta{background:var(--terracotta)} .panel.sky{background:var(--sky)} .panel.lavender{background:var(--lavender)} .panel.cream{background:var(--cream)}
+.blob{position:absolute;border-radius:50%;opacity:.75}
+.b1{width:200px;height:170px;top:-50px;right:-40px;border-radius:58% 42% 61% 39% / 45% 55% 45% 55%}
+.b2{width:130px;height:150px;bottom:-40px;left:-30px;border-radius:40% 60% 38% 62% / 60% 40% 60% 40%}
+.b3{width:70px;height:62px;bottom:60px;right:56px;border-radius:63% 37% 54% 46% / 55% 48% 52% 45%}
+
+.step{position:relative;z-index:1;display:flex;align-items:center;gap:18px;background:var(--paper);border-radius:24px;padding:20px 24px;max-width:440px}
+.step .n{flex:none;width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-weight:700;font-size:15px}
+.step .t{font-size:19px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
+.step .s{font-size:14px;color:var(--graphite);margin-top:2px;line-height:1.35}
+.arrow{position:relative;z-index:1;width:2px;height:14px;background:var(--ink);opacity:.35;margin-left:41px}
+
+/* copy column */
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:20px}
+h1{font-size:clamp(40px,5vw,64px);font-weight:800;line-height:1;letter-spacing:-.035em;color:var(--ink)}
+.sub{font-size:20px;line-height:1.5;color:var(--teal);margin-top:24px;max-width:520px}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;max-width:540px}
+.ba>div{border-radius:24px;padding:22px 24px}
+.ba .before{background:var(--paper)}
+.ba .after{background:var(--ink);color:var(--paper)}
+.ba .k{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;opacity:.65;margin-bottom:10px}
+.ba .v{font-size:18px;font-weight:700;line-height:1.3;letter-spacing:-.01em}
+
+/* title + close slides */
+.slide.center{grid-template-columns:1fr;align-content:center;gap:0;justify-items:center;text-align:center}
+.center h1{font-size:clamp(48px,6.5vw,84px);max-width:980px}
+.center .sub{margin-left:auto;margin-right:auto;max-width:640px}
+.layers{display:flex;gap:16px;margin-top:48px;flex-wrap:wrap;justify-content:center}
+.layer{border-radius:56px;padding:28px 40px;min-width:220px;text-align:left}
+.layer .k{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.layer .v{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:6px}
+.layer .d{font-size:14px;color:var(--graphite);margin-top:6px;line-height:1.4}
+.deco{position:absolute;z-index:-1}
+
+.math{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px;width:100%;max-width:1100px}
+.math>div{border-radius:24px;padding:28px 24px;text-align:left;background:var(--paper)}
+.math>div.dark{background:var(--ink);color:var(--paper)}
+.math .v{font-size:40px;font-weight:800;letter-spacing:-.035em;line-height:1}
+.math .k{font-size:15px;line-height:1.4;margin-top:14px;opacity:.8}
+.cta{display:inline-block;margin-top:40px;background:var(--ink);color:var(--paper);border-radius:8px;padding:16px 28px;font-size:16px;font-weight:500}
+
+/* chrome */
+.brand{position:fixed;top:28px;left:80px;font-size:13px;font-weight:700;letter-spacing:-.01em;z-index:5}
+.brand span{font-weight:400;opacity:.55}
+.nav{position:fixed;bottom:32px;left:80px;right:80px;display:flex;align-items:center;justify-content:space-between;z-index:5}
+.dots{display:flex;gap:8px}
+.dot{width:8px;height:8px;border-radius:8px;background:var(--ink);opacity:.18;transition:all .3s;cursor:pointer}
+.dot.on{opacity:1;width:28px}
+.hint{font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.45}
+.count{font-size:13px;font-weight:500;opacity:.55;font-variant-numeric:tabular-nums}
+
+@media (max-width:900px){
+  html,body{overflow:auto}
+  .slide{position:relative;opacity:1;transform:none;pointer-events:auto;grid-template-columns:1fr;padding:40px 16px;gap:24px;min-height:auto}
+  .panel{height:auto;border-radius:32px;padding:28px}
+  .nav,.hint{display:none}
+  .brand{position:static;padding:20px 16px 0}
+  .math{grid-template-columns:1fr 1fr}
+  .ba{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="mobile-block"><div class="mb-title">Open on desktop</div><div class="mb-sub">This presentation is built for a big screen. Open it on your laptop.</div></div>
+<div class="brand">Evolv AI <span>× Alec Renteria</span></div>
+
+<main class="deck" id="deck">
+
+  <!-- 0 · title -->
+  <section class="slide center on">
+    <div class="eyebrow">Your system</div>
+    <h1>Every owner you touch. Captured, tracked, followed up.</h1>
+    <p class="sub">Without you typing it in. Three layers, built in 30 days.</p>
+    <div class="layers">
+      <div class="layer" style="background:var(--sky)"><div class="k">01</div><div class="v">Capture</div><div class="d">No lead gets lost</div></div>
+      <div class="layer" style="background:var(--terracotta)"><div class="k">02</div><div class="v">Track</div><div class="d">No call gets typed</div></div>
+      <div class="layer" style="background:var(--lavender)"><div class="k">03</div><div class="v">Follow up</div><div class="d">No seller goes cold</div></div>
+    </div>
+  </section>
+
+  <!-- 1 · call logging -->
+  <section class="slide">
+    <div class="panel terracotta">
+      <div class="blob b1" style="background:var(--cream)"></div><div class="blob b2" style="background:var(--lavender)"></div><div class="blob b3" style="background:var(--sky)"></div>
+      <div class="step"><div class="n">1</div><div><div class="t">You make the call</div><div class="s">From the CRM, inbound or outbound</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">2</div><div><div class="t">AI listens and summarises</div><div class="s">Owner, business, outcome, next step</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">3</div><div><div class="t">The record fills itself</div><div class="s">CRM updated, your sheet too</div></div></div>
+    </div>
+    <div>
+      <div class="eyebrow">02 · Track · Call logging</div>
+      <h1>Every call logs itself.</h1>
+      <p class="sub">You hang up and dial the next one. The notes are already written.</p>
+      <div class="ba"><div class="before"><div class="k">Today</div><div class="v">1–2 hours a day typing notes</div></div>
+      <div class="after"><div class="k">With the system</div><div class="v">Zero. Back to calling</div></div></div>
+    </div>
+  </section>
+
+  <!-- 2 · follow-up -->
+  <section class="slide">
+    <div class="panel lavender">
+      <div class="blob b1" style="background:var(--terracotta)"></div><div class="blob b2" style="background:var(--sky)"></div><div class="blob b3" style="background:var(--cream)"></div>
+      <div class="step"><div class="n">1</div><div><div class="t">Owner says "not yet"</div><div class="s">Most do. The cycle is 6–9 months</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">2</div><div><div class="t">Nurture starts, in your voice</div><div class="s">Written by us, approved by you</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">3</div><div><div class="t">You call back on the right day</div><div class="s">Month 4, month 6. The system reminds you</div></div></div>
+    </div>
+    <div>
+      <div class="eyebrow">03 · Follow up · Automations</div>
+      <h1>The ones who said "not yet" get called back.</h1>
+      <p class="sub">New leads, no-shows, long-term nurture, review requests. All on a date, every time.</p>
+      <div class="ba"><div class="before"><div class="k">Today</div><div class="v">A spreadsheet that never calls back</div></div>
+      <div class="after"><div class="k">With the system</div><div class="v">Every owner followed up, on time</div></div></div>
+    </div>
+  </section>
+
+  <!-- 3 · missed-call text-back -->
+  <section class="slide">
+    <div class="panel sky">
+      <div class="blob b1" style="background:var(--lavender)"></div><div class="blob b2" style="background:var(--terracotta)"></div><div class="blob b3" style="background:var(--cream)"></div>
+      <div class="step"><div class="n">1</div><div><div class="t">You're on a visit</div><div class="s">An owner calls. You can't pick up</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">2</div><div><div class="t">They get a text in seconds</div><div class="s">From your number, in your words</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">3</div><div><div class="t">The conversation stays yours</div><div class="s">You call back when the visit ends</div></div></div>
+    </div>
+    <div>
+      <div class="eyebrow">01 · Capture · Missed-call text-back</div>
+      <h1>Miss a call. Keep the seller.</h1>
+      <p class="sub">The owner doesn't move on to the next broker on Google.</p>
+      <div class="ba"><div class="before"><div class="k">Today</div><div class="v">Voicemail, and they call someone else</div></div>
+      <div class="after"><div class="k">With the system</div><div class="v">An instant reply, every time</div></div></div>
+    </div>
+  </section>
+
+  <!-- 4 · lead sources + alert -->
+  <section class="slide">
+    <div class="panel cream">
+      <div class="blob b1" style="background:var(--sky)"></div><div class="blob b2" style="background:var(--terracotta)"></div><div class="blob b3" style="background:var(--lavender)"></div>
+      <div class="step"><div class="n">1</div><div><div class="t">A lead comes in</div><div class="s">BizBuySell · Crexi · eXp · your website</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">2</div><div><div class="t">It lands in one CRM</div><div class="s">Not an inbox, a text thread or a notebook</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">3</div><div><div class="t">You get a text and an email</div><div class="s">Owner, business, source. Call in minutes</div></div></div>
+    </div>
+    <div>
+      <div class="eyebrow">01 · Capture · Lead sources + instant alert</div>
+      <h1>Every lead in one place. Called in minutes.</h1>
+      <p class="sub">The first broker to call usually gets the listing. That's you.</p>
+      <div class="ba"><div class="before"><div class="k">Today</div><div class="v">Leads spread across 4 places</div></div>
+      <div class="after"><div class="k">With the system</div><div class="v">One CRM, one alert, one call</div></div></div>
+    </div>
+  </section>
+
+  <!-- 5 · pipeline + dashboard -->
+  <section class="slide">
+    <div class="panel terracotta">
+      <div class="blob b1" style="background:var(--lavender)"></div><div class="blob b2" style="background:var(--cream)"></div><div class="blob b3" style="background:var(--sky)"></div>
+      <div class="step"><div class="n">1</div><div><div class="t">First touch</div><div class="s">Cold call, canvass, referral</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">2</div><div><div class="t">Appointment → Listing</div><div class="s">Every deal in its stage, nothing in your head</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">3</div><div><div class="t">Your 90-day targets, live</div><div class="s">Calls · visits · appointments · listings</div></div></div>
+    </div>
+    <div>
+      <div class="eyebrow">02 · Track · Pipeline + dashboard</div>
+      <h1>Your 90-day sheet, live. On one screen.</h1>
+      <p class="sub">Your contacts and your sheet imported on day one. You always know if you're on pace for 12.</p>
+      <div class="ba"><div class="before"><div class="k">Today</div><div class="v">Filled in by hand at night</div></div>
+      <div class="after"><div class="k">With the system</div><div class="v">Updated itself, every call</div></div></div>
+    </div>
+  </section>
+
+  <!-- 6 · documents -->
+  <section class="slide">
+    <div class="panel lavender">
+      <div class="blob b1" style="background:var(--sky)"></div><div class="blob b2" style="background:var(--cream)"></div><div class="blob b3" style="background:var(--terracotta)"></div>
+      <div class="step"><div class="n">1</div><div><div class="t">The deal moves a stage</div><div class="s">Appointment booked, listing agreed</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">2</div><div><div class="t">The right document goes out</div><div class="s">Qualification form, listing documents</div></div></div>
+      <div class="arrow"></div>
+      <div class="step"><div class="n">3</div><div><div class="t">It comes back into the record</div><div class="s">Filled in, filed, nothing to chase</div></div></div>
+    </div>
+    <div>
+      <div class="eyebrow">03 · Follow up · Documents</div>
+      <h1>Paperwork that sends itself.</h1>
+      <p class="sub">Attached to the stage it belongs to. Sent and returned inside the CRM.</p>
+      <div class="ba"><div class="before"><div class="k">Today</div><div class="v">Emailing PDFs, chasing replies</div></div>
+      <div class="after"><div class="k">With the system</div><div class="v">Sent and filed automatically</div></div></div>
+    </div>
+  </section>
+
+  <!-- 7 · math + close -->
+  <section class="slide center">
+    <div class="eyebrow">What it means</div>
+    <h1>One extra listing pays for the whole year.</h1>
+    <div class="math">
+      <div><div class="v">33 h</div><div class="k">back every month. A full work week of calling</div></div>
+      <div><div class="v">28</div><div class="k">sellers every 90 days, now followed up on a date</div></div>
+      <div><div class="v" id="listing">$50K</div><div class="k">one listing at $500K × 10%</div></div>
+      <div class="dark"><div class="v">€4,150</div><div class="k">year one. €2,500 build + €150/mo</div></div>
+    </div>
+    <div class="cta">Live in 30 days</div>
+  </section>
+
+</main>
+
+<nav class="nav"><div class="dots" id="dots"></div><div class="hint">← → to move</div><div class="count" id="count"></div></nav>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dots=document.getElementById('dots'),count=document.getElementById('count');
+let i=0;
+slides.forEach((_,k)=>{const d=document.createElement('div');d.className='dot';d.onclick=()=>go(k);dots.appendChild(d)});
+function go(k){i=Math.max(0,Math.min(slides.length-1,k));
+  slides.forEach((s,j)=>s.classList.toggle('on',j===i));
+  [...dots.children].forEach((d,j)=>d.classList.toggle('on',j===i));
+  count.textContent=String(i+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');}
+addEventListener('keydown',e=>{
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(i+1)}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(i-1)}});
+document.getElementById('deck').addEventListener('click',e=>{if(innerWidth>900)go(e.clientX>innerWidth/2?i+1:i-1)});
+go(0);
+</script>
+</body>
+</html>
