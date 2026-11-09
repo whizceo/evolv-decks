@@ -122,6 +122,14 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .note{font-size:12px;color:var(--muted);line-height:1.5}
 .quote{background:#fff;border-radius:16px;padding:12px 14px;font-size:13px;line-height:1.45;margin-top:8px;border-left:3px solid var(--accent-2)}
 .quote small{display:block;color:var(--muted);margin-top:6px;font-size:11.5px}
+#t-tags{position:absolute;inset:0;pointer-events:none}
+#t-tags .tag{position:absolute;left:0;top:0;pointer-events:auto;cursor:pointer;background:rgba(255,255,255,.9);border-radius:999px;padding:5px 11px;font-size:11px;white-space:nowrap;box-shadow:0 6px 16px -8px rgba(60,30,50,.35)}
+#t-tags .tag b{font-weight:700;letter-spacing:.4px;margin-right:6px;color:var(--accent)}
+#t-tags .tag i{font-style:normal;color:var(--muted)}
+#t-tags .tag.sel{background:#fff;outline:1.5px solid var(--accent)}
+.agent{cursor:pointer}.agent.sel{outline:2px solid var(--accent)}
+.t-hint{position:absolute;left:18px;bottom:14px;font-size:11.5px;color:var(--muted);background:rgba(255,255,255,.75);border-radius:999px;padding:5px 11px}
+span.av{display:inline-grid;place-items:center;font-size:11.5px;font-weight:600;color:#3a353b}
 .mt{margin-top:16px}
 .flex{display:flex;align-items:center;gap:10px}
 .sp{justify-content:space-between}
@@ -164,10 +172,10 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
       <div class="seg"><span>7 days</span><span class="on">30 days</span><span>90 days</span></div>
     </div>
     <div class="grid g4">
-      <div class="card c-rose kpi"><svg class="shape" viewBox="0 0 100 100"><path d="M50 88S12 64 12 38a20 20 0 0 1 38-9 20 20 0 0 1 38 9c0 26-38 50-38 50z" fill="#d9b2c2"/></svg><div class="l">Pipeline volume</div><div class="v">$41.6M</div><div class="d"><span class="up">▲ $12.4M</span> from the system, 30 days</div></div>
+      <div class="card c-rose kpi"><svg class="shape" viewBox="0 0 100 100"><path d="M50 88S12 64 12 38a20 20 0 0 1 38-9 20 20 0 0 1 38 9c0 26-38 50-38 50z" fill="#d9b2c2"/></svg><div class="l">Pipeline volume</div><div class="v">$16.8M</div><div class="d"><span class="up">▲ $5.4M</span> added by the system, 90 days</div></div>
       <div class="card c-sage kpi"><svg class="shape" viewBox="0 0 100 100"><polygon points="50,6 94,94 6,94" fill="#bcc8b0"/></svg><div class="l">Conversations / week</div><div class="v">14</div><div class="d">Goal: 10 a week · <span class="up">ahead</span></div></div>
       <div class="card c-lav kpi"><svg class="shape" viewBox="0 0 100 100"><path d="M50 4l10 30 32-2-26 19 10 31-26-19-26 19 10-31L8 32l32 2z" fill="#c4bee3"/></svg><div class="l">Meetings booked</div><div class="v">11</div><div class="d">3 this week · 8 this month before</div></div>
-      <div class="card c-sand kpi"><svg class="shape" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#e6d2ae"/></svg><div class="l">New listings from the system</div><div class="v">4</div><div class="d">2 leases · 1 sale · 1 development</div></div>
+      <div class="card c-sand kpi"><svg class="shape" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#e6d2ae"/></svg><div class="l">New listings from the system</div><div class="v">2</div><div class="d">1 lease · 1 sale</div></div>
     </div>
 
     <div class="grid g21 mt">
@@ -271,13 +279,13 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
   <section class="page" id="p-pipeline">
     <div class="head"><div><h1>Deal pipeline.</h1><p class="sub">Every deal in progress, in volume. Your 2027 goal is $80M with the team.</p></div></div>
     <div class="grid g4">
-      <div class="card kpi c-rose"><div class="l">In pipeline</div><div class="v">$41.6M</div><div class="d">27 deals</div></div>
-      <div class="card kpi"><div class="l">Under contract</div><div class="v">$9.8M</div><div class="d">6 deals</div></div>
-      <div class="card kpi"><div class="l">Commission in play</div><div class="v">$1.21M</div><div class="d">4% on sales · leases at total value</div></div>
-      <div class="card kpi c-sage"><div class="l">Pace to $80M</div><div class="v">52%</div><div class="d">with 2 months to go in the year</div></div>
+      <div class="card kpi c-rose"><div class="l">In pipeline</div><div class="v">$16.8M</div><div class="d">14 deals · 6 started by the system</div></div>
+      <div class="card kpi"><div class="l">Under contract</div><div class="v">$3.9M</div><div class="d">3 deals</div></div>
+      <div class="card kpi"><div class="l">Commission in play</div><div class="v">$248K</div><div class="d">4% on sales · leases at your fee</div></div>
+      <div class="card kpi c-sage"><div class="l">Added by the system</div><div class="v">$5.4M</div><div class="d">since the first check-ins, 90 days</div></div>
     </div>
     <div class="card mt">
-      <div class="card-h"><div><h3>Deal journeys</h3><div class="cap">From first message to closing</div></div><div class="faces" id="faces"></div></div>
+      <div class="card-h"><div><h3>Deal journeys</h3><div class="cap">From first message to closing</div></div></div>
       <div class="journey" id="journey"></div>
     </div>
   </section>
@@ -301,7 +309,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
   <!-- TEAM -->
   <section class="page" id="p-team">
     <div class="head"><div><h1>Your AI team.</h1><p class="sub">Eight assistants that keep every conversation warm while you close deals. They write in your voice, and anything important comes to you.</p></div><span class="pill ok">8 of 8 working</span></div>
-    <div class="card" style="padding:0;background:linear-gradient(180deg,#fbf8f5,#efe8e2)"><canvas class="three" id="t-office" style="height:380px;border-radius:26px"></canvas></div>
+    <div class="card" id="t-stage" style="padding:0;position:relative;overflow:hidden;height:min(62vh,560px);min-height:420px;background:#f5f1ec"><canvas id="t-cv" style="width:100%;height:100%;display:block;cursor:grab"></canvas><div id="t-tags"></div><div class="t-hint">Drag to look around · click a person to zoom in</div></div>
     <div class="grid g4 mt" id="agents"></div>
   </section>
 
@@ -314,39 +322,40 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 </div>
 
 <script>
-const P = (g,n)=>`https://randomuser.me/api/portraits/${g}/${n}.jpg`;
+const AVC=['#ecd5dd','#dfdbee','#d6ddcc','#f0e4cf','#dde5ea'];
+const AV=n=>{const i=n.split(' ').map(w=>w[0]).join('').slice(0,2);let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%997;return `<span class="av" style="background:${AVC[h%5]}">${i}</span>`};
 const hot = [
- ['Linda Okafor','women',44,'Strip center, McKinney','Selling','$6.2M'],
+ ['Linda Okafor','women',44,'Strip center, McKinney','Selling','$2.4M'],
  ['Robert Chen','men',32,'Office condo, Las Colinas','Selling','$1.4M'],
  ['Priya Shah','women',65,'2nd salon, Allen','Leasing','$48K'],
  ['Tom Becker','men',71,'4.2 ac land, Garland','Selling','$2.9M'],
  ['Alicia Moreno','women',28,'Medical retail, Frisco','Leasing','$52K'],
- ['James Whitfield','men',52,'Pad site, Prosper','Buying','$3.1M'],
+ ['James Whitfield','men',52,'Pad site, Prosper','Buying','$1.8M'],
 ];
-document.getElementById('hot').innerHTML = hot.map(h=>`<tr><td><div class="who"><img class="av" src="${P(h[1],h[2])}"><div><b>${h[0]}</b><small>past client</small></div></div></td><td>${h[3]}</td><td><span class="pill ${h[4]=='Selling'?'hot':h[4]=='Leasing'?'new':'warm'}">${h[4]}</span></td><td class="num"><b>${h[5]}</b></td></tr>`).join('');
+document.getElementById('hot').innerHTML = hot.map(h=>`<tr><td><div class="who">${AV(h[0])}<div><b>${h[0]}</b><small>past client</small></div></div></td><td>${h[3]}</td><td><span class="pill ${h[4]=='Selling'?'hot':h[4]=='Leasing'?'new':'warm'}">${h[4]}</span></td><td class="num"><b>${h[5]}</b></td></tr>`).join('');
 const bars=(id,rows,col)=>document.getElementById(id).innerHTML=rows.map(r=>`<div style="margin-bottom:12px"><div class="flex sp" style="font-size:12.5px"><span>${r[0]}</span><b>${r[1].toLocaleString()}</b></div><div class="bar"><i style="width:${r[2]}%;background:${col}"></i></div></div>`).join('');
 bars('src',[['Google Sheets',3870,100],['Constant Contact',2760,71],['Buildout',1584,41]],'#8b4d7b');
 bars('asset',[['Retail',2910,100],['Office',1720,59],['Land',1240,43],['Industrial',890,31],['Multifamily / townhomes',1454,50]],'#a8b59a');
 const devs=[['Marcus Hale','men',46,'Hale Capital','Frisco mixed-use · 140K sf','Month 2'],['Daniel Reyes','men',36,'Reyes Development','Celina townhomes · 64 units','Month 3'],['Sarah Lindqvist','women',47,'Northgate Partners','Prosper retail pads','Month 1'],['Kevin Tran','men',61,'Tran Holdings','Mesquite flex industrial','Month 4']];
-document.getElementById('devs').innerHTML=devs.map(d=>`<div class="step"><img class="av" src="${P(d[1],d[2])}"><div><b>${d[0]}</b> · ${d[3]}<small>${d[4]}</small></div><span class="pill ${d[5]=='Month 4'?'hot':'warm'}" style="margin-left:auto">${d[5]}</span></div>`).join('')+`<p class="note mt">Each one hears from you every 2–3 weeks with something useful: comps, lease rates, absorption. When they're ready to list, you're the name they know.</p>`;
+document.getElementById('devs').innerHTML=devs.map(d=>`<div class="step">${AV(d[0])}<div><b>${d[0]}</b> · ${d[3]}<small>${d[4]}</small></div><span class="pill ${d[5]=='Month 4'?'hot':'warm'}" style="margin-left:auto">${d[5]}</span></div>`).join('')+`<p class="note mt">Each one hears from you every 2–3 weeks with something useful: comps, lease rates, absorption. When they're ready to list, you're the name they know.</p>`;
 const nr=[['Marcus Hale','men',46,'Hale Capital','Mixed-use','Frisco','Email','140K sf','Meeting Wed'],['Grace Whitmore','women',90,'Whitmore Family Trust','Retail center','Richardson','LinkedIn','$8.5M','Call booked'],['Andre Lewis','men',22,'Lewis Ventures','Land','Celina','Email','22 ac','Replied'],['Nina Patel','women',33,'Patel Hospitality','Retail pad','McKinney','Email','$2.2M','Call booked'],['Carlos Vega','men',75,'Vega Properties','Office','Plano','LinkedIn','38K sf','Replied'],['Emily Brooks','women',17,'Brooks Land Co.','Land','Prosper','Email','11 ac','Meeting Fri']];
-document.getElementById('newrep').innerHTML=nr.map(r=>`<tr><td><div class="who"><img class="av" src="${P(r[1],r[2])}"><b>${r[0]}</b></div></td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td><span class="pill">${r[6]}</span></td><td class="num">${r[7]}</td><td><span class="pill ${r[8].startsWith('Meet')?'ok':r[8].startsWith('Call')?'new':'warm'}">${r[8]}</span></td></tr>`).join('');
+document.getElementById('newrep').innerHTML=nr.map(r=>`<tr><td><div class="who">${AV(r[0])}<b>${r[0]}</b></div></td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td><span class="pill">${r[6]}</span></td><td class="num">${r[7]}</td><td><span class="pill ${r[8].startsWith('Meet')?'ok':r[8].startsWith('Call')?'new':'warm'}">${r[8]}</span></td></tr>`).join('');
 const inq=[['Jordan Miles','men',12,'Preston Rd retail, 2,400 sf','Crexi','41s','Tour Thu 10 AM'],['Hannah Cole','women',55,'Legacy West office suite','LoopNet','12s','Qualified'],['Omar Haddad','men',41,'Celina land, 6 ac','Buildout','1m 04s','Call booked'],['Rachel Kim','women',63,'Allen retail endcap','LoopNet','33s','Tour Sat 11 AM'],['Victor Ruiz','men',83,'Plano flex space','Crexi','52s','Qualified'],['Megan Price','women',8,'McKinney pad site','LoopNet','29s','Tour Mon 2 PM']];
-document.getElementById('inq').innerHTML=inq.map(r=>`<tr><td><div class="who"><img class="av" src="${P(r[1],r[2])}"><b>${r[0]}</b></div></td><td>${r[3]}</td><td><span class="pill">${r[4]}</span></td><td class="num"><b>${r[5]}</b></td><td><span class="pill ${r[6].startsWith('Tour')?'ok':r[6].startsWith('Call')?'new':'warm'}">${r[6]}</span></td></tr>`).join('');
+document.getElementById('inq').innerHTML=inq.map(r=>`<tr><td><div class="who">${AV(r[0])}<b>${r[0]}</b></div></td><td>${r[3]}</td><td><span class="pill">${r[4]}</span></td><td class="num"><b>${r[5]}</b></td><td><span class="pill ${r[6].startsWith('Tour')?'ok':r[6].startsWith('Call')?'new':'warm'}">${r[6]}</span></td></tr>`).join('');
 const fc=[['women',44],['men',46],['women',90],['men',36],['women',65],['men',32],['women',55]];
-document.getElementById('faces').innerHTML=fc.map(f=>`<img src="${P(f[0],f[1])}">`).join('');
+
 const J=[
  ['First contact',[['men',46,'Marcus Hale','Reply to market update',1],['women',90,'Grace Whitmore','LinkedIn reply',1],['men',22,'Andre Lewis','Asked for comps',1],['women',33,'Nina Patel','Crexi inquiry',0]]],
- ['Meeting',[['women',44,'Linda Okafor','Valuation call · $6.2M',1],['men',36,'Daniel Reyes','Site walk Wed 9 AM',1],['women',55,'Hannah Cole','Tour booked',0],['men',71,'Tom Becker','Pricing the land',0]]],
- ['Listing / LOI',[['men',32,'Robert Chen','Listing signed · $1.4M',1],['women',65,'Priya Shah','LOI sent · Allen',1],['women',28,'Alicia Moreno','Terms in review',0]]],
- ['Closing',[['blk','','Bloom Pilates, Plano','Lease signed · $46K',1],['blk','','Celina townhomes','90 units · $19.6M',1],['men',52,'James Whitfield','Under contract · $3.1M',1]]],
+ ['Meeting',[['women',44,'Linda Okafor','Valuation call · $2.4M',1],['men',36,'Daniel Reyes','Site walk Wed 9 AM',1],['men',71,'Tom Becker','Pricing the land',0]]],
+ ['Listing / LOI',[['men',32,'Robert Chen','Listing signed · $1.4M',1],['women',65,'Priya Shah','LOI sent · lease $48K',0]]],
+ ['Closing',[['blk','','Bloom Pilates, Plano','Lease signed · $46K',1],['men',52,'James Whitfield','Under contract · $1.8M',1]]],
 ];
-document.getElementById('journey').innerHTML=J.map(l=>`<div class="lane"><h4>${l[0]}</h4>${l[1].map(s=>s[0]=='blk'?`<div class="step blk"><div><b>${s[2]}</b><small>${s[3]}</small></div><span class="ck" style="color:#9fd3a9">✓</span></div>`:`<div class="step"><img class="av" src="${P(s[0],s[1])}"><div><b>${s[2]}</b><small>${s[3]}</small></div><span class="ck">${s[4]?'✓✓':'···'}</span></div>`).join('')}</div>`).join('');
+document.getElementById('journey').innerHTML=J.map(l=>`<div class="lane"><h4>${l[0]}</h4>${l[1].map(s=>s[0]=='blk'?`<div class="step blk"><div><b>${s[2]}</b><small>${s[3]}</small></div><span class="ck" style="color:#9fd3a9">✓</span></div>`:`<div class="step">${AV(s[2])}<div><b>${s[2]}</b><small>${s[3]}</small></div><span class="ck">${s[4]?'✓✓':'···'}</span></div>`).join('')}</div>`).join('');
 const AG=[['FLASH','Answers every inquiry in under a minute','#8b4d7b',96,'inquiries',98],['REVA','Wakes up the 8,000 with check-ins','#b77aa6',1284,'check-ins',84],['NADIA','Reaches new owners and developers','#6f6aa8',418,'reached',72],['TESS','Books meetings on your calendar','#a8b59a',11,'booked',90],['MILO','Rebooks no-shows, kindly','#c99a5b',4,'rebooked',75],['DEX','Collects documents and financials','#7c97a8',17,'files',66],['JADA','Follows up after signature','#c98a9e',9,'deals',80],['RAY','Calls back every missed call','#5d5560',23,'callbacks',94]];
-document.getElementById('agents').innerHTML=AG.map(a=>`<div class="agent"><div class="orb" style="background:radial-gradient(circle at 32% 28%,#fff8 0,${a[2]} 45%,${a[2]})">${a[0].slice(0,2)}</div><h5>${a[0]}</h5><p>${a[1]}</p><div class="row"><div><b>${a[3].toLocaleString()}</b><span class="note">${a[4]} this week</span></div><div style="text-align:right"><b>${a[5]}%</b><span class="note">on target</span></div></div><div class="bar"><i style="width:${a[5]}%;background:${a[2]}"></i></div></div>`).join('');
+document.getElementById('agents').innerHTML=AG.map(a=>`<div class="agent" data-id="${a[0].toLowerCase()}" onclick="TEAM3D.focus(this.dataset.id)"><div class="orb" style="background:radial-gradient(circle at 32% 28%,#fff8 0,${a[2]} 45%,${a[2]})">${a[0].slice(0,2)}</div><h5>${a[0]}</h5><p>${a[1]}</p><div class="row"><div><b>${a[3].toLocaleString()}</b><span class="note">${a[4]} this week</span></div><div style="text-align:right"><b>${a[5]}%</b><span class="note">on target</span></div></div><div class="bar"><i style="width:${a[5]}%;background:${a[2]}"></i></div></div>`).join('');
 const CT=[['Linda Okafor','women',44,'Owner','McKinney','Constant Contact','Today · REVA','Hot','$6.2M'],['Marcus Hale','men',46,'Developer','Frisco','New · public records','Today · NADIA','Meeting','$14.0M'],['Priya Shah','women',65,'Tenant','Allen','Constant Contact','Yesterday · REVA','LOI','$48K'],['Robert Chen','men',32,'Owner','Las Colinas','Google Sheets','2 days · JADA','Listing','$1.4M'],['Grace Whitmore','women',90,'Owner','Richardson','New · public records','Yesterday · NADIA','Call','$8.5M'],['Daniel Reyes','men',36,'Developer','Celina','Buildout','Today · TESS','Meeting','$11.2M'],['Hannah Cole','women',55,'Tenant','Plano','LoopNet','Today · FLASH','Tour','$62K'],['Tom Becker','men',71,'Owner','Garland','Google Sheets','3 days · REVA','Hot','$2.9M'],['Nina Patel','women',33,'Investor','McKinney','New · public records','Today · NADIA','Call','$2.2M'],['Kevin Tran','men',61,'Developer','Mesquite','Buildout','1 week · NADIA','Seed','$7.5M']];
 const stc={Hot:'hot',Meeting:'ok',LOI:'new',Listing:'dark',Call:'new',Tour:'ok',Seed:'warm'};
-document.getElementById('ctab').innerHTML=CT.map(r=>`<tr><td><div class="who"><img class="av" src="${P(r[1],r[2])}"><b>${r[0]}</b></div></td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td>${r[6]}</td><td><span class="pill ${stc[r[7]]}">${r[7]}</span></td><td class="num"><b>${r[8]}</b></td></tr>`).join('');
+document.getElementById('ctab').innerHTML=CT.map(r=>`<tr><td><div class="who">${AV(r[0])}<b>${r[0]}</b></div></td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td>${r[6]}</td><td><span class="pill ${stc[r[7]]}">${r[7]}</span></td><td class="num"><b>${r[8]}</b></td></tr>`).join('');
 </script>
 
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
@@ -419,24 +428,6 @@ const ease=t=>1-Math.pow(1-t,3);
  v.forEach((h,i)=>{const night=i<7||i>19; const hh=Math.max(.08,h*.36); const m=new THREE.Mesh(new RoundedBoxGeometry(.38,hh,.38,4,.1),mat(night?0x6f6aa8:0xd8c9d2)); m.position.set(x0+i*g,hh/2,0); m.castShadow=true; o.s.add(m);});
 })();
 
-// 6 · office with 8 porcelain characters
-(()=>{const o=stage('t-office',{cam:[0,6.2,11],look:[0,.8,0],sway:.25}); if(!o)return;
- const floor=new THREE.Mesh(new RoundedBoxGeometry(18,.3,9,6,.25),mat(0xf1e9e3,{roughness:.6,clearcoat:.3})); floor.position.y=-.15; floor.receiveShadow=true; o.s.add(floor);
- const cols=[0x8b4d7b,0xb77aa6,0x6f6aa8,0xa8b59a,0xc99a5b,0x7c97a8,0xc98a9e,0x5d5560], names=['FLASH','REVA','NADIA','TESS','MILO','DEX','JADA','RAY'];
- const bob=[];
- for(let i=0;i<8;i++){const row=i<4?0:1, col=i%4; const x=-5.1+col*3.4, z=row?1.8:-1.8; const g=new THREE.Group(); g.position.set(x,0,z);
-  const desk=new THREE.Mesh(new RoundedBoxGeometry(2.3,.14,1.2,4,.06),mat(0xffffff,{roughness:.25})); desk.position.set(0,1.05,.55); desk.castShadow=desk.receiveShadow=true; g.add(desk);
-  [[-1,.2],[1,.2],[-1,.95],[1,.95]].forEach(([a,b])=>{const l=new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,1,12),mat(0xd8cfd4));l.position.set(a,.5,b);g.add(l);});
-  const scr=new THREE.Mesh(new RoundedBoxGeometry(1.1,.68,.06,4,.03),mat(0x1d1a1f,{roughness:.15})); scr.position.set(0,1.55,.95); scr.castShadow=true; g.add(scr);
-  const glow=new THREE.Mesh(new THREE.PlaneGeometry(.98,.56),new THREE.MeshBasicMaterial({color:cols[i]})); glow.position.set(0,1.55,.915); glow.rotation.y=Math.PI; g.add(glow);
-  const body=new THREE.Mesh(new THREE.CapsuleGeometry(.36,.55,12,32),mat(cols[i])); body.position.set(0,1.0,-.35); body.castShadow=true; g.add(body);
-  const head=new THREE.Mesh(new THREE.SphereGeometry(.3,48,32),mat(0xf4e3d7,{roughness:.4})); head.position.set(0,1.78,-.35); head.castShadow=true; g.add(head);
-  const hair=new THREE.Mesh(new THREE.SphereGeometry(.315,48,32,0,Math.PI*2,0,Math.PI*.55),mat(i%3==0?0x2a1d1a:i%3==1?0x5a3524:0x1b1515,{roughness:.6})); hair.position.copy(head.position); hair.rotation.x=-.35; g.add(hair);
-  const chair=new THREE.Mesh(new RoundedBoxGeometry(.9,.9,.18,4,.08),mat(0xe9dfe5)); chair.position.set(0,1.0,-.85); chair.castShadow=true; g.add(chair);
-  g.rotation.y=Math.PI; o.s.add(g); bob.push([body,head,hair,i]);
- }
- o.upd.push(()=>{const t=performance.now()/1000; bob.forEach(([b,h,hr,i])=>{const y=Math.sin(t*1.6+i)*.03; b.position.y=1.0+y; h.position.y=1.78+y; hr.position.y=1.78+y; h.rotation.y=Math.sin(t*.7+i)*.25;});});
-})();
 
 function size(o){const w=o.cv.clientWidth,h=o.cv.clientHeight; if(!w||!h) return false; if(o.cv.width!==Math.round(w*o.r.getPixelRatio())){o.r.setSize(w,h,false); o.c.aspect=w/h; o.c.updateProjectionMatrix();} return true;}
 function loop(){requestAnimationFrame(loop); const t=performance.now()/1000;
@@ -452,5 +443,7 @@ function go(){const h=(location.hash||'#overview').slice(1); const p=pages.inclu
 addEventListener('hashchange',go); go();
 document.querySelectorAll('.seg span').forEach(s=>s.onclick=()=>{s.parentNode.querySelectorAll('span').forEach(x=>x.classList.remove('on'));s.classList.add('on')});
 </script>
+<script src="team3d.js?v=2"></script>
+<script>TEAM3D.start()</script>
 </body>
 </html>
