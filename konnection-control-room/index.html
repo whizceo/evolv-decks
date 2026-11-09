@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konnection Control Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f1ec; --stage:#ffffff; --soft:#efe9e3; --ink:#1d1a1f; --ink2:#3a353b; --muted:#857c84; --faint:#b6adb3; --line:#e7dfd8;
+  --accent:#8b4d7b; --accent-2:#b77aa6; --accent-wash:#f3e6ee;
+  --rose:#ecd5dd; --sage:#d6ddcc; --lav:#dfdbee; --sand:#f0e4cf; --mist:#dde5ea;
+  --side:#1d1a1f; --ok:#4f7a5b; --warn:#b5793a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh;gap:0}
+/* sidebar */
+.side{position:sticky;top:0;height:100vh;padding:16px}
+.side-in{background:var(--side);color:#f3eef1;border-radius:28px;height:100%;padding:26px 16px;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px 22px}
+.brand-mark{width:34px;height:34px;border-radius:11px;background:radial-gradient(circle at 30% 25%,#f6e6ef,#b77aa6 55%,#6e3a61);box-shadow:inset 0 -3px 6px rgba(0,0,0,.25),0 4px 10px rgba(0,0,0,.3)}
+.brand b{font-size:16px;letter-spacing:-.2px;display:block}
+.brand small{font-size:11px;color:#a69ca3}
+.nav-h{font-size:11px;color:#8a8088;margin:14px 10px 8px}
+.nav a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:12px;color:#d9d1d6;text-decoration:none;font-size:13.5px;margin-bottom:2px;transition:.15s}
+.nav a:hover{background:#2b272c}
+.nav a.on{background:#f3eef1;color:var(--ink);font-weight:600}
+.nav a.on .ic{color:var(--accent)}
+.ic{width:18px;height:18px;flex:none}
+.side-foot{margin-top:auto;padding:14px 10px 0;border-top:1px solid #322d33;font-size:11.5px;color:#958b93;line-height:1.5}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#9fd3a9;margin-right:6px;box-shadow:0 0 0 3px rgba(159,211,169,.18)}
+/* main */
+main{padding:22px 28px 60px 12px;min-width:0}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.search{flex:1;max-width:560px;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px;color:var(--muted)}
+.search .chip{margin-left:auto;font-size:11px;background:var(--ink);color:#fff;border-radius:999px;padding:3px 10px}
+.demo-badge{font-size:11.5px;font-weight:600;color:var(--accent);background:var(--accent-wash);border-radius:999px;padding:7px 13px}
+.round{width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink2)}
+.me{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#e9c9d6,#b77aa6);display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px}
+.page{display:none;animation:fade .35s ease}
+.page.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h1{font-size:34px;font-weight:600;letter-spacing:-.8px;line-height:1.1}
+.sub{color:var(--muted);margin-top:8px;max-width:640px;line-height:1.5;font-size:14.5px}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:22px}
+.seg{display:flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px}
+.seg span{padding:6px 13px;border-radius:999px;font-size:12px;color:var(--muted);cursor:pointer}
+.seg span.on{background:var(--ink);color:#fff}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:1fr 1fr}
+.g21{grid-template-columns:1.55fr 1fr}
+.g12{grid-template-columns:1fr 1.55fr}
+.card{background:var(--stage);border-radius:26px;padding:22px;position:relative;overflow:hidden;min-width:0}
+.card.soft{background:var(--soft)}
+.c-rose{background:var(--rose)}.c-sage{background:var(--sage)}.c-lav{background:var(--lav)}.c-sand{background:var(--sand)}.c-mist{background:var(--mist)}
+.card h3{font-size:17px;font-weight:600;letter-spacing:-.2px}
+.card .cap{font-size:12px;color:var(--muted);margin-top:3px}
+.card-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:14px}
+.kpi .v{font-size:34px;font-weight:600;letter-spacing:-1px;margin-top:18px;line-height:1}
+.kpi .l{font-size:13px;font-weight:600}
+.kpi .d{font-size:12px;color:var(--ink2);margin-top:8px;opacity:.75}
+.kpi .up{color:var(--ok);font-weight:600}
+.kpi .shape{position:absolute;right:-18px;top:-18px;width:96px;height:96px;opacity:.55}
+.trio{display:flex;gap:18px;margin-top:14px}
+.trio div b{display:block;font-size:15px}
+.trio div span{font-size:11px;color:var(--muted)}
+.three{width:100%;height:290px;border-radius:20px;display:block}
+.three.tall{height:360px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--ink2);margin-top:10px}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:4px 10px;border-radius:999px;background:var(--soft);color:var(--ink2);white-space:nowrap;font-weight:500}
+.pill.hot{background:var(--rose);color:#6e2f5b}
+.pill.warm{background:var(--sand);color:#7a5520}
+.pill.new{background:var(--lav);color:#463e85}
+.pill.ok{background:var(--sage);color:#3a5a40}
+.pill.dark{background:var(--ink);color:#fff}
+table{width:100%;border-collapse:collapse}
+th{font-size:11.5px;font-weight:500;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:11px 10px;border-bottom:1px solid #f1ebe6;font-size:13px;vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.who{display:flex;align-items:center;gap:10px}
+.av{width:32px;height:32px;border-radius:50%;object-fit:cover;flex:none;background:var(--soft)}
+.who b{font-weight:600;display:block;font-size:13px}
+.who small{color:var(--muted);font-size:11.5px}
+.faces{display:flex}
+.faces img{width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-left:-8px;object-fit:cover}
+.faces img:first-child{margin-left:0}
+/* timeline */
+.tl{position:relative;padding-left:18px}
+.tl:before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--line)}
+.tl-i{position:relative;padding:0 0 14px}
+.tl-i:before{content:"";position:absolute;left:-17px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 0 3px #fff}
+.tl-i .t{font-size:11px;color:var(--muted)}
+.tl-i p{font-size:13px;margin-top:2px;line-height:1.4}
+/* journey (sugar style) */
+.journey{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.lane{background:var(--soft);border-radius:22px;padding:14px}
+.lane h4{font-size:12.5px;font-weight:600;text-align:center;margin:4px 0 12px;color:var(--ink2)}
+.step{background:#fff;border-radius:16px;padding:10px 12px;display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px;line-height:1.3;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.step b{font-weight:600}
+.step .ck{margin-left:auto;color:var(--ok);font-size:12px}
+.step.blk{background:var(--ink);color:#fff}
+.step.blk small{color:#bcb3b9}
+.step small{display:block;color:var(--muted);font-size:11px}
+/* agents */
+.agent{background:#fff;border-radius:24px;padding:18px;cursor:pointer;transition:.2s;border:1px solid transparent}
+.agent:hover{transform:translateY(-3px);border-color:var(--line);box-shadow:0 14px 30px -18px rgba(60,30,50,.35)}
+.agent.sel{border-color:var(--accent-2)}
+.orb{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px;box-shadow:inset -6px -8px 14px rgba(0,0,0,.18),inset 6px 6px 12px rgba(255,255,255,.45),0 10px 18px -8px rgba(40,20,35,.45)}
+.agent h5{font-size:15px;font-weight:700;margin-top:12px;letter-spacing:.3px}
+.agent p{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4;min-height:34px}
+.agent .row{display:flex;justify-content:space-between;margin-top:12px;font-size:12px}
+.agent .row b{font-size:18px;font-weight:600;display:block}
+.bar{height:6px;background:var(--soft);border-radius:9px;overflow:hidden;margin-top:12px}
+.bar i{display:block;height:100%;border-radius:9px;background:var(--accent-2)}
+.big-n{font-size:52px;font-weight:600;letter-spacing:-2px;line-height:1}
+.note{font-size:12px;color:var(--muted);line-height:1.5}
+.quote{background:#fff;border-radius:16px;padding:12px 14px;font-size:13px;line-height:1.45;margin-top:8px;border-left:3px solid var(--accent-2)}
+.quote small{display:block;color:var(--muted);margin-top:6px;font-size:11.5px}
+.mt{margin-top:16px}
+.flex{display:flex;align-items:center;gap:10px}
+.sp{justify-content:space-between}
+.mobile-block{display:none;position:fixed;inset:0;z-index:99999;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+.mobile-block b{font-size:26px;font-weight:600;letter-spacing:-.5px;margin-bottom:10px}.mobile-block span{color:var(--muted);max-width:320px;line-height:1.6}
+@media screen and (max-width:900px){.mobile-block{display:flex!important}body>*:not(.mobile-block){display:none!important}}
+@media (max-width:1100px){.g4{grid-template-columns:1fr 1fr}.g21,.g12,.g3,.journey{grid-template-columns:1fr}.app{grid-template-columns:1fr}.side{position:static;height:auto}.side-in{height:auto}main{padding:16px}}
+</style>
+</head>
+<body>
+<div class="mobile-block"><b>Open on desktop</b><span>Your Control Room is built for a big screen. Open it on your laptop.</span></div>
+<div class="app">
+<aside class="side"><div class="side-in">
+  <div class="brand"><div class="brand-mark"></div><div><b>Konnection</b><small>Control Room</small></div></div>
+  <div class="nav-h">Overview</div>
+  <nav class="nav" id="nav">
+    <a href="#overview" data-p="overview"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>Overview</a>
+    <a href="#database" data-p="database"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6M4 11.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>The 8,000</a>
+    <a href="#owners" data-p="owners"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg>Owners &amp; developers</a>
+    <a href="#pipeline" data-p="pipeline"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg>Deal pipeline</a>
+    <a href="#inquiries" data-p="inquiries"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v11H8l-4 4z"/></svg>Inquiries</a>
+    <a href="#team" data-p="team"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.5 3.3-5.5 6.5-5.5s5.9 2 6.5 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.6c2.8-.3 5 1.4 5.5 4.4"/></svg>AI team</a>
+    <a href="#contacts" data-p="contacts"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="3"/><circle cx="12" cy="10" r="3"/><path d="M7.5 17c.8-2 2.5-3 4.5-3s3.7 1 4.5 3"/></svg>Contacts</a>
+  </nav>
+  <div class="side-foot"><span class="live-dot"></span>All systems running<br>Updated 9 Nov · 1:02 PM CT<br><br>Konnection Real Estate Group<br>eXp Commercial · DFW</div>
+</div></aside>
+
+<main>
+  <div class="top">
+    <div class="search"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search contacts, properties, developers… <span class="chip">All</span></div>
+    <span class="demo-badge">Demo view · sample data</span>
+    <div class="round"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20a2 2 0 0 0 4 0"/></svg></div>
+    <div class="me">KS</div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section class="page" id="p-overview">
+    <div class="head">
+      <div><h1>Good morning, Kayde.</h1><p class="sub">While you were closing this week, the system reached 1,284 people in your name. 14 owners and developers want to talk, and 3 meetings are already on your calendar.</p></div>
+      <div class="seg"><span>7 days</span><span class="on">30 days</span><span>90 days</span></div>
+    </div>
+    <div class="grid g4">
+      <div class="card c-rose kpi"><svg class="shape" viewBox="0 0 100 100"><path d="M50 88S12 64 12 38a20 20 0 0 1 38-9 20 20 0 0 1 38 9c0 26-38 50-38 50z" fill="#d9b2c2"/></svg><div class="l">Pipeline volume</div><div class="v">$41.6M</div><div class="d"><span class="up">▲ $12.4M</span> from the system, 30 days</div></div>
+      <div class="card c-sage kpi"><svg class="shape" viewBox="0 0 100 100"><polygon points="50,6 94,94 6,94" fill="#bcc8b0"/></svg><div class="l">Conversations / week</div><div class="v">14</div><div class="d">Goal: 10 a week · <span class="up">ahead</span></div></div>
+      <div class="card c-lav kpi"><svg class="shape" viewBox="0 0 100 100"><path d="M50 4l10 30 32-2-26 19 10 31-26-19-26 19 10-31L8 32l32 2z" fill="#c4bee3"/></svg><div class="l">Meetings booked</div><div class="v">11</div><div class="d">3 this week · 8 this month before</div></div>
+      <div class="card c-sand kpi"><svg class="shape" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#e6d2ae"/></svg><div class="l">New listings from the system</div><div class="v">4</div><div class="d">2 leases · 1 sale · 1 development</div></div>
+    </div>
+
+    <div class="grid g21 mt">
+      <div class="card">
+        <div class="card-h"><div><h3>Volume by month</h3><div class="cap">Closed + under contract · referrals vs. the new engine</div></div><span class="pill dark">2026</span></div>
+        <canvas class="three tall" id="t-bars"></canvas>
+        <div class="legend"><span><i style="background:#cdb9c6"></i>Referrals</span><span><i style="background:#8b4d7b"></i>From the system</span></div>
+      </div>
+      <div class="card soft">
+        <div class="card-h"><div><h3>Today</h3><div class="cap">Monday, 9 November</div></div><span class="pill hot">3 need you</span></div>
+        <div class="tl">
+          <div class="tl-i"><div class="t">8:12 AM · NADIA</div><p><b>Marcus Hale</b> (Hale Capital) replied: "We break ground on Frisco in Q1. Let's talk about leasing the retail."</p></div>
+          <div class="tl-i"><div class="t">9:40 AM · FLASH</div><p>Crexi inquiry on <b>Preston Rd retail</b> answered in 41 sec. Tour booked Thu 10 AM.</p></div>
+          <div class="tl-i"><div class="t">10:05 AM · REVA</div><p><b>Linda Okafor</b>, past buyer 2021: "Thinking of selling the McKinney strip center."</p></div>
+          <div class="tl-i"><div class="t">11:30 AM · TESS</div><p>Call with <b>Daniel Reyes</b> (Reyes Development) confirmed, Wed 9 AM.</p></div>
+          <div class="tl-i"><div class="t">12:48 PM · JADA</div><p>Lease docs for <b>Bloom Pilates, Plano</b> sent for signature.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid g3 mt">
+      <div class="card">
+        <div class="card-h"><div><h3>Where conversations come from</h3><div class="cap">Last 30 days · 52 conversations</div></div></div>
+        <canvas class="three" id="t-donut"></canvas>
+        <div class="legend"><span><i style="background:#8b4d7b"></i>The 8,000 · 23</span><span><i style="background:#c99bbb"></i>New owners · 17</span><span><i style="background:#a8b59a"></i>Inquiries · 12</span></div>
+      </div>
+      <div class="card c-mist">
+        <div class="card-h"><div><h3>Speed to answer</h3><div class="cap">LoopNet, Crexi, Buildout inquiries</div></div></div>
+        <div class="big-n" style="margin-top:28px">47<span style="font-size:22px"> sec</span></div>
+        <p class="note" style="margin-top:8px">Average first answer, 24/7. Before: next business day.</p>
+        <div class="trio"><div><b>96</b><span>inquiries</span></div><div><b>100%</b><span>answered</span></div><div><b>31</b><span>tours booked</span></div></div>
+      </div>
+      <div class="card c-lav">
+        <div class="card-h"><div><h3>What the AI team did</h3><div class="cap">This week, in your name</div></div></div>
+        <div class="trio" style="flex-wrap:wrap;row-gap:16px;margin-top:24px">
+          <div style="width:45%"><b style="font-size:26px">1,284</b><span>check-ins sent</span></div>
+          <div style="width:45%"><b style="font-size:26px">612</b><span>follow-ups</span></div>
+          <div style="width:45%"><b style="font-size:26px">418</b><span>new owners reached</span></div>
+          <div style="width:45%"><b style="font-size:26px">19 h</b><span>of your time saved</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATABASE -->
+  <section class="page" id="p-database">
+    <div class="head"><div><h1>Waking up the 8,000.</h1><p class="sub">Everyone from Google Sheets, Constant Contact and Buildout, in one clean list. Each person gets a personal check-in and a market update for what they own, every month.</p></div><span class="pill ok">Month 3 of 6</span></div>
+    <div class="grid g4">
+      <div class="card kpi"><div class="l">Contacts in one list</div><div class="v">8,214</div><div class="d">from 11,630 rows · 3,416 duplicates removed</div></div>
+      <div class="card kpi"><div class="l">Reached so far</div><div class="v">6,940</div><div class="d">84% of the list · rest scheduled</div></div>
+      <div class="card kpi c-rose"><div class="l">Replied</div><div class="v">412</div><div class="d"><span class="up">5.9%</span> reply rate</div></div>
+      <div class="card kpi c-sage"><div class="l">Want to talk</div><div class="v">63</div><div class="d">selling · buying · leasing · developing</div></div>
+    </div>
+    <div class="grid g12 mt">
+      <div class="card">
+        <div class="card-h"><div><h3>From list to listing</h3><div class="cap">Last 90 days</div></div></div>
+        <canvas class="three tall" id="t-funnel"></canvas>
+        <div class="legend"><span>8,214 contacts → 6,940 reached → 412 replied → 63 want to talk → 21 meetings → 4 listings</span></div>
+      </div>
+      <div class="card">
+        <div class="card-h"><div><h3>Hot replies</h3><div class="cap">People who already know you, back in conversation</div></div><span class="pill hot">63 this quarter</span></div>
+        <table><thead><tr><th>Person</th><th>Owns / wants</th><th>Signal</th><th class="num">Est. value</th></tr></thead><tbody id="hot"></tbody></table>
+      </div>
+    </div>
+    <div class="grid g3 mt">
+      <div class="card soft"><h3>By source</h3><div class="cap">Where the 8,214 came from</div><div id="src" class="mt"></div></div>
+      <div class="card soft"><h3>By asset type</h3><div class="cap">Tagged automatically</div><div id="asset" class="mt"></div></div>
+      <div class="card c-rose"><h3>What they say back</h3>
+        <div class="quote">"Kayde! Funny timing, we're looking at a second location in Allen."<small>Priya Shah · owner, 2 salons · from Constant Contact</small></div>
+        <div class="quote">"Your update was spot on. What would my Garland lot go for now?"<small>Tom Becker · landowner · from Google Sheets</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OWNERS -->
+  <section class="page" id="p-owners">
+    <div class="head"><div><h1>New owners &amp; developers.</h1><p class="sub">Every week, DFW owners and developers who match your deals, found in public records, checked, and reached by email and LinkedIn in your voice. Your existing contacts are never touched.</p></div><span class="pill new">Week 9</span></div>
+    <div class="grid g4">
+      <div class="card kpi c-lav"><div class="l">Owners & developers found</div><div class="v">3,486</div><div class="d">scored and matched to a named person</div></div>
+      <div class="card kpi"><div class="l">Reached</div><div class="v">2,910</div><div class="d">0.8% bounce · every address checked</div></div>
+      <div class="card kpi"><div class="l">Positive replies</div><div class="v">74</div><div class="d"><span class="up">2.5%</span> of people reached</div></div>
+      <div class="card kpi c-sand"><div class="l">Conversations this week</div><div class="v">14</div><div class="d">goal 10 · <span class="up">+40%</span></div></div>
+    </div>
+    <div class="grid g21 mt">
+      <div class="card">
+        <div class="card-h"><div><h3>DFW, where the replies are</h3><div class="cap">Positive replies by area · height = volume in play</div></div></div>
+        <canvas class="three tall" id="t-map"></canvas>
+      </div>
+      <div class="card soft">
+        <h3>Developers in the seed stage</h3><div class="cap">Planting the seed, 3 to 4 months to a listing</div>
+        <div id="devs" class="mt"></div>
+      </div>
+    </div>
+    <div class="card mt">
+      <div class="card-h"><div><h3>This week's positive replies</h3><div class="cap">Handed to you the same day, full history attached</div></div></div>
+      <table><thead><tr><th>Person</th><th>Company</th><th>Asset</th><th>Area</th><th>Channel</th><th class="num">Size</th><th>Status</th></tr></thead><tbody id="newrep"></tbody></table>
+    </div>
+  </section>
+
+  <!-- PIPELINE -->
+  <section class="page" id="p-pipeline">
+    <div class="head"><div><h1>Deal pipeline.</h1><p class="sub">Every deal in progress, in volume. Your 2027 goal is $80M with the team.</p></div></div>
+    <div class="grid g4">
+      <div class="card kpi c-rose"><div class="l">In pipeline</div><div class="v">$41.6M</div><div class="d">27 deals</div></div>
+      <div class="card kpi"><div class="l">Under contract</div><div class="v">$9.8M</div><div class="d">6 deals</div></div>
+      <div class="card kpi"><div class="l">Commission in play</div><div class="v">$1.21M</div><div class="d">4% on sales · leases at total value</div></div>
+      <div class="card kpi c-sage"><div class="l">Pace to $80M</div><div class="v">52%</div><div class="d">with 2 months to go in the year</div></div>
+    </div>
+    <div class="card mt">
+      <div class="card-h"><div><h3>Deal journeys</h3><div class="cap">From first message to closing</div></div><div class="faces" id="faces"></div></div>
+      <div class="journey" id="journey"></div>
+    </div>
+  </section>
+
+  <!-- INQUIRIES -->
+  <section class="page" id="p-inquiries">
+    <div class="head"><div><h1>Inquiries, answered in seconds.</h1><p class="sub">Every LoopNet, Crexi and Buildout inquiry is answered, qualified and booked on your calendar, day or night.</p></div></div>
+    <div class="grid g4">
+      <div class="card kpi c-mist"><div class="l">Inquiries, 30 days</div><div class="v">96</div><div class="d">LoopNet 44 · Crexi 31 · Buildout 21</div></div>
+      <div class="card kpi"><div class="l">Average first answer</div><div class="v">47s</div><div class="d">fastest 12s · after hours 38%</div></div>
+      <div class="card kpi"><div class="l">Qualified</div><div class="v">58</div><div class="d">budget, timing and use confirmed</div></div>
+      <div class="card kpi c-sage"><div class="l">Tours booked</div><div class="v">31</div><div class="d">straight to your calendar</div></div>
+    </div>
+    <div class="grid g21 mt">
+      <div class="card"><div class="card-h"><div><h3>Latest inquiries</h3><div class="cap">Live feed</div></div></div>
+        <table><thead><tr><th>Person</th><th>Listing</th><th>Source</th><th class="num">Answered in</th><th>Result</th></tr></thead><tbody id="inq"></tbody></table></div>
+      <div class="card soft"><h3>Answers by hour</h3><div class="cap">When inquiries arrive · night = when nobody else answers</div><canvas class="three" id="t-hours" style="height:300px"></canvas></div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="page" id="p-team">
+    <div class="head"><div><h1>Your AI team.</h1><p class="sub">Eight assistants that keep every conversation warm while you close deals. They write in your voice, and anything important comes to you.</p></div><span class="pill ok">8 of 8 working</span></div>
+    <div class="card" style="padding:0;background:linear-gradient(180deg,#fbf8f5,#efe8e2)"><canvas class="three" id="t-office" style="height:380px;border-radius:26px"></canvas></div>
+    <div class="grid g4 mt" id="agents"></div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section class="page" id="p-contacts">
+    <div class="head"><div><h1>Contacts.</h1><p class="sub">Every contact, every conversation, in one place. Yours, always.</p></div><div class="seg"><span class="on">All 11,700</span><span>Hot 63</span><span>Developers 214</span><span>Tenants 1,940</span></div></div>
+    <div class="card"><table><thead><tr><th>Person</th><th>Type</th><th>Area</th><th>Source</th><th>Last touch</th><th>Stage</th><th class="num">Value</th></tr></thead><tbody id="ctab"></tbody></table></div>
+  </section>
+</main>
+</div>
+
+<script>
+const P = (g,n)=>`https://randomuser.me/api/portraits/${g}/${n}.jpg`;
+const hot = [
+ ['Linda Okafor','women',44,'Strip center, McKinney','Selling','$6.2M'],
+ ['Robert Chen','men',32,'Office condo, Las Colinas','Selling','$1.4M'],
+ ['Priya Shah','women',65,'2nd salon, Allen','Leasing','$48K'],
+ ['Tom Becker','men',71,'4.2 ac land, Garland','Selling','$2.9M'],
+ ['Alicia Moreno','women',28,'Medical retail, Frisco','Leasing','$52K'],
+ ['James Whitfield','men',52,'Pad site, Prosper','Buying','$3.1M'],
+];
+document.getElementById('hot').innerHTML = hot.map(h=>`<tr><td><div class="who"><img class="av" src="${P(h[1],h[2])}"><div><b>${h[0]}</b><small>past client</small></div></div></td><td>${h[3]}</td><td><span class="pill ${h[4]=='Selling'?'hot':h[4]=='Leasing'?'new':'warm'}">${h[4]}</span></td><td class="num"><b>${h[5]}</b></td></tr>`).join('');
+const bars=(id,rows,col)=>document.getElementById(id).innerHTML=rows.map(r=>`<div style="margin-bottom:12px"><div class="flex sp" style="font-size:12.5px"><span>${r[0]}</span><b>${r[1].toLocaleString()}</b></div><div class="bar"><i style="width:${r[2]}%;background:${col}"></i></div></div>`).join('');
+bars('src',[['Google Sheets',3870,100],['Constant Contact',2760,71],['Buildout',1584,41]],'#8b4d7b');
+bars('asset',[['Retail',2910,100],['Office',1720,59],['Land',1240,43],['Industrial',890,31],['Multifamily / townhomes',1454,50]],'#a8b59a');
+const devs=[['Marcus Hale','men',46,'Hale Capital','Frisco mixed-use · 140K sf','Month 2'],['Daniel Reyes','men',36,'Reyes Development','Celina townhomes · 64 units','Month 3'],['Sarah Lindqvist','women',47,'Northgate Partners','Prosper retail pads','Month 1'],['Kevin Tran','men',61,'Tran Holdings','Mesquite flex industrial','Month 4']];
+document.getElementById('devs').innerHTML=devs.map(d=>`<div class="step"><img class="av" src="${P(d[1],d[2])}"><div><b>${d[0]}</b> · ${d[3]}<small>${d[4]}</small></div><span class="pill ${d[5]=='Month 4'?'hot':'warm'}" style="margin-left:auto">${d[5]}</span></div>`).join('')+`<p class="note mt">Each one hears from you every 2–3 weeks with something useful: comps, lease rates, absorption. When they're ready to list, you're the name they know.</p>`;
+const nr=[['Marcus Hale','men',46,'Hale Capital','Mixed-use','Frisco','Email','140K sf','Meeting Wed'],['Grace Whitmore','women',90,'Whitmore Family Trust','Retail center','Richardson','LinkedIn','$8.5M','Call booked'],['Andre Lewis','men',22,'Lewis Ventures','Land','Celina','Email','22 ac','Replied'],['Nina Patel','women',33,'Patel Hospitality','Retail pad','McKinney','Email','$2.2M','Call booked'],['Carlos Vega','men',75,'Vega Properties','Office','Plano','LinkedIn','38K sf','Replied'],['Emily Brooks','women',17,'Brooks Land Co.','Land','Prosper','Email','11 ac','Meeting Fri']];
+document.getElementById('newrep').innerHTML=nr.map(r=>`<tr><td><div class="who"><img class="av" src="${P(r[1],r[2])}"><b>${r[0]}</b></div></td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td><span class="pill">${r[6]}</span></td><td class="num">${r[7]}</td><td><span class="pill ${r[8].startsWith('Meet')?'ok':r[8].startsWith('Call')?'new':'warm'}">${r[8]}</span></td></tr>`).join('');
+const inq=[['Jordan Miles','men',12,'Preston Rd retail, 2,400 sf','Crexi','41s','Tour Thu 10 AM'],['Hannah Cole','women',55,'Legacy West office suite','LoopNet','12s','Qualified'],['Omar Haddad','men',41,'Celina land, 6 ac','Buildout','1m 04s','Call booked'],['Rachel Kim','women',63,'Allen retail endcap','LoopNet','33s','Tour Sat 11 AM'],['Victor Ruiz','men',83,'Plano flex space','Crexi','52s','Qualified'],['Megan Price','women',8,'McKinney pad site','LoopNet','29s','Tour Mon 2 PM']];
+document.getElementById('inq').innerHTML=inq.map(r=>`<tr><td><div class="who"><img class="av" src="${P(r[1],r[2])}"><b>${r[0]}</b></div></td><td>${r[3]}</td><td><span class="pill">${r[4]}</span></td><td class="num"><b>${r[5]}</b></td><td><span class="pill ${r[6].startsWith('Tour')?'ok':r[6].startsWith('Call')?'new':'warm'}">${r[6]}</span></td></tr>`).join('');
+const fc=[['women',44],['men',46],['women',90],['men',36],['women',65],['men',32],['women',55]];
+document.getElementById('faces').innerHTML=fc.map(f=>`<img src="${P(f[0],f[1])}">`).join('');
+const J=[
+ ['First contact',[['men',46,'Marcus Hale','Reply to market update',1],['women',90,'Grace Whitmore','LinkedIn reply',1],['men',22,'Andre Lewis','Asked for comps',1],['women',33,'Nina Patel','Crexi inquiry',0]]],
+ ['Meeting',[['women',44,'Linda Okafor','Valuation call · $6.2M',1],['men',36,'Daniel Reyes','Site walk Wed 9 AM',1],['women',55,'Hannah Cole','Tour booked',0],['men',71,'Tom Becker','Pricing the land',0]]],
+ ['Listing / LOI',[['men',32,'Robert Chen','Listing signed · $1.4M',1],['women',65,'Priya Shah','LOI sent · Allen',1],['women',28,'Alicia Moreno','Terms in review',0]]],
+ ['Closing',[['blk','','Bloom Pilates, Plano','Lease signed · $46K',1],['blk','','Celina townhomes','90 units · $19.6M',1],['men',52,'James Whitfield','Under contract · $3.1M',1]]],
+];
+document.getElementById('journey').innerHTML=J.map(l=>`<div class="lane"><h4>${l[0]}</h4>${l[1].map(s=>s[0]=='blk'?`<div class="step blk"><div><b>${s[2]}</b><small>${s[3]}</small></div><span class="ck" style="color:#9fd3a9">✓</span></div>`:`<div class="step"><img class="av" src="${P(s[0],s[1])}"><div><b>${s[2]}</b><small>${s[3]}</small></div><span class="ck">${s[4]?'✓✓':'···'}</span></div>`).join('')}</div>`).join('');
+const AG=[['FLASH','Answers every inquiry in under a minute','#8b4d7b',96,'inquiries',98],['REVA','Wakes up the 8,000 with check-ins','#b77aa6',1284,'check-ins',84],['NADIA','Reaches new owners and developers','#6f6aa8',418,'reached',72],['TESS','Books meetings on your calendar','#a8b59a',11,'booked',90],['MILO','Rebooks no-shows, kindly','#c99a5b',4,'rebooked',75],['DEX','Collects documents and financials','#7c97a8',17,'files',66],['JADA','Follows up after signature','#c98a9e',9,'deals',80],['RAY','Calls back every missed call','#5d5560',23,'callbacks',94]];
+document.getElementById('agents').innerHTML=AG.map(a=>`<div class="agent"><div class="orb" style="background:radial-gradient(circle at 32% 28%,#fff8 0,${a[2]} 45%,${a[2]})">${a[0].slice(0,2)}</div><h5>${a[0]}</h5><p>${a[1]}</p><div class="row"><div><b>${a[3].toLocaleString()}</b><span class="note">${a[4]} this week</span></div><div style="text-align:right"><b>${a[5]}%</b><span class="note">on target</span></div></div><div class="bar"><i style="width:${a[5]}%;background:${a[2]}"></i></div></div>`).join('');
+const CT=[['Linda Okafor','women',44,'Owner','McKinney','Constant Contact','Today · REVA','Hot','$6.2M'],['Marcus Hale','men',46,'Developer','Frisco','New · public records','Today · NADIA','Meeting','$14.0M'],['Priya Shah','women',65,'Tenant','Allen','Constant Contact','Yesterday · REVA','LOI','$48K'],['Robert Chen','men',32,'Owner','Las Colinas','Google Sheets','2 days · JADA','Listing','$1.4M'],['Grace Whitmore','women',90,'Owner','Richardson','New · public records','Yesterday · NADIA','Call','$8.5M'],['Daniel Reyes','men',36,'Developer','Celina','Buildout','Today · TESS','Meeting','$11.2M'],['Hannah Cole','women',55,'Tenant','Plano','LoopNet','Today · FLASH','Tour','$62K'],['Tom Becker','men',71,'Owner','Garland','Google Sheets','3 days · REVA','Hot','$2.9M'],['Nina Patel','women',33,'Investor','McKinney','New · public records','Today · NADIA','Call','$2.2M'],['Kevin Tran','men',61,'Developer','Mesquite','Buildout','1 week · NADIA','Seed','$7.5M']];
+const stc={Hot:'hot',Meeting:'ok',LOI:'new',Listing:'dark',Call:'new',Tour:'ok',Seed:'warm'};
+document.getElementById('ctab').innerHTML=CT.map(r=>`<tr><td><div class="who"><img class="av" src="${P(r[1],r[2])}"><b>${r[0]}</b></div></td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td>${r[6]}</td><td><span class="pill ${stc[r[7]]}">${r[7]}</span></td><td class="num"><b>${r[8]}</b></td></tr>`).join('');
+</script>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+const scenes={};
+function stage(id,{cam=[0,6,12],look=[0,1,0],fov=32,sway=.18}={}){
+  const cv=document.getElementById(id); if(!cv) return null;
+  const r=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+  r.setPixelRatio(Math.min(devicePixelRatio,2)); r.shadowMap.enabled=true; r.shadowMap.type=THREE.PCFSoftShadowMap;
+  r.toneMapping=THREE.ACESFilmicToneMapping; r.toneMappingExposure=1.05; r.outputColorSpace=THREE.SRGBColorSpace;
+  const s=new THREE.Scene(); const pm=new THREE.PMREMGenerator(r); s.environment=pm.fromScene(new RoomEnvironment(),.04).texture;
+  const c=new THREE.PerspectiveCamera(fov,1,.1,200); c.position.set(...cam); const L=new THREE.Vector3(...look); c.lookAt(L);
+  const k=new THREE.DirectionalLight(0xfff4ec,1.6); k.position.set(6,12,7); k.castShadow=true; k.shadow.mapSize.set(2048,2048); k.shadow.radius=6;
+  Object.assign(k.shadow.camera,{left:-14,right:14,top:14,bottom:-14}); s.add(k); s.add(new THREE.HemisphereLight(0xffffff,0xe8dcd6,.5));
+  const g=new THREE.Mesh(new THREE.PlaneGeometry(80,80),new THREE.ShadowMaterial({opacity:.13})); g.rotation.x=-Math.PI/2; g.receiveShadow=true; s.add(g);
+  const o={r,s,c,cv,L,base:new THREE.Vector3(...cam),sway,t:Math.random()*10,upd:[]};
+  scenes[id]=o; return o;
+}
+const mat=(col,o={})=>new THREE.MeshPhysicalMaterial({color:col,roughness:.32,metalness:0,clearcoat:1,clearcoatRoughness:.18,sheen:.3,...o});
+const ease=t=>1-Math.pow(1-t,3);
+
+// 1 · volume bars (stacked porcelain)
+(()=>{const o=stage('t-bars',{cam:[0,6,12.8],look:[0,1.6,0]}); if(!o)return;
+ const ref=[1.6,1.9,2.2,1.7,2.0,2.4,1.8,2.1,2.3,2.0,2.2], sys=[0,0,0,0,0,0,0,.6,1.4,2.3,3.1];
+ const n=ref.length, w=.82, gap=1.18, x0=-(n-1)*gap/2;
+ const grow=[];
+ for(let i=0;i<n;i++){
+  const a=new THREE.Mesh(new RoundedBoxGeometry(w,1,w,5,.14),mat(0xe4d3dd)); a.castShadow=a.receiveShadow=true; a.position.x=x0+i*gap; o.s.add(a); grow.push([a,ref[i],0]);
+  if(sys[i]){const b=new THREE.Mesh(new RoundedBoxGeometry(w,1,w,5,.14),mat(0x8b4d7b,{roughness:.22})); b.castShadow=true; b.position.x=x0+i*gap; o.s.add(b); grow.push([b,sys[i],ref[i]]);}
+ }
+ const t0=performance.now();
+ o.upd.push(()=>{const p=ease(Math.min(1,(performance.now()-t0)/1600)); grow.forEach(([m,h,base])=>{const hh=Math.max(.001,h*p); m.scale.y=hh; m.position.y=base*p+hh/2;});});
+})();
+
+// 2 · donut
+(()=>{const o=stage('t-donut',{cam:[0,7,8],look:[0,0,0]}); if(!o)return;
+ const parts=[[23,0x8b4d7b],[17,0xc99bbb],[12,0xa8b59a]], tot=52; let a0=Math.PI/2; const grp=new THREE.Group();
+ parts.forEach(([v,col],i)=>{const a1=a0-v/tot*Math.PI*2+.04; const sh=new THREE.Shape(); sh.absarc(0,0,2.6,a0,a1,true); sh.absarc(0,0,1.45,a1,a0,false);
+  const geo=new THREE.ExtrudeGeometry(sh,{depth:.55+i*.0,bevelEnabled:true,bevelThickness:.12,bevelSize:.1,bevelSegments:6,curveSegments:64});
+  const m=new THREE.Mesh(geo,mat(col)); m.rotation.x=-Math.PI/2; m.position.y=.15+(i==0?.25:0); m.castShadow=true; grp.add(m); a0=a1-.04;});
+ o.s.add(grp); o.upd.push(()=>grp.rotation.y+=.003);
+})();
+
+// 3 · funnel discs
+(()=>{const o=stage('t-funnel',{cam:[0,6.5,11],look:[0,2.2,0]}); if(!o)return;
+ const L=[[3.2,0xeadde4],[2.8,0xdcc3d2],[2.2,0xc99bbb],[1.6,0xae7099],[1.1,0x8b4d7b],[.65,0x5e2f53]];
+ const grp=new THREE.Group(); L.forEach(([r,c],i)=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r*.94,.55,96),mat(c)); m.position.y=.3+i*.72; m.castShadow=m.receiveShadow=true; grp.add(m);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(r*.97,.05,16,96),mat(0xffffff,{roughness:.1})); ring.rotation.x=Math.PI/2; ring.position.y=m.position.y+.28; grp.add(ring);});
+ o.s.add(grp); o.upd.push(()=>grp.rotation.y+=.002);
+})();
+
+// 4 · DFW city pillars
+(()=>{const o=stage('t-map',{cam:[0,9,13],look:[0,.6,0]}); if(!o)return;
+ const base=new THREE.Mesh(new RoundedBoxGeometry(13,.35,8.5,6,.3),mat(0xf3ede8,{roughness:.5,clearcoat:.4})); base.position.y=.175; base.receiveShadow=true; o.s.add(base);
+ const city=[['Frisco',.6,-2.6,3.6],['Prosper',-.6,-3.3,2.3],['Celina',.2,-3.9,2.9],['McKinney',2.6,-2.6,3.1],['Allen',2.0,-1.4,1.7],['Plano',1.0,-.6,2.6],['Richardson',1.3,.5,2.2],['Las Colinas',-2.4,.8,1.4],['Dallas',.9,1.9,3.4],['Fort Worth',-5.2,1.7,2.0],['Garland',3.0,1.0,1.3],['Mesquite',3.9,2.4,1.1]];
+ const ctx=(t)=>{const c=document.createElement('canvas');c.width=256;c.height=64;const x=c.getContext('2d');x.font='600 30px DM Sans, sans-serif';x.fillStyle='#3a353b';x.textAlign='center';x.fillText(t,128,42);const tx=new THREE.CanvasTexture(c);tx.colorSpace=THREE.SRGBColorSpace;const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true}));sp.scale.set(2.2,.55,1);return sp;};
+ const ps=[]; city.forEach(([n,x,z,h])=>{const col=h>3?0x8b4d7b:h>2.2?0xb77aa6:0xd8b8cb; const m=new THREE.Mesh(new THREE.CylinderGeometry(.32,.32,1,48),mat(col)); m.castShadow=true; m.position.set(x,.35,z); o.s.add(m); ps.push([m,h]);
+  const cap=new THREE.Mesh(new THREE.SphereGeometry(.32,48,24,0,Math.PI*2,0,Math.PI/2),mat(col)); m.add(cap); cap.position.y=.5; cap.scale.y=1;
+  const lb=ctx(n); lb.position.set(x,.35+h+.55,z); o.s.add(lb); ps.push([lb,h,true]);});
+ const t0=performance.now(); o.upd.push(()=>{const p=ease(Math.min(1,(performance.now()-t0)/1800)); ps.forEach(([m,h,lab])=>{if(lab){m.material.opacity=p;return;} const hh=Math.max(.01,h*p); m.scale.y=hh; m.children[0].scale.y=1/hh; m.position.y=.35+hh/2;});});
+})();
+
+// 5 · hours
+(()=>{const o=stage('t-hours',{cam:[0,6,13],look:[0,1.2,0]}); if(!o)return;
+ const v=[2,1,1,0,1,2,4,6,9,8,7,6,7,8,9,8,7,6,5,5,4,4,3,2]; const g=.5,x0=-11.5*g;
+ v.forEach((h,i)=>{const night=i<7||i>19; const hh=Math.max(.08,h*.36); const m=new THREE.Mesh(new RoundedBoxGeometry(.38,hh,.38,4,.1),mat(night?0x6f6aa8:0xd8c9d2)); m.position.set(x0+i*g,hh/2,0); m.castShadow=true; o.s.add(m);});
+})();
+
+// 6 · office with 8 porcelain characters
+(()=>{const o=stage('t-office',{cam:[0,6.2,11],look:[0,.8,0],sway:.25}); if(!o)return;
+ const floor=new THREE.Mesh(new RoundedBoxGeometry(18,.3,9,6,.25),mat(0xf1e9e3,{roughness:.6,clearcoat:.3})); floor.position.y=-.15; floor.receiveShadow=true; o.s.add(floor);
+ const cols=[0x8b4d7b,0xb77aa6,0x6f6aa8,0xa8b59a,0xc99a5b,0x7c97a8,0xc98a9e,0x5d5560], names=['FLASH','REVA','NADIA','TESS','MILO','DEX','JADA','RAY'];
+ const bob=[];
+ for(let i=0;i<8;i++){const row=i<4?0:1, col=i%4; const x=-5.1+col*3.4, z=row?1.8:-1.8; const g=new THREE.Group(); g.position.set(x,0,z);
+  const desk=new THREE.Mesh(new RoundedBoxGeometry(2.3,.14,1.2,4,.06),mat(0xffffff,{roughness:.25})); desk.position.set(0,1.05,.55); desk.castShadow=desk.receiveShadow=true; g.add(desk);
+  [[-1,.2],[1,.2],[-1,.95],[1,.95]].forEach(([a,b])=>{const l=new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,1,12),mat(0xd8cfd4));l.position.set(a,.5,b);g.add(l);});
+  const scr=new THREE.Mesh(new RoundedBoxGeometry(1.1,.68,.06,4,.03),mat(0x1d1a1f,{roughness:.15})); scr.position.set(0,1.55,.95); scr.castShadow=true; g.add(scr);
+  const glow=new THREE.Mesh(new THREE.PlaneGeometry(.98,.56),new THREE.MeshBasicMaterial({color:cols[i]})); glow.position.set(0,1.55,.915); glow.rotation.y=Math.PI; g.add(glow);
+  const body=new THREE.Mesh(new THREE.CapsuleGeometry(.36,.55,12,32),mat(cols[i])); body.position.set(0,1.0,-.35); body.castShadow=true; g.add(body);
+  const head=new THREE.Mesh(new THREE.SphereGeometry(.3,48,32),mat(0xf4e3d7,{roughness:.4})); head.position.set(0,1.78,-.35); head.castShadow=true; g.add(head);
+  const hair=new THREE.Mesh(new THREE.SphereGeometry(.315,48,32,0,Math.PI*2,0,Math.PI*.55),mat(i%3==0?0x2a1d1a:i%3==1?0x5a3524:0x1b1515,{roughness:.6})); hair.position.copy(head.position); hair.rotation.x=-.35; g.add(hair);
+  const chair=new THREE.Mesh(new RoundedBoxGeometry(.9,.9,.18,4,.08),mat(0xe9dfe5)); chair.position.set(0,1.0,-.85); chair.castShadow=true; g.add(chair);
+  g.rotation.y=Math.PI; o.s.add(g); bob.push([body,head,hair,i]);
+ }
+ o.upd.push(()=>{const t=performance.now()/1000; bob.forEach(([b,h,hr,i])=>{const y=Math.sin(t*1.6+i)*.03; b.position.y=1.0+y; h.position.y=1.78+y; hr.position.y=1.78+y; h.rotation.y=Math.sin(t*.7+i)*.25;});});
+})();
+
+function size(o){const w=o.cv.clientWidth,h=o.cv.clientHeight; if(!w||!h) return false; if(o.cv.width!==Math.round(w*o.r.getPixelRatio())){o.r.setSize(w,h,false); o.c.aspect=w/h; o.c.updateProjectionMatrix();} return true;}
+function loop(){requestAnimationFrame(loop); const t=performance.now()/1000;
+ for(const id in scenes){const o=scenes[id]; if(!o.cv.offsetParent) continue; if(!size(o)) continue;
+  o.c.position.x=o.base.x+Math.sin(t*.25+o.t)*o.sway*o.base.z*.12; o.c.lookAt(o.L); o.upd.forEach(f=>f()); o.r.render(o.s,o.c);} }
+loop();
+</script>
+<script>
+const pages=['overview','database','owners','pipeline','inquiries','team','contacts'];
+function go(){const h=(location.hash||'#overview').slice(1); const p=pages.includes(h)?h:'overview';
+ document.querySelectorAll('.page').forEach(e=>e.classList.toggle('on',e.id==='p-'+p));
+ document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.p===p)); window.scrollTo(0,0);}
+addEventListener('hashchange',go); go();
+document.querySelectorAll('.seg span').forEach(s=>s.onclick=()=>{s.parentNode.querySelectorAll('span').forEach(x=>x.classList.remove('on'));s.classList.add('on')});
+</script>
+</body>
+</html>
