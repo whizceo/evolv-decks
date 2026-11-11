@@ -1,20 +1,14 @@
-<!doctype html>
-<html lang="it">
-<head>
-<meta charset="utf-8">
-<meta name="robots" content="noindex,nofollow">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vendorius Cockpit</title>
-<link rel="icon" href="logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?x=11101709&v=9">
-</head>
-<body>
-<div id="root"></div>
-<script src="dati.js?x=11101709"></script>
-<script src="statico.js?x=11101709"></script>
-<script src="app.js?x=11101709&v=9"></script>
-</body>
-</html>
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vendorius Cockpit</title>
+<style>body{font:16px system-ui;background:#fafaf8;color:#222;display:grid;place-items:center;height:100vh;margin:0}</style></head><body><p>Il cockpit si è spostato, ti porto al link nuovo…</p>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>(async()=>{const NEW="https://whizvendorius.github.io/pagine/vendorius-delivery-whiz/?chi=matteo"+location.hash;
+try{const old=JSON.parse(localStorage.getItem("vc-risposte-v1")||"null");
+if(old){const sb=supabase.createClient("https://aoqobgtyxyioctoecypb.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvcW9iZ3R5eHlpb2N0b2VjeXBiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ0MDM4MDgsImV4cCI6MjEwOTk3OTgwOH0.X5X5btvZNFQmNgUan5JT9q3hM_zfRkPxP-0nGMyENgY"),R=[],E=[],N=[];
+for(const s in old.risposte||{})for(const k in old.risposte[s])R.push({slug:s,...old.risposte[s][k]});
+for(const s in old.esiti||{})for(const k in old.esiti[s])E.push({slug:s,...old.esiti[s][k]});
+for(const s in old.note||{})for(const n of old.note[s])N.push({slug:s,...n});
+if(R.length)await sb.from("risposte").upsert(R,{ignoreDuplicates:true});
+if(E.length)await sb.from("esiti").upsert(E,{ignoreDuplicates:true});
+if(N.length)await sb.from("note").upsert(N,{ignoreDuplicates:true});
+localStorage.setItem("vc-risposte-v1-inviate",JSON.stringify(old));localStorage.removeItem("vc-risposte-v1");}}catch(e){}
+location.replace(NEW);})();</script></body></html>
