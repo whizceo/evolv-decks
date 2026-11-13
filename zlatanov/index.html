@@ -120,6 +120,7 @@ td.nw{white-space:nowrap}
 .call{display:flex;gap:8px;margin:14px 0 4px;position:relative}
 .call a{flex:1;justify-content:center;text-decoration:none}
 .blk{margin-top:18px}
+.blk h4.hot{display:inline-block;margin:0 0 12px;padding:9px 16px;border-radius:10px;background:var(--grad);color:#fff;font-size:14px;font-weight:800;letter-spacing:.06em;box-shadow:0 6px 18px rgba(153,45,105,.35)}
 .blk h4{margin:0 0 8px;font-size:12px;font-weight:600;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
 .kv{display:grid;grid-template-columns:110px 1fr;gap:6px 10px;font-size:13px}
 .kv div:nth-child(odd){color:var(--ink-3)}
@@ -453,7 +454,7 @@ function openLead(id){
           <button class="out" data-o="bad">Numero sbagliato</button><button class="out" data-o="new">Rimetti da chiamare</button>
           <button class="out won" data-o="won">Diventato cliente 🎉</button>
         </div></div>
-      <div class="blk"><h4>Prima di chiamare</h4>
+      <div class="blk"><h4 class="hot">👉 Prima di chiamare — leggi qui</h4>
         <div class="brief">
           <div class="bi why1"><b>Perché lui</b><p>${esc(x.why)}</p></div>
           ${B.facts.length?`<div class="bi"><b>Cosa sappiamo</b><ul>${B.facts.map(f=>`<li>${esc(f)}</li>`).join("")}</ul></div>`:""}
