@@ -101,6 +101,7 @@ td.nw{white-space:nowrap}
 .chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
 .s-new{background:#f4f3f6;color:#6b6874}
 .s-nr{background:#fff5e6;color:#a8650b}
+.s-vm{background:#fdf0e0;color:#9a5a12}
 .s-cb{background:#eef3ff;color:#3150c4}
 .s-no{background:#fdeeee;color:#b0332a}
 .s-app{background:var(--plum-wash);color:var(--plum)}
@@ -321,7 +322,7 @@ textarea.big:focus{border-color:var(--plum)}
 <script src="data.js?v=3"></script>
 <script>
 const ST = [
-  {k:"new",l:"Da chiamare",c:"s-new"},{k:"nr",l:"Non risponde",c:"s-nr"},{k:"cb",l:"Da richiamare",c:"s-cb"},
+  {k:"new",l:"Da chiamare",c:"s-new"},{k:"nr",l:"Non risponde",c:"s-nr"},{k:"vm",l:"Segreteria",c:"s-vm"},{k:"cb",l:"Da richiamare",c:"s-cb"},
   {k:"no",l:"Non interessato",c:"s-no"},{k:"app",l:"Appuntamento",c:"s-app"},{k:"won",l:"Cliente",c:"s-won"},
   {k:"bad",l:"Numero sbagliato",c:"s-bad"},{k:"dnc",l:"Non chiamabile",c:"s-dnc"}];
 const SL = Object.fromEntries(ST.map(s=>[s.k,s]));
@@ -457,7 +458,7 @@ function openLead(id){
           <button class="out" data-o="nr">Non risponde</button><button class="out" data-o="cb">Da richiamare</button>
           <button class="out" data-o="no">Non interessato</button><button class="out" data-o="app">Appuntamento ✓</button>
           <button class="out" data-o="bad">Numero sbagliato</button><button class="out" data-o="new">Rimetti da chiamare</button>
-          <button class="out" data-o="dnc">Non chiamabile 🚫</button>
+          <button class="out" data-o="dnc">Non chiamabile 🚫</button><button class="out" data-o="vm">Segreteria 📞</button>
           <button class="out won" data-o="won">Diventato cliente 🎉</button>
         </div></div>
       <div class="blk"><h4 class="hot">👉 Prima di chiamare — leggi qui</h4>
@@ -549,7 +550,7 @@ function renderAna(){
 }
 
 /* ---------- dashboard charts ---------- */
-const COL = {new:"#d9d6de",nr:"#e9b45c",cb:"#6f8be8",no:"#e07a70",app:"#992d69",won:"#1f8a5b",bad:"#9a9a9a",dnc:"#bdbdbd"};
+const COL = {new:"#d9d6de",nr:"#e9b45c",vm:"#d99a4e",cb:"#6f8be8",no:"#e07a70",app:"#992d69",won:"#1f8a5b",bad:"#9a9a9a",dnc:"#bdbdbd"};
 const ANS = ["cb","no","app","won"];
 function emptyC(t){ return `<div class="empty" style="padding:28px 10px">${t}</div>` }
 function hbars(rows, fmt){ // rows: [{l, v(0..1), t}]
