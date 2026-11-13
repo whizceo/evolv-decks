@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Green Life · Lista clienti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#992d69;--plum-2:#c2448a;--plum-3:#6e1f4b;--plum-wash:#f8eef4;--plum-line:#ecd6e2;
+  --ink:#16141a;--ink-2:#55525d;--ink-3:#8b8893;--line:#ebe9ef;--bg:#ffffff;--paper:#fbfafc;
+  --ok:#1f8a5b;--warn:#b7791f;--bad:#c0392b;
+  --grad:linear-gradient(135deg,#6e1f4b 0%,#992d69 45%,#d0579a 100%);
+  --r:14px;--shadow:0 1px 2px rgba(22,20,26,.04),0 8px 24px -12px rgba(110,31,75,.18);
+}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden;margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",Inter,Arial,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--plum)}
+.hidden{display:none!important}
+
+/* ---------- gate ---------- */
+#gate{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(1200px 600px at 80% -10%,var(--plum-wash),transparent 60%),#fff}
+.gate-card{width:100%;max-width:400px;text-align:center}
+.gate-card h1{font-size:30px;font-weight:600;letter-spacing:-.01em;margin:28px 0 6px}
+.gate-card p{color:var(--ink-2);margin:0 0 22px}
+.gate-row{display:flex;gap:8px}
+.gate-row input{flex:1;height:48px;border:1px solid var(--line);border-radius:32px;padding:0 20px;font-size:15px;outline:none;background:#fff}
+.gate-row input:focus{border-color:var(--plum);box-shadow:0 0 0 4px var(--plum-wash)}
+.err{color:var(--bad);font-size:13px;height:18px;margin-top:10px}
+
+/* ---------- 3D orb ---------- */
+.orb{width:120px;height:120px;margin:0 auto;perspective:600px}
+.orb .spin{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:spin 14s linear infinite}
+.orb i{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(153,45,105,.55)}
+.orb i:nth-child(1){transform:rotateX(70deg)}
+.orb i:nth-child(2){transform:rotateY(70deg)}
+.orb i:nth-child(3){transform:rotateX(70deg) rotateY(60deg);border-color:rgba(208,87,154,.5)}
+.orb i:nth-child(4){transform:rotateX(70deg) rotateY(-60deg);border-color:rgba(110,31,75,.5)}
+.orb b{position:absolute;inset:32%;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff 0,#f3c7de 18%,#c2448a 55%,#6e1f4b 100%);box-shadow:0 18px 40px -10px rgba(153,45,105,.55);transform:translateZ(0)}
+.orb.sm{width:44px;height:44px}
+.orb.sm i{border-width:1.2px}
+@keyframes spin{to{transform:rotateY(360deg) rotateX(20deg)}}
+@media (prefers-reduced-motion:reduce){.orb .spin{animation:none}}
+
+/* ---------- shell ---------- */
+header.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar{max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:12px 24px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand .t{font-weight:600;font-size:15px;white-space:nowrap}
+.brand .s{font-size:12px;color:var(--ink-3);white-space:nowrap}
+nav.tabs{display:flex;gap:4px;margin-left:auto;background:var(--paper);border:1px solid var(--line);border-radius:40px;padding:4px}
+nav.tabs button{border:0;background:transparent;border-radius:32px;padding:8px 16px;cursor:pointer;color:var(--ink-2);font-weight:500;white-space:nowrap}
+nav.tabs button.on{background:var(--ink);color:#fff}
+main{max-width:1320px;margin:0 auto;padding:28px 24px 80px}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.head h2{font-size:28px;font-weight:600;letter-spacing:-.01em;margin:0}
+.head p{margin:4px 0 0;color:var(--ink-2)}
+.pill{height:40px;border-radius:32px;padding:0 20px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:500;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.pill:hover{border-color:var(--ink-3)}
+.pill.pri{background:var(--grad);color:#fff;border:0;box-shadow:0 8px 20px -10px rgba(153,45,105,.8)}
+.pill.pri:hover{filter:brightness(1.06)}
+
+/* ---------- KPI strip ---------- */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.kpi{min-width:0;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;background:#fff;box-shadow:var(--shadow);transition:transform .25s ease}
+.kpi .l{font-size:12px;color:var(--ink-3);font-weight:500}
+.kpi .v{font-size:30px;font-weight:600;letter-spacing:-.02em;margin-top:6px}
+.kpi .d{font-size:12px;color:var(--ink-2);margin-top:2px}
+.kpi.hero{background:var(--grad);color:#fff;border:0}
+.kpi.hero .l,.kpi.hero .d{color:rgba(255,255,255,.8)}
+.kpi.hero::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.55),rgba(255,255,255,0) 60%)}
+
+/* ---------- toolbar ---------- */
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.search{flex:1;min-width:200px;height:40px;border:1px solid var(--line);border-radius:32px;padding:0 18px;outline:none;background:#fff}
+.search:focus{border-color:var(--plum)}
+select.f{height:40px;border:1px solid var(--line);border-radius:32px;padding:0 14px;background:#fff;cursor:pointer}
+
+/* ---------- sheet ---------- */
+.sheet{border:1px solid var(--line);border-radius:var(--r);overflow:auto;background:#fff;box-shadow:var(--shadow);max-height:calc(100vh - 300px);min-height:300px}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:1080px}
+th{position:sticky;top:0;background:var(--paper);text-align:left;font-size:12px;font-weight:600;color:var(--ink-2);padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:1}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr.row{cursor:pointer}
+tr.row:hover td{background:#fdf8fb}
+tr.row.sel td{background:var(--plum-wash)}
+td.n{color:var(--ink-3);font-variant-numeric:tabular-nums;width:40px}
+.nm{font-weight:600}
+.sub{font-size:12px;color:var(--ink-3)}
+.tel{font-variant-numeric:tabular-nums;white-space:nowrap;text-decoration:none;color:var(--ink);font-weight:500}
+.tel:hover{color:var(--plum)}
+.score{display:inline-flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.score .sbar{width:46px;height:5px;border-radius:4px;background:var(--line);overflow:hidden}
+.score .sbar span{display:block;height:100%;background:var(--grad)}
+.why{max-width:360px;min-width:260px;color:var(--ink-2);font-size:13px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+td.nw{white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap;border:1px solid transparent}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.s-new{background:#f4f3f6;color:#6b6874}
+.s-nr{background:#fff5e6;color:#a8650b}
+.s-cb{background:#eef3ff;color:#3150c4}
+.s-no{background:#fdeeee;color:#b0332a}
+.s-app{background:var(--plum-wash);color:var(--plum)}
+.s-won{background:#e8f6ef;color:#1f7a50}
+.s-bad{background:#f1f1f1;color:#555;text-decoration:line-through}
+.st-sel{border:0;background:transparent;cursor:pointer;padding:0;font-weight:600}
+
+/* ---------- drawer ---------- */
+#drawer{position:fixed;top:0;right:0;height:100%;width:min(480px,100%);background:#fff;border-left:1px solid var(--line);box-shadow:-24px 0 60px -30px rgba(22,20,26,.35);z-index:40;transform:translateX(105%);transition:transform .3s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column}
+#drawer.open{transform:none}
+.dr-h{padding:20px 22px 14px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.dr-h::before{content:"";position:absolute;inset:0;background:radial-gradient(400px 160px at 100% 0,var(--plum-wash),transparent 70%);pointer-events:none}
+.dr-h h3{margin:0;font-size:22px;font-weight:600;position:relative}
+.dr-h .sub{position:relative;margin-top:2px;font-size:13px}
+.x{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:18px;z-index:2}
+.dr-b{padding:16px 22px 28px;overflow:auto;flex:1}
+.call{display:flex;gap:8px;margin:14px 0 4px;position:relative}
+.call a{flex:1;justify-content:center;text-decoration:none}
+.blk{margin-top:18px}
+.blk h4{margin:0 0 8px;font-size:12px;font-weight:600;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:6px 10px;font-size:13px}
+.kv div:nth-child(odd){color:var(--ink-3)}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.45;color:var(--ink-2)}
+.outs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.out{height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:600;font-size:13px;transition:all .15s}
+.out:hover{border-color:var(--plum);color:var(--plum);transform:translateY(-1px)}
+.out.won{grid-column:1/-1;background:var(--grad);color:#fff;border:0}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{height:34px;padding:0 14px;border-radius:20px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:13px}
+.seg button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+textarea.note{width:100%;min-height:90px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;resize:vertical;outline:none;line-height:1.45}
+textarea.note:focus,input.dt:focus{border-color:var(--plum)}
+input.dt{height:38px;border:1px solid var(--line);border-radius:10px;padding:0 10px;outline:none}
+.log{list-style:none;margin:0;padding:0;font-size:13px}
+.log li{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.log li span:last-child{color:var(--ink-3)}
+.scr{white-space:pre-wrap;font-size:14px;line-height:1.55;color:var(--ink);max-height:260px;overflow:auto}
+#veil{position:fixed;inset:0;background:rgba(22,20,26,.18);z-index:30;opacity:0;pointer-events:none;transition:opacity .25s}
+#veil.on{opacity:1;pointer-events:auto}
+
+/* ---------- pipeline ---------- */
+.board{display:grid;grid-template-columns:repeat(6,minmax(200px,1fr));gap:12px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:10px;min-height:400px}
+.col.drop{border-color:var(--plum);background:var(--plum-wash)}
+.col-h{display:flex;justify-content:space-between;align-items:center;padding:4px 4px 10px}
+.col-h b{font-size:13px}
+.col-h span{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:grab;box-shadow:0 1px 2px rgba(0,0,0,.03);transition:transform .15s, box-shadow .15s}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.card .nm{font-size:13px}
+.card .sub{margin-top:2px}
+
+/* ---------- analytics ---------- */
+.grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+.panel{border:1px solid var(--line);border-radius:var(--r);background:#fff;padding:18px 20px;box-shadow:var(--shadow)}
+.panel h3{margin:0 0 4px;font-size:16px;font-weight:600}
+.panel .sub{margin-bottom:14px}
+.funnel{display:flex;flex-direction:column;gap:8px}
+.fn{display:grid;grid-template-columns:130px 1fr 70px;align-items:center;gap:10px;font-size:13px}
+.fn .tr{height:28px;background:var(--paper);border-radius:8px;overflow:hidden}
+.fn .tr span{display:block;height:100%;background:var(--grad);border-radius:8px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.fn b{text-align:right;font-variant-numeric:tabular-nums}
+.verdict{display:flex;gap:16px;align-items:center;padding:18px 20px;border-radius:var(--r);border:1px solid var(--plum-line);background:linear-gradient(120deg,#fff 30%,var(--plum-wash));margin-bottom:16px}
+.verdict .t{font-size:17px;font-weight:600}
+.verdict .d{color:var(--ink-2);margin-top:2px;font-size:13px}
+table.mini{min-width:0}
+table.mini th{position:static}
+table.mini td{font-variant-numeric:tabular-nums}
+.empty{padding:40px 20px;text-align:center;color:var(--ink-3)}
+
+/* ---------- script ---------- */
+.scr-wrap{display:grid;grid-template-columns:1fr 300px;gap:16px}
+textarea.big{width:100%;min-height:560px;border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;font-size:17px;line-height:1.6;outline:none;resize:vertical;background:#fff;box-shadow:var(--shadow)}
+textarea.big:focus{border-color:var(--plum)}
+.tips{font-size:13px;color:var(--ink-2);line-height:1.5}
+.tips code{background:var(--plum-wash);color:var(--plum);padding:1px 6px;border-radius:6px;font-size:12px}
+.saved{font-size:12px;color:var(--ok);height:16px}
+#tele{position:fixed;inset:0;background:#fff;z-index:60;overflow:auto;padding:60px 24px}
+#tele .in{max-width:760px;margin:0 auto;font-size:26px;line-height:1.55;white-space:pre-wrap}
+#tele .x{position:fixed}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:30px;font-size:13px;opacity:0;transition:all .25s;z-index:80;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%)}
+
+@media (max-width:1000px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2,.scr-wrap{grid-template-columns:1fr}.brand .s{display:none}}
+@media (max-width:640px){
+  .bar{padding:10px 16px;flex-wrap:wrap}nav.tabs{margin-left:0;width:100%;overflow-x:auto}nav.tabs button{padding:8px 12px}
+  main{padding:20px 16px 80px}.head h2{font-size:22px}.kpi .v{font-size:24px}
+  .fn{grid-template-columns:96px 1fr 54px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ GATE ============ -->
+<section id="gate">
+  <div class="gate-card">
+    <div class="orb"><div class="spin"><i></i><i></i><i></i><i></i><b></b></div></div>
+    <h1>La tua lista clienti</h1>
+    <p>Green Life · Leonardo Assicurazioni<br>Inserisci il codice che ti abbiamo dato.</p>
+    <form class="gate-row" id="gf">
+      <input id="code" placeholder="Codice di accesso" autocomplete="off" autocapitalize="characters">
+      <button class="pill pri" type="submit">Entra</button>
+    </form>
+    <div class="err" id="gerr"></div>
+  </div>
+</section>
+
+<!-- ============ APP ============ -->
+<div id="app" class="hidden">
+<header class="top"><div class="bar">
+  <div class="brand"><div class="orb sm"><div class="spin"><i></i><i></i><i></i><i></i><b></b></div></div>
+    <div><div class="t">Green Life</div><div class="s">Lista test · 100 professionisti</div></div></div>
+  <nav class="tabs" id="tabs">
+    <button data-p="list" class="on">Lista</button>
+    <button data-p="pipe">Pipeline</button>
+    <button data-p="ana">Risultati</button>
+    <button data-p="script">Script</button>
+  </nav>
+</div></header>
+
+<main>
+<!-- LIST -->
+<section id="p-list">
+  <div class="head">
+    <div><h2>Chi chiamare oggi</h2><p>In cima i più promettenti. Clicca un nome per chiamare e segnare com'è andata.</p></div>
+    <button class="pill pri" id="nextBtn">Prossimo da chiamare →</button>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <div class="tools">
+    <input class="search" id="q" placeholder="Cerca nome, città, professione…">
+    <select class="f" id="fs"><option value="">Tutti gli stati</option></select>
+    <select class="f" id="fj"><option value="">Tutte le professioni</option></select>
+  </div>
+  <div class="sheet"><table>
+    <thead><tr><th>#</th><th>Nome</th><th>Professione</th><th>Città</th><th>Cellulare</th><th>Età</th><th>Priorità</th><th>Stato</th><th>Perché chiamarlo</th><th>Ultima nota</th></tr></thead>
+    <tbody id="tb"></tbody>
+  </table></div>
+</section>
+
+<!-- PIPELINE -->
+<section id="p-pipe" class="hidden">
+  <div class="head"><div><h2>Pipeline</h2><p>Trascina una scheda per cambiarle stato.</p></div></div>
+  <div class="board" id="board"></div>
+</section>
+
+<!-- ANALYTICS -->
+<section id="p-ana" class="hidden">
+  <div class="head"><div><h2>Come sta andando</h2><p>Si aggiorna da solo con ogni chiamata che segni.</p></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="pill" id="csvBtn">Scarica in Excel</button><button class="pill" id="bkBtn">Salva copia</button><label class="pill">Carica copia<input type="file" id="bkIn" accept=".json" hidden></label></div></div>
+  <div class="verdict" id="verdict"></div>
+  <div class="kpis" id="kpis2"></div>
+  <div class="grid2">
+    <div class="panel"><h3>Dalla chiamata al cliente</h3><div class="sub">Su tutti i 100 nomi della lista</div><div class="funnel" id="funnel"></div></div>
+    <div class="panel"><h3>La lista è giusta?</h3><div class="sub">Quello che ci dici tu dopo ogni chiamata</div><div class="funnel" id="quality"></div></div>
+  </div>
+  <div class="panel" style="margin-top:16px"><h3>Per professione</h3><div class="sub">Quale categoria risponde e fissa di più</div><div style="overflow:auto"><table class="mini" id="byjob"></table></div></div>
+</section>
+
+<!-- SCRIPT -->
+<section id="p-script" class="hidden">
+  <div class="head"><div><h2>Il tuo script</h2><p>Incollalo o caricalo qui. Lo ritrovi aperto accanto a ogni persona mentre chiami.</p></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><label class="pill">Carica file<input type="file" id="sIn" accept=".txt,.md,.text" hidden></label><button class="pill pri" id="teleBtn">Leggi a schermo intero</button></div></div>
+  <div class="scr-wrap">
+    <div><textarea class="big" id="script" placeholder="Buongiorno {nome}, sono … di Leonardo Assicurazioni, gruppo Generali.&#10;&#10;La chiamo perché…"></textarea><div class="saved" id="saved"></div></div>
+    <div class="panel tips"><h3 style="font-size:15px;margin:0 0 8px">Parole che si riempiono da sole</h3>
+      Scrivi queste parole nello script: quando apri una persona vengono sostituite con i suoi dati.<br><br>
+      <code>{nome}</code> nome<br><code>{cognome}</code> cognome<br><code>{professione}</code> professione<br><code>{città}</code> città<br><br>
+      Lo script resta salvato su questo computer.</div>
+  </div>
+</section>
+</main>
+</div>
+
+<div id="veil"></div>
+<aside id="drawer" aria-hidden="true"></aside>
+<div id="tele" class="hidden"><button class="x" id="teleX">×</button><div class="in" id="teleIn"></div></div>
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+const ST = [
+  {k:"new",l:"Da chiamare",c:"s-new"},{k:"nr",l:"Non risponde",c:"s-nr"},{k:"cb",l:"Da richiamare",c:"s-cb"},
+  {k:"no",l:"Non interessato",c:"s-no"},{k:"app",l:"Appuntamento",c:"s-app"},{k:"won",l:"Cliente",c:"s-won"},
+  {k:"bad",l:"Numero sbagliato",c:"s-bad"}];
+const SL = Object.fromEntries(ST.map(s=>[s.k,s]));
+const KEY = "gl_state_v1", SKEY = "gl_script_v1", CKEY = "gl_code";
+let L = [], S = {}, cur = null;
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)) } catch {} };
+function toast(t){ const e=$("#toast"); e.textContent=t; e.classList.add("on"); clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove("on"),1800) }
+const st = id => S[id] || (S[id] = {st:"new", calls:[], note:"", ins:"", fit:"", ok:"", next:""});
+const persist = () => { save(KEY, S); if (window.SYNC) window.SYNC(S) };
+
+/* ---------- unlock ---------- */
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function unlock(code){
+  const E = window.ENC, base = await crypto.subtle.importKey("raw", new TextEncoder().encode(code), "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey({name:"PBKDF2", salt:b64(E.s), iterations:200000, hash:"SHA-256"}, base, {name:"AES-GCM", length:256}, false, ["decrypt"]);
+  const pt = await crypto.subtle.decrypt({name:"AES-GCM", iv:b64(E.i)}, key, b64(E.c));
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+async function enter(code){
+  try { L = await unlock(code.trim().toUpperCase()); }
+  catch { $("#gerr").textContent = "Codice non valido"; return false }
+  try { localStorage.setItem(CKEY, code.trim().toUpperCase()) } catch {}
+  S = load(KEY, {});
+  $("#gate").classList.add("hidden"); $("#app").classList.remove("hidden");
+  init(); return true;
+}
+$("#gf").onsubmit = e => { e.preventDefault(); enter($("#code").value) };
+(() => { let c=null; try { c = localStorage.getItem(CKEY) } catch {} if (c) enter(c) })();
+
+/* ---------- init ---------- */
+function init(){
+  ST.forEach(s => $("#fs").insertAdjacentHTML("beforeend", `<option value="${s.k}">${s.l}</option>`));
+  [...new Set(L.map(x=>x.job))].sort().forEach(j => $("#fj").insertAdjacentHTML("beforeend", `<option>${esc(j)}</option>`));
+  ["#q","#fs","#fj"].forEach(s => $(s).addEventListener("input", renderList));
+  $("#tabs").onclick = e => { const b=e.target.closest("button"); if(!b) return; show(b.dataset.p) };
+  $("#nextBtn").onclick = () => { const n = L.find(x => ["new","cb"].includes(st(x.id).st) && !(st(x.id).next && st(x.id).next > today())) || L.find(x=>st(x.id).st==="nr"); if (n) openLead(n.id); else toast("Hai chiamato tutti 🎉") };
+  $("#veil").onclick = closeLead;
+  document.addEventListener("keydown", e => { if (e.key==="Escape") { closeLead(); $("#tele").classList.add("hidden") } });
+  // script
+  const sc = $("#script"); sc.value = load(SKEY, "");
+  sc.addEventListener("input", () => { save(SKEY, sc.value); $("#saved").textContent = "Salvato"; clearTimeout(sc._t); sc._t=setTimeout(()=>$("#saved").textContent="",1200) });
+  $("#sIn").onchange = async e => { const f=e.target.files[0]; if(!f) return; sc.value = await f.text(); save(SKEY, sc.value); toast("Script caricato") };
+  $("#teleBtn").onclick = () => { $("#teleIn").textContent = sc.value || "Lo script è vuoto."; $("#tele").classList.remove("hidden") };
+  $("#teleX").onclick = () => $("#tele").classList.add("hidden");
+  // export
+  $("#csvBtn").onclick = exportCSV;
+  $("#bkBtn").onclick = () => dl(`green-life-copia-${today()}.json`, JSON.stringify({state:S, script:$("#script").value}), "application/json");
+  $("#bkIn").onchange = async e => { const f=e.target.files[0]; if(!f) return; try { const d=JSON.parse(await f.text()); S=d.state||{}; persist(); if(d.script!=null){ $("#script").value=d.script; save(SKEY,d.script)} renderAll(); toast("Copia caricata") } catch { toast("File non valido") } };
+  renderAll();
+}
+const today = () => new Date().toISOString().slice(0,10);
+function show(p){
+  document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.p===p));
+  ["list","pipe","ana","script"].forEach(x => $("#p-"+x).classList.toggle("hidden", x!==p));
+  if (p==="pipe") renderBoard(); if (p==="ana") renderAna(); if (p==="list") renderList();
+  window.scrollTo({top:0});
+}
+function renderAll(){ renderList(); renderBoard(); renderAna() }
+
+/* ---------- metrics ---------- */
+function M(){
+  const all = L.map(x => ({x, s:st(x.id)}));
+  const called = all.filter(a => a.s.calls.length || a.s.st!=="new");
+  const reached = all.filter(a => ["cb","no","app","won"].includes(a.s.st) || a.s.calls.some(c=>["cb","no","app","won"].includes(c.o)));
+  const app = all.filter(a => ["app","won"].includes(a.s.st));
+  const won = all.filter(a => a.s.st==="won");
+  const bad = all.filter(a => a.s.st==="bad" || a.s.ok==="no");
+  const calls = all.reduce((n,a)=>n+a.s.calls.length,0);
+  return {all, called, reached, app, won, bad, calls};
+}
+const pct = (a,b) => b ? Math.round(a/b*100)+"%" : "—";
+function kpiHTML(m){
+  return `
+  <div class="kpi hero tilt"><div class="l">Appuntamenti</div><div class="v">${m.app.length}</div><div class="d">${pct(m.app.length,m.reached.length)} di chi ha risposto</div></div>
+  <div class="kpi tilt"><div class="l">Chiamati</div><div class="v">${m.called.length}<span style="font-size:16px;color:var(--ink-3)"> /${L.length}</span></div><div class="d">${m.calls} chiamate fatte</div></div>
+  <div class="kpi tilt"><div class="l">Rispondono</div><div class="v">${pct(m.reached.length,m.called.length)}</div><div class="d">${m.reached.length} persone raggiunte</div></div>
+  <div class="kpi tilt"><div class="l">Clienti chiusi</div><div class="v">${m.won.length}</div><div class="d">${pct(m.won.length,m.app.length)} degli appuntamenti</div></div>
+  <div class="kpi tilt"><div class="l">Numeri sbagliati</div><div class="v">${m.bad.length}</div><div class="d">${pct(m.bad.length,m.called.length)} dei chiamati</div></div>`;
+}
+function tilt(){
+  document.querySelectorAll(".tilt").forEach(el => {
+    el.onmousemove = e => { const r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; el.style.transform=`perspective(700px) rotateX(${-y*6}deg) rotateY(${x*8}deg) translateY(-2px)` };
+    el.onmouseleave = () => el.style.transform = "";
+  });
+}
+
+/* ---------- list ---------- */
+function chip(k){ const s=SL[k]; return `<span class="chip ${s.c}">${s.l}</span>` }
+function renderList(){
+  const m = M(); $("#kpis").innerHTML = kpiHTML(m); tilt();
+  const q = $("#q").value.toLowerCase().trim(), fs = $("#fs").value, fj = $("#fj").value;
+  const maxP = Math.max(...L.map(x=>x.p));
+  const rows = L.filter(x => {
+    const s = st(x.id);
+    if (fs && s.st!==fs) return false; if (fj && x.job!==fj) return false;
+    if (q && !`${x.n} ${x.c} ${x.city} ${x.job} ${x.tel}`.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  $("#tb").innerHTML = rows.map(x => { const s=st(x.id); return `
+    <tr class="row ${cur===x.id?"sel":""}" data-id="${x.id}">
+      <td class="n">${x.id}</td>
+      <td><div class="nm">${esc(x.n)} ${esc(x.c)}</div>${x.mail?`<div class="sub">${esc(x.mail)}</div>`:""}</td>
+      <td class="nw">${esc(x.job)}</td><td class="nw">${esc(x.city)}</td>
+      <td><a class="tel" href="tel:${x.tel.replace(/\s/g,"")}" onclick="event.stopPropagation()">${esc(x.tel)}</a></td>
+      <td class="nw">${esc(x.age)||'<span class="sub">—</span>'}</td>
+      <td><span class="score"><span class="sbar"><span style="width:${Math.round(x.p/maxP*100)}%"></span></span>${x.p}</span></td>
+      <td>${chip(s.st)}</td>
+      <td><div class="why" title="${esc(x.why)}">${esc(x.why)}</div></td>
+      <td><div class="why">${esc(s.note||"")}</div></td>
+    </tr>`}).join("") || `<tr><td colspan="10" class="empty">Nessun risultato</td></tr>`;
+  $("#tb").querySelectorAll("tr.row").forEach(r => r.onclick = () => openLead(+r.dataset.id));
+}
+
+/* ---------- drawer ---------- */
+function fill(t, x){ return (t||"").replace(/\{nome\}/gi,x.n).replace(/\{cognome\}/gi,x.c).replace(/\{professione\}/gi,x.job.toLowerCase()).replace(/\{citt[aà]\}/gi,x.city.replace(/\s*\(.*\)/,"")) }
+function seg(name, opts, val){ return `<div class="seg" data-f="${name}">${opts.map(([v,l])=>`<button data-v="${v}" class="${val===v?"on":""}">${l}</button>`).join("")}</div>` }
+function openLead(id){
+  cur = id; const x = L.find(y=>y.id===id), s = st(id), scr = load(SKEY,"");
+  const d = $("#drawer");
+  d.innerHTML = `
+    <div class="dr-h"><button class="x" id="dx" aria-label="Chiudi">×</button>
+      <div style="margin-bottom:8px">${chip(s.st)}</div>
+      <h3>${esc(x.n)} ${esc(x.c)}</h3>
+      <div class="sub">${esc(x.job)} · ${esc(x.city)}${x.age?" · "+esc(x.age):""}</div>
+      <div class="call"><a class="pill pri" href="tel:${x.tel.replace(/\s/g,"")}">Chiama ${esc(x.tel)}</a>${x.tel2?`<a class="pill" href="tel:${x.tel2.replace(/\s/g,"")}">Studio</a>`:""}</div>
+    </div>
+    <div class="dr-b">
+      <div class="blk" style="margin-top:4px"><h4>Com'è andata?</h4>
+        <div class="outs">
+          <button class="out" data-o="nr">Non risponde</button><button class="out" data-o="cb">Da richiamare</button>
+          <button class="out" data-o="no">Non interessato</button><button class="out" data-o="app">Appuntamento ✓</button>
+          <button class="out" data-o="bad">Numero sbagliato</button><button class="out" data-o="new">Rimetti da chiamare</button>
+          <button class="out won" data-o="won">Diventato cliente 🎉</button>
+        </div></div>
+      <div class="blk"><h4>Perché chiamarlo</h4><div class="box">${esc(x.why)}</div></div>
+      <div class="blk"><h4>Ha già un'assicurazione?</h4>${seg("ins",[["no","No"],["some","Qualcosa"],["yes","Sì, completa"],["?","Non so"]],s.ins)}</div>
+      <div class="blk"><h4>Il profilo era giusto?</h4>${seg("fit",[["yes","Sì, target giusto"],["meh","Così così"],["no","No, fuori target"]],s.fit)}</div>
+      <div class="blk"><h4>Il numero era il suo?</h4>${seg("ok",[["yes","Sì, era lui"],["sec","Segreteria/studio"],["no","No, sbagliato"]],s.ok)}</div>
+      <div class="blk"><h4>Note</h4><textarea class="note" id="nt" placeholder="Cosa ti ha detto, obiezioni, quando richiamare…">${esc(s.note)}</textarea></div>
+      <div class="blk"><h4>Richiamare il</h4><input type="date" class="dt" id="nx" value="${esc(s.next)}"></div>
+      ${scr?`<div class="blk"><h4>Script</h4><div class="box scr">${esc(fill(scr,x))}</div></div>`:""}
+      <div class="blk"><h4>Dati</h4><div class="kv">
+        <div>Cellulare</div><div>${esc(x.tel)}</div>
+        ${x.tel2?`<div>Studio</div><div>${esc(x.tel2)}</div>`:""}
+        ${x.mail?`<div>Email</div><div><a href="mailto:${esc(x.mail)}">${esc(x.mail)}</a></div>`:""}
+        ${x.web?`<div>Sito</div><div><a href="${esc(x.web)}" target="_blank" rel="noopener">apri</a></div>`:""}
+        ${x.sig?`<div>Segnali</div><div>${esc(x.sig)}</div>`:""}
+        <div>Assicurazione</div><div>${esc(x.ins)}</div>
+        <div>Fonte</div><div><a href="${esc(x.src)}" target="_blank" rel="noopener">scheda pubblica</a></div>
+      </div></div>
+      <div class="blk"><h4>Storico chiamate</h4><ul class="log">${s.calls.length? s.calls.slice().reverse().map(c=>`<li><span>${SL[c.o]?.l||c.o}</span><span>${new Date(c.t).toLocaleString("it-IT",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}</span></li>`).join("") : '<li><span class="sub">Ancora nessuna</span></li>'}</ul></div>
+    </div>`;
+  d.classList.add("open"); d.setAttribute("aria-hidden","false"); $("#veil").classList.add("on");
+  $("#dx").onclick = closeLead;
+  d.querySelectorAll(".out").forEach(b => b.onclick = () => {
+    const o = b.dataset.o; s.st = o; if (o!=="new") s.calls.push({o, t:Date.now()}); if (o==="bad") s.ok="no";
+    persist(); renderList(); toast(SL[o].l); openLead(id);
+  });
+  d.querySelectorAll(".seg").forEach(g => g.onclick = e => { const b=e.target.closest("button"); if(!b) return; s[g.dataset.f] = s[g.dataset.f]===b.dataset.v ? "" : b.dataset.v; persist(); openLead(id) });
+  $("#nt").oninput = e => { s.note = e.target.value; persist() };
+  $("#nt").onblur = renderList;
+  $("#nx").onchange = e => { s.next = e.target.value; if (s.next && s.st==="new") s.st="cb"; persist(); renderList() };
+  document.querySelectorAll("tr.row").forEach(r => r.classList.toggle("sel", +r.dataset.id===id));
+}
+function closeLead(){ cur=null; $("#drawer").classList.remove("open"); $("#drawer").setAttribute("aria-hidden","true"); $("#veil").classList.remove("on"); document.querySelectorAll("tr.row.sel").forEach(r=>r.classList.remove("sel")); renderBoard(); renderAna() }
+
+/* ---------- board ---------- */
+function renderBoard(){
+  const cols = ST.filter(s=>s.k!=="bad");
+  $("#board").innerHTML = cols.map(c => { const items = L.filter(x=>st(x.id).st===c.k); return `
+    <div class="col" data-k="${c.k}"><div class="col-h"><b>${chip(c.k)}</b><span>${items.length}</span></div>
+    ${items.map(x=>`<div class="card" draggable="true" data-id="${x.id}"><div class="nm">${esc(x.n)} ${esc(x.c)}</div><div class="sub">${esc(x.job)} · ${esc(x.city.replace(/\s*\(.*\)/,""))}</div>${st(x.id).next?`<div class="sub" style="color:var(--plum)">Richiamare ${new Date(st(x.id).next).toLocaleDateString("it-IT",{day:"2-digit",month:"short"})}</div>`:""}</div>`).join("")}
+    </div>`}).join("");
+  $("#board").querySelectorAll(".card").forEach(c => {
+    c.ondragstart = e => e.dataTransfer.setData("text", c.dataset.id);
+    c.onclick = () => openLead(+c.dataset.id);
+  });
+  $("#board").querySelectorAll(".col").forEach(col => {
+    col.ondragover = e => { e.preventDefault(); col.classList.add("drop") };
+    col.ondragleave = () => col.classList.remove("drop");
+    col.ondrop = e => { e.preventDefault(); const id=+e.dataTransfer.getData("text"), s=st(id), k=col.dataset.k; if (s.st!==k){ s.st=k; if(k!=="new") s.calls.push({o:k,t:Date.now()}); persist() } renderBoard() };
+  });
+}
+
+/* ---------- analytics ---------- */
+function bar(label, n, of, txt){ const w = of? Math.max(n/of*100, n?3:0):0; return `<div class="fn"><span>${label}</span><div class="tr"><span style="width:${w}%"></span></div><b>${txt ?? n}</b></div>` }
+function renderAna(){
+  const m = M(); $("#kpis2").innerHTML = kpiHTML(m); tilt();
+  const n = L.length;
+  $("#funnel").innerHTML = bar("Nella lista", n, n) + bar("Chiamati", m.called.length, n) + bar("Hanno risposto", m.reached.length, n) + bar("Appuntamento", m.app.length, n) + bar("Clienti", m.won.length, n);
+  const all = m.all, cnt = (f,v) => all.filter(a=>a.s[f]===v).length;
+  const fitN = all.filter(a=>a.s.fit).length, okN = all.filter(a=>a.s.ok).length, insN = all.filter(a=>a.s.ins && a.s.ins!=="?").length;
+  $("#quality").innerHTML =
+    bar("Target giusto", cnt("fit","yes"), fitN, pct(cnt("fit","yes"),fitN)) +
+    bar("Fuori target", cnt("fit","no"), fitN, pct(cnt("fit","no"),fitN)) +
+    bar("Numero suo", cnt("ok","yes"), okN, pct(cnt("ok","yes"),okN)) +
+    bar("Segreteria", cnt("ok","sec"), okN, pct(cnt("ok","sec"),okN)) +
+    bar("Senza assicuraz.", cnt("ins","no"), insN, pct(cnt("ins","no"),insN));
+  // by job
+  const jobs = [...new Set(L.map(x=>x.job))];
+  const rows = jobs.map(j => { const a = all.filter(z=>z.x.job===j), c=a.filter(z=>z.s.calls.length||z.s.st!=="new"), r=a.filter(z=>["cb","no","app","won"].includes(z.s.st)), ap=a.filter(z=>["app","won"].includes(z.s.st)); return {j, n:a.length, c:c.length, r:r.length, ap:ap.length, w:a.filter(z=>z.s.st==="won").length} }).sort((a,b)=>b.ap-a.ap||b.r-a.r||b.n-a.n);
+  $("#byjob").innerHTML = `<thead><tr><th>Professione</th><th>In lista</th><th>Chiamati</th><th>Rispondono</th><th>Appuntamenti</th><th>Clienti</th><th>Da chiamata ad appuntamento</th></tr></thead><tbody>` +
+    rows.map(r=>`<tr><td><b>${esc(r.j)}</b></td><td>${r.n}</td><td>${r.c}</td><td>${pct(r.r,r.c)}</td><td>${r.ap}</td><td>${r.w}</td><td><span class="score"><span class="sbar" style="width:80px"><span style="width:${r.c?r.ap/r.c*100:0}%"></span></span>${pct(r.ap,r.c)}</span></td></tr>`).join("") + "</tbody>";
+  // verdict
+  let t, d;
+  if (m.called.length < 20) { t = `Ancora presto: ${m.called.length} chiamati su ${n}`; d = "Dopo 20–30 chiamate qui compare il primo verdetto sulla lista."; }
+  else { const rate = m.app.length / m.called.length;
+    if (rate >= .08) { t = "La lista funziona"; d = `${pct(m.app.length,m.called.length)} dei chiamati ha fissato un appuntamento. Facciamo la lista grande sulle professioni in cima alla tabella.`; }
+    else if (rate >= .03) { t = "Promettente, da affinare"; d = `${pct(m.app.length,m.called.length)} appuntamenti sui chiamati. Teniamo le professioni migliori e cambiamo le altre.`; }
+    else { t = "Da correggere"; d = `Solo ${pct(m.app.length,m.called.length)} appuntamenti. Guardiamo insieme le note e il target per capire cosa cambiare.`; } }
+  $("#verdict").innerHTML = `<div class="orb sm"><div class="spin"><i></i><i></i><i></i><i></i><b></b></div></div><div><div class="t">${t}</div><div class="d">${d}</div></div>`;
+}
+
+/* ---------- export ---------- */
+function dl(name, data, type){ const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([data],{type})); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000) }
+function exportCSV(){
+  const lab = {ins:{no:"No",some:"Qualcosa",yes:"Sì",["?"]:"Non so"}, fit:{yes:"Sì",meh:"Così così",no:"No"}, ok:{yes:"Sì",sec:"Segreteria",no:"No"}};
+  const H = ["#","Nome","Cognome","Professione","Città","Cellulare","Email","Stato","Chiamate","Ultima chiamata","Già assicurato","Target giusto","Numero suo","Richiamare il","Note"];
+  const q = v => `"${String(v??"").replace(/"/g,'""')}"`;
+  const rows = L.map(x => { const s=st(x.id), lc=s.calls[s.calls.length-1]; return [x.id,x.n,x.c,x.job,x.city,x.tel,x.mail,SL[s.st].l,s.calls.length,lc?new Date(lc.t).toLocaleString("it-IT"):"",lab.ins[s.ins]||"",lab.fit[s.fit]||"",lab.ok[s.ok]||"",s.next,s.note].map(q).join(";") });
+  dl(`green-life-risultati-${today()}.csv`, "﻿"+[H.map(q).join(";"),...rows].join("\n"), "text/csv");
+}
+</script>
+</body>
+</html>
