@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Green Life · Lista clienti</title>
+<title>Lista clienti · Leonardo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -200,7 +200,7 @@ textarea.big:focus{border-color:var(--plum)}
   <div class="gate-card">
     <div class="orb"><div class="spin"><i></i><i></i><i></i><i></i><b></b></div></div>
     <h1>La tua lista clienti</h1>
-    <p>Green Life · Leonardo Assicurazioni<br>Inserisci il codice che ti abbiamo dato.</p>
+    <p>Leonardo Assicurazioni · Gruppo Generali<br>Inserisci il codice che ti abbiamo dato.</p>
     <form class="gate-row" id="gf">
       <input id="code" placeholder="Codice di accesso" autocomplete="off" autocapitalize="characters">
       <button class="pill pri" type="submit">Entra</button>
@@ -213,7 +213,7 @@ textarea.big:focus{border-color:var(--plum)}
 <div id="app" class="hidden">
 <header class="top"><div class="bar">
   <div class="brand"><div class="orb sm"><div class="spin"><i></i><i></i><i></i><i></i><b></b></div></div>
-    <div><div class="t">Green Life</div><div class="s">Lista test · 100 professionisti</div></div></div>
+    <div><div class="t">Lista clienti</div><div class="s">Lista test · 100 professionisti</div></div></div>
   <nav class="tabs" id="tabs">
     <button data-p="list" class="on">Lista</button>
     <button data-p="pipe">Pipeline</button>
@@ -280,7 +280,7 @@ textarea.big:focus{border-color:var(--plum)}
 <div id="tele" class="hidden"><button class="x" id="teleX">×</button><div class="in" id="teleIn"></div></div>
 <div class="toast" id="toast"></div>
 
-<script src="data.js"></script>
+<script src="data.js?v=2"></script>
 <script>
 const ST = [
   {k:"new",l:"Da chiamare",c:"s-new"},{k:"nr",l:"Non risponde",c:"s-nr"},{k:"cb",l:"Da richiamare",c:"s-cb"},
@@ -333,7 +333,7 @@ function init(){
   $("#teleX").onclick = () => $("#tele").classList.add("hidden");
   // export
   $("#csvBtn").onclick = exportCSV;
-  $("#bkBtn").onclick = () => dl(`green-life-copia-${today()}.json`, JSON.stringify({state:S, script:$("#script").value}), "application/json");
+  $("#bkBtn").onclick = () => dl(`lista-copia-${today()}.json`, JSON.stringify({state:S, script:$("#script").value}), "application/json");
   $("#bkIn").onchange = async e => { const f=e.target.files[0]; if(!f) return; try { const d=JSON.parse(await f.text()); S=d.state||{}; persist(); if(d.script!=null){ $("#script").value=d.script; save(SKEY,d.script)} renderAll(); toast("Copia caricata") } catch { toast("File non valido") } };
   renderAll();
 }
@@ -507,7 +507,7 @@ function exportCSV(){
   const H = ["#","Nome","Cognome","Professione","Città","Cellulare","Email","Stato","Chiamate","Ultima chiamata","Già assicurato","Target giusto","Numero suo","Richiamare il","Note"];
   const q = v => `"${String(v??"").replace(/"/g,'""')}"`;
   const rows = L.map(x => { const s=st(x.id), lc=s.calls[s.calls.length-1]; return [x.id,x.n,x.c,x.job,x.city,x.tel,x.mail,SL[s.st].l,s.calls.length,lc?new Date(lc.t).toLocaleString("it-IT"):"",lab.ins[s.ins]||"",lab.fit[s.fit]||"",lab.ok[s.ok]||"",s.next,s.note].map(q).join(";") });
-  dl(`green-life-risultati-${today()}.csv`, "﻿"+[H.map(q).join(";"),...rows].join("\n"), "text/csv");
+  dl(`lista-risultati-${today()}.csv`, "﻿"+[H.map(q).join(";"),...rows].join("\n"), "text/csv");
 }
 </script>
 </body>
