@@ -120,6 +120,9 @@ td.nw{white-space:nowrap}
 .call{display:flex;gap:8px;margin:14px 0 4px;position:relative}
 .call a{flex:1;justify-content:center;text-decoration:none}
 .blk{margin-top:18px}
+#live{font-size:12px;font-weight:700;padding:5px 10px;border-radius:20px;background:#eef7f0;color:#1d7a3a;white-space:nowrap}
+#live[data-s=off]{background:#fdecec;color:#b42318}
+#live[data-s=wait]{background:#f3f3f5;color:#666}
 .blk h4.hot{display:inline-block;margin:0 0 12px;padding:9px 16px;border-radius:10px;background:var(--grad);color:#fff;font-size:14px;font-weight:800;letter-spacing:.06em;box-shadow:0 6px 18px rgba(153,45,105,.35)}
 .blk h4{margin:0 0 8px;font-size:12px;font-weight:600;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
 .kv{display:grid;grid-template-columns:110px 1fr;gap:6px 10px;font-size:13px}
@@ -233,6 +236,7 @@ textarea.big:focus{border-color:var(--plum)}
 <header class="top"><div class="bar">
   <div class="brand"><div class="orb sm"><div class="spin"><i></i><i></i><i></i><i></i><b></b></div></div>
     <div><div class="t">Lista clienti</div><div class="s">Lista test · 100 professionisti</div></div></div>
+  <span id="live" data-s="wait">● Collego…</span>
   <nav class="tabs" id="tabs">
     <button data-p="list" class="on">Lista</button>
     <button data-p="pipe">Pipeline</button>
@@ -344,7 +348,7 @@ async function enter(code){
   try { localStorage.setItem(CKEY, code.trim().toUpperCase()) } catch {}
   S = load(KEY, {});
   $("#gate").classList.add("hidden"); $("#app").classList.remove("hidden");
-  init(); return true;
+  init(); if (window.startSync) startSync(code.trim().toUpperCase()); return true;
 }
 $("#gf").onsubmit = e => { e.preventDefault(); enter($("#code").value) };
 (() => { let c=null; try { c = localStorage.getItem(CKEY) } catch {} if (c) enter(c) })();
@@ -589,6 +593,66 @@ function exportCSV(){
   const rows = L.map(x => { const s=st(x.id), lc=s.calls[s.calls.length-1]; return [x.id,x.n,x.c,x.job,x.city,x.tel,x.mail,SL[s.st].l,s.calls.length,lc?new Date(lc.t).toLocaleString("it-IT"):"",lab.ins[s.ins]||"",lab.fit[s.fit]||"",lab.ok[s.ok]||"",s.next,s.note].map(q).join(";") });
   dl(`lista-risultati-${today()}.csv`, "﻿"+[H.map(q).join(";"),...rows].join("\n"), "text/csv");
 }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+/* ---------- live sync: every change is encrypted with the access code and shared ---------- */
+(() => {
+const URL_ = "https://rnnhniydnsedkqeoewwu.supabase.co", ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJubmhuaXlkbnNlZGtxZW9ld3d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MTA4MDYsImV4cCI6MjA5NjE4NjgwNn0.Ty_-Uf1V94fosX08aUqlinWU_GYsy4zxvXbJiS3CDgY", TB = "zlatanov_sync";
+const H = {apikey:ANON, Authorization:"Bearer "+ANON, "Content-Type":"application/json"};
+let K = null, sent = {}, timer = null, sTimer = null;
+const enc = new TextEncoder(), dec = new TextDecoder();
+const u8b64 = a => btoa(String.fromCharCode(...a));
+const strip = o => { const c = {...o}; delete c._t; return JSON.stringify(c) };
+function dot(t, c){ const e = document.getElementById("live"); if (e) { e.textContent = t; e.dataset.s = c } }
+async function seal(o){ const iv = crypto.getRandomValues(new Uint8Array(12));
+  const c = new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM", iv}, K, enc.encode(JSON.stringify(o))));
+  return u8b64(iv) + "." + u8b64(c) }
+async function open_(d){ const [i, c] = d.split("."); return JSON.parse(dec.decode(await crypto.subtle.decrypt({name:"AES-GCM", iv:b64(i)}, K, b64(c)))) }
+async function put(rows){ if (!rows.length) return;
+  const r = await fetch(URL_+"/rest/v1/"+TB+"?on_conflict=id", {method:"POST", headers:{...H, Prefer:"resolution=merge-duplicates,return=minimal"}, body:JSON.stringify(rows)});
+  if (!r.ok) throw new Error(r.status) }
+async function push(){
+  const rows = [];
+  const DEF = JSON.stringify({st:"new",calls:[],note:"",ins:"",fit:"",ok:"",next:""});
+  for (const id in S) { const j = strip(S[id]); if (sent[id] === j) continue;
+    if (sent[id] === undefined && j === DEF) { sent[id] = j; continue }
+    S[id]._t = S[id]._t && sent[id] === undefined ? S[id]._t : Date.now(); sent[id] = j;
+    rows.push({id:String(id), d:await seal(S[id]), ts:S[id]._t}) }
+  try { save(KEY, S); await put(rows); dot("● Live", "ok") } catch { dot("● Offline — riprovo", "off"); rows.forEach(r => delete sent[r.id]); setTimeout(push, 5000) }
+}
+window.SYNC = () => { clearTimeout(timer); timer = setTimeout(push, 500) };
+function busy(){ const a = document.activeElement; return a && (a.tagName === "TEXTAREA" || a.tagName === "INPUT") }
+let scrT = 0;
+async function apply(row){
+  let o; try { o = await open_(row.d) } catch { return false }
+  if (row.id === "_script") { if (row.ts > scrT) { scrT = row.ts; const sc = $("#script"); if (document.activeElement !== sc) { sc.value = o.v; save(SKEY, o.v) } } return false }
+  const loc = S[row.id];
+  if (loc && (loc._t || 0) >= row.ts) return false;
+  o._t = row.ts; S[row.id] = o; sent[row.id] = strip(o); return true
+}
+function refresh(ids){ save(KEY, S); renderAll(); if (cur != null && ids.includes(String(cur)) && !busy()) openLead(cur) }
+async function pull(){
+  const r = await fetch(URL_+"/rest/v1/"+TB+"?select=*", {headers:H}); if (!r.ok) throw new Error(r.status);
+  const ch = []; for (const row of await r.json()) if (await apply(row)) ch.push(row.id);
+  if (ch.length) refresh(ch); return ch }
+window.startSync = async code => {
+  const base = await crypto.subtle.importKey("raw", enc.encode(code), "PBKDF2", false, ["deriveKey"]);
+  K = await crypto.subtle.deriveKey({name:"PBKDF2", salt:enc.encode("zlatanov-live-v1"), iterations:200000, hash:"SHA-256"}, base, {name:"AES-GCM", length:256}, false, ["encrypt","decrypt"]);
+  dot("● Collego…", "wait");
+  try { await pull(); dot("● Live", "ok") } catch { dot("● Offline — riprovo", "off") }
+  push();
+  const sc = $("#script");
+  sc.addEventListener("input", () => { clearTimeout(sTimer); sTimer = setTimeout(async () => { scrT = Date.now();
+    try { await put([{id:"_script", d:await seal({v:sc.value}), ts:scrT}]) } catch {} }, 800) });
+  try { const sb = supabase.createClient(URL_, ANON);
+    sb.channel("zl").on("postgres_changes", {event:"*", schema:"public", table:TB}, async p => {
+      if (p.new && p.new.d && await apply(p.new)) refresh([p.new.id]) })
+      .subscribe(s => { if (s === "SUBSCRIBED") dot("● Live", "ok") }) } catch {}
+  setInterval(() => pull().then(() => dot("● Live", "ok")).catch(() => dot("● Offline — riprovo", "off")), 8000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) pull().catch(()=>{}) });
+};
+})();
 </script>
 </body>
 </html>
