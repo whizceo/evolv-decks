@@ -106,6 +106,7 @@ td.nw{white-space:nowrap}
 .s-app{background:var(--plum-wash);color:var(--plum)}
 .s-won{background:#e8f6ef;color:#1f7a50}
 .s-bad{background:#f1f1f1;color:#555;text-decoration:line-through}
+.s-dnc{background:#ececec;color:#666;text-decoration:line-through}
 .st-sel{border:0;background:transparent;cursor:pointer;padding:0;font-weight:600}
 
 /* ---------- drawer ---------- */
@@ -322,7 +323,7 @@ textarea.big:focus{border-color:var(--plum)}
 const ST = [
   {k:"new",l:"Da chiamare",c:"s-new"},{k:"nr",l:"Non risponde",c:"s-nr"},{k:"cb",l:"Da richiamare",c:"s-cb"},
   {k:"no",l:"Non interessato",c:"s-no"},{k:"app",l:"Appuntamento",c:"s-app"},{k:"won",l:"Cliente",c:"s-won"},
-  {k:"bad",l:"Numero sbagliato",c:"s-bad"}];
+  {k:"bad",l:"Numero sbagliato",c:"s-bad"},{k:"dnc",l:"Non chiamabile",c:"s-dnc"}];
 const SL = Object.fromEntries(ST.map(s=>[s.k,s]));
 const KEY = "gl_state_v1", SKEY = "gl_script_v1", CKEY = "gl_code";
 let L = [], S = {}, cur = null;
@@ -386,7 +387,7 @@ function renderAll(){ renderList(); renderBoard(); renderAna(); renderDash() }
 /* ---------- metrics ---------- */
 function M(){
   const all = L.map(x => ({x, s:st(x.id)}));
-  const called = all.filter(a => a.s.calls.length || a.s.st!=="new");
+  const called = all.filter(a => a.s.calls.length || !["new","dnc"].includes(a.s.st));
   const reached = all.filter(a => ["cb","no","app","won"].includes(a.s.st) || a.s.calls.some(c=>["cb","no","app","won"].includes(c.o)));
   const app = all.filter(a => ["app","won"].includes(a.s.st));
   const won = all.filter(a => a.s.st==="won");
@@ -456,6 +457,7 @@ function openLead(id){
           <button class="out" data-o="nr">Non risponde</button><button class="out" data-o="cb">Da richiamare</button>
           <button class="out" data-o="no">Non interessato</button><button class="out" data-o="app">Appuntamento ✓</button>
           <button class="out" data-o="bad">Numero sbagliato</button><button class="out" data-o="new">Rimetti da chiamare</button>
+          <button class="out" data-o="dnc">Non chiamabile 🚫</button>
           <button class="out won" data-o="won">Diventato cliente 🎉</button>
         </div></div>
       <div class="blk"><h4 class="hot">👉 Prima di chiamare — leggi qui</h4>
@@ -488,7 +490,7 @@ function openLead(id){
   d.classList.add("open"); d.setAttribute("aria-hidden","false"); $("#veil").classList.add("on");
   $("#dx").onclick = closeLead;
   d.querySelectorAll(".out").forEach(b => b.onclick = () => {
-    const o = b.dataset.o; s.st = o; if (o!=="new") s.calls.push({o, t:Date.now()}); if (o==="bad") s.ok="no";
+    const o = b.dataset.o; s.st = o; if (o!=="new" && o!=="dnc") s.calls.push({o, t:Date.now()}); if (o==="bad") s.ok="no";
     persist(); renderList(); toast(SL[o].l); openLead(id);
   });
   d.querySelectorAll(".seg").forEach(g => g.onclick = e => { const b=e.target.closest("button"); if(!b) return; s[g.dataset.f] = s[g.dataset.f]===b.dataset.v ? "" : b.dataset.v; persist(); openLead(id) });
@@ -501,7 +503,7 @@ function closeLead(){ cur=null; $("#drawer").classList.remove("open"); $("#drawe
 
 /* ---------- board ---------- */
 function renderBoard(){
-  const cols = ST.filter(s=>s.k!=="bad");
+  const cols = ST.filter(s=>s.k!=="bad"&&s.k!=="dnc");
   $("#board").innerHTML = cols.map(c => { const items = L.filter(x=>st(x.id).st===c.k); return `
     <div class="col" data-k="${c.k}"><div class="col-h"><b>${chip(c.k)}</b><span>${items.length}</span></div>
     ${items.map(x=>`<div class="card" draggable="true" data-id="${x.id}"><div class="nm">${esc(x.n)} ${esc(x.c)}</div><div class="sub">${esc(x.job)} · ${esc(x.city.replace(/\s*\(.*\)/,""))}</div>${st(x.id).next?`<div class="sub" style="color:var(--plum)">Richiamare ${new Date(st(x.id).next).toLocaleDateString("it-IT",{day:"2-digit",month:"short"})}</div>`:""}</div>`).join("")}
@@ -513,7 +515,7 @@ function renderBoard(){
   $("#board").querySelectorAll(".col").forEach(col => {
     col.ondragover = e => { e.preventDefault(); col.classList.add("drop") };
     col.ondragleave = () => col.classList.remove("drop");
-    col.ondrop = e => { e.preventDefault(); const id=+e.dataTransfer.getData("text"), s=st(id), k=col.dataset.k; if (s.st!==k){ s.st=k; if(k!=="new") s.calls.push({o:k,t:Date.now()}); persist() } renderBoard() };
+    col.ondrop = e => { e.preventDefault(); const id=+e.dataTransfer.getData("text"), s=st(id), k=col.dataset.k; if (s.st!==k){ s.st=k; if(k!=="new"&&k!=="dnc") s.calls.push({o:k,t:Date.now()}); persist() } renderBoard() };
   });
 }
 
@@ -533,7 +535,7 @@ function renderAna(){
     bar("Senza assicuraz.", cnt("ins","no"), insN, pct(cnt("ins","no"),insN));
   // by job
   const jobs = [...new Set(L.map(x=>x.job))];
-  const rows = jobs.map(j => { const a = all.filter(z=>z.x.job===j), c=a.filter(z=>z.s.calls.length||z.s.st!=="new"), r=a.filter(z=>["cb","no","app","won"].includes(z.s.st)), ap=a.filter(z=>["app","won"].includes(z.s.st)); return {j, n:a.length, c:c.length, r:r.length, ap:ap.length, w:a.filter(z=>z.s.st==="won").length} }).sort((a,b)=>b.ap-a.ap||b.r-a.r||b.n-a.n);
+  const rows = jobs.map(j => { const a = all.filter(z=>z.x.job===j), c=a.filter(z=>z.s.calls.length||!["new","dnc"].includes(z.s.st)), r=a.filter(z=>["cb","no","app","won"].includes(z.s.st)), ap=a.filter(z=>["app","won"].includes(z.s.st)); return {j, n:a.length, c:c.length, r:r.length, ap:ap.length, w:a.filter(z=>z.s.st==="won").length} }).sort((a,b)=>b.ap-a.ap||b.r-a.r||b.n-a.n);
   $("#byjob").innerHTML = `<thead><tr><th>Professione</th><th>In lista</th><th>Chiamati</th><th>Rispondono</th><th>Appuntamenti</th><th>Clienti</th><th>Da chiamata ad appuntamento</th></tr></thead><tbody>` +
     rows.map(r=>`<tr><td><b>${esc(r.j)}</b></td><td>${r.n}</td><td>${r.c}</td><td>${pct(r.r,r.c)}</td><td>${r.ap}</td><td>${r.w}</td><td><span class="score"><span class="sbar" style="width:80px"><span style="width:${r.c?r.ap/r.c*100:0}%"></span></span>${pct(r.ap,r.c)}</span></td></tr>`).join("") + "</tbody>";
   // verdict
@@ -547,7 +549,7 @@ function renderAna(){
 }
 
 /* ---------- dashboard charts ---------- */
-const COL = {new:"#d9d6de",nr:"#e9b45c",cb:"#6f8be8",no:"#e07a70",app:"#992d69",won:"#1f8a5b",bad:"#9a9a9a"};
+const COL = {new:"#d9d6de",nr:"#e9b45c",cb:"#6f8be8",no:"#e07a70",app:"#992d69",won:"#1f8a5b",bad:"#9a9a9a",dnc:"#bdbdbd"};
 const ANS = ["cb","no","app","won"];
 function emptyC(t){ return `<div class="empty" style="padding:28px 10px">${t}</div>` }
 function hbars(rows, fmt){ // rows: [{l, v(0..1), t}]
@@ -577,10 +579,10 @@ function renderDash(){
   const hr = slots.map(([a,b]) => { const c = calls.filter(z => { const h=new Date(z.t).getHours(); return h>=a && h<b && z.o!=="bad" }); const r=c.filter(z=>ANS.includes(z.o)).length; return {l:`${a}–${b}`, v:c.length? r/c.length:0, t:c.length? `${Math.round(r/c.length*100)}% · ${c.length}`:"—"} });
   $("#c-hour").innerHTML = calls.length ? hbars(hr) : emptyC("Ancora nessuna chiamata");
   // job
-  const jobs = [...new Set(L.map(x=>x.job))].map(j => { const a=L.filter(x=>x.job===j), c=a.filter(x=>st(x.id).calls.length||st(x.id).st!=="new"), ap=a.filter(x=>["app","won"].includes(st(x.id).st)); return {l:j, v:c.length? ap.length/c.length:0, t:c.length? `${Math.round(ap.length/c.length*100)}% · ${ap.length}/${c.length}`:"—", c:c.length} }).filter(r=>r.c).sort((a,b)=>b.v-a.v);
+  const jobs = [...new Set(L.map(x=>x.job))].map(j => { const a=L.filter(x=>x.job===j), c=a.filter(x=>st(x.id).calls.length||!["new","dnc"].includes(st(x.id).st)), ap=a.filter(x=>["app","won"].includes(st(x.id).st)); return {l:j, v:c.length? ap.length/c.length:0, t:c.length? `${Math.round(ap.length/c.length*100)}% · ${ap.length}/${c.length}`:"—", c:c.length} }).filter(r=>r.c).sort((a,b)=>b.v-a.v);
   $("#c-job").innerHTML = jobs.length ? hbars(jobs) : emptyC("Ancora nessuna chiamata");
   // age
-  const fasi = ["Sotto i 45","45–57","58+","Età non nota"].map(f => { const a=L.filter(x=>x.fase===f), c=a.filter(x=>st(x.id).calls.length||st(x.id).st!=="new"), r=a.filter(x=>ANS.includes(st(x.id).st)), ap=a.filter(x=>["app","won"].includes(st(x.id).st)); return {f, n:a.length, c:c.length, r:r.length, ap:ap.length} }).filter(r=>r.n);
+  const fasi = ["Sotto i 45","45–57","58+","Età non nota"].map(f => { const a=L.filter(x=>x.fase===f), c=a.filter(x=>st(x.id).calls.length||!["new","dnc"].includes(st(x.id).st)), r=a.filter(x=>ANS.includes(st(x.id).st)), ap=a.filter(x=>["app","won"].includes(st(x.id).st)); return {f, n:a.length, c:c.length, r:r.length, ap:ap.length} }).filter(r=>r.n);
   $("#c-age").innerHTML = m.called.length ? hbars(fasi.flatMap(r=>[{l:`${r.f} · risposta`, v:r.c? r.r/r.c:0, t:r.c? pct(r.r,r.c):"—"},{l:`${r.f} · appunt.`, v:r.c? r.ap/r.c:0, t:r.c? pct(r.ap,r.c):"—"}])) : emptyC("Ancora nessuna chiamata");
 }
 
