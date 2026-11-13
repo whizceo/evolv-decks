@@ -141,6 +141,24 @@ input.dt{height:38px;border:1px solid var(--line);border-radius:10px;padding:0 1
 #veil{position:fixed;inset:0;background:rgba(22,20,26,.18);z-index:30;opacity:0;pointer-events:none;transition:opacity .25s}
 #veil.on{opacity:1;pointer-events:auto}
 
+.brief{display:flex;flex-direction:column;gap:8px}
+.bi{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-size:13px;line-height:1.45;color:var(--ink-2)}
+.bi b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin-bottom:4px}
+.bi p{margin:0}.bi ul{margin:0;padding-left:16px}.bi li{margin:2px 0}
+.bi.why1{background:var(--plum-wash);border-color:var(--plum-line);color:var(--ink)}
+.bi.say{border-left:3px solid var(--plum);color:var(--ink);font-size:14px}
+.bi.warn{background:#fff8f0;border-color:#f5e1c8}
+/* ---------- charts ---------- */
+.cgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.cgrid .panel.w{grid-column:1/-1}
+svg.ch{width:100%;height:auto;display:block;overflow:visible}
+svg.ch text{font-family:inherit;font-size:11px;fill:var(--ink-3)}
+svg.ch .lb{fill:var(--ink-2);font-size:12px}
+svg.ch .vl{fill:var(--ink);font-weight:600;font-size:12px}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);margin-top:10px}
+.leg span{display:inline-flex;align-items:center;gap:6px}.leg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.donut{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+@media (max-width:1000px){.cgrid{grid-template-columns:1fr}}
 /* ---------- pipeline ---------- */
 .board{display:grid;grid-template-columns:repeat(6,minmax(200px,1fr));gap:12px;overflow-x:auto;padding-bottom:8px}
 .col{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:10px;min-height:400px}
@@ -217,6 +235,7 @@ textarea.big:focus{border-color:var(--plum)}
   <nav class="tabs" id="tabs">
     <button data-p="list" class="on">Lista</button>
     <button data-p="pipe">Pipeline</button>
+    <button data-p="dash">Dashboard</button>
     <button data-p="ana">Risultati</button>
     <button data-p="script">Script</button>
   </nav>
@@ -245,6 +264,19 @@ textarea.big:focus{border-color:var(--plum)}
 <section id="p-pipe" class="hidden">
   <div class="head"><div><h2>Pipeline</h2><p>Trascina una scheda per cambiarle stato.</p></div></div>
   <div class="board" id="board"></div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="p-dash" class="hidden">
+  <div class="head"><div><h2>Dashboard</h2><p>Le tue chiamate in grafici. Si aggiorna da sola.</p></div></div>
+  <div class="kpis" id="kpis3"></div>
+  <div class="cgrid">
+    <div class="panel w"><h3>Chiamate per giorno</h3><div class="sub">Ultimi 14 giorni · quante hanno risposto</div><div id="c-days"></div></div>
+    <div class="panel"><h3>Come sono andate</h3><div class="sub">Stato attuale dei 100 nomi</div><div id="c-out"></div></div>
+    <div class="panel"><h3>A che ora rispondono</h3><div class="sub">% di chiamate con risposta, per fascia oraria</div><div id="c-hour"></div></div>
+    <div class="panel"><h3>Appuntamenti per professione</h3><div class="sub">% dei chiamati che fissa</div><div id="c-job"></div></div>
+    <div class="panel"><h3>Per età</h3><div class="sub">Risposta e appuntamenti per fascia</div><div id="c-age"></div></div>
+  </div>
 </section>
 
 <!-- ANALYTICS -->
@@ -280,7 +312,7 @@ textarea.big:focus{border-color:var(--plum)}
 <div id="tele" class="hidden"><button class="x" id="teleX">×</button><div class="in" id="teleIn"></div></div>
 <div class="toast" id="toast"></div>
 
-<script src="data.js?v=2"></script>
+<script src="data.js?v=3"></script>
 <script>
 const ST = [
   {k:"new",l:"Da chiamare",c:"s-new"},{k:"nr",l:"Non risponde",c:"s-nr"},{k:"cb",l:"Da richiamare",c:"s-cb"},
@@ -340,11 +372,11 @@ function init(){
 const today = () => new Date().toISOString().slice(0,10);
 function show(p){
   document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.p===p));
-  ["list","pipe","ana","script"].forEach(x => $("#p-"+x).classList.toggle("hidden", x!==p));
-  if (p==="pipe") renderBoard(); if (p==="ana") renderAna(); if (p==="list") renderList();
+  ["list","pipe","dash","ana","script"].forEach(x => $("#p-"+x).classList.toggle("hidden", x!==p));
+  if (p==="pipe") renderBoard(); if (p==="ana") renderAna(); if (p==="dash") renderDash(); if (p==="list") renderList();
   window.scrollTo({top:0});
 }
-function renderAll(){ renderList(); renderBoard(); renderAna() }
+function renderAll(){ renderList(); renderBoard(); renderAna(); renderDash() }
 
 /* ---------- metrics ---------- */
 function M(){
@@ -404,7 +436,7 @@ function renderList(){
 function fill(t, x){ return (t||"").replace(/\{nome\}/gi,x.n).replace(/\{cognome\}/gi,x.c).replace(/\{professione\}/gi,x.job.toLowerCase()).replace(/\{citt[aà]\}/gi,x.city.replace(/\s*\(.*\)/,"")) }
 function seg(name, opts, val){ return `<div class="seg" data-f="${name}">${opts.map(([v,l])=>`<button data-v="${v}" class="${val===v?"on":""}">${l}</button>`).join("")}</div>` }
 function openLead(id){
-  cur = id; const x = L.find(y=>y.id===id), s = st(id), scr = load(SKEY,"");
+  cur = id; const x = L.find(y=>y.id===id), s = st(id), scr = load(SKEY,""), B = x.b || {facts:[],levers:[],qs:[]};
   const d = $("#drawer");
   d.innerHTML = `
     <div class="dr-h"><button class="x" id="dx" aria-label="Chiudi">×</button>
@@ -421,7 +453,16 @@ function openLead(id){
           <button class="out" data-o="bad">Numero sbagliato</button><button class="out" data-o="new">Rimetti da chiamare</button>
           <button class="out won" data-o="won">Diventato cliente 🎉</button>
         </div></div>
-      <div class="blk"><h4>Perché chiamarlo</h4><div class="box">${esc(x.why)}</div></div>
+      <div class="blk"><h4>Prima di chiamare</h4>
+        <div class="brief">
+          <div class="bi why1"><b>Perché lui</b><p>${esc(x.why)}</p></div>
+          ${B.facts.length?`<div class="bi"><b>Cosa sappiamo</b><ul>${B.facts.map(f=>`<li>${esc(f)}</li>`).join("")}</ul></div>`:""}
+          <div class="bi say"><b>Come aprire</b><p>“${esc(B.open)}”</p></div>
+          <div class="bi"><b>Su cosa fare leva</b><ul>${B.levers.map(f=>`<li>${esc(f)}</li>`).join("")}</ul></div>
+          <div class="bi"><b>Domande da fare</b><ul>${B.qs.map(f=>`<li>“${esc(f)}”</li>`).join("")}</ul></div>
+          <div class="bi"><b>Se ti dice</b><p><i>“${esc(B.obj)}”</i></p><b style="margin-top:8px">Rispondi</b><p>“${esc(B.rep)}”</p></div>
+          <div class="bi warn"><b>Da evitare</b><p>${esc(B.avoid)}</p></div>
+        </div></div>
       <div class="blk"><h4>Ha già un'assicurazione?</h4>${seg("ins",[["no","No"],["some","Qualcosa"],["yes","Sì, completa"],["?","Non so"]],s.ins)}</div>
       <div class="blk"><h4>Il profilo era giusto?</h4>${seg("fit",[["yes","Sì, target giusto"],["meh","Così così"],["no","No, fuori target"]],s.fit)}</div>
       <div class="blk"><h4>Il numero era il suo?</h4>${seg("ok",[["yes","Sì, era lui"],["sec","Segreteria/studio"],["no","No, sbagliato"]],s.ok)}</div>
@@ -498,6 +539,44 @@ function renderAna(){
     else if (rate >= .03) { t = "Promettente, da affinare"; d = `${pct(m.app.length,m.called.length)} appuntamenti sui chiamati. Teniamo le professioni migliori e cambiamo le altre.`; }
     else { t = "Da correggere"; d = `Solo ${pct(m.app.length,m.called.length)} appuntamenti. Guardiamo insieme le note e il target per capire cosa cambiare.`; } }
   $("#verdict").innerHTML = `<div class="orb sm"><div class="spin"><i></i><i></i><i></i><i></i><b></b></div></div><div><div class="t">${t}</div><div class="d">${d}</div></div>`;
+}
+
+/* ---------- dashboard charts ---------- */
+const COL = {new:"#d9d6de",nr:"#e9b45c",cb:"#6f8be8",no:"#e07a70",app:"#992d69",won:"#1f8a5b",bad:"#9a9a9a"};
+const ANS = ["cb","no","app","won"];
+function emptyC(t){ return `<div class="empty" style="padding:28px 10px">${t}</div>` }
+function hbars(rows, fmt){ // rows: [{l, v(0..1), t}]
+  if (!rows.length) return emptyC("Ancora nessun dato");
+  const h = rows.length*34+6, W = 520;
+  return `<svg class="ch" viewBox="0 0 ${W} ${h}"><defs><linearGradient id="gp" x1="0" x2="1"><stop offset="0" stop-color="#6e1f4b"/><stop offset="1" stop-color="#d0579a"/></linearGradient></defs>` +
+    rows.map((r,i)=>{ const y=i*34+4, w=Math.max(r.v*300, r.v?4:0); return `<text class="lb" x="0" y="${y+17}">${esc(r.l)}</text><rect x="150" y="${y+4}" width="300" height="20" rx="6" fill="#f3f1f5"/><rect x="150" y="${y+4}" width="${w}" height="20" rx="6" fill="url(#gp)"><animate attributeName="width" from="0" to="${w}" dur=".6s" fill="freeze"/></rect><text class="vl" x="${460}" y="${y+18}">${r.t}</text>` }).join("") + `</svg>`;
+}
+function renderDash(){
+  const m = M(); $("#kpis3").innerHTML = kpiHTML(m); tilt();
+  const calls = L.flatMap(x => st(x.id).calls.map(c => ({...c, x})));
+  // days
+  const days = [...Array(14)].map((_,i)=>{ const d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-13+i); return d });
+  const per = days.map(d => { const a = calls.filter(c => { const t=new Date(c.t); t.setHours(0,0,0,0); return +t===+d }); return {d, n:a.length, r:a.filter(c=>ANS.includes(c.o)).length} });
+  const mx = Math.max(4, ...per.map(p=>p.n)), W=1200, H=170, bw=W/14;
+  $("#c-days").innerHTML = calls.length ? `<svg class="ch" viewBox="0 -18 ${W} ${H+42}">` +
+    [0,.5,1].map(g=>`<line x1="0" x2="${W}" y1="${H-g*H}" y2="${H-g*H}" stroke="#eee"/><text x="0" y="${H-g*H-4}">${Math.round(g*mx)}</text>`).join("") +
+    per.map((p,i)=>{ const x=i*bw+bw*.22, w=bw*.56, h1=p.n/mx*H, h2=p.r/mx*H; return `<rect x="${x}" y="${H-h1}" width="${w}" height="${h1}" rx="5" fill="#ecd6e2"/><rect x="${x}" y="${H-h2}" width="${w}" height="${h2}" rx="5" fill="#992d69"/>${p.n?`<text class="vl" x="${x+w/2}" y="${H-h1-6}" text-anchor="middle">${p.n}</text>`:""}<text x="${x+w/2}" y="${H+16}" text-anchor="middle">${p.d.toLocaleDateString("it-IT",{day:"2-digit",month:"2-digit"})}</text>` }).join("") +
+    `</svg><div class="leg"><span><i style="background:#ecd6e2"></i>Chiamate</span><span><i style="background:#992d69"></i>Hanno risposto</span></div>` : emptyC("Segna la prima chiamata e qui compare il grafico");
+  // outcomes donut
+  const cnt = ST.map(s => ({s, n:L.filter(x=>st(x.id).st===s.k).length})).filter(o=>o.n);
+  let a0 = 0; const R=70, C=2*Math.PI*R;
+  $("#c-out").innerHTML = `<div class="donut"><svg class="ch" viewBox="0 0 180 180" style="width:180px">` + cnt.map(o=>{ const f=o.n/L.length, seg=`<circle cx="90" cy="90" r="${R}" fill="none" stroke="${COL[o.s.k]}" stroke-width="22" stroke-dasharray="${f*C} ${C}" stroke-dashoffset="${-a0*C}" transform="rotate(-90 90 90)"/>`; a0+=f; return seg }).join("") +
+    `<text x="90" y="88" text-anchor="middle" class="vl" style="font-size:26px">${m.called.length}</text><text x="90" y="108" text-anchor="middle">chiamati</text></svg><div class="leg" style="flex-direction:column;gap:6px">${cnt.map(o=>`<span><i style="background:${COL[o.s.k]}"></i>${o.s.l} · <b>${o.n}</b></span>`).join("")}</div></div>`;
+  // hour
+  const slots = [[8,10],[10,12],[12,14],[14,16],[16,18],[18,21]];
+  const hr = slots.map(([a,b]) => { const c = calls.filter(z => { const h=new Date(z.t).getHours(); return h>=a && h<b && z.o!=="bad" }); const r=c.filter(z=>ANS.includes(z.o)).length; return {l:`${a}–${b}`, v:c.length? r/c.length:0, t:c.length? `${Math.round(r/c.length*100)}% · ${c.length}`:"—"} });
+  $("#c-hour").innerHTML = calls.length ? hbars(hr) : emptyC("Ancora nessuna chiamata");
+  // job
+  const jobs = [...new Set(L.map(x=>x.job))].map(j => { const a=L.filter(x=>x.job===j), c=a.filter(x=>st(x.id).calls.length||st(x.id).st!=="new"), ap=a.filter(x=>["app","won"].includes(st(x.id).st)); return {l:j, v:c.length? ap.length/c.length:0, t:c.length? `${Math.round(ap.length/c.length*100)}% · ${ap.length}/${c.length}`:"—", c:c.length} }).filter(r=>r.c).sort((a,b)=>b.v-a.v);
+  $("#c-job").innerHTML = jobs.length ? hbars(jobs) : emptyC("Ancora nessuna chiamata");
+  // age
+  const fasi = ["Sotto i 45","45–57","58+","Età non nota"].map(f => { const a=L.filter(x=>x.fase===f), c=a.filter(x=>st(x.id).calls.length||st(x.id).st!=="new"), r=a.filter(x=>ANS.includes(st(x.id).st)), ap=a.filter(x=>["app","won"].includes(st(x.id).st)); return {f, n:a.length, c:c.length, r:r.length, ap:ap.length} }).filter(r=>r.n);
+  $("#c-age").innerHTML = m.called.length ? hbars(fasi.flatMap(r=>[{l:`${r.f} · risposta`, v:r.c? r.r/r.c:0, t:r.c? pct(r.r,r.c):"—"},{l:`${r.f} · appunt.`, v:r.c? r.ap/r.c:0, t:r.c? pct(r.ap,r.c):"—"}])) : emptyC("Ancora nessuna chiamata");
 }
 
 /* ---------- export ---------- */
