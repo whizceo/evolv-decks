@@ -194,6 +194,8 @@ table.mini{min-width:0}
 table.mini th{position:static}
 table.mini td{font-variant-numeric:tabular-nums}
 .empty{padding:40px 20px;text-align:center;color:var(--ink-3)}
+tr.lotdiv td{padding:22px 12px 10px;border-top:2px solid var(--plum);background:transparent}
+tr.lotdiv span{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--plum,#7a2a5a)}
 
 /* ---------- script ---------- */
 .scr-wrap{display:grid;grid-template-columns:1fr 300px;gap:16px}
@@ -424,7 +426,7 @@ function renderList(){
     if (q && !`${x.n} ${x.c} ${x.city} ${x.job} ${x.tel}`.toLowerCase().includes(q)) return false;
     return true;
   });
-  $("#tb").innerHTML = rows.map(x => { const s=st(x.id); return `
+  $("#tb").innerHTML = rows.map((x,i) => { const s=st(x.id); const dv = x.lotto===2 && (i===0 || rows[i-1].lotto!==2) ? `<tr class="lotdiv"><td colspan="10"><span>Lotto 2 · aggiunti il 17 novembre · 1.000 nomi</span></td></tr>` : ""; return dv + `
     <tr class="row ${cur===x.id?"sel":""}" data-id="${x.id}">
       <td class="n">${x.id}</td>
       <td><div class="nm">${esc(x.n)} ${esc(x.c)}</div>${x.mail?`<div class="sub">${esc(x.mail)}</div>`:""}</td>
