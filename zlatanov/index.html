@@ -247,6 +247,7 @@ textarea.big:focus{border-color:var(--plum)}
     <button data-p="dash">Dashboard</button>
     <button data-p="ana">Risultati</button>
     <button data-p="script">Script</button>
+<button data-p="ver">In verifica</button>
 <button data-p="arch">Archivio</button>
   </nav>
 </div></header>
@@ -267,6 +268,15 @@ textarea.big:focus{border-color:var(--plum)}
   <div class="sheet"><table>
     <thead><tr><th>#</th><th>Nome</th><th>Professione</th><th>Città</th><th>Cellulare</th><th>Età</th><th>Priorità</th><th>Stato</th><th>Perché chiamarlo</th><th>Ultima nota</th></tr></thead>
     <tbody id="tb"></tbody>
+  </table></div>
+</section>
+
+<!-- IN VERIFICA -->
+<section id="p-ver" class="hidden">
+  <div class="head"><div><h2>In verifica</h2><p>Lotto 2, aggiunti il 17 novembre. Sono in controllo sul Registro Opposizioni: non chiamarli ancora. Quando arriva l'esito, i buoni passano in Lista e gli altri in Archivio.</p></div></div>
+  <div class="sheet"><table>
+    <thead><tr><th>#</th><th>Nome</th><th>Professione</th><th>Città</th><th>Cellulare</th><th>Stato</th></tr></thead>
+    <tbody id="tbv"></tbody>
   </table></div>
 </section>
 
@@ -339,7 +349,7 @@ const ST = [
   {k:"bad",l:"Numero sbagliato",c:"s-bad"},{k:"dnc",l:"Non chiamabile",c:"s-dnc"}];
 const SL = Object.fromEntries(ST.map(s=>[s.k,s]));
 const KEY = "gl_state_v1", SKEY = "gl_script_v1", CKEY = "gl_code";
-let L = [], A = [], S = {}, cur = null;
+let L = [], A = [], V = [], S = {}, cur = null;
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } };
@@ -357,7 +367,7 @@ async function unlock(code){
   return JSON.parse(new TextDecoder().decode(pt));
 }
 async function enter(code){
-  try { const all = await unlock(code.trim().toUpperCase()); L = all.filter(x=>!x.arch); A = all.filter(x=>x.arch); }
+  try { const all = await unlock(code.trim().toUpperCase()); A = all.filter(x=>x.arch); V = all.filter(x=>!x.arch && x.lotto===2 && !x.ok); L = all.filter(x=>!x.arch && !V.includes(x)); }
   catch { $("#gerr").textContent = "Codice non valido"; return false }
   try { localStorage.setItem(CKEY, code.trim().toUpperCase()) } catch {}
   S = load(KEY, {});
@@ -369,6 +379,9 @@ $("#gf").onsubmit = e => { e.preventDefault(); enter($("#code").value) };
 
 /* ---------- init ---------- */
 function init(){
+  document.querySelector('#tabs [data-p="list"]').textContent = `Lista (${L.length})`;
+  document.querySelector('#tabs [data-p="ver"]').textContent = `In verifica (${V.length})`;
+  document.querySelector('#tabs [data-p="arch"]').textContent = `Archivio (${A.length})`;
   ST.forEach(s => $("#fs").insertAdjacentHTML("beforeend", `<option value="${s.k}">${s.l}</option>`));
   [...new Set(L.map(x=>x.job))].sort().forEach(j => $("#fj").insertAdjacentHTML("beforeend", `<option>${esc(j)}</option>`));
   ["#q","#fs","#fj"].forEach(s => $(s).addEventListener("input", renderList));
@@ -391,9 +404,12 @@ function init(){
 const today = () => new Date().toISOString().slice(0,10);
 function show(p){
   document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.p===p));
-  ["list","pipe","dash","ana","script","arch"].forEach(x => $("#p-"+x).classList.toggle("hidden", x!==p));
-  if (p==="pipe") renderBoard(); if (p==="ana") renderAna(); if (p==="dash") renderDash(); if (p==="list") renderList(); if (p==="arch") renderArch();
+  ["list","pipe","dash","ana","script","ver","arch"].forEach(x => $("#p-"+x).classList.toggle("hidden", x!==p));
+  if (p==="pipe") renderBoard(); if (p==="ana") renderAna(); if (p==="dash") renderDash(); if (p==="list") renderList(); if (p==="arch") renderArch(); if (p==="ver") renderVer();
   window.scrollTo({top:0});
+}
+function renderVer(){
+  $("#tbv").innerHTML = V.map(x => `<tr><td class="n">${x.id}</td><td><div class="nm">${esc(x.n)} ${esc(x.c)}</div></td><td class="nw">${esc(x.job)}</td><td class="nw">${esc(x.city)}</td><td class="nw">${esc(x.tel)}</td><td class="nw"><span class="sub">In verifica</span></td></tr>`).join("") || `<tr><td colspan="6" class="empty">Nessun nome in verifica</td></tr>`;
 }
 function renderArch(){
   $("#tba").innerHTML = A.map(x => `<tr><td class="n">${x.id}</td><td><div class="nm">${esc(x.n)} ${esc(x.c)}</div></td><td class="nw">${esc(x.job)}</td><td class="nw">${esc(x.city)}</td><td class="nw">${esc(x.tel)}</td><td class="nw"><span class="sub">${esc(x.arch)}</span></td></tr>`).join("") || `<tr><td colspan="6" class="empty">Archivio vuoto</td></tr>`;
@@ -439,7 +455,7 @@ function renderList(){
     if (q && !`${x.n} ${x.c} ${x.city} ${x.job} ${x.tel}`.toLowerCase().includes(q)) return false;
     return true;
   });
-  $("#tb").innerHTML = rows.map((x,i) => { const s=st(x.id); const dv = x.lotto===2 && (i===0 || rows[i-1].lotto!==2) ? `<tr class="lotdiv"><td colspan="10"><span>Lotto 2 · aggiunti il 17 novembre · in verifica, non chiamare ancora</span></td></tr>` : ""; return dv + `
+  $("#tb").innerHTML = rows.map((x,i) => { const s=st(x.id); const dv = x.lotto===2 && (i===0 || rows[i-1].lotto!==2) ? `<tr class="lotdiv"><td colspan="10"><span>Lotto 2 · aggiunti il 17 novembre</span></td></tr>` : ""; return dv + `
     <tr class="row ${cur===x.id?"sel":""}" data-id="${x.id}">
       <td class="n">${x.id}</td>
       <td><div class="nm">${esc(x.n)} ${esc(x.c)}</div>${x.mail?`<div class="sub">${esc(x.mail)}</div>`:""}</td>
