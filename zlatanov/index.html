@@ -455,7 +455,7 @@ function renderList(){
     if (q && !`${x.n} ${x.c} ${x.city} ${x.job} ${x.tel}`.toLowerCase().includes(q)) return false;
     return true;
   });
-  $("#tb").innerHTML = rows.map((x,i) => { const s=st(x.id); const dv = x.lotto===2 && (i===0 || rows[i-1].lotto!==2) ? `<tr class="lotdiv"><td colspan="10"><span>Lotto 2 · aggiunti il 17 novembre</span></td></tr>` : ""; return dv + `
+  $("#tb").innerHTML = rows.map((x,i) => { const s=st(x.id); const dv = x.lotto===2 && (i===0 || rows[i-1].lotto!==2) ? `<tr class="lotdiv"><td colspan="10"><span>Lotto 2 · verificati il 18 novembre</span></td></tr>` : ""; return dv + `
     <tr class="row ${cur===x.id?"sel":""}" data-id="${x.id}">
       <td class="n">${x.id}</td>
       <td><div class="nm">${esc(x.n)} ${esc(x.c)}</div>${x.mail?`<div class="sub">${esc(x.mail)}</div>`:""}</td>
@@ -505,7 +505,6 @@ function openLead(id){
       <div class="blk"><h4>Ha già un'assicurazione?</h4>${seg("ins",[["no","No"],["some","Qualcosa"],["yes","Sì, completa"],["?","Non so"]],s.ins)}</div>
       <div class="blk"><h4>Il profilo era giusto?</h4>${seg("fit",[["yes","Sì, target giusto"],["meh","Così così"],["no","No, fuori target"]],s.fit)}</div>
       <div class="blk"><h4>Il numero era il suo?</h4>${seg("ok",[["yes","Sì, era lui"],["sec","Segreteria/studio"],["no","No, sbagliato"]],s.ok)}</div>
-      <div class="blk"><h4>Cosa hai cambiato nello script</h4><textarea class="note" id="sv" placeholder="Rispetto allo script base: cosa hai detto di diverso, su cosa hai fatto leva, com'è andata…">${esc(s.scr||"")}</textarea></div>
       <div class="blk"><h4>Note</h4><textarea class="note" id="nt" placeholder="Cosa ti ha detto, obiezioni, quando richiamare…">${esc(s.note)}</textarea></div>
       <div class="blk"><h4>Richiamare il</h4><input type="date" class="dt" id="nx" value="${esc(s.next)}"></div>
       ${scr?`<div class="blk"><h4>Script</h4><div class="box scr">${esc(fill(scr,x))}</div></div>`:""}
@@ -529,7 +528,6 @@ function openLead(id){
   d.querySelectorAll(".seg").forEach(g => g.onclick = e => { const b=e.target.closest("button"); if(!b) return; s[g.dataset.f] = s[g.dataset.f]===b.dataset.v ? "" : b.dataset.v; persist(); openLead(id) });
   $("#nt").oninput = e => { s.note = e.target.value; persist() };
   $("#nt").onblur = renderList;
-  $("#sv").oninput = e => { s.scr = e.target.value; persist() };
   $("#nx").onchange = e => { s.next = e.target.value; if (s.next && s.st==="new") s.st="cb"; persist(); renderList() };
   document.querySelectorAll("tr.row").forEach(r => r.classList.toggle("sel", +r.dataset.id===id));
 }
@@ -624,9 +622,9 @@ function renderDash(){
 function dl(name, data, type){ const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([data],{type})); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000) }
 function exportCSV(){
   const lab = {ins:{no:"No",some:"Qualcosa",yes:"Sì",["?"]:"Non so"}, fit:{yes:"Sì",meh:"Così così",no:"No"}, ok:{yes:"Sì",sec:"Segreteria",no:"No"}};
-  const H = ["#","Nome","Cognome","Professione","Città","Cellulare","Email","Stato","Chiamate","Ultima chiamata","Già assicurato","Target giusto","Numero suo","Richiamare il","Note","Cosa ha cambiato nello script"];
+  const H = ["#","Nome","Cognome","Professione","Città","Cellulare","Email","Stato","Chiamate","Ultima chiamata","Già assicurato","Target giusto","Numero suo","Richiamare il","Note"];
   const q = v => `"${String(v??"").replace(/"/g,'""')}"`;
-  const rows = L.map(x => { const s=st(x.id), lc=s.calls[s.calls.length-1]; return [x.id,x.n,x.c,x.job,x.city,x.tel,x.mail,SL[s.st].l,s.calls.length,lc?new Date(lc.t).toLocaleString("it-IT"):"",lab.ins[s.ins]||"",lab.fit[s.fit]||"",lab.ok[s.ok]||"",s.next,s.note,s.scr||""].map(q).join(";") });
+  const rows = L.map(x => { const s=st(x.id), lc=s.calls[s.calls.length-1]; return [x.id,x.n,x.c,x.job,x.city,x.tel,x.mail,SL[s.st].l,s.calls.length,lc?new Date(lc.t).toLocaleString("it-IT"):"",lab.ins[s.ins]||"",lab.fit[s.fit]||"",lab.ok[s.ok]||"",s.next,s.note].map(q).join(";") });
   dl(`lista-risultati-${today()}.csv`, "﻿"+[H.map(q).join(";"),...rows].join("\n"), "text/csv");
 }
 </script>
