@@ -282,7 +282,7 @@ textarea.big:focus{border-color:var(--plum)}
 
 <!-- ARCHIVIO -->
 <section id="p-arch" class="hidden">
-  <div class="head"><div><h2>Archivio</h2><p>Numeri tolti dalla lista: iscritti al Registro Opposizioni, non si possono chiamare. Restano qui solo per storico.</p></div></div>
+  <div class="head"><div><h2>Archivio</h2><p>Numeri tolti dalla lista, divisi per motivo. Restano qui solo per storico.</p></div></div>
   <div class="sheet"><table>
     <thead><tr><th>#</th><th>Nome</th><th>Professione</th><th>Città</th><th>Cellulare</th><th>Motivo</th></tr></thead>
     <tbody id="tba"></tbody>
@@ -412,7 +412,8 @@ function renderVer(){
   $("#tbv").innerHTML = V.map(x => `<tr><td class="n">${x.id}</td><td><div class="nm">${esc(x.n)} ${esc(x.c)}</div></td><td class="nw">${esc(x.job)}</td><td class="nw">${esc(x.city)}</td><td class="nw">${esc(x.tel)}</td><td class="nw"><span class="sub">In verifica</span></td></tr>`).join("") || `<tr><td colspan="6" class="empty">Nessun nome in verifica</td></tr>`;
 }
 function renderArch(){
-  $("#tba").innerHTML = A.map(x => `<tr><td class="n">${x.id}</td><td><div class="nm">${esc(x.n)} ${esc(x.c)}</div></td><td class="nw">${esc(x.job)}</td><td class="nw">${esc(x.city)}</td><td class="nw">${esc(x.tel)}</td><td class="nw"><span class="sub">${esc(x.arch)}</span></td></tr>`).join("") || `<tr><td colspan="6" class="empty">Archivio vuoto</td></tr>`;
+  const G={}; A.forEach(x => (G[x.arch]=G[x.arch]||[]).push(x));
+  $("#tba").innerHTML = Object.keys(G).sort((a,b)=>G[b].length-G[a].length).map(k => `<tr class="lotdiv"><td colspan="6"><span>${esc(k)} · ${G[k].length}</span></td></tr>` + G[k].map(x => `<tr><td class="n">${x.id}</td><td><div class="nm">${esc(x.n)} ${esc(x.c)}</div></td><td class="nw">${esc(x.job)}</td><td class="nw">${esc(x.city)}</td><td class="nw">${esc(x.tel)}</td><td class="nw"><span class="sub">${esc(x.arch)}</span></td></tr>`).join("")).join("") || `<tr><td colspan="6" class="empty">Archivio vuoto</td></tr>`;
 }
 function renderAll(){ renderList(); renderBoard(); renderAna(); renderDash() }
 
